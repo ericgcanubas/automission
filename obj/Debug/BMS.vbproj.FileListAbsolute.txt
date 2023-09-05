@@ -1,0 +1,2025 @@
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\bin\Debug\BMS.exe.config
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\bin\Debug\BMS.exe
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\bin\Debug\BMS.pdb
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\bin\Debug\BMS.xml
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.vbprojResolveAssemblyReference.cache
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmLogin.resources
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.Resources.resources
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.vbproj.GenerateResource.Cache
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.exe
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.xml
+c:\users\eric developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\MySql.Data.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\MySql.Data.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmMain.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmContacts.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmInventoryItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmSupplier.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\MySql.Data.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\MySql.Data.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.vbprojResolveAssemblyReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmContacts.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmInventoryItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmSupplier.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.vbproj.GenerateResource.Cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmCustomerDetails.resources
+C:\Users\Eric Developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Developer\documents\visual studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmInvoiceItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmCustomerDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmInvoiceItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmtemp.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmtemp.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbprojResolveAssemblyReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbproj.GenerateResource.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\stdole.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\Awesomium.Core.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\Awesomium.Windows.Forms.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\MySql.Data.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\awesomium.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\icudt.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\avcodec-53.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\avformat-53.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\avutil-51.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\libEGL.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\libGLESv2.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\awesomium_process
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\inspector.pak
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\xinput9_1_0.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbproj.CopyComplete
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmManual.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmOption.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmEmployeeDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportSettingItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\Awesomium.Core.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\Awesomium.Windows.Forms.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\MySql.Data.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\stdole.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\Awesomium.Core.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\Awesomium.Windows.Forms.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\MySql.Data.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\awesomium.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\icudt.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\avcodec-53.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\avformat-53.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\avutil-51.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\libEGL.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\libGLESv2.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\awesomium_process
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\inspector.pak
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\xinput9_1_0.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\bin\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbprojResolveAssemblyReference.cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmManual.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmOption.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmEmployeeDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportSettingItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbproj.GenerateResource.Cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\Softwarematic\BMS\obj\Debug\BMS.frmThemeStyle.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\Awesomium.Core.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\Awesomium.Windows.Forms.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\MySql.Data.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\stdole.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\Awesomium.Core.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\Awesomium.Windows.Forms.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\MySql.Data.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\awesomium.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\icudt.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\avcodec-53.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\avformat-53.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\avutil-51.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\libEGL.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\libGLESv2.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\awesomium_process
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\inspector.pak
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\xinput9_1_0.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmManual.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmOption.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmEmployeeDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportSettingItem.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmThemeStyle.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbproj.GenerateResource.Cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\stdole.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\Awesomium.Core.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\Awesomium.Windows.Forms.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\MySql.Data.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\awesomium.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\icudt.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\avcodec-53.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\avformat-53.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\avutil-51.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\libEGL.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\libGLESv2.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\awesomium_process
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\inspector.pak
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\xinput9_1_0.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\bin\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbprojResolveAssemblyReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmManual.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmOption.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmEmployeeDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportSettingItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmThemeStyle.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbproj.GenerateResource.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbproj.CopyComplete
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.vbprojResolveAssemblyReference.cache
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmLessDiscount.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmLessDiscountDetails.resources
+C:\Users\Eric Developer\Documents\Visual Studio 2017\Projects\BMS Project\BMS\obj\Debug\BMS.frmCreditLimit.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCreditLimit.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLessDiscount.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLessDiscountDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmThemeStyle.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbproj.GenerateResource.cache
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\stdole.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\Awesomium.Core.xml
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\Awesomium.Windows.Forms.xml
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\awesomium.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\icudt.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\avcodec-53.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\avformat-53.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\avutil-51.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\libEGL.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\libGLESv2.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\awesomium_process
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\inspector.pak
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\bin\Debug\xinput9_1_0.dll
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbproj.CopyComplete
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAccessDenied.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSubMenuGroup.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCollectionList.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmTFU.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPortfolioReport.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSubDiscount.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUpdateSecurity.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSubDiscountDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\Awesomium.Core.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\Awesomium.Windows.Forms.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\stdole.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\Awesomium.Core.xml
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\Awesomium.Windows.Forms.xml
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\awesomium.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\icudt.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\avcodec-53.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\avformat-53.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\avutil-51.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\libEGL.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\libGLESv2.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\awesomium_process
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\inspector.pak
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\xinput9_1_0.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\bin\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\Interop.AcroPDFLib.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\AxInterop.AcroPDFLib.dll
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCollectionList.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCreditLimit.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLessDiscount.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLessDiscountDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAccessDenied.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPortfolioReport.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSubDiscount.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSubDiscountDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmSubMenuGroup.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmTFU.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmThemeStyle.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUpdateSecurity.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbproj.GenerateResource.Cache
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbprojResolveAssemblyReference.cache
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDealerCustomerList.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDealerCustomerList.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.vbprojAssemblyReference.cache
+C:\Users\Eric Developer\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDepositPayment.resources
+C:\Users\Eric Canubas\Dropbox\BMS Project\BMS\obj\Debug\BMS.frmDepositPayment.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmAccountJournalTransaction.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmCollectionList.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmCreditLimit.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmDealerCustomerList.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmDepositPayment.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmHistory.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmLessDiscount.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmLessDiscountDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmAccessDenied.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPortfolioReport.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmEstimate.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmSubDiscount.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmSubDiscountDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmSubMenuGroup.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmTFU.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmThemeStyle.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmUpdateSecurity.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.vbproj.GenerateResource.cache
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\MySql.Data.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.vbproj.CopyComplete
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportManager.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportComponents.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportComponentItems.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmReportManagerComponent.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmUserLogs.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmCustomerStatementDetails.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmUserDefault.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.vbprojAssemblyReference.cache
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmAccountJournalError.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmAccountJournalDuplicateRemove.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmMessageUserControl.resources
+C:\Users\Eric Developer\OneDrive\BMS Project\BMS\obj\Debug\BMS.frmMessageUserControLoading.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\MySql.Data.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmAccountJournalDuplicateRemove.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmAccountJournalError.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmAccountJournalTransaction.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmCollectionList.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmCreditLimit.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmCustomerStatementDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmDealerCustomerList.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmDepositPayment.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmHistory.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmLessDiscount.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmLessDiscountDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmAccessDenied.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmMessageUserControl.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmMessageUserControLoading.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPortfolioReport.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportComponentItems.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportComponents.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportManager.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportManagerComponent.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmEstimate.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmSubDiscount.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmSubDiscountDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmSubMenuGroup.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmTFU.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmThemeStyle.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmUpdateSecurity.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmUserDefault.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmUserLogs.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.vbproj.GenerateResource.cache
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.vbproj.CopyComplete
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\OneDrive\Eric Project\BMS\obj\Debug\BMS.vbprojAssemblyReference.cache
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\FlashControlV71.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\ShockwaveFlashObjects.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbprojAssemblyReference.cache
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.GenerateResource.cache
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.CopyComplete
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\MySql.Data.dll
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\BMS.exe.config
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\BMS.exe
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\BMS.pdb
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\bin\Debug\BMS.xml
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccessDenied.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccount.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccountJournalDuplicateRemove.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccountJournalError.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccountJournalTransaction.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAddExpenses.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAddItem.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmApplyCredits.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAvailableItem.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBillCredit.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBillPayment.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBills.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBinLocation.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmChangeContactType.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCheckList.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmClass.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmClassDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCollectionList.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmComponents.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmConnectionList.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmContactDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmContactGroup.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCreditLimit.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCreditMemo.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCustomer.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCustomerStatementDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDateRange.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDealer.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDealerCustomerList.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDeposit.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDepositFunds.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDepositPayment.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmEmployee.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmEstimate.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmFinanceCharge.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmFindDocument.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmFindItem.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmFundTransfer.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmHistory.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInsertValue.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInvoice.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItem.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemClass.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemGroup.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemPreference.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemSubClass.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmJournalEntry.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLessDiscount.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLessDiscountDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLocation.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLocationDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLogin.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmManager.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmManufacturers.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMenu.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMenuSettings.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMessageUserControl.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMessageUserControLoading.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPayrollEmployeeDTR.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPayrollLoan.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPayrollTransaction.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPenalty.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPortfolioReport.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPriceLevel.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPrintPage.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReceivePayment.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportComponentItems.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportComponents.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportManager.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportManagerComponent.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportMonthly.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportSetting.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportSetup.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportViewer.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSalesOrder.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSecurity.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmServiceFee.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSettings.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmShipVia.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSplash.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmStatement.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmStockTransfer.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSubDiscount.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSubDiscountDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSubMenuGroup.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmTax.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmTaxCredit.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmTaxDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmTFU.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmThemeStyle.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUpdateSecurity.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserDefault.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserDetails.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserList.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserLogs.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserType.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmVendor.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmWriteCheck.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.Resources.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.exe
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.xml
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.pdb
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReferenceSettings.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSmenu.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMenuAccountSettings.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSPayment.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSselection.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSTax.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSCashCount.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSSetting.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSTendered.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSContacts.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSOrderEntry.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDiscountBill.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBillCreditBills.resources
+C:\Users\Eric Developer\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\BMS.exe.config
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\BMS.exe
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\BMS.pdb
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\BMS.xml
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\BouncyCastle.Crypto.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Google.Protobuf.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\MySql.Data.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Renci.SshNet.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\System.Buffers.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\System.Memory.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\System.Numerics.Vectors.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\zxing.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\zxing.presentation.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\ShockwaveFlashObjects.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Google.Protobuf.xml
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Renci.SshNet.xml
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\System.Buffers.xml
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\System.Memory.xml
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\System.Numerics.Vectors.xml
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\zxing.xml
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\zxing.presentation.xml
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\Interop.VBIDE.dll
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.ResolveComReference.cache
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSCashDenomination.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSLog.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSStartingCash.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBarcode.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmDatabaseReset.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDateRangeSelect.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmEditAdjustmentItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmGotoInventoryAdjustment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmImportBIRInventory.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmImportBIRInventoryConfig.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryPopUp.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryReComputed.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryStatus.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMainMenu.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMenuAccountSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSLogDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSLogList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPRAvailable.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPrimaryKeyUpdater.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPurchaseRequest.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReferenceSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSCashCount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSContacts.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSmenu.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSOrderEntry.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSPayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSselection.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSSetting.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSTax.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBillCreditBills.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDiscountBill.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmRequestForm.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmSalesTaxRecompute.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSelectDate.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSelectLocation.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmStockReceived.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmSalesVatSales.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccessDenied.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccountJournalDuplicateRemove.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccountJournalError.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAddExpenses.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAddItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmApplyBillCredit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmApplyCredits.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAvailableItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBillCredit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBillPayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBills.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBinLocation.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBinLocationDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmBuildAssembly.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmChangeContactType.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmChartOfAccount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCheckList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmClass.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmClassDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCollectionList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmComponents.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmConnectionList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmConnectionSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmContactDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmContactGroup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmContactGroupDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCreditLimit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCreditMemo.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCreditMemoInvoice.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCreditMemoOption.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCustomer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCustomerStatementDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDateRange.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDealer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDealerCustomerList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDeposit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDepositFunds.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDepositPayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDiscountInvoice.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmEmployee.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmEstimate.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmFinanceCharge.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmFindDocument.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmFindItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmFundTransfer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmGeneralJournal.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmHistory.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInsertValue.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryAdjustment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentType.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInventoryAdjustmentTypeDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmInvoice.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemClass.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemClassDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemGroup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemGroupDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemLocationDefaults.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemPreference.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemSubClass.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemSubClassDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemUnitMeasurePriceLevel.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmItemUnitRelated.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmJournalEntry.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLessDiscount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLessDiscountDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLocation.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLocationDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmLogin.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmManager.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmManufacturers.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmManufacturersDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMenuSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMenuSettingsSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMessageUserControl.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmMessageUserControLoading.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPaymentMethods.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPaymentMethodsDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPaymentTerms.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPaymentTermsDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPenalty.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPenaltyDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPortfolioReport.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPriceLevel.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPriceLevelDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPrintPage.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPurchaseOrder.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReceivePayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportComponentItems.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportComponents.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportManager.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportManagerComponent.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportMonthly.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportSetting.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportSettingDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmReportViewer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSalesOrder.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSalesReceipt.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSecurity.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmServiceFee.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmServiceFeeDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmShipVia.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmShipViaDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSplash.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmStatement.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmStockTransfer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSubDiscount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSubDiscountDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSubMenuGroup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmTax.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmTaxCredit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmTaxDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmTFU.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmThemeStyle.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUnitofMeasure.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUnitofMeasureDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserDefault.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserLogs.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserType.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmVendor.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmWithholdingTax.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmWriteCheck.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.Resources.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAccountJournalTransaction.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUpdateSecurity.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmCheckingAccountJournal.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmItemInventoryCostUpdate.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmJournalAccountEndingRecomputed.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOS_LOG_STATING_COUNT_FIXED.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.GenerateResource.cache
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.CoreCompileInputs.cache
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.exe
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.xml
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.pdb
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmMergeItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmEmailSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmCheckingAccountReference.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmPOSLogSwitch.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmPOSLogTransfer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmItemImageSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmPrintPageSettings.resources
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\MaterialSkin.dll
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSFindEntry.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSOrderType.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAddItemTouchScreen.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSServed.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSCreatePayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSMessageYesNo.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSNumpad.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSKeyboard.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.CopyComplete
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSLogResto.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSReport.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSTableDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSRestoPendingToPaid.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSCashDenominationDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmDataBackUp.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmPOSVoid.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSRestoKitchenMonitoring.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmPOSRestoNoteDT.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.vbproj.AssemblyReference.cache
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSRestoKitchenMonitoringSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmPOSCreatePaymentMultiMethod.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmPOSRestoSettings.resources
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Design.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportSource.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.Shared.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.VSDesigner.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.Windows.Forms.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.Web.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CRVsPackageLib.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\EnvDTE.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\VSLangProj.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\VsWebSite.Interop.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\EnvDTE80.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\AxShockwaveFlashObjects.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.xml
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.exe.config
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmSystemDefault.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmAddItemSidePanel.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmCustomGroupItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSTransactionList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.FrmPOSVoidEntry.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSLogSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmPOSRestoMenu.resources
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Microsoft.VisualStudio.Designer.Interfaces.dll
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Microsoft.VisualStudio.Designer.Interfaces.xml
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmDefaultValue.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmUserSecurity.resources
+D:\OneDrive\Freelance_Project\BMS\bin\Debug\Tulpep.NotificationWindow.dll
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\BMS.frmRefreshMsg.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\Automission System.exe.config
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmDataBackUp.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSCreatePayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmPOSCreatePaymentMultiMethod.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSFindEntry.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSKeyboard.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSLog.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSLogResto.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSLogSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmPOSLogSwitch.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSMessageYesNo.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSNumpad.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSOrderType.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSRestoMenu.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSRestoKitchenMonitoring.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSRestoKitchenMonitoringSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmPOSRestoNoteDT.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSRestoPendingToPaid.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmPOSRestoSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSServed.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSStartingCash.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSTableDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSTransactionList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmPOSVoid.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmPOSVoidEntry.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAddItemSidePanel.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAddItemTouchScreen.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmBarcode.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCustomGroupItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDatabaseReset.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDateRangeSelect.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDefaultValue.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmEditAdjustmentItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmEmailSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmGotoInventoryAdjustment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmImportBIRInventory.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmImportBIRInventoryConfig.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmInventoryPopUp.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmInventoryReComputed.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmInventoryStatus.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmItemImageSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmMainMenu.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmMenuAccountSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSCashDenomination.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSCashDenominationDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSLogDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSLogList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmPOSLogTransfer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSReport.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPRAvailable.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPrimaryKeyUpdater.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmPrintPageSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPurchaseRequest.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReferenceSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSCashCount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSContacts.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSmenu.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSOrderEntry.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSPayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSselection.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSSetting.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOSTax.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmBillCreditBills.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDiscountBill.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmRefreshMsg.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmRequestForm.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmSalesTaxRecompute.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSelectDate.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSelectLocation.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmStockReceived.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSystemDefault.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUserSecurity.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmMergeItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmCheckingAccountReference.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmSalesVatSales.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAccessDenied.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAccount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAccountJournalDuplicateRemove.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAccountJournalError.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAddExpenses.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAddItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmApplyBillCredit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmApplyCredits.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAvailableItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmBillCredit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmBillPayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmBills.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmBinLocation.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmBinLocationDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmBuildAssembly.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmChangeContactType.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmChartOfAccount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCheckList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmClass.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmClassDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCollectionList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmComponents.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmConnectionList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmConnectionSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmContactDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmContactGroup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmContactGroupDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCreditLimit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCreditMemo.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCreditMemoInvoice.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCreditMemoOption.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCustomer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmCustomerStatementDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDateRange.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDealer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDealerCustomerList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDeposit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDepositFunds.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDepositPayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmDiscountInvoice.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmEmployee.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmEstimate.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmFinanceCharge.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmFindDocument.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmFindItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmFundTransfer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmGeneralJournal.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmHistory.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmInsertValue.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmInventoryAdjustment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmInventoryAdjustmentType.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmInventoryAdjustmentTypeDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmInvoice.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItem.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemClass.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemClassDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemGroup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemGroupDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemLocationDefaults.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemPreference.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemSubClass.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemSubClassDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemUnitMeasurePriceLevel.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmItemUnitRelated.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmJournalEntry.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmLessDiscount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmLessDiscountDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmLocation.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmLocationDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmLogin.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmManager.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmManufacturers.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmManufacturersDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmMenuSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmMenuSettingsSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmMessageUserControl.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmMessageUserControLoading.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPaymentMethods.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPaymentMethodsDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPaymentTerms.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPaymentTermsDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPenalty.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPenaltyDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPortfolioReport.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPriceLevel.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPriceLevelDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPrintPage.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPurchaseOrder.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReceivePayment.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportComponentItems.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportComponents.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportManager.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportManagerComponent.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportMonthly.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportSetting.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportSettingDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportSetup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmReportViewer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSalesOrder.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSalesReceipt.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSecurity.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmServiceFee.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmServiceFeeDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSettings.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmShipVia.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmShipViaDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSplash.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmStatement.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmStockTransfer.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSubDiscount.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSubDiscountDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmSubMenuGroup.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmTax.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmTaxCredit.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmTaxDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmTFU.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmThemeStyle.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUnitofMeasure.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUnitofMeasureDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUserDefault.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUserDetails.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUserList.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUserLogs.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUserType.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmVendor.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmWithholdingTax.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmWriteCheck.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.Resources.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmAccountJournalTransaction.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmUpdateSecurity.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmCheckingAccountJournal.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.FrmItemInventoryCostUpdate.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmJournalAccountEndingRecomputed.resources
+D:\OneDrive\Freelance_Project\BMS\obj\Debug\automission.frmPOS_LOG_STATING_COUNT_FIXED.resources

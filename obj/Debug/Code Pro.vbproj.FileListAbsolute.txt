@@ -1,0 +1,80 @@
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\Code Pro.exe.config
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\Code Pro.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\Code Pro.pdb
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\Code Pro.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\MySql.Data.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\bin\Debug\MySql.Data.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code Pro.vbprojResolveAssemblyReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code Pro.vbproj.ResolveComReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmCheckList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmComponents.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmContacts.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmCustomer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmCustomerDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmFindItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmInventoryItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmInvoiceItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmItemDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmInsertValue.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmItemLocationDefaults.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmItemPreference.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmItemUnitRelated.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmLogin.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmMenu.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmPurchaseOrder.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmSplash.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmSupplier.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmConnectionList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmConnectionSetup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmtemp.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmUserDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.frmUserList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code_Pro.Resources.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code Pro.vbproj.GenerateResource.Cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code Pro.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code Pro.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code Pro.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\BMS\obj\Debug\Code Pro.pdb
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\bin\Debug\Code Pro.exe.config
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\bin\Debug\Code Pro.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\bin\Debug\Code Pro.pdb
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\bin\Debug\Code Pro.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\bin\Debug\MySql.Data.dll
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\bin\Debug\MySql.Data.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code Pro.vbprojResolveAssemblyReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code Pro.vbproj.ResolveComReference.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmCheckList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmComponents.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmContacts.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmCustomer.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmCustomerDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmFindItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmInventoryItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmInvoice.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmInvoiceItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmItem.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmItemDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmInsertValue.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmItemLocationDefaults.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmItemPreference.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmItemUnitMeasurePriceLevel.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmItemUnitRelated.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmLogin.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmMenu.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmPurchaseOrder.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmSplash.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmSupplier.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmConnectionList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmConnectionSetup.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmtemp.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmUserDetails.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.frmUserList.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code_Pro.Resources.resources
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code Pro.vbproj.GenerateResource.Cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code Pro.vbproj.CoreCompileInputs.cache
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code Pro.exe
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code Pro.xml
+C:\Users\Eric Canubas\Documents\Visual Studio 2017\Projects\BMS\Code Pro\obj\Debug\Code Pro.pdb

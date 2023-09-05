@@ -1,0 +1,296 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Automission
+</name>
+</assembly>
+<members>
+<member name="T:Automission.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.Actions_bookmark_new_list_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.Actions_document_preview_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.add">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.arrow_down">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.arrow_up">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.back_icon_set">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.check_box">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.check_box_lo">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.customer">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.date_cal_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.delete">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.edit">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.employee">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.i_credit">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.i_desc">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.I_report">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.Info_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.l_config">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.l_create">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.l_delete">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.l_docs">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.l_read">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.l_reload">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.l_update">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.ladder">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.loading_circle">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.Logout">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_applied">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_delete">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_history_link">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_journal_doc">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_logs">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_payment">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_printing">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_refresh">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_save_file">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.m_search">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.printer_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.process_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.receive_payment">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.report">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.room_tag">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.Search_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.tax">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.time_con">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.to_do_list_cheked_all_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.to_do_list_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.transfer">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.uncheck_box">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Automission.My.Resources.Resources.warning_icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="T:Automission.dt">
+<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member>
+<member name="T:Automission.dt.cryGeneralLedgerDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:Automission.dt.cryGeneralLedgerRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:Automission.dt.cryGeneralLedgerRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+</members>
+</doc>

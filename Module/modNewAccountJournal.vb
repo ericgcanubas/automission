@@ -1,0 +1,3 @@
+﻿Module modNewAccountJournal
+
+End Module
