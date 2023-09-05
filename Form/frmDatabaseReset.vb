@@ -93,6 +93,52 @@ Public Class frmDatabaseReset
                 fExecutedOnly($"TRUNCATE TABLE transaction_log ")
             End If
 
+            If chkUsers.Checked = True Then
+
+                fExecutedOnly($"TRUNCATE user_security_access ")
+                fExecutedOnly($"TRUNCATE TABLE user_default ")
+                fExecutedOnly($"TRUNCATE TABLE system_security ")
+                fExecutedOnly($"TRUNCATE TABLE user ")
+                fExecutedOnly($"UPDATE object_type_map SET NEXT_ID = '2',NEXT_CODE='1' Where ID ='89'")
+                fExecutedOnly($"INSERT INTO `backend_std`.`user`
+            (`ID`,
+             `NAME`,
+             `DESCRIPTION`,
+             `PASSWORD`,
+             `PWD_CREATED_ON`,
+             `PWD_NEVER_EXPIRES`,
+             `TYPE`,
+             `STATUS`,
+             `CONTACT_ID`,
+             `REGISTERED_BY_ID`,
+             `REGISTERED_ON`,
+             `LOCKOUT_COUNTER`,
+             `LOCKOUT_ON`,
+             `EXPIRATION_DATE`,
+             `LOGIN_FAILED_ON`,
+             `AUTHORIZED_PASSWORD`,
+             `LOGIN_STATUS`)
+VALUES ('1',
+        'itme',
+        'NRmacANXZLxcP3FyLn0u+fQEfntDUOQiRuhYv8lVjYc=',
+        'PASSWORD',
+        '{fDateFormatMYSQL(Date.Now)}',
+        null,
+        '0',
+        '0',
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+       null,
+        '1',
+        '0');")
+
+            End If
+
+
             fMessageboxInfo("Successfully reset")
         End If
     End Sub

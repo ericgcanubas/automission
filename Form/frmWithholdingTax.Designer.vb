@@ -163,7 +163,7 @@ Partial Class frmWithholdingTax
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
         Me.tsFindText.Size = New System.Drawing.Size(300, 25)
         '
@@ -171,7 +171,7 @@ Partial Class frmWithholdingTax
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(30, 22)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 22)
         Me.ToolStripLabel11.Text = "Find"
         '
         'txtNOTES
@@ -238,49 +238,49 @@ Partial Class frmWithholdingTax
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSaveNew.Name = "tsSaveNew"
-        Me.tsSaveNew.Size = New System.Drawing.Size(63, 49)
+        Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(6, 55)
         '
         'tsDiscard
         '
         Me.tsDiscard.Image = Global.Automission.My.Resources.Resources.m_refresh
         Me.tsDiscard.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDiscard.Name = "tsDiscard"
-        Me.tsDiscard.Size = New System.Drawing.Size(55, 49)
+        Me.tsDiscard.Size = New System.Drawing.Size(60, 52)
         Me.tsDiscard.Text = "&Refresh"
         Me.tsDiscard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(6, 55)
         '
         'tsFind
         '
         Me.tsFind.Image = Global.Automission.My.Resources.Resources.m_search
         Me.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsFind.Name = "tsFind"
-        Me.tsFind.Size = New System.Drawing.Size(57, 49)
+        Me.tsFind.Size = New System.Drawing.Size(65, 52)
         Me.tsFind.Text = "&Find File"
         Me.tsFind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel3
         '
         Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripDropDownButton1
         '
         Me.ToolStripDropDownButton1.Image = Global.Automission.My.Resources.Resources.m_printing
         Me.ToolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton1.Name = "ToolStripDropDownButton1"
-        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(37, 49)
+        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(41, 52)
         Me.ToolStripDropDownButton1.Text = "&Print"
         Me.ToolStripDropDownButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -296,34 +296,34 @@ Partial Class frmWithholdingTax
         'PreviewToolStripMenuItem
         '
         Me.PreviewToolStripMenuItem.Name = "PreviewToolStripMenuItem"
-        Me.PreviewToolStripMenuItem.Size = New System.Drawing.Size(119, 22)
+        Me.PreviewToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
         Me.PreviewToolStripMenuItem.Text = "Preview"
         '
         'ToolStripLabel4
         '
         Me.ToolStripLabel4.Name = "ToolStripLabel4"
-        Me.ToolStripLabel4.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel4.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripButton2
         '
         Me.ToolStripButton2.Image = Global.Automission.My.Resources.Resources.m_history_link
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(51, 49)
+        Me.ToolStripButton2.Size = New System.Drawing.Size(57, 52)
         Me.ToolStripButton2.Text = "&History"
         Me.ToolStripButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'spJournal
         '
         Me.spJournal.Name = "spJournal"
-        Me.spJournal.Size = New System.Drawing.Size(6, 52)
+        Me.spJournal.Size = New System.Drawing.Size(6, 55)
         '
         'tsJournal
         '
         Me.tsJournal.Image = Global.Automission.My.Resources.Resources.m_journal_doc
         Me.tsJournal.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsJournal.Name = "tsJournal"
-        Me.tsJournal.Size = New System.Drawing.Size(52, 49)
+        Me.tsJournal.Size = New System.Drawing.Size(57, 52)
         Me.tsJournal.Text = "&Journal"
         Me.tsJournal.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -331,14 +331,14 @@ Partial Class frmWithholdingTax
         '
         Me.ToolStripLabel8.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ToolStripLabel8.Name = "ToolStripLabel8"
-        Me.ToolStripLabel8.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel8.Size = New System.Drawing.Size(6, 55)
         '
         'tsDelete
         '
         Me.tsDelete.Image = Global.Automission.My.Resources.Resources.m_delete
         Me.tsDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDelete.Name = "tsDelete"
-        Me.tsDelete.Size = New System.Drawing.Size(48, 49)
+        Me.tsDelete.Size = New System.Drawing.Size(53, 52)
         Me.tsDelete.Text = "&Delete"
         Me.tsDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.tsDelete.ToolTipText = "&Delete File"
@@ -347,14 +347,14 @@ Partial Class frmWithholdingTax
         '
         Me.ToolStripLabel7.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ToolStripLabel7.Name = "ToolStripLabel7"
-        Me.ToolStripLabel7.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel7.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripButton4
         '
         Me.ToolStripButton4.Image = Global.Automission.My.Resources.Resources.m_logs
         Me.ToolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton4.Name = "ToolStripButton4"
-        Me.ToolStripButton4.Size = New System.Drawing.Size(37, 49)
+        Me.ToolStripButton4.Size = New System.Drawing.Size(41, 52)
         Me.ToolStripButton4.Text = "Logs"
         Me.ToolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.ToolStripButton4.ToolTipText = "&Logs"
@@ -365,7 +365,7 @@ Partial Class frmWithholdingTax
         Me.tsTITLE.Font = New System.Drawing.Font("Verdana", 14.25!)
         Me.tsTITLE.Image = Global.Automission.My.Resources.Resources.back_icon_set
         Me.tsTITLE.Name = "tsTITLE"
-        Me.tsTITLE.Size = New System.Drawing.Size(104, 49)
+        Me.tsTITLE.Size = New System.Drawing.Size(104, 52)
         Me.tsTITLE.Text = "TITLE "
         '
         'Label2

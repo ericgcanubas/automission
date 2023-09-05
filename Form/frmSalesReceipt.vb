@@ -358,9 +358,7 @@ FROM
             Dim squery As String = fFieldCollector(Me)
             squery = squery & " WHERE ID = '" & gsID & "' limit 1;"
             fCursorLoadingOn(True)
-
             fExecutedOnly("UPDATE sales_receipt SET " & squery)
-
             fTransaction_Log(gsID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", fNumisNULL(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
@@ -368,21 +366,15 @@ FROM
 
         '======================================
         If gsSkipJournalEntry = False Then
-                gsJOURNAL_NO_FORM = 0
-
-
+            gsJOURNAL_NO_FORM = 0
             fAccount_Journal_SQL(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, gsID, dtpDATE.Value, 0, fNumisNULL(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
             If fNumisNULL(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, gsID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
                 fAccount_Journal_SQL(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, gsID, dtpDATE.Value, 1, fNumisNULL(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
-
-
         End If
         '================================
-
-
         fSales_Receipt_Save_Item_Set(gsID, dgvProductItem, cmbOUTPUT_TAX_ID, cmbLOCATION_ID, dtpDATE)
 
         If gsNew = True Then

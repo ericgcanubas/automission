@@ -409,14 +409,14 @@ Partial Class frmInvoice
         Me.dgvProductItem.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvProductItem.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvProductItem.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvProductItem.Location = New System.Drawing.Point(3, 35)
+        Me.dgvProductItem.Location = New System.Drawing.Point(3, 41)
         Me.dgvProductItem.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvProductItem.MultiSelect = False
         Me.dgvProductItem.Name = "dgvProductItem"
         Me.dgvProductItem.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         Me.dgvProductItem.RowHeadersVisible = False
         Me.dgvProductItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvProductItem.Size = New System.Drawing.Size(1122, 157)
+        Me.dgvProductItem.Size = New System.Drawing.Size(1122, 151)
         Me.dgvProductItem.TabIndex = 0
         '
         'ToolStrip2
@@ -426,7 +426,7 @@ Partial Class frmInvoice
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAddItem, Me.ToolStripLabel10, Me.tsEditItem, Me.ToolStripLabel9, Me.tsRemoveItem, Me.tsFindText, Me.ToolStripLabel11})
         Me.ToolStrip2.Location = New System.Drawing.Point(3, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(1122, 31)
+        Me.ToolStrip2.Size = New System.Drawing.Size(1122, 37)
         Me.ToolStrip2.TabIndex = 17
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -436,13 +436,13 @@ Partial Class frmInvoice
         Me.tsAddItem.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAddItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAddItem.Name = "tsAddItem"
-        Me.tsAddItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsAddItem.Size = New System.Drawing.Size(34, 34)
         Me.tsAddItem.Text = "&Add"
         '
         'ToolStripLabel10
         '
         Me.ToolStripLabel10.Name = "ToolStripLabel10"
-        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 37)
         '
         'tsEditItem
         '
@@ -450,13 +450,13 @@ Partial Class frmInvoice
         Me.tsEditItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEditItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEditItem.Name = "tsEditItem"
-        Me.tsEditItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsEditItem.Size = New System.Drawing.Size(34, 34)
         Me.tsEditItem.Text = "&Edit"
         '
         'ToolStripLabel9
         '
         Me.ToolStripLabel9.Name = "ToolStripLabel9"
-        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 37)
         '
         'tsRemoveItem
         '
@@ -464,7 +464,7 @@ Partial Class frmInvoice
         Me.tsRemoveItem.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsRemoveItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRemoveItem.Name = "tsRemoveItem"
-        Me.tsRemoveItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsRemoveItem.Size = New System.Drawing.Size(34, 34)
         Me.tsRemoveItem.Text = "&Remove"
         '
         'tsFindText
@@ -473,13 +473,13 @@ Partial Class frmInvoice
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
-        Me.tsFindText.Size = New System.Drawing.Size(228, 31)
+        Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
         'ToolStripLabel11
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 28)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'lblOUTPUT_TAX_ACCOUNT_ID
@@ -530,7 +530,7 @@ Partial Class frmInvoice
         Me.cmbCUSTOMER_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbCUSTOMER_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbCUSTOMER_ID.FormattingEnabled = True
-        Me.cmbCUSTOMER_ID.Location = New System.Drawing.Point(106, 76)
+        Me.cmbCUSTOMER_ID.Location = New System.Drawing.Point(106, 69)
         Me.cmbCUSTOMER_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCUSTOMER_ID.Name = "cmbCUSTOMER_ID"
         Me.cmbCUSTOMER_ID.Size = New System.Drawing.Size(342, 24)
@@ -539,7 +539,7 @@ Partial Class frmInvoice
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(27, 80)
+        Me.Label2.Location = New System.Drawing.Point(33, 72)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(69, 16)
         Me.Label2.TabIndex = 0
@@ -547,7 +547,7 @@ Partial Class frmInvoice
         '
         'txtPO_NUMBER
         '
-        Me.txtPO_NUMBER.Location = New System.Drawing.Point(326, 103)
+        Me.txtPO_NUMBER.Location = New System.Drawing.Point(326, 96)
         Me.txtPO_NUMBER.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtPO_NUMBER.Name = "txtPO_NUMBER"
         Me.txtPO_NUMBER.Size = New System.Drawing.Size(123, 23)
@@ -556,7 +556,7 @@ Partial Class frmInvoice
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(269, 107)
+        Me.Label6.Location = New System.Drawing.Point(269, 100)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(55, 16)
         Me.Label6.TabIndex = 6
@@ -565,7 +565,7 @@ Partial Class frmInvoice
         'dtpDISCOUNT_DATE
         '
         Me.dtpDISCOUNT_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDISCOUNT_DATE.Location = New System.Drawing.Point(326, 158)
+        Me.dtpDISCOUNT_DATE.Location = New System.Drawing.Point(326, 147)
         Me.dtpDISCOUNT_DATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDISCOUNT_DATE.Name = "dtpDISCOUNT_DATE"
         Me.dtpDISCOUNT_DATE.ShowCheckBox = True
@@ -575,7 +575,7 @@ Partial Class frmInvoice
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(223, 161)
+        Me.Label5.Location = New System.Drawing.Point(223, 150)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(100, 16)
         Me.Label5.TabIndex = 4
@@ -584,7 +584,7 @@ Partial Class frmInvoice
         'dtpDUE_DATE
         '
         Me.dtpDUE_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDUE_DATE.Location = New System.Drawing.Point(106, 130)
+        Me.dtpDUE_DATE.Location = New System.Drawing.Point(106, 123)
         Me.dtpDUE_DATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDUE_DATE.Name = "dtpDUE_DATE"
         Me.dtpDUE_DATE.ShowCheckBox = True
@@ -594,7 +594,7 @@ Partial Class frmInvoice
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(33, 134)
+        Me.Label4.Location = New System.Drawing.Point(34, 127)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(68, 16)
         Me.Label4.TabIndex = 2
@@ -604,7 +604,7 @@ Partial Class frmInvoice
         '
         Me.cmbPAYMENT_TERMS_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPAYMENT_TERMS_ID.FormattingEnabled = True
-        Me.cmbPAYMENT_TERMS_ID.Location = New System.Drawing.Point(106, 103)
+        Me.cmbPAYMENT_TERMS_ID.Location = New System.Drawing.Point(106, 96)
         Me.cmbPAYMENT_TERMS_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbPAYMENT_TERMS_ID.Name = "cmbPAYMENT_TERMS_ID"
         Me.cmbPAYMENT_TERMS_ID.Size = New System.Drawing.Size(134, 24)
@@ -613,7 +613,7 @@ Partial Class frmInvoice
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(21, 107)
+        Me.Label3.Location = New System.Drawing.Point(21, 99)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(81, 16)
         Me.Label3.TabIndex = 0
@@ -622,7 +622,7 @@ Partial Class frmInvoice
         'cmbSHIP_VIA_ID
         '
         Me.cmbSHIP_VIA_ID.FormattingEnabled = True
-        Me.cmbSHIP_VIA_ID.Location = New System.Drawing.Point(326, 130)
+        Me.cmbSHIP_VIA_ID.Location = New System.Drawing.Point(326, 121)
         Me.cmbSHIP_VIA_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbSHIP_VIA_ID.Name = "cmbSHIP_VIA_ID"
         Me.cmbSHIP_VIA_ID.Size = New System.Drawing.Size(123, 24)
@@ -631,7 +631,7 @@ Partial Class frmInvoice
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(267, 134)
+        Me.Label12.Location = New System.Drawing.Point(267, 125)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(53, 16)
         Me.Label12.TabIndex = 14
@@ -640,7 +640,7 @@ Partial Class frmInvoice
         'AccountLabel
         '
         Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(833, 130)
+        Me.AccountLabel.Location = New System.Drawing.Point(783, 125)
         Me.AccountLabel.Name = "AccountLabel"
         Me.AccountLabel.Size = New System.Drawing.Size(73, 16)
         Me.AccountLabel.TabIndex = 15
@@ -650,7 +650,7 @@ Partial Class frmInvoice
         '
         Me.cmbACCOUNTS_RECEIVABLE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbACCOUNTS_RECEIVABLE_ID.FormattingEnabled = True
-        Me.cmbACCOUNTS_RECEIVABLE_ID.Location = New System.Drawing.Point(907, 127)
+        Me.cmbACCOUNTS_RECEIVABLE_ID.Location = New System.Drawing.Point(857, 122)
         Me.cmbACCOUNTS_RECEIVABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_RECEIVABLE_ID.Name = "cmbACCOUNTS_RECEIVABLE_ID"
         Me.cmbACCOUNTS_RECEIVABLE_ID.Size = New System.Drawing.Size(174, 24)
@@ -659,16 +659,16 @@ Partial Class frmInvoice
         'cmbSALES_REP_ID
         '
         Me.cmbSALES_REP_ID.FormattingEnabled = True
-        Me.cmbSALES_REP_ID.Location = New System.Drawing.Point(545, 129)
+        Me.cmbSALES_REP_ID.Location = New System.Drawing.Point(532, 122)
         Me.cmbSALES_REP_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbSALES_REP_ID.Name = "cmbSALES_REP_ID"
-        Me.cmbSALES_REP_ID.Size = New System.Drawing.Size(277, 24)
+        Me.cmbSALES_REP_ID.Size = New System.Drawing.Size(231, 24)
         Me.cmbSALES_REP_ID.TabIndex = 13
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(471, 134)
+        Me.Label11.Location = New System.Drawing.Point(459, 127)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(69, 16)
         Me.Label11.TabIndex = 12
@@ -677,7 +677,7 @@ Partial Class frmInvoice
         'cmbCLASS_ID
         '
         Me.cmbCLASS_ID.FormattingEnabled = True
-        Me.cmbCLASS_ID.Location = New System.Drawing.Point(907, 100)
+        Me.cmbCLASS_ID.Location = New System.Drawing.Point(857, 95)
         Me.cmbCLASS_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCLASS_ID.Name = "cmbCLASS_ID"
         Me.cmbCLASS_ID.Size = New System.Drawing.Size(174, 24)
@@ -686,7 +686,7 @@ Partial Class frmInvoice
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(859, 103)
+        Me.Label10.Location = New System.Drawing.Point(809, 98)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(41, 16)
         Me.Label10.TabIndex = 10
@@ -696,24 +696,24 @@ Partial Class frmInvoice
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(545, 102)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(532, 95)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(277, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(231, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(488, 107)
+        Me.Label9.Location = New System.Drawing.Point(465, 100)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(52, 16)
+        Me.Label9.Size = New System.Drawing.Size(63, 16)
         Me.Label9.TabIndex = 8
-        Me.Label9.Text = "Branch"
+        Me.Label9.Text = "Location"
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(907, 73)
+        Me.txtCODE.Location = New System.Drawing.Point(857, 68)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(174, 23)
@@ -722,7 +722,7 @@ Partial Class frmInvoice
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(861, 75)
+        Me.Label8.Location = New System.Drawing.Point(811, 70)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(40, 16)
         Me.Label8.TabIndex = 6
@@ -731,7 +731,7 @@ Partial Class frmInvoice
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(545, 75)
+        Me.dtpDATE.Location = New System.Drawing.Point(532, 68)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(122, 23)
@@ -740,7 +740,7 @@ Partial Class frmInvoice
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(503, 79)
+        Me.Label7.Location = New System.Drawing.Point(490, 72)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(38, 16)
         Me.Label7.TabIndex = 4
@@ -859,13 +859,13 @@ Partial Class frmInvoice
         'ToolStripLabel12
         '
         Me.ToolStripLabel12.Name = "ToolStripLabel12"
-        Me.ToolStripLabel12.Size = New System.Drawing.Size(68, 22)
+        Me.ToolStripLabel12.Size = New System.Drawing.Size(80, 22)
         Me.ToolStripLabel12.Text = "Total Entry"
         '
         'lblCount
         '
         Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(14, 22)
+        Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
         'frmInvoice

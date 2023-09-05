@@ -1,12 +1,12 @@
 ﻿Module modCustomVariable
 
     '=============== ITEM 
-    Public Const gsCUSTOM_CODE As String = "Barcode"
+    Public Const gsCUSTOM_CODE As String = "Code"
     Public Const gsCUSTOM_DESCRIPTION As String = "Description"
     Public Const gsCUSTOM_QTY As String = "Qty"
     Public Const gsCUSTOM_COST As String = "Cost"
     Public Const gsCUSTOM_RATE As String = "Rate"
-    Public Const gsCUSTOM_UNIT As String = "Size"
+    Public Const gsCUSTOM_UNIT As String = "Unit"
     Public Const gsCUSTOM_DISC_TYPE As String = "Disc.Type"
     Public Const gsCUSTOM_DISC_RATE As String = "Disc.Rate"
     Public Const gsCUSTOM_AMOUNT As String = "Amount"

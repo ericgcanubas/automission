@@ -49,7 +49,6 @@ Module modSystemSettings
                     ElseIf (TypeOf v Is CheckBox) Then
                         Dim ojb As CheckBox = v
                         fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & ojb.Checked & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
-
                     ElseIf (TypeOf v Is NumericUpDown) Then
                         Dim ojb As NumericUpDown = v
                         fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & ojb.Value & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")

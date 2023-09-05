@@ -153,10 +153,10 @@ Partial Class frmDepositFunds
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(432, 149)
+        Me.btnOK.Location = New System.Drawing.Point(399, 146)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(86, 28)
+        Me.btnOK.Size = New System.Drawing.Size(119, 28)
         Me.btnOK.TabIndex = 14
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True

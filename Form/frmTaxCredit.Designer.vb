@@ -205,7 +205,7 @@ Partial Class frmTaxCredit
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(731, 81)
+        Me.Label8.Location = New System.Drawing.Point(737, 82)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(40, 16)
@@ -245,7 +245,7 @@ Partial Class frmTaxCredit
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
         Me.tsFindText.Size = New System.Drawing.Size(228, 25)
         '
@@ -253,7 +253,7 @@ Partial Class frmTaxCredit
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(30, 22)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 22)
         Me.ToolStripLabel11.Text = "Find"
         '
         'dgvInvoice
@@ -281,7 +281,7 @@ Partial Class frmTaxCredit
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtNOTES.Name = "txtNOTES"
         Me.txtNOTES.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtNOTES.Size = New System.Drawing.Size(979, 23)
+        Me.txtNOTES.Size = New System.Drawing.Size(972, 23)
         Me.txtNOTES.TabIndex = 67
         '
         'Label14
@@ -458,11 +458,11 @@ Partial Class frmTaxCredit
         'AccountLabel
         '
         Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(512, 138)
+        Me.AccountLabel.Location = New System.Drawing.Point(521, 138)
         Me.AccountLabel.Name = "AccountLabel"
-        Me.AccountLabel.Size = New System.Drawing.Size(71, 16)
+        Me.AccountLabel.Size = New System.Drawing.Size(62, 16)
         Me.AccountLabel.TabIndex = 71
-        Me.AccountLabel.Text = "A/R Acct."
+        Me.AccountLabel.Text = "Account"
         '
         'cmbACCOUNTS_RECEIVABLE_ID
         '

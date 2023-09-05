@@ -4,7 +4,7 @@ Public Class frmAccount
     Public gsNew As Boolean = True
     Public this_BS As BindingSource
     Public dgv As DataGridView
-    Private Sub frmAccount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmAccount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fBackGroundImageStyle(Me)
         fclear_info()
         Me.Text = "Create account"

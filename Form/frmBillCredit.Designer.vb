@@ -333,7 +333,7 @@ Partial Class frmBillCredit
         '
         Me.cmbACCOUNTS_PAYABLE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbACCOUNTS_PAYABLE_ID.FormattingEnabled = True
-        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(145, 99)
+        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(80, 99)
         Me.cmbACCOUNTS_PAYABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_PAYABLE_ID.Name = "cmbACCOUNTS_PAYABLE_ID"
         Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(342, 24)
@@ -342,34 +342,34 @@ Partial Class frmBillCredit
         'AccountLabel
         '
         Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(45, 103)
+        Me.AccountLabel.Location = New System.Drawing.Point(14, 103)
         Me.AccountLabel.Name = "AccountLabel"
-        Me.AccountLabel.Size = New System.Drawing.Size(99, 16)
+        Me.AccountLabel.Size = New System.Drawing.Size(62, 16)
         Me.AccountLabel.TabIndex = 15
-        Me.AccountLabel.Text = "Acct. Payable"
+        Me.AccountLabel.Text = "Account"
         '
         'cmbLOCATION_ID
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(583, 99)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(518, 98)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(311, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(345, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(524, 103)
+        Me.Label9.Location = New System.Drawing.Point(451, 102)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(52, 16)
+        Me.Label9.Size = New System.Drawing.Size(63, 16)
         Me.Label9.TabIndex = 8
-        Me.Label9.Text = "Branch"
+        Me.Label9.Text = "Location"
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(749, 72)
+        Me.txtCODE.Location = New System.Drawing.Point(718, 72)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(145, 23)
@@ -378,16 +378,16 @@ Partial Class frmBillCredit
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(704, 74)
+        Me.Label8.Location = New System.Drawing.Point(639, 74)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(583, 72)
+        Me.dtpDATE.Location = New System.Drawing.Point(518, 72)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(110, 23)
@@ -396,7 +396,7 @@ Partial Class frmBillCredit
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(536, 74)
+        Me.Label7.Location = New System.Drawing.Point(471, 75)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(43, 16)
         Me.Label7.TabIndex = 4
@@ -443,7 +443,7 @@ Partial Class frmBillCredit
         Me.cmbVENDOR_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbVENDOR_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbVENDOR_ID.FormattingEnabled = True
-        Me.cmbVENDOR_ID.Location = New System.Drawing.Point(145, 72)
+        Me.cmbVENDOR_ID.Location = New System.Drawing.Point(80, 72)
         Me.cmbVENDOR_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbVENDOR_ID.Name = "cmbVENDOR_ID"
         Me.cmbVENDOR_ID.Size = New System.Drawing.Size(342, 24)
@@ -452,7 +452,7 @@ Partial Class frmBillCredit
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(92, 76)
+        Me.Label10.Location = New System.Drawing.Point(25, 75)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(52, 16)
         Me.Label10.TabIndex = 0
@@ -519,12 +519,12 @@ Partial Class frmBillCredit
         Me.dgvProductItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProductItem.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvProductItem.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvProductItem.Location = New System.Drawing.Point(3, 35)
+        Me.dgvProductItem.Location = New System.Drawing.Point(3, 41)
         Me.dgvProductItem.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvProductItem.MultiSelect = False
         Me.dgvProductItem.Name = "dgvProductItem"
         Me.dgvProductItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvProductItem.Size = New System.Drawing.Size(1092, 238)
+        Me.dgvProductItem.Size = New System.Drawing.Size(1092, 232)
         Me.dgvProductItem.TabIndex = 4
         '
         'ToolStrip5
@@ -571,7 +571,7 @@ Partial Class frmBillCredit
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAddItem, Me.ToolStripLabel10, Me.tsEditItem, Me.ToolStripLabel9, Me.tsRemoveItem, Me.tsFindText, Me.ToolStripLabel11})
         Me.ToolStrip2.Location = New System.Drawing.Point(3, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(1092, 31)
+        Me.ToolStrip2.Size = New System.Drawing.Size(1092, 37)
         Me.ToolStrip2.TabIndex = 147
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -581,14 +581,14 @@ Partial Class frmBillCredit
         Me.tsAddItem.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAddItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAddItem.Name = "tsAddItem"
-        Me.tsAddItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsAddItem.Size = New System.Drawing.Size(34, 34)
         Me.tsAddItem.Text = "&Add"
         Me.tsAddItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         '
         'ToolStripLabel10
         '
         Me.ToolStripLabel10.Name = "ToolStripLabel10"
-        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 37)
         '
         'tsEditItem
         '
@@ -596,14 +596,14 @@ Partial Class frmBillCredit
         Me.tsEditItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEditItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEditItem.Name = "tsEditItem"
-        Me.tsEditItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsEditItem.Size = New System.Drawing.Size(34, 34)
         Me.tsEditItem.Text = "&Edit"
         Me.tsEditItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         '
         'ToolStripLabel9
         '
         Me.ToolStripLabel9.Name = "ToolStripLabel9"
-        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 37)
         '
         'tsRemoveItem
         '
@@ -611,7 +611,7 @@ Partial Class frmBillCredit
         Me.tsRemoveItem.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsRemoveItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRemoveItem.Name = "tsRemoveItem"
-        Me.tsRemoveItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsRemoveItem.Size = New System.Drawing.Size(34, 34)
         Me.tsRemoveItem.Text = "&Remove"
         Me.tsRemoveItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         '
@@ -621,13 +621,13 @@ Partial Class frmBillCredit
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
-        Me.tsFindText.Size = New System.Drawing.Size(228, 31)
+        Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
         'ToolStripLabel11
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 28)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'TabPage2
@@ -641,7 +641,7 @@ Partial Class frmBillCredit
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage2.Size = New System.Drawing.Size(1098, 302)
         Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Accounts"
+        Me.TabPage2.Text = "Expenses"
         '
         'dgvExpenses
         '
@@ -652,12 +652,12 @@ Partial Class frmBillCredit
         Me.dgvExpenses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvExpenses.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvExpenses.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvExpenses.Location = New System.Drawing.Point(3, 35)
+        Me.dgvExpenses.Location = New System.Drawing.Point(3, 41)
         Me.dgvExpenses.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvExpenses.MultiSelect = False
         Me.dgvExpenses.Name = "dgvExpenses"
         Me.dgvExpenses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvExpenses.Size = New System.Drawing.Size(1092, 238)
+        Me.dgvExpenses.Size = New System.Drawing.Size(1092, 232)
         Me.dgvExpenses.TabIndex = 8
         '
         'ToolStrip4
@@ -704,7 +704,7 @@ Partial Class frmBillCredit
         Me.ToolStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAddExpenses, Me.ToolStripSeparator1, Me.tsEditExpenses, Me.ToolStripSeparator2, Me.tsRemoveExpenses, Me.tsFindText2, Me.ToolStripLabel12})
         Me.ToolStrip3.Location = New System.Drawing.Point(3, 4)
         Me.ToolStrip3.Name = "ToolStrip3"
-        Me.ToolStrip3.Size = New System.Drawing.Size(1092, 31)
+        Me.ToolStrip3.Size = New System.Drawing.Size(1092, 37)
         Me.ToolStrip3.TabIndex = 148
         Me.ToolStrip3.Text = "ToolStrip3"
         '
@@ -714,14 +714,14 @@ Partial Class frmBillCredit
         Me.tsAddExpenses.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAddExpenses.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAddExpenses.Name = "tsAddExpenses"
-        Me.tsAddExpenses.Size = New System.Drawing.Size(28, 28)
+        Me.tsAddExpenses.Size = New System.Drawing.Size(34, 34)
         Me.tsAddExpenses.Text = "&Add"
         Me.tsAddExpenses.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 37)
         '
         'tsEditExpenses
         '
@@ -729,14 +729,14 @@ Partial Class frmBillCredit
         Me.tsEditExpenses.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEditExpenses.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEditExpenses.Name = "tsEditExpenses"
-        Me.tsEditExpenses.Size = New System.Drawing.Size(28, 28)
+        Me.tsEditExpenses.Size = New System.Drawing.Size(34, 34)
         Me.tsEditExpenses.Text = "&Edit"
         Me.tsEditExpenses.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 37)
         '
         'tsRemoveExpenses
         '
@@ -744,7 +744,7 @@ Partial Class frmBillCredit
         Me.tsRemoveExpenses.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsRemoveExpenses.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRemoveExpenses.Name = "tsRemoveExpenses"
-        Me.tsRemoveExpenses.Size = New System.Drawing.Size(28, 28)
+        Me.tsRemoveExpenses.Size = New System.Drawing.Size(34, 34)
         Me.tsRemoveExpenses.Text = "&Remove"
         Me.tsRemoveExpenses.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -754,13 +754,13 @@ Partial Class frmBillCredit
         Me.tsFindText2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tsFindText2.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText2.Name = "tsFindText2"
-        Me.tsFindText2.Size = New System.Drawing.Size(228, 31)
+        Me.tsFindText2.Size = New System.Drawing.Size(228, 37)
         '
         'ToolStripLabel12
         '
         Me.ToolStripLabel12.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel12.Name = "ToolStripLabel12"
-        Me.ToolStripLabel12.Size = New System.Drawing.Size(34, 28)
+        Me.ToolStripLabel12.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel12.Text = "Find"
         '
         'Label17
@@ -836,11 +836,11 @@ Partial Class frmBillCredit
         Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Transparent
-        Me.Label12.Location = New System.Drawing.Point(238, 475)
+        Me.Label12.Location = New System.Drawing.Point(255, 474)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(61, 16)
+        Me.Label12.Size = New System.Drawing.Size(45, 16)
         Me.Label12.TabIndex = 133
-        Me.Label12.Text = "Remarks"
+        Me.Label12.Text = "Notes"
         '
         'frmBillCredit
         '

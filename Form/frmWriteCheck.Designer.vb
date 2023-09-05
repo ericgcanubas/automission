@@ -114,7 +114,7 @@ Partial Class frmWriteCheck
         Me.cmbBANK_ACCOUNT_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbBANK_ACCOUNT_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbBANK_ACCOUNT_ID.FormattingEnabled = True
-        Me.cmbBANK_ACCOUNT_ID.Location = New System.Drawing.Point(107, 74)
+        Me.cmbBANK_ACCOUNT_ID.Location = New System.Drawing.Point(106, 74)
         Me.cmbBANK_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbBANK_ACCOUNT_ID.Name = "cmbBANK_ACCOUNT_ID"
         Me.cmbBANK_ACCOUNT_ID.Size = New System.Drawing.Size(342, 24)
@@ -125,7 +125,7 @@ Partial Class frmWriteCheck
         Me.cmbPAY_TO_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbPAY_TO_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbPAY_TO_ID.FormattingEnabled = True
-        Me.cmbPAY_TO_ID.Location = New System.Drawing.Point(107, 101)
+        Me.cmbPAY_TO_ID.Location = New System.Drawing.Point(106, 101)
         Me.cmbPAY_TO_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbPAY_TO_ID.Name = "cmbPAY_TO_ID"
         Me.cmbPAY_TO_ID.Size = New System.Drawing.Size(342, 24)
@@ -133,7 +133,7 @@ Partial Class frmWriteCheck
         '
         'xlblPayTo
         '
-        Me.xlblPayTo.Location = New System.Drawing.Point(0, 105)
+        Me.xlblPayTo.Location = New System.Drawing.Point(-2, 105)
         Me.xlblPayTo.Name = "xlblPayTo"
         Me.xlblPayTo.Size = New System.Drawing.Size(105, 16)
         Me.xlblPayTo.TabIndex = 2
@@ -143,7 +143,7 @@ Partial Class frmWriteCheck
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(26, 76)
+        Me.Label2.Location = New System.Drawing.Point(25, 76)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(79, 16)
         Me.Label2.TabIndex = 0
@@ -153,35 +153,35 @@ Partial Class frmWriteCheck
         '
         Me.cmbACCOUNTS_PAYABLE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbACCOUNTS_PAYABLE_ID.FormattingEnabled = True
-        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(535, 129)
+        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(534, 129)
         Me.cmbACCOUNTS_PAYABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_PAYABLE_ID.Name = "cmbACCOUNTS_PAYABLE_ID"
-        Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(326, 24)
+        Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(259, 24)
         Me.cmbACCOUNTS_PAYABLE_ID.TabIndex = 16
         '
         'AccountLabel
         '
         Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(436, 133)
+        Me.AccountLabel.Location = New System.Drawing.Point(461, 132)
         Me.AccountLabel.Name = "AccountLabel"
-        Me.AccountLabel.Size = New System.Drawing.Size(99, 16)
+        Me.AccountLabel.Size = New System.Drawing.Size(69, 16)
         Me.AccountLabel.TabIndex = 15
-        Me.AccountLabel.Text = "Acct. Payable"
+        Me.AccountLabel.Text = "Accounts"
         '
         'cmbLOCATION_ID
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(535, 101)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(534, 101)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(326, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(259, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(468, 105)
+        Me.Label9.Location = New System.Drawing.Point(467, 105)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(63, 16)
         Me.Label9.TabIndex = 8
@@ -189,7 +189,7 @@ Partial Class frmWriteCheck
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(712, 74)
+        Me.txtCODE.Location = New System.Drawing.Point(736, 73)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(149, 23)
@@ -198,16 +198,16 @@ Partial Class frmWriteCheck
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(664, 76)
+        Me.Label8.Location = New System.Drawing.Point(663, 77)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(45, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code "
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(535, 74)
+        Me.dtpDATE.Location = New System.Drawing.Point(534, 74)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(123, 23)
@@ -216,7 +216,7 @@ Partial Class frmWriteCheck
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(493, 76)
+        Me.Label7.Location = New System.Drawing.Point(492, 76)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(38, 16)
         Me.Label7.TabIndex = 4
@@ -424,21 +424,21 @@ Partial Class frmWriteCheck
         'lblCount
         '
         Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(14, 22)
+        Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
         'lbsTotal_Amount_Item
         '
         Me.lbsTotal_Amount_Item.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.lbsTotal_Amount_Item.Name = "lbsTotal_Amount_Item"
-        Me.lbsTotal_Amount_Item.Size = New System.Drawing.Size(14, 22)
+        Me.lbsTotal_Amount_Item.Size = New System.Drawing.Size(15, 22)
         Me.lbsTotal_Amount_Item.Text = "0"
         '
         'ToolStripLabel15
         '
         Me.ToolStripLabel15.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel15.Name = "ToolStripLabel15"
-        Me.ToolStripLabel15.Size = New System.Drawing.Size(65, 22)
+        Me.ToolStripLabel15.Size = New System.Drawing.Size(75, 22)
         Me.ToolStripLabel15.Text = "Total Item"
         '
         'ToolStrip2
@@ -517,7 +517,7 @@ Partial Class frmWriteCheck
         Me.TabPage2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TabPage2.Size = New System.Drawing.Size(1005, 207)
+        Me.TabPage2.Size = New System.Drawing.Size(1005, 228)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Expenses"
         '
@@ -535,7 +535,7 @@ Partial Class frmWriteCheck
         Me.dgvExpenses.MultiSelect = False
         Me.dgvExpenses.Name = "dgvExpenses"
         Me.dgvExpenses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvExpenses.Size = New System.Drawing.Size(999, 137)
+        Me.dgvExpenses.Size = New System.Drawing.Size(999, 158)
         Me.dgvExpenses.TabIndex = 8
         '
         'ToolStrip4
@@ -543,7 +543,7 @@ Partial Class frmWriteCheck
         Me.ToolStrip4.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ToolStrip4.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip4.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel6, Me.lblCount2, Me.lbsTotal_Amount_Expense, Me.ToolStripLabel3})
-        Me.ToolStrip4.Location = New System.Drawing.Point(3, 178)
+        Me.ToolStrip4.Location = New System.Drawing.Point(3, 199)
         Me.ToolStrip4.Name = "ToolStrip4"
         Me.ToolStrip4.Size = New System.Drawing.Size(999, 25)
         Me.ToolStrip4.TabIndex = 151
@@ -552,27 +552,27 @@ Partial Class frmWriteCheck
         'ToolStripLabel6
         '
         Me.ToolStripLabel6.Name = "ToolStripLabel6"
-        Me.ToolStripLabel6.Size = New System.Drawing.Size(68, 22)
+        Me.ToolStripLabel6.Size = New System.Drawing.Size(80, 22)
         Me.ToolStripLabel6.Text = "Total Entry"
         '
         'lblCount2
         '
         Me.lblCount2.Name = "lblCount2"
-        Me.lblCount2.Size = New System.Drawing.Size(14, 22)
+        Me.lblCount2.Size = New System.Drawing.Size(15, 22)
         Me.lblCount2.Text = "0"
         '
         'lbsTotal_Amount_Expense
         '
         Me.lbsTotal_Amount_Expense.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.lbsTotal_Amount_Expense.Name = "lbsTotal_Amount_Expense"
-        Me.lbsTotal_Amount_Expense.Size = New System.Drawing.Size(14, 22)
+        Me.lbsTotal_Amount_Expense.Size = New System.Drawing.Size(15, 22)
         Me.lbsTotal_Amount_Expense.Text = "0"
         '
         'ToolStripLabel3
         '
         Me.ToolStripLabel3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(92, 22)
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(106, 22)
         Me.ToolStripLabel3.Text = "Total Expenses"
         '
         'ToolStrip3

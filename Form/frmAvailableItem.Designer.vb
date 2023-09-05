@@ -44,31 +44,33 @@ Partial Class frmAvailableItem
         Me.dgvDocument.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedHeaders
         Me.dgvDocument.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDocument.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvDocument.Location = New System.Drawing.Point(7, 36)
+        Me.dgvDocument.Location = New System.Drawing.Point(8, 44)
+        Me.dgvDocument.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvDocument.MultiSelect = False
         Me.dgvDocument.Name = "dgvDocument"
         Me.dgvDocument.ReadOnly = True
         Me.dgvDocument.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDocument.Size = New System.Drawing.Size(868, 143)
+        Me.dgvDocument.Size = New System.Drawing.Size(992, 176)
         Me.dgvDocument.TabIndex = 18
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(10, 12)
+        Me.Label1.Location = New System.Drawing.Point(11, 15)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(100, 13)
+        Me.Label1.Size = New System.Drawing.Size(114, 16)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Branch Selected"
+        Me.Label1.Text = "Location Source"
         '
         'cmbLOCATION_ID
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(116, 9)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(133, 11)
+        Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(325, 21)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(371, 24)
         Me.cmbLOCATION_ID.TabIndex = 3
         '
         'dgvItem
@@ -83,44 +85,48 @@ Partial Class frmAvailableItem
         Me.dgvItem.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.dgvItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvItem.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvItem.Location = New System.Drawing.Point(7, 185)
+        Me.dgvItem.Location = New System.Drawing.Point(8, 228)
+        Me.dgvItem.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvItem.MultiSelect = False
         Me.dgvItem.Name = "dgvItem"
         Me.dgvItem.ReadOnly = True
         Me.dgvItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvItem.Size = New System.Drawing.Size(868, 288)
+        Me.dgvItem.Size = New System.Drawing.Size(992, 309)
         Me.dgvItem.TabIndex = 24
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(719, 485)
+        Me.btnOK.Location = New System.Drawing.Point(822, 545)
+        Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(75, 23)
+        Me.btnOK.Size = New System.Drawing.Size(86, 25)
         Me.btnOK.TabIndex = 25
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(800, 485)
+        Me.btnCancel.Location = New System.Drawing.Point(914, 545)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(86, 25)
         Me.btnCancel.TabIndex = 26
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'frmAvailableItem
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(883, 515)
+        Me.ClientSize = New System.Drawing.Size(1009, 582)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.dgvDocument)
         Me.Controls.Add(Me.dgvItem)
         Me.Controls.Add(Me.cmbLOCATION_ID)
         Me.Controls.Add(Me.Label1)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAvailableItem"

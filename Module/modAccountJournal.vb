@@ -117,9 +117,9 @@ Module modAccountJournal
 
 
                     End If
+
                 Else
                     'DELETE
-
                     If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
                      fItemInventoryRemove_SQL(Src_Type, fNumisNULL(.Cells("ID").Value), DT, fNumisNULL(.Cells("ITEM_ID").Value), LOCATION_ID)
                     End If
@@ -151,8 +151,6 @@ Module modAccountJournal
 
     Public Sub fAccount_journal_Delete(ByVal ACCOUNT_ID As Integer, ByVal LOCATION_ID As Integer, ByVal OBJECT_TYPE As Integer, ByVal OBJECT_ID As Integer, ByVal OBJECT_DATE As Date)
 
-
-        Dim SQL As String = ""
         Dim rd As OdbcDataReader = fReader($"SELECT ID,JOURNAL_NO,PREVIOUS_ID,ENDING_BALANCE,ENTRY_TYPE,AMOUNT FROM account_journal WHERE `ACCOUNT_ID` = '{ACCOUNT_ID}' and `LOCATION_ID` = '{LOCATION_ID}' and `OBJECT_TYPE` = '{OBJECT_TYPE}' and `OBJECT_ID` = '{OBJECT_ID}' and OBJECT_DATE = '{fDateFormatMYSQL(OBJECT_DATE)}' limit 1;")
         If rd.Read Then
             fExecutedOnly($"DELETE FROM account_journal WHERE `ID`= '{fNumisNULL(rd("ID"))}' AND `ACCOUNT_ID` = '{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_TYPE = '{OBJECT_TYPE}' and OBJECT_ID = '{OBJECT_ID}' and OBJECT_DATE = '{fDateFormatMYSQL(OBJECT_DATE)}' limit 1;")

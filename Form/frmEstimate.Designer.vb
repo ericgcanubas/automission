@@ -154,7 +154,7 @@ Partial Class frmEstimate
         'cmbCLASS_ID
         '
         Me.cmbCLASS_ID.FormattingEnabled = True
-        Me.cmbCLASS_ID.Location = New System.Drawing.Point(538, 134)
+        Me.cmbCLASS_ID.Location = New System.Drawing.Point(808, 107)
         Me.cmbCLASS_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbCLASS_ID.Name = "cmbCLASS_ID"
         Me.cmbCLASS_ID.Size = New System.Drawing.Size(174, 24)
@@ -163,7 +163,7 @@ Partial Class frmEstimate
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(491, 139)
+        Me.Label10.Location = New System.Drawing.Point(761, 112)
         Me.Label10.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(41, 16)
@@ -177,7 +177,7 @@ Partial Class frmEstimate
         Me.cmbLOCATION_ID.Location = New System.Drawing.Point(538, 107)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(242, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(212, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
@@ -192,7 +192,7 @@ Partial Class frmEstimate
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(742, 79)
+        Me.txtCODE.Location = New System.Drawing.Point(808, 80)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(174, 23)
@@ -201,12 +201,12 @@ Partial Class frmEstimate
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(696, 82)
+        Me.Label8.Location = New System.Drawing.Point(729, 83)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -381,12 +381,12 @@ Partial Class frmEstimate
         Me.dgvProductItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProductItem.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvProductItem.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvProductItem.Location = New System.Drawing.Point(3, 35)
+        Me.dgvProductItem.Location = New System.Drawing.Point(3, 41)
         Me.dgvProductItem.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dgvProductItem.MultiSelect = False
         Me.dgvProductItem.Name = "dgvProductItem"
         Me.dgvProductItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvProductItem.Size = New System.Drawing.Size(1150, 148)
+        Me.dgvProductItem.Size = New System.Drawing.Size(1150, 142)
         Me.dgvProductItem.TabIndex = 13
         '
         'lblOUTPUT_TAX_VAT_METHOD
@@ -433,7 +433,7 @@ Partial Class frmEstimate
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAddItem, Me.ToolStripLabel10, Me.tsEditItem, Me.ToolStripLabel9, Me.tsRemoveItem, Me.tsFindText, Me.ToolStripLabel11})
         Me.ToolStrip2.Location = New System.Drawing.Point(3, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(1150, 31)
+        Me.ToolStrip2.Size = New System.Drawing.Size(1150, 37)
         Me.ToolStrip2.TabIndex = 19
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -443,13 +443,13 @@ Partial Class frmEstimate
         Me.tsAddItem.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAddItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAddItem.Name = "tsAddItem"
-        Me.tsAddItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsAddItem.Size = New System.Drawing.Size(34, 34)
         Me.tsAddItem.Text = "&Add"
         '
         'ToolStripLabel10
         '
         Me.ToolStripLabel10.Name = "ToolStripLabel10"
-        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 37)
         '
         'tsEditItem
         '
@@ -457,13 +457,13 @@ Partial Class frmEstimate
         Me.tsEditItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEditItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEditItem.Name = "tsEditItem"
-        Me.tsEditItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsEditItem.Size = New System.Drawing.Size(34, 34)
         Me.tsEditItem.Text = "&Edit"
         '
         'ToolStripLabel9
         '
         Me.ToolStripLabel9.Name = "ToolStripLabel9"
-        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 37)
         '
         'tsRemoveItem
         '
@@ -471,22 +471,22 @@ Partial Class frmEstimate
         Me.tsRemoveItem.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsRemoveItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRemoveItem.Name = "tsRemoveItem"
-        Me.tsRemoveItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsRemoveItem.Size = New System.Drawing.Size(34, 34)
         Me.tsRemoveItem.Text = "&Remove"
         '
         'tsFindText
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
-        Me.tsFindText.Size = New System.Drawing.Size(228, 31)
+        Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
         'ToolStripLabel11
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(30, 28)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'Label17
@@ -544,12 +544,12 @@ Partial Class frmEstimate
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(234, 418)
+        Me.Label14.Location = New System.Drawing.Point(255, 418)
         Me.Label14.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 34
-        Me.Label14.Text = "Remarks"
+        Me.Label14.Text = "Notes"
         '
         'Label13
         '
@@ -641,7 +641,7 @@ Partial Class frmEstimate
         'ToolStrip5
         '
         Me.ToolStrip5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel12, Me.lblCount})
         Me.ToolStrip5.Location = New System.Drawing.Point(3, 183)
         Me.ToolStrip5.Name = "ToolStrip5"

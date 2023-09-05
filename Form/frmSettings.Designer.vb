@@ -476,11 +476,11 @@ Partial Class frmSettings
         Me.TabPage2.Controls.Add(Me.Label10)
         Me.TabPage2.Controls.Add(Me.cmbDefaultLocationId)
         Me.TabPage2.Controls.Add(Me.Label9)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
         Me.TabPage2.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TabPage2.Size = New System.Drawing.Size(865, 412)
+        Me.TabPage2.Size = New System.Drawing.Size(865, 409)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "General"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -637,11 +637,11 @@ Partial Class frmSettings
         Me.TabPage3.Controls.Add(Me.Label16)
         Me.TabPage3.Controls.Add(Me.GroupBox2)
         Me.TabPage3.Controls.Add(Me.GroupBox1)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 25)
         Me.TabPage3.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TabPage3.Size = New System.Drawing.Size(865, 412)
+        Me.TabPage3.Size = New System.Drawing.Size(865, 409)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Accounting"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -809,11 +809,11 @@ Partial Class frmSettings
         Me.TabPage4.Controls.Add(Me.GroupBox5)
         Me.TabPage4.Controls.Add(Me.GroupBox4)
         Me.TabPage4.Controls.Add(Me.GroupBox3)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 25)
         Me.TabPage4.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TabPage4.Size = New System.Drawing.Size(865, 412)
+        Me.TabPage4.Size = New System.Drawing.Size(865, 409)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "Sales & Customer"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -1105,11 +1105,11 @@ Partial Class frmSettings
         Me.TabPage5.Controls.Add(Me.Label22)
         Me.TabPage5.Controls.Add(Me.numFinanceChargeAnnualInterestRate)
         Me.TabPage5.Controls.Add(Me.Label21)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 25)
         Me.TabPage5.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TabPage5.Size = New System.Drawing.Size(865, 412)
+        Me.TabPage5.Size = New System.Drawing.Size(865, 409)
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "Finance Charge"
         Me.TabPage5.UseVisualStyleBackColor = True
@@ -1278,11 +1278,11 @@ Partial Class frmSettings
         Me.TabPage6.Controls.Add(Me.GroupBox8)
         Me.TabPage6.Controls.Add(Me.GroupBox7)
         Me.TabPage6.Controls.Add(Me.GroupBox6)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 25)
         Me.TabPage6.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TabPage6.Size = New System.Drawing.Size(865, 412)
+        Me.TabPage6.Size = New System.Drawing.Size(865, 409)
         Me.TabPage6.TabIndex = 5
         Me.TabPage6.Text = "Inventory"
         Me.TabPage6.UseVisualStyleBackColor = True
@@ -1562,11 +1562,11 @@ Partial Class frmSettings
         Me.TabPage7.Controls.Add(Me.Label32)
         Me.TabPage7.Controls.Add(Me.txtCompanyTin)
         Me.TabPage7.Controls.Add(Me.Label31)
-        Me.TabPage7.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage7.Location = New System.Drawing.Point(4, 25)
         Me.TabPage7.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabPage7.Name = "TabPage7"
         Me.TabPage7.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TabPage7.Size = New System.Drawing.Size(865, 412)
+        Me.TabPage7.Size = New System.Drawing.Size(865, 409)
         Me.TabPage7.TabIndex = 6
         Me.TabPage7.Text = "Tax"
         Me.TabPage7.UseVisualStyleBackColor = True
@@ -1701,11 +1701,11 @@ Partial Class frmSettings
         Me.TabPage8.Controls.Add(Me.numManagerRebites)
         Me.TabPage8.Controls.Add(Me.Label28)
         Me.TabPage8.Controls.Add(Me.Label27)
-        Me.TabPage8.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage8.Location = New System.Drawing.Point(4, 25)
         Me.TabPage8.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabPage8.Name = "TabPage8"
         Me.TabPage8.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.TabPage8.Size = New System.Drawing.Size(865, 412)
+        Me.TabPage8.Size = New System.Drawing.Size(865, 409)
         Me.TabPage8.TabIndex = 7
         Me.TabPage8.Text = "Others"
         Me.TabPage8.UseVisualStyleBackColor = True
@@ -1813,9 +1813,9 @@ Partial Class frmSettings
         Me.Label35.Location = New System.Drawing.Point(24, 95)
         Me.Label35.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(163, 16)
+        Me.Label35.Size = New System.Drawing.Size(165, 16)
         Me.Label35.TabIndex = 23
-        Me.Label35.Text = "if Manager Rebites gets"
+        Me.Label35.Text = "If Manager Rebites gets"
         '
         'Label34
         '
@@ -1859,10 +1859,10 @@ Partial Class frmSettings
         'btnSave
         '
         Me.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnSave.Location = New System.Drawing.Point(709, 487)
+        Me.btnSave.Location = New System.Drawing.Point(644, 474)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(86, 28)
+        Me.btnSave.Size = New System.Drawing.Size(120, 28)
         Me.btnSave.TabIndex = 3
         Me.btnSave.Text = "&Save"
         Me.btnSave.UseVisualStyleBackColor = True
@@ -1870,10 +1870,10 @@ Partial Class frmSettings
         'btnCancel
         '
         Me.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnCancel.Location = New System.Drawing.Point(801, 487)
+        Me.btnCancel.Location = New System.Drawing.Point(770, 474)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(86, 28)
+        Me.btnCancel.Size = New System.Drawing.Size(120, 28)
         Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
@@ -1881,7 +1881,7 @@ Partial Class frmSettings
         'btnSystemDefault
         '
         Me.btnSystemDefault.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnSystemDefault.Location = New System.Drawing.Point(17, 487)
+        Me.btnSystemDefault.Location = New System.Drawing.Point(17, 474)
         Me.btnSystemDefault.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSystemDefault.Name = "btnSystemDefault"
         Me.btnSystemDefault.Size = New System.Drawing.Size(104, 28)
@@ -1892,7 +1892,7 @@ Partial Class frmSettings
         'btnDefaultValue
         '
         Me.btnDefaultValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnDefaultValue.Location = New System.Drawing.Point(128, 487)
+        Me.btnDefaultValue.Location = New System.Drawing.Point(128, 474)
         Me.btnDefaultValue.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnDefaultValue.Name = "btnDefaultValue"
         Me.btnDefaultValue.Size = New System.Drawing.Size(122, 28)

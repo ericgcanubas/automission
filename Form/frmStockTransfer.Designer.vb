@@ -95,7 +95,7 @@ Partial Class frmStockTransfer
         Me.dgvStock.MultiSelect = False
         Me.dgvStock.Name = "dgvStock"
         Me.dgvStock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvStock.Size = New System.Drawing.Size(1106, 196)
+        Me.dgvStock.Size = New System.Drawing.Size(1106, 233)
         Me.dgvStock.TabIndex = 0
         '
         'ToolStrip2
@@ -180,11 +180,11 @@ Partial Class frmStockTransfer
         '
         Me.txtNOTES.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNOTES.Location = New System.Drawing.Point(87, 446)
+        Me.txtNOTES.Location = New System.Drawing.Point(87, 483)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNOTES.Name = "txtNOTES"
         Me.txtNOTES.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtNOTES.Size = New System.Drawing.Size(1046, 23)
+        Me.txtNOTES.Size = New System.Drawing.Size(631, 23)
         Me.txtNOTES.TabIndex = 86
         '
         'Label14
@@ -192,11 +192,11 @@ Partial Class frmStockTransfer
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(14, 446)
+        Me.Label14.Location = New System.Drawing.Point(36, 486)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 85
-        Me.Label14.Text = "Remarks"
+        Me.Label14.Text = "Notes"
         '
         'lblACCOUNT_ID
         '
@@ -242,7 +242,7 @@ Partial Class frmStockTransfer
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(415, 112)
+        Me.Label2.Location = New System.Drawing.Point(417, 113)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(86, 16)
         Me.Label2.TabIndex = 0
@@ -278,11 +278,11 @@ Partial Class frmStockTransfer
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(658, 85)
+        Me.Label8.Location = New System.Drawing.Point(648, 83)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(60, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Barcode"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -496,7 +496,7 @@ Partial Class frmStockTransfer
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1120, 295)
+        Me.TabControl1.Size = New System.Drawing.Size(1120, 332)
         Me.TabControl1.TabIndex = 137
         '
         'TabPage1
@@ -508,7 +508,7 @@ Partial Class frmStockTransfer
         Me.TabPage1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TabPage1.Size = New System.Drawing.Size(1112, 266)
+        Me.TabPage1.Size = New System.Drawing.Size(1112, 303)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Item Transfer"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -518,7 +518,7 @@ Partial Class frmStockTransfer
         Me.ToolStrip5.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel12, Me.lblCount})
-        Me.ToolStrip5.Location = New System.Drawing.Point(3, 237)
+        Me.ToolStrip5.Location = New System.Drawing.Point(3, 274)
         Me.ToolStrip5.Name = "ToolStrip5"
         Me.ToolStrip5.Size = New System.Drawing.Size(1106, 25)
         Me.ToolStrip5.TabIndex = 154
@@ -527,13 +527,13 @@ Partial Class frmStockTransfer
         'ToolStripLabel12
         '
         Me.ToolStripLabel12.Name = "ToolStripLabel12"
-        Me.ToolStripLabel12.Size = New System.Drawing.Size(68, 22)
+        Me.ToolStripLabel12.Size = New System.Drawing.Size(80, 22)
         Me.ToolStripLabel12.Text = "Total Entry"
         '
         'lblCount
         '
         Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(14, 22)
+        Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
         'frmStockTransfer

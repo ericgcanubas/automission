@@ -238,7 +238,6 @@ Partial Class frmUserSecurity
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(985, 532)
         Me.Controls.Add(Me.xxxUserID)
         Me.Controls.Add(Me.Label1)

@@ -68,6 +68,7 @@ Partial Class frmUnitofMeasure
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.lblRow})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 350)
         Me.StatusStrip1.Name = "StatusStrip1"
@@ -81,13 +82,12 @@ Partial Class frmUnitofMeasure
         '
         Me.ToolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(86, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(107, 17)
         Me.ToolStripStatusLabel1.Text = "Record Count :"
         '
         'lblRow
         '
         Me.lblRow.BackColor = System.Drawing.Color.Transparent
-        Me.lblRow.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblRow.Name = "lblRow"
         Me.lblRow.Size = New System.Drawing.Size(15, 17)
         Me.lblRow.Text = "0"

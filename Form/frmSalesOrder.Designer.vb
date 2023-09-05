@@ -110,12 +110,12 @@ Partial Class frmSalesOrder
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(57, 86)
+        Me.Label2.Location = New System.Drawing.Point(34, 86)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(44, 16)
+        Me.Label2.Size = New System.Drawing.Size(69, 16)
         Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Buyer"
+        Me.Label2.Text = "Customer"
         '
         'txtPO_NUMBER
         '
@@ -226,12 +226,12 @@ Partial Class frmSalesOrder
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(495, 113)
+        Me.Label9.Location = New System.Drawing.Point(485, 113)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(52, 16)
+        Me.Label9.Size = New System.Drawing.Size(63, 16)
         Me.Label9.TabIndex = 8
-        Me.Label9.Text = "Branch"
+        Me.Label9.Text = "Location"
         '
         'txtCODE
         '
@@ -244,12 +244,12 @@ Partial Class frmSalesOrder
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(856, 82)
+        Me.Label8.Location = New System.Drawing.Point(842, 82)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(60, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Barcode"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -263,12 +263,12 @@ Partial Class frmSalesOrder
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(499, 84)
+        Me.Label7.Location = New System.Drawing.Point(508, 82)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(49, 16)
+        Me.Label7.Size = New System.Drawing.Size(38, 16)
         Me.Label7.TabIndex = 4
-        Me.Label7.Text = "Date :"
+        Me.Label7.Text = "Date"
         '
         'ToolStrip1
         '

@@ -1,4 +1,4 @@
-﻿'Imports MySql.Data.MySqlClient
+﻿
 Imports System.Data.Odbc
 
 Module modDatabase
@@ -19,18 +19,14 @@ Module modDatabase
     End Function
 
     Public Function fCHECKING_CODE(ByVal prCODE As String, ByVal prTable As String) As String
-
         Dim bAlreadyUSed As Boolean = False
         Try
-
             Dim rd As OdbcDataReader = fReader("select ID from " & prTable & " where `CODE` = '" & prCODE & "' Limit 1")
             If rd.Read Then
                 bAlreadyUSed = True
             End If
             rd.Close()
         Catch ex As Exception
-
-
         End Try
 
         If bAlreadyUSed = True Then

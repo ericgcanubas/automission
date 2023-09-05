@@ -99,7 +99,7 @@ Partial Class frmPurchaseOrder
         'lblPR_ID
         '
         Me.lblPR_ID.AutoSize = True
-        Me.lblPR_ID.Location = New System.Drawing.Point(317, 135)
+        Me.lblPR_ID.Location = New System.Drawing.Point(303, 127)
         Me.lblPR_ID.Name = "lblPR_ID"
         Me.lblPR_ID.Size = New System.Drawing.Size(15, 16)
         Me.lblPR_ID.TabIndex = 2
@@ -112,7 +112,7 @@ Partial Class frmPurchaseOrder
         Me.cmbVENDOR_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbVENDOR_ID.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cmbVENDOR_ID.FormattingEnabled = True
-        Me.cmbVENDOR_ID.Location = New System.Drawing.Point(105, 79)
+        Me.cmbVENDOR_ID.Location = New System.Drawing.Point(91, 71)
         Me.cmbVENDOR_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbVENDOR_ID.Name = "cmbVENDOR_ID"
         Me.cmbVENDOR_ID.Size = New System.Drawing.Size(342, 24)
@@ -121,7 +121,7 @@ Partial Class frmPurchaseOrder
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(48, 82)
+        Me.Label2.Location = New System.Drawing.Point(34, 74)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(52, 16)
         Me.Label2.TabIndex = 0
@@ -131,7 +131,7 @@ Partial Class frmPurchaseOrder
         '
         Me.cmbPAYMENT_TERMS_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPAYMENT_TERMS_ID.FormattingEnabled = True
-        Me.cmbPAYMENT_TERMS_ID.Location = New System.Drawing.Point(105, 133)
+        Me.cmbPAYMENT_TERMS_ID.Location = New System.Drawing.Point(91, 125)
         Me.cmbPAYMENT_TERMS_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbPAYMENT_TERMS_ID.Name = "cmbPAYMENT_TERMS_ID"
         Me.cmbPAYMENT_TERMS_ID.Size = New System.Drawing.Size(154, 24)
@@ -140,16 +140,16 @@ Partial Class frmPurchaseOrder
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(19, 138)
+        Me.Label3.Location = New System.Drawing.Point(5, 130)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(81, 16)
+        Me.Label3.Size = New System.Drawing.Size(76, 16)
         Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Pmt. Terms"
+        Me.Label3.Text = "Pmt.Terms"
         '
         'dtpDATE_EXPECTED
         '
         Me.dtpDATE_EXPECTED.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE_EXPECTED.Location = New System.Drawing.Point(518, 133)
+        Me.dtpDATE_EXPECTED.Location = New System.Drawing.Point(504, 125)
         Me.dtpDATE_EXPECTED.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE_EXPECTED.Name = "dtpDATE_EXPECTED"
         Me.dtpDATE_EXPECTED.ShowCheckBox = True
@@ -159,7 +159,7 @@ Partial Class frmPurchaseOrder
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(411, 138)
+        Me.Label4.Location = New System.Drawing.Point(397, 130)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(104, 16)
         Me.Label4.TabIndex = 2
@@ -170,7 +170,7 @@ Partial Class frmPurchaseOrder
         Me.cmbCLASS_ID.AccessibleDescription = "null"
         Me.cmbCLASS_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCLASS_ID.FormattingEnabled = True
-        Me.cmbCLASS_ID.Location = New System.Drawing.Point(800, 107)
+        Me.cmbCLASS_ID.Location = New System.Drawing.Point(786, 99)
         Me.cmbCLASS_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCLASS_ID.Name = "cmbCLASS_ID"
         Me.cmbCLASS_ID.Size = New System.Drawing.Size(204, 24)
@@ -179,7 +179,7 @@ Partial Class frmPurchaseOrder
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(753, 110)
+        Me.Label10.Location = New System.Drawing.Point(739, 102)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(41, 16)
         Me.Label10.TabIndex = 10
@@ -189,7 +189,7 @@ Partial Class frmPurchaseOrder
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(518, 106)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(504, 98)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
         Me.cmbLOCATION_ID.Size = New System.Drawing.Size(226, 24)
@@ -198,7 +198,7 @@ Partial Class frmPurchaseOrder
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(449, 110)
+        Me.Label9.Location = New System.Drawing.Point(435, 102)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(63, 16)
         Me.Label9.TabIndex = 8
@@ -206,7 +206,7 @@ Partial Class frmPurchaseOrder
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(800, 80)
+        Me.txtCODE.Location = New System.Drawing.Point(786, 72)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(204, 23)
@@ -215,16 +215,16 @@ Partial Class frmPurchaseOrder
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(754, 83)
+        Me.Label8.Location = New System.Drawing.Point(707, 75)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(518, 79)
+        Me.dtpDATE.Location = New System.Drawing.Point(504, 71)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(154, 23)
@@ -233,7 +233,7 @@ Partial Class frmPurchaseOrder
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(474, 84)
+        Me.Label7.Location = New System.Drawing.Point(460, 76)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(38, 16)
         Me.Label7.TabIndex = 4
@@ -252,7 +252,7 @@ Partial Class frmPurchaseOrder
         '
         Me.cmbSHIP_VIA_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSHIP_VIA_ID.FormattingEnabled = True
-        Me.cmbSHIP_VIA_ID.Location = New System.Drawing.Point(105, 106)
+        Me.cmbSHIP_VIA_ID.Location = New System.Drawing.Point(91, 98)
         Me.cmbSHIP_VIA_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbSHIP_VIA_ID.Name = "cmbSHIP_VIA_ID"
         Me.cmbSHIP_VIA_ID.Size = New System.Drawing.Size(154, 24)
@@ -261,7 +261,7 @@ Partial Class frmPurchaseOrder
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(47, 110)
+        Me.Label12.Location = New System.Drawing.Point(33, 102)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(53, 16)
         Me.Label12.TabIndex = 14
@@ -438,12 +438,12 @@ Partial Class frmPurchaseOrder
         Me.dgvProductItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProductItem.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvProductItem.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvProductItem.Location = New System.Drawing.Point(3, 35)
+        Me.dgvProductItem.Location = New System.Drawing.Point(3, 41)
         Me.dgvProductItem.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvProductItem.MultiSelect = False
         Me.dgvProductItem.Name = "dgvProductItem"
         Me.dgvProductItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvProductItem.Size = New System.Drawing.Size(1076, 124)
+        Me.dgvProductItem.Size = New System.Drawing.Size(1076, 118)
         Me.dgvProductItem.TabIndex = 0
         '
         'lblINPUT_TAX_VAT_METHOD
@@ -461,7 +461,7 @@ Partial Class frmPurchaseOrder
         Me.lblAMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblAMOUNT.BackColor = System.Drawing.Color.Transparent
         Me.lblAMOUNT.ForeColor = System.Drawing.Color.Blue
-        Me.lblAMOUNT.Location = New System.Drawing.Point(943, 436)
+        Me.lblAMOUNT.Location = New System.Drawing.Point(937, 427)
         Me.lblAMOUNT.Name = "lblAMOUNT"
         Me.lblAMOUNT.Size = New System.Drawing.Size(158, 21)
         Me.lblAMOUNT.TabIndex = 66
@@ -473,7 +473,7 @@ Partial Class frmPurchaseOrder
         Me.lblINPUT_TAX_AMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblINPUT_TAX_AMOUNT.BackColor = System.Drawing.Color.Transparent
         Me.lblINPUT_TAX_AMOUNT.ForeColor = System.Drawing.Color.Blue
-        Me.lblINPUT_TAX_AMOUNT.Location = New System.Drawing.Point(785, 433)
+        Me.lblINPUT_TAX_AMOUNT.Location = New System.Drawing.Point(779, 424)
         Me.lblINPUT_TAX_AMOUNT.Name = "lblINPUT_TAX_AMOUNT"
         Me.lblINPUT_TAX_AMOUNT.Size = New System.Drawing.Size(139, 21)
         Me.lblINPUT_TAX_AMOUNT.TabIndex = 65
@@ -487,7 +487,7 @@ Partial Class frmPurchaseOrder
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAddItem, Me.ToolStripLabel10, Me.tsEditItem, Me.ToolStripLabel9, Me.tsRemoveItem, Me.tsFindText, Me.ToolStripLabel11})
         Me.ToolStrip2.Location = New System.Drawing.Point(3, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(1076, 31)
+        Me.ToolStrip2.Size = New System.Drawing.Size(1076, 37)
         Me.ToolStrip2.TabIndex = 18
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -497,14 +497,14 @@ Partial Class frmPurchaseOrder
         Me.tsAddItem.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAddItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAddItem.Name = "tsAddItem"
-        Me.tsAddItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsAddItem.Size = New System.Drawing.Size(34, 34)
         Me.tsAddItem.Text = "&Add"
         Me.tsAddItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel10
         '
         Me.ToolStripLabel10.Name = "ToolStripLabel10"
-        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 37)
         '
         'tsEditItem
         '
@@ -512,14 +512,14 @@ Partial Class frmPurchaseOrder
         Me.tsEditItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEditItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEditItem.Name = "tsEditItem"
-        Me.tsEditItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsEditItem.Size = New System.Drawing.Size(34, 34)
         Me.tsEditItem.Text = "&Edit"
         Me.tsEditItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel9
         '
         Me.ToolStripLabel9.Name = "ToolStripLabel9"
-        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 37)
         '
         'tsRemoveItem
         '
@@ -527,7 +527,7 @@ Partial Class frmPurchaseOrder
         Me.tsRemoveItem.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsRemoveItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRemoveItem.Name = "tsRemoveItem"
-        Me.tsRemoveItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsRemoveItem.Size = New System.Drawing.Size(34, 34)
         Me.tsRemoveItem.Text = "&Remove"
         Me.tsRemoveItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -535,15 +535,15 @@ Partial Class frmPurchaseOrder
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
-        Me.tsFindText.Size = New System.Drawing.Size(228, 31)
+        Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
         'ToolStripLabel11
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 28)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'Label17
@@ -552,7 +552,7 @@ Partial Class frmPurchaseOrder
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.Transparent
         Me.Label17.ForeColor = System.Drawing.Color.Blue
-        Me.Label17.Location = New System.Drawing.Point(1061, 420)
+        Me.Label17.Location = New System.Drawing.Point(1055, 411)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(45, 16)
         Me.Label17.TabIndex = 64
@@ -562,10 +562,10 @@ Partial Class frmPurchaseOrder
         '
         Me.txtNOTES.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNOTES.Location = New System.Drawing.Point(290, 390)
+        Me.txtNOTES.Location = New System.Drawing.Point(70, 422)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNOTES.Name = "txtNOTES"
-        Me.txtNOTES.Size = New System.Drawing.Size(813, 23)
+        Me.txtNOTES.Size = New System.Drawing.Size(679, 23)
         Me.txtNOTES.TabIndex = 61
         '
         'Label16
@@ -574,7 +574,7 @@ Partial Class frmPurchaseOrder
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Blue
-        Me.Label16.Location = New System.Drawing.Point(857, 420)
+        Me.Label16.Location = New System.Drawing.Point(851, 411)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(69, 16)
         Me.Label16.TabIndex = 63
@@ -585,7 +585,7 @@ Partial Class frmPurchaseOrder
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Location = New System.Drawing.Point(10, 394)
+        Me.Label13.Location = New System.Drawing.Point(33, 396)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(29, 16)
         Me.Label13.TabIndex = 57
@@ -598,7 +598,7 @@ Partial Class frmPurchaseOrder
         Me.cmbINPUT_TAX_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbINPUT_TAX_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbINPUT_TAX_ID.FormattingEnabled = True
-        Me.cmbINPUT_TAX_ID.Location = New System.Drawing.Point(48, 390)
+        Me.cmbINPUT_TAX_ID.Location = New System.Drawing.Point(70, 393)
         Me.cmbINPUT_TAX_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbINPUT_TAX_ID.Name = "cmbINPUT_TAX_ID"
         Me.cmbINPUT_TAX_ID.Size = New System.Drawing.Size(162, 24)
@@ -609,18 +609,18 @@ Partial Class frmPurchaseOrder
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(217, 394)
+        Me.Label14.Location = New System.Drawing.Point(19, 425)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 60
-        Me.Label14.Text = "Remarks"
+        Me.Label14.Text = "Notes"
         '
         'Label15
         '
         Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label15.Location = New System.Drawing.Point(784, 436)
+        Me.Label15.Location = New System.Drawing.Point(778, 427)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(324, 1)
         Me.Label15.TabIndex = 62
@@ -679,7 +679,7 @@ Partial Class frmPurchaseOrder
         'ToolStrip5
         '
         Me.ToolStrip5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel12, Me.lblCount})
         Me.ToolStrip5.Location = New System.Drawing.Point(3, 159)
         Me.ToolStrip5.Name = "ToolStrip5"
@@ -690,13 +690,13 @@ Partial Class frmPurchaseOrder
         'ToolStripLabel12
         '
         Me.ToolStripLabel12.Name = "ToolStripLabel12"
-        Me.ToolStripLabel12.Size = New System.Drawing.Size(68, 22)
+        Me.ToolStripLabel12.Size = New System.Drawing.Size(80, 22)
         Me.ToolStripLabel12.Text = "Total Entry"
         '
         'lblCount
         '
         Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(14, 22)
+        Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
         'frmPurchaseOrder

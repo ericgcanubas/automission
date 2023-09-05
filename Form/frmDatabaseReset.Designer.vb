@@ -37,6 +37,7 @@ Partial Class frmDatabaseReset
         Me.chkDealer = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.chkTransactionLog = New System.Windows.Forms.CheckBox()
+        Me.chkUsers = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'btnRESET
@@ -57,7 +58,7 @@ Partial Class frmDatabaseReset
         Me.chkTableList.Location = New System.Drawing.Point(3, 4)
         Me.chkTableList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chkTableList.Name = "chkTableList"
-        Me.chkTableList.Size = New System.Drawing.Size(382, 308)
+        Me.chkTableList.Size = New System.Drawing.Size(382, 292)
         Me.chkTableList.TabIndex = 1
         '
         'btnCheckAll
@@ -108,7 +109,7 @@ Partial Class frmDatabaseReset
         Me.chkVendor.AutoSize = True
         Me.chkVendor.Checked = True
         Me.chkVendor.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkVendor.Location = New System.Drawing.Point(414, 103)
+        Me.chkVendor.Location = New System.Drawing.Point(414, 137)
         Me.chkVendor.Margin = New System.Windows.Forms.Padding(2)
         Me.chkVendor.Name = "chkVendor"
         Me.chkVendor.Size = New System.Drawing.Size(71, 20)
@@ -121,7 +122,7 @@ Partial Class frmDatabaseReset
         Me.chkCustomer.AutoSize = True
         Me.chkCustomer.Checked = True
         Me.chkCustomer.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkCustomer.Location = New System.Drawing.Point(414, 121)
+        Me.chkCustomer.Location = New System.Drawing.Point(414, 155)
         Me.chkCustomer.Margin = New System.Windows.Forms.Padding(2)
         Me.chkCustomer.Name = "chkCustomer"
         Me.chkCustomer.Size = New System.Drawing.Size(88, 20)
@@ -134,7 +135,7 @@ Partial Class frmDatabaseReset
         Me.chkEmployee.AutoSize = True
         Me.chkEmployee.Checked = True
         Me.chkEmployee.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkEmployee.Location = New System.Drawing.Point(414, 139)
+        Me.chkEmployee.Location = New System.Drawing.Point(414, 173)
         Me.chkEmployee.Margin = New System.Windows.Forms.Padding(2)
         Me.chkEmployee.Name = "chkEmployee"
         Me.chkEmployee.Size = New System.Drawing.Size(88, 20)
@@ -147,7 +148,7 @@ Partial Class frmDatabaseReset
         Me.chkTaxAgency.AutoSize = True
         Me.chkTaxAgency.Checked = True
         Me.chkTaxAgency.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkTaxAgency.Location = New System.Drawing.Point(414, 156)
+        Me.chkTaxAgency.Location = New System.Drawing.Point(414, 190)
         Me.chkTaxAgency.Margin = New System.Windows.Forms.Padding(2)
         Me.chkTaxAgency.Name = "chkTaxAgency"
         Me.chkTaxAgency.Size = New System.Drawing.Size(102, 20)
@@ -160,7 +161,7 @@ Partial Class frmDatabaseReset
         Me.chkOtherContacts.AutoSize = True
         Me.chkOtherContacts.Checked = True
         Me.chkOtherContacts.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkOtherContacts.Location = New System.Drawing.Point(414, 174)
+        Me.chkOtherContacts.Location = New System.Drawing.Point(414, 208)
         Me.chkOtherContacts.Margin = New System.Windows.Forms.Padding(2)
         Me.chkOtherContacts.Name = "chkOtherContacts"
         Me.chkOtherContacts.Size = New System.Drawing.Size(128, 20)
@@ -173,7 +174,7 @@ Partial Class frmDatabaseReset
         Me.chkManager.AutoSize = True
         Me.chkManager.Checked = True
         Me.chkManager.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkManager.Location = New System.Drawing.Point(414, 191)
+        Me.chkManager.Location = New System.Drawing.Point(414, 225)
         Me.chkManager.Margin = New System.Windows.Forms.Padding(2)
         Me.chkManager.Name = "chkManager"
         Me.chkManager.Size = New System.Drawing.Size(82, 20)
@@ -186,7 +187,7 @@ Partial Class frmDatabaseReset
         Me.chkDealer.AutoSize = True
         Me.chkDealer.Checked = True
         Me.chkDealer.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkDealer.Location = New System.Drawing.Point(414, 209)
+        Me.chkDealer.Location = New System.Drawing.Point(414, 243)
         Me.chkDealer.Margin = New System.Windows.Forms.Padding(2)
         Me.chkDealer.Name = "chkDealer"
         Me.chkDealer.Size = New System.Drawing.Size(67, 20)
@@ -197,7 +198,7 @@ Partial Class frmDatabaseReset
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(395, 89)
+        Me.Label2.Location = New System.Drawing.Point(395, 123)
         Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(67, 16)
@@ -217,11 +218,23 @@ Partial Class frmDatabaseReset
         Me.chkTransactionLog.Text = "Transaction Log"
         Me.chkTransactionLog.UseVisualStyleBackColor = True
         '
+        'chkUsers
+        '
+        Me.chkUsers.AutoSize = True
+        Me.chkUsers.Location = New System.Drawing.Point(415, 86)
+        Me.chkUsers.Margin = New System.Windows.Forms.Padding(2)
+        Me.chkUsers.Name = "chkUsers"
+        Me.chkUsers.Size = New System.Drawing.Size(62, 20)
+        Me.chkUsers.TabIndex = 16
+        Me.chkUsers.Text = "Users"
+        Me.chkUsers.UseVisualStyleBackColor = True
+        '
         'frmDatabaseReset
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(562, 353)
+        Me.Controls.Add(Me.chkUsers)
         Me.Controls.Add(Me.chkTransactionLog)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.chkDealer)
@@ -265,4 +278,5 @@ Partial Class frmDatabaseReset
     Friend WithEvents chkDealer As CheckBox
     Friend WithEvents Label2 As Label
     Friend WithEvents chkTransactionLog As CheckBox
+    Friend WithEvents chkUsers As CheckBox
 End Class

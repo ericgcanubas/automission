@@ -38,7 +38,7 @@ Partial Class frmUserDefault
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(9, 31)
+        Me.Label1.Location = New System.Drawing.Point(8, 16)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(63, 16)
@@ -48,7 +48,7 @@ Partial Class frmUserDefault
         'cmbLOCATION_ID
         '
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(97, 28)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(96, 13)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
         Me.cmbLOCATION_ID.Size = New System.Drawing.Size(469, 24)
@@ -57,7 +57,7 @@ Partial Class frmUserDefault
         'cmbPRICE_LEVEL_ID
         '
         Me.cmbPRICE_LEVEL_ID.FormattingEnabled = True
-        Me.cmbPRICE_LEVEL_ID.Location = New System.Drawing.Point(97, 61)
+        Me.cmbPRICE_LEVEL_ID.Location = New System.Drawing.Point(96, 46)
         Me.cmbPRICE_LEVEL_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPRICE_LEVEL_ID.Name = "cmbPRICE_LEVEL_ID"
         Me.cmbPRICE_LEVEL_ID.Size = New System.Drawing.Size(469, 24)
@@ -67,7 +67,7 @@ Partial Class frmUserDefault
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(9, 65)
+        Me.Label2.Location = New System.Drawing.Point(8, 50)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(76, 16)
@@ -78,7 +78,7 @@ Partial Class frmUserDefault
         '
         Me.chkLockNegativePerUser.AutoSize = True
         Me.chkLockNegativePerUser.BackColor = System.Drawing.Color.Transparent
-        Me.chkLockNegativePerUser.Location = New System.Drawing.Point(97, 100)
+        Me.chkLockNegativePerUser.Location = New System.Drawing.Point(96, 85)
         Me.chkLockNegativePerUser.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkLockNegativePerUser.Name = "chkLockNegativePerUser"
         Me.chkLockNegativePerUser.Size = New System.Drawing.Size(214, 20)
@@ -90,7 +90,7 @@ Partial Class frmUserDefault
         '
         Me.chkPOS_SELECT_DATE.AutoSize = True
         Me.chkPOS_SELECT_DATE.BackColor = System.Drawing.Color.Transparent
-        Me.chkPOS_SELECT_DATE.Location = New System.Drawing.Point(97, 123)
+        Me.chkPOS_SELECT_DATE.Location = New System.Drawing.Point(96, 108)
         Me.chkPOS_SELECT_DATE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkPOS_SELECT_DATE.Name = "chkPOS_SELECT_DATE"
         Me.chkPOS_SELECT_DATE.Size = New System.Drawing.Size(136, 20)
@@ -102,7 +102,7 @@ Partial Class frmUserDefault
         '
         Me.chkUSER_DISABLED.AutoSize = True
         Me.chkUSER_DISABLED.BackColor = System.Drawing.Color.Transparent
-        Me.chkUSER_DISABLED.Location = New System.Drawing.Point(352, 100)
+        Me.chkUSER_DISABLED.Location = New System.Drawing.Point(351, 85)
         Me.chkUSER_DISABLED.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkUSER_DISABLED.Name = "chkUSER_DISABLED"
         Me.chkUSER_DISABLED.Size = New System.Drawing.Size(114, 20)
@@ -114,7 +114,7 @@ Partial Class frmUserDefault
         '
         Me.chkPRICE_LOCK.AutoSize = True
         Me.chkPRICE_LOCK.BackColor = System.Drawing.Color.Transparent
-        Me.chkPRICE_LOCK.Location = New System.Drawing.Point(352, 123)
+        Me.chkPRICE_LOCK.Location = New System.Drawing.Point(351, 108)
         Me.chkPRICE_LOCK.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkPRICE_LOCK.Name = "chkPRICE_LOCK"
         Me.chkPRICE_LOCK.Size = New System.Drawing.Size(93, 20)
@@ -124,7 +124,7 @@ Partial Class frmUserDefault
         '
         'btnRemoveDefault
         '
-        Me.btnRemoveDefault.Location = New System.Drawing.Point(14, 178)
+        Me.btnRemoveDefault.Location = New System.Drawing.Point(96, 149)
         Me.btnRemoveDefault.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnRemoveDefault.Name = "btnRemoveDefault"
         Me.btnRemoveDefault.Size = New System.Drawing.Size(86, 28)
@@ -134,7 +134,7 @@ Partial Class frmUserDefault
         '
         'btnSaveDefault
         '
-        Me.btnSaveDefault.Location = New System.Drawing.Point(480, 178)
+        Me.btnSaveDefault.Location = New System.Drawing.Point(479, 149)
         Me.btnSaveDefault.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSaveDefault.Name = "btnSaveDefault"
         Me.btnSaveDefault.Size = New System.Drawing.Size(86, 28)
@@ -146,7 +146,7 @@ Partial Class frmUserDefault
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(579, 217)
+        Me.ClientSize = New System.Drawing.Size(579, 190)
         Me.Controls.Add(Me.btnSaveDefault)
         Me.Controls.Add(Me.btnRemoveDefault)
         Me.Controls.Add(Me.chkPRICE_LOCK)

@@ -175,13 +175,13 @@ Partial Class frmSalesReceipt
         Me.tsAddItem.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAddItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAddItem.Name = "tsAddItem"
-        Me.tsAddItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsAddItem.Size = New System.Drawing.Size(34, 34)
         Me.tsAddItem.Text = "&Add"
         '
         'ToolStripLabel10
         '
         Me.ToolStripLabel10.Name = "ToolStripLabel10"
-        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 37)
         '
         'tsEditItem
         '
@@ -189,13 +189,13 @@ Partial Class frmSalesReceipt
         Me.tsEditItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEditItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEditItem.Name = "tsEditItem"
-        Me.tsEditItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsEditItem.Size = New System.Drawing.Size(34, 34)
         Me.tsEditItem.Text = "&Edit"
         '
         'ToolStripLabel9
         '
         Me.ToolStripLabel9.Name = "ToolStripLabel9"
-        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 37)
         '
         'tsRemoveItem
         '
@@ -203,7 +203,7 @@ Partial Class frmSalesReceipt
         Me.tsRemoveItem.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsRemoveItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRemoveItem.Name = "tsRemoveItem"
-        Me.tsRemoveItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsRemoveItem.Size = New System.Drawing.Size(34, 34)
         Me.tsRemoveItem.Text = "&Remove"
         '
         'tsFindText
@@ -218,7 +218,7 @@ Partial Class frmSalesReceipt
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(30, 28)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'Label17
@@ -295,7 +295,7 @@ Partial Class frmSalesReceipt
         '
         Me.cmbCUSTOMER_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbCUSTOMER_ID.FormattingEnabled = True
-        Me.cmbCUSTOMER_ID.Location = New System.Drawing.Point(104, 79)
+        Me.cmbCUSTOMER_ID.Location = New System.Drawing.Point(98, 79)
         Me.cmbCUSTOMER_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCUSTOMER_ID.Name = "cmbCUSTOMER_ID"
         Me.cmbCUSTOMER_ID.Size = New System.Drawing.Size(342, 24)
@@ -304,15 +304,15 @@ Partial Class frmSalesReceipt
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(54, 81)
+        Me.Label2.Location = New System.Drawing.Point(26, 82)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(44, 16)
+        Me.Label2.Size = New System.Drawing.Size(69, 16)
         Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Buyer"
+        Me.Label2.Text = "Customer"
         '
         'txtCARD_NO
         '
-        Me.txtCARD_NO.Location = New System.Drawing.Point(304, 133)
+        Me.txtCARD_NO.Location = New System.Drawing.Point(298, 133)
         Me.txtCARD_NO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCARD_NO.Name = "txtCARD_NO"
         Me.txtCARD_NO.Size = New System.Drawing.Size(142, 23)
@@ -321,7 +321,7 @@ Partial Class frmSalesReceipt
         'lbslCARD_NO
         '
         Me.lbslCARD_NO.AutoSize = True
-        Me.lbslCARD_NO.Location = New System.Drawing.Point(234, 135)
+        Me.lbslCARD_NO.Location = New System.Drawing.Point(228, 135)
         Me.lbslCARD_NO.Name = "lbslCARD_NO"
         Me.lbslCARD_NO.Size = New System.Drawing.Size(64, 16)
         Me.lbslCARD_NO.TabIndex = 8
@@ -329,7 +329,7 @@ Partial Class frmSalesReceipt
         '
         'txtPAYMENT_REF_NO
         '
-        Me.txtPAYMENT_REF_NO.Location = New System.Drawing.Point(304, 106)
+        Me.txtPAYMENT_REF_NO.Location = New System.Drawing.Point(298, 106)
         Me.txtPAYMENT_REF_NO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtPAYMENT_REF_NO.Name = "txtPAYMENT_REF_NO"
         Me.txtPAYMENT_REF_NO.Size = New System.Drawing.Size(142, 23)
@@ -338,7 +338,7 @@ Partial Class frmSalesReceipt
         'lbslREF_No
         '
         Me.lbslREF_No.AutoSize = True
-        Me.lbslREF_No.Location = New System.Drawing.Point(245, 110)
+        Me.lbslREF_No.Location = New System.Drawing.Point(239, 110)
         Me.lbslREF_No.Name = "lbslREF_No"
         Me.lbslREF_No.Size = New System.Drawing.Size(55, 16)
         Me.lbslREF_No.TabIndex = 6
@@ -348,7 +348,7 @@ Partial Class frmSalesReceipt
         '
         Me.cmbPAYMENT_METHOD_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPAYMENT_METHOD_ID.FormattingEnabled = True
-        Me.cmbPAYMENT_METHOD_ID.Location = New System.Drawing.Point(104, 106)
+        Me.cmbPAYMENT_METHOD_ID.Location = New System.Drawing.Point(98, 106)
         Me.cmbPAYMENT_METHOD_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbPAYMENT_METHOD_ID.Name = "cmbPAYMENT_METHOD_ID"
         Me.cmbPAYMENT_METHOD_ID.Size = New System.Drawing.Size(116, 24)
@@ -357,7 +357,7 @@ Partial Class frmSalesReceipt
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(13, 108)
+        Me.Label3.Location = New System.Drawing.Point(7, 108)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(91, 16)
         Me.Label3.TabIndex = 0
@@ -369,13 +369,13 @@ Partial Class frmSalesReceipt
         Me.cmbSALES_REP_ID.Location = New System.Drawing.Point(523, 134)
         Me.cmbSALES_REP_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbSALES_REP_ID.Name = "cmbSALES_REP_ID"
-        Me.cmbSALES_REP_ID.Size = New System.Drawing.Size(301, 24)
+        Me.cmbSALES_REP_ID.Size = New System.Drawing.Size(236, 24)
         Me.cmbSALES_REP_ID.TabIndex = 13
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(448, 139)
+        Me.Label11.Location = New System.Drawing.Point(451, 139)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(69, 16)
         Me.Label11.TabIndex = 12
@@ -384,7 +384,7 @@ Partial Class frmSalesReceipt
         'cmbCLASS_ID
         '
         Me.cmbCLASS_ID.FormattingEnabled = True
-        Me.cmbCLASS_ID.Location = New System.Drawing.Point(883, 107)
+        Me.cmbCLASS_ID.Location = New System.Drawing.Point(835, 107)
         Me.cmbCLASS_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCLASS_ID.Name = "cmbCLASS_ID"
         Me.cmbCLASS_ID.Size = New System.Drawing.Size(174, 24)
@@ -393,7 +393,7 @@ Partial Class frmSalesReceipt
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(837, 110)
+        Me.Label10.Location = New System.Drawing.Point(789, 110)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(41, 16)
         Me.Label10.TabIndex = 10
@@ -406,7 +406,7 @@ Partial Class frmSalesReceipt
         Me.cmbLOCATION_ID.Location = New System.Drawing.Point(523, 107)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(301, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(236, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
@@ -420,7 +420,7 @@ Partial Class frmSalesReceipt
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(883, 80)
+        Me.txtCODE.Location = New System.Drawing.Point(835, 80)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(174, 23)
@@ -429,11 +429,11 @@ Partial Class frmSalesReceipt
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(818, 84)
+        Me.Label8.Location = New System.Drawing.Point(760, 84)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(60, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Barcode"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -482,49 +482,49 @@ Partial Class frmSalesReceipt
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSaveNew.Name = "tsSaveNew"
-        Me.tsSaveNew.Size = New System.Drawing.Size(63, 49)
+        Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(6, 55)
         '
         'tsDiscard
         '
         Me.tsDiscard.Image = Global.Automission.My.Resources.Resources.m_refresh
         Me.tsDiscard.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDiscard.Name = "tsDiscard"
-        Me.tsDiscard.Size = New System.Drawing.Size(55, 49)
+        Me.tsDiscard.Size = New System.Drawing.Size(60, 52)
         Me.tsDiscard.Text = "&Refresh"
         Me.tsDiscard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(6, 55)
         '
         'tsFind
         '
         Me.tsFind.Image = Global.Automission.My.Resources.Resources.m_search
         Me.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsFind.Name = "tsFind"
-        Me.tsFind.Size = New System.Drawing.Size(57, 49)
+        Me.tsFind.Size = New System.Drawing.Size(65, 52)
         Me.tsFind.Text = "&Find File"
         Me.tsFind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel3
         '
         Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripButton1
         '
         Me.ToolStripButton1.Image = Global.Automission.My.Resources.Resources.m_printing
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(37, 49)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(41, 52)
         Me.ToolStripButton1.Text = "&Print"
         Me.ToolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -540,40 +540,40 @@ Partial Class frmSalesReceipt
         'PreviewToolStripMenuItem
         '
         Me.PreviewToolStripMenuItem.Name = "PreviewToolStripMenuItem"
-        Me.PreviewToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.PreviewToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.PreviewToolStripMenuItem.Text = "Preview"
         '
         'SelectPrintPageToolStripMenuItem
         '
         Me.SelectPrintPageToolStripMenuItem.Name = "SelectPrintPageToolStripMenuItem"
-        Me.SelectPrintPageToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.SelectPrintPageToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.SelectPrintPageToolStripMenuItem.Text = "Select Print Page"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripButton2
         '
         Me.ToolStripButton2.Image = Global.Automission.My.Resources.Resources.m_history_link
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(51, 49)
+        Me.ToolStripButton2.Size = New System.Drawing.Size(57, 52)
         Me.ToolStripButton2.Text = "&History"
         Me.ToolStripButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'spJournal
         '
         Me.spJournal.Name = "spJournal"
-        Me.spJournal.Size = New System.Drawing.Size(6, 52)
+        Me.spJournal.Size = New System.Drawing.Size(6, 55)
         '
         'tsJournal
         '
         Me.tsJournal.Image = Global.Automission.My.Resources.Resources.m_journal_doc
         Me.tsJournal.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsJournal.Name = "tsJournal"
-        Me.tsJournal.Size = New System.Drawing.Size(52, 49)
+        Me.tsJournal.Size = New System.Drawing.Size(57, 52)
         Me.tsJournal.Text = "&Journal"
         Me.tsJournal.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -581,14 +581,14 @@ Partial Class frmSalesReceipt
         '
         Me.ToolStripLabel8.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ToolStripLabel8.Name = "ToolStripLabel8"
-        Me.ToolStripLabel8.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel8.Size = New System.Drawing.Size(6, 55)
         '
         'tsDelete
         '
         Me.tsDelete.Image = Global.Automission.My.Resources.Resources.m_delete
         Me.tsDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDelete.Name = "tsDelete"
-        Me.tsDelete.Size = New System.Drawing.Size(71, 49)
+        Me.tsDelete.Size = New System.Drawing.Size(80, 52)
         Me.tsDelete.Text = "&Delete File"
         Me.tsDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -596,14 +596,14 @@ Partial Class frmSalesReceipt
         '
         Me.ToolStripLabel7.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ToolStripLabel7.Name = "ToolStripLabel7"
-        Me.ToolStripLabel7.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel7.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripButton4
         '
         Me.ToolStripButton4.Image = Global.Automission.My.Resources.Resources.m_logs
         Me.ToolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton4.Name = "ToolStripButton4"
-        Me.ToolStripButton4.Size = New System.Drawing.Size(37, 49)
+        Me.ToolStripButton4.Size = New System.Drawing.Size(41, 52)
         Me.ToolStripButton4.Text = "&Logs"
         Me.ToolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -613,7 +613,7 @@ Partial Class frmSalesReceipt
         Me.tsTITLE.Font = New System.Drawing.Font("Verdana", 14.25!)
         Me.tsTITLE.Image = Global.Automission.My.Resources.Resources.back_icon_set
         Me.tsTITLE.Name = "tsTITLE"
-        Me.tsTITLE.Size = New System.Drawing.Size(104, 49)
+        Me.tsTITLE.Size = New System.Drawing.Size(104, 52)
         Me.tsTITLE.Text = "TITLE "
         '
         'lblUNDEPOSITED_FUNDS_ACCOUNT_ID
@@ -683,7 +683,7 @@ Partial Class frmSalesReceipt
         'numPAYMENT_AMOUNT
         '
         Me.numPAYMENT_AMOUNT.DecimalPlaces = 2
-        Me.numPAYMENT_AMOUNT.Location = New System.Drawing.Point(104, 133)
+        Me.numPAYMENT_AMOUNT.Location = New System.Drawing.Point(98, 133)
         Me.numPAYMENT_AMOUNT.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.numPAYMENT_AMOUNT.Maximum = New Decimal(New Integer() {1215752191, 23, 0, 0})
         Me.numPAYMENT_AMOUNT.Name = "numPAYMENT_AMOUNT"
@@ -694,7 +694,7 @@ Partial Class frmSalesReceipt
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(37, 137)
+        Me.Label4.Location = New System.Drawing.Point(31, 137)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(64, 16)
         Me.Label4.TabIndex = 84
@@ -705,7 +705,7 @@ Partial Class frmSalesReceipt
         Me.cmbSTATUS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple
         Me.cmbSTATUS.Enabled = False
         Me.cmbSTATUS.FormattingEnabled = True
-        Me.cmbSTATUS.Location = New System.Drawing.Point(883, 134)
+        Me.cmbSTATUS.Location = New System.Drawing.Point(835, 134)
         Me.cmbSTATUS.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbSTATUS.Name = "cmbSTATUS"
         Me.cmbSTATUS.Size = New System.Drawing.Size(174, 25)
@@ -714,7 +714,7 @@ Partial Class frmSalesReceipt
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(830, 138)
+        Me.Label5.Location = New System.Drawing.Point(782, 138)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(51, 16)
         Me.Label5.TabIndex = 85
@@ -761,13 +761,13 @@ Partial Class frmSalesReceipt
         'ToolStripLabel12
         '
         Me.ToolStripLabel12.Name = "ToolStripLabel12"
-        Me.ToolStripLabel12.Size = New System.Drawing.Size(68, 22)
+        Me.ToolStripLabel12.Size = New System.Drawing.Size(80, 22)
         Me.ToolStripLabel12.Text = "Total Entry"
         '
         'lblCount
         '
         Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(14, 22)
+        Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
         'frmSalesReceipt

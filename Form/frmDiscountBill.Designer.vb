@@ -70,11 +70,11 @@ Partial Class frmDiscountBill
         Me.GroupBox2.Controls.Add(Me.lblTERMS)
         Me.GroupBox2.Controls.Add(Me.Label21)
         Me.GroupBox2.Controls.Add(Me.Label23)
-        Me.GroupBox2.Location = New System.Drawing.Point(11, 268)
+        Me.GroupBox2.Location = New System.Drawing.Point(467, 13)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.GroupBox2.Size = New System.Drawing.Size(497, 206)
+        Me.GroupBox2.Size = New System.Drawing.Size(457, 206)
         Me.GroupBox2.TabIndex = 33
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Discount"
@@ -184,7 +184,7 @@ Partial Class frmDiscountBill
         '
         Me.lblBALANCE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblBALANCE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblBALANCE.Location = New System.Drawing.Point(176, 210)
+        Me.lblBALANCE.Location = New System.Drawing.Point(117, 209)
         Me.lblBALANCE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblBALANCE.Name = "lblBALANCE"
         Me.lblBALANCE.Size = New System.Drawing.Size(154, 25)
@@ -194,7 +194,7 @@ Partial Class frmDiscountBill
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(77, 215)
+        Me.Label11.Location = New System.Drawing.Point(22, 213)
         Me.Label11.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(88, 16)
@@ -205,7 +205,7 @@ Partial Class frmDiscountBill
         '
         Me.lblAMOUNT.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblAMOUNT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblAMOUNT.Location = New System.Drawing.Point(176, 183)
+        Me.lblAMOUNT.Location = New System.Drawing.Point(117, 182)
         Me.lblAMOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblAMOUNT.Name = "lblAMOUNT"
         Me.lblAMOUNT.Size = New System.Drawing.Size(154, 25)
@@ -215,7 +215,7 @@ Partial Class frmDiscountBill
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(77, 187)
+        Me.Label13.Location = New System.Drawing.Point(22, 186)
         Me.Label13.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(90, 16)
@@ -226,7 +226,7 @@ Partial Class frmDiscountBill
         '
         Me.lblDISCOUNT.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblDISCOUNT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblDISCOUNT.Location = New System.Drawing.Point(176, 156)
+        Me.lblDISCOUNT.Location = New System.Drawing.Point(117, 155)
         Me.lblDISCOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblDISCOUNT.Name = "lblDISCOUNT"
         Me.lblDISCOUNT.Size = New System.Drawing.Size(154, 25)
@@ -236,7 +236,7 @@ Partial Class frmDiscountBill
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(97, 160)
+        Me.Label15.Location = New System.Drawing.Point(44, 159)
         Me.Label15.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(64, 16)
@@ -247,7 +247,7 @@ Partial Class frmDiscountBill
         '
         Me.lblCODE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblCODE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCODE.Location = New System.Drawing.Point(176, 129)
+        Me.lblCODE.Location = New System.Drawing.Point(117, 128)
         Me.lblCODE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblCODE.Name = "lblCODE"
         Me.lblCODE.Size = New System.Drawing.Size(154, 25)
@@ -257,7 +257,7 @@ Partial Class frmDiscountBill
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(71, 134)
+        Me.Label17.Location = New System.Drawing.Point(12, 133)
         Me.Label17.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(100, 16)
@@ -268,7 +268,7 @@ Partial Class frmDiscountBill
         '
         Me.lblAmount_Due.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblAmount_Due.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblAmount_Due.Location = New System.Drawing.Point(176, 102)
+        Me.lblAmount_Due.Location = New System.Drawing.Point(117, 101)
         Me.lblAmount_Due.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblAmount_Due.Name = "lblAmount_Due"
         Me.lblAmount_Due.Size = New System.Drawing.Size(154, 25)
@@ -278,7 +278,7 @@ Partial Class frmDiscountBill
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(72, 107)
+        Me.Label9.Location = New System.Drawing.Point(25, 105)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(87, 16)
@@ -289,7 +289,7 @@ Partial Class frmDiscountBill
         '
         Me.lblCreditUsed.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblCreditUsed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCreditUsed.Location = New System.Drawing.Point(176, 75)
+        Me.lblCreditUsed.Location = New System.Drawing.Point(117, 74)
         Me.lblCreditUsed.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblCreditUsed.Name = "lblCreditUsed"
         Me.lblCreditUsed.Size = New System.Drawing.Size(154, 25)
@@ -300,7 +300,7 @@ Partial Class frmDiscountBill
         '
         Me.lblDATE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblDATE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblDATE.Location = New System.Drawing.Point(176, 48)
+        Me.lblDATE.Location = New System.Drawing.Point(117, 47)
         Me.lblDATE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblDATE.Name = "lblDATE"
         Me.lblDATE.Size = New System.Drawing.Size(154, 25)
@@ -310,7 +310,7 @@ Partial Class frmDiscountBill
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(128, 53)
+        Me.Label5.Location = New System.Drawing.Point(69, 52)
         Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 16)
@@ -321,7 +321,7 @@ Partial Class frmDiscountBill
         '
         Me.lblName.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblName.Location = New System.Drawing.Point(176, 21)
+        Me.lblName.Location = New System.Drawing.Point(117, 20)
         Me.lblName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblName.Name = "lblName"
         Me.lblName.Size = New System.Drawing.Size(312, 25)
@@ -331,12 +331,12 @@ Partial Class frmDiscountBill
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(105, 26)
+        Me.Label2.Location = New System.Drawing.Point(60, 24)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(59, 16)
+        Me.Label2.Size = New System.Drawing.Size(52, 16)
         Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Supplier"
+        Me.Label2.Text = "Vendor"
         '
         'GroupBox1
         '
@@ -361,7 +361,7 @@ Partial Class frmDiscountBill
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(497, 250)
+        Me.GroupBox1.Size = New System.Drawing.Size(446, 250)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Purchase Order"
@@ -369,7 +369,7 @@ Partial Class frmDiscountBill
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(82, 80)
+        Me.Label7.Location = New System.Drawing.Point(23, 79)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(83, 16)
@@ -378,7 +378,7 @@ Partial Class frmDiscountBill
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(333, 527)
+        Me.btnOK.Location = New System.Drawing.Point(746, 234)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(86, 27)
@@ -388,7 +388,7 @@ Partial Class frmDiscountBill
         '
         'btnCANCEL
         '
-        Me.btnCANCEL.Location = New System.Drawing.Point(425, 527)
+        Me.btnCANCEL.Location = New System.Drawing.Point(838, 234)
         Me.btnCANCEL.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCANCEL.Name = "btnCANCEL"
         Me.btnCANCEL.Size = New System.Drawing.Size(86, 27)
@@ -400,7 +400,7 @@ Partial Class frmDiscountBill
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(525, 565)
+        Me.ClientSize = New System.Drawing.Size(938, 274)
         Me.Controls.Add(Me.btnCANCEL)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.GroupBox2)
