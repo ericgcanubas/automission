@@ -13,8 +13,8 @@
 
 
     Private Sub frmPOSselection_Load(sender As Object, e As EventArgs) Handles Me.Load
-        fBackGroundImageStyle(Me)
-        ' fPOSTypeEntry()
+
+        ' POSTypeEntry()
     End Sub
 
     Private Sub frmPOSselection_Shown(sender As Object, e As EventArgs) Handles Me.Shown

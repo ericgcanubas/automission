@@ -25,44 +25,44 @@ Public Class frmPOSLogDetails
         POS_STARTING_CASH_ID = 0
         POS_CASH_COUNT_ID = 0
 
-        Dim rd As OdbcDataReader = fReader($"SELECT * FROM `POS_LOG` WHERE ID = '{gsID}' limit 1;")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM `POS_LOG` WHERE ID = '{gsID}' limit 1;")
 
         If rd.Read Then
-            POS_STARTING_CASH_ID = fNumisNULL(rd("STARTING_CASH_ID"))
-            POS_CASH_COUNT_ID = fNumisNULL(rd("CASH_COUNT_ID"))
+            POS_STARTING_CASH_ID = NumIsNull(rd("STARTING_CASH_ID"))
+            POS_CASH_COUNT_ID = NumIsNull(rd("CASH_COUNT_ID"))
 
-            xlblRecorded_on1.Text = fTextisNULL(rd("RECORDED_ON"))
+            xlblRecorded_on1.Text = TextIsNull(rd("RECORDED_ON"))
             ThisLocationID = rd("LOCATION_ID")
-            lblLOG_LOCATION.Text = fGetFieldValue("LOCATION", "ID", ThisLocationID, "NAME")
-            lblPOS_MACHINE.Text = fGetFieldValue("POS_MACHINE", "ID", rd("POS_MACHINE_ID"), "NAME")
-            lblLOG_CASHIER.Text = fGetFieldValue("CONTACT", "ID", rd("CASHIER_ID"), "NAME")
+            lblLOG_LOCATION.Text = GetStringFieldValue("LOCATION", "ID", ThisLocationID, "NAME")
+            lblPOS_MACHINE.Text = GetStringFieldValue("POS_MACHINE", "ID", rd("POS_MACHINE_ID"), "NAME")
+            lblLOG_CASHIER.Text = GetStringFieldValue("CONTACT", "ID", rd("CASHIER_ID"), "NAME")
 
-            numLOG_DISCOUNT.Value = fNumisNULL(rd("DISCOUNT"))
-            numLOG_RETURN.Value = fNumisNULL(rd("RETURN"))
-            numLOG_COUPON.Value = fNumisNULL(rd("COUPON"))
-            numLOG_GIFT_CERT.Value = fNumisNULL(rd("GIFT_CERT"))
-            numLOG_TRADE_IN.Value = fNumisNULL(rd("TRADE_IN"))
-            numLOG_VOID.Value = fNumisNULL(rd("VOID"))
+            numLOG_DISCOUNT.Value = NumIsNull(rd("DISCOUNT"))
+            numLOG_RETURN.Value = NumIsNull(rd("RETURN"))
+            numLOG_COUPON.Value = NumIsNull(rd("COUPON"))
+            numLOG_GIFT_CERT.Value = NumIsNull(rd("GIFT_CERT"))
+            numLOG_TRADE_IN.Value = NumIsNull(rd("TRADE_IN"))
+            numLOG_VOID.Value = NumIsNull(rd("VOID"))
 
-            numLOG_CASH.Value = fNumisNULL(rd("CASH"))
-            numLOG_CHECK.Value = fNumisNULL(rd("CHECK"))
-            numLOG_AMEX.Value = fNumisNULL(rd("AMEX"))
-            numLOG_DISCOVER.Value = fNumisNULL(rd("DISCOVER"))
-            numLOG_MASTER_CARD.Value = fNumisNULL(rd("MASTER_CARD"))
-            numLOG_VISA.Value = fNumisNULL(rd("VISA"))
+            numLOG_CASH.Value = NumIsNull(rd("CASH"))
+            numLOG_CHECK.Value = NumIsNull(rd("CHECK"))
+            numLOG_AMEX.Value = NumIsNull(rd("AMEX"))
+            numLOG_DISCOVER.Value = NumIsNull(rd("DISCOVER"))
+            numLOG_MASTER_CARD.Value = NumIsNull(rd("MASTER_CARD"))
+            numLOG_VISA.Value = NumIsNull(rd("VISA"))
 
-            numLOG_DINNERS.Value = fNumisNULL(rd("DINNERS"))
-            numLOG_JCB.Value = fNumisNULL(rd("JCB"))
-            numLOG_OTHER_CARD.Value = fNumisNULL(rd("OTHER_CARD"))
-            numLOG_PAIDIN.Value = fNumisNULL(rd("PAIDIN"))
-            numLOG_PAIDOUT.Value = fNumisNULL(rd("PAIDOUT"))
+            numLOG_DINNERS.Value = NumIsNull(rd("DINNERS"))
+            numLOG_JCB.Value = NumIsNull(rd("JCB"))
+            numLOG_OTHER_CARD.Value = NumIsNull(rd("OTHER_CARD"))
+            numLOG_PAIDIN.Value = NumIsNull(rd("PAIDIN"))
+            numLOG_PAIDOUT.Value = NumIsNull(rd("PAIDOUT"))
 
-            numLOG_TAXABLE_AMOUNT.Value = fNumisNULL(rd("TAXABLE_AMOUNT"))
-            numLOG_OUTPUT_TAX_AMOUNT.Value = fNumisNULL(rd("OUTPUT_TAX_AMOUNT"))
-            numLOG_NONTAXABLE_AMOUNT.Value = fNumisNULL(rd("NONTAXABLE_AMOUNT"))
+            numLOG_TAXABLE_AMOUNT.Value = NumIsNull(rd("TAXABLE_AMOUNT"))
+            numLOG_OUTPUT_TAX_AMOUNT.Value = NumIsNull(rd("OUTPUT_TAX_AMOUNT"))
+            numLOG_NONTAXABLE_AMOUNT.Value = NumIsNull(rd("NONTAXABLE_AMOUNT"))
 
-            lblLOG_TOTAL.Text = fNumFormatStandard(fNumisNULL(rd("TOTAL")))
-            lblLOG_GRAND_TOTAL.Text = fNumFormatStandard(fNumisNULL(rd("GRAND_TOTAL")))
+            lblLOG_TOTAL.Text = NumberFormatStandard(NumIsNull(rd("TOTAL")))
+            lblLOG_GRAND_TOTAL.Text = NumberFormatStandard(NumIsNull(rd("GRAND_TOTAL")))
         End If
 
 
@@ -72,11 +72,11 @@ Public Class frmPOSLogDetails
     Private Sub fPOS_STARTING_C()
 
         If POS_STARTING_CASH_ID <> 0 Then
-            Dim rd As OdbcDataReader = fReader($"SELECT * FROM `pos_starting_cash` where id ='{POS_STARTING_CASH_ID}' LIMIT 1")
+            Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM `pos_starting_cash` where id ='{POS_STARTING_CASH_ID}' LIMIT 1")
 
             If rd.Read Then
-                xlblRecorded_on2.Text = fTextisNULL(rd("RECORDED_ON"))
-                numSTARTING_AMOUNT.Value = fNumisNULL(rd("AMOUNT"))
+                xlblRecorded_on2.Text = TextIsNull(rd("RECORDED_ON"))
+                numSTARTING_AMOUNT.Value = NumIsNull(rd("AMOUNT"))
 
             End If
         End If
@@ -85,15 +85,15 @@ Public Class frmPOSLogDetails
     Private Sub fPOS_CASH_C()
         If POS_CASH_COUNT_ID <> 0 Then
 
-            Dim rd As OdbcDataReader = fReader($"SELECT * FROM `pos_cash_count` where id ='{POS_CASH_COUNT_ID}' LIMIT 1")
+            Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM `pos_cash_count` where id ='{POS_CASH_COUNT_ID}' LIMIT 1")
             If rd.Read Then
 
-                xlblRecorded_on3.Text = fTextisNULL(rd("RECORDED_ON"))
-                numCASH.Value = fNumisNULL(rd("CASH"))
-                numCHECK.Value = fNumisNULL(rd("CHECK"))
-                numCREDIT_CARD.Value = fNumisNULL(rd("CREDIT_CARD"))
-                numOTHER_PAYMENT.Value = fNumisNULL(rd("OTHER_PAYMENT"))
-                lblTOTAL.Text = fNumFormatStandard(fNumisNULL(rd("TOTAL")))
+                xlblRecorded_on3.Text = TextIsNull(rd("RECORDED_ON"))
+                numCASH.Value = NumIsNull(rd("CASH"))
+                numCHECK.Value = NumIsNull(rd("CHECK"))
+                numCREDIT_CARD.Value = NumIsNull(rd("CREDIT_CARD"))
+                numOTHER_PAYMENT.Value = NumIsNull(rd("OTHER_PAYMENT"))
+                lblTOTAL.Text = NumberFormatStandard(NumIsNull(rd("TOTAL")))
 
 
             End If
@@ -105,11 +105,11 @@ Public Class frmPOSLogDetails
     End Sub
     Private Sub fCASH_DENOMINATION()
 
-        fDataGridView(dgvCASH_DENOMINATION, $"SELECT cl.`ID`,cd.`DESCRIPTION` AS `DENOMINATION`,cl.`NOMINAL_VALUE` AS `NOMINAL VALUE`,cl.`COUNT`,cl.`AMOUNT` FROM pos_cash_count_lines AS cl  INNER JOIN pos_cash_denomination AS  cd ON cd.`ID` = cl.`DENOMINATION_ID` WHERE cl.`CASH_COUNT_ID` ='{POS_CASH_COUNT_ID}' ")
+        LoadDataGridView(dgvCASH_DENOMINATION, $"SELECT cl.`ID`,cd.`DESCRIPTION` AS `DENOMINATION`,cl.`NOMINAL_VALUE` AS `NOMINAL VALUE`,cl.`COUNT`,cl.`AMOUNT` FROM pos_cash_count_lines AS cl  INNER JOIN pos_cash_denomination AS  cd ON cd.`ID` = cl.`DENOMINATION_ID` WHERE cl.`CASH_COUNT_ID` ='{POS_CASH_COUNT_ID}' ")
         dgvCASH_DENOMINATION.Columns(0).Visible = False
     End Sub
     Private Sub fTransactionLIST()
-        fDataGridView(dgvTransaction, $"SELECT * FROM(
+        LoadDataGridView(dgvTransaction, $"SELECT * FROM(
 (SELECT s.`RECORDED_ON` AS `Recorded On`,s.`CODE` AS `Reference`, s.`Date`, c.`NAME` AS `Customer`,pm.`DESCRIPTION` AS `Payment Method`, s.`PAYMENT_REF_NO` AS `Ref No.`,s.`Amount` FROM sales_receipt AS s LEFT OUTER JOIN payment_method AS pm ON pm.`ID` = s.`PAYMENT_METHOD_ID` INNER JOIN contact AS c ON c.`ID` = s.`CUSTOMER_ID` WHERE s.STATUS <> '7' AND s.`POS_LOG_ID` = '{gsID}')
 UNION ALL
 (SELECT p.`RECORDED_ON` AS `Recorded On`,p.`CODE` AS `Reference`, p.`Date`, c.`NAME` AS `Customer`,pm.`DESCRIPTION` AS `Payment Method`, p.`RECEIPT_REF_NO` AS `Ref No.`,p.`Amount` FROM `payment` AS p LEFT OUTER JOIN payment_method AS pm ON pm.`ID` =  p.PAYMENT_METHOD_ID INNER JOIN contact AS c ON c.`ID` = p.`CUSTOMER_ID` WHERE p.STATUS <> '7' AND p.`POS_LOG_ID` = '{gsID}')
@@ -120,16 +120,16 @@ UNION ALL
     End Sub
     Private Sub fCal()
         Dim T As Double = numCASH.Value + numCHECK.Value + numCREDIT_CARD.Value + numOTHER_PAYMENT.Value
-        lblTOTAL.Text = fNumFormatFixed(T)
+        lblTOTAL.Text = NumberFormatFixed(T)
 
 
     End Sub
     Private Sub BtnUpdateCashCount_Click(sender As Object, e As EventArgs) Handles btnUpdateCashCount.Click
-        gsPOS_DATE = fDateFormatMYSQL(xlblRecorded_on3.Text)
+        gsPOS_DATE = DateFormatMySql(xlblRecorded_on3.Text)
 
-        fExecutedOnly($"UPDATE pos_cash_count SET TOTAL='{lblTOTAL.Text}',CASH='{numCASH.Value}',`CHECK`='{numCHECK.Value}',CREDIT_CARD='{numCREDIT_CARD.Value}',OTHER_PAYMENT='{numOTHER_PAYMENT.Value}',NOTES='{txtNOTES.Text}' WHERE ID ='{POS_CASH_COUNT_ID}' ")
+        SqlExecuted($"UPDATE pos_cash_count SET TOTAL='{lblTOTAL.Text}',CASH='{numCASH.Value}',`CHECK`='{numCHECK.Value}',CREDIT_CARD='{numCREDIT_CARD.Value}',OTHER_PAYMENT='{numOTHER_PAYMENT.Value}',NOTES='{txtNOTES.Text}' WHERE ID ='{POS_CASH_COUNT_ID}' ")
         fPOS_LOG_JOURNAL(gsID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
-        fMessageboxInfo("Successful update.")
+        MessageBoxInfo("Successful update.")
     End Sub
 
     Private Sub NumCASH_ValueChanged(sender As Object, e As EventArgs) Handles numCASH.ValueChanged
@@ -150,13 +150,13 @@ UNION ALL
 
     Private Sub btnRemoveCashCount_Click(sender As Object, e As EventArgs) Handles btnRemoveCashCount.Click
 
-        If fMessageBoxQuestion("Do you want to remove this cash count?") = True Then
-            gsPOS_DATE = fDateFormatMYSQL(xlblRecorded_on3.Text)
+        If MessageBoxQuestion("Do you want to remove this cash count?") = True Then
+            gsPOS_DATE = DateFormatMySql(xlblRecorded_on3.Text)
             fPOS_LOG_JOURNAL_DELETE(gsID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
-            fExecutedOnly($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{gsID}' Limit 1")
-            fExecutedOnly($"UPDATE sales_receipt SET CASH_COUNT_ID = null WHERE POS_LOG_ID='{gsID}' ")
-            fExecutedOnly($"DELETE FROM pos_cash_count WHERE ID ='{POS_CASH_COUNT_ID}'")
-            fMessageboxInfo("successful")
+            SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{gsID}' Limit 1")
+            SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID = null WHERE POS_LOG_ID='{gsID}' ")
+            SqlExecuted($"DELETE FROM pos_cash_count WHERE ID ='{POS_CASH_COUNT_ID}'")
+            MessageBoxInfo("successful")
             fPOS_LOG_LOAD()
             fPOS_STARTING_C()
             fPOS_CASH_C()
@@ -167,12 +167,12 @@ UNION ALL
 
     Private Sub btnTransferNow_Click(sender As Object, e As EventArgs) Handles btnTransferNow.Click
         If gsAdmin_User = False Then
-            fMessageboxInfo("Administrator type is require")
+            MessageBoxInfo("Administrator type is require")
             Exit Sub
         End If
         With FrmPOSLogTransfer
             Dim DT As Date = CDate(xlblRecorded_on1.Text)
-            .ThisPOS_DATE = fDateFormatMYSQL(DT)
+            .ThisPOS_DATE = DateFormatMySql(DT)
             .ThisPOSlogID = gsID
             .ThisLocationID = ThisLocationID
 

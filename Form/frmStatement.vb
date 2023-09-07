@@ -3,7 +3,7 @@
         '  fBackGroundImageStyle(Me)
         fDataRangeLoad()
 
-        fComboBox(cmbCUSTOMER_ID, "select * from contact where type='1'", "ID", "NAME")
+        ComboBoxLoad(cmbCUSTOMER_ID, "select * from contact where type='1'", "ID", "NAME")
         fRefreshLocation()
     End Sub
     Private Sub fDataRangeLoad()
@@ -65,7 +65,7 @@
 
     Private Sub fRefreshLocation()
 
-        fComboBox(cmbLOCATION_ID, "SELECT  '*' AS `id`,'All Location' as `name`  UNION SELECT  `id`,`name` FROM location ", "ID", "NAME")
+        ComboBoxLoad(cmbLOCATION_ID, "SELECT  '*' AS `id`,'All Location' as `name`  UNION SELECT  `id`,`name` FROM location ", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
     End Sub
@@ -75,7 +75,7 @@
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
     Private Sub fReport()
         gscryRpt = fViewReportOneParameterNumberOnly("cryStandardStatement.rpt")
@@ -93,7 +93,7 @@
     End Sub
     Private Sub tsPreview_Click(sender As Object, e As EventArgs) Handles tsPreview.Click
         If cmbCUSTOMER_ID.SelectedValue Is Nothing Then
-            fMessageboxInfo("Please select customer")
+            MessageBoxInfo("Please select customer")
             Exit Sub
         End If
         fReport()
@@ -103,7 +103,7 @@
 
     Private Sub tsPrint_Click(sender As Object, e As EventArgs) Handles tsPrint.Click
         If cmbCUSTOMER_ID.SelectedValue Is Nothing Then
-            fMessageboxInfo("Please select customer")
+            MessageBoxInfo("Please select customer")
             Exit Sub
         End If
         fReport()

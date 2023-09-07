@@ -5,17 +5,17 @@
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvPaymentMethods, "SELECT pm.`ID`,pm.`Code`,pm.`Description`,p.`DESCRIPTION` AS `Payment Type`, CONCAT(a.`NAME` , ' / ' ,a.`TYPE`) AS `G/L Account` FROM payment_method AS pm LEFT OUTER JOIN  payment_type_map AS p ON p.`ID` = pm.`PAYMENT_TYPE` LEFT OUTER JOIN account AS a ON a.`ID` = pm.`GL_ACCOUNT_ID`", item_BS)
-        fDataGrid_Column(dgvPaymentMethods, 33)
+        LoadDataGridViewBinding(dgvPaymentMethods, "SELECT pm.`ID`,pm.`Code`,pm.`Description`,p.`DESCRIPTION` AS `Payment Type`, CONCAT(a.`NAME` , ' / ' ,a.`TYPE`) AS `G/L Account` FROM payment_method AS pm LEFT OUTER JOIN  payment_type_map AS p ON p.`ID` = pm.`PAYMENT_TYPE` LEFT OUTER JOIN account AS a ON a.`ID` = pm.`GL_ACCOUNT_ID`", item_BS)
+        ViewColumn(dgvPaymentMethods, 33)
     End Sub
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
 
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvPaymentMethods, 33)
-        fDataGrid_Column(dgvPaymentMethods, 33)
+        ViewSwitch(dgvPaymentMethods, 33)
+        ViewColumn(dgvPaymentMethods, 33)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -45,13 +45,13 @@
             frmPaymentMethodsDetails.This_BS = item_BS
 
             frmPaymentMethodsDetails.Dgv = dgvPaymentMethods
-            frmPaymentMethodsDetails.gsID = dgvPaymentMethods.Rows(i).Cells("ID").Value
+            frmPaymentMethodsDetails.ID = dgvPaymentMethods.Rows(i).Cells("ID").Value
             frmPaymentMethodsDetails.ShowDialog()
             frmPaymentMethodsDetails.Dispose()
             frmPaymentMethodsDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub
@@ -70,13 +70,13 @@
                 Exit Sub
             End If
 
-            If fMessageBoxQuestion("Are you sure to delete this payment method") = True Then
-                fExecutedOnly("DELETE FROM payment_method WHERE ID = '" & dgvPaymentMethods.Rows(i).Cells("ID").Value & "' limit 1;")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Are you sure to delete this payment method") = True Then
+                SqlExecuted("DELETE FROM payment_method WHERE ID = '" & dgvPaymentMethods.Rows(i).Cells("ID").Value & "' limit 1;")
+                DeleteNotify(Me)
                 fRefresh()
             End If
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
 
         End Try
 

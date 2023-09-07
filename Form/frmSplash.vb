@@ -25,13 +25,13 @@ Public Class frmSplash
     End Sub
 
     Private Function fRefreshImageList() As ImageList
-        fgsImagePathArrayClear()
+        ImagePathArrayClear()
         Dim imglist As New ImageList
         imglist.ImageSize = New Size(24, 24)
         Dim i As Integer = 0
         Try
 
-            Dim rd As OdbcDataReader = fReader("select * from tblsub_menu where group_line = '0' and  active <> '0' and  modal = '0' and image_file <> ''")
+            Dim rd As OdbcDataReader = SqlReader("select * from tblsub_menu where group_line = '0' and  active <> '0' and  modal = '0' and image_file <> ''")
             While rd.Read
                 i = i + 1
                 If i = 53 Then
@@ -43,10 +43,10 @@ Public Class frmSplash
 
 
             '========================
-            fAddMore(imglist, fGetFieldValue("tblmenu", "menu_id", "1", "description"), "\image\menu\customer.png")
-            fAddMore(imglist, fGetFieldValue("tblmenu", "menu_id", "2", "description"), "\image\menu\vendor.png")
-            fAddMore(imglist, fGetFieldValue("tblmenu", "menu_id", "3", "description"), "\image\menu\company.png")
-            fAddMore(imglist, fGetFieldValue("tblmenu", "menu_id", "4", "description"), "\image\menu\banking.png")
+            fAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "1", "description"), "\image\menu\customer.png")
+            fAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "2", "description"), "\image\menu\vendor.png")
+            fAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "3", "description"), "\image\menu\company.png")
+            fAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "4", "description"), "\image\menu\banking.png")
 
             fAddMore(imglist, "Reports", "\image\menu\reports.png")
             fAddMore(imglist, "print", "\image\sub\print-icon.png")
@@ -55,7 +55,7 @@ Public Class frmSplash
             fAddMore(imglist, "Utility", "\image\menu\utilities.png")
             fAddMore(imglist, "doc-group", "\image\sub\Documents-Icon.png")
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshImageList()
             Else
                 End
@@ -75,7 +75,7 @@ Public Class frmSplash
         Dim b As ToolStripButton = DirectCast(sender, ToolStripButton)
         gsMenuSubID = b.AccessibleDescription
         gsRefresh = True
-        fmenuSet()
+        MenuSet()
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
@@ -92,7 +92,7 @@ Public Class frmSplash
         For r = 0 To f
             pbLoadingBar.Value = r
             fDoEvents()
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
             ' fSleep(50)
 
 
@@ -225,7 +225,7 @@ Public Class frmSplash
         pbLoadingBar.Visible = False
         lblinitialization.Visible = False
         fCloseDateRunLoad()
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
 
         frmLogin.ShowDialog()
         If frmLogin.bLogin = False Then
@@ -242,7 +242,7 @@ Public Class frmSplash
         If gsClose_Date_Run_Per_Unit = True Then
             Dim DT As Date = Date.Now.Date.AddDays(-1)
 
-            fSystemSettingUpdateByString("ClosingDate", fDateFormatMYSQL(DT))
+            fSystemSettingUpdateByString("ClosingDate", DateFormatMySql(DT))
 
         End If
     End Sub
@@ -254,7 +254,7 @@ Public Class frmSplash
         Dim t As New ToolStripMenuItem
         Try
 
-            Dim rd As OdbcDataReader = fReader("select sg.description as `GROUP_NAME`,s.sub_id ,s.Description as `sub_desc`,s.`Form`,s.image_file from tblsub_group as sg inner join tblsub_group_details as sgd on sg.group_id = sgd.group_id inner join tblsub_menu as s on s.sub_id = sgd.sub_id where  sg.group_id > '0' and s.active <> '0' order by sg.description , s.description ")
+            Dim rd As OdbcDataReader = SqlReader("select sg.description as `GROUP_NAME`,s.sub_id ,s.Description as `sub_desc`,s.`Form`,s.image_file from tblsub_group as sg inner join tblsub_group_details as sgd on sg.group_id = sgd.group_id inner join tblsub_menu as s on s.sub_id = sgd.sub_id where  sg.group_id > '0' and s.active <> '0' order by sg.description , s.description ")
             While rd.Read
                 Dim n_desc As String = rd("GROUP_NAME")
                 If temp_group_desc <> n_desc Then
@@ -265,10 +265,10 @@ Public Class frmSplash
                     t.Name = n_desc.Replace(" ", "")
                     t.Text = n_desc
 
-                    fToolSTRIP_ITEM(t, rd("sub_desc"), rd("sub_id"), rd("Form"), rd("Image_file"))
+                    ToolStripItemComponent(t, rd("sub_desc"), rd("sub_id"), rd("Form"), rd("Image_file"))
 
                 Else
-                    fToolSTRIP_ITEM(t, rd("sub_desc"), rd("sub_id"), rd("form"), rd("image_file"))
+                    ToolStripItemComponent(t, rd("sub_desc"), rd("sub_id"), rd("form"), rd("image_file"))
                 End If
                 temp_group_desc = n_desc
             End While
@@ -276,7 +276,7 @@ Public Class frmSplash
 
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fLoadUtility()
             Else
                 End

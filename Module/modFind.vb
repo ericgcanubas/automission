@@ -25,7 +25,7 @@ Module modFind
     End Sub
     Public Function UserSecurtySystemDOCShow(ByVal prNAME As String) As Boolean
         Dim B As Boolean
-        Dim rd As OdbcDataReader = fReader($"SELECT `ID` FROM `system_security` WHERE user_id ='{gsUser_ID}' and `NAME` ='{prNAME}' limit 1")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT `ID` FROM `system_security` WHERE user_id ='{gsUser_ID}' and `NAME` ='{prNAME}' limit 1")
 
         If rd.Read Then
             B = True

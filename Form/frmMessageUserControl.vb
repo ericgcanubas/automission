@@ -4,7 +4,7 @@ Public Class frmMessageUserControl
 
     Public gsAllowed As Boolean = False
     Private Sub frmMessageUserControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim rd As OdbcDataReader = fReader("select * from user_access_control where user_id = '" & gsUser_ID & "' limit 1")
+        Dim rd As OdbcDataReader = SqlReader("select * from user_access_control where user_id = '" & gsUser_ID & "' limit 1")
         If rd.Read Then
             lblmsg.Text = "Someone trying to access your BMS User Account (IP Address : " & rd("req_ip_address") & ") .  Are you to Log-out?"
 

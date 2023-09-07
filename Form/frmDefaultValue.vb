@@ -37,38 +37,38 @@ Public Class frmDefaultValue
             Next
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
     Private Sub frmDefaultAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sQueryAccount As String = "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
 
 
-        Dim cmd As System.Data.Odbc.OdbcCommand = This_cmd_1(sQueryAccount)
+        Dim cmd As System.Data.Odbc.OdbcCommand = CommandObject(sQueryAccount)
 
-        ' This_cmd_2(cmd, cmbDefaultAccountReceivableId, "ID", "T")
-        fComboBox(cmbPOSDefaultCustomerId, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-        This_cmd_2(cmd, cmbDefaultAccountReceivableId, "ID", "T")
-        This_cmd_2(cmd, cmbDefaultAccountPayableId, "ID", "T")
-        This_cmd_2(cmd, cmbDefaultUndepositedFundAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbDefaultItemAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbStockTransferAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbStockReceivedAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbInterLocationAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbDrawerAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbPettyCashAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbCashOverShortExpenseId, "ID", "T")
+        ' CommandObjectComboBoxLoad(cmd, cmbDefaultAccountReceivableId, "ID", "T")
+        ComboBoxLoad(cmbPOSDefaultCustomerId, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultAccountReceivableId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultAccountPayableId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultUndepositedFundAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultItemAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbStockTransferAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbStockReceivedAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbInterLocationAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDrawerAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbPettyCashAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbCashOverShortExpenseId, "ID", "T")
 
-        This_cmd_2(cmd, cmbDefaultItemAssetAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbDefaultItemCOGSAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbDefaultItemIncomeAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbDefaultItemOtherChargeAccountId, "ID", "T")
-        This_cmd_2(cmd, cmbDefaultItemDiscountAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultItemAssetAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultItemCOGSAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultItemIncomeAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultItemOtherChargeAccountId, "ID", "T")
+        CommandObjectComboBoxLoad(cmd, cmbDefaultItemDiscountAccountId, "ID", "T")
 
         '
 
-        fComboBox(cmbDefaultItemClassId, "select * from item_class  ", "ID", "DESCRIPTION")
-        fComboBox(cmbmeasure_hours, "SELECT ID,NAME FROM `unit_of_measure`", "ID", "NAME")
+        ComboBoxLoad(cmbDefaultItemClassId, "select * from item_class  ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbmeasure_hours, "SELECT ID,NAME FROM `unit_of_measure`", "ID", "NAME")
 
 
 
@@ -85,7 +85,7 @@ Public Class frmDefaultValue
 
 
 
-        Dim rd As OdbcDataReader = fReader("select `NAME`,`VALUE` from system_settings  ")
+        Dim rd As OdbcDataReader = SqlReader("select `NAME`,`VALUE` from system_settings  ")
         While rd.Read
             fControlRotation(rd("NAME"), rd("VALUE"))
         End While
@@ -113,6 +113,6 @@ Public Class frmDefaultValue
 
         End Try
 
-        fComboBox(cmbDefaultItemSubClassId, $"SELECT * FROM item_sub_class WHERE CLASS_ID ='{CLASS_ID}' ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbDefaultItemSubClassId, $"SELECT * FROM item_sub_class WHERE CLASS_ID ='{CLASS_ID}' ", "ID", "DESCRIPTION")
     End Sub
 End Class

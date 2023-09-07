@@ -25,31 +25,31 @@ Public Class frmUpdateSecurity
                 '   Dim cn As New MySqlConnection(mysqlConstr)
                 Try
                     'cn.Open()
-                    Dim rd1 As OdbcDataReader = fReader("select ID from `user` where `Type` = '" & gsUSER_TYPE_ID & "'")
+                    Dim rd1 As OdbcDataReader = SqlReader("select ID from `user` where `Type` = '" & gsUSER_TYPE_ID & "'")
                     Dim dt As New DataTable
                     dt.Load(rd1)
                     ProgressBar1.Minimum = 0
                     ProgressBar1.Maximum = dt.Rows.Count
                     rd1.Close()
                     '  cn.Open()
-                    Dim rd As OdbcDataReader = fReader("select ID,`NAME` from `user` where `Type` = '" & gsUSER_TYPE_ID & "'")
+                    Dim rd As OdbcDataReader = SqlReader("select ID,`NAME` from `user` where `Type` = '" & gsUSER_TYPE_ID & "'")
                     While rd.Read
                         user_counting = user_counting + 1
-                        Dim xName As String = fTextisNULL(rd("NAME"))
+                        Dim xName As String = TextIsNull(rd("NAME"))
 
-                        fUserSecuritySettingSetUpdateControl(fNumisNULL(rd("ID")), gsUSER_TYPE_ID)
+                        fUserSecuritySettingSetUpdateControl(NumIsNull(rd("ID")), gsUSER_TYPE_ID)
                         ProgressBar1.Value = user_counting
                     End While
                     rd.Close()
-                    fMessageboxInfo("Update successfully")
+                    MessageBoxInfo("Update successfully")
                     Me.Close()
                 Catch ex As Exception
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                 End Try
 
             Else
                 'All User type - not working
-                fMessageboxInfo("Invalid procedure")
+                MessageBoxInfo("Invalid procedure")
             End If
 
         Else
@@ -57,13 +57,13 @@ Public Class frmUpdateSecurity
                 '1 user update
                 'User all update source of user type
                 fUserSecuritySettingSetUpdateControl(gsID, gsUSER_TYPE_ID)
-                fMessageboxInfo("User security update")
+                MessageBoxInfo("User security update")
                 Me.Close()
                 Me.Close()
             Else
                 '1 user type update
                 fUpdateUserTypeSecurity(gsUSER_TYPE_ID, gsID)
-                fMessageboxInfo("User security update")
+                MessageBoxInfo("User security update")
                 Me.Close()
             End If
 

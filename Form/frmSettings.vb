@@ -154,20 +154,20 @@ Public Class frmSettings
             Next
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
     Private Sub fRefreshSystemSettings()
         Try
 
-            Dim rd As OdbcDataReader = fReader("select `NAME`,`VALUE` from system_settings  ")
+            Dim rd As OdbcDataReader = SqlReader("select `NAME`,`VALUE` from system_settings  ")
             While rd.Read
                 fControlRotation(rd("NAME"), rd("VALUE"))
             End While
             rd.Close()
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshSystemSettings()
             Else
                 End
@@ -194,37 +194,37 @@ Public Class frmSettings
     End Sub
     Private Sub fRefreshComboBox()
 
-        fComboBox(cmbDefaultVendorID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('0') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+        ComboBoxLoad(cmbDefaultVendorID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('0') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
         '   Dim sQueryAccount As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
         Dim sQueryAccount As String = "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
-        fComboBox(cmbDefaultLocationId, "select * from location where inactive ='0' ", "ID", "NAME")
-        fComboBox(cmbStorageLocationId, "select * from location where inactive ='0' ", "ID", "NAME")
+        ComboBoxLoad(cmbDefaultLocationId, "select * from location where inactive ='0' ", "ID", "NAME")
+        ComboBoxLoad(cmbStorageLocationId, "select * from location where inactive ='0' ", "ID", "NAME")
 
-        fComboBox(cmbNewTransactionsDefaultDate, "SELECT '0' AS ID , 'Use today`s date' AS `NAME` UNION SELECT '1' AS ID , 'Use the last entered date' AS `NAME` ", "ID", "NAME")
-        fComboBox(cmbDefaultPaymentMethodId, "select ID,DESCRIPTION from payment_method", "ID", "DESCRIPTION")
-        fComboBox(cmbDefaultPaymentTermsId, "select ID,DESCRIPTION from payment_terms", "ID", "DESCRIPTION")
-        fComboBox(cmbCreditLimitPolicy, "SELECT '0' AS ID , 'Promp warning message only' AS `NAME` UNION SELECT '1' AS ID , 'Enforce transaction blocking' AS `NAME` ", "ID", "NAME")
-        fComboBox(cmbArAgingLimit, "SELECT '0' AS ID , 'None' AS `NAME` UNION SELECT '1' AS ID , 'Current balance only' UNION SELECT '2' AS ID , '1 - 30 day past due' AS `NAME` UNION SELECT '3' AS ID ,'31 - 60 day past due' AS `NAME`UNION SELECT '4' AS ID ,'61 - 90 day past due' AS `NAME` ; ", "ID", "NAME")
+        ComboBoxLoad(cmbNewTransactionsDefaultDate, "SELECT '0' AS ID , 'Use today`s date' AS `NAME` UNION SELECT '1' AS ID , 'Use the last entered date' AS `NAME` ", "ID", "NAME")
+        ComboBoxLoad(cmbDefaultPaymentMethodId, "select ID,DESCRIPTION from payment_method", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbDefaultPaymentTermsId, "select ID,DESCRIPTION from payment_terms", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbCreditLimitPolicy, "SELECT '0' AS ID , 'Promp warning message only' AS `NAME` UNION SELECT '1' AS ID , 'Enforce transaction blocking' AS `NAME` ", "ID", "NAME")
+        ComboBoxLoad(cmbArAgingLimit, "SELECT '0' AS ID , 'None' AS `NAME` UNION SELECT '1' AS ID , 'Current balance only' UNION SELECT '2' AS ID , '1 - 30 day past due' AS `NAME` UNION SELECT '3' AS ID ,'31 - 60 day past due' AS `NAME`UNION SELECT '4' AS ID ,'61 - 90 day past due' AS `NAME` ; ", "ID", "NAME")
 
-        fComboBox(cmbFinanceChargeItemId, "select ID,concat(CODE,' / ',DESCRIPTION) as T from item where type='4' and inactive = '0' order by DESCRIPTION", "ID", "T")
-        fComboBox(cmbDefaultItemStockType, "select ID,DESCRIPTION from stock_type_map", "ID", "DESCRIPTION")
-        fComboBox(cmbDefaultForecastingType, "SELECT '0' AS ID , 'Monthly' AS `NAME` UNION SELECT '1' AS ID , 'Weekly' AS `NAME` ", "ID", "NAME")
-        fComboBox(cmbDefaultPenaltyType, "Select '0' as  ID, 'NO PENALTY' as DESCRIPTION UNION select ID,DESCRIPTION  FROM PENALTY_TYPE_MAP", "ID", "DESCRIPTION")
-        fComboBox(cmbTargetPenaltyDiscount, "select ID,DESCRIPTION FROM item where `TYPE` = '7' ", "ID", "DESCRIPTION")
-        fComboBox(cmbTaxPayableAccountId, sQueryAccount, "ID", "T")
-        fComboBox(cmbTaxCreditAccountId, sQueryAccount, "ID", "T")
-        fComboBox(cmbFinanceChargeAccountId, sQueryAccount, "ID", "T")
-
-
+        ComboBoxLoad(cmbFinanceChargeItemId, "select ID,concat(CODE,' / ',DESCRIPTION) as T from item where type='4' and inactive = '0' order by DESCRIPTION", "ID", "T")
+        ComboBoxLoad(cmbDefaultItemStockType, "select ID,DESCRIPTION from stock_type_map", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbDefaultForecastingType, "SELECT '0' AS ID , 'Monthly' AS `NAME` UNION SELECT '1' AS ID , 'Weekly' AS `NAME` ", "ID", "NAME")
+        ComboBoxLoad(cmbDefaultPenaltyType, "Select '0' as  ID, 'NO PENALTY' as DESCRIPTION UNION select ID,DESCRIPTION  FROM PENALTY_TYPE_MAP", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbTargetPenaltyDiscount, "select ID,DESCRIPTION FROM item where `TYPE` = '7' ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbTaxPayableAccountId, sQueryAccount, "ID", "T")
+        ComboBoxLoad(cmbTaxCreditAccountId, sQueryAccount, "ID", "T")
+        ComboBoxLoad(cmbFinanceChargeAccountId, sQueryAccount, "ID", "T")
 
 
-        fComboBox(cmbOutputTaxId, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
-        fComboBox(cmbInputTaxId, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
+
+
+        ComboBoxLoad(cmbOutputTaxId, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
+        ComboBoxLoad(cmbInputTaxId, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
     End Sub
     Private Sub cmbDefaultPenaltyType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDefaultPenaltyType.SelectedIndexChanged
         If cmbDefaultPenaltyType.SelectedValue IsNot Nothing Then
 
-            If fNumisNULL(cmbDefaultPenaltyType.SelectedValue) = 3 Then
+            If NumIsNull(cmbDefaultPenaltyType.SelectedValue) = 3 Then
 
                 cmbTargetPenaltyDiscount.Enabled = True
             Else

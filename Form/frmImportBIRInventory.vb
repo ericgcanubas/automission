@@ -43,30 +43,30 @@ Public Class FrmImportBIRInventory
             cn.Open()
             Dim rd As OleDb.OleDbDataReader = fMSgetReader(SQL, cn)
             If rd.Read Then
-                '  fNumisNULL(rd("ID"))
+                '  NumIsNull(rd("ID"))
 
-                SheetName = fTextisNULL(rd("SheetName"))
+                SheetName = TextIsNull(rd("SheetName"))
 
-                col_code = GetCol(fTextisNULL(rd("ProductCode")), True)
-                row_code = Val(GetCol(fTextisNULL(rd("ProductCode")), False)) - 1
+                col_code = GetCol(TextIsNull(rd("ProductCode")), True)
+                row_code = Val(GetCol(TextIsNull(rd("ProductCode")), False)) - 1
 
-                col_desc = GetCol(fTextisNULL(rd("ProductDescription")), True)
-                row_desc = Val(GetCol(fTextisNULL(rd("ProductDescription")), False)) - 1
+                col_desc = GetCol(TextIsNull(rd("ProductDescription")), True)
+                row_desc = Val(GetCol(TextIsNull(rd("ProductDescription")), False)) - 1
 
-                col_UnitCost = GetCol(fTextisNULL(rd("UnitCost")), True)
-                row_UnitCost = Val(GetCol(fTextisNULL(rd("UnitCost")), False)) - 1
+                col_UnitCost = GetCol(TextIsNull(rd("UnitCost")), True)
+                row_UnitCost = Val(GetCol(TextIsNull(rd("UnitCost")), False)) - 1
 
-                col_Quantity = GetCol(fTextisNULL(rd("Quantity")), True)
-                row_Quantity = Val(GetCol(fTextisNULL(rd("Quantity")), False)) - 1
+                col_Quantity = GetCol(TextIsNull(rd("Quantity")), True)
+                row_Quantity = Val(GetCol(TextIsNull(rd("Quantity")), False)) - 1
 
-                col_MOU = GetCol(fTextisNULL(rd("MOU")), True)
-                row_MOU = Val(GetCol(fTextisNULL(rd("MOU")), False)) - 1
+                col_MOU = GetCol(TextIsNull(rd("MOU")), True)
+                row_MOU = Val(GetCol(TextIsNull(rd("MOU")), False)) - 1
 
                 CantRun = False
 
             Else
                 CantRun = True
-                fMessageboxExclamation("Configure not found.")
+                MessageBoxExclamation("Configure not found.")
             End If
             cn.Close()
         Catch ex As Exception
@@ -104,7 +104,7 @@ Public Class FrmImportBIRInventory
         dgvCollectData.Rows.Clear()
 
             If txtPath.Text = "" Then
-                fMessageboxWarning("File not found.")
+                MessageBoxWarning("File not found.")
                 Exit Sub
             End If
 
@@ -117,7 +117,7 @@ Public Class FrmImportBIRInventory
 
         ' checking file
         If System.IO.File.Exists(txtPath.Text) = False Then
-            fMessageboxWarning("The file doesn't exist")
+            MessageBoxWarning("The file doesn't exist")
             Exit Sub
         End If
 
@@ -135,7 +135,7 @@ Public Class FrmImportBIRInventory
     End Sub
     Private Sub ImportingData()
         Try
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
             Dim xlApp As Excel.Application
             Dim xlWorkBook As Excel.Workbook
             Dim xlWorkSheet As Excel.Worksheet
@@ -200,10 +200,10 @@ Public Class FrmImportBIRInventory
             releaseObject(xlApp)
             releaseObject(xlWorkBook)
             releaseObject(xlWorkSheet)
-            fCursorLoadingOn(False)
-            fMessageboxInfo("Import Complete.")
+            CursorLoadingOn(False)
+            MessageBoxInfo("Import Complete.")
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 ImportingData()
             Else
                 End
@@ -237,7 +237,7 @@ Public Class FrmImportBIRInventory
         'Checking Item
 
         If dgvCollectData.Rows.Count = 0 Then
-            fMessageboxExclamation("Data not found.")
+            MessageBoxExclamation("Data not found.")
             Exit Sub
         End If
 
@@ -249,7 +249,7 @@ Public Class FrmImportBIRInventory
         FrmGotoInventoryAdjustment = Nothing
 
         If okClick = True Then
-            fMessageboxInfo("Transfer to Inventory adjustment Complete.")
+            MessageBoxInfo("Transfer to Inventory adjustment Complete.")
             Me.Close()
         End If
     End Sub
@@ -257,13 +257,13 @@ Public Class FrmImportBIRInventory
     Private Sub btnChecking_Click(sender As Object, e As EventArgs) Handles btnChecking.Click
 
         If dgvCollectData.Rows.Count = 0 Then
-            fMessageboxInfo("Data not found.")
+            MessageBoxInfo("Data not found.")
 
             Exit Sub
 
         End If
         btnChecking.Enabled = False
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
         pbStatus.Value = 0
         pbStatus.Maximum = dgvCollectData.Rows.Count
         Dim StrItemSQL As String = ""
@@ -272,7 +272,7 @@ Public Class FrmImportBIRInventory
             lblSTATUS.Text = (I + 1)
             pbStatus.Value = (I + 1)
             With dgvCollectData.Rows(I)
-                Dim rd As OdbcDataReader = fReader($"select `ID` from item where `code` = '{ .Cells("code").Value}' limit 1")
+                Dim rd As OdbcDataReader = SqlReader($"select `ID` from item where `code` = '{ .Cells("code").Value}' limit 1")
                 If rd.Read Then
                     'Do nothing    
                 Else
@@ -285,13 +285,13 @@ Public Class FrmImportBIRInventory
         Next
 
         If StrItemSQL <> "" Then
-            fExecutedOnly(StrItemSQL)
-            fMessageboxInfo($"{Count} = New item added. Checking Complete.")
+            SqlExecuted(StrItemSQL)
+            MessageBoxInfo($"{Count} = New item added. Checking Complete.")
         Else
-            fMessageboxInfo("Checking Complete.")
+            MessageBoxInfo("Checking Complete.")
         End If
 
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
         btnInventoryAdjustment.Enabled = True
         btnInventoryAdjustment.PerformClick()
 
@@ -299,7 +299,7 @@ Public Class FrmImportBIRInventory
     Private Function fCreateItem(ByVal dgvR As DataGridViewRow) As String
 
 
-        Dim ID As Integer = fObjectTypeMap_ID("item")
+        Dim ID As Integer = ObjectTypeMapId("item")
 
         Return $"INSERT INTO `item` SET `ID`='{ID}',INACTIVE = '0',CODE = '{dgvR.Cells("CODE").Value}',TYPE = '0',BUNDLE_SET = '0',NON_PORFOLIO_COMPUTATION = '0',MANUFACTURER_ID = NULL,GL_ACCOUNT_ID = '37',PREFERRED_VENDOR_ID = NULL,TAXABLE = '1',COGS_ACCOUNT_ID = '47',RATE = NULL,COST = '{dgvR.Cells("COST").Value}',DESCRIPTION = '{dgvR.Cells("description").Value}',PURCHASE_DESCRIPTION = '{dgvR.Cells("description").Value}',ASSET_ACCOUNT_ID = '6',STOCK_TYPE = '0',BASE_UNIT_ID = '3',SHIPPING_UNIT_ID = NULL,SALES_UNIT_ID = NULL,PURCHASES_UNIT_ID = NULL,SUB_CLASS_ID = '29',GROUP_ID = '24',NOTES = '',RATE_TYPE = NULL,PAYMENT_METHOD_ID = NULL,PRINT_INDIVIDUAL_ITEMS = NULL,PICTURE = NULL,CUSTOM_FIELD1 = NULL,CUSTOM_FIELD2 = NULL,CUSTOM_FIELD3 = NULL,CUSTOM_FIELD4 = NULL,CUSTOM_FIELD5 = NULL;"
 

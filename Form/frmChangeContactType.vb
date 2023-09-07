@@ -6,13 +6,13 @@
 
     Private Sub frmChangeContactType_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        fComboBox(cmbTYPE, "Select * from contact_type_map where id in('1','5','6')", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbTYPE, "Select * from contact_type_map where id in('1','5','6')", "ID", "DESCRIPTION")
         cmbTYPE.SelectedValue = gsID
     End Sub
 
     Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
         If cmbTYPE.SelectedValue = gsID Then
-            fMessageboxInfo(cmbTYPE.Text & " type  already used!")
+            MessageBoxInfo(cmbTYPE.Text & " type  already used!")
             Exit Sub
         End If
         gsID = cmbTYPE.SelectedValue

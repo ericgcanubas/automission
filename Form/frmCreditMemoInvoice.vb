@@ -11,19 +11,19 @@ Public Class frmCreditMemoInvoice
 
     Private Sub fComputed()
 
-        Dim credit_amount As Double = fNumFormatFixed(lblCreditAmount.Text)
+        Dim credit_amount As Double = NumberFormatFixed(lblCreditAmount.Text)
 
         Dim total_amt As Double = 0
 
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-            total_amt = total_amt + fNumFormatFixed(dgvAvailable.Rows(i).Cells("Amount_applied").Value)
+            total_amt = total_amt + NumberFormatFixed(dgvAvailable.Rows(i).Cells("Amount_applied").Value)
         Next
 
         Dim remaining As Double = credit_amount - total_amt
 
-        lblRemainingCredit.Text = fNumFormatStandard(remaining)
+        lblRemainingCredit.Text = NumberFormatStandard(remaining)
 
-        lblTotal.Text = fNumFormatStandard(total_amt)
+        lblTotal.Text = NumberFormatStandard(total_amt)
 
     End Sub
 
@@ -69,7 +69,7 @@ Public Class frmCreditMemoInvoice
 
         fInvoiceList()
         fComputed()
-        fDatagridViewMode(dgvAvailable)
+        DatagridViewMode(dgvAvailable)
     End Sub
     Private Sub fInvoiceList()
         dgvAvailable.Rows.Clear()
@@ -101,7 +101,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
         Try
             Dim bSelected As Boolean
 
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 Dim credit_applied As Double = fGetSumCreditApplied(rd("invoice_id"), gsCustomer_ID)
 
@@ -112,7 +112,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
                     bSelected = True
                 End If
 
-                dgvAvailable.Rows.Add(rd("invoice_id"), bSelected, Format(rd("date"), "MM/dd/yyyy"), rd("code"), fNumFormatStandard(rd("amount")), fNumisNULL(rd("balance_due")) + credit_applied, Format(credit_applied, "Standard"))
+                dgvAvailable.Rows.Add(rd("invoice_id"), bSelected, Format(rd("date"), "MM/dd/yyyy"), rd("code"), NumberFormatStandard(rd("amount")), NumIsNull(rd("balance_due")) + credit_applied, Format(credit_applied, "Standard"))
 
             End While
 
@@ -120,7 +120,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
 
             Else
                 End
@@ -140,7 +140,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
                 Dim invoice_balance As Double = dgvAvailable.Rows(i_index).Cells("balance_due").Value
                 Dim credit_balance As Double = 0
                 Dim total_amt As Double = 0
-                Dim credit_amt As Double = fNumFormatFixed(lblCreditAmount.Text)
+                Dim credit_amt As Double = NumberFormatFixed(lblCreditAmount.Text)
 
                 For i As Integer = 0 To dgvAvailable.Rows.Count - 1
                     total_amt = total_amt + dgvAvailable.Rows(i).Cells("Amount_applied").Value
@@ -225,27 +225,27 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
 
 
-            Dim rd_check As OdbcDataReader = fReader("select AMOUNT_APPLIED as a from credit_memo_invoices where CREDIT_MEMO_ID ='" & gsID & "' and INVOICE_ID = '" & prInvoice_id & "' ")
+            Dim rd_check As OdbcDataReader = SqlReader("select AMOUNT_APPLIED as a from credit_memo_invoices where CREDIT_MEMO_ID ='" & gsID & "' and INVOICE_ID = '" & prInvoice_id & "' ")
 
             If rd_check.Read Then
                 If bSelected = True Then
                     'UPDATE
                     If amt_appled <> rd_check("a") Then
-                        fExecutedOnly("UPDATE credit_memo_invoices set AMOUNT_APPLIED ='" & amt_appled & "' Where  CREDIT_MEMO_ID = '" & gsID & "' and INVOICE_ID = '" & prInvoice_id & "'")
+                        SqlExecuted("UPDATE credit_memo_invoices set AMOUNT_APPLIED ='" & amt_appled & "' Where  CREDIT_MEMO_ID = '" & gsID & "' and INVOICE_ID = '" & prInvoice_id & "'")
                         bUpdate = True
 
                     End If
 
                 Else
                     'DELETE
-                    fExecutedOnly("DELETE FROM credit_memo_invoices Where  CREDIT_MEMO_ID = '" & gsID & "' and INVOICE_ID = '" & prInvoice_id & "'")
+                    SqlExecuted("DELETE FROM credit_memo_invoices Where  CREDIT_MEMO_ID = '" & gsID & "' and INVOICE_ID = '" & prInvoice_id & "'")
                     bUpdate = True
                 End If
             Else
                 'INSERT
                 If bSelected = True Then
-                    Dim i_ID As Double = fObjectTypeMap_ID("credit_memo_invoices")
-                    fExecutedOnly("INSERT INTO credit_memo_invoices set ID ='" & i_ID & "', CREDIT_MEMO_ID = '" & gsID & "',INVOICE_ID = '" & prInvoice_id & "' , AMOUNT_APPLIED ='" & amt_appled & "'")
+                    Dim i_ID As Double = ObjectTypeMapId("credit_memo_invoices")
+                    SqlExecuted("INSERT INTO credit_memo_invoices set ID ='" & i_ID & "', CREDIT_MEMO_ID = '" & gsID & "',INVOICE_ID = '" & prInvoice_id & "' , AMOUNT_APPLIED ='" & amt_appled & "'")
 
 
                     bUpdate = True
@@ -255,7 +255,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
             rd_check.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 bUpdate = fSetCredit_Memo_invoice(bSelected, amt_appled, prInvoice_id)
             Else
                 End
@@ -281,12 +281,12 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
             nStatus = 2
         End If
         squery = "UPDATE invoice SET BALANCE_DUE ='" & New_Balance & "',STATUS ='" & nStatus & "',STATUS_DATE ='" & Format(Date.Now, "yyyy-MM-dd HH:mm:ss") & "' WHERE ID = '" & gsInvoice & "'"
-        fExecutedOnly(squery)
+        SqlExecuted(squery)
 
     End Sub
 
     Private Sub frmCreditMemoInvoice_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fDgvNotSort(dgvAvailable)
+        ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
 
@@ -297,7 +297,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
         If dgvAvailable.Rows.Count = 0 Then
-            fMessageboxWarning("Invoice not found!")
+            MessageBoxWarning("Invoice not found!")
             Exit Sub
         End If
 
@@ -305,7 +305,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
             With dgvAvailable.Rows(i)
-                If fSetCredit_Memo_invoice(.Cells(1).Value, fNumFormatFixed(.Cells("Amount_applied").Value), .Cells(0).Value) = True Then
+                If fSetCredit_Memo_invoice(.Cells(1).Value, NumberFormatFixed(.Cells("Amount_applied").Value), .Cells(0).Value) = True Then
                     fInvoiceBalance_Update(.Cells(0).Value, .Cells("Amount").Value)
                 End If
 

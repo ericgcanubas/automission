@@ -11,7 +11,7 @@ Module modOnline
             cnn.Open()
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fResetConnection()
             Else
                 End

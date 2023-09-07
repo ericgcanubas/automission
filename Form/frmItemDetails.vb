@@ -4,8 +4,8 @@ Imports System.Data.Odbc
 Public Class frmItemDetails
     Public GoLoad As Boolean = True
     Public bMain As Boolean = False
-    Public bNew As Boolean
-    Public gsID As String
+    Public IsNew As Boolean
+    Public ID As Integer
     Public dgv As DataGridView
     Public this_BS As BindingSource
     Public bFirstLoad As Boolean = False
@@ -16,12 +16,38 @@ Public Class frmItemDetails
         Me.Close()
     End Sub
 
-    Private Function fGetSQL(ByVal x As String) As String
-
-        Return fFieldCollector(Me) & "," & fFieldCollector(tpInfo) & "," & fFieldCollector(tpOther) & IIf(tpUnits.Enabled = True, "," & fFieldCollector(tpUnits), "") & IIf(tpComponents.Enabled = True, "," & fFieldCollector(tpComponents), "")
-
-
+    Private Function GetUpdateSQL() As String
+        Return SqlUpdate(Me) & "," & SqlUpdate(tpInfo) & "," & SqlUpdate(tpOther) & "," & SqlUpdate(tpUnits) & "," & SqlUpdate(tpComponents)
     End Function
+    Private Sub GetInsertSQL(ByRef RefField As String, ByRef RefValue As String)
+
+        Dim SQL_Field1 As String = ""
+        Dim SQL_Value1 As String = ""
+        SqlCreate(Me, SQL_Field1, SQL_Value1)
+
+        Dim SQL_Field2 As String = ""
+        Dim SQL_Value2 As String = ""
+        SqlCreate(tpInfo, SQL_Field2, SQL_Value2)
+
+        Dim SQL_Field3 As String = ""
+        Dim SQL_Value3 As String = ""
+        SqlCreate(tpOther, SQL_Field3, SQL_Value3)
+
+        Dim SQL_Field4 As String = ""
+        Dim SQL_Value4 As String = ""
+        SqlCreate(tpUnits, SQL_Field4, SQL_Value4)
+
+        Dim SQL_Field5 As String = ""
+        Dim SQL_Value5 As String = ""
+        SqlCreate(tpComponents, SQL_Field5, SQL_Value5)
+
+
+        RefField = $"{SQL_Field1},{SQL_Field2},{SQL_Field3},{SQL_Field4},{SQL_Field5}"
+
+        RefValue = $"{SQL_Field1},{SQL_Field2},{SQL_Field3},{SQL_Field4},{SQL_Field5}"
+
+
+    End Sub
 
     Private Sub fType_Item(ByVal s As Integer)
         chkNON_PORFOLIO_COMPUTATION.Text = "NON-Computation"
@@ -44,7 +70,7 @@ Public Class frmItemDetails
 
         cmbRATE_TYPE.Visible = False
 
-        fComboBox(cmbGROUP_ID, " select '0' as ID ,' ' as `Description` union select id,description from item_group where item_type = '" & s & "'", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbGROUP_ID, " select '0' as ID ,' ' as `Description` union select id,description from item_group where item_type = '" & s & "'", "ID", "DESCRIPTION")
 
 
         Select Case s
@@ -694,25 +720,25 @@ Public Class frmItemDetails
         Dim sql_statement As String = " select '0' as ID ,' ' as `NAME` union SELECT  a.ID, a.NAME FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE "
 
 
-        fComboBox(cmbASSET_ACCOUNT_ID, sql_statement, "ID", "NAME")
-        fComboBox(cmbGL_ACCOUNT_ID, sql_statement, "ID", "NAME")
-        fComboBox(cmbCOGS_ACCOUNT_ID, sql_statement, "ID", "NAME")
+        ComboBoxLoad(cmbASSET_ACCOUNT_ID, sql_statement, "ID", "NAME")
+        ComboBoxLoad(cmbGL_ACCOUNT_ID, sql_statement, "ID", "NAME")
+        ComboBoxLoad(cmbCOGS_ACCOUNT_ID, sql_statement, "ID", "NAME")
 
 
-        fComboBox(cmbPREFERRED_VENDOR_ID, "select ID,NAME from contact where type = '0' ", "ID", "NAME")
-        fComboBox(cmbMANUFACTURER_ID, "select ID, `NAME`  from manufacturer", "ID", "NAME")
-        fComboBox(cmbSTOCK_TYPE, "Select ID,DESCRIPTION from stock_type_map", "ID", "DESCRIPTION")
-        fComboBox(cmbRATE_TYPE, "Select ID,DESCRIPTION from rate_type_map", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbPREFERRED_VENDOR_ID, "select ID,NAME from contact where type = '0' ", "ID", "NAME")
+        ComboBoxLoad(cmbMANUFACTURER_ID, "select ID, `NAME`  from manufacturer", "ID", "NAME")
+        ComboBoxLoad(cmbSTOCK_TYPE, "Select ID,DESCRIPTION from stock_type_map", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbRATE_TYPE, "Select ID,DESCRIPTION from rate_type_map", "ID", "DESCRIPTION")
 
         sql_statement = "select '0' as ID ,' ' as `NAME` union select ID, NAME as T from unit_of_measure where inactive='0'"
-        fComboBox(cmbBASE_UNIT_ID, sql_statement, "ID", "NAME")
-        fComboBox(cmbPURCHASES_UNIT_ID, sql_statement, "ID", "NAME")
-        fComboBox(cmbSALES_UNIT_ID, sql_statement, "ID", "NAME")
-        fComboBox(cmbSHIPPING_UNIT_ID, sql_statement, "ID", "NAME")
-        fComboBox(cmbCLASS_ID, "select '0' as ID ,' ' as `DESCRIPTION` union  Select ID,DESCRIPTION from item_class", "ID", "DESCRIPTION")
-        fComboBox(cmbSUB_CLASS_ID, "select '0' as ID ,' ' as `DESCRIPTION` union  Select ID,DESCRIPTION from item_sub_class ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbBASE_UNIT_ID, sql_statement, "ID", "NAME")
+        ComboBoxLoad(cmbPURCHASES_UNIT_ID, sql_statement, "ID", "NAME")
+        ComboBoxLoad(cmbSALES_UNIT_ID, sql_statement, "ID", "NAME")
+        ComboBoxLoad(cmbSHIPPING_UNIT_ID, sql_statement, "ID", "NAME")
+        ComboBoxLoad(cmbCLASS_ID, "select '0' as ID ,' ' as `DESCRIPTION` union  Select ID,DESCRIPTION from item_class", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbSUB_CLASS_ID, "select '0' as ID ,' ' as `DESCRIPTION` union  Select ID,DESCRIPTION from item_sub_class ", "ID", "DESCRIPTION")
 
-        fComboBox(cmbTYPE, "select ID,DESCRIPTION from item_type_map WHERE INACTIVE = '0' ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbTYPE, "select ID,DESCRIPTION from item_type_map WHERE INACTIVE = '0' ", "ID", "DESCRIPTION")
         GoLoad = False
         cmbTYPE.SelectedIndex = -1
         cmbTYPE.SelectedIndex = 0
@@ -732,15 +758,15 @@ Public Class frmItemDetails
         bFirstLoad = True
 
 
-        Dim tmp_sc As Integer = fNumFieldValue("item", "id", gsID, "sub_class_id")
-        Dim tmp_c As Integer = fNumFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
-        If bNew = False Then
-            fRefreshForm(gsID)
+        Dim tmp_sc As Integer = GetNumberFieldValue("item", "id", ID, "sub_class_id")
+        Dim tmp_c As Integer = GetNumberFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
+        If IsNew = False Then
+            fRefreshForm(ID)
             Me.Text = "Update Item"
 
             cmbTYPE.Enabled = False
-            tmp_sc = fNumFieldValue("item", "id", gsID, "sub_class_id")
-            tmp_c = fNumFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
+            tmp_sc = GetNumberFieldValue("item", "id", ID, "sub_class_id")
+            tmp_c = GetNumberFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
 
         Else
             Me.Text = "Create Item"
@@ -780,8 +806,8 @@ Public Class frmItemDetails
     End Sub
     Private Sub SetDefault()
 
-        If bNew = True Then
-            txtCODE.Text = fNEXT_ITEM_CODE_GET(cmbTYPE.SelectedValue)
+        If IsNew = True Then
+            txtCODE.Text = GetNextItemCode(cmbTYPE.SelectedValue)
         End If
 
         If cmbTYPE.SelectedValue <= 1 Then
@@ -886,7 +912,7 @@ Public Class frmItemDetails
    `IS_EXPIRED`
    from item where id = '" & id & "' Limit 1"
 
-            fExecutedUsingReading(Me, sQuery)
+            SqlExecutedUsingReading(Me, sQuery)
             ' fType_Item(cmbTYPE)
 
             If gsUseImageProduct = True Then
@@ -897,7 +923,7 @@ Public Class frmItemDetails
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
     Private Sub cmbTYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTYPE.SelectedIndexChanged
@@ -910,7 +936,7 @@ Public Class frmItemDetails
                 fType_Item(Val(cmbTYPE.SelectedValue))
             End If
         Catch ex As Exception
-            fMessageBoxErrorYesNo(ex.Message)
+            MessageBoxErrorYesNo(ex.Message)
         End Try
     End Sub
     Private Sub fPrice_level()
@@ -931,14 +957,14 @@ Public Class frmItemDetails
                 .Add("PRICE_LEVEL_LINES_ID", "PRICE_LEVEL_LINES_ID")
                 .Item("PRICE_LEVEL_LINES_ID").Visible = False
             End With
-            fDgvNotSort(dgvPriceLevel)
+            ViewNotSort(dgvPriceLevel)
         End If
 
         dgvPriceLevel.Rows.Clear()
-        Dim rd As OdbcDataReader = fReader(" SELECT p.`ID` as PRICE_LEVEL_ID ,p.`DESCRIPTION` as `PRICE_LEVEL`,format( pll.`CUSTOM_PRICE`,2) as `CUSTOM_PRICE`,pll.ID as `PRICE_LEVEL_LINE_ID` FROM price_level AS p LEFT OUTER JOIN price_level_lines AS pll ON p.id = pll.`PRICE_LEVEL_ID` AND pll.`ITEM_ID` ='" & gsID & "' WHERE p.`TYPE` = '1' ")
+        Dim rd As OdbcDataReader = SqlReader(" SELECT p.`ID` as PRICE_LEVEL_ID ,p.`DESCRIPTION` as `PRICE_LEVEL`,format( pll.`CUSTOM_PRICE`,2) as `CUSTOM_PRICE`,pll.ID as `PRICE_LEVEL_LINE_ID` FROM price_level AS p LEFT OUTER JOIN price_level_lines AS pll ON p.id = pll.`PRICE_LEVEL_ID` AND pll.`ITEM_ID` ='" & ID & "' WHERE p.`TYPE` = '1' ")
         While rd.Read
 
-            dgvPriceLevel.Rows.Add(rd("PRICE_LEVEL_ID"), fTextisNULL(rd("PRICE_LEVEL")), fTextisNULL(rd("CUSTOM_PRICE")), "s", fTextisNULL(rd("PRICE_LEVEL_LINE_ID")))
+            dgvPriceLevel.Rows.Add(rd("PRICE_LEVEL_ID"), TextIsNull(rd("PRICE_LEVEL")), TextIsNull(rd("CUSTOM_PRICE")), "s", TextIsNull(rd("PRICE_LEVEL_LINE_ID")))
 
         End While
 
@@ -948,7 +974,7 @@ Public Class frmItemDetails
 
         Try
 
-            Dim rd As OdbcDataReader = fReader("select code from item where code = '" & txtCODE.Text & "' Limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select code from item where code = '" & txtCODE.Text & "' Limit 1")
             If rd.Read Then
                 b = True
             Else
@@ -958,44 +984,41 @@ Public Class frmItemDetails
             rd.Close()
             Return b
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
             Return b
         End Try
     End Function
     Private Function fSaveNew() As Boolean
         Dim bStop As Boolean = False
         If txtCODE.Text.Length = 0 Then
-            fMessageboxWarning("Please enter code item!")
+            MessageBoxWarning("Please enter code item!")
             bStop = True
         End If
 
-
-        Dim sQuery As String = fGetSQL(cmbTYPE.SelectedValue)
-        Dim sQuery1 As String = fNullOTherField(sQuery, "item")
-
-
-        If bNew = True Then
+        If IsNew = True Then
             If fCode_Item_check() = True Then
-                fMessageboxExclamation("Code item is already used!")
+                MessageBoxExclamation("Code item is already used!")
                 bStop = True
             End If
 
-            gsID = fGetMaxField("ID", "item")
-            fExecutedOnly("INSERT INTO item set " & sQuery1 & ",ID = '" & gsID & "'")
+            ID = GetMaxField("ID", "item")
+            SqlExecuted("INSERT INTO item set " & "" & ", ID = '" & ID & "'")
         Else
-            fExecutedOnly("UPDATE item set " & sQuery1 & " where ID = '" & gsID & "'")
+
+
+            SqlExecuted("UPDATE item set " & GetUpdateSQL() & " WHERE ID = '" & ID & "'")
         End If
 
         If bStop = True Then
 
             Return True
         Else
-            bNew = False
+            IsNew = False
 
             Return False
         End If
 
-        If bNew = False Then
+        If IsNew = False Then
             Me.Text = "Item :: EDIT"
         Else
             Me.Text = "Item :: NEW"
@@ -1024,11 +1047,11 @@ Public Class frmItemDetails
                         Case "s"
 
                         Case "n"
-                            fExecutedOnly($" INSERT INTO item_unit_price_levels  SET PRICE_LEVEL_ID = '{PRICE_LEVEL_ID}', CUSTOM_PRICE='{CUSTOM_PRICE}',ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}',ID='{fObjectTypeMap_ID("ITEM_UNIT_PRICE_LEVELS")}';")
+                            SqlExecuted($" INSERT INTO item_unit_price_levels  SET PRICE_LEVEL_ID = '{PRICE_LEVEL_ID}', CUSTOM_PRICE='{CUSTOM_PRICE}',ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}',ID='{ObjectTypeMapId("ITEM_UNIT_PRICE_LEVELS")}';")
                         Case "e"
-                            fExecutedOnly($" UPDATE item_unit_price_levels SET PRICE_LEVEL_ID = '{PRICE_LEVEL_ID}', CUSTOM_PRICE='{CUSTOM_PRICE}' WHERE ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}' and ID='{ID}' Limit 1;")
+                            SqlExecuted($" UPDATE item_unit_price_levels SET PRICE_LEVEL_ID = '{PRICE_LEVEL_ID}', CUSTOM_PRICE='{CUSTOM_PRICE}' WHERE ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}' and ID='{ID}' Limit 1;")
                         Case "d"
-                            fExecutedOnly($" DELETE FROM item_unit_price_levels WHERE ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}' and ID='{ID}' Limit 1;")
+                            SqlExecuted($" DELETE FROM item_unit_price_levels WHERE ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}' and ID='{ID}' Limit 1;")
                     End Select
 
                     ID = ""
@@ -1106,18 +1129,18 @@ Public Class frmItemDetails
             End If
 
         End With
-        fDgvNotSort(dgvComponents)
+        ViewNotSort(dgvComponents)
     End Sub
 
     Private Sub fComponents()
 
         Dim T As Double = 0
         dgvComponents.Rows.Clear()
-        Dim rd As OdbcDataReader = fReader($"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate`,i.ID as `ITEM_ID` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{gsID}' ")
-        '  fDataGridView(dgvItem, $"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{gsID}' ")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate`,i.ID as `ITEM_ID` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
+        '  LoadDataGridView(dgvItem, $"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
         While rd.Read
-            dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), fNumisNULL(rd("Quantity")), fNumisNULL(rd("RATE")), "s", rd("ITEM_ID"))
-            T = T + fNumisNULL(rd("RATE"))
+            dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), NumIsNull(rd("Quantity")), NumIsNull(rd("RATE")), "s", rd("ITEM_ID"))
+            T = T + NumIsNull(rd("RATE"))
         End While
         numRATE.Value = T
         With dgvComponents
@@ -1150,7 +1173,7 @@ Public Class frmItemDetails
             .Columns(3).Width = 70
             .Columns(4).Width = 80
         End With
-        fDgvNotSort(dgvComponents)
+        ViewNotSort(dgvComponents)
     End Sub
     Private Sub fComponents_byGroup()
 
@@ -1159,10 +1182,10 @@ Public Class frmItemDetails
 
 
         dgvComponents.Rows.Clear()
-        Dim rd As OdbcDataReader = fReader($"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate`,i.ID as `ITEM_ID` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{gsID}' ")
-        '  fDataGridView(dgvItem, $"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{gsID}' ")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate`,i.ID as `ITEM_ID` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
+        '  LoadDataGridView(dgvItem, $"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
         While rd.Read
-            dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), fNumisNULL(rd("Quantity")), fNumisNULL(rd("RATE")), "s", rd("ITEM_ID"))
+            dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), NumIsNull(rd("Quantity")), NumIsNull(rd("RATE")), "s", rd("ITEM_ID"))
 
         End While
     End Sub
@@ -1214,16 +1237,16 @@ Public Class frmItemDetails
             .Columns(6).Width = 70
             .Columns(7).Width = 70
         End With
-        fDgvNotSort(dgvOrder_Preference)
+        ViewNotSort(dgvOrder_Preference)
         dgvOrder_Preference.ColumnHeadersHeight = 60
 
 
-        Dim rd As OdbcDataReader = fReader("SELECT i.ID as `ITEM_PREFERENCE_ID`,l.`ID` as `LOCATION_ID`,l.`NAME` AS `LOCATION`, FORMAT( i.`ORDER_POINT`,1) as `ORDER_POINT`,FORMAT(i.`ORDER_QTY`,1) as `ORDER_QTY`,FORMAT(i.`ORDER_LEADTIME`,1) as `ORDER_LEADTIME`, FORMAT(i.`ONHAND_MAX_LIMIT`,1) as `ONHAND_MAX_LIMIT`,s.ID as `STOCK_BIN_ID`,s.`DESCRIPTION` AS `STOCK_BIN` FROM location AS l LEFT OUTER JOIN item_preference AS i ON i.`LOCATION_ID` = l.`ID` AND  i.item_id ='" & gsID & "' LEFT OUTER JOIN stock_bin AS s ON i.`STOCK_BIN_ID` = s.`ID`")
+        Dim rd As OdbcDataReader = SqlReader("SELECT i.ID as `ITEM_PREFERENCE_ID`,l.`ID` as `LOCATION_ID`,l.`NAME` AS `LOCATION`, FORMAT( i.`ORDER_POINT`,1) as `ORDER_POINT`,FORMAT(i.`ORDER_QTY`,1) as `ORDER_QTY`,FORMAT(i.`ORDER_LEADTIME`,1) as `ORDER_LEADTIME`, FORMAT(i.`ONHAND_MAX_LIMIT`,1) as `ONHAND_MAX_LIMIT`,s.ID as `STOCK_BIN_ID`,s.`DESCRIPTION` AS `STOCK_BIN` FROM location AS l LEFT OUTER JOIN item_preference AS i ON i.`LOCATION_ID` = l.`ID` AND  i.item_id ='" & ID & "' LEFT OUTER JOIN stock_bin AS s ON i.`STOCK_BIN_ID` = s.`ID`")
         dgvOrder_Preference.Rows.Clear()
 
         While rd.Read
             With dgvOrder_Preference.Rows
-                .Add(rd("ITEM_PREFERENCE_ID"), rd("LOCATION_ID"), rd("LOCATION"), fTextisNULL(rd("ORDER_POINT")).Replace(",", ""), fTextisNULL(rd("ORDER_QTY")).Replace(",", ""), fTextisNULL(rd("ORDER_LEADTIME")).Replace(",", ""), fTextisNULL(rd("ONHAND_MAX_LIMIT")).Replace(",", ""), fTextisNULL(rd("STOCK_BIN")), fTextisNULL(rd("STOCK_BIN_ID")), "s")
+                .Add(rd("ITEM_PREFERENCE_ID"), rd("LOCATION_ID"), rd("LOCATION"), TextIsNull(rd("ORDER_POINT")).Replace(",", ""), TextIsNull(rd("ORDER_QTY")).Replace(",", ""), TextIsNull(rd("ORDER_LEADTIME")).Replace(",", ""), TextIsNull(rd("ONHAND_MAX_LIMIT")).Replace(",", ""), TextIsNull(rd("STOCK_BIN")), TextIsNull(rd("STOCK_BIN_ID")), "s")
             End With
         End While
 
@@ -1261,7 +1284,7 @@ Public Class frmItemDetails
             .Add("DATA", "DATA")
             .Item("DATA").Visible = False
 
-            fDgvNotSort(dgvReleted_Units)
+            ViewNotSort(dgvReleted_Units)
         End With
 
         With dgvReleted_Units
@@ -1276,9 +1299,9 @@ Public Class frmItemDetails
 
 
         dgvReleted_Units.Rows.Clear()
-        Dim rd As OdbcDataReader = fReader("SELECT ui.ID,u.`ID` as `UNIT_ID`,u.`NAME` as `UNIT`,u.`SYMBOL`, format(ui.`QUANTITY`,0) as `QTY` , format(ui.`RATE`,2) as `RATE`,ui.`BARCODE` FROM item_units AS ui INNER JOIN unit_of_measure AS u ON ui.`UNIT_ID` = u.`ID`  WHERE ui.`ITEM_ID` ='" & gsID & "'")
+        Dim rd As OdbcDataReader = SqlReader("SELECT ui.ID,u.`ID` as `UNIT_ID`,u.`NAME` as `UNIT`,u.`SYMBOL`, format(ui.`QUANTITY`,0) as `QTY` , format(ui.`RATE`,2) as `RATE`,ui.`BARCODE` FROM item_units AS ui INNER JOIN unit_of_measure AS u ON ui.`UNIT_ID` = u.`ID`  WHERE ui.`ITEM_ID` ='" & ID & "'")
         While rd.Read
-            dgvReleted_Units.Rows.Add(fTextisNULL(rd("ID")), rd("UNIT_ID"), rd("UNIT"), rd("SYMBOL"), rd("QTY"), rd("RATE"), rd("BARCODE"), "s", SQL_UNIT_PRICE_LEVEL(fTextisNULL(rd("ID"))))
+            dgvReleted_Units.Rows.Add(TextIsNull(rd("ID")), rd("UNIT_ID"), rd("UNIT"), rd("SYMBOL"), rd("QTY"), rd("RATE"), rd("BARCODE"), "s", SQL_UNIT_PRICE_LEVEL(TextIsNull(rd("ID"))))
         End While
 
         'fRefreshUnit_UM_PriceLevels()
@@ -1286,9 +1309,9 @@ Public Class frmItemDetails
     End Sub
     Private Function SQL_UNIT_PRICE_LEVEL(ByVal Related_ID As String) As String
         Dim StrCollect As String = ""
-        Dim rd As OdbcDataReader = fReader("SELECT ipl.`ID`,ipl.PRICE_LEVEL_ID,p.`DESCRIPTION` as `PRICE_LEVEL`,format(ipl.`CUSTOM_PRICE`,2) as `CUSTOM_PRICE` FROM item_unit_price_levels AS ipl INNER JOIN price_level AS p ON p.`ID` = ipl.`PRICE_LEVEL_ID` WHERE ipl.`ITEM_UNIT_LINE_ID` ='" & Related_ID & "' and p.`TYPE` = '1' ")
+        Dim rd As OdbcDataReader = SqlReader("SELECT ipl.`ID`,ipl.PRICE_LEVEL_ID,p.`DESCRIPTION` as `PRICE_LEVEL`,format(ipl.`CUSTOM_PRICE`,2) as `CUSTOM_PRICE` FROM item_unit_price_levels AS ipl INNER JOIN price_level AS p ON p.`ID` = ipl.`PRICE_LEVEL_ID` WHERE ipl.`ITEM_UNIT_LINE_ID` ='" & Related_ID & "' and p.`TYPE` = '1' ")
         While rd.Read
-            StrCollect = StrCollect & $"{ fTextisNULL(rd("ID"))},{rd("PRICE_LEVEL_ID")},{rd("PRICE_LEVEL")},{ fNumisNULL(rd("CUSTOM_PRICE"))},s;"
+            StrCollect = StrCollect & $"{ TextIsNull(rd("ID"))},{rd("PRICE_LEVEL_ID")},{rd("PRICE_LEVEL")},{ NumIsNull(rd("CUSTOM_PRICE"))},s;"
         End While
         rd.Close()
 
@@ -1299,7 +1322,7 @@ Public Class frmItemDetails
         Dim StrCollect As String = ""
         For I As Integer = 0 To dgvUM_Price_level.Rows.Count - 1
             With dgvUM_Price_level.Rows(I)
-                StrCollect = StrCollect & $"{ fNumisNULL(.Cells("ID").Value)},{ .Cells("PRICE_LEVEL_ID").Value},{ .Cells("PRICE_LEVEL").Value},{ fNumisNULL(.Cells("CUSTOM_PRICE").Value)},{ .Cells("STATUS").Value};"
+                StrCollect = StrCollect & $"{ NumIsNull(.Cells("ID").Value)},{ .Cells("PRICE_LEVEL_ID").Value},{ .Cells("PRICE_LEVEL").Value},{ NumIsNull(.Cells("CUSTOM_PRICE").Value)},{ .Cells("STATUS").Value};"
             End With
         Next
         dgvReleted_Units.Rows(dgvReleted_Units.CurrentRow.Index).Cells("DATA").Value = StrCollect
@@ -1323,7 +1346,7 @@ Public Class frmItemDetails
 
             .Add("STATUS", "STATUS")
             .Item("STATUS").Visible = False
-            fDgvNotSort(dgvUM_Price_level)
+            ViewNotSort(dgvUM_Price_level)
 
 
         End With
@@ -1418,13 +1441,13 @@ Public Class frmItemDetails
 
 
             dgvLocation_Default.Columns("LOCATION").Width = 120
-            fDgvNotSort(dgvLocation_Default)
+            ViewNotSort(dgvLocation_Default)
         End If
 
 
 
 
-        Dim rd As OdbcDataReader = fReader("SELECT 
+        Dim rd As OdbcDataReader = SqlReader("SELECT 
 l.`ID` as `LOCATION_ID`,
 l.`NAME` as `LOCATION`,
 um_purchase.`ID` as `PURCHASES_UNIT_ID`,
@@ -1436,7 +1459,7 @@ um_shipping.`NAME` as `SHIPPING_UNIT`,
 ilu.ID as `ITEM_LOCATION_UNITS_ID`
 FROM  location AS l 
   LEFT OUTER JOIN item_location_units AS ilu 
-    ON l.`ID` = ilu.`LOCATION_ID` AND ilu.`ITEM_ID` = '" & gsID & "' 
+    ON l.`ID` = ilu.`LOCATION_ID` AND ilu.`ITEM_ID` = '" & ID & "' 
   LEFT OUTER JOIN unit_of_measure AS um_purchase 
     ON um_purchase.`ID` = ilu.`PURCHASES_UNIT_ID` 
   LEFT OUTER JOIN unit_of_measure AS um_sales 
@@ -1494,12 +1517,12 @@ FROM  location AS l
     End Sub
 
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If bNew = True Then
+        If IsNew = True Then
             fGeneral_Refresh()
         Else
-            If fMessageBoxQuestion("Create new?") = True Then
-                bNew = True
-                gsID = ""
+            If MessageBoxQuestion("Create new?") = True Then
+                IsNew = True
+                ID = ""
                 fGeneral_Refresh()
             Else
 
@@ -1528,7 +1551,7 @@ FROM  location AS l
     Private Sub lklItemEdit_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         'GROUP ADD
         If dgvComponents.Rows.Count = 0 Then
-            fMessageboxExclamation("Data Not Found")
+            MessageBoxExclamation("Data Not Found")
             Exit Sub
         End If
 
@@ -1540,7 +1563,7 @@ FROM  location AS l
             .gsID = dgvComponents.CurrentRow.Cells("ID").Value
             .gsITEM_ID = dgvComponents.CurrentRow.Cells("ITEM_ID").Value
             .gsQTY = dgvComponents.CurrentRow.Cells("QTY").Value
-            .gsRATE = fNumisNULL(dgvComponents.CurrentRow.Cells("RATE").Value)
+            .gsRATE = NumIsNull(dgvComponents.CurrentRow.Cells("RATE").Value)
             .gsNew = False
             .ShowDialog()
             .Dispose()
@@ -1551,12 +1574,12 @@ FROM  location AS l
 
     Private Sub lklItemDelete_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         If dgvComponents.Rows.Count = 0 Then
-            fMessageboxExclamation("Data Not Found")
+            MessageBoxExclamation("Data Not Found")
             Exit Sub
         End If
         dgvComponents.Focus()
 
-        If fNumisNULL(dgvComponents.Rows(dgvComponents.CurrentRow.Index).Cells(0).Value) <> 0 Then
+        If NumIsNull(dgvComponents.Rows(dgvComponents.CurrentRow.Index).Cells(0).Value) <> 0 Then
             dgvComponents.Rows(dgvComponents.CurrentRow.Index).Cells("STATUS").Value = "d"
             dgvComponents.Rows(dgvComponents.CurrentRow.Index).Visible = False
         Else
@@ -1570,14 +1593,14 @@ FROM  location AS l
 
     Private Sub cmbSUB_CLASS_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSUB_CLASS_ID.SelectedIndexChanged
         If bFirstLoad = True Then
-            cmbCLASS_ID.SelectedValue = fNumisNULL(fGetFieldValue("ITEM_SUB_CLASS", "ID", fNumisNULL(cmbSUB_CLASS_ID.SelectedValue), "CLASS_ID"))
+            cmbCLASS_ID.SelectedValue = NumIsNull(GetStringFieldValue("ITEM_SUB_CLASS", "ID", NumIsNull(cmbSUB_CLASS_ID.SelectedValue), "CLASS_ID"))
         End If
 
     End Sub
 
     Private Sub cmbClass_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCLASS_ID.SelectedIndexChanged
         If bFirstLoad = False Then
-            fComboBox(cmbSUB_CLASS_ID, "Select ID,DESCRIPTION from item_sub_class where CLASS_ID = '" & fNumisNULL(cmbCLASS_ID.SelectedValue) & "'", "ID", "DESCRIPTION")
+            ComboBoxLoad(cmbSUB_CLASS_ID, "Select ID,DESCRIPTION from item_sub_class where CLASS_ID = '" & NumIsNull(cmbCLASS_ID.SelectedValue) & "'", "ID", "DESCRIPTION")
         End If
     End Sub
 
@@ -1634,7 +1657,7 @@ FROM  location AS l
     End Sub
 
     Private Sub rtbPURCHASE_DESCRIPTION_LostFocus(sender As Object, e As EventArgs) Handles rtbPURCHASE_DESCRIPTION.LostFocus
-        If bNew = True Then
+        If IsNew = True Then
             Dim info As TextInfo = CultureInfo.InvariantCulture.TextInfo
             rtbDESCRIPTION.Text = rtbPURCHASE_DESCRIPTION.Text.ToUpper.Trim
         End If
@@ -1670,7 +1693,7 @@ FROM  location AS l
             Try
                 picItem.Image = Image.FromFile(GetUploadImage)
             Catch ex As Exception
-                fMessageboxExclamation(ex.Message)
+                MessageBoxExclamation(ex.Message)
             End Try
 
         End If
@@ -1699,20 +1722,20 @@ FROM  location AS l
     End Sub
     Private Sub fSaveIt()
         If txtCODE.Text.Length = 0 Then
-            fMessageboxWarning("Please enter code item!")
+            MessageBoxWarning("Please enter code item!")
             Exit Sub
         End If
         Dim LAST_TYPE_INDEX As Integer = cmbTYPE.SelectedIndex
 
 
-        If bNew = True Then
+        If IsNew = True Then
             If fCode_Item_check() = True Then
-                fMessageboxExclamation("Code item Is already used!")
+                MessageBoxExclamation("Code item Is already used!")
                 Exit Sub
             End If
 
             If rtbDESCRIPTION.Text.Length = 0 Then
-                fMessageboxInfo("Please enter item description")
+                MessageBoxInfo("Please enter item description")
                 rtbDESCRIPTION.Select()
                 Exit Sub
             End If
@@ -1721,10 +1744,10 @@ FROM  location AS l
 
             If Trim(rtbDESCRIPTION.Text) <> "" Then
                 Dim IsUsed As Boolean = False
-                Dim rd_des As OdbcDataReader = fReader($"SELECT * FROM item WHERE `DESCRIPTION` = '{fText_Apostrophe(rtbDESCRIPTION.Text)}' limit 1; ")
+                Dim rd_des As OdbcDataReader = SqlReader($"SELECT * FROM item WHERE `DESCRIPTION` = '{TextApostrophe(rtbDESCRIPTION.Text)}' limit 1; ")
                 If rd_des.Read Then
                     IsUsed = True
-                    fMessageboxInfo($"{xlblDescription.Text} => {rtbDESCRIPTION.Text} is already used.")
+                    MessageBoxInfo($"{xlblDescription.Text} => {rtbDESCRIPTION.Text} is already used.")
                 End If
                 rd_des.Close()
 
@@ -1736,10 +1759,10 @@ FROM  location AS l
 
             If Trim(rtbPURCHASE_DESCRIPTION.Text) <> "" Then
                 Dim IsUsed As Boolean = False
-                Dim rd_des As OdbcDataReader = fReader($"SELECT * FROM item WHERE `PURCHASE_DESCRIPTION` = '{fText_Apostrophe(rtbPURCHASE_DESCRIPTION.Text)}' limit 1; ")
+                Dim rd_des As OdbcDataReader = SqlReader($"SELECT * FROM item WHERE `PURCHASE_DESCRIPTION` = '{TextApostrophe(rtbPURCHASE_DESCRIPTION.Text)}' limit 1; ")
                 If rd_des.Read Then
                     IsUsed = True
-                    fMessageboxInfo($"{xlblPurchase_Description.Text} => {rtbPURCHASE_DESCRIPTION.Text} is already used.")
+                    MessageBoxInfo($"{xlblPurchase_Description.Text} => {rtbPURCHASE_DESCRIPTION.Text} is already used.")
                 End If
                 rd_des.Close()
 
@@ -1750,20 +1773,18 @@ FROM  location AS l
 
 
 
-            fCursorLoadingOn(True)
-            gsID = fObjectTypeMap_ID("item")
+            CursorLoadingOn(True)
+            ID = ObjectTypeMapId("item")
 
-            Dim sQuery As String = fGetSQL(cmbTYPE.SelectedValue)
-            Dim sQuery1 As String = fNullOTherField(sQuery & ", ID ='" & gsID & "'", "item")
 
-            fExecutedOnly($"INSERT INTO item set {sQuery1}")
-            fNEXT_ITEM_CODE_SET(cmbTYPE.SelectedValue, txtCODE.Text)
+            GetInsertSQL(SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO contact_group ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
+            SetNextItemCode(cmbTYPE.SelectedValue, txtCODE.Text)
 
         Else
-            fCursorLoadingOn(True)
-            Dim sQuery As String = fGetSQL(cmbTYPE.SelectedValue)
-
-            fExecutedOnly("UPDATE item set " & sQuery & " where ID = '" & gsID & "' Limit 1")
+            CursorLoadingOn(True)
+            Dim sQuery As String = GetUpdateSQL(cmbTYPE.SelectedValue)
+            SqlExecuted("UPDATE item set " & sQuery & " WHERE ID = '" & ID & "'")
         End If
 
 
@@ -1776,13 +1797,13 @@ FROM  location AS l
                         Case "s"
 
                         Case "n"
-                            .Cells("ID").Value = fObjectTypeMap_ID("ITEM_UNITS")
-                            fExecutedOnly($"INSERT INTO item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ fNumisNULL(.Cells("QTY").Value)}',RATE='{fNumisNULL(.Cells("RATE").Value)}',BARCODE={fGotNullText(.Cells("BARCODE").Value)},ITEM_ID='{gsID}',ID='{ .Cells("ID").Value}';")
+                            .Cells("ID").Value = ObjectTypeMapId("ITEM_UNITS")
+                            SqlExecuted($"INSERT INTO item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ NumIsNull(.Cells("QTY").Value)}',RATE='{NumIsNull(.Cells("RATE").Value)}',BARCODE={GotNullText(.Cells("BARCODE").Value)},ITEM_ID='{ID}',ID='{ .Cells("ID").Value}';")
                         Case "e"
-                            fExecutedOnly($"UPDATE item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ fNumisNULL(.Cells("QTY").Value)}',RATE='{fNumisNULL(.Cells("RATE").Value)}',BARCODE={ fGotNullText(.Cells("BARCODE").Value)} WHERE ITEM_ID='{gsID}' and ID='{ .Cells("ID").Value}' limit 1;")
+                            SqlExecuted($"UPDATE item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ NumIsNull(.Cells("QTY").Value)}',RATE='{NumIsNull(.Cells("RATE").Value)}',BARCODE={ GotNullText(.Cells("BARCODE").Value)} WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' limit 1;")
 
                         Case "d"
-                            fExecutedOnly($"DELETE FROM item_units  WHERE ITEM_ID='{gsID}' and ID='{ .Cells("ID").Value}' limit 1;")
+                            SqlExecuted($"DELETE FROM item_units  WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' limit 1;")
                     End Select
                     fDATA_SQL(.Cells("DATA").Value, .Cells("ID").Value)
                 End With
@@ -1793,11 +1814,11 @@ FROM  location AS l
                     Select Case .Cells("STATUS").Value
                         Case "s"
                         Case "n"
-                            fExecutedOnly($" INSERT INTO item_location_units SET PURCHASES_UNIT_ID={fGotNullNumber(fNumisNULL(.Cells("PURCHASES_UNIT_ID").Value))},SALES_UNIT_ID={fGotNullNumber(fNumisNULL(.Cells("SALES_UNIT_ID").Value))},SHIPPING_UNIT_ID={fGotNullNumber(fNumisNULL(.Cells("SHIPPING_UNIT_ID").Value))},LOCATION_ID='{ .Cells("LOCATION_ID").Value}',ITEM_ID='{gsID}',ID='{fObjectTypeMap_ID("ITEM_LOCATION_UNITS")}';")
+                            SqlExecuted($" INSERT INTO item_location_units SET PURCHASES_UNIT_ID={GotNullNumber(NumIsNull(.Cells("PURCHASES_UNIT_ID").Value))},SALES_UNIT_ID={GotNullNumber(NumIsNull(.Cells("SALES_UNIT_ID").Value))},SHIPPING_UNIT_ID={GotNullNumber(NumIsNull(.Cells("SHIPPING_UNIT_ID").Value))},LOCATION_ID='{ .Cells("LOCATION_ID").Value}',ITEM_ID='{ID}',ID='{ObjectTypeMapId("ITEM_LOCATION_UNITS")}';")
                         Case "e"
-                            fExecutedOnly($" UPDATE item_location_units SET PURCHASES_UNIT_ID={fGotNullNumber(fNumisNULL(.Cells("PURCHASES_UNIT_ID").Value))},SALES_UNIT_ID={fGotNullNumber(fNumisNULL(.Cells("SALES_UNIT_ID").Value))},SHIPPING_UNIT_ID={fGotNullNumber(fNumisNULL(.Cells("SHIPPING_UNIT_ID").Value))} WHERE LOCATION_ID='{ .Cells("LOCATION_ID").Value}' and ITEM_ID='{gsID}' and ID='{ .Cells("ITEM_LOCATION_UNITS_ID").Value}' limit 1;")
+                            SqlExecuted($" UPDATE item_location_units SET PURCHASES_UNIT_ID={GotNullNumber(NumIsNull(.Cells("PURCHASES_UNIT_ID").Value))},SALES_UNIT_ID={GotNullNumber(NumIsNull(.Cells("SALES_UNIT_ID").Value))},SHIPPING_UNIT_ID={GotNullNumber(NumIsNull(.Cells("SHIPPING_UNIT_ID").Value))} WHERE LOCATION_ID='{ .Cells("LOCATION_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("ITEM_LOCATION_UNITS_ID").Value}' limit 1;")
                         Case "d"
-                            fExecutedOnly($" DELETE FROM item_location_units  WHERE LOCATION_ID='{ .Cells("LOCATION_ID").Value}' and ITEM_ID='{gsID}' and ID='{ .Cells("ITEM_LOCATION_UNITS_ID").Value}' limit 1;")
+                            SqlExecuted($" DELETE FROM item_location_units  WHERE LOCATION_ID='{ .Cells("LOCATION_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("ITEM_LOCATION_UNITS_ID").Value}' limit 1;")
                     End Select
                 End With
             Next
@@ -1811,11 +1832,11 @@ FROM  location AS l
                     Select Case .Cells("STATUS").Value
                         Case "s"
                         Case "n"
-                            fExecutedOnly($"INSERT INTO price_level_lines SET CUSTOM_PRICE='{ fNumisNULL(.Cells("CUSTOM_PRICE").Value)}',PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}',ITEM_ID='{gsID}',ID='{fObjectTypeMap_ID("PRICE_LEVEL_LINES")}';")
+                            SqlExecuted($"INSERT INTO price_level_lines SET CUSTOM_PRICE='{ NumIsNull(.Cells("CUSTOM_PRICE").Value)}',PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}',ITEM_ID='{ID}',ID='{ObjectTypeMapId("PRICE_LEVEL_LINES")}';")
                         Case "e"
-                            fExecutedOnly($"UPDATE price_level_lines SET CUSTOM_PRICE='{ fNumisNULL(.Cells("CUSTOM_PRICE").Value)}' WHERE PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}' and ITEM_ID='{gsID}' and ID='{ .Cells("PRICE_LEVEL_LINES_ID").Value}' Limit 1;")
+                            SqlExecuted($"UPDATE price_level_lines SET CUSTOM_PRICE='{ NumIsNull(.Cells("CUSTOM_PRICE").Value)}' WHERE PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("PRICE_LEVEL_LINES_ID").Value}' Limit 1;")
                         Case "d"
-                            fExecutedOnly($"DELETE FROM price_level_lines WHERE PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}' and ITEM_ID='{gsID}' and ID='{ .Cells("PRICE_LEVEL_LINES_ID").Value}' Limit 1;")
+                            SqlExecuted($"DELETE FROM price_level_lines WHERE PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("PRICE_LEVEL_LINES_ID").Value}' Limit 1;")
                     End Select
                 End With
             Next
@@ -1831,11 +1852,11 @@ FROM  location AS l
                     Select Case .Cells("STATUS").Value
                         Case "s" ' stable
                         Case "n" ' new
-                            fExecutedOnly($"INSERT INTO item_components SET ITEM_ID='{gsID}',COMPONENT_ID='{ .Cells("ITEM_ID").Value}',QUANTITY='{ .Cells("QTY").Value}',RATE='{ .Cells("RATE").Value}',ID='{fObjectTypeMap_ID("ITEM_COMPONENTS")}';")
+                            SqlExecuted($"INSERT INTO item_components SET ITEM_ID='{ID}',COMPONENT_ID='{ .Cells("ITEM_ID").Value}',QUANTITY='{ .Cells("QTY").Value}',RATE='{ .Cells("RATE").Value}',ID='{ObjectTypeMapId("ITEM_COMPONENTS")}';")
                         Case "e" ' edit
-                            fExecutedOnly($"UPDATE item_components SET COMPONENT_ID='{ .Cells("ITEM_ID").Value}',QUANTITY='{ .Cells("QTY").Value}',RATE='{ .Cells("RATE").Value}' WHERE ITEM_ID='{gsID}' and ID='{ .Cells("ID").Value}' Limit 1;")
+                            SqlExecuted($"UPDATE item_components SET COMPONENT_ID='{ .Cells("ITEM_ID").Value}',QUANTITY='{ .Cells("QTY").Value}',RATE='{ .Cells("RATE").Value}' WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' Limit 1;")
                         Case "d" ' delete
-                            fExecutedOnly($"DELETE FROM item_components  WHERE ITEM_ID='{gsID}' and ID='{ .Cells("ID").Value}' Limit 1;")
+                            SqlExecuted($"DELETE FROM item_components  WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' Limit 1;")
                     End Select
                 End With
             Next
@@ -1850,11 +1871,11 @@ FROM  location AS l
                         Case "s" ' stable
 
                         Case "n" ' new
-                            fExecutedOnly($"INSERT INTO item_components SET ITEM_ID='{gsID}',COMPONENT_ID='{ .Cells("ITEM_ID").Value}',QUANTITY='{ .Cells("QTY").Value}',RATE='{ .Cells("RATE").Value}',ID='{fObjectTypeMap_ID("ITEM_COMPONENTS")}';")
+                            SqlExecuted($"INSERT INTO item_components SET ITEM_ID='{ID}',COMPONENT_ID='{ .Cells("ITEM_ID").Value}',QUANTITY='{ .Cells("QTY").Value}',RATE='{ .Cells("RATE").Value}',ID='{ObjectTypeMapId("ITEM_COMPONENTS")}';")
                         Case "e" ' edit
-                            fExecutedOnly($"UPDATE item_components SET COMPONENT_ID='{ .Cells("ITEM_ID").Value}',QUANTITY='{ .Cells("QTY").Value}',RATE='{ .Cells("RATE").Value}' WHERE ITEM_ID='{gsID}' and ID='{ .Cells("ID").Value}' Limit 1;")
+                            SqlExecuted($"UPDATE item_components SET COMPONENT_ID='{ .Cells("ITEM_ID").Value}',QUANTITY='{ .Cells("QTY").Value}',RATE='{ .Cells("RATE").Value}' WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' Limit 1;")
                         Case "d" ' delete
-                            fExecutedOnly($"DELETE FROM item_components  WHERE ITEM_ID='{gsID}' and ID='{ .Cells("ID").Value}' Limit 1;")
+                            SqlExecuted($"DELETE FROM item_components  WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' Limit 1;")
                     End Select
                 End With
             Next
@@ -1868,11 +1889,11 @@ FROM  location AS l
                         Case "s" ' stable
 
                         Case "n" ' new
-                            fExecutedOnly($"INSERT INTO item_preference SET ITEM_ID='{gsID}', LOCATION_ID='{ .Cells("LOCATION_ID").Value}',ORDER_POINT={fGotNullNumber(fNumisNULL(.Cells("ORDER_POINT").Value))},ORDER_QTY={ fGotNullNumber(fNumisNULL(.Cells("ORDER_QTY").Value))},ORDER_LEADTIME={ fGotNullNumber(fNumisNULL(.Cells("ORDER_LEADTIME").Value))},ONHAND_MAX_LIMIT={fGotNullNumber(fNumisNULL(.Cells("ONHAND_MAX_LIMIT").Value))},STOCK_BIN_ID={fGotNullNumber(fNumisNULL(.Cells("STOCK_BIN_ID").Value))},ID='{fObjectTypeMap_ID("ITEM_PREFERENCE")}';")
+                            SqlExecuted($"INSERT INTO item_preference SET ITEM_ID='{ID}', LOCATION_ID='{ .Cells("LOCATION_ID").Value}',ORDER_POINT={GotNullNumber(NumIsNull(.Cells("ORDER_POINT").Value))},ORDER_QTY={ GotNullNumber(NumIsNull(.Cells("ORDER_QTY").Value))},ORDER_LEADTIME={ GotNullNumber(NumIsNull(.Cells("ORDER_LEADTIME").Value))},ONHAND_MAX_LIMIT={GotNullNumber(NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value))},STOCK_BIN_ID={GotNullNumber(NumIsNull(.Cells("STOCK_BIN_ID").Value))},ID='{ObjectTypeMapId("ITEM_PREFERENCE")}';")
                         Case "e" ' edit
-                            fExecutedOnly($"UPDATE item_preference SET ORDER_POINT={fGotNullNumber(fNumisNULL(.Cells("ORDER_POINT").Value))},ORDER_QTY={ fGotNullNumber(fNumisNULL(.Cells("ORDER_QTY").Value))},ORDER_LEADTIME={ fGotNullNumber(fNumisNULL(.Cells("ORDER_LEADTIME").Value))},ONHAND_MAX_LIMIT={fGotNullNumber(fNumisNULL(.Cells("ONHAND_MAX_LIMIT").Value))},STOCK_BIN_ID={ fGotNullNumber(fNumisNULL(.Cells("STOCK_BIN_ID").Value))} WHERE ID='{ .Cells("ID").Value}' and ITEM_ID='{gsID}' and LOCATION_ID='{ .Cells("LOCATION_ID").Value}' limit 1;")
+                            SqlExecuted($"UPDATE item_preference SET ORDER_POINT={GotNullNumber(NumIsNull(.Cells("ORDER_POINT").Value))},ORDER_QTY={ GotNullNumber(NumIsNull(.Cells("ORDER_QTY").Value))},ORDER_LEADTIME={ GotNullNumber(NumIsNull(.Cells("ORDER_LEADTIME").Value))},ONHAND_MAX_LIMIT={GotNullNumber(NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value))},STOCK_BIN_ID={ GotNullNumber(NumIsNull(.Cells("STOCK_BIN_ID").Value))} WHERE ID='{ .Cells("ID").Value}' and ITEM_ID='{ID}' and LOCATION_ID='{ .Cells("LOCATION_ID").Value}' limit 1;")
                         Case "d" ' delete
-                            fExecutedOnly($"DELETE FROM item_preference WHERE ID='{ .Cells("ID").Value}' and ITEM_ID='{gsID}' and LOCATION_ID='{ .Cells("LOCATION_ID").Value}' limit 1;")
+                            SqlExecuted($"DELETE FROM item_preference WHERE ID='{ .Cells("ID").Value}' and ITEM_ID='{ID}' and LOCATION_ID='{ .Cells("LOCATION_ID").Value}' limit 1;")
                     End Select
                 End With
             Next
@@ -1885,29 +1906,29 @@ FROM  location AS l
 
         picItem.Image = Nothing
 
-        fItemPerUpdate(dgv, gsID, bNew, this_BS, bMain)
+        fItemPerUpdate(dgv, ID, IsNew, this_BS, bMain)
 
-        If bNew = True Then
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
+        If IsNew = True Then
+            PrompNotify(Me.Text, SaveMsg, True)
         Else
-            fPop_Up_Msg(Me.Text, gsUpdateStr, True)
+            PrompNotify(Me.Text, UpdateMsg, True)
         End If
 
-        bNew = True
-        gsID = ""
-        fCLean_and_refresh(Me)
-        fCLean_and_refresh(tpInfo)
-        fCLean_and_refresh(tpOther)
+        IsNew = True
+        ID = ""
+        ClearAndRefresh(Me)
+        ClearAndRefresh(tpInfo)
+        ClearAndRefresh(tpOther)
 
         fGeneral_Refresh()
-        If fACCESS_NEW_EDIT(frmItem, bNew) = False Then
+        If fACCESS_NEW_EDIT(frmItem, IsNew) = False Then
             Me.Close()
         End If
 
         fDoEvents()
 
         cmbTYPE.SelectedIndex = LAST_TYPE_INDEX
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
         SetDefault()
         Me.Text = "Create Item"
         Me.Refresh()
@@ -1950,7 +1971,7 @@ FROM  location AS l
 
     Private Sub EditTrans_Click(sender As Object, e As EventArgs) Handles EditTrans.Click
         If dgvComponents.Rows.Count = 0 Then
-            fMessageboxExclamation("Data Not Found")
+            MessageBoxExclamation("Data Not Found")
             Exit Sub
         End If
 
@@ -1971,7 +1992,7 @@ FROM  location AS l
             .gsITEM_ID = dgvComponents.Rows(i).Cells("ITEM_ID").Value
             .gsID = dgvComponents.Rows(i).Cells("ID").Value
             .gsQTY = dgvComponents.Rows(i).Cells("QTY").Value
-            .gsRATE = fNumisNULL(dgvComponents.Rows(i).Cells("RATE").Value)
+            .gsRATE = NumIsNull(dgvComponents.Rows(i).Cells("RATE").Value)
             If cmbTYPE.SelectedValue = 9 Then
                 .numRate.Visible = False
                 .xRate.Visible = False
@@ -1985,7 +2006,7 @@ FROM  location AS l
 
     Private Sub DeleteTrans_Click(sender As Object, e As EventArgs) Handles DeleteTrans.Click
         If dgvComponents.Rows.Count = 0 Then
-            fMessageboxExclamation("Data Not Found")
+            MessageBoxExclamation("Data Not Found")
             Exit Sub
         End If
         Me.dgvComponents.Focus()
@@ -1993,7 +2014,7 @@ FROM  location AS l
         Dim dComponents_ID As String = dgvComponents.Rows(n).Cells(0).Value
 
 
-        If fNumisNULL(dgvComponents.Rows(n).Cells(0).Value) <> 0 Then
+        If NumIsNull(dgvComponents.Rows(n).Cells(0).Value) <> 0 Then
             dgvComponents.Rows(n).Cells("STATUS").Value = "d"
             dgvComponents.Rows(n).Visible = False
         Else
@@ -2018,7 +2039,7 @@ FROM  location AS l
 
     Private Sub TsEdit1_Click(sender As Object, e As EventArgs) Handles tsEdit1.Click
         If dgvReleted_Units.Rows.Count = 0 Then
-            fMessageboxInfo("Data not found!")
+            MessageBoxInfo("Data not found!")
             Exit Sub
         End If
 
@@ -2032,9 +2053,9 @@ FROM  location AS l
         Dim iBarcode As String = ""
         With frmItemUnitRelated
             .iUnit_ID = R.Cells("UNIT_ID").Value
-            .numQty.Value = fNumisNULL(R.Cells("QTY").Value)
-            .numRate.Value = fNumisNULL(R.Cells("RATE").Value)
-            .txtBarcode.Text = fTextisNULL(R.Cells("BARCODE").Value)
+            .numQty.Value = NumIsNull(R.Cells("QTY").Value)
+            .numRate.Value = NumIsNull(R.Cells("RATE").Value)
+            .txtBarcode.Text = TextIsNull(R.Cells("BARCODE").Value)
             .ShowDialog()
             bSave = .bSave
             If bSave = True Then
@@ -2044,7 +2065,7 @@ FROM  location AS l
                 R.Cells("QTY").Value = .numQty.Value
                 R.Cells("RATE").Value = .numRate.Value
                 R.Cells("BARCODE").Value = .txtBarcode.Text
-                R.Cells("STATUS").Value = IIf(fNumisNULL(R.Cells("ID").Value) = 0, "n", "e")
+                R.Cells("STATUS").Value = IIf(NumIsNull(R.Cells("ID").Value) = 0, "n", "e")
             End If
 
             .Dispose()
@@ -2054,7 +2075,7 @@ FROM  location AS l
 
     Private Sub TsDelete1_Click(sender As Object, e As EventArgs) Handles tsDelete1.Click
         If dgvReleted_Units.Rows.Count = 0 Then
-            fMessageboxInfo("Data not found!")
+            MessageBoxInfo("Data not found!")
             Exit Sub
         End If
 
@@ -2063,7 +2084,7 @@ FROM  location AS l
 
         dgvReleted_Units.Focus()
 
-        If fNumisNULL(dgvReleted_Units.Rows(i).Cells(0).Value) <> 0 Then
+        If NumIsNull(dgvReleted_Units.Rows(i).Cells(0).Value) <> 0 Then
             dgvReleted_Units.Rows(i).Cells("STATUS").Value = "d"
             dgvReleted_Units.Rows(i).Visible = False
         Else
@@ -2073,7 +2094,7 @@ FROM  location AS l
 
     Private Sub TsAdd2_Click(sender As Object, e As EventArgs) Handles tsAdd2.Click
         If dgvReleted_Units.Rows.Count = 0 Then
-            fMessageboxWarning("Releted size required!")
+            MessageBoxWarning("Releted size required!")
             Exit Sub
         End If
         'Dim i As Integer = dgvReleted_Units.CurrentRow.Index
@@ -2097,7 +2118,7 @@ FROM  location AS l
 
     Private Sub TsEdit2_Click(sender As Object, e As EventArgs) Handles tsEdit2.Click
         If dgvReleted_Units.Rows.Count = 0 Then
-            fMessageboxWarning("Releted size required!")
+            MessageBoxWarning("Releted size required!")
             Exit Sub
         End If
 
@@ -2118,7 +2139,7 @@ FROM  location AS l
                 R.Cells("PRICE_LEVEL_ID").Value = .cmbPriceLevel.SelectedValue
                 R.Cells("PRICE_LEVEL").Value = .cmbPriceLevel.Text
                 R.Cells("CUSTOM_PRICE").Value = .numCustomprice.Value
-                R.Cells("STATUS").Value = IIf(fNumisNULL(R.Cells("ID").Value) = 0, "n", "e")
+                R.Cells("STATUS").Value = IIf(NumIsNull(R.Cells("ID").Value) = 0, "n", "e")
                 fRefreshUnit_UM_PriceLevels_Recompute()
 
             End If
@@ -2129,7 +2150,7 @@ FROM  location AS l
 
     Private Sub TsDelete2_Click(sender As Object, e As EventArgs) Handles tsDelete2.Click
         If dgvUM_Price_level.Rows.Count = 0 Then
-            fMessageboxInfo("Data not found!")
+            MessageBoxInfo("Data not found!")
             Exit Sub
         End If
 
@@ -2138,7 +2159,7 @@ FROM  location AS l
 
         dgvUM_Price_level.Focus()
 
-        If fNumisNULL(dgvUM_Price_level.Rows(i).Cells("ID").Value) <> 0 Then
+        If NumIsNull(dgvUM_Price_level.Rows(i).Cells("ID").Value) <> 0 Then
             dgvUM_Price_level.Rows(i).Cells("STATUS").Value = "d"
             dgvUM_Price_level.Rows(i).Visible = False
         Else
@@ -2156,7 +2177,7 @@ FROM  location AS l
     End Sub
 
     Private Sub ChkRESTAURANT_MENU_CheckedChanged(sender As Object, e As EventArgs)
-        If fNumisNULL(cmbTYPE.SelectedValue) = 6 Then
+        If NumIsNull(cmbTYPE.SelectedValue) = 6 Then
 
             fCONTROL_GROUP()
             fComponents_Column_Group()
@@ -2194,7 +2215,7 @@ FROM  location AS l
 
     Private Sub tsInventoryClick_Click(sender As Object, e As EventArgs) Handles tsInventoryClick.Click
         If dgvOrder_Preference.Rows.Count = 0 Then
-            fMessageboxWarning("Data Not Found")
+            MessageBoxWarning("Data Not Found")
             Exit Sub
         End If
 
@@ -2210,29 +2231,29 @@ FROM  location AS l
             Dim dSave As Boolean = False
             frmItemPreference.bSave = dSave
             frmItemPreference.gsDescription = dDescription 'Price Level ID
-            frmItemPreference.gsOrderPoint = fNumisNULL(.Cells("ORDER_POINT").Value)
-            frmItemPreference.gsOrderQty = fNumisNULL(.Cells("ORDER_QTY").Value)
-            frmItemPreference.gsOrderLeadTime = fNumisNULL(.Cells("ORDER_LEADTIME").Value)
-            frmItemPreference.gsOnHandMaxLimit = fNumisNULL(.Cells("ONHAND_MAX_LIMIT").Value)
-            frmItemPreference.gsStock = fNumisNULL(.Cells("STOCK_BIN_ID").Value)
+            frmItemPreference.gsOrderPoint = NumIsNull(.Cells("ORDER_POINT").Value)
+            frmItemPreference.gsOrderQty = NumIsNull(.Cells("ORDER_QTY").Value)
+            frmItemPreference.gsOrderLeadTime = NumIsNull(.Cells("ORDER_LEADTIME").Value)
+            frmItemPreference.gsOnHandMaxLimit = NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value)
+            frmItemPreference.gsStock = NumIsNull(.Cells("STOCK_BIN_ID").Value)
             frmItemPreference.ShowDialog()
             dSave = frmItemPreference.bSave
             If dSave = True Then
 
-                .Cells("ORDER_POINT").Value = IIf(fNumisNULL(frmItemPreference.gsOrderPoint) = 0, "", fNumisNULL(frmItemPreference.gsOrderPoint))
-                .Cells("ORDER_QTY").Value = IIf(fNumisNULL(frmItemPreference.gsOrderQty) = 0, "", fNumisNULL(frmItemPreference.gsOrderQty))
-                .Cells("ORDER_LEADTIME").Value = IIf(fNumisNULL(frmItemPreference.gsOrderLeadTime) = 0, "", fNumisNULL(frmItemPreference.gsOrderLeadTime))
-                .Cells("ONHAND_MAX_LIMIT").Value = IIf(fNumisNULL(frmItemPreference.gsOnHandMaxLimit) = 0, "", fNumisNULL(frmItemPreference.gsOnHandMaxLimit))
-                .Cells("STOCK_BIN_ID").Value = IIf(fNumisNULL(frmItemPreference.gsStock_bin_id) = 0, "", fNumisNULL(frmItemPreference.gsStock_bin_id))
+                .Cells("ORDER_POINT").Value = IIf(NumIsNull(frmItemPreference.gsOrderPoint) = 0, "", NumIsNull(frmItemPreference.gsOrderPoint))
+                .Cells("ORDER_QTY").Value = IIf(NumIsNull(frmItemPreference.gsOrderQty) = 0, "", NumIsNull(frmItemPreference.gsOrderQty))
+                .Cells("ORDER_LEADTIME").Value = IIf(NumIsNull(frmItemPreference.gsOrderLeadTime) = 0, "", NumIsNull(frmItemPreference.gsOrderLeadTime))
+                .Cells("ONHAND_MAX_LIMIT").Value = IIf(NumIsNull(frmItemPreference.gsOnHandMaxLimit) = 0, "", NumIsNull(frmItemPreference.gsOnHandMaxLimit))
+                .Cells("STOCK_BIN_ID").Value = IIf(NumIsNull(frmItemPreference.gsStock_bin_id) = 0, "", NumIsNull(frmItemPreference.gsStock_bin_id))
 
-                If fNumisNULL(frmItemPreference.gsStock_bin_id) <> 0 Then
+                If NumIsNull(frmItemPreference.gsStock_bin_id) <> 0 Then
                     .Cells("STOCK_BIN").Value = frmItemPreference.cmbBinStock.Text
                 Else
                     .Cells("STOCK_BIN").Value = ""
                 End If
 
-                If fNumisNULL(.Cells("ID").Value) = 0 Then
-                    If fNumisNULL(.Cells("ORDER_POINT").Value) = 0 And fNumisNULL(.Cells("ORDER_QTY").Value) = 0 And fNumisNULL(.Cells("ORDER_LEADTIME").Value) = 0 And fNumisNULL(.Cells("ONHAND_MAX_LIMIT").Value) = 0 And fNumisNULL(.Cells("STOCK_BIN_ID").Value) = 0 Then
+                If NumIsNull(.Cells("ID").Value) = 0 Then
+                    If NumIsNull(.Cells("ORDER_POINT").Value) = 0 And NumIsNull(.Cells("ORDER_QTY").Value) = 0 And NumIsNull(.Cells("ORDER_LEADTIME").Value) = 0 And NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value) = 0 And NumIsNull(.Cells("STOCK_BIN_ID").Value) = 0 Then
                         .Cells("STATUS").Value = "s"
                     Else
                         .Cells("STATUS").Value = "n"
@@ -2240,7 +2261,7 @@ FROM  location AS l
 
                 Else
 
-                    If fNumisNULL(.Cells("ORDER_POINT").Value) = 0 And fNumisNULL(.Cells("ORDER_QTY").Value) = 0 And fNumisNULL(.Cells("ORDER_LEADTIME").Value) = 0 And fNumisNULL(.Cells("ONHAND_MAX_LIMIT").Value) = 0 And fNumisNULL(.Cells("STOCK_BIN_ID").Value) = 0 Then
+                    If NumIsNull(.Cells("ORDER_POINT").Value) = 0 And NumIsNull(.Cells("ORDER_QTY").Value) = 0 And NumIsNull(.Cells("ORDER_LEADTIME").Value) = 0 And NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value) = 0 And NumIsNull(.Cells("STOCK_BIN_ID").Value) = 0 Then
                         .Cells("STATUS").Value = "d"
                     Else
                         .Cells("STATUS").Value = "e"
@@ -2254,7 +2275,7 @@ FROM  location AS l
 
     Private Sub tsDefaultBranch_Click(sender As Object, e As EventArgs) Handles tsDefaultBranch.Click
         If dgvLocation_Default.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
 
@@ -2264,9 +2285,9 @@ FROM  location AS l
             Dim dSave As Boolean = False
 
             frmItemLocationDefaults.dLocation = .Cells("LOCATION").Value
-            frmItemLocationDefaults.purchase_id = fNumisNULL(.Cells("PURCHASES_UNIT_ID").Value)
-            frmItemLocationDefaults.sales_id = fNumisNULL(.Cells("SALES_UNIT_ID").Value)
-            frmItemLocationDefaults.ship_id = fNumisNULL(.Cells("SHIPPING_UNIT_ID").Value)
+            frmItemLocationDefaults.purchase_id = NumIsNull(.Cells("PURCHASES_UNIT_ID").Value)
+            frmItemLocationDefaults.sales_id = NumIsNull(.Cells("SALES_UNIT_ID").Value)
+            frmItemLocationDefaults.ship_id = NumIsNull(.Cells("SHIPPING_UNIT_ID").Value)
             frmItemLocationDefaults.ShowDialog()
             dSave = frmItemLocationDefaults.bSave
 
@@ -2281,15 +2302,15 @@ FROM  location AS l
                 .Cells("SHIPPING_UNIT_ID").Value = frmItemLocationDefaults.cmbShipping.SelectedValue
                 .Cells("SHIPPING_UNIT").Value = frmItemLocationDefaults.cmbShipping.Text
 
-                If fTextisNULL(.Cells("ITEM_LOCATION_UNITS_ID").Value) = "" Then
-                    If fNumisNULL(.Cells("PURCHASES_UNIT_ID").Value) = 0 And fNumisNULL(.Cells("SALES_UNIT_ID").Value) = 0 And fNumisNULL(.Cells("SHIPPING_UNIT_ID").Value) = 0 Then
+                If TextIsNull(.Cells("ITEM_LOCATION_UNITS_ID").Value) = "" Then
+                    If NumIsNull(.Cells("PURCHASES_UNIT_ID").Value) = 0 And NumIsNull(.Cells("SALES_UNIT_ID").Value) = 0 And NumIsNull(.Cells("SHIPPING_UNIT_ID").Value) = 0 Then
                         .Cells("STATUS").Value = "s"
                     Else
                         .Cells("STATUS").Value = "n"
                     End If
 
                 Else
-                    If fNumisNULL(.Cells("PURCHASES_UNIT_ID").Value) = 0 And fNumisNULL(.Cells("SALES_UNIT_ID").Value) = 0 And fNumisNULL(.Cells("SHIPPING_UNIT_ID").Value) = 0 Then
+                    If NumIsNull(.Cells("PURCHASES_UNIT_ID").Value) = 0 And NumIsNull(.Cells("SALES_UNIT_ID").Value) = 0 And NumIsNull(.Cells("SHIPPING_UNIT_ID").Value) = 0 Then
                         .Cells("STATUS").Value = "d"
                     Else
                         .Cells("STATUS").Value = "e"
@@ -2306,7 +2327,7 @@ FROM  location AS l
 
     Private Sub tsRateLevelsClick_Click(sender As Object, e As EventArgs) Handles tsRateLevelsClick.Click
         If dgvPriceLevel.Rows.Count = 0 Then
-            fMessageboxWarning("Data Not Found")
+            MessageBoxWarning("Data Not Found")
             Exit Sub
         End If
 
@@ -2334,11 +2355,11 @@ FROM  location AS l
         If dSave = True Then
 
             With dgvPriceLevel.Rows(i)
-                .Cells("CUSTOM_PRICE").Value = IIf(Val(dValue) = 0, "", fNumFormatFixed(Val(dValue)))
+                .Cells("CUSTOM_PRICE").Value = IIf(Val(dValue) = 0, "", NumberFormatFixed(Val(dValue)))
 
-                If fTextisNULL(.Cells("PRICE_LEVEL_LINES_ID").Value) = "" Then
+                If TextIsNull(.Cells("PRICE_LEVEL_LINES_ID").Value) = "" Then
 
-                    If fNumisNULL(.Cells("CUSTOM_PRICE").Value) = 0 Then
+                    If NumIsNull(.Cells("CUSTOM_PRICE").Value) = 0 Then
                         .Cells("STATUS").Value = "s"
                     Else
                         .Cells("STATUS").Value = "n"
@@ -2346,7 +2367,7 @@ FROM  location AS l
 
                 Else
 
-                    If fNumisNULL(.Cells("CUSTOM_PRICE").Value) = 0 Then
+                    If NumIsNull(.Cells("CUSTOM_PRICE").Value) = 0 Then
                         .Cells("STATUS").Value = "d"
                     Else
                         .Cells("STATUS").Value = "e"

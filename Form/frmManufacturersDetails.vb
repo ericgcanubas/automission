@@ -1,20 +1,20 @@
 ﻿
 Public Class frmManufacturersDetails
-    Public gsID As String
-    Dim gsNew As Boolean = True
+    Public ID As String
+    Dim IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
     Private Sub frmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
 
-        If gsID <> "" Then
+
+        If ID <> "" Then
 
             Try
 
-                fExecutedUsingReading(Me, "select * from manufacturer where id = '" & gsID & "' limit 1")
+                SqlExecutedUsingReading(Me, "select * from manufacturer where id = '" & ID & "' limit 1")
 
-                gsNew = False
+                IsNew = False
 
             Catch ex As Exception
 
@@ -29,51 +29,51 @@ Public Class frmManufacturersDetails
 
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtNAME.Text) = "" Then
-            fMessageboxInfo("Please enter manufacturer name")
+            MessageBoxInfo("Please enter manufacturer name")
             Exit Sub
         End If
 
         If txtCODE.Text = "" Then
-            txtCODE.Text = Format(Val(fGetMaxField("CODE", "manufacturer")), "0000")
+            txtCODE.Text = Format(Val(GetMaxField("CODE", "manufacturer")), "0000")
         End If
 
-        Dim sql As String = fFieldCollector(Me)
-        If gsNew = False Then
-            fExecutedOnly("UPDATE manufacturer set " & sql & " Where ID = '" & gsID & "' limit 1")
+
+        If IsNew = False Then
+            SqlExecuted("UPDATE manufacturer set " & SqlUpdate(Me) & " Where ID = '" & ID & "' limit 1")
         Else
-            gsID = fObjectTypeMap_ID("manufacturer")
-            fExecutedOnly("INSERT INTO manufacturer set " & sql & ",ID = '" & gsID & "'")
-
+            ID = ObjectTypeMapId("manufacturer")
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO manufacturer ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
         End If
 
-        If gsNew = True Then
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
+        If IsNew = True Then
+            PrompNotify(Me.Text, SaveMsg, True)
         Else
-            fPop_Up_Msg(Me.Text, gsUpdateStr, True)
+            PrompNotify(Me.Text, UpdateMsg, True)
         End If
 
-        fBindDgvUpdate(Dgv, $"Select ID,Code,`Name` from Manufacturer WHERE ID='{gsID}' limit 1", gsNew, This_BS)
-        fCLean_and_refresh(Me)
-        gsID = ""
-        gsNew = True
+        BindingViewUpdate(Dgv, $"Select ID,Code,`Name` from Manufacturer WHERE ID='{ID}' limit 1", IsNew, This_BS)
+        ClearAndRefresh(Me)
+        ID = ""
+        IsNew = True
 
 
-        If fACCESS_NEW_EDIT(frmManufacturers, gsNew) = False Then
+        If fACCESS_NEW_EDIT(frmManufacturers, IsNew) = False Then
             Me.Close()
         End If
     End Sub
 
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If gsNew = True Then
-            fCLean_and_refresh(Me)
+        If IsNew = True Then
+            ClearAndRefresh(Me)
         Else
-            If fMessageBoxQuestion("Create new?") = True Then
-                gsNew = True
-                gsID = ""
-                fCLean_and_refresh(Me)
+            If MessageBoxQuestion("Create new?") = True Then
+                IsNew = True
+                ID = ""
+                ClearAndRefresh(Me)
             Else
 
-                fExecutedUsingReading(Me, "select * from manufacturer where id = '" & gsID & "' limit 1")
+                SqlExecutedUsingReading(Me, "select * from manufacturer where id = '" & ID & "' limit 1")
             End If
         End If
     End Sub

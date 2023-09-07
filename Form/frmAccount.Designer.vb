@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmAccount
+Partial Class FrmAccount
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -29,8 +29,8 @@ Partial Class frmAccount
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.chkINACTIVE = New System.Windows.Forms.CheckBox()
-        Me.btnSave = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.Save = New System.Windows.Forms.Button()
+        Me.Cancel = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cmbTYPE
@@ -104,33 +104,33 @@ Partial Class frmAccount
         Me.chkINACTIVE.Text = "Inactive"
         Me.chkINACTIVE.UseVisualStyleBackColor = False
         '
-        'btnSave
+        'Save
         '
-        Me.btnSave.Location = New System.Drawing.Point(308, 102)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(86, 28)
-        Me.btnSave.TabIndex = 50
-        Me.btnSave.Text = "&Save"
-        Me.btnSave.UseVisualStyleBackColor = True
+        Me.Save.Location = New System.Drawing.Point(308, 102)
+        Me.Save.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Save.Name = "Save"
+        Me.Save.Size = New System.Drawing.Size(86, 28)
+        Me.Save.TabIndex = 50
+        Me.Save.Text = "&Save"
+        Me.Save.UseVisualStyleBackColor = True
         '
-        'btnCancel
+        'Cancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(400, 102)
-        Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(86, 28)
-        Me.btnCancel.TabIndex = 51
-        Me.btnCancel.Text = "&Cancel"
-        Me.btnCancel.UseVisualStyleBackColor = True
+        Me.Cancel.Location = New System.Drawing.Point(400, 102)
+        Me.Cancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Cancel.Name = "Cancel"
+        Me.Cancel.Size = New System.Drawing.Size(86, 28)
+        Me.Cancel.TabIndex = 51
+        Me.Cancel.Text = "&Cancel"
+        Me.Cancel.UseVisualStyleBackColor = True
         '
-        'frmAccount
+        'FrmAccount
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(498, 144)
-        Me.Controls.Add(Me.btnCancel)
-        Me.Controls.Add(Me.btnSave)
+        Me.Controls.Add(Me.Cancel)
+        Me.Controls.Add(Me.Save)
         Me.Controls.Add(Me.chkINACTIVE)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
@@ -142,7 +142,7 @@ Partial Class frmAccount
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmAccount"
+        Me.Name = "FrmAccount"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -158,6 +158,6 @@ Partial Class frmAccount
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents chkINACTIVE As CheckBox
-    Friend WithEvents btnSave As Button
-    Friend WithEvents btnCancel As Button
+    Friend WithEvents Save As Button
+    Friend WithEvents Cancel As Button
 End Class

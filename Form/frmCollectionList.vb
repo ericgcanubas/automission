@@ -1,4 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
+﻿
 Public Class frmCollectionList
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
 
@@ -70,7 +70,7 @@ Public Class frmCollectionList
         '    Dim rd As MySqlDataReader = fExecutedReader("SELECT sum(AMOUNT) AS `AMT` FROM payment WHERE `DATE` BETWEEN '" & Format(dtpFrom.Value, "yyyy-MM-dd") & "' and  '" & Format(dtpTo.Value, "yyyy-MM-dd") & "' limit 1", cn)
         '    If rd.Read Then
 
-        '        Dim amt As Double = fNumisNULL(rd("AMT"))
+        '        Dim amt As Double = NumIsNull(rd("AMT"))
         '        lv.SubItems.Add(Format(amt, "standard"))
         '    Else
         '        lv.SubItems.Add("No collection")

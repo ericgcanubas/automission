@@ -1,12 +1,11 @@
 ﻿Imports System.Data.Odbc
 Public Class frmPRAvailable
     Public gsFirest As Boolean = True
-
     Public dgv As DataGridView
     Private Sub frmPRAvailable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
+
         fCol()
-        fComboBox(cmbLOCATION_ID, "SELECT ID,NAME FROM LOCATION WHERE INACTIVE='0'", "ID", "NAME")
+        ComboBoxLoad(cmbLOCATION_ID, "SELECT ID,NAME FROM LOCATION WHERE INACTIVE='0'", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
 
@@ -14,7 +13,7 @@ Public Class frmPRAvailable
 
     Private Sub fBILL_LOAD()
 
-        fDataGridView(dgvDocument, $"SELECT b.`ID`,b.`Date` ,b.CODE ,c.`Name` AS Vendor,l.NAME AS `From Location` FROM BILL AS b INNER JOIN CONTACT AS c ON c.ID = b.VENDOR_ID INNER JOIN LOCATION AS L ON l.ID = b.LOCATION_ID WHERE b.RECEIVED_LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' and NOT EXISTS(SELECT *  FROM stock_received_items as s inner join bill_items as i on i.id = s.bill_item_id  WHERE i.bill_id = b.ID )")
+        LoadDataGridView(dgvDocument, $"SELECT b.`ID`,b.`Date` ,b.CODE ,c.`Name` AS Vendor,l.NAME AS `From Location` FROM BILL AS b INNER JOIN CONTACT AS c ON c.ID = b.VENDOR_ID INNER JOIN LOCATION AS L ON l.ID = b.LOCATION_ID WHERE b.RECEIVED_LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' and NOT EXISTS(SELECT *  FROM stock_received_items as s inner join bill_items as i on i.id = s.bill_item_id  WHERE i.bill_id = b.ID )")
         dgvDocument.Columns(0).Visible = False
 
         fLoadRequest()
@@ -68,9 +67,9 @@ Public Class frmPRAvailable
 
             Dim ID As Integer = dgvDocument.Rows(dgvDocument.CurrentRow.Index).Cells("ID").Value
 
-            Dim rd As OdbcDataReader = fReader($"SELECT bl.ID,bl.ITEM_ID,i.CODE,i.PURCHASE_DESCRIPTION,bl.UNIT_ID,bl.UNIT_BASE_QUANTITY,u.SYMBOL,bl.QUANTITY,bl.RATE as `UNIT_COST`,i.RATE as `UNIT_PRICE` from BILL_ITEMS as bl inner join bill as b on b.id = bl.bill_id inner join item as i on i.id = bl.item_Id left outer join unit_of_measure as u on u.id = bl.UNIT_ID Where bl.BILL_ID = '{ID}' and NOT EXISTS (SELECT * FROM stock_received_items as r where  r.Bill_ITEM_ID = b.ID  )")
+            Dim rd As OdbcDataReader = SqlReader($"SELECT bl.ID,bl.ITEM_ID,i.CODE,i.PURCHASE_DESCRIPTION,bl.UNIT_ID,bl.UNIT_BASE_QUANTITY,u.SYMBOL,bl.QUANTITY,bl.RATE as `UNIT_COST`,i.RATE as `UNIT_PRICE` from BILL_ITEMS as bl inner join bill as b on b.id = bl.bill_id inner join item as i on i.id = bl.item_Id left outer join unit_of_measure as u on u.id = bl.UNIT_ID Where bl.BILL_ID = '{ID}' and NOT EXISTS (SELECT * FROM stock_received_items as r where  r.Bill_ITEM_ID = b.ID  )")
             While rd.Read
-                dgvStock.Rows.Add(False, rd("ID"), rd("ITEM_ID"), rd("CODE"), rd("PURCHASE_DESCRIPTION"), fNumisNULL(rd("UNIT_ID")), fNumisNULL(rd("UNIT_BASE_QUANTITY")), fTextisNULL(rd("SYMBOL")), fNumisNULL(rd("QUANTITY")), fNumisNULL(rd("UNIT_COST")), fNumisNULL(rd("UNIT_PRICE")))
+                dgvStock.Rows.Add(False, rd("ID"), rd("ITEM_ID"), rd("CODE"), rd("PURCHASE_DESCRIPTION"), NumIsNull(rd("UNIT_ID")), NumIsNull(rd("UNIT_BASE_QUANTITY")), TextIsNull(rd("SYMBOL")), NumIsNull(rd("QUANTITY")), NumIsNull(rd("UNIT_COST")), NumIsNull(rd("UNIT_PRICE")))
             End While
         Catch ex As Exception
 
@@ -102,7 +101,7 @@ Public Class frmPRAvailable
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If dgvStock.Rows.Count = 0 Then
-            fMessageboxInfo("Item not found.")
+            MessageBoxInfo("Item not found.")
             Exit Sub
         End If
         'Double check
@@ -115,7 +114,7 @@ Public Class frmPRAvailable
             End With
         Next
         If T = 0 Then
-            fMessageboxInfo("Please select item.")
+            MessageBoxInfo("Please select item.")
             Exit Sub
         End If
         For I As Integer = 0 To dgvStock.Rows.Count - 1
@@ -155,7 +154,7 @@ Public Class frmPRAvailable
 
     Private Sub dgvStock_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStock.CellClick
         If e.ColumnIndex = 0 Then
-            fCheckSide(dgvStock)
+            CheckSide(dgvStock)
         End If
     End Sub
 

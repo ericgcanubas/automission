@@ -7,9 +7,7 @@ Public Class frmAccessDenied
     Public gsCancel As Boolean = True
     Public gsMessage As String
     Private Sub frmMessage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-        ' btnOk.BackgroundImage = gsImageBackground
-        '  btnOk.BackgroundImageLayout = ImageLayout.Stretch
+
         gsCancel = True
         PictureBox1.Image = stop_image
         PictureBox2.Image = locker_image
@@ -17,38 +15,27 @@ Public Class frmAccessDenied
         System.Media.SystemSounds.Hand.Play()
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
         If Trim(txtPASSWORD.Text).Length = 0 Then
-            fMessageboxInfo("Please enter authorized password account")
+            MessageBoxInfo("Please enter authorized password account")
             Exit Sub
         End If
-        ' Dim cn As New MySqlConnection(mysqlConstr)
+
         Try
-            ' cn.Open()
-            Dim rd As OdbcDataReader = fReader("Select * FROM `user` where PASSWORD = '" & Encrypt(txtPASSWORD.Text) & "' and AUTHORIZED_PASSWORD = '1' Limit 1 ")
+
+            Dim rd As OdbcDataReader = SqlReader("Select * FROM `user` where PASSWORD = '" & Encrypt(txtPASSWORD.Text) & "' and AUTHORIZED_PASSWORD = '1' Limit 1 ")
             If rd.Read Then
                 gsCancel = False
                 Me.Close()
             Else
                 txtPASSWORD.Clear()
                 gsCancel = True
-                fMessageboxExclamation("Invalid Authorized Password")
+                MessageBoxExclamation("Invalid Authorized Password")
             End If
             rd.Close()
         Catch ex As Exception
-
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
-        'add function
-
-
-    End Sub
-
-    Private Sub txtPASSWORD_TextChanged(sender As Object, e As EventArgs) Handles txtPASSWORD.TextChanged
 
     End Sub
 

@@ -1,43 +1,32 @@
 ﻿
 Public Class frmItemClassDetails
-    Public gsID As String
-    Dim gsNew As Boolean = True
+    Public ID As Integer
+    Dim IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
     Private Sub frmItemClassDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-        If gsID <> "" Then
+
+        If ID > 0 Then
 
             Try
-                fExecutedUsingReading(Me, "select * from item_class where id = '" & gsID & "' limit 1")
-                gsNew = False
-                ' cn.Close()
+                SqlExecutedUsingReading(Me, "select * from item_class where id = '" & ID & "' limit 1")
+                IsNew = False
+
             Catch ex As Exception
             End Try
         End If
     End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If gsNew = True Then
-            fCLean_and_refresh(Me)
+        If IsNew = True Then
+            ClearAndRefresh(Me)
         Else
-            If fMessageBoxQuestion("Create new?") = True Then
-                gsNew = True
-                gsID = ""
-                fCLean_and_refresh(Me)
+            If MessageBoxQuestion("Create new?") = True Then
+                IsNew = True
+                ID = ""
+                ClearAndRefresh(Me)
             Else
-
-                fExecutedUsingReading(Me, "select * from item_class where id = '" & gsID & "' limit 1")
+                SqlExecutedUsingReading(Me, "select * from item_class where id = '" & ID & "' limit 1")
             End If
         End If
     End Sub
@@ -45,30 +34,32 @@ Public Class frmItemClassDetails
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
         If Trim(txtDESCRIPTION.Text) = "" Then
-            fMessageboxInfo("Please enter Item class description")
+            MessageBoxInfo("Please enter Item class description")
             Exit Sub
         End If
 
         If txtCODE.Text = "" Then
-            txtCODE.Text = Format(Val(fGetMaxField("CODE", "item_class")), "0000")
+            txtCODE.Text = Format(Val(GetMaxField("CODE", "item_class")), "0000")
         End If
 
-        Dim sql As String = fFieldCollector(Me)
-        If gsNew = False Then
-            fExecutedOnly("UPDATE item_class set " & sql & " Where ID = '" & gsID & "' limit 1")
+        If IsNew = False Then
+            SqlExecuted("UPDATE item_class set " & SqlUpdate(Me) & " Where ID = '" & ID & "' ")
         Else
-            gsID = fObjectTypeMap_ID("item_class")
-            fExecutedOnly("INSERT INTO item_class set " & sql & ",ID = '" & gsID & "'")
+            ID = ObjectTypeMapId("item_class")
+
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO item_class ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
+
         End If
 
 
-        fSavePopUp(Me, gsNew)
-        fBindDgvUpdate(Dgv, "Select ID,Code,Description from item_class WHERE ID = '" & gsID & "' limit 1", gsNew, This_BS)
-        fCLean_and_refresh(Me)
-        gsID = ""
-        gsNew = True
+        SaveNotify(Me, IsNew)
+        BindingViewUpdate(Dgv, "Select ID,Code,Description from item_class WHERE ID = '" & ID & "' limit 1", IsNew, This_BS)
+        ClearAndRefresh(Me)
+        ID = 0
+        IsNew = True
 
-        If fACCESS_NEW_EDIT(frmItemClass, gsNew) = False Then
+        If fACCESS_NEW_EDIT(frmItemClass, IsNew) = False Then
             Me.Close()
         End If
     End Sub

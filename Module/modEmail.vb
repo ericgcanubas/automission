@@ -29,7 +29,7 @@ Module modEmail
             End Using
         Catch ex As Exception
             If gsAdmin_User = True Then
-                fMessageboxWarning(ex.Message)
+                MessageBoxWarning(ex.Message)
             End If
         End Try
 
@@ -71,7 +71,7 @@ Module modEmail
                 smtp.Credentials = NetworkCred
                 smtp.Port = Integer.Parse(587)
                 mm.Body = "<html><body>" &
-            $"<p>Username:{gsUser_Name} | DateTime:{fDateTimeNow()} | On {IIf(gsPOS_Mode = True, "POS", "BMS")}.</p>" &
+            $"<p>Username:{gsUser_Name} | DateTime:{GetDateTimeNowSql()} | On {IIf(gsPOS_Mode = True, "POS", "BMS")}.</p>" &
             $"<p>Error Message: {ErrorMsg}</p>" &
             "<p>Hi 👋, This file is capture from BMS system</p>" &
             "<p>This message was created and sent with:</p>" &
@@ -85,7 +85,7 @@ Module modEmail
             End Using
         Catch ex As Exception
             If gsAdmin_User = True Then
-                fMessageboxWarning(ex.Message)
+                MessageBoxWarning(ex.Message)
             End If
 
 

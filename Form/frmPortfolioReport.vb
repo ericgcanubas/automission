@@ -1,8 +1,8 @@
-﻿Imports MySql.Data.MySqlClient
+﻿
 Public Class frmPortfolioReport
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         If Trim(cmbSALES_MANAGER.Text) = "" Then
-            fMessageboxInfo("Please select sales manager")
+            MessageBoxInfo("Please select sales manager")
             Exit Sub
         End If
         fNowClick()
@@ -12,7 +12,7 @@ Public Class frmPortfolioReport
 
     Private Sub frmPortfolioReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        fComboBox(cmbSALES_MANAGER, " SELECT '%' as ID, '' as `NAME` UNION SELECT ID,`NAME` FROM contact WHERE `type`='2'", "ID", "NAME")
+        ComboBoxLoad(cmbSALES_MANAGER, " SELECT '%' as ID, '' as `NAME` UNION SELECT ID,`NAME` FROM contact WHERE `type`='2'", "ID", "NAME")
         dtpDate1.Value = Format(Now.Date.Year & "-01-01")
 
     End Sub
@@ -23,7 +23,7 @@ Public Class frmPortfolioReport
 
         gscryRpt = fViewReportOneParameterNumberOnly(gsReportFileName)
         fCryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.Text, "SALES_MANAGER_NAME")
-        fCryParameterInsertValue(gscryRpt, fGetFieldValue("contact", "ID", cmbSALES_MANAGER.SelectedValue, "CUSTOM_FIELD1"), "POSITION")
+        fCryParameterInsertValue(gscryRpt, GetStringFieldValue("contact", "ID", cmbSALES_MANAGER.SelectedValue, "CUSTOM_FIELD1"), "POSITION")
         fCryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.SelectedValue, "sales_manager_id")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("TargetPenaltyDiscount"), "discount_id_item")
         fCryParameterInsertValue(gscryRpt, dtpDate1.Value, "date1")
@@ -33,7 +33,7 @@ Public Class frmPortfolioReport
 
     Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
         If Trim(cmbSALES_MANAGER.Text) = "" Then
-            fMessageboxInfo("Please select sales manager")
+            MessageBoxInfo("Please select sales manager")
             Exit Sub
         End If
         fNowClick()

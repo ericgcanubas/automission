@@ -1,34 +1,31 @@
-﻿Imports MySql.Data.MySqlClient
+﻿
 Public Class frmLessDiscountDetails
-    Public gsNew As Boolean
-    Public gsID As Integer
+    Public IsNew As Boolean = True
+    Public ID As Integer
 
     Private Sub frmLessDiscountDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-        If gsNew = False Then
 
-            ' Dim cn As New MySqlConnection(mysqlConstr)
-            ' cn.Open()
-            fExecutedUsingReading(Me, "select * from less_discount_penalty where id = '" & gsID & "'")
-            '  cn.Close()
-
+        If IsNew = False Then
+            SqlExecutedUsingReading(Me, "select * from LESS_DISCOUNT_PENALTY where id = '" & ID & "'")
         End If
     End Sub
 
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
 
         If txtDESCRIPTION.Text = "" Then
-            fMessageboxInfo("Please enter description")
+            MessageBoxInfo("Please enter description")
             Exit Sub
         End If
 
-        Dim sql As String = fFieldCollector(Me)
 
-        If gsNew = False Then
-            fExecutedOnly("UPDATE LESS_DISCOUNT_PENALTY set " & sql & " Where ID = '" & gsID & "'")
+
+        If IsNew = False Then
+            SqlExecuted("UPDATE LESS_DISCOUNT_PENALTY set " & SqlUpdate(Me) & " Where ID = '" & ID & "'")
         Else
-            gsID = fGetMaxField("ID", "less_discount_penalty")
-            fExecutedOnly("INSERT INTO less_discount_penalty set " & sql & ",ID = '" & gsID & "'")
+            ID = GetMaxField("ID", "LESS_DISCOUNT_PENALTY")
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO LESS_DISCOUNT_PENALTY ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
+
         End If
         Me.Close()
 

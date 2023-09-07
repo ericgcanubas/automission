@@ -5,14 +5,14 @@
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvManufacturer, "Select ID,Code,`Name` from Manufacturer ", item_BS)
-        fDataGrid_Column(dgvManufacturer, 44)
+        LoadDataGridViewBinding(dgvManufacturer, "Select ID,Code,`Name` from Manufacturer ", item_BS)
+        ViewColumn(dgvManufacturer, 44)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
 
-        fDataGrid_Switch(dgvManufacturer, 44)
-        fDataGrid_Column(dgvManufacturer, 44)
+        ViewSwitch(dgvManufacturer, 44)
+        ViewColumn(dgvManufacturer, 44)
 
     End Sub
 
@@ -36,7 +36,7 @@
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         Try
             If dgvManufacturer.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
             If fACCESS_NEW_EDIT(Me, False) = False Then
@@ -45,20 +45,20 @@
             dgvManufacturer.Focus()
             frmManufacturersDetails.This_BS = item_BS
             frmManufacturersDetails.Dgv = dgvManufacturer
-            frmManufacturersDetails.gsID = dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("ID").Value
+            frmManufacturersDetails.ID = dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("ID").Value
             frmManufacturersDetails.ShowDialog()
             frmManufacturersDetails.Dispose()
             frmManufacturersDetails = Nothing
             fRefresh()
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvManufacturer.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -67,14 +67,14 @@
             End If
 
             dgvManufacturer.Focus()
-            If fMessageBoxQuestion("Do you really want to delete " & dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("NAME").Value & "?") = True Then
-                fExecutedOnly("delete from Manufacturer where ID = '" & dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("ID").Value & "' limit 1")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete " & dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("NAME").Value & "?") = True Then
+                SqlExecuted("delete from Manufacturer where ID = '" & dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("ID").Value & "' limit 1")
+                DeleteNotify(Me)
                 fRefresh()
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 

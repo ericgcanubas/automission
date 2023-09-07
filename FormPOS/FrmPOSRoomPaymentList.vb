@@ -8,7 +8,7 @@
 
     Private Sub fPaymentLoad()
 
-        fDataGridView(dgvList, $"SELECT p.`ID`,i.`ID` AS `INVOICE_ID`,ifnull({strQuery},0) as `ROOM_ID`,p.`CODE` as `PAYMENT No.`, pn.`AMOUNT_APPLIED` AS `PAYMENT` FROM payment AS p INNER JOIN payment_invoices AS pn ON pn.`PAYMENT_ID` = p.`ID` inner join invoice as i on i.id = pn.INVOICE_ID  where p.`POS_LOG_ID` = '{gsPOS_LOG_ID}' order by p.ID ")
+        LoadDataGridView(dgvList, $"SELECT p.`ID`,i.`ID` AS `INVOICE_ID`,ifnull({strQuery},0) as `ROOM_ID`,p.`CODE` as `PAYMENT No.`, pn.`AMOUNT_APPLIED` AS `PAYMENT` FROM payment AS p INNER JOIN payment_invoices AS pn ON pn.`PAYMENT_ID` = p.`ID` inner join invoice as i on i.id = pn.INVOICE_ID  where p.`POS_LOG_ID` = '{gsPOS_LOG_ID}' order by p.ID ")
         dgvList.Columns("ID").Visible = False
         dgvList.Columns("INVOICE_ID").Visible = False
         dgvList.Columns("ROOM_ID").Visible = False
@@ -17,14 +17,14 @@
     Private Sub fClick()
         If dgvList.Rows.Count <> 0 Then
             gsGotChangeData = False
-            Dim ROOM_ID As Integer = fNumisNULL(dgvList.CurrentRow.Cells("ROOM_ID").Value)
-            Dim INVOICE_ID As Integer = fNumisNULL(dgvList.CurrentRow.Cells("INVOICE_ID").Value)
+            Dim ROOM_ID As Integer = NumIsNull(dgvList.CurrentRow.Cells("ROOM_ID").Value)
+            Dim INVOICE_ID As Integer = NumIsNull(dgvList.CurrentRow.Cells("INVOICE_ID").Value)
             gsDocument_Finder_ID = INVOICE_ID
-            Dim ROOM_NAME As String = fGetFieldValue("ITEM", "id", ROOM_ID, "description")
-            frmPOSRoomDetails.gsNew = INVOICE_ID
+            Dim ROOM_NAME As String = GetStringFieldValue("ITEM", "id", ROOM_ID, "description")
+            frmPOSRoomDetails.IsNew = INVOICE_ID
             frmPOSRoomDetails.gsWalkInCustomer = IIf(ROOM_NAME = "", True, False)
             frmPOSRoomDetails.Text = IIf(ROOM_NAME = "", "Walk-in customer", ROOM_NAME)
-            frmPOSRoomDetails.gsNew = False
+            frmPOSRoomDetails.IsNew = False
             frmPOSRoomDetails.gsRoomID = ROOM_ID
             frmPOSRoomDetails.ShowDialog()
 
@@ -98,24 +98,24 @@
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvList.Rows.Count = 0 Then
-            fMessageboxInfo("Payment not found.")
+            MessageBoxInfo("Payment not found.")
             Exit Sub
         End If
 
         dgvList.Select()
 
-        If fMessagePOSYesNO("Payment Delete?") = True Then
+        If MessageBoxPointOfSalesYesNO("Payment Delete?") = True Then
 
             Dim Payment_ID As Integer = dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value
             Dim Invoice_ID As Integer = dgvList.Rows(dgvList.CurrentRow.Index).Cells("INVOICE_ID").Value
-            Dim Customer_ID As Integer = fNumFieldValue("INVOICE", "ID", Invoice_ID, "CUSTOMER_ID")
+            Dim Customer_ID As Integer = GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "CUSTOMER_ID")
 
             'Payment Method
-            fExecutedOnly($"Delete From `payment_multi_method` WHERE payment_id ='{Payment_ID}'  ")
+            SqlExecuted($"Delete From `payment_multi_method` WHERE payment_id ='{Payment_ID}'  ")
             'Payment Invoice
-            fExecutedOnly($"Delete From `payment_invoices` WHERE payment_id = '{Payment_ID}' ")
+            SqlExecuted($"Delete From `payment_invoices` WHERE payment_id = '{Payment_ID}' ")
             'Payment
-            fExecutedOnly($"Delete From `payment` WHERE id = '{Payment_ID}' limit 1;")
+            SqlExecuted($"Delete From `payment` WHERE id = '{Payment_ID}' limit 1;")
 
             fUpdateInvoiceBalance(Invoice_ID, Customer_ID)
             fPaymentLoad()

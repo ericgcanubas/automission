@@ -3,10 +3,10 @@
     Public gsDISCOUNT_ACCOUNT_ID As String
     Public gsOK As Boolean = False
     Private Sub frmDiscount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
+
 
         Dim sql_statement As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE "
-        fComboBox(cmbDiscount_Account, sql_statement, "ID", "T")
+        ComboBoxLoad(cmbDiscount_Account, sql_statement, "ID", "T")
 
         numAmount_of_Discount.Value = gsDISCOUNT_AMOUNT
         lblDISCOUNT.Text = Format(gsDISCOUNT_AMOUNT, "Standard")
@@ -22,13 +22,13 @@
     Private Sub tsOk_Click(sender As Object, e As EventArgs)
 
         If numAmount_of_Discount.Value = 0 Then
-            fMessageboxInfo("Please enter discount amount")
+            MessageBoxInfo("Please enter discount amount")
             numAmount_of_Discount.Focus()
             Exit Sub
         End If
 
         If Val(cmbDiscount_Account.SelectedValue) = 0 Then
-            fMessageboxInfo("Please select discount account")
+            MessageBoxInfo("Please select discount account")
             Exit Sub
         End If
 

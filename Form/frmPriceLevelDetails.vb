@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Public Class frmPriceLevelDetails
-    Public gsID As String
-    Dim gsNew As Boolean = True
+    Public ID As Integer
+    Dim IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
@@ -19,15 +19,13 @@ Public Class frmPriceLevelDetails
             .Item("STATUS").Visible = False
 
         End With
-        fDatagridViewMode(dgvProductItem)
+        DatagridViewMode(dgvProductItem)
     End Sub
     Private Sub frmPriceLevelDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        fBackGroundImageStyle(Me)
         fCreateColumn()
-        fComboBox(cmbITEM_CODE, "select ID,CODE from item where inactive ='0' ", "ID", "CODE")
-        fComboBox(cmbTYPE, "Select * from price_level_type_map", "ID", "DESCRIPTION")
-        fComboBox(cmbITEM_GROUP_ID, "select * from item_group", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbITEM_CODE, "select ID,CODE from item where inactive ='0' ", "ID", "CODE")
+        ComboBoxLoad(cmbTYPE, "Select * from price_level_type_map", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbITEM_GROUP_ID, "select * from item_group", "ID", "DESCRIPTION")
     End Sub
 
     Private Sub cmbTYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTYPE.SelectedIndexChanged
@@ -63,37 +61,25 @@ Public Class frmPriceLevelDetails
         End With
         cmbTYPE_SelectedIndexChanged(sender, e)
 
-        If gsID <> "" Then
+        If ID > 0 Then
 
             Try
-
-                fExecutedUsingReading(Me, "select * from price_level where ID = '" & gsID & "' Limit 1")
-
-
+                SqlExecutedUsingReading(Me, "select * from price_level where ID = '" & ID & "' Limit 1")
                 If cmbTYPE.SelectedValue = 1 Then
                     fLoadItem()
                 End If
-                gsNew = False
+                IsNew = False
 
             Catch ex As Exception
-                fMessageboxWarning(ex.Message)
+                MessageBoxWarning(ex.Message)
             End Try
         End If
-        fDgvNotSort(dgvProductItem)
+        ViewNotSort(dgvProductItem)
     End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
-    Private Sub cmbITEM_CODE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbITEM_CODE.SelectedIndexChanged
-
-    End Sub
-
     Private Sub cmbITEM_CODE_LostFocus(sender As Object, e As EventArgs) Handles cmbITEM_CODE.LostFocus
         Try
-            lblDescription.Text = fGetFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Description")
-            lblRate.Text = Format(fNumFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Rate"), "Standard")
+            lblDescription.Text = GetStringFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Description")
+            lblRate.Text = Format(GetNumberFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Rate"), "Standard")
         Catch ex As Exception
             lblDescription.Text = ""
             lblRate.Text = ""
@@ -106,21 +92,14 @@ Public Class frmPriceLevelDetails
 
         Try
 
-            Dim rd As OdbcDataReader = fReader("select pll.ID,pll.Item_ID,i.CODE,i.Description,format(i.rate,2) as `Unit_price`, format(pll.custom_price,2) as `Custom_Price` from price_level_lines as pll inner join item  as i on i.id = pll.item_id where pll.price_level_id = '" & gsID & "'")
+            Dim rd As OdbcDataReader = SqlReader("select pll.ID,pll.Item_ID,i.CODE,i.Description,format(i.rate,2) as `Unit_price`, format(pll.custom_price,2) as `Custom_Price` from price_level_lines as pll inner join item  as i on i.id = pll.item_id where pll.price_level_id = '" & ID & "'")
             While rd.Read
-                dgvProductItem.Rows.Add(rd("ID"), rd("ITEM_ID"), fTextisNULL(rd("CODE")), fTextisNULL(rd("Description")), Format(fNumisNULL(rd("Unit_price")), "Standard"), Format(fNumisNULL(rd("Custom_Price")), "Standard"), "S")
+                dgvProductItem.Rows.Add(rd("ID"), rd("ITEM_ID"), TextIsNull(rd("CODE")), TextIsNull(rd("Description")), Format(NumIsNull(rd("Unit_price")), "Standard"), Format(NumIsNull(rd("Custom_Price")), "Standard"), "S")
             End While
             rd.Close()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
-    End Sub
-    Private Sub cmbITEM_CODE_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbITEM_CODE.KeyDown
-
-    End Sub
-
-    Private Sub numCUSTOM_PRICE_ValueChanged(sender As Object, e As EventArgs) Handles numCUSTOM_PRICE.ValueChanged
-
     End Sub
     Private Function fCheckIsAlreadyExist() As Boolean
         Dim b As Boolean = False
@@ -139,7 +118,7 @@ Public Class frmPriceLevelDetails
     Private Sub fAddRows()
         Dim b As Boolean = fCheckIsAlreadyExist()
         If b = False Then
-            dgvProductItem.Rows.Add("N", cmbITEM_CODE.SelectedValue, cmbITEM_CODE.Text, lblDescription.Text, lblRate.Text, fNumFormatStandard(numCUSTOM_PRICE.Value), "A")
+            dgvProductItem.Rows.Add("N", cmbITEM_CODE.SelectedValue, cmbITEM_CODE.Text, lblDescription.Text, lblRate.Text, NumberFormatStandard(numCUSTOM_PRICE.Value), "A")
         Else
             Dim K As Boolean = False
 
@@ -148,21 +127,21 @@ Public Class frmPriceLevelDetails
                 If r.Cells("STATUS").Value = "D" Then
                     r.Cells("STATUS").Value = "E"
                     r.Visible = True
-                    r.Cells("CUSTOM_PRICE").Value = fNumFormatStandard(numCUSTOM_PRICE.Value)
+                    r.Cells("CUSTOM_PRICE").Value = NumberFormatStandard(numCUSTOM_PRICE.Value)
                     K = True
                     Exit For
                 End If
             Next
 
             If K = False Then
-                fMessageboxInfo("Item is already exist!")
+                MessageBoxInfo("Item is already exist!")
             End If
         End If
 
     End Sub
     Private Sub fEditRows()
         With dgvProductItem.Rows(dgvProductItem.CurrentRow.Index)
-            .Cells("CUSTOM_PRICE").Value = fNumFormatStandard(numCUSTOM_PRICE.Value)
+            .Cells("CUSTOM_PRICE").Value = NumberFormatStandard(numCUSTOM_PRICE.Value)
             .Cells("STATUS").Value = IIf(.Cells("ID").Value.ToString = "N", "A", "E")
         End With
 
@@ -175,17 +154,17 @@ Public Class frmPriceLevelDetails
 
             If cmbITEM_CODE.Enabled = False Then
                 fEditRows()
-                fCLean_and_refresh(GroupBox1)
+                ClearAndRefresh(GroupBox1)
                 cmbITEM_CODE.Enabled = True
                 dgvProductItem.Enabled = True
             Else
 
                 fAddRows()
-                fCLean_and_refresh(GroupBox1)
+                ClearAndRefresh(GroupBox1)
             End If
         ElseIf e.KeyCode = Keys.Escape Then
 
-            fCLean_and_refresh(GroupBox1)
+            ClearAndRefresh(GroupBox1)
             cmbITEM_CODE.Enabled = True
             dgvProductItem.Enabled = True
             cmbITEM_CODE.Focus()
@@ -200,7 +179,7 @@ Public Class frmPriceLevelDetails
     Private Sub dgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvProductItem.KeyDown
         If e.KeyCode = Keys.Delete Then
             If dgvProductItem.Rows.Count <> 0 Then
-                If fMessageBoxQuestion("Are you sure to delete this line?") = True Then
+                If MessageBoxQuestion("Are you sure to delete this line?") = True Then
                     With dgvProductItem.Rows(dgvProductItem.CurrentRow.Index)
                         If .Cells("ID").Value.ToString = "N" Then
                             dgvProductItem.Rows.RemoveAt(dgvProductItem.CurrentRow.Index)
@@ -220,7 +199,7 @@ Public Class frmPriceLevelDetails
             Dim r As DataGridViewRow = dgvProductItem.CurrentRow
             cmbITEM_CODE.SelectedValue = r.Cells("ITEM_ID").Value
             cmbITEM_CODE_LostFocus(sender, e)
-            numCUSTOM_PRICE.Value = fNumisNULL(r.Cells("CUSTOM_PRICE").Value)
+            numCUSTOM_PRICE.Value = NumIsNull(r.Cells("CUSTOM_PRICE").Value)
             cmbITEM_CODE.Enabled = False
             dgvProductItem.Enabled = False
         End If
@@ -239,17 +218,17 @@ Public Class frmPriceLevelDetails
                     Case "S"
 
                     Case "A"
-                        fExecutedOnly("INSERT INTO price_level_lines SET custom_price = '" & Format(r.Cells("custom_price").Value) & "', price_level_id ='" & gsID & "' , ID = '" & fGetMaxField("ID", "price_level_lines") & "' , ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
+                        SqlExecuted("INSERT INTO price_level_lines SET custom_price = '" & Format(r.Cells("custom_price").Value) & "', price_level_id ='" & ID & "' , ID = '" & GetMaxField("ID", "price_level_lines") & "' , ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
                     Case "E"
-                        fExecutedOnly("UPDATE price_level_lines SET custom_price = '" & fNumFormatFixed(r.Cells("custom_price").Value) & "' where price_level_id ='" & gsID & "' and ID = '" & r.Cells("ID").Value & "' and ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
+                        SqlExecuted("UPDATE price_level_lines SET custom_price = '" & NumberFormatFixed(r.Cells("custom_price").Value) & "' where price_level_id ='" & ID & "' and ID = '" & r.Cells("ID").Value & "' and ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
                     Case "D"
-                        fExecutedOnly("DELETE FROM price_level_lines where price_level_id ='" & gsID & "' and ID = '" & r.Cells("ID").Value & "' and ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
+                        SqlExecuted("DELETE FROM price_level_lines where price_level_id ='" & ID & "' and ID = '" & r.Cells("ID").Value & "' and ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
                 End Select
 
             Next
 
         Else
-            fExecutedOnly("DELETE FROM price_level_lines where price_level_id ='" & gsID & "'")
+            SqlExecuted("DELETE FROM price_level_lines where price_level_id ='" & ID & "'")
         End If
 
     End Sub
@@ -259,32 +238,32 @@ Public Class frmPriceLevelDetails
     End Sub
 
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If gsNew = True Then
+        If IsNew = True Then
 
             dgvProductItem.Rows.Clear()
-            fCLean_and_refresh(Me)
-            gsID = ""
+            ClearAndRefresh(Me)
+            ID = ""
 
         Else
-            If fMessageBoxQuestion("Create new?") = True Then
-                gsNew = True
+            If MessageBoxQuestion("Create new?") = True Then
+                IsNew = True
                 dgvProductItem.Rows.Clear()
-                fCLean_and_refresh(Me)
-                gsID = ""
+                ClearAndRefresh(Me)
+                ID = ""
 
             Else
 
                 Try
 
-                    fExecutedUsingReading(Me, "select * from price_level where ID = '" & gsID & "' Limit 1")
+                    SqlExecutedUsingReading(Me, "select * from price_level where ID = '" & ID & "' Limit 1")
 
                     If cmbTYPE.SelectedValue = 1 Then
                         fLoadItem()
                     End If
-                    gsNew = False
+                    IsNew = False
 
                 Catch ex As Exception
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                 End Try
             End If
         End If
@@ -292,7 +271,7 @@ Public Class frmPriceLevelDetails
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtDESCRIPTION.Text) = "" Then
-            fMessageboxInfo("Please enter price level description")
+            MessageBoxInfo("Please enter price level description")
             Exit Sub
         End If
 
@@ -300,40 +279,35 @@ Public Class frmPriceLevelDetails
             numRate.Value = 0
             cmbITEM_GROUP_ID.Text = ""
             If dgvProductItem.Rows.Count = 0 Then
-                fMessageboxInfo("No item entry")
+                MessageBoxInfo("No item entry")
                 Exit Sub
             End If
         End If
 
         If Trim(txtCODE.Text) = "" Then
-            txtCODE.Text = Format(fGetMaxField("CODE", "price_level"), "0000")
+            txtCODE.Text = Format(GetMaxField("CODE", "price_level"), "0000")
         End If
 
-        Dim sql As String = fFieldCollector(Me)
 
-        If gsNew = False Then
-            fExecutedOnly("UPDATE price_level set " & sql & "  where ID = '" & gsID & "' limit 1;")
+        If IsNew = False Then
+            SqlExecuted("UPDATE price_level set " & SqlUpdate(Me) & "  where ID = '" & ID & "' limit 1;")
         Else
-            gsID = fObjectTypeMap_ID("price_level")
-            fExecutedOnly("INSERT INTO price_level set " & sql & ",ID = '" & gsID & "'")
+            ID = ObjectTypeMapId("price_level")
+
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO price_level ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
+
 
         End If
-
-        If gsNew = True Then
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
-        Else
-            fPop_Up_Msg(Me.Text, gsUpdateStr, True)
-        End If
-
+        SaveNotify(Me, IsNew)
         fPerItemUpdate()
-        fBindDgvUpdate(Dgv, $"Select pl.ID,pl.Code,pl.Description, pltm.`Description` as `Type`,ig.Description as `Item Group`, IF(pl.`Inactive`=0,'No','Yes') as `Inactive` from price_level as pl inner join price_level_type_map as pltm on pltm.id = pl.`type` left outer join item_group as ig on ig.id = pl.item_group_id  WHERE pl.ID = '{gsID}' limit 1", gsNew, This_BS)
-        gsNew = True
+        BindingViewUpdate(Dgv, $"Select pl.ID,pl.Code,pl.Description, pltm.`Description` as `Type`,ig.Description as `Item Group`, IF(pl.`Inactive`=0,'No','Yes') as `Inactive` from price_level as pl inner join price_level_type_map as pltm on pltm.id = pl.`type` left outer join item_group as ig on ig.id = pl.item_group_id  WHERE pl.ID = '{ID}' limit 1", IsNew, This_BS)
+        IsNew = True
         dgvProductItem.Rows.Clear()
-        fCLean_and_refresh(Me)
-        gsID = ""
+        ClearAndRefresh(Me)
+        ID = 0
 
-
-        If fACCESS_NEW_EDIT(frmPriceLevel, gsNew) = False Then
+        If fACCESS_NEW_EDIT(frmPriceLevel, IsNew) = False Then
             Me.Close()
         End If
 

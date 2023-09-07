@@ -1,10 +1,10 @@
 ﻿Imports System.Data.Odbc
 Public Class frmMenuSettingsSetup
-    Public gsID As Integer = 0
+    Public ID As Integer = 0
     Public gsMenuType As Boolean = True
-    Public gsNew As Boolean = True
+    Public IsNew As Boolean = True
     Private Sub frmMenuSettingsSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
+
 
         If gsMenuType = True Then
             'Main Menu
@@ -12,23 +12,23 @@ Public Class frmMenuSettingsSetup
             GroupBox2.Visible = False
             Me.Width = GroupBox1.Width + 30
             Me.Height = GroupBox1.Height + 50
-            If gsID <> 0 Then
+            If ID <> 0 Then
                 '   Dim cn As New MySqlConnection(mysqlConstr)
                 Try
                     'cn.Open()
-                    Dim rd As OdbcDataReader = fReader("Select * from tblmenu where menu_id = '" & gsID & "' Limit 1")
+                    Dim rd As OdbcDataReader = SqlReader("Select * from tblmenu where menu_id = '" & ID & "' Limit 1")
                     If rd.Read Then
-                        numID1.Value = fNumisNULL(rd("MENU_ID"))
+                        numID1.Value = NumIsNull(rd("MENU_ID"))
                         numID1.Enabled = False
-                        txtDescription1.Text = fTextisNULL(rd("Description"))
-                        cmbImage1.Text = fTextisNULL(rd("image_file"))
-                        chkVisible.Checked = CBool(fNumisNULL(rd("visible")))
-                        gsNew = False
+                        txtDescription1.Text = TextIsNull(rd("Description"))
+                        cmbImage1.Text = TextIsNull(rd("image_file"))
+                        chkVisible.Checked = CBool(NumIsNull(rd("visible")))
+                        IsNew = False
                     End If
                     rd.Close()
                 Catch ex As Exception
 
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                 End Try
 
 
@@ -41,26 +41,26 @@ Public Class frmMenuSettingsSetup
             Me.Width = GroupBox2.Width + 30
             Me.Height = GroupBox2.Height + 50
             chkActive.Checked = True
-            If gsID <> 0 Then
+            If ID <> 0 Then
                 '  Dim cn As New MySqlConnection(mysqlConstr)
                 Try
                     ' cn.Open()
-                    Dim rd As OdbcDataReader = fReader("Select * from tblsub_menu where sub_id = '" & gsID & "' Limit 1")
+                    Dim rd As OdbcDataReader = SqlReader("Select * from tblsub_menu where sub_id = '" & ID & "' Limit 1")
                     If rd.Read Then
-                        numID2.Value = fNumisNULL(rd("SUB_ID"))
+                        numID2.Value = NumIsNull(rd("SUB_ID"))
                         numID2.Enabled = False
-                        txtDescription2.Text = fTextisNULL(rd("Description"))
-                        cmbForm.Text = fTextisNULL(rd("form"))
-                        cmbImage2.Text = fTextisNULL(rd("image_file"))
-                        chkAccess_Control.Checked = fNumisNULL(rd("access_control"))
-                        chkModal.Checked = fNumisNULL(rd("modal"))
-                        chkActive.Checked = CBool(fNumisNULL(rd("active")))
-                        gsNew = False
+                        txtDescription2.Text = TextIsNull(rd("Description"))
+                        cmbForm.Text = TextIsNull(rd("form"))
+                        cmbImage2.Text = TextIsNull(rd("image_file"))
+                        chkAccess_Control.Checked = NumIsNull(rd("access_control"))
+                        chkModal.Checked = NumIsNull(rd("modal"))
+                        chkActive.Checked = CBool(NumIsNull(rd("active")))
+                        IsNew = False
                     End If
                     rd.Close()
                 Catch ex As Exception
 
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                 End Try
             End If
         End If
@@ -78,56 +78,56 @@ Public Class frmMenuSettingsSetup
 
     Private Sub btnSave1_Click(sender As Object, e As EventArgs) Handles btnSave1.Click
         If Trim(txtDescription1.Text) = "" Then
-            fMessageboxInfo("Please enter menu description")
+            MessageBoxInfo("Please enter menu description")
             Exit Sub
         End If
         If Trim(cmbImage1.Text) = "" Then
-            fMessageboxInfo("Please Image file")
+            MessageBoxInfo("Please Image file")
             Exit Sub
         End If
 
 
         If numID1.Enabled = True Then
-            If fNumFieldValue("tblmenu", "MENU_ID", numID1.Value, "MENU_ID") <> 0 Then
-                fMessageboxInfo("ID is already used!")
+            If GetNumberFieldValue("tblmenu", "MENU_ID", numID1.Value, "MENU_ID") <> 0 Then
+                MessageBoxInfo("ID is already used!")
                 Exit Sub
             End If
         End If
 
-        If gsNew = False Then
-            fExecutedOnly("UPDATE tblmenu SET visible='" & IIf(chkVisible.Checked = True, 1, 0) & "',description ='" & txtDescription1.Text & "',image_file = '" & cmbImage1.Text & "'  where MENU_ID = '" & numID1.Value & "'")
+        If IsNew = False Then
+            SqlExecuted("UPDATE tblmenu SET visible='" & IIf(chkVisible.Checked = True, 1, 0) & "',description ='" & txtDescription1.Text & "',image_file = '" & cmbImage1.Text & "'  where MENU_ID = '" & numID1.Value & "'")
         Else
-            fExecutedOnly("INSERT INTO tblmenu SET visible='" & IIf(chkVisible.Checked = True, 1, 0) & "',description ='" & txtDescription1.Text & "',image_file = '" & cmbImage1.Text & "',MENU_ID = '" & numID1.Value & "',first_display ='0',position_no = '" & fGetMaxField("position_no", "tblmenu") & "'")
+            SqlExecuted("INSERT INTO tblmenu SET visible='" & IIf(chkVisible.Checked = True, 1, 0) & "',description ='" & txtDescription1.Text & "',image_file = '" & cmbImage1.Text & "',MENU_ID = '" & numID1.Value & "',first_display ='0',position_no = '" & GetMaxField("position_no", "tblmenu") & "'")
         End If
         Me.Close()
     End Sub
 
     Private Sub btnSave2_Click(sender As Object, e As EventArgs) Handles btnSave2.Click
         If Trim(txtDescription2.Text) = "" Then
-            fMessageboxInfo("Please enter menu description")
+            MessageBoxInfo("Please enter menu description")
             Exit Sub
         End If
         If Trim(cmbImage2.Text) = "" And chkModal.Checked = False Then
-            fMessageboxInfo("Please select Image file")
+            MessageBoxInfo("Please select Image file")
             Exit Sub
         End If
 
         If Trim(cmbForm.Text) = "" Then
-            fMessageboxInfo("Please select  form ")
+            MessageBoxInfo("Please select  form ")
             Exit Sub
         End If
 
         If numID2.Enabled = True Then
-            If fNumFieldValue("tblsub_menu", "sub_ID", numID2.Value, "sub_ID") <> 0 Then
-                fMessageboxInfo("ID is already used!")
+            If GetNumberFieldValue("tblsub_menu", "sub_ID", numID2.Value, "sub_ID") <> 0 Then
+                MessageBoxInfo("ID is already used!")
                 Exit Sub
             End If
         End If
 
-        If gsNew = False Then
-            fExecutedOnly("UPDATE tblsub_menu SET description ='" & txtDescription2.Text & "',image_file = '" & cmbImage2.Text & "',form = '" & cmbForm.Text & "',access_control = '" & Val(chkAccess_Control.Checked) * -1 & "',modal = '" & Val(chkModal.Checked) * -1 & "',active='" & Val(chkActive.Checked) & "'  where sub_id = '" & numID2.Value & "'")
+        If IsNew = False Then
+            SqlExecuted("UPDATE tblsub_menu SET description ='" & txtDescription2.Text & "',image_file = '" & cmbImage2.Text & "',form = '" & cmbForm.Text & "',access_control = '" & Val(chkAccess_Control.Checked) * -1 & "',modal = '" & Val(chkModal.Checked) * -1 & "',active='" & Val(chkActive.Checked) & "'  where sub_id = '" & numID2.Value & "'")
         Else
-            fExecutedOnly("INSERT INTO tblsub_menu SET description ='" & txtDescription2.Text & "',image_file = '" & cmbImage2.Text & "',sub_id = '" & numID2.Value & "',form = '" & cmbForm.Text & "',active='" & Val(chkActive.Checked) & "',access_control = '" & Val(chkAccess_Control.Checked) * -1 & "',modal = '" & Val(chkModal.Checked) * -1 & "' ")
+            SqlExecuted("INSERT INTO tblsub_menu SET description ='" & txtDescription2.Text & "',image_file = '" & cmbImage2.Text & "',sub_id = '" & numID2.Value & "',form = '" & cmbForm.Text & "',active='" & Val(chkActive.Checked) & "',access_control = '" & Val(chkAccess_Control.Checked) * -1 & "',modal = '" & Val(chkModal.Checked) * -1 & "' ")
         End If
         Me.Close()
     End Sub
@@ -138,7 +138,7 @@ Public Class frmMenuSettingsSetup
 
     Private Sub numID1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles numID1.MouseDoubleClick
         If numID1.Enabled = True Then
-            numID1.Value = Val(fGetMaxField("menu_ID", "tblmenu"))
+            numID1.Value = Val(GetMaxField("menu_ID", "tblmenu"))
         End If
     End Sub
 
@@ -148,7 +148,7 @@ Public Class frmMenuSettingsSetup
 
     Private Sub numID2_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles numID2.MouseDoubleClick
         If numID2.Enabled = True Then
-            numID2.Value = Val(fGetMaxField("sub_ID", "tblsub_menu"))
+            numID2.Value = Val(GetMaxField("sub_ID", "tblsub_menu"))
         End If
     End Sub
 

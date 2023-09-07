@@ -4,7 +4,7 @@
 
     Private Sub fData()
         If cmbCONTACT.Text = "" Then
-            fMessageboxInfo("Please select contact")
+            MessageBoxInfo("Please select contact")
             Exit Sub
         End If
 
@@ -23,27 +23,27 @@
     End Sub
 
     Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
         fData()
         fPreviewReport(gsReportTabName)
         Me.Close()
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
     End Sub
 
     Private Sub frmCreditLimit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-        fComboBox(cmbCONTACT, " select '*' as `ID`,'ALL CONTACTS' as `NAME`  UNION select ID,NAME from CONTACT where `TYPE` in ('1','5','6') ", "ID", "NAME")
+
+        ComboBoxLoad(cmbCONTACT, " select '*' as `ID`,'ALL CONTACTS' as `NAME`  UNION select ID,NAME from CONTACT where `TYPE` in ('1','5','6') ", "ID", "NAME")
         cmbCONTACT.SelectedValue = "*"
-        fComboBox(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
+        ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
         fData()
         gscryRpt.PrintToPrinter(1, False, 0, 0)
         Me.Close()
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
     End Sub
 
 

@@ -10,26 +10,26 @@ Module modPaymentTerms
         Try
 
             '   cn.Open()
-            Dim rd As OdbcDataReader = fReader("select `TYPE`,NET_DUE,DATE_MONTH_PARAM,DATE_DAY_PARAM,DATE_MIN_DAYS from payment_terms where id = '" & CStr(prPayment_Terms.SelectedValue.ToString) & "' and INACTIVE ='0' limit 1 ")
+            Dim rd As OdbcDataReader = SqlReader("select `TYPE`,NET_DUE,DATE_MONTH_PARAM,DATE_DAY_PARAM,DATE_MIN_DAYS from payment_terms where id = '" & CStr(prPayment_Terms.SelectedValue.ToString) & "' and INACTIVE ='0' limit 1 ")
             If rd.Read Then
-                Select Case fNumisNULL(rd("TYPE"))
+                Select Case NumIsNull(rd("TYPE"))
                     Case 0
-                        N = fNumisNULL(rd("NET_DUE"))
+                        N = NumIsNull(rd("NET_DUE"))
                         prDue_date.Value = dt.AddDays(N)
                     Case 1
                     Case 2
                     Case 3
                     Case 4
                     Case 5
-                        Dim M As Integer = fNumisNULL(rd("DATE_MONTH_PARAM"))
-                        Dim D As Integer = fNumisNULL(rd("DATE_DAY_PARAM"))
+                        Dim M As Integer = NumIsNull(rd("DATE_MONTH_PARAM"))
+                        Dim D As Integer = NumIsNull(rd("DATE_DAY_PARAM"))
                         If M = 0 Then
                             M = dt.Month
                         End If
                         If D = 0 Then
                             D = dt.Day
                         End If
-                        N = fNumisNULL(rd("NET_DUE"))
+                        N = NumIsNull(rd("NET_DUE"))
                         dt = M & "/" & D & "/" & (N + Date.Now.Year)
                         prDue_date.Value = dt
                 End Select
@@ -37,7 +37,7 @@ Module modPaymentTerms
             rd.Close()
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fSetDueDate_PaymentTerms(prPayment_Terms, prDue_date, prTransaction_date)
             Else
                 End

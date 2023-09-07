@@ -9,10 +9,10 @@ Module modTax
             gsTax_Rate(i) = 0
         Next
         i = 0
-        Dim rd As OdbcDataReader = fReader("select `id`,`rate` from `tax` order by `id` ")
+        Dim rd As OdbcDataReader = SqlReader("select `id`,`rate` from `tax` order by `id` ")
         While rd.Read
-            gsTax_ID(i) = fNumisNULL(rd("id"))
-            gsTax_Rate(i) = fNumisNULL(rd("rate"))
+            gsTax_ID(i) = NumIsNull(rd("id"))
+            gsTax_Rate(i) = NumIsNull(rd("rate"))
             i = i + 1
         End While
     End Sub
@@ -36,8 +36,8 @@ Module modTax
         If prTaxable = True Then
             Dim dVat As Double = 0
             'add tax
-            '  dVat = fNumFieldValue("TAX", "ID", fTextisNULL(prTax_Type.SelectedValue), "RATE")
-            dVat = fTax_Rate_Find(fNumisNULL(prTax_Type.SelectedValue))
+            '  dVat = GetNumberFieldValue("TAX", "ID", TextIsNull(prTax_Type.SelectedValue), "RATE")
+            dVat = fTax_Rate_Find(NumIsNull(prTax_Type.SelectedValue))
             Tax_Amount = (dVat / 100) * prAmount
             Taxable_Amount = Tax_Amount + prAmount
             If prTax_Type.SelectedValue = 12 Then
@@ -53,8 +53,8 @@ Module modTax
             Else
             End If
         End If
-        prROW.Cells("Tax_Amount").Value = fNumFormatFixed(Tax_Amount)
-        prROW.Cells("Taxable_Amount").Value = fNumFormatFixed(Taxable_Amount)
+        prROW.Cells("Tax_Amount").Value = NumberFormatFixed(Tax_Amount)
+        prROW.Cells("Taxable_Amount").Value = NumberFormatFixed(Taxable_Amount)
 
     End Sub
 

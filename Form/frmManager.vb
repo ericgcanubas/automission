@@ -1,22 +1,22 @@
 ﻿Public Class frmManager
     Public contact_BS As BindingSource
     Private Sub frmManager_Load(sender As Object, e As EventArgs) Handles Me.Load
-        fBackGroundImageStyle(Me)
+
 
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewRecordsToolStripMenuItem.Click
         If fACCESS_NEW_EDIT(Me, True) = False Then
             Exit Sub
         End If
 
-        frmContactDetails.gsContact_Type = "5"
+        frmContactDetails.ContactTypeId = "5"
 
-        frmContactDetails.bNew = True
-        frmContactDetails.gsID = ""
+        frmContactDetails.IsNew = True
+        frmContactDetails.ID = ""
         frmContactDetails.ShowDialog()
         frmContactDetails.Dispose()
         frmContactDetails = Nothing
@@ -24,7 +24,7 @@
     End Sub
     Private Sub fRefreshData()
 
-        fDataGridView(dgvManager, "SELECT 
+        LoadDataGridView(dgvManager, "SELECT 
   c.ID,
   c.Name,
   c.POSTAL_ADDRESS AS 'Postal Address',
@@ -54,7 +54,7 @@ WHERE c.Type = '5'")
             .Item(0).Visible = False
 
         End With
-        fDataGrid_Column(dgvManager, 27)
+        ViewColumn(dgvManager, 27)
     End Sub
 
 
@@ -65,7 +65,7 @@ WHERE c.Type = '5'")
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditsToolStripMenuItem.Click
 
         If dgvManager.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
 
@@ -77,23 +77,23 @@ WHERE c.Type = '5'")
             dgvManager.Focus()
             Dim i As Integer = dgvManager.CurrentRow.Index
             Dim dID As String = dgvManager.Rows.Item(i).Cells(0).Value
-            frmContactDetails.gsContact_Type = "5"
+            frmContactDetails.ContactTypeId = "5"
 
-            frmContactDetails.bNew = False
-            frmContactDetails.gsID = dID
+            frmContactDetails.IsNew = False
+            frmContactDetails.ID = dID
             frmContactDetails.ShowDialog()
             frmContactDetails.Dispose()
             frmContactDetails = Nothing
             fRefreshData()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
         If dgvManager.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -104,33 +104,33 @@ WHERE c.Type = '5'")
             Dim i As Integer = dgvManager.CurrentRow.Index
             Dim dID As String = dgvManager.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvManager.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
-                fExecutedOnly("Delete From contact where id='" & dID & "'")
+            If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
+                SqlExecuted("Delete From contact where id='" & dID & "'")
                 fRefreshData()
             End If
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
     Private Sub tsClose_Click_1(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
     Private Sub dgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvManager.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        fDataGrid_Switch(dgvManager, 27)
+        ViewSwitch(dgvManager, 27)
 
-        fDataGrid_Column(dgvManager, 27)
+        ViewColumn(dgvManager, 27)
 
 
     End Sub
 
     Private Sub tsChangeContactType_Click(sender As Object, e As EventArgs) Handles tsChangeContactType.Click
         If dgvManager.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Dim sID As Integer = 5
@@ -143,7 +143,7 @@ WHERE c.Type = '5'")
         End With
         If sID <> 5 Then
             Dim i As Integer = dgvManager.CurrentRow.Index
-            fExecutedOnly("update contact set `TYPE` = '" & sID & "' where id = '" & dgvManager.Rows(i).Cells(0).Value & "'")
+            SqlExecuted("update contact set `TYPE` = '" & sID & "' where id = '" & dgvManager.Rows(i).Cells(0).Value & "'")
             fRefreshData()
         End If
         frmChangeContactType = Nothing

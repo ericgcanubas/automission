@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Public Class frmPaymentTermsDetails
-    Public gsID As String
-    Public gsNew As Boolean = True
+    Public ID As Integer
+    Public IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
     Private Sub fComboSemiAnnual(ByVal cmb As ComboBox)
@@ -85,12 +85,12 @@ Public Class frmPaymentTermsDetails
     End Function
 
     Private Sub frmPaymentTermsDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-        fComboBox(cmbTYPE, "SELECT * FROM PAYMENT_TERMS_TYPE_MAP", "ID", "DESCRIPTION")
+
+        ComboBoxLoad(cmbTYPE, "SELECT * FROM PAYMENT_TERMS_TYPE_MAP", "ID", "DESCRIPTION")
         cmbTYPE_SelectedIndexChanged(sender, e)
-        If gsID <> "" Then
+        If ID > 0 Then
             fRefresh()
-            gsNew = False
+            IsNew = False
 
         End If
 
@@ -99,28 +99,28 @@ Public Class frmPaymentTermsDetails
 
         Try
 
-            Dim sQuery As String = "select * from payment_terms where id = '" & gsID & "' Limit 1"
+            Dim sQuery As String = "select * from payment_terms where id = '" & ID & "' Limit 1"
 
 
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
                 txtCODE.Text = rd("CODE")
                 txtDESCRIPTION.Text = rd("DESCRIPTION")
 
-                cmbTYPE.SelectedValue = fNumisNULL(rd("TYPE"))
-                numNET_DUE.Value = fNumisNULL(rd("NET_DUE"))
-                cmbDATE_DAY_PARAM.SelectedIndex = fNumisNULL(rd("DATE_DAY_PARAM")) - 1
-                cmbDATE_MONTH_PARAM.SelectedIndex = fNumisNULL(rd("DATE_MONTH_PARAM")) - 1
-                numDATE_MIN_DAYS.Value = fNumisNULL(rd("DATE_MIN_DAYS"))
-                numDISCOUNT_PCT.Value = fNumisNULL(rd("DISCOUNT_PCT"))
-                numDISCOUNT_DUE.Value = fNumisNULL(rd("DISCOUNT_DUE"))
-                chkINACTIVE.Checked = fNumisNULL(rd("INACTIVE"))
+                cmbTYPE.SelectedValue = NumIsNull(rd("TYPE"))
+                numNET_DUE.Value = NumIsNull(rd("NET_DUE"))
+                cmbDATE_DAY_PARAM.SelectedIndex = NumIsNull(rd("DATE_DAY_PARAM")) - 1
+                cmbDATE_MONTH_PARAM.SelectedIndex = NumIsNull(rd("DATE_MONTH_PARAM")) - 1
+                numDATE_MIN_DAYS.Value = NumIsNull(rd("DATE_MIN_DAYS"))
+                numDISCOUNT_PCT.Value = NumIsNull(rd("DISCOUNT_PCT"))
+                numDISCOUNT_DUE.Value = NumIsNull(rd("DISCOUNT_DUE"))
+                chkINACTIVE.Checked = NumIsNull(rd("INACTIVE"))
 
             End If
             rd.Close()
         Catch ex As Exception
 
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
     Private Sub cmbTYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTYPE.SelectedIndexChanged
@@ -183,33 +183,6 @@ Public Class frmPaymentTermsDetails
 
         End Try
     End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-
-        If gsNew = True Then
-            fCLean_and_refresh(Me)
-        Else
-
-            If fMessageBoxQuestion("Create new?") = True Then
-                gsNew = True
-                gsID = ""
-                fCLean_and_refresh(Me)
-            Else
-
-                fRefresh()
-            End If
-        End If
-    End Sub
-
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
 
@@ -217,35 +190,35 @@ Public Class frmPaymentTermsDetails
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If txtCODE.Text = "" Then
-            fMessageboxWarning("Code is required!")
+            MessageBoxWarning("Code is required!")
             Exit Sub
         End If
 
         If txtDESCRIPTION.Text = "" Then
-            fMessageboxWarning("Description is required!")
+            MessageBoxWarning("Description is required!")
             Exit Sub
         End If
 
-        If gsNew = False Then
-            fExecutedOnly("UPDATE payment_terms SET CODE='" & txtCODE.Text & "',DESCRIPTION='" & txtDESCRIPTION.Text & "',`TYPE` = '" & cmbTYPE.SelectedValue & "',NET_DUE = '" & numNET_DUE.Value & "',DISCOUNT_PCT = '" & numDISCOUNT_PCT.Value & "',DISCOUNT_DUE = '" & numDISCOUNT_DUE.Value & "',DATE_MONTH_PARAM = " & fComboBoxIndexValue(cmbDATE_MONTH_PARAM) & ",DATE_MIN_DAYS = " & fGotNullNumber(numDATE_MIN_DAYS.Value) & ",DATE_DAY_PARAM = " & fComboBoxIndexValue(cmbDATE_DAY_PARAM) & ",INACTIVE = '" & Val(chkINACTIVE.Checked) & "' WHERE ID = '" & gsID & "'")
+        If IsNew = False Then
+            SqlExecuted("UPDATE payment_terms SET CODE='" & txtCODE.Text & "',DESCRIPTION='" & txtDESCRIPTION.Text & "',`TYPE` = '" & cmbTYPE.SelectedValue & "',NET_DUE = '" & numNET_DUE.Value & "',DISCOUNT_PCT = '" & numDISCOUNT_PCT.Value & "',DISCOUNT_DUE = '" & numDISCOUNT_DUE.Value & "',DATE_MONTH_PARAM = " & ComboBoxSelected(cmbDATE_MONTH_PARAM) & ",DATE_MIN_DAYS = " & GotNullNumber(numDATE_MIN_DAYS.Value) & ",DATE_DAY_PARAM = " & ComboBoxSelected(cmbDATE_DAY_PARAM) & ",INACTIVE = '" & Val(chkINACTIVE.Checked) & "' WHERE ID = '" & ID & "'")
 
         Else
-            gsID = fObjectTypeMap_ID("PAYMENT_TERMS")
-            fExecutedOnly("INSERT INTO payment_terms SET CODE='" & txtCODE.Text & "',DESCRIPTION='" & txtDESCRIPTION.Text & "',`TYPE` = '" & cmbTYPE.SelectedValue & "',NET_DUE = '" & numNET_DUE.Value & "',DISCOUNT_PCT = '" & numDISCOUNT_PCT.Value & "',DISCOUNT_DUE = '" & numDISCOUNT_DUE.Value & "',DATE_MONTH_PARAM = " & fComboBoxIndexValue(cmbDATE_MONTH_PARAM) & ",DATE_MIN_DAYS = " & fGotNullNumber(numDATE_MIN_DAYS.Value) & ",DATE_DAY_PARAM = " & fComboBoxIndexValue(cmbDATE_DAY_PARAM) & ",INACTIVE = '" & Val(chkINACTIVE.Checked) & "' ,ID = '" & gsID & "'")
+            ID = ObjectTypeMapId("PAYMENT_TERMS")
+            SqlExecuted("INSERT INTO payment_terms SET CODE='" & txtCODE.Text & "',DESCRIPTION='" & txtDESCRIPTION.Text & "',`TYPE` = '" & cmbTYPE.SelectedValue & "',NET_DUE = '" & numNET_DUE.Value & "',DISCOUNT_PCT = '" & numDISCOUNT_PCT.Value & "',DISCOUNT_DUE = '" & numDISCOUNT_DUE.Value & "',DATE_MONTH_PARAM = " & ComboBoxSelected(cmbDATE_MONTH_PARAM) & ",DATE_MIN_DAYS = " & GotNullNumber(numDATE_MIN_DAYS.Value) & ",DATE_DAY_PARAM = " & ComboBoxSelected(cmbDATE_DAY_PARAM) & ",INACTIVE = '" & Val(chkINACTIVE.Checked) & "' ,ID = '" & ID & "'")
 
         End If
-        If gsNew = True Then
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
+        If IsNew = True Then
+            PrompNotify(Me.Text, SaveMsg, True)
         Else
-            fPop_Up_Msg(Me.Text, gsUpdateStr, True)
+            PrompNotify(Me.Text, UpdateMsg, True)
         End If
-        fBindDgvUpdate(Dgv, $"select  ID,CODE,DESCRIPTION,INACTIVE from payment_terms WHere ID = '{gsID}' limit 1", gsNew, This_BS)
-        fCLean_and_refresh(Me)
+        BindingViewUpdate(Dgv, $"select  ID,CODE,DESCRIPTION,INACTIVE from payment_terms WHere ID = '{ID}' limit 1", IsNew, This_BS)
+        ClearAndRefresh(Me)
 
-        gsID = ""
-        gsNew = True
+        ID = ""
+        IsNew = True
 
-        If fACCESS_NEW_EDIT(frmPaymentTerms, gsNew) = False Then
+        If fACCESS_NEW_EDIT(frmPaymentTerms, IsNew) = False Then
             Me.Close()
         End If
     End Sub

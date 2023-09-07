@@ -3,7 +3,7 @@
     Dim firstLoad As Boolean = True
     Private Sub fRefreshData()
 
-        fDataGridView_Binding(dgvLog, $"SELECT 
+        LoadDataGridViewBinding(dgvLog, $"SELECT 
   p.`ID`,
   p.`RECORDED_ON` AS `Recorded On`,
   p.TRANSACTION_DATE as `Date Entry`,
@@ -34,7 +34,7 @@ FROM
     WHERE p.`LOCATION_ID` like '{tscmbLocation.ComboBox.SelectedValue}'
     ORDER BY p.`RECORDED_ON` desc", item_BS)
 
-        fDataGrid_Column(dgvLog, 46)
+        ViewColumn(dgvLog, 46)
 
         fCashCountVsTotal()
         With dgvLog.Columns
@@ -46,7 +46,7 @@ FROM
 
         For I As Integer = 0 To dgvLog.Rows.Count - 1
             With dgvLog.Rows(I)
-                If fNumisNULL(.Cells("TOTAL").Value) <> fNumisNULL(.Cells("Cash Count").Value) Then
+                If NumIsNull(.Cells("TOTAL").Value) <> NumIsNull(.Cells("Cash Count").Value) Then
                     .DefaultCellStyle.ForeColor = Color.Red
                 End If
 
@@ -57,7 +57,7 @@ FROM
 
 
     Private Sub fRefreshLocation()
-        fTSComboBox(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
+        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
     End Sub
 
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -77,7 +77,7 @@ FROM
 
 
     Private Sub tsClose_Click_1(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
 
@@ -96,9 +96,9 @@ FROM
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        fDataGrid_Switch(dgvLog, 46)
+        ViewSwitch(dgvLog, 46)
 
-        fDataGrid_Column(dgvLog, 46)
+        ViewColumn(dgvLog, 46)
 
 
     End Sub
@@ -170,17 +170,17 @@ FROM
     End Sub
 
     Private Sub RecomputeJournalToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RecomputeJournalToolStripMenuItem.Click
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
         For I As Integer = 0 To dgvLog.Rows.Count - 1
             With dgvLog.Rows(I)
-                gsPOS_DATE = fDateFormatMYSQL(.Cells(1).Value)
+                gsPOS_DATE = DateFormatMySql(.Cells(1).Value)
                 gsPOS_LOG_ID = .Cells(0).Value
             End With
 
             fPOS_LOG_JOURNAL(gsPOS_LOG_ID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
 
         Next
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
 
     End Sub
 
@@ -200,14 +200,14 @@ FROM
                 End With
 
             Next
-            fMessageboxInfo("done")
+            MessageBoxInfo("done")
             fRefreshData()
         End If
 
     End Sub
     Private Sub fsubStartFixed(ByVal log_id As Integer, ByVal T_COUNT As Integer, ByVal T_END As Integer)
         Dim S As Integer = T_END - (T_COUNT - 1)
-        fExecutedOnly($"UPDATE  pos_log SET STARTING_RECEIPT_NO = '{S}' WHERE ID ='{log_id}' limit 1")
+        SqlExecuted($"UPDATE  pos_log SET STARTING_RECEIPT_NO = '{S}' WHERE ID ='{log_id}' limit 1")
     End Sub
 
     Private Sub dgvLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLog.CellDoubleClick
@@ -222,7 +222,7 @@ FROM
             If .AutoFixPOSLOG = True Then
 
                 If gsAdmin_User = True Then
-                    fMessageboxInfo("Please perform POS Log Computation.")
+                    MessageBoxInfo("Please perform POS Log Computation.")
                     frmPOS_LOG_STATING_COUNT_FIXED.ShowDialog()
                     frmPOS_LOG_STATING_COUNT_FIXED.Dispose()
                     frmPOS_LOG_STATING_COUNT_FIXED = Nothing

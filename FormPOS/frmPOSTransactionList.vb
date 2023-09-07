@@ -10,9 +10,9 @@
     Private Sub fReload()
         Select_POS_LOG_ID = 0
 
-        fDataGridView_Binding(dgvLIST, $"select pl.ID,pl.RECORDED_ON as `CREATED ON`,pl.TRANSACTION_DATE as `DATE`, format( ifnull( pl.TOTAL,0),2) as `SALES`, format( ifnull( PSC.AMOUNT,0),2) AS `STARTING CASH`, format( ifnull(PCC.TOTAL,0),2) AS `CASH COUNT`, if(ifnull( PL.CASH_COUNT_ID,0)=0,'No','Yes') as `COUNTED` from POS_LOG as pl LEFT OUTER JOIN POS_STARTING_CASH AS PSC ON  PSC.ID = PL.STARTING_CASH_ID  LEFT OUTER JOIN POS_CASH_COUNT AS PCC ON PCC.ID = PL.CASH_COUNT_ID WHERE pl.POS_MACHINE_ID = '{gsPOS_MACHINE_ID}' and pl.CASHIER_ID = '{gsCashier_ID}' and pl.LOCATION_ID = '{gsDefault_LOCATION_ID}'  order by pl.ID DESC LIMIT {numLOG.Value} ", gsBS)
+        LoadDataGridViewBinding(dgvLIST, $"select pl.ID,pl.RECORDED_ON as `CREATED ON`,pl.TRANSACTION_DATE as `DATE`, format( ifnull( pl.TOTAL,0),2) as `SALES`, format( ifnull( PSC.AMOUNT,0),2) AS `STARTING CASH`, format( ifnull(PCC.TOTAL,0),2) AS `CASH COUNT`, if(ifnull( PL.CASH_COUNT_ID,0)=0,'No','Yes') as `COUNTED` from POS_LOG as pl LEFT OUTER JOIN POS_STARTING_CASH AS PSC ON  PSC.ID = PL.STARTING_CASH_ID  LEFT OUTER JOIN POS_CASH_COUNT AS PCC ON PCC.ID = PL.CASH_COUNT_ID WHERE pl.POS_MACHINE_ID = '{gsPOS_MACHINE_ID}' and pl.CASHIER_ID = '{gsCashier_ID}' and pl.LOCATION_ID = '{gsDefault_LOCATION_ID}'  order by pl.ID DESC LIMIT {numLOG.Value} ", gsBS)
 
-        fDgvNotSort(dgvLIST)
+        ViewNotSort(dgvLIST)
         With dgvLIST
             .Columns(0).Visible = False
 
@@ -79,13 +79,13 @@
 
     Private Sub tsUpdateItem_Click(sender As Object, e As EventArgs) Handles tsUpdateItem.Click
         If dgvLIST.Rows.Count = 0 Then
-            fMessageboxInfo("Data not found.")
+            MessageBoxInfo("Data not found.")
             Exit Sub
         End If
         dgvLIST.Select()
 
         If dgvLIST.CurrentRow.Cells(6).Value = "Yes" Then
-            fMessageboxInfo("This transaction has been cash counted. please contact the administrator to modify.")
+            MessageBoxInfo("This transaction has been cash counted. please contact the administrator to modify.")
             Exit Sub
         End If
 
@@ -105,7 +105,7 @@
                 Dim R As DataGridViewRow = dgvLIST.Rows(N)
 
                 If R.Cells(6).Value = "No" Then
-                    fMessageboxWarning("Please create cash count all pending pos log.")
+                    MessageBoxWarning("Please create cash count all pending pos log.")
                     Exit Sub
                 End If
             Next
@@ -114,14 +114,14 @@
 
         Dim DatesSelected As Boolean = False
         gsPOS_DATE = Date.Now
-        If fNumFieldValue("USER_DEFAULT", "USER_ID", gsUser_ID, "pos_select_date") <> 0 Then
+        If GetNumberFieldValue("USER_DEFAULT", "USER_ID", gsUser_ID, "pos_select_date") <> 0 Then
             frmSelectDate.ShowDialog()
 
             If frmSelectDate.gsOK = True Then
                 gsPOS_DATE = frmSelectDate.dtpSelect.Value
                 DatesSelected = True
             Else
-                fMessageboxWarning("Transaction canceled. please select date.")
+                MessageBoxWarning("Transaction canceled. please select date.")
                 DatesSelected = False
             End If
 

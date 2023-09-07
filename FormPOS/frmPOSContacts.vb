@@ -37,7 +37,7 @@
     End Sub
     Private Sub fRefresh()
         Dim squery As String = "select c.ID,c.NAME,c.ACCOUNT_NO  as `Account No.` from contact as c  where c.INACTIVE = '0' and type ='" & gsContact_Type & "' and ( c.Name like '%" & txtName.Text.Replace("'", "`") & "%' or c.ACCOUNT_NO like '%" & txtName.Text.Replace("'", "`") & "%') order by c.`NAME` limit 100 "
-        fDataGridView(dgvContact, squery)
+        LoadDataGridView(dgvContact, squery)
         dgvContact.Columns(0).Visible = False
 
     End Sub
@@ -52,7 +52,7 @@
             gsOK = True
             Me.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fselect()
             Else
                 End
@@ -75,7 +75,7 @@
         End If
     End Sub
     Private Sub frmPOSContacts_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fDgvNotSort(dgvContact)
+        ViewNotSort(dgvContact)
         dgvContact.Columns(1).Width = 250
     End Sub
 

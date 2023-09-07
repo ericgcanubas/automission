@@ -82,7 +82,7 @@
 
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
         Try
-            Dim L As Integer = fNumisNULL(gsValue.Length)
+            Dim L As Integer = NumIsNull(gsValue.Length)
             If L = 0 Then
                 gsValue = ""
             Else

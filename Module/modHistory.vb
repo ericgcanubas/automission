@@ -324,19 +324,19 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
         If dgv.Rows.Count = 0 Then Exit Sub
 
         Dim sType As String = prType
-        Dim i As Integer = fNumisNULL(fNumFieldValue("tblsub_menu", "Description", sType, "sub_id"))
+        Dim i As Integer = NumIsNull(GetNumberFieldValue("tblsub_menu", "Description", sType, "sub_id"))
         gsMenuSubID = i
         gsRefresh = True
         gsDocument_Finder_ID = prID ' dgv.Rows(dgv.CurrentRow.Index).Cells(dgv.Columns.Count - 1).Value
 
 
         '= New Set
-        Dim rd As OdbcDataReader = fReader($"select * from `tblsub_menu` where sub_id = '{gsMenuSubID}' limit 1")
+        Dim rd As OdbcDataReader = SqlReader($"select * from `tblsub_menu` where sub_id = '{gsMenuSubID}' limit 1")
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
         If rd.Read Then
-            i = fNumisNULL(rd("sub_id"))
-            F = fGetForm(rd("Form"))
+            i = NumIsNull(rd("sub_id"))
+            F = GetFormModule(rd("Form"))
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
             Img = Image.FromFile(folder & rd("image_file"))
             gsSubMenuForm = rd("description")
@@ -368,7 +368,7 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
 
         'Dim fName As String = ""
         'Dim frm As New Form
-        'frm = fGetForm(fName)
+        'frm = GetFormModule(fName)
         'Dim tp As TabPage = New TabPage(fName)
         'Dim i_selected As Integer = 0
         'For x As Integer = 0 To gsTabControl.Controls.Count - 1

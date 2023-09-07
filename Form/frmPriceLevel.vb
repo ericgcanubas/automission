@@ -5,14 +5,14 @@
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvPriceLevel, "Select pl.ID,pl.Code,pl.Description, pltm.`Description` as `Type`,ig.Description as `Item Group`, IF(pl.`Inactive`=0,'No','Yes') as `Inactive` from price_level as pl inner join price_level_type_map as pltm on pltm.id = pl.`type` left outer join item_group as ig on ig.id = pl.item_group_id ", item_BS)
-        fDataGrid_Column(dgvPriceLevel, 42)
+        LoadDataGridViewBinding(dgvPriceLevel, "Select pl.ID,pl.Code,pl.Description, pltm.`Description` as `Type`,ig.Description as `Item Group`, IF(pl.`Inactive`=0,'No','Yes') as `Inactive` from price_level as pl inner join price_level_type_map as pltm on pltm.id = pl.`type` left outer join item_group as ig on ig.id = pl.item_group_id ", item_BS)
+        ViewColumn(dgvPriceLevel, 42)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvPriceLevel, 42)
+        ViewSwitch(dgvPriceLevel, 42)
 
-        fDataGrid_Column(dgvPriceLevel, 42)
+        ViewColumn(dgvPriceLevel, 42)
     End Sub
 
     Private Sub frmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -21,7 +21,7 @@
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -41,7 +41,7 @@
         Try
 
             If dgvPriceLevel.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
             If fACCESS_NEW_EDIT(Me, False) = False Then
@@ -50,20 +50,20 @@
 
             frmPriceLevelDetails.This_BS = item_BS
             frmPriceLevelDetails.Dgv = dgvPriceLevel
-            frmPriceLevelDetails.gsID = dgvPriceLevel.Rows(dgvPriceLevel.CurrentRow.Index).Cells("ID").Value
+            frmPriceLevelDetails.ID = dgvPriceLevel.Rows(dgvPriceLevel.CurrentRow.Index).Cells("ID").Value
             frmPriceLevelDetails.ShowDialog()
             frmPriceLevelDetails.Dispose()
             frmPriceLevelDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvPriceLevel.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -71,14 +71,14 @@
                 Exit Sub
             End If
 
-            If fMessageBoxQuestion("Do you really want to delete " & dgvPriceLevel.Rows(dgvPriceLevel.CurrentRow.Index).Cells("Description").Value & "?") = True Then
-                fExecutedOnly("delete from price_level where ID = '" & dgvPriceLevel.Rows(dgvPriceLevel.CurrentRow.Index).Cells("ID").Value & "' limit 1;")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete " & dgvPriceLevel.Rows(dgvPriceLevel.CurrentRow.Index).Cells("Description").Value & "?") = True Then
+                SqlExecuted("delete from price_level where ID = '" & dgvPriceLevel.Rows(dgvPriceLevel.CurrentRow.Index).Cells("ID").Value & "' limit 1;")
+                DeleteNotify(Me)
                 fRefresh()
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 

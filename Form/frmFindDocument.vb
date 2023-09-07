@@ -674,24 +674,16 @@ FROM
         tsTITLE.Text = gsSubMenuForm
         Try
             If tscmbLocation.ComboBox.Items.Count = 0 Then
-                fBackGroundImageStyle(Me)
 
                 fRefreshLocation()
                 Dim loc_value As String = gsDefault_LOCATION_ID
                 tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "%", loc_value)
                 tscmbLocation.Enabled = fLockLocation()
-
                 fRefresh()
-
-
                 gsSelected = False
                 firstLoad = False
-
                 dgvDocument.ColumnHeadersHeight = 35
-
             End If
-
-
         Catch ex As Exception
 
         End Try
@@ -982,7 +974,7 @@ FROM
    LEFT OUTER JOIN document_status_map AS dsm
    ON dsm.`ID` = i.`STATUS`
    WHERE  i.Location_ID LIKE  '" & tscmbLocation.ComboBox.SelectedValue & "'  order by i.ID DESC  "
-        fDataGridView(dgvDocument, sQuery_PO)
+        LoadDataGridView(dgvDocument, sQuery_PO)
         Return sQuery_PO
 
     End Function
@@ -1015,7 +1007,7 @@ FROM
    LEFT OUTER JOIN document_status_map AS dsm
    ON dsm.`ID` = i.`STATUS`
    WHERE  i.Location_ID LIKE  '" & tscmbLocation.ComboBox.SelectedValue & "'  order by i.ID DESC  "
-        fDataGridView(dgvDocument, sQuery_PR)
+        LoadDataGridView(dgvDocument, sQuery_PR)
         Return sQuery_PR
 
     End Function
@@ -1061,82 +1053,82 @@ FROM
         Select Case Me.AccessibleName
             Case "invoice"
 
-                fDataGrid_Column(dgvDocument, 6) ' 6 = for  Invoice
+                ViewColumn(dgvDocument, 6) ' 6 = for  Invoice
             Case "payment"
 
-                fDataGrid_Column(dgvDocument, 7) ' 7 = for  payment
+                ViewColumn(dgvDocument, 7) ' 7 = for  payment
             Case "sales_order"
 
-                fDataGrid_Column(dgvDocument, 8) ' 8 = for  sales_order
+                ViewColumn(dgvDocument, 8) ' 8 = for  sales_order
             Case "sales_receipt"
 
-                fDataGrid_Column(dgvDocument, 9) ' 9 = for  sales_receipt
+                ViewColumn(dgvDocument, 9) ' 9 = for  sales_receipt
             Case "credit_memo"
 
-                fDataGrid_Column(dgvDocument, 10) ' 10 = for  credit_memo
+                ViewColumn(dgvDocument, 10) ' 10 = for  credit_memo
             Case "purchase_order"
 
-                fDataGrid_Column(dgvDocument, 13)
+                ViewColumn(dgvDocument, 13)
 
 
             Case "bill"
 
-                fDataGrid_Column(dgvDocument, 14)
+                ViewColumn(dgvDocument, 14)
             Case "bill_credit"
 
-                fDataGrid_Column(dgvDocument, 15)
+                ViewColumn(dgvDocument, 15)
             Case "bill_payment"
 
-                fDataGrid_Column(dgvDocument, 16)
+                ViewColumn(dgvDocument, 16)
             Case "withholding_tax"
 
-                fDataGrid_Column(dgvDocument, 17)
+                ViewColumn(dgvDocument, 17)
             Case "stock_transfer"
 
-                fDataGrid_Column(dgvDocument, 19)
+                ViewColumn(dgvDocument, 19)
             Case "build_assembly"
 
-                fDataGrid_Column(dgvDocument, 20)
+                ViewColumn(dgvDocument, 20)
             Case "inventory_adjustment"
 
-                fDataGrid_Column(dgvDocument, 21)
+                ViewColumn(dgvDocument, 21)
             Case "general_journal"
 
-                fDataGrid_Column(dgvDocument, 22)
+                ViewColumn(dgvDocument, 22)
             Case "write_check"
 
-                fDataGrid_Column(dgvDocument, 23)
+                ViewColumn(dgvDocument, 23)
             Case "deposit"
 
-                fDataGrid_Column(dgvDocument, 24)
+                ViewColumn(dgvDocument, 24)
             Case "fund_transfer"
 
-                fDataGrid_Column(dgvDocument, 25)
+                ViewColumn(dgvDocument, 25)
             Case "tax_credit"
 
-                fDataGrid_Column(dgvDocument, 26)
+                ViewColumn(dgvDocument, 26)
             Case "estimate"
 
-                fDataGrid_Column(dgvDocument, 27) ' 8 = for  sales_order
+                ViewColumn(dgvDocument, 27) ' 8 = for  sales_order
 
             Case "purchase_order"
 
-                fDataGrid_Column(dgvDocument, 28)
+                ViewColumn(dgvDocument, 28)
 
             Case Else
 
-                fDataGrid_Column(dgvDocument, 5) ' 5 = for  Default
+                ViewColumn(dgvDocument, 5) ' 5 = for  Default
         End Select
 
     End Sub
 
 
     Private Sub fRefreshLocation()
-        fTSComboBox(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
+        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
     End Sub
     Private Sub fRefresh()
         Dim SQL As String = ""
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
         Select Case Me.AccessibleName
             Case "invoice"
                 SQL = fRefreshInvoice()
@@ -1204,7 +1196,7 @@ FROM
 
         End Select
 
-        fDataGridView_Binding(dgvDocument, SQL, item_BS)
+        LoadDataGridViewBinding(dgvDocument, SQL, item_BS)
 
 
         fRefreshGridColumn()
@@ -1217,7 +1209,7 @@ FROM
             End With
         Next
 
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
         dgvDocument.Columns(0).Visible = False
         'If dgvDocument.Rows.Count = 0 Then
         '    dgvDocument.Visible = False
@@ -1249,7 +1241,7 @@ FROM
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
         gsSelected = False
         If Me.Dock = DockStyle.Fill Then
-            fCloseForm(Me)
+            ClosedForm(Me)
         Else
             Me.Close()
             Me.AccessibleDescription = ""
@@ -1275,13 +1267,13 @@ FROM
 
             If Me.Dock = DockStyle.Fill Then
                 Dim sType As String = dgvDocument.Rows(dgvDocument.CurrentRow.Index).Cells("TYPE").Value
-                Dim rd As OdbcDataReader = fReader($"select * from `tblsub_menu` where description = '{sType}' limit 1")
+                Dim rd As OdbcDataReader = SqlReader($"select * from `tblsub_menu` where description = '{sType}' limit 1")
                 Dim i As Integer = 0
                 Dim F As Form = Nothing
                 Dim Img As Image = Nothing
                 If rd.Read Then
-                    i = fNumisNULL(rd("sub_id"))
-                    F = fGetForm(rd("Form"))
+                    i = NumIsNull(rd("sub_id"))
+                    F = GetFormModule(rd("Form"))
                     Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
                     Img = Image.FromFile(folder & rd("image_file"))
                     gsSubMenuForm = rd("description")
@@ -1327,69 +1319,69 @@ FROM
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         Select Case Me.AccessibleName
             Case "invoice"
-                fDataGrid_Switch(dgvDocument, 6)
-                fDataGrid_Column(dgvDocument, 6) ' 6 = for  Invoice
+                ViewSwitch(dgvDocument, 6)
+                ViewColumn(dgvDocument, 6) ' 6 = for  Invoice
             Case "payment"
-                fDataGrid_Switch(dgvDocument, 7)
-                fDataGrid_Column(dgvDocument, 7) ' 7 = for  payment
+                ViewSwitch(dgvDocument, 7)
+                ViewColumn(dgvDocument, 7) ' 7 = for  payment
             Case "sales_order"
-                fDataGrid_Switch(dgvDocument, 8)
-                fDataGrid_Column(dgvDocument, 8) ' 8 = for  sales_order
+                ViewSwitch(dgvDocument, 8)
+                ViewColumn(dgvDocument, 8) ' 8 = for  sales_order
             Case "sales_receipt"
-                fDataGrid_Switch(dgvDocument, 9)
-                fDataGrid_Column(dgvDocument, 9) ' 9 = for  sales_receipt
+                ViewSwitch(dgvDocument, 9)
+                ViewColumn(dgvDocument, 9) ' 9 = for  sales_receipt
             Case "credit_memo"
-                fDataGrid_Switch(dgvDocument, 10)
-                fDataGrid_Column(dgvDocument, 10) ' 10 = for  credit_memo
+                ViewSwitch(dgvDocument, 10)
+                ViewColumn(dgvDocument, 10) ' 10 = for  credit_memo
 
             Case "purchase_order"
-                fDataGrid_Switch(dgvDocument, 13)
-                fDataGrid_Column(dgvDocument, 13)
+                ViewSwitch(dgvDocument, 13)
+                ViewColumn(dgvDocument, 13)
             Case "bill"
-                fDataGrid_Switch(dgvDocument, 14)
-                fDataGrid_Column(dgvDocument, 14)
+                ViewSwitch(dgvDocument, 14)
+                ViewColumn(dgvDocument, 14)
             Case "bill_credit"
-                fDataGrid_Switch(dgvDocument, 15)
-                fDataGrid_Column(dgvDocument, 15)
+                ViewSwitch(dgvDocument, 15)
+                ViewColumn(dgvDocument, 15)
             Case "bill_payment"
-                fDataGrid_Switch(dgvDocument, 16)
-                fDataGrid_Column(dgvDocument, 16)
+                ViewSwitch(dgvDocument, 16)
+                ViewColumn(dgvDocument, 16)
             Case "withholding_tax"
-                fDataGrid_Switch(dgvDocument, 17)
-                fDataGrid_Column(dgvDocument, 17)
+                ViewSwitch(dgvDocument, 17)
+                ViewColumn(dgvDocument, 17)
             Case "stock_transfer"
-                fDataGrid_Switch(dgvDocument, 19)
-                fDataGrid_Column(dgvDocument, 19)
+                ViewSwitch(dgvDocument, 19)
+                ViewColumn(dgvDocument, 19)
 
             Case "build_assembly"
-                fDataGrid_Switch(dgvDocument, 20)
-                fDataGrid_Column(dgvDocument, 20)
+                ViewSwitch(dgvDocument, 20)
+                ViewColumn(dgvDocument, 20)
             Case "inventory_adjustment"
-                fDataGrid_Switch(dgvDocument, 21)
-                fDataGrid_Column(dgvDocument, 21)
+                ViewSwitch(dgvDocument, 21)
+                ViewColumn(dgvDocument, 21)
             Case "general_journal"
-                fDataGrid_Switch(dgvDocument, 22)
-                fDataGrid_Column(dgvDocument, 22)
+                ViewSwitch(dgvDocument, 22)
+                ViewColumn(dgvDocument, 22)
             Case "write_check"
-                fDataGrid_Switch(dgvDocument, 23)
-                fDataGrid_Column(dgvDocument, 23)
+                ViewSwitch(dgvDocument, 23)
+                ViewColumn(dgvDocument, 23)
             Case "deposit"
-                fDataGrid_Switch(dgvDocument, 24)
-                fDataGrid_Column(dgvDocument, 24)
+                ViewSwitch(dgvDocument, 24)
+                ViewColumn(dgvDocument, 24)
             Case "fund_transfer"
-                fDataGrid_Switch(dgvDocument, 25)
-                fDataGrid_Column(dgvDocument, 25)
+                ViewSwitch(dgvDocument, 25)
+                ViewColumn(dgvDocument, 25)
 
             Case "tax_credit"
-                fDataGrid_Switch(dgvDocument, 26)
-                fDataGrid_Column(dgvDocument, 26)
+                ViewSwitch(dgvDocument, 26)
+                ViewColumn(dgvDocument, 26)
 
             Case "estimate"
-                fDataGrid_Switch(dgvDocument, 27)
-                fDataGrid_Column(dgvDocument, 27)
+                ViewSwitch(dgvDocument, 27)
+                ViewColumn(dgvDocument, 27)
             Case Else
-                fDataGrid_Switch(dgvDocument, 5)
-                fDataGrid_Column(dgvDocument, 5) ' 5 = for  Default all Documents
+                ViewSwitch(dgvDocument, 5)
+                ViewColumn(dgvDocument, 5) ' 5 = for  Default all Documents
         End Select
     End Sub
 

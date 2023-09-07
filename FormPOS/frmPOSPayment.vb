@@ -108,7 +108,7 @@
         cmbPAYMENT_METHOD_ID.SelectedValue = R.Name
         numAMOUNT.Select()
 
-        fBlueLight(numAMOUNT)
+        BlueLight(numAMOUNT)
     End Sub
     Private Sub frmPOSPayment_Load(sender As Object, e As EventArgs) Handles Me.Load
 
@@ -116,7 +116,7 @@
         fLabel_Digital_M(xxxxCHANGE)
 
         CreateButton()
-        xxxTOTAL.Text = fNumFormatStandard(gsTransTotal)
+        xxxTOTAL.Text = NumberFormatStandard(gsTransTotal)
         gsOk = False
 
     End Sub
@@ -128,7 +128,7 @@
         Else
             Change_Total = 0
         End If
-        xxxxCHANGE.Text = fNumFormatStandard(Change_Total)
+        xxxxCHANGE.Text = NumberFormatStandard(Change_Total)
     End Sub
     Private Sub txtPAYMENT_REF_NO_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPAYMENT_REF_NO.KeyDown
         fMaster_Keydown(sender, e)
@@ -158,7 +158,7 @@
         txtPAYMENT_REF_NO.Text = gsPAYMENT_REF_NO
         txtCARD_NO.Text = gsCARD_NO
         numAMOUNT.Value = 0
-        fBlueLight(numAMOUNT)
+        BlueLight(numAMOUNT)
     End Sub
 
 
@@ -261,16 +261,16 @@
 
     Private Sub btnOK_Click_1(sender As Object, e As EventArgs) Handles btnOK.Click
         If gsAMOUNT > numAMOUNT.Value Then
-            fPop_Up_Msg("POS Payment", "Invalid tender amount", False)
+            PrompNotify("POS Payment", "Invalid tender amount", False)
             numAMOUNT.Select()
-            fBlueLight(numAMOUNT)
+            BlueLight(numAMOUNT)
             Exit Sub
         End If
 
         If fPOS_OR_Required() = True And txtPAYMENT_REF_NO.Text.Length = 0 Then
 
             If txtPAYMENT_REF_NO.Text.Length = 0 Then
-                fMessageboxExclamation($"{lbslREF_No.Text} is required.")
+                MessageBoxExclamation($"{lbslREF_No.Text} is required.")
                 Exit Sub
             End If
         End If

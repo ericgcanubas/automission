@@ -60,89 +60,100 @@ Partial Class frmThemeStyle
         Me.dgvTheme.AllowUserToDeleteRows = False
         Me.dgvTheme.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvTheme.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvTheme.Location = New System.Drawing.Point(8, 88)
+        Me.dgvTheme.Location = New System.Drawing.Point(11, 71)
+        Me.dgvTheme.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvTheme.Name = "dgvTheme"
         Me.dgvTheme.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvTheme.Size = New System.Drawing.Size(208, 209)
+        Me.dgvTheme.Size = New System.Drawing.Size(237, 198)
         Me.dgvTheme.TabIndex = 5
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(237, 135)
+        Me.Label1.Location = New System.Drawing.Point(256, 123)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 13)
+        Me.Label1.Size = New System.Drawing.Size(78, 16)
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "Color Code"
         '
         'txtCOLOR_CODE
         '
-        Me.txtCOLOR_CODE.Location = New System.Drawing.Point(345, 135)
+        Me.txtCOLOR_CODE.Location = New System.Drawing.Point(381, 121)
+        Me.txtCOLOR_CODE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtCOLOR_CODE.Name = "txtCOLOR_CODE"
-        Me.txtCOLOR_CODE.Size = New System.Drawing.Size(121, 22)
+        Me.txtCOLOR_CODE.Size = New System.Drawing.Size(160, 23)
         Me.txtCOLOR_CODE.TabIndex = 9
         '
         'txtBANNER_PATH
         '
-        Me.txtBANNER_PATH.Location = New System.Drawing.Point(345, 161)
+        Me.txtBANNER_PATH.Location = New System.Drawing.Point(381, 146)
+        Me.txtBANNER_PATH.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBANNER_PATH.Name = "txtBANNER_PATH"
-        Me.txtBANNER_PATH.Size = New System.Drawing.Size(248, 22)
+        Me.txtBANNER_PATH.Size = New System.Drawing.Size(329, 23)
         Me.txtBANNER_PATH.TabIndex = 11
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(237, 161)
+        Me.Label2.Location = New System.Drawing.Point(256, 148)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(70, 13)
+        Me.Label2.Size = New System.Drawing.Size(87, 16)
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Banner Path"
         '
         'txtBACKGROUND_PATH
         '
-        Me.txtBACKGROUND_PATH.Location = New System.Drawing.Point(345, 217)
+        Me.txtBACKGROUND_PATH.Location = New System.Drawing.Point(381, 196)
+        Me.txtBACKGROUND_PATH.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtBACKGROUND_PATH.Name = "txtBACKGROUND_PATH"
-        Me.txtBACKGROUND_PATH.Size = New System.Drawing.Size(248, 22)
+        Me.txtBACKGROUND_PATH.Size = New System.Drawing.Size(329, 23)
         Me.txtBACKGROUND_PATH.TabIndex = 13
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(237, 217)
+        Me.Label3.Location = New System.Drawing.Point(256, 198)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(96, 13)
+        Me.Label3.Size = New System.Drawing.Size(118, 16)
         Me.Label3.TabIndex = 12
         Me.Label3.Text = "Background Path"
         '
         'txtTITLE
         '
-        Me.txtTITLE.Location = New System.Drawing.Point(345, 107)
+        Me.txtTITLE.Location = New System.Drawing.Point(381, 95)
+        Me.txtTITLE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtTITLE.Name = "txtTITLE"
-        Me.txtTITLE.Size = New System.Drawing.Size(248, 22)
+        Me.txtTITLE.Size = New System.Drawing.Size(329, 23)
         Me.txtTITLE.TabIndex = 17
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(237, 107)
+        Me.Label4.Location = New System.Drawing.Point(256, 97)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(28, 13)
+        Me.Label4.Size = New System.Drawing.Size(36, 16)
         Me.Label4.TabIndex = 16
         Me.Label4.Text = "Title"
         '
         'txtLEFT_BANNER_PATH
         '
-        Me.txtLEFT_BANNER_PATH.Location = New System.Drawing.Point(345, 189)
+        Me.txtLEFT_BANNER_PATH.Location = New System.Drawing.Point(381, 171)
+        Me.txtLEFT_BANNER_PATH.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtLEFT_BANNER_PATH.Name = "txtLEFT_BANNER_PATH"
-        Me.txtLEFT_BANNER_PATH.Size = New System.Drawing.Size(248, 22)
+        Me.txtLEFT_BANNER_PATH.Size = New System.Drawing.Size(329, 23)
         Me.txtLEFT_BANNER_PATH.TabIndex = 20
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(237, 189)
+        Me.Label5.Location = New System.Drawing.Point(256, 173)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(92, 13)
+        Me.Label5.Size = New System.Drawing.Size(118, 16)
         Me.Label5.TabIndex = 19
         Me.Label5.Text = "Left Banner Path"
         '
@@ -150,11 +161,11 @@ Partial Class frmThemeStyle
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.Transparent
         Me.ToolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ToolStrip1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsClose, Me.tsSaveNew, Me.ToolStripLabel2, Me.ToolStripButton1, Me.ToolStripLabel1, Me.ToolStripLabel7, Me.ToolStripLabel6, Me.ToolStripButton2, Me.ToolStripLabel3, Me.ToolStripButton3, Me.ToolStripLabel4, Me.ToolStripLabel5})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 45)
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 37)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(609, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(727, 25)
         Me.ToolStrip1.TabIndex = 61
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -165,7 +176,7 @@ Partial Class frmThemeStyle
         Me.tsClose.Image = CType(resources.GetObject("tsClose.Image"), System.Drawing.Image)
         Me.tsClose.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsClose.Name = "tsClose"
-        Me.tsClose.Size = New System.Drawing.Size(44, 22)
+        Me.tsClose.Size = New System.Drawing.Size(46, 22)
         Me.tsClose.Text = "Close"
         '
         'tsSaveNew
@@ -174,7 +185,7 @@ Partial Class frmThemeStyle
         Me.tsSaveNew.Image = CType(resources.GetObject("tsSaveNew.Image"), System.Drawing.Image)
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSaveNew.Name = "tsSaveNew"
-        Me.tsSaveNew.Size = New System.Drawing.Size(45, 22)
+        Me.tsSaveNew.Size = New System.Drawing.Size(47, 22)
         Me.tsSaveNew.Text = "Apply"
         '
         'ToolStripLabel2
@@ -188,27 +199,27 @@ Partial Class frmThemeStyle
         Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(49, 22)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(53, 22)
         Me.ToolStripButton1.Text = "Delete"
         '
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(36, 22)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel1.Text = "       "
         '
         'ToolStripLabel7
         '
         Me.ToolStripLabel7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel7.Name = "ToolStripLabel7"
-        Me.ToolStripLabel7.Size = New System.Drawing.Size(36, 22)
+        Me.ToolStripLabel7.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel7.Text = "       "
         '
         'ToolStripLabel6
         '
         Me.ToolStripLabel6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel6.Name = "ToolStripLabel6"
-        Me.ToolStripLabel6.Size = New System.Drawing.Size(36, 22)
+        Me.ToolStripLabel6.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel6.Text = "       "
         '
         'ToolStripButton2
@@ -218,7 +229,7 @@ Partial Class frmThemeStyle
         Me.ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), System.Drawing.Image)
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(38, 22)
+        Me.ToolStripButton2.Size = New System.Drawing.Size(39, 22)
         Me.ToolStripButton2.Text = "New"
         '
         'ToolStripLabel3
@@ -234,21 +245,21 @@ Partial Class frmThemeStyle
         Me.ToolStripButton3.Image = CType(resources.GetObject("ToolStripButton3.Image"), System.Drawing.Image)
         Me.ToolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton3.Name = "ToolStripButton3"
-        Me.ToolStripButton3.Size = New System.Drawing.Size(39, 22)
+        Me.ToolStripButton3.Size = New System.Drawing.Size(44, 22)
         Me.ToolStripButton3.Text = "Save"
         '
         'ToolStripLabel4
         '
         Me.ToolStripLabel4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel4.Name = "ToolStripLabel4"
-        Me.ToolStripLabel4.Size = New System.Drawing.Size(36, 22)
+        Me.ToolStripLabel4.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel4.Text = "       "
         '
         'ToolStripLabel5
         '
         Me.ToolStripLabel5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel5.Name = "ToolStripLabel5"
-        Me.ToolStripLabel5.Size = New System.Drawing.Size(36, 22)
+        Me.ToolStripLabel5.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel5.Text = "       "
         '
         'Panel1
@@ -258,25 +269,27 @@ Partial Class frmThemeStyle
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.ForeColor = System.Drawing.Color.Black
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(609, 45)
+        Me.Panel1.Size = New System.Drawing.Size(727, 37)
         Me.Panel1.TabIndex = 60
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(3, 9)
+        Me.Label6.Location = New System.Drawing.Point(4, 5)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(114, 25)
+        Me.Label6.Size = New System.Drawing.Size(113, 25)
         Me.Label6.TabIndex = 0
         Me.Label6.Text = "Theme Style"
         '
         'frmThemeStyle
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(609, 309)
+        Me.ClientSize = New System.Drawing.Size(727, 277)
         Me.ControlBox = False
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.Panel1)
@@ -291,8 +304,9 @@ Partial Class frmThemeStyle
         Me.Controls.Add(Me.txtCOLOR_CODE)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.dgvTheme)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmThemeStyle"

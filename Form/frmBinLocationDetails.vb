@@ -1,19 +1,19 @@
 ﻿
 Public Class frmBinLocationDetails
-    Public gsID As String
-    Dim gsNew As Boolean = True
+    Public ID As Integer
+    Dim IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
     Private Sub frmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
+
         Me.Text = "Create Bin"
-        If gsID <> "" Then
+        If ID <> "" Then
 
             Try
 
-                fExecutedUsingReading(Me, "select * from stock_bin where id = '" & gsID & "' limit 1")
+                SqlExecutedUsingReading(Me, "select * from stock_bin where id = '" & ID & "' limit 1")
                 txtCODE.Enabled = False
-                gsNew = False
+                IsNew = False
                 Me.Text = "Update Bin"
             Catch ex As Exception
 
@@ -31,45 +31,48 @@ Public Class frmBinLocationDetails
     End Sub
 
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If gsNew = True Then
-            fCLean_and_refresh(Me)
+        If IsNew = True Then
+            ClearAndRefresh(Me)
         Else
-            If fMessageBoxQuestion("Create new?") = True Then
-                gsNew = True
-                gsID = ""
-                fCLean_and_refresh(Me)
+            If MessageBoxQuestion("Create new?") = True Then
+                IsNew = True
+                ID = ""
+                ClearAndRefresh(Me)
             Else
 
-                fExecutedUsingReading(Me, "select * from stock_bin where id = '" & gsID & "' limit 1")
+                SqlExecutedUsingReading(Me, "select * from stock_bin where id = '" & ID & "' limit 1")
             End If
         End If
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtDESCRIPTION.Text) = "" Then
-            fMessageboxInfo("Please enter stock bin description")
+            MessageBoxInfo("Please enter stock bin description")
             Exit Sub
         End If
 
         If txtCODE.Text = "" Then
-            txtCODE.Text = Format(Val(fGetMaxField("CODE", "stock_bin")), "0000")
+            txtCODE.Text = Format(Val(GetMaxField("CODE", "stock_bin")), "0000")
         End If
 
-        Dim sql As String = fFieldCollector(Me)
-        If gsNew = False Then
-            fExecutedOnly("UPDATE stock_bin set " & sql & " Where ID = '" & gsID & "' limit 1;")
+
+        If IsNew = False Then
+            SqlExecuted("UPDATE stock_bin set " & SqlUpdate(Me) & " Where ID = '" & ID & "' limit 1;")
         Else
-            gsID = fObjectTypeMap_ID("stock_bin")
-            fExecutedOnly("INSERT INTO stock_bin set " & sql & ",ID = '" & gsID & "'")
+            ID = ObjectTypeMapId("stock_bin")
+            Dim SQL_Field As String = ""
+            Dim SQL_Value As String = ""
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO stock_bin ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
         End If
-        fSavePopUp(Me, gsNew)
-        fBindDgvUpdate(Dgv, $"Select ID,Code,Description from stock_bin Where ID = '{gsID}' limit 1;", gsNew, This_BS)
-        fCLean_and_refresh(Me)
-        gsID = ""
-        gsNew = True
+        SaveNotify(Me, IsNew)
+        BindingViewUpdate(Dgv, $"Select ID,Code,Description from stock_bin Where ID = '{ID}' limit 1;", IsNew, This_BS)
+        ClearAndRefresh(Me)
+        ID = 0
+        IsNew = True
         txtCODE.Enabled = True
         Me.Text = "Create Bin"
-        If fACCESS_NEW_EDIT(frmBinLocation, gsNew) = False Then
+        If fACCESS_NEW_EDIT(frmBinLocation, IsNew) = False Then
             Me.Close()
         End If
     End Sub

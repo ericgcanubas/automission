@@ -3,7 +3,7 @@ Public Class frmItem
     Public item_BS As BindingSource
     Private Sub fRefreshDataGrid()
 
-        fDataGridView_Binding(dgvItem, "SELECT 
+        LoadDataGridViewBinding(dgvItem, "SELECT 
   i.ID,
   i.CODE AS `Code`,
   i.`DESCRIPTION` AS `Description`,
@@ -52,7 +52,7 @@ FROM
 
         dgvItem.Columns(0).Visible = False
 
-        fDataGrid_Column(dgvItem, 3) ' 3 = for item
+        ViewColumn(dgvItem, 3) ' 3 = for item
 
         fSearchload()
     End Sub
@@ -69,8 +69,8 @@ FROM
             Exit Sub
         End If
 
-        frmItemDetails.bNew = True
-        frmItemDetails.gsID = ""
+        frmItemDetails.IsNew = True
+        frmItemDetails.ID = ""
         frmItemDetails.dgv = dgvItem
         frmItemDetails.this_BS = item_BS
         frmItemDetails.bMain = True
@@ -89,9 +89,9 @@ FROM
 
 
 
-        fDataGrid_Switch(dgvItem, 3) ' 3 = for item
+        ViewSwitch(dgvItem, 3) ' 3 = for item
 
-        fDataGrid_Column(dgvItem, 3) ' 3 = for item
+        ViewColumn(dgvItem, 3) ' 3 = for item
 
 
 
@@ -99,7 +99,7 @@ FROM
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         If dgvItem.Rows.Count = 0 Then
-            fMessageboxInfo("data not found!")
+            MessageBoxInfo("data not found!")
             Exit Sub
         End If
         Try
@@ -109,8 +109,8 @@ FROM
             dgvItem.Focus()
             Dim i As Integer = dgvItem.CurrentRow.Index
             Dim dID As String = dgvItem.Rows.Item(i).Cells(0).Value
-            frmItemDetails.bNew = False
-            frmItemDetails.gsID = dID
+            frmItemDetails.IsNew = False
+            frmItemDetails.ID = dID
             frmItemDetails.dgv = dgvItem
             frmItemDetails.this_BS = item_BS
             '  frmItemDetails.this_BS = item_BS
@@ -119,7 +119,7 @@ FROM
             frmItemDetails.Dispose()
             frmItemDetails = Nothing
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
         ' fRefreshDataGrid()
@@ -132,7 +132,7 @@ FROM
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
 
         If dgvItem.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -144,14 +144,14 @@ FROM
             Dim i As Integer = dgvItem.CurrentRow.Index
             Dim dID As String = dgvItem.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvItem.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
-                fExecutedOnly("Delete From item where id='" & dID & "' limit 1;")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
+                SqlExecuted("Delete From item where id='" & dID & "' limit 1;")
+                DeleteNotify(Me)
                 fRefreshDataGrid()
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
 
 

@@ -6,8 +6,8 @@ Public Class frmReportMonthly
     Private Sub frmDepotSalesAcheivementReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.AccessibleName = gsReportFileName
         Me.Text = gsReportName
-        fYear(cmbYear)
-        fMonth(cmbMonth)
+        YearlyComboBoxLoad(cmbYear)
+        MonthlyComboBoxLoad(cmbMonth)
 
 
     End Sub
@@ -18,10 +18,10 @@ Public Class frmReportMonthly
         '   Dim cn As New MySqlConnection(mysqlConstr)
         Try
             ' cn.Open()
-            Dim rd As OdbcDataReader = fReader("select sales_target, service_fee_pct from service_fee where  sales_target > '0'   order by sales_target")
+            Dim rd As OdbcDataReader = SqlReader("select sales_target, service_fee_pct from service_fee where  sales_target > '0'   order by sales_target")
             While rd.Read
                 i = i + 1
-                If fNumisNULL(rd("sales_target")) >= running_total Then
+                If NumIsNull(rd("sales_target")) >= running_total Then
 
                     If g = 0 Then
 
@@ -35,7 +35,7 @@ Public Class frmReportMonthly
             rd.Close()
         Catch ex As Exception
 
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
         Return v
     End Function

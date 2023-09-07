@@ -2,7 +2,7 @@
     Dim item_BS As BindingSource
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fBackGroundImageStyle(Me)
+
         fRefreshData()
     End Sub
 
@@ -19,17 +19,17 @@
     End Sub
     Private Sub fRefreshData()
 
-        fDataGridView_Binding(dgvContactGroup, "SELECT cg.ID,cg.`Code`,cg.`Description`, cm.`DESCRIPTION` AS `Type` FROM contact_group AS cg INNER JOIN contact_type_map AS cm ON cm.`ID` = cg.`TYPE`", item_BS)
+        LoadDataGridViewBinding(dgvContactGroup, "SELECT cg.ID,cg.`Code`,cg.`Description`, cm.`DESCRIPTION` AS `Type` FROM contact_group AS cg INNER JOIN contact_type_map AS cm ON cm.`ID` = cg.`TYPE`", item_BS)
         With dgvContactGroup.Columns
             .Item(0).Visible = False
         End With
-        fDataGrid_Column(dgvContactGroup, 32)
+        ViewColumn(dgvContactGroup, 32)
     End Sub
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
 
         If dgvContactGroup.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -41,7 +41,7 @@
             Dim dID As String = dgvContactGroup.Rows.Item(i).Cells(0).Value
             frmContactGroupDetails.This_BS = item_BS
             frmContactGroupDetails.dgv = dgvContactGroup
-            frmContactGroupDetails.gsID = dID
+            frmContactGroupDetails.ID = dID
             frmContactGroupDetails.ShowDialog()
             frmContactGroupDetails.Dispose()
             frmContactGroupDetails = Nothing
@@ -54,7 +54,7 @@
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvContactGroup.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -65,9 +65,9 @@
             Dim i As Integer = dgvContactGroup.CurrentRow.Index
             Dim dID As String = dgvContactGroup.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvContactGroup.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
-                fExecutedOnly("Delete From contact_group where id='" & dID & "' limit 1")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
+                SqlExecuted("Delete From contact_group where id='" & dID & "' limit 1")
+                DeleteNotify(Me)
                 fRefreshData()
             End If
 
@@ -79,9 +79,9 @@
 
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvContactGroup, 32)
+        ViewSwitch(dgvContactGroup, 32)
 
-        fDataGrid_Column(dgvContactGroup, 32)
+        ViewColumn(dgvContactGroup, 32)
 
 
     End Sub

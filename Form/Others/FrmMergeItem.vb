@@ -3,14 +3,14 @@ Public Class FrmMergeItem
     Dim n_cnn As OdbcConnection
     Private Sub n_fExecutedOnly(ByVal sQuery As String)
         Try
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
             Dim cmd As New OdbcCommand(sQuery, n_cnn)
             cmd.CommandTimeout = 999999
             cmd.ExecuteNonQuery()
-            fCursorLoadingOn(False)
+            CursorLoadingOn(False)
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                fExecutedOnly(sQuery)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                SqlExecuted(sQuery)
             Else
                 End
             End If
@@ -25,7 +25,7 @@ Public Class FrmMergeItem
             cmd.CommandTimeout = 999999
             Return cmd.ExecuteReader
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
                 Return n_fMySqlDataReader(sQuery)
             Else
                 End
@@ -40,13 +40,13 @@ Public Class FrmMergeItem
     End Function
     Private Sub btnMerge_Click(sender As Object, e As EventArgs) Handles btnMerge.Click
         fNewCheck()
-        Dim rd As OdbcDataReader = fReader("select i.code,i.description,i.cost,i.rate from item  as i inner join item_sub_class  as s on s.id = i.SUB_CLASS_ID   where  i.type ='0' and s.class_id in ('40','38') and i.inactive ='0' ")
+        Dim rd As OdbcDataReader = SqlReader("select i.code,i.description,i.cost,i.rate from item  as i inner join item_sub_class  as s on s.id = i.SUB_CLASS_ID   where  i.type ='0' and s.class_id in ('40','38') and i.inactive ='0' ")
 
         While rd.Read
-            fBMS_Item(rd("CODE"), rd("DESCRIPTION"), fNumisNULL(rd("COST")), fNumisNULL(rd("RATE")))
+            fBMS_Item(rd("CODE"), rd("DESCRIPTION"), NumIsNull(rd("COST")), NumIsNull(rd("RATE")))
 
         End While
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
         If n_cnn.State = ConnectionState.Open Then
             n_cnn.Close()
         End If
@@ -59,12 +59,12 @@ Public Class FrmMergeItem
 
 
         Try
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
 
             n_cnn = New OdbcConnection(SQL_Con)
             n_cnn.Open()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         Finally
 
         End Try

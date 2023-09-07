@@ -32,7 +32,6 @@ Partial Class frmPOSCashDenominationDetails
         Me.chkINACTIVE = New System.Windows.Forms.CheckBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
         CType(Me.numNOMINAL_VALUE, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -40,37 +39,37 @@ Partial Class frmPOSCashDenominationDetails
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(65, 26)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(82, 19)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(37, 13)
+        Me.Label1.Size = New System.Drawing.Size(40, 16)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Code"
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(110, 23)
-        Me.txtCODE.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.txtCODE.Location = New System.Drawing.Point(126, 16)
+        Me.txtCODE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(140, 21)
+        Me.txtCODE.Size = New System.Drawing.Size(159, 23)
         Me.txtCODE.TabIndex = 1
         '
         'txtDESCRIPTION
         '
-        Me.txtDESCRIPTION.Location = New System.Drawing.Point(110, 49)
-        Me.txtDESCRIPTION.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.txtDESCRIPTION.Location = New System.Drawing.Point(126, 44)
+        Me.txtDESCRIPTION.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtDESCRIPTION.Name = "txtDESCRIPTION"
-        Me.txtDESCRIPTION.Size = New System.Drawing.Size(312, 21)
+        Me.txtDESCRIPTION.Size = New System.Drawing.Size(356, 23)
         Me.txtDESCRIPTION.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(31, 49)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(42, 46)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 13)
+        Me.Label2.Size = New System.Drawing.Size(80, 16)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Description"
         '
@@ -78,21 +77,21 @@ Partial Class frmPOSCashDenominationDetails
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(14, 76)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(25, 74)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(88, 13)
+        Me.Label3.Size = New System.Drawing.Size(97, 16)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Nominal Value"
         '
         'numNOMINAL_VALUE
         '
         Me.numNOMINAL_VALUE.DecimalPlaces = 2
-        Me.numNOMINAL_VALUE.Location = New System.Drawing.Point(110, 76)
-        Me.numNOMINAL_VALUE.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.numNOMINAL_VALUE.Location = New System.Drawing.Point(126, 72)
+        Me.numNOMINAL_VALUE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.numNOMINAL_VALUE.Maximum = New Decimal(New Integer() {-727379969, 232, 0, 0})
         Me.numNOMINAL_VALUE.Name = "numNOMINAL_VALUE"
-        Me.numNOMINAL_VALUE.Size = New System.Drawing.Size(140, 21)
+        Me.numNOMINAL_VALUE.Size = New System.Drawing.Size(160, 23)
         Me.numNOMINAL_VALUE.TabIndex = 5
         Me.numNOMINAL_VALUE.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.numNOMINAL_VALUE.ThousandsSeparator = True
@@ -101,10 +100,10 @@ Partial Class frmPOSCashDenominationDetails
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(68, 102)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Location = New System.Drawing.Point(83, 103)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(34, 13)
+        Me.Label4.Size = New System.Drawing.Size(39, 16)
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "Type"
         '
@@ -113,57 +112,49 @@ Partial Class frmPOSCashDenominationDetails
         Me.cmbTYPE.AccessibleDescription = "0"
         Me.cmbTYPE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTYPE.FormattingEnabled = True
-        Me.cmbTYPE.Location = New System.Drawing.Point(110, 102)
-        Me.cmbTYPE.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.cmbTYPE.Location = New System.Drawing.Point(126, 100)
+        Me.cmbTYPE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbTYPE.Name = "cmbTYPE"
-        Me.cmbTYPE.Size = New System.Drawing.Size(140, 21)
+        Me.cmbTYPE.Size = New System.Drawing.Size(159, 24)
         Me.cmbTYPE.TabIndex = 7
         '
         'chkINACTIVE
         '
         Me.chkINACTIVE.AutoSize = True
         Me.chkINACTIVE.BackColor = System.Drawing.Color.Transparent
-        Me.chkINACTIVE.Location = New System.Drawing.Point(110, 128)
-        Me.chkINACTIVE.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.chkINACTIVE.Location = New System.Drawing.Point(126, 131)
+        Me.chkINACTIVE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkINACTIVE.Name = "chkINACTIVE"
-        Me.chkINACTIVE.Size = New System.Drawing.Size(72, 17)
+        Me.chkINACTIVE.Size = New System.Drawing.Size(80, 20)
         Me.chkINACTIVE.TabIndex = 8
         Me.chkINACTIVE.Text = "Inactive"
         Me.chkINACTIVE.UseVisualStyleBackColor = False
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(269, 174)
+        Me.btnSave.Location = New System.Drawing.Point(303, 131)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(86, 28)
         Me.btnSave.TabIndex = 11
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(350, 174)
+        Me.btnCancel.Location = New System.Drawing.Point(396, 131)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(86, 28)
         Me.btnCancel.TabIndex = 12
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'Label5
-        '
-        Me.Label5.BackColor = System.Drawing.SystemColors.Control
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Label5.Location = New System.Drawing.Point(0, 159)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(436, 47)
-        Me.Label5.TabIndex = 13
-        '
         'frmPOSCashDenominationDetails
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(436, 206)
+        Me.ClientSize = New System.Drawing.Size(498, 174)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.chkINACTIVE)
@@ -175,9 +166,8 @@ Partial Class frmPOSCashDenominationDetails
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtCODE)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Label5)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmPOSCashDenominationDetails"
@@ -202,5 +192,4 @@ Partial Class frmPOSCashDenominationDetails
     Friend WithEvents chkINACTIVE As CheckBox
     Friend WithEvents btnSave As Button
     Friend WithEvents btnCancel As Button
-    Friend WithEvents Label5 As Label
 End Class

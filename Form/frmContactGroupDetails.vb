@@ -2,28 +2,23 @@
 Public Class frmContactGroupDetails
     Public dgv As DataGridView
     Public This_BS As BindingSource
-    Public gsID As String
-    Public gsNew As Boolean = True
+    Public ID As Integer 
+    Public IsNew As Boolean = True
     Private Sub frmContactGroupDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' fBackGroundImageStyle(Me)
-        fclear_info()
-        If gsID <> "" Then
-            Try
-                '
-                fExecutedUsingReading(Me, "select * from contact_group where id = '" & gsID & "' limit 1")
-                gsNew = False
 
+        fclear_info()
+        If ID > 0 Then
+            Try
+                SqlExecutedUsingReading(Me, "select * from contact_group where id = '" & ID & "' limit 1")
+                IsNew = False
             Catch ex As Exception
 
 
             End Try
         End If
-
-
-
     End Sub
     Private Sub fclear_info()
-        fComboBox(cmbTYPE, "select ID,DESCRIPTION from contact_type_map", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbTYPE, "select ID,DESCRIPTION from contact_type_map", "ID", "DESCRIPTION")
         txtCODE.Clear()
         txtDescription.Clear()
     End Sub
@@ -36,16 +31,16 @@ Public Class frmContactGroupDetails
     End Sub
 
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If gsNew = True Then
-            fCLean_and_refresh(Me)
+        If IsNew = True Then
+            ClearAndRefresh(Me)
         Else
-            If fMessageBoxQuestion("Create new?") = True Then
-                gsNew = True
-                gsID = ""
-                fCLean_and_refresh(Me)
+            If MessageBoxQuestion("Create new?") = True Then
+                IsNew = True
+                ID = ""
+                ClearAndRefresh(Me)
             Else
 
-                fExecutedUsingReading(Me, "select * from contact_group where id = '" & gsID & "' limit 1")
+                SqlExecutedUsingReading(Me, "select * from contact_group where id = '" & ID & "' limit 1")
             End If
         End If
     End Sub
@@ -56,36 +51,37 @@ Public Class frmContactGroupDetails
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If txtDescription.Text = "" Then
-            fMessageboxInfo("Please enter description")
+            MessageBoxInfo("Please enter description")
             Exit Sub
         End If
 
-        If gsNew = False Then
+        If IsNew = False Then
             If txtCODE.Text = "" Then
-                fMessageboxInfo("Please enter code.")
+                MessageBoxInfo("Please enter code.")
                 Exit Sub
             End If
 
-            Dim squery As String = fFieldCollector(Me)
-            fExecutedOnly("Update contact_group set " & squery & " Where ID = '" & gsID & "' limit 1")
+            Dim squery As String = SqlUpdate(Me)
+            SqlExecuted("Update contact_group set " & squery & " Where ID = '" & ID & "' ")
+
         Else
+
             If Trim(txtCODE.Text) = "" Then
-                Dim bCODE_INTEGER As Double = Val(fGetMaxField("CODE", "contact_group"))
+                Dim bCODE_INTEGER As Double = Val(GetMaxField("CODE", "contact_group"))
                 txtCODE.Text = bCODE_INTEGER.ToString("0000")
             End If
-            Dim squery As String = fFieldCollector(Me)
 
-            gsID = fObjectTypeMap_ID("contact_group")
-            fExecutedOnly("INSERT INTO contact_group SET " & squery & ", ID = '" & gsID & "'")
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO contact_group ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
 
         End If
 
-        fSavePopUp(Me, gsNew)
-        fBindDgvUpdate(dgv, $"SELECT cg.ID,cg.`Code`,cg.`Description`, cm.`DESCRIPTION` AS `Type` FROM contact_group AS cg INNER JOIN contact_type_map AS cm ON cm.`ID` = cg.`TYPE` Where cg.ID = '{gsID}' limit 1;", gsNew, This_BS)
+        SaveNotify(Me, IsNew)
+        BindingViewUpdate(dgv, $"SELECT cg.ID,cg.`Code`,cg.`Description`, cm.`DESCRIPTION` AS `Type` FROM contact_group AS cg INNER JOIN contact_type_map AS cm ON cm.`ID` = cg.`TYPE` Where cg.ID = '{ID}' limit 1;", IsNew, This_BS)
         fclear_info()
-        gsID = ""
-        gsNew = True
-        If fACCESS_NEW_EDIT(frmContactGroup, gsNew) = False Then
+        ID = ""
+        IsNew = True
+        If fACCESS_NEW_EDIT(frmContactGroup, IsNew) = False Then
             Me.Close()
         End If
     End Sub

@@ -14,7 +14,7 @@
 
         gsClickOk = False
 
-        fDataGridView(dgvPAYMENT, $"select  p.ID,p.RECORDED_ON as `Log`,p.RECEIPT_REF_NO as `O.R` ,p.AMOUNT_APPLIED  as `AMOUNT` from PAYMENT  as p inner join pos_table_served as s on s.PAYMENT_ID = p.ID WHERE  s.IS_ACTIVE <> '0' and s.table_no = '{gsTABLE_NO}' and s.pos_log_id = '{gsPOS_LOG_ID}' and s.cashier_id = '{gsCashier_ID}'")
+        LoadDataGridView(dgvPAYMENT, $"select  p.ID,p.RECORDED_ON as `Log`,p.RECEIPT_REF_NO as `O.R` ,p.AMOUNT_APPLIED  as `AMOUNT` from PAYMENT  as p inner join pos_table_served as s on s.PAYMENT_ID = p.ID WHERE  s.IS_ACTIVE <> '0' and s.table_no = '{gsTABLE_NO}' and s.pos_log_id = '{gsPOS_LOG_ID}' and s.cashier_id = '{gsCashier_ID}'")
 
         dgvPAYMENT.Columns(0).Visible = False
 
@@ -24,7 +24,7 @@
     Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         gsClickOk = True
 
-        fExecutedOnly($"UPDATE pos_table_served  SET IS_ACTIVE ='0' WHERE POS_LOG_ID = '{gsPOS_LOG_ID}' and TABLE_NO = '{gsTABLE_NO}' and CASHIER_ID = '{gsCashier_ID}' and ORDER_TYPE_ID = '{gsORDER_TYPE}' ")
+        SqlExecuted($"UPDATE pos_table_served  SET IS_ACTIVE ='0' WHERE POS_LOG_ID = '{gsPOS_LOG_ID}' and TABLE_NO = '{gsTABLE_NO}' and CASHIER_ID = '{gsCashier_ID}' and ORDER_TYPE_ID = '{gsORDER_TYPE}' ")
 
         Me.Close()
     End Sub
@@ -35,7 +35,7 @@
 
     Private Sub BtnPRINT_RECEIPT_Click(sender As Object, e As EventArgs) Handles btnPRINT_RECEIPT.Click
         If dgvPAYMENT.Rows.Count = 0 Then
-            fMessageboxInfo("Data not found.")
+            MessageBoxInfo("Data not found.")
             Exit Sub
         End If
 
@@ -63,7 +63,7 @@
             If gsPOSPrintPreview = True Then
                 gsToolPanelView = False
                 frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
-                frmReportViewer.Text = "POS Preview " & fDateTimeNow()
+                frmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
                 frmReportViewer.WindowState = FormWindowState.Normal
                 frmReportViewer.ShowDialog()
                 frmReportViewer.Dispose()
@@ -72,7 +72,7 @@
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
 
         btnPRINT_RECEIPT.Enabled = True
@@ -88,14 +88,14 @@
 
     Private Sub BtnPRINTOS_Click(sender As Object, e As EventArgs) Handles btnPRINTOS.Click
         If dgvPAYMENT.Rows.Count = 0 Then
-            fMessageboxInfo("File not found.")
+            MessageBoxInfo("File not found.")
             Exit Sub
         End If
 
         dgvPAYMENT.Select()
         Dim ThisID As Integer
         Try
-            ThisID = fNumFieldValue("payment_invoices", "payment_id", dgvPAYMENT.CurrentRow.Cells(0).Value, "invoice_id")
+            ThisID = GetNumberFieldValue("payment_invoices", "payment_id", dgvPAYMENT.CurrentRow.Cells(0).Value, "invoice_id")
 
             If ThisID = 0 Then
                 Exit Sub
@@ -117,7 +117,7 @@
             If gsPOSPrintPreview = True Then
                 gsToolPanelView = False
                 frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
-                frmReportViewer.Text = "POS Preview " & fDateTimeNow()
+                frmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
                 frmReportViewer.WindowState = FormWindowState.Normal
                 frmReportViewer.ShowDialog()
                 frmReportViewer.Dispose()
@@ -125,7 +125,7 @@
                 gscryRpt.PrintToPrinter(1, False, 0, 0)
             End If
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
 
         btnPRINTOS.Enabled = True

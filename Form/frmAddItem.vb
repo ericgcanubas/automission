@@ -169,7 +169,7 @@ Public Class frmAddItem
         Dim nQTY As Double = (numQty.Value * IIf(Val(lblQty_Base.Text) = 0, 1, Val(lblQty_Base.Text))) + fdgvGetQty(prITEM_ID)
 
         If iQty - nQTY <= -1 Then
-            fMessageboxExclamation($"Not allowed negative inventory on  {prDESCRIPTION}. { Environment.NewLine} { Environment.NewLine} Sorry, unable to proceed.")
+            MessageBoxExclamation($"Not allowed negative inventory on  {prDESCRIPTION}. { Environment.NewLine} { Environment.NewLine} Sorry, unable to proceed.")
             bON_HAND = False
         End If
 
@@ -221,7 +221,7 @@ Public Class frmAddItem
         Dim lbl2 As String = xlblnum_price.Text
         Dim lbl3 As String = xlblSelection.Text
 
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
         xlblOnHand.Text = ""
 
         cmbUM.DataSource = Nothing
@@ -258,13 +258,13 @@ Public Class frmAddItem
                         Case 4 ' OTHER CHARGE
                             T = 0
                         Case 5 ' SUB
-                            T = fNumFormatFixed(.Cells("AMOUNT").Value)
+                            T = NumberFormatFixed(.Cells("AMOUNT").Value)
                         Case 6 ' GROUP
 
                         Case 7 ' DISCOUNT
                             T = 0
                         Case Else
-                            T = T + fNumFormatFixed(.Cells("AMOUNT").Value)
+                            T = T + NumberFormatFixed(.Cells("AMOUNT").Value)
                     End Select
 
                 End If
@@ -298,7 +298,7 @@ Public Class frmAddItem
                 gsAmount = gsOriginal_Amount
             End If
 
-            lblAmount.Text = fNumFormatStandard(gsAmount)
+            lblAmount.Text = NumberFormatStandard(gsAmount)
         Catch ex As Exception
 
         End Try
@@ -324,9 +324,9 @@ Public Class frmAddItem
 
 
         If gsCOST_AMOUNT_ONLY = False Then
-            fComboBox(cmbItem_Code, gsItemCodeQuery, "ID", "CODE")
-            fComboBox(cmbItem_DESCRIPTION, gsItemDescriptionQuery, "ID", "DESCRIPTION")
-            fDataGridView_Binding(dgvSearch, gsItemSearchQuery, BS_ITEM)
+            ComboBoxLoad(cmbItem_Code, gsItemCodeQuery, "ID", "CODE")
+            ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionQuery, "ID", "DESCRIPTION")
+            LoadDataGridViewBinding(dgvSearch, gsItemSearchQuery, BS_ITEM)
 
 
             dgvSearch.Columns("GROUP").Width = 50
@@ -338,9 +338,9 @@ Public Class frmAddItem
             cmbItem_Code.Enabled = False
             cmbItem_DESCRIPTION.Enabled = False
         ElseIf gsCOST_AMOUNT_ONLY = True And (sFormName = frmStockTransfer.Name Or sFormName = frmInventoryAdjustment.Name) Then
-            fComboBox(cmbItem_Code, gsItemCodeZeroQuery, "ID", "CODE")
-            fComboBox(cmbItem_DESCRIPTION, gsItemDescriptionZeroQuery, "ID", "DESCRIPTION")
-            fDataGridView_Binding(dgvSearch, gsItemSearchZeroQuery, BS_ITEM)
+            ComboBoxLoad(cmbItem_Code, gsItemCodeZeroQuery, "ID", "CODE")
+            ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionZeroQuery, "ID", "DESCRIPTION")
+            LoadDataGridViewBinding(dgvSearch, gsItemSearchZeroQuery, BS_ITEM)
 
             '  dgvSearch.Columns(2).Width = 200
             dgvSearch.Columns(3).Width = 60
@@ -351,9 +351,9 @@ Public Class frmAddItem
             cmbItem_Code.Enabled = False
             cmbItem_DESCRIPTION.Enabled = False
         Else
-            fComboBox(cmbItem_Code, gsItemCodeCostQuery, "ID", "CODE")
-            fComboBox(cmbItem_DESCRIPTION, gsItemDescriptionCostQuery, "ID", "DESCRIPTION")
-            fDataGridView_Binding(dgvSearch, gsItemSearchCostQuery, BS_ITEM)
+            ComboBoxLoad(cmbItem_Code, gsItemCodeCostQuery, "ID", "CODE")
+            ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionCostQuery, "ID", "DESCRIPTION")
+            LoadDataGridViewBinding(dgvSearch, gsItemSearchCostQuery, BS_ITEM)
 
             ' dgvSearch.Columns(2).Width = 250
             dgvSearch.Columns(3).Width = 80
@@ -369,9 +369,9 @@ Public Class frmAddItem
 
         dgvSearch.Columns(0).Visible = False
         dgvSearch.Columns(1).Width = 90
-        fComboBox(cmbDiscount_Type, " select '' as ID, '' as DESCRIPTION  FROM discount_type  UNION select ID,DESCRIPTION FROM discount_type ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbDiscount_Type, " select '' as ID, '' as DESCRIPTION  FROM discount_type  UNION select ID,DESCRIPTION FROM discount_type ", "ID", "DESCRIPTION")
 
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
         If gsItem_ID <> "" Then
             cmbItem_Code.SelectedValue = gsItem_ID
             cmbItem_DESCRIPTION.SelectedValue = gsItem_ID
@@ -436,7 +436,7 @@ Public Class frmAddItem
             xlblSelection.Visible = True
             cmbSelection.Visible = True
             xlblSelection.Text = gsSelection_Label
-            fComboBox(cmbSelection, gsSelection_Query, gsSelection_VALUE, gsSelection_DESCRIPTION)
+            ComboBoxLoad(cmbSelection, gsSelection_Query, gsSelection_VALUE, gsSelection_DESCRIPTION)
 
             If Trim(gsSelection_ID) <> "" Then
                 cmbSelection.SelectedValue = gsSelection_ID
@@ -548,9 +548,9 @@ Public Class frmAddItem
     Private Sub numQty_GotFocus(sender As Object, e As EventArgs) Handles numQty.GotFocus
         dgvSearch.Visible = False
         txtSearch.Clear()
-        fBlueLight(numQty)
+        BlueLight(numQty)
         xlblOnHand.Text = fQTY_ACTUAL_ON_DATE_LOCATION(cmbItem_Code.SelectedValue, gsDate, gsLOCATION_ID)
-        If fNumisNULL(cmbItem_Code.SelectedValue) = 0 Then
+        If NumIsNull(cmbItem_Code.SelectedValue) = 0 Then
             txtSearch.Focus()
         End If
     End Sub
@@ -570,7 +570,7 @@ Public Class frmAddItem
         End If
 
         Dim pl_SQL As String = $"select * from ((SELECT  '0'  AS ID  ,'Default' AS `CODE`) UNION (SELECT  pl.ID, pl.`CODE` FROM price_level AS  pl WHere pl.TYPE = '0' and pl.Inactive = '0' ) UNION (SELECT  pl.ID, pl.`CODE` FROM price_level_lines AS pll INNER JOIN price_level AS  pl ON pl.`ID`= pll.`PRICE_LEVEL_ID` WHERE pll.`ITEM_ID` = '{prItem_ID}' and pl.INACTIVE ='0' and pl.Type ='1' )) as T order by T.ID"
-        fComboBox(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
+        ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
         If cmbPRICE_LEVEL.Items.Count = 1 Then
             cmbPRICE_LEVEL.Visible = False
             xxxlblPrice_level.Visible = False
@@ -603,11 +603,11 @@ Public Class frmAddItem
             Exit Sub
         End If
 
-        Dim rd As OdbcDataReader = fReader($"SELECT pl.`ID`,pl.`CODE` FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{prItem_ID}' AND n.`UNIT_ID` = '{prUnit_ID}' AND pl.`INACTIVE` = '0' and pl.TYPE ='1'")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT pl.`ID`,pl.`CODE` FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{prItem_ID}' AND n.`UNIT_ID` = '{prUnit_ID}' AND pl.`INACTIVE` = '0' and pl.TYPE ='1'")
         If rd.Read Then
             cmbPRICE_LEVEL.CausesValidation = False
             Dim pl_SQL As String = $"select * from ((SELECT  '0'  AS ID  ,'Default' AS `CODE`) UNION (SELECT pl.`ID`,pl.`CODE` FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{prItem_ID}' AND n.`UNIT_ID` = '{prUnit_ID}' AND pl.`INACTIVE` = '0' and pl.TYPE ='1' )) as T order by T.ID"
-            fComboBox(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
+            ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
             If cmbPRICE_LEVEL.Items.Count = 1 Then
                 cmbPRICE_LEVEL.Visible = False
                 xxxlblPrice_level.Visible = False
@@ -636,7 +636,7 @@ Public Class frmAddItem
         fMemberDiscount()
         fDiscount_Effect()
 
-        fdgvItemDisplay(dgvSearch)
+        ViewItemDisplay(dgvSearch)
     End Sub
     Private Sub fMemberDiscount()
         If gsMEMBER = True Then
@@ -671,7 +671,7 @@ Public Class frmAddItem
 
 
     Private Sub numUnit_price_GotFocus(sender As Object, e As EventArgs) Handles numUnit_price.GotFocus
-        fBlueLight(numUnit_price)
+        BlueLight(numUnit_price)
         dgvSearch.Visible = False
     End Sub
 
@@ -709,35 +709,35 @@ i.COST,
 i.BASE_UNIT_ID,
 i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
-                    Dim rd As OdbcDataReader = fReader(SQ)
+                    Dim rd As OdbcDataReader = SqlReader(SQ)
 
                     If rd.Read Then
                         If gsUseImageProduct = True Then
 
-                            fDisplayPhoto(fTextisNULL(rd("PIC_FILENAME")), picItem)
+                            fDisplayPhoto(TextIsNull(rd("PIC_FILENAME")), picItem)
 
 
                         End If
-                        ItemType = fNumisNULL(rd("TYPE"))
-                        gsNON_DISCOUNTED_ITEM = fNumisNULL(rd("NON_DISCOUNTED_ITEM"))
-                        gsNON_PORFOLIO_COMPUTATION = fNumisNULL(rd("NON_PORFOLIO_COMPUTATION"))
-                        fItemBatches(CBool(fNumisNULL(rd("IS_EXPIRED"))))
+                        ItemType = NumIsNull(rd("TYPE"))
+                        gsNON_DISCOUNTED_ITEM = NumIsNull(rd("NON_DISCOUNTED_ITEM"))
+                        gsNON_PORFOLIO_COMPUTATION = NumIsNull(rd("NON_PORFOLIO_COMPUTATION"))
+                        fItemBatches(CBool(NumIsNull(rd("IS_EXPIRED"))))
                         If gsCOST_AMOUNT_ONLY = True And ItemType = 0 Then
-                            _Unit_Rate = fNumisNULL(rd("COST"))
+                            _Unit_Rate = NumIsNull(rd("COST"))
                         Else
 
-                            _Unit_Rate = fNumisNULL(rd("RATE"))
+                            _Unit_Rate = NumIsNull(rd("RATE"))
 
                         End If
 
                         If ItemType <= 3 Then
-                            Basic_Unit_ID = fNumisNULL(rd("BASE_UNIT_ID"))
-                            chkTax.Checked = fNumisNULL(rd("TAXABLE"))
+                            Basic_Unit_ID = NumIsNull(rd("BASE_UNIT_ID"))
+                            chkTax.Checked = NumIsNull(rd("TAXABLE"))
 
                         Else
                             Basic_Unit_ID = 0
 
-                            chkTax.Checked = fNumisNULL(rd("TAXABLE"))
+                            chkTax.Checked = NumIsNull(rd("TAXABLE"))
                         End If
 
 
@@ -745,7 +745,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     End If
                     rd.Close()
                 Catch ex As Exception
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                     Exit Sub
                 End Try
 
@@ -756,21 +756,21 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
                     Try
 
-                        Dim rd As OdbcDataReader = fReader("select UNIT_ID from item_units where ITEM_ID ='" & cmbPrimary.SelectedValue & "'")
+                        Dim rd As OdbcDataReader = SqlReader("select UNIT_ID from item_units where ITEM_ID ='" & cmbPrimary.SelectedValue & "'")
                         While rd.Read
                             in_sql = in_sql & ",'" & rd("UNIT_ID") & "'"
                         End While
                         rd.Close()
                     Catch ex As Exception
-                        fMessageboxWarning(ex.Message)
+                        MessageBoxWarning(ex.Message)
                         Exit Sub
                     End Try
                     in_sql = in_sql & ")"
-                    fComboBox(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
+                    ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
 
                     lblQty_Base.Text = "1"
                 Else
-                    fComboBox(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID ='xxx' limit 1", "ID", "SYMBOL")
+                    ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID ='xxx' limit 1", "ID", "SYMBOL")
                 End If
 
                 If (Basic_Unit_ID) <> 0 Then
@@ -781,7 +781,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
                 If numQty.Enabled = True Then
                     numQty.Value = 1
-                    fBlueLight(numQty)
+                    BlueLight(numQty)
                 End If
 
             Else
@@ -801,7 +801,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 numDiscountValue.Enabled = False
                 cmbDiscount_Type.Enabled = False
             ElseIf ItemType = 7 Then ' Discount
-                gsRate_Type = fNumFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
+                gsRate_Type = GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
                 If gsRate_Type = 0 Then
                     numUnit_price.DecimalPlaces = 2
                     numUnit_price.ThousandsSeparator = True
@@ -829,7 +829,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     numUnit_price.Value = _Unit_Rate
                 End If
             ElseIf ItemType = 4 Then 'Other Discount
-                gsRate_Type = fNumFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
+                gsRate_Type = GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
                 If gsRate_Type = 0 Then
                     numUnit_price.DecimalPlaces = 2
                     numUnit_price.ThousandsSeparator = True
@@ -874,7 +874,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             fDiscount_Effect()
             fComputation()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
 
@@ -886,7 +886,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
 
     Private Sub numDiscountValue_GotFocus(sender As Object, e As EventArgs) Handles numDiscountValue.GotFocus
-        fBlueLight(numDiscountValue)
+        BlueLight(numDiscountValue)
         dgvSearch.Visible = False
     End Sub
 
@@ -904,7 +904,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         If ItemType <= 4 Then
 
 
-            If Basic_Unit_ID = fNumisNULL(cmbUM.SelectedValue) Then
+            If Basic_Unit_ID = NumIsNull(cmbUM.SelectedValue) Then
 
                 lblQty_Base.Text = "1"
 
@@ -914,13 +914,13 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                         numUnit_price.Enabled = gsUserPriceLock
                         ' If numUnit_price.Value = 0 Then
                         numUnit_price.Value = _Unit_Rate
-                            fBlueLight(numUnit_price)
+                            BlueLight(numUnit_price)
                         '  End If
 
                     Else
 
                         numUnit_price.Value = 0
-                        fBlueLight(numUnit_price)
+                        BlueLight(numUnit_price)
                     End If
 
                 End If
@@ -935,22 +935,22 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
                     If cmbUM.SelectedValue Is Nothing Then Exit Sub
 
-                    Dim rd As OdbcDataReader = fReader("select quantity as q, rate as r from item_units where unit_id = '" & fNumisNULL(cmbUM.SelectedValue) & "' and item_id ='" & cmbItem_Code.SelectedValue & "' limit 1")
+                    Dim rd As OdbcDataReader = SqlReader("select quantity as q, rate as r from item_units where unit_id = '" & NumIsNull(cmbUM.SelectedValue) & "' and item_id ='" & cmbItem_Code.SelectedValue & "' limit 1")
                     If rd.Read Then
-                        If fNumisNULL(rd("q")) <> 0 Then
-                            lblQty_Base.Text = fNumisNULL(rd("q"))
+                        If NumIsNull(rd("q")) <> 0 Then
+                            lblQty_Base.Text = NumIsNull(rd("q"))
                         End If
 
                         If lblAmount.Visible = True And gsCOST_AMOUNT_ONLY = False Then
 
-                            If fNumisNULL(rd("r")) <> 0 Then
-                                numUnit_price.Value = fNumisNULL(rd("r"))
+                            If NumIsNull(rd("r")) <> 0 Then
+                                numUnit_price.Value = NumIsNull(rd("r"))
                             End If
 
                         Else
 
                             If gsCOST_AMOUNT_ONLY = True Then
-                                numUnit_price.Value = _Unit_Rate * fNumisNULL(rd("q"))
+                                numUnit_price.Value = _Unit_Rate * NumIsNull(rd("q"))
                             End If
 
                         End If
@@ -959,7 +959,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
                 Catch ex As Exception
 
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                 End Try
 
             End If
@@ -990,7 +990,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
     End Sub
 
     Private Sub CmbUM_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbUM.SelectedIndexChanged
-        Dim UNIT_ID As Double = fNumisNULL(DirectCast(sender, ComboBox).SelectedValue)
+        Dim UNIT_ID As Double = NumIsNull(DirectCast(sender, ComboBox).SelectedValue)
         fLOadUNitPrize()
         fCheckPriceLevel_UNIT(cmbItem_Code.SelectedValue, UNIT_ID)
     End Sub
@@ -1011,15 +1011,15 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             If cmbPRICE_LEVEL.CausesValidation = True Then
                 'Primary Price Level
                 ' get price_level_Type
-                Dim rd As OdbcDataReader = fReader($"select type,rate from price_level where id = '{cmbPRICE_LEVEL.SelectedValue}' limit 1")
+                Dim rd As OdbcDataReader = SqlReader($"select type,rate from price_level where id = '{cmbPRICE_LEVEL.SelectedValue}' limit 1")
                 If rd.Read Then
-                    If fNumisNULL(rd("type")) = 0 Then
+                    If NumIsNull(rd("type")) = 0 Then
                         'Fixed
-                        Dim DISCOUNT_LESS As Double = _Unit_Rate * IIf(fNumisNULL(rd("rate")) < 100, CDbl(0 & "." & Format(fNumisNULL(rd("rate")), "00")), 1)
+                        Dim DISCOUNT_LESS As Double = _Unit_Rate * IIf(NumIsNull(rd("rate")) < 100, CDbl(0 & "." & Format(NumIsNull(rd("rate")), "00")), 1)
                         numUnit_price.Value = _Unit_Rate - DISCOUNT_LESS
-                    ElseIf fNumisNULL(rd("type")) = 1 Then
+                    ElseIf NumIsNull(rd("type")) = 1 Then
                         'Per Item
-                        numUnit_price.Value = fNumFieldValueByTwoCondition("Price_level_lines", "Price_level_ID", cmbPRICE_LEVEL.SelectedValue, "ITEM_ID", cmbItem_Code.SelectedValue, "CUSTOM_PRICE")
+                        numUnit_price.Value = GetNumberFieldValueByTwoCondition("Price_level_lines", "Price_level_ID", cmbPRICE_LEVEL.SelectedValue, "ITEM_ID", cmbItem_Code.SelectedValue, "CUSTOM_PRICE")
                     End If
                 End If
                 rd.Close()
@@ -1027,10 +1027,10 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             Else
                 ' Unit Price Level
                 ' get price_level_Type
-                Dim rd As OdbcDataReader = fReader($"SELECT u.`CUSTOM_PRICE`  FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{cmbItem_Code.SelectedValue}' AND n.`UNIT_ID` = '{cmbUM.SelectedValue}' AND pl.ID ='{cmbPRICE_LEVEL.SelectedValue}' AND pl.`INACTIVE` = '0' AND pl.type ='1'  limit 1")
+                Dim rd As OdbcDataReader = SqlReader($"SELECT u.`CUSTOM_PRICE`  FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{cmbItem_Code.SelectedValue}' AND n.`UNIT_ID` = '{cmbUM.SelectedValue}' AND pl.ID ='{cmbPRICE_LEVEL.SelectedValue}' AND pl.`INACTIVE` = '0' AND pl.type ='1'  limit 1")
                 If rd.Read Then
                     'Fixed
-                    numUnit_price.Value = fNumisNULL(rd("CUSTOM_PRICE"))
+                    numUnit_price.Value = NumIsNull(rd("CUSTOM_PRICE"))
                 End If
                 rd.Close()
             End If
@@ -1125,7 +1125,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     cmbItem_Code.SelectedValue = f.AccessibleDescription
                     cmbItem_Code_LostFocus(sender, e)
 
-                    fBlueLight(numQty)
+                    BlueLight(numQty)
                     numQty.Focus()
                     fComputation()
                 End If
@@ -1303,11 +1303,11 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
         If Trim(cmbItem_Code.Text) = "" Then
-            fMessageboxInfo("Please select Item")
+            MessageBoxInfo("Please select Item")
             Exit Sub
         End If
         If numDiscountValue.Value <> 0 And numUnit_price.Value = 0 And gsCOST_AMOUNT_ONLY = False Then
-            fMessageboxInfo("Invalid applying discount with 0 prices is not available")
+            MessageBoxInfo("Invalid applying discount with 0 prices is not available")
             numUnit_price.Focus()
             Exit Sub
         End If
@@ -1317,7 +1317,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         End If
 
         If cmbDiscount_Type.Text.Trim.Length <> 0 And numDiscountValue.Value = 0 And gsCOST_AMOUNT_ONLY = False Then
-            fMessageboxInfo($"Invalid please enter {cmbDiscount_Type.Text.ToLower} discount")
+            MessageBoxInfo($"Invalid please enter {cmbDiscount_Type.Text.ToLower} discount")
             numDiscountValue.Focus()
             Exit Sub
         End If
@@ -1325,17 +1325,17 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         If gsNON_DISCOUNTED_ITEM = True Then
             If numDiscountValue.Value <> 0 Then
                 'Counting 
-                fMessageboxInfo("This item is not available in discount. please contact the administrator")
+                MessageBoxInfo("This item is not available in discount. please contact the administrator")
                 Exit Sub
             End If
         End If
 
-        If fGROUP_ITEM(ItemType, False) = True Then
+        If IsGroupItem(ItemType, False) = True Then
             'Check Negative 
             Dim AllowedNI As Boolean = fAllowNegativeInventory()
             If AllowedNI = False Then
 
-                Dim rd_group As OdbcDataReader = fReader($"SELECT i.ID as `ITEM_ID`,i.`DESCRIPTION`,ic.`Quantity`,i.`TYPE` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{cmbItem_Code.SelectedValue}' ")
+                Dim rd_group As OdbcDataReader = SqlReader($"SELECT i.ID as `ITEM_ID`,i.`DESCRIPTION`,ic.`Quantity`,i.`TYPE` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{cmbItem_Code.SelectedValue}' ")
                 While rd_group.Read
 
                     If fCHECK_ITEM_ONHAND(rd_group("ITEM_ID"), rd_group("DESCRIPTION"), rd_group("Quantity")) = False Then
@@ -1350,14 +1350,14 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
 
 
-        If fDISCOUNT_ITEM(ItemType) = True Or fOTHER_CHARGE_ITEM(ItemType) = True Then
+        If IsDiscountItem(ItemType) = True Or IsOtherChargeItem(ItemType) = True Then
 
         Else
             If sFormName = frmInventoryAdjustment.Name Then
 
             Else
                 If numQty.Value = 0 Then
-                    fMessageboxInfo("Please enter value for quantity")
+                    MessageBoxInfo("Please enter value for quantity")
                     numQty.Focus()
                     Exit Sub
                 End If
@@ -1368,7 +1368,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         If sFormName = "" Or sFormName = frmInventoryAdjustment.Name Then
 
             If fInventoryAdjustmentGotLatestEntry(cmbItem_Code.SelectedValue, gsDate, gsLOCATION_ID) = True Then
-                fMessageboxInfo("This item have latest entry. item cannot added.")
+                MessageBoxInfo("This item have latest entry. item cannot added.")
                 Exit Sub
             End If
 
@@ -1395,7 +1395,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 If gsNew = True Then
                     fAddItem_Inventory_Row(dgv, gsNew, gsItem_ID, gsUM, gsQty, gsBase_Qty, gsUnit_Price, "A", gsLOCATION_ID, gsDate, gsBATCH_ID)
                     dgv.Focus()
-                    dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(fColVis(dgv)) 'Last Row HighLight
+                    dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(ColumnViews(dgv)) 'Last Row HighLight
                     fClearAll()
                 End If
             Else
@@ -1422,15 +1422,15 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 gsSelection_ID = cmbSelection.SelectedValue
             End If
             Dim DISC_OTH_DECT As Boolean = False
-            Dim bDiscount_item As Boolean = fDISCOUNT_ITEM(ItemType)
+            Dim bDiscount_item As Boolean = IsDiscountItem(ItemType)
 
             'checking if is discount
             Dim D_TYPE As Integer = 0
             DISC_OTH_DECT = False
             gsRate_Type = 0
             If ItemType = 4 Or ItemType = 7 Then
-                gsRate_Type = fNumFieldValue("ITEM", "ID", gsItem_ID, "RATE_TYPE")
-                DISC_NAME = fGetFieldValue("DISCOUNT_TYPE", "ID", gsRate_Type, "DESCRIPTION")
+                gsRate_Type = GetNumberFieldValue("ITEM", "ID", gsItem_ID, "RATE_TYPE")
+                DISC_NAME = GetStringFieldValue("DISCOUNT_TYPE", "ID", gsRate_Type, "DESCRIPTION")
                 DISC_OTH_DECT = True
             End If
 
@@ -1497,7 +1497,7 @@ down_now:
                 dgv.Focus()
                 If dgv.Rows.Count <> 0 Then
                     Try
-                        dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(fColVis(dgv)) 'Last Row HighLight
+                        dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(ColumnViews(dgv)) 'Last Row HighLight
                     Catch ex As Exception
 
                     End Try
@@ -1514,25 +1514,25 @@ down_now:
                 Select Case sFormName
                     Case frmInvoice.Name
                         'SUB TOTAL
-                        '  fRow_Data_Item_Invoice(dgv, True, fGetFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID, 0)
+                        '  fRow_Data_Item_Invoice(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID, 0)
                         gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
                         fRow_Data_Item_Invoice(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, 0, False, 0)
                         fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmCreditMemo.Name
                         'SUB TOTAL
-                        ' fRow_Data_Item_Credit_Memo(dgv, True, fGetFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID, 0)
+                        ' fRow_Data_Item_Credit_Memo(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID, 0)
                         gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
                         fRow_Data_Item_Credit_Memo(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, 0, False, 0)
                         fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmSalesOrder.Name
                         'SUB TOTAL
-                        ' fRow_Data_Item_Sales_Order(dgv, True, fGetFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID)
+                        ' fRow_Data_Item_Sales_Order(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID)
                         gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
                         fRow_Data_Item_Sales_Order(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, False, 0)
                         fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmSalesReceipt.Name
                         'SUB TOTAL
-                        ' fRow_Data_Item_Sales_Receipt(dgv, True, fGetFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID)
+                        ' fRow_Data_Item_Sales_Receipt(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID)
                         gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
                         fRow_Data_Item_Sales_Receipt(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, False, 0, 0)
                         fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
@@ -1561,7 +1561,7 @@ down_now:
                         gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
                         fRow_Data_Item_Write_Check(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", 0)
                 End Select
-                dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(fColVis(dgv)) 'Last Row HighLight
+                dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(ColumnViews(dgv)) 'Last Row HighLight
             End If
             fClearAll()
             txtSearch.Focus()
@@ -1586,21 +1586,21 @@ down_now:
     '            'OTHER CHRGE
     '            If gsRate_Type = 0 Then
     '                gsUnit_Price = numUnit_price.Value
-    '                gsAmount = fNumFormatFixed(gsUnit_Price)
+    '                gsAmount = NumberFormatFixed(gsUnit_Price)
     '            Else
     '                gsUnit_Price = numUnit_price.Value * -1
     '                L = T * (numUnit_price.Value / 100)
-    '                gsAmount = fNumFormatFixed(L) * -1
+    '                gsAmount = NumberFormatFixed(L) * -1
     '            End If
     '        Case 7
     '            'DISCOUNT
     '            If gsRate_Type = 0 Then
     '                gsUnit_Price = numUnit_price.Value
-    '                gsAmount = fNumFormatFixed(gsUnit_Price)
+    '                gsAmount = NumberFormatFixed(gsUnit_Price)
     '            Else
     '                gsUnit_Price = numUnit_price.Value * -1
     '                L = T * (numUnit_price.Value / 100)
-    '                gsAmount = fNumFormatFixed(L) * -1
+    '                gsAmount = NumberFormatFixed(L) * -1
     '            End If
     '    End Select
     'End Sub

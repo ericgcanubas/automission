@@ -18,9 +18,9 @@ Module modQuantityOnHand
         Dim i As Double = 0
         Try
             '    cn.Open()
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                i = fNumisNULL(rd("TOTAL_QTY"))
+                i = NumIsNull(rd("TOTAL_QTY"))
             End If
             rd.Close()
         Catch ex As Exception

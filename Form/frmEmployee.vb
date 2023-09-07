@@ -2,7 +2,7 @@
     Public contact_BS As BindingSource
     Private Sub fRefreshData()
 
-        fDataGridView_Binding(dgvEmployee, "SELECT 
+        LoadDataGridViewBinding(dgvEmployee, "SELECT 
   c.ID,
   c.Name,
   c.POSTAL_ADDRESS AS 'Postal Address',
@@ -45,7 +45,7 @@ WHERE c.Type = '2'", contact_BS)
             .Item(12).Width = 60
 
         End With
-        fDataGrid_Column(dgvEmployee, 12) ' 12 = for employee
+        ViewColumn(dgvEmployee, 12) ' 12 = for employee
     End Sub
 
 
@@ -54,10 +54,10 @@ WHERE c.Type = '2'", contact_BS)
             Exit Sub
         End If
 
-        frmContactDetails.gsContact_Type = "2"
+        frmContactDetails.ContactTypeId = "2"
 
-        frmContactDetails.bNew = True
-        frmContactDetails.gsID = 0
+        frmContactDetails.IsNew = True
+        frmContactDetails.ID = 0
         frmContactDetails.gsDgv = dgvEmployee
         frmContactDetails.this_BS = contact_BS
 
@@ -68,7 +68,7 @@ WHERE c.Type = '2'", contact_BS)
     End Sub
 
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub frmVendor_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -79,7 +79,7 @@ WHERE c.Type = '2'", contact_BS)
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
 
         If dgvEmployee.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -90,10 +90,10 @@ WHERE c.Type = '2'", contact_BS)
             dgvEmployee.Focus()
             Dim i As Integer = dgvEmployee.CurrentRow.Index
             Dim dID As String = dgvEmployee.Rows.Item(i).Cells(0).Value
-            frmContactDetails.gsContact_Type = "2"
+            frmContactDetails.ContactTypeId = "2"
 
-            frmContactDetails.bNew = False
-            frmContactDetails.gsID = dID
+            frmContactDetails.IsNew = False
+            frmContactDetails.ID = dID
             frmContactDetails.gsDgv = dgvEmployee
             frmContactDetails.this_BS = contact_BS
             frmContactDetails.ShowDialog()
@@ -108,7 +108,7 @@ WHERE c.Type = '2'", contact_BS)
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvEmployee.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -120,9 +120,9 @@ WHERE c.Type = '2'", contact_BS)
             Dim i As Integer = dgvEmployee.CurrentRow.Index
             Dim dID As String = dgvEmployee.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvEmployee.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
-                fExecutedOnly("Delete From contact where id='" & dID & "' limit 1;")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
+                SqlExecuted("Delete From contact where id='" & dID & "' limit 1;")
+                DeleteNotify(Me)
                 fRefreshData()
             End If
 
@@ -132,7 +132,7 @@ WHERE c.Type = '2'", contact_BS)
     End Sub
 
     Private Sub tsClose_Click_1(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
     Private Sub dgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployee.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
@@ -149,9 +149,9 @@ WHERE c.Type = '2'", contact_BS)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvEmployee, 12) ' 12 = for employee
+        ViewSwitch(dgvEmployee, 12) ' 12 = for employee
 
-        fDataGrid_Column(dgvEmployee, 12) ' 12 = for employee
+        ViewColumn(dgvEmployee, 12) ' 12 = for employee
 
     End Sub
 

@@ -1,4 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
+﻿
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
 
@@ -28,7 +28,7 @@ Module modReportExport
 
             cryRpt.Export()
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
 
     End Sub

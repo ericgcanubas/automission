@@ -5,21 +5,21 @@
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvPaymentTerms, "select  ID,CODE,DESCRIPTION,INACTIVE from payment_terms", item_BS)
+        LoadDataGridViewBinding(dgvPaymentTerms, "select  ID,CODE,DESCRIPTION,INACTIVE from payment_terms", item_BS)
 
         With dgvPaymentTerms.Columns
             .Item(0).Visible = False
         End With
-        fDataGrid_Column(dgvPaymentTerms, "30")
+        ViewColumn(dgvPaymentTerms, "30")
     End Sub
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvPaymentTerms, 30)
+        ViewSwitch(dgvPaymentTerms, 30)
 
-        fDataGrid_Column(dgvPaymentTerms, 30)
+        ViewColumn(dgvPaymentTerms, 30)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -50,13 +50,13 @@
 
             frmPaymentTermsDetails.This_BS = item_BS
             frmPaymentTermsDetails.Dgv = dgvPaymentTerms
-            frmPaymentTermsDetails.gsID = dgvPaymentTerms.Rows(i).Cells("ID").Value
+            frmPaymentTermsDetails.ID = dgvPaymentTerms.Rows(i).Cells("ID").Value
             frmPaymentTermsDetails.ShowDialog()
             frmPaymentTermsDetails.Dispose()
             frmPaymentTermsDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub
@@ -74,13 +74,13 @@
             End If
             dgvPaymentTerms.Focus()
             Dim i As Integer = dgvPaymentTerms.CurrentRow.Index
-            If fMessageBoxQuestion("Are you sure to delete this payment terms") = True Then
-                fExecutedOnly("DELETE FROM payment_terms WHERE ID = '" & dgvPaymentTerms.Rows(i).Cells("ID").Value & "' limit 1;")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Are you sure to delete this payment terms") = True Then
+                SqlExecuted("DELETE FROM payment_terms WHERE ID = '" & dgvPaymentTerms.Rows(i).Cells("ID").Value & "' limit 1;")
+                DeleteNotify(Me)
                 fRefresh()
             End If
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 

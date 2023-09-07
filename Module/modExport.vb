@@ -47,7 +47,7 @@ Module modExport
             xlWorkBook.Close()
             xlApp.Quit()
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 

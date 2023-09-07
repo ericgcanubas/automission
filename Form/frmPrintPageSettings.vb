@@ -30,12 +30,12 @@
             If rd.Read Then
 
                 fMS_execute($"UPDATE tblprint SET [print_title] = '{txtPRINT_TITLE.Text}'  WHERE [FILE_NAME] = '{txtFILE_NAME.Text}' and [FORM_NAME] = '{ThisForm}'")
-                fPop_Up_Msg(Me.Text, gsUpdateStr, True)
+                PrompNotify(Me.Text, UpdateMsg, True)
                 Me.Close()
             Else
-                If fMessageBoxQuestion("New Print Page. Do you want to create as new print page") = True Then
+                If MessageBoxQuestion("New Print Page. Do you want to create as new print page") = True Then
                     fMS_execute($"INSERT INTO [tblprint]  ([print_title],[FILE_NAME],[FORM_NAME],[print_default]) VALUES ('{txtPRINT_TITLE.Text}','{txtFILE_NAME.Text}','{ThisForm}','0')")
-                    fPop_Up_Msg(Me.Text, gsSaveStr, True)
+                    PrompNotify(Me.Text, SaveMsg, True)
                     Me.Close()
                 End If
             End If

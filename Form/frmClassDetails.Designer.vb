@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmClassDetails
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,14 +20,13 @@ Partial Class frmClassDetails
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.chkINACTIVE = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtNAME = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'chkINACTIVE
@@ -62,7 +61,7 @@ Partial Class frmClassDetails
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(247, 112)
+        Me.btnSave.Location = New System.Drawing.Point(247, 71)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(86, 28)
@@ -72,7 +71,7 @@ Partial Class frmClassDetails
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(342, 112)
+        Me.btnCancel.Location = New System.Drawing.Point(342, 71)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 28)
@@ -80,27 +79,16 @@ Partial Class frmClassDetails
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'Label1
-        '
-        Me.Label1.BackColor = System.Drawing.SystemColors.Control
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Label1.Location = New System.Drawing.Point(0, 95)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(444, 54)
-        Me.Label1.TabIndex = 60
-        '
         'frmClassDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(444, 149)
+        Me.ClientSize = New System.Drawing.Size(444, 109)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.chkINACTIVE)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtNAME)
-        Me.Controls.Add(Me.Label1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
@@ -119,5 +107,4 @@ Partial Class frmClassDetails
     Friend WithEvents txtNAME As TextBox
     Friend WithEvents btnSave As Button
     Friend WithEvents btnCancel As Button
-    Friend WithEvents Label1 As Label
 End Class

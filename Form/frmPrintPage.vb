@@ -13,7 +13,7 @@
     End Sub
     Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
         If cmbPRINTER.Text.Trim = "" Then
-            fMessageboxInfo("Please select printer")
+            MessageBoxInfo("Please select printer")
             Exit Sub
         End If
         fSetDefaultPrinter(cmbPRINTER.Text)
@@ -28,7 +28,7 @@
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         If cmbPRINTER.Text.Trim = "" Then
-            fMessageboxInfo("Please select printer")
+            MessageBoxInfo("Please select printer")
             Exit Sub
         End If
         fSetDefaultPrinter(cmbPRINTER.Text)

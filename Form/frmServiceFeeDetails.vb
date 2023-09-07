@@ -1,18 +1,18 @@
 ﻿
 Public Class frmServiceFeeDetails
-    Public gsID As String
-    Public gsNew As Boolean = True
+    Public ID As Integer
+    Public IsNew As Boolean = True
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         Me.Close()
     End Sub
 
     Private Sub frmServiceFeeDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-        fYear(cmbYEAR_SF)
-        fMonth(cmbMONTH_SF)
-        If gsID <> "" Then
+
+        YearlyComboBoxLoad(cmbYEAR_SF)
+        MonthlyComboBoxLoad(cmbMONTH_SF)
+        If ID <> "" Then
             fRefresh()
-            gsNew = False
+            IsNew = False
         End If
 
     End Sub
@@ -20,11 +20,11 @@ Public Class frmServiceFeeDetails
 
         Try
 
-            Dim sQuery As String = "select * from service_fee where id = '" & gsID & "' Limit 1"
-            fExecutedUsingReading(Me, sQuery)
+            Dim sQuery As String = "select * from service_fee where id = '" & ID & "' Limit 1"
+            SqlExecutedUsingReading(Me, sQuery)
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefresh()
             Else
                 End
@@ -35,26 +35,27 @@ Public Class frmServiceFeeDetails
 
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If txtDESCRIPTION.Text = "" Then
-            fMessageboxWarning("Description is required!")
+            MessageBoxWarning("Description is required!")
             Exit Sub
         End If
         If numSERVICE_FEE_PCT.Value = 0 Then
-            fMessageboxWarning("Please enter service fee percentage")
+            MessageBoxWarning("Please enter service fee percentage")
         End If
 
-        Dim sQuery As String = fFieldCollector(Me)
 
-        If gsNew = False Then
-            fExecutedOnly("UPDATE service_fee SET " & sQuery & "  Where ID = '" & gsID & "'")
 
+        If IsNew = False Then
+            SqlExecuted("UPDATE service_fee SET " & SqlUpdate(Me) & "  Where ID = '" & ID & "'")
         Else
-            gsID = fGetMaxField("ID", "`SERVICE_FEE`")
-            fExecutedOnly("INSERT INTO service_fee SET " & sQuery & ",ID = '" & gsID & "'")
+            ID = GetMaxField("ID", "`SERVICE_FEE`")
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO service_fee ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
+
         End If
 
-        fCLean_and_refresh(Me)
-        gsID = ""
-        gsNew = True
+        ClearAndRefresh(Me)
+        ID = 0
+        IsNew = True
         cmbMONTH_SF.SelectedValue = Now.Date.Month
         cmbYEAR_SF.SelectedValue = Now.Date.Year
     End Sub

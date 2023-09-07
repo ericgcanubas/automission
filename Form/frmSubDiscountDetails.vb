@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Public Class frmSubDiscountDetails
-    Public gsID As String
-    Public gsNew As Boolean = True
+    Public ID As Integer
+    Public IsNew As Boolean = True
 
     Private Sub frmSubDiscountDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         With dgvSub.Columns
@@ -12,28 +12,28 @@ Public Class frmSubDiscountDetails
             .Add("PERCENT", "Percent")
 
         End With
-        fDatagridViewMode(dgvSub)
-        fBackGroundImageStyle(Me)
-        If gsNew = False Then
-            fRefreshDetials(gsID)
+        DatagridViewMode(dgvSub)
+
+        If IsNew = False Then
+            fRefreshDetials()
         End If
     End Sub
-    Private Sub fRefreshDetials(ByVal prID As Integer)
+    Private Sub fRefreshDetials()
         dgvSub.Rows.Clear()
 
         Try
 
-            fExecutedUsingReading(Me, "select * from sub_discount where id = '" & gsID & "'")
+            SqlExecutedUsingReading(Me, "select * from sub_discount where id = '" & ID & "'")
 
-            Dim rd As OdbcDataReader = fReader("select ID,AMOUNT_FROM,AMOUNT_TO,PERCENT FROM SUB_DISCOUNT_DETAILS WHERE sub_discount_ID = '" & gsID & "' ")
+            Dim rd As OdbcDataReader = SqlReader("select ID,AMOUNT_FROM,AMOUNT_TO,PERCENT FROM SUB_DISCOUNT_DETAILS WHERE sub_discount_ID = '" & ID & "' ")
             While rd.Read
-                dgvSub.Rows.Add(fNumisNULL(rd("ID")), fNumisNULL(rd("AMOUNT_FROM")), fNumisNULL(rd("AMOUNT_TO")), fNumisNULL(rd("PERCENT")))
+                dgvSub.Rows.Add(NumIsNull(rd("ID")), NumIsNull(rd("AMOUNT_FROM")), NumIsNull(rd("AMOUNT_TO")), NumIsNull(rd("PERCENT")))
             End While
 
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshDetials(prID)
+            If MessageBoxErrorYesNo(ex.Message) = True Then
+                fRefreshDetials()
             Else
                 End
             End If
@@ -47,40 +47,37 @@ Public Class frmSubDiscountDetails
 
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If txtCODE.Text = "" Then
-            fMessageboxInfo("Please enter code")
+            MessageBoxInfo("Please enter code")
             Exit Sub
         End If
 
         If txtDESCRIPTION.Text = "" Then
-            fMessageboxInfo("Please enter description")
+            MessageBoxInfo("Please enter description")
             Exit Sub
         End If
         Try
 
-
-            Dim sQuery As String = fFieldCollector(Me)
-
-            If gsNew = True Then
-                gsID = fGetMaxField("ID", "sub_discount")
-                fExecutedOnly("INSERT INTO sub_discount SET ID = '" & gsID & "'," & sQuery)
-
+            If IsNew = True Then
+                ID = GetMaxField("ID", "sub_discount")
+                SqlCreate(Me, SQL_Field, SQL_Value)
+                SqlExecuted($"INSERT INTO sub_discount ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
             Else
-                fExecutedOnly("UPDATE sub_discount SET " & sQuery & " Where ID = '" & gsID & "'")
+                SqlExecuted("UPDATE sub_discount SET " & SqlUpdate(Me) & " Where ID = '" & ID & "'")
             End If
 
             For i As Integer = 0 To dgvSub.Rows.Count - 1
                 With dgvSub.Rows(i)
-                    If gsNew = True Then
+                    If IsNew = True Then
 
-                        fExecutedOnly("INSERT INTO sub_discount_details SET sub_discount_id = '" & gsID & "',AMOUNT_FROM = '" & fNumisNULL(.Cells(1).Value) & "',AMOUNT_TO = '" & fNumisNULL(.Cells(2).Value) & "',PERCENT='" & fNumisNULL(.Cells(3).Value) & "'")
+                        SqlExecuted("INSERT INTO sub_discount_details SET sub_discount_id = '" & ID & "',AMOUNT_FROM = '" & NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & NumIsNull(.Cells(2).Value) & "',PERCENT='" & NumIsNull(.Cells(3).Value) & "'")
                     Else
                         If .Visible = False Then
-                            fExecutedOnly("DELETE FROM sub_discount_details WHERE id = '" & .Cells(0).Value & "'and sub_discount_id = '" & gsID & "'")
-                        ElseIf fNumisNULL(.Cells(0).Value) = 0 Then
+                            SqlExecuted("DELETE FROM sub_discount_details WHERE id = '" & .Cells(0).Value & "'and sub_discount_id = '" & ID & "'")
+                        ElseIf NumIsNull(.Cells(0).Value) = 0 Then
 
-                            fExecutedOnly("INSERT INTO sub_discount_details SET sub_discount_id = '" & gsID & "',AMOUNT_FROM = '" & fNumisNULL(.Cells(1).Value) & "',AMOUNT_TO = '" & fNumisNULL(.Cells(2).Value) & "',PERCENT='" & fNumisNULL(.Cells(3).Value) & "'")
+                            SqlExecuted("INSERT INTO sub_discount_details SET sub_discount_id = '" & ID & "',AMOUNT_FROM = '" & NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & NumIsNull(.Cells(2).Value) & "',PERCENT='" & NumIsNull(.Cells(3).Value) & "'")
                         Else
-                            fExecutedOnly("UPDATE sub_discount_details SET AMOUNT_FROM = '" & fNumisNULL(.Cells(1).Value) & "',AMOUNT_TO = '" & fNumisNULL(.Cells(2).Value) & "',PERCENT='" & fNumisNULL(.Cells(3).Value) & "'WHERE id = '" & .Cells(0).Value & "'and sub_discount_id = '" & gsID & "'")
+                            SqlExecuted("UPDATE sub_discount_details SET AMOUNT_FROM = '" & NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & NumIsNull(.Cells(2).Value) & "',PERCENT='" & NumIsNull(.Cells(3).Value) & "'WHERE id = '" & .Cells(0).Value & "'and sub_discount_id = '" & ID & "'")
                         End If
 
                     End If
@@ -91,7 +88,7 @@ Public Class frmSubDiscountDetails
 
             Me.Close()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
@@ -126,16 +123,16 @@ Public Class frmSubDiscountDetails
     Private Sub numPercent_KeyDown(sender As Object, e As KeyEventArgs) Handles numPercent.KeyDown
         If e.KeyCode = Keys.Enter Then
             If numAMOUNT_FROM.Value = 0 And numTO_AMOUNT.Value = 0 Then
-                fMessageboxInfo("Volume not set")
+                MessageBoxInfo("Volume not set")
                 Exit Sub
             End If
             If numPercent.Value = 0 Then
-                fMessageboxInfo("Please enter percent")
+                MessageBoxInfo("Please enter percent")
             End If
             If dgvSub.Enabled = False Then
                 Dim i As Integer = dgvSub.CurrentRow.Index
                 With dgvSub.Rows(i)
-                    .Cells(0).Value = IIf(fNumisNULL(.Cells(0).Value) = 0, "A", .Cells(0).Value)
+                    .Cells(0).Value = IIf(NumIsNull(.Cells(0).Value) = 0, "A", .Cells(0).Value)
                     .Cells(1).Value = numAMOUNT_FROM.Value
                     .Cells(2).Value = numTO_AMOUNT.Value
                     .Cells(3).Value = numPercent.Value
@@ -145,7 +142,7 @@ Public Class frmSubDiscountDetails
                 dgvSub.Rows.Add("A", numAMOUNT_FROM.Value, numTO_AMOUNT.Value, numPercent.Value)
             End If
             dgvSub.Enabled = True
-            fCLean_and_refresh(GroupBox1)
+            ClearAndRefresh(GroupBox1)
             numAMOUNT_FROM.Focus()
         End If
     End Sub
@@ -169,7 +166,7 @@ Public Class frmSubDiscountDetails
         If e.KeyCode = Keys.Delete Then
             If dgvSub.Rows.Count <> 0 Then
                 Dim i As Integer = dgvSub.CurrentRow.Index
-                If fNumisNULL(dgvSub.Rows(i).Cells(0).Value) = 0 Then
+                If NumIsNull(dgvSub.Rows(i).Cells(0).Value) = 0 Then
                     dgvSub.Rows.RemoveAt(i)
                 Else
                     dgvSub.Rows(i).Visible = False

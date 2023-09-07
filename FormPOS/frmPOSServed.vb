@@ -6,7 +6,7 @@ Public Class frmPOSServed
     Public gsCUSTOMER_ID As Integer
 
     Private Sub FrmPOSServed_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        xlblCustomer_Name.Text = fGetFieldValue("CONTACT", "id", gsCUSTOMER_ID, "NAME")
+        xlblCustomer_Name.Text = GetStringFieldValue("CONTACT", "id", gsCUSTOMER_ID, "NAME")
         gsOK = False
 
         'Create Column
@@ -38,7 +38,7 @@ Public Class frmPOSServed
     End Sub
     Private Sub fAvailable_Load()
         dgvAVAILABLE.Rows.Clear()
-        Dim rd As OdbcDataReader = fReader($"SELECT s.ID,s.CODE, s.AMOUNT FROM sales_order as s  WHERE s.CUSTOMER_ID = '{gsCUSTOMER_ID}' and s.LOCATION_ID ='{gsDefault_LOCATION_ID}' and  s.SHIP_TO ='{gsTABLE_NO}' and s.SHIP_VIA_ID='{gsORDER_TYPE}' and s.STATUS in('16')")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT s.ID,s.CODE, s.AMOUNT FROM sales_order as s  WHERE s.CUSTOMER_ID = '{gsCUSTOMER_ID}' and s.LOCATION_ID ='{gsDefault_LOCATION_ID}' and  s.SHIP_TO ='{gsTABLE_NO}' and s.SHIP_VIA_ID='{gsORDER_TYPE}' and s.STATUS in('16')")
         While rd.Read
             dgvAVAILABLE.Rows.Add(rd(0), rd(1), rd(2))
         End While
@@ -92,7 +92,7 @@ Public Class frmPOSServed
 
         If dgvSELECTED.Rows.Count = 0 Then
 
-            If fMessagePOSYesNO("NEW ORDER SERVED ONLY?") = False Then
+            If MessageBoxPointOfSalesYesNO("NEW ORDER SERVED ONLY?") = False Then
 
                 Exit Sub
             Else

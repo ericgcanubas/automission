@@ -1,37 +1,31 @@
 ﻿Imports Tulpep.NotificationWindow
 Module modNotify
-    Public Const gsSaveStr As String = "Successfully saved."
-    Public Const gsDeleteStr As String = "Successfully deleted."
-    Public Const gsUpdateStr As String = "Successfully updated."
+    Public Const SaveMsg As String = "Successfully saved."
+    Public Const DeleteMsg As String = "Successfully deleted."
+    Public Const UpdateMsg As String = "Successfully updated."
 
-    Public Sub fSavePopUp(ByVal F As Form, ByVal bNew As Boolean)
-        If bNew = True Then
-            fPop_Up_Msg(F.Text, gsSaveStr, True)
+    Public Sub SaveNotify(ByVal Frm As Form, ByVal IsNew As Boolean)
+        If IsNew = True Then
+            PrompNotify(Frm.Text, SaveMsg, True)
         Else
-            fPop_Up_Msg(F.Text, gsUpdateStr, True)
+            PrompNotify(Frm.Text, UpdateMsg, True)
         End If
     End Sub
-    Public Sub fDeletePopUp(ByVal F As Form)
-        fPop_Up_Msg(F.Text, gsDeleteStr, True)
+    Public Sub DeleteNotify(ByVal Frm As Form)
+        PrompNotify(Frm.Text, DeleteMsg, True)
 
     End Sub
-    Public Sub fPop_Up_Msg(ByVal prTitle As String, ByVal prConText As String, ByVal IsInfo As Boolean)
-
-        Dim N As New PopupNotifier
-        N.TitleText = prTitle
-
-
-        N.BorderColor = Color.White
-        N.HeaderColor = Color.Black
-
-        N.BodyColor = Color.Black
-
-        N.TitleColor = Color.Yellow
-
-        N.ContentColor = Color.White
-
-        N.ShowOptionsButton = False
-        N.ShowCloseButton = False
+    Public Sub PrompNotify(ByVal prTitle As String, ByVal prConText As String, ByVal IsInfo As Boolean)
+        Dim N As New PopupNotifier With {
+            .TitleText = prTitle,
+            .BorderColor = Color.White,
+            .HeaderColor = Color.Black,
+            .BodyColor = Color.Black,
+            .TitleColor = Color.Yellow,
+            .ContentColor = Color.White,
+            .ShowOptionsButton = False,
+            .ShowCloseButton = False
+        }
 
         If IsInfo = True Then
             N.Image = My.Resources.Info_icon

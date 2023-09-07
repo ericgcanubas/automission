@@ -19,14 +19,14 @@
             cn.Open()
             Dim rd As OleDb.OleDbDataReader = fMSgetReader(SQL, cn)
             If rd.Read Then
-                xnumID.Value = fNumisNULL(rd("ID"))
-                txtSheetName.Text = fTextisNULL(rd("SheetName"))
-                txtProductCode.Text = fTextisNULL(rd("ProductCode"))
-                txtProductDescription.Text = fTextisNULL(rd("ProductDescription"))
-                txtUnitCost.Text = fTextisNULL(rd("UnitCost"))
-                txtQuantity.Text = fTextisNULL(rd("Quantity"))
-                txtMOU.Text = fTextisNULL(rd("MOU"))
-                chkUseDefault.Checked = fNumisNULL(rd("UseDefault"))
+                xnumID.Value = NumIsNull(rd("ID"))
+                txtSheetName.Text = TextIsNull(rd("SheetName"))
+                txtProductCode.Text = TextIsNull(rd("ProductCode"))
+                txtProductDescription.Text = TextIsNull(rd("ProductDescription"))
+                txtUnitCost.Text = TextIsNull(rd("UnitCost"))
+                txtQuantity.Text = TextIsNull(rd("Quantity"))
+                txtMOU.Text = TextIsNull(rd("MOU"))
+                chkUseDefault.Checked = NumIsNull(rd("UseDefault"))
 
             Else
                 txtSheetName.Clear()
@@ -46,7 +46,7 @@
         FirstLoad = False
     End Sub
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim SQL As String = fFieldCollector(Me)
+
         Dim cn As New OleDb.OleDbConnection(fMS_Con())
         Try
             cn.Open()
@@ -54,13 +54,13 @@
             If rd.Read Then
                 cn.Close()
                 fMS_execute($"UPDATE ImportBIRConfig SET SheetName='{txtSheetName.Text}',ProductCode='{txtProductCode.Text}',ProductDescription='{txtProductDescription.Text}',UnitCost='{txtUnitCost.Text}',Quantity='{txtQuantity.Text}',MOU='{txtMOU.Text}',UseDefault='{Val(chkUseDefault.Checked)}' Where ID ={xnumID.Value}")
-                fMessageboxInfo("Successfully Update")
+                MessageBoxInfo("Successfully Update")
             Else
                 cn.Close()
 
-                If fMessageBoxQuestion("New import setting do you want to save?") = True Then
+                If MessageBoxQuestion("New import setting do you want to save?") = True Then
                     fMS_execute($"INSERT INTO ImportBIRConfig  (SheetName,ProductCode,ProductDescription,UnitCost,Quantity,MOU,UseDefault) values('{txtSheetName.Text}','{txtProductCode.Text}','{txtProductDescription.Text}','{txtUnitCost.Text}','{txtQuantity.Text}','{txtMOU.Text}','{Val(chkUseDefault.Checked)}') ")
-                    fMessageboxInfo("Successfully Added")
+                    MessageBoxInfo("Successfully Added")
                 End If
             End If
 

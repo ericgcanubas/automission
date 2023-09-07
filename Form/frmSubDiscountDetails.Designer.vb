@@ -51,32 +51,34 @@ Partial Class frmSubDiscountDetails
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(14, 34)
+        Me.Label1.Location = New System.Drawing.Point(16, 42)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(37, 13)
+        Me.Label1.Size = New System.Drawing.Size(40, 16)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Code"
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(17, 50)
+        Me.txtCODE.Location = New System.Drawing.Point(19, 62)
+        Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(108, 21)
+        Me.txtCODE.Size = New System.Drawing.Size(123, 23)
         Me.txtCODE.TabIndex = 13
         '
         'txtDESCRIPTION
         '
-        Me.txtDESCRIPTION.Location = New System.Drawing.Point(133, 50)
+        Me.txtDESCRIPTION.Location = New System.Drawing.Point(152, 62)
+        Me.txtDESCRIPTION.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtDESCRIPTION.Name = "txtDESCRIPTION"
-        Me.txtDESCRIPTION.Size = New System.Drawing.Size(317, 21)
+        Me.txtDESCRIPTION.Size = New System.Drawing.Size(362, 23)
         Me.txtDESCRIPTION.TabIndex = 15
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(129, 34)
+        Me.Label2.Location = New System.Drawing.Point(147, 42)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 13)
+        Me.Label2.Size = New System.Drawing.Size(80, 16)
         Me.Label2.TabIndex = 14
         Me.Label2.Text = "Description"
         '
@@ -89,65 +91,70 @@ Partial Class frmSubDiscountDetails
         Me.GroupBox1.Controls.Add(Me.numAMOUNT_FROM)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.dgvSub)
-        Me.GroupBox1.Location = New System.Drawing.Point(14, 74)
+        Me.GroupBox1.Location = New System.Drawing.Point(16, 115)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(436, 275)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GroupBox1.Size = New System.Drawing.Size(498, 338)
         Me.GroupBox1.TabIndex = 16
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Vol Details"
         '
         'numPercent
         '
-        Me.numPercent.Location = New System.Drawing.Point(315, 45)
+        Me.numPercent.Location = New System.Drawing.Point(360, 55)
+        Me.numPercent.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.numPercent.Name = "numPercent"
-        Me.numPercent.Size = New System.Drawing.Size(114, 21)
+        Me.numPercent.Size = New System.Drawing.Size(130, 23)
         Me.numPercent.TabIndex = 19
         Me.numPercent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(311, 29)
+        Me.Label5.Location = New System.Drawing.Point(355, 36)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(71, 13)
+        Me.Label5.Size = New System.Drawing.Size(82, 16)
         Me.Label5.TabIndex = 18
         Me.Label5.Text = "Percentage"
         '
         'numTO_AMOUNT
         '
         Me.numTO_AMOUNT.DecimalPlaces = 2
-        Me.numTO_AMOUNT.Location = New System.Drawing.Point(157, 45)
+        Me.numTO_AMOUNT.Location = New System.Drawing.Point(179, 55)
+        Me.numTO_AMOUNT.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.numTO_AMOUNT.Maximum = New Decimal(New Integer() {1410065407, 2, 0, 0})
         Me.numTO_AMOUNT.Name = "numTO_AMOUNT"
-        Me.numTO_AMOUNT.Size = New System.Drawing.Size(140, 21)
+        Me.numTO_AMOUNT.Size = New System.Drawing.Size(160, 23)
         Me.numTO_AMOUNT.TabIndex = 17
         Me.numTO_AMOUNT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(154, 29)
+        Me.Label4.Location = New System.Drawing.Point(176, 36)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(41, 13)
+        Me.Label4.Size = New System.Drawing.Size(47, 16)
         Me.Label4.TabIndex = 16
         Me.Label4.Text = "Vol To"
         '
         'numAMOUNT_FROM
         '
         Me.numAMOUNT_FROM.DecimalPlaces = 2
-        Me.numAMOUNT_FROM.Location = New System.Drawing.Point(7, 45)
+        Me.numAMOUNT_FROM.Location = New System.Drawing.Point(8, 55)
+        Me.numAMOUNT_FROM.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.numAMOUNT_FROM.Maximum = New Decimal(New Integer() {1410065407, 2, 0, 0})
         Me.numAMOUNT_FROM.Name = "numAMOUNT_FROM"
-        Me.numAMOUNT_FROM.Size = New System.Drawing.Size(140, 21)
+        Me.numAMOUNT_FROM.Size = New System.Drawing.Size(160, 23)
         Me.numAMOUNT_FROM.TabIndex = 15
         Me.numAMOUNT_FROM.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(3, 29)
+        Me.Label3.Location = New System.Drawing.Point(3, 36)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(57, 13)
+        Me.Label3.Size = New System.Drawing.Size(63, 16)
         Me.Label3.TabIndex = 14
         Me.Label3.Text = "Vol From"
         '
@@ -159,21 +166,22 @@ Partial Class frmSubDiscountDetails
         Me.dgvSub.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders
         Me.dgvSub.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSub.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvSub.Location = New System.Drawing.Point(7, 73)
+        Me.dgvSub.Location = New System.Drawing.Point(8, 90)
+        Me.dgvSub.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvSub.Name = "dgvSub"
         Me.dgvSub.ReadOnly = True
-        Me.dgvSub.Size = New System.Drawing.Size(422, 196)
+        Me.dgvSub.Size = New System.Drawing.Size(482, 241)
         Me.dgvSub.TabIndex = 13
         '
         'ToolStrip1
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.Transparent
         Me.ToolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ToolStrip1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsSaveNew, Me.ToolStripLabel2, Me.tsDiscard, Me.tsClose})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(461, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(527, 25)
         Me.ToolStrip1.TabIndex = 22
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -183,13 +191,13 @@ Partial Class frmSubDiscountDetails
         Me.tsSaveNew.Image = CType(resources.GetObject("tsSaveNew.Image"), System.Drawing.Image)
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSaveNew.Name = "tsSaveNew"
-        Me.tsSaveNew.Size = New System.Drawing.Size(39, 22)
+        Me.tsSaveNew.Size = New System.Drawing.Size(44, 22)
         Me.tsSaveNew.Text = "Save"
         '
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(36, 22)
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel2.Text = "       "
         '
         'tsDiscard
@@ -198,7 +206,7 @@ Partial Class frmSubDiscountDetails
         Me.tsDiscard.Image = CType(resources.GetObject("tsDiscard.Image"), System.Drawing.Image)
         Me.tsDiscard.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDiscard.Name = "tsDiscard"
-        Me.tsDiscard.Size = New System.Drawing.Size(56, 22)
+        Me.tsDiscard.Size = New System.Drawing.Size(59, 22)
         Me.tsDiscard.Text = "Discard"
         '
         'tsClose
@@ -208,14 +216,14 @@ Partial Class frmSubDiscountDetails
         Me.tsClose.Image = CType(resources.GetObject("tsClose.Image"), System.Drawing.Image)
         Me.tsClose.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsClose.Name = "tsClose"
-        Me.tsClose.Size = New System.Drawing.Size(44, 22)
+        Me.tsClose.Size = New System.Drawing.Size(46, 22)
         Me.tsClose.Text = "Close"
         '
         'frmSubDiscountDetails
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(461, 359)
+        Me.ClientSize = New System.Drawing.Size(527, 471)
         Me.ControlBox = False
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.GroupBox1)
@@ -223,8 +231,9 @@ Partial Class frmSubDiscountDetails
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtCODE)
         Me.Controls.Add(Me.Label1)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSubDiscountDetails"

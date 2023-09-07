@@ -8,20 +8,20 @@ Public Class frmMainMenu
     Private Sub fApplication()
         Dim thisSearch As String = txtSearchMenu.Text.Replace("'", "")
         Dim i As Integer = 0
-        Dim rd As OdbcDataReader = fReader($"select * from tblmenu as m where EXISTS (select * from system_security where `description` = `NAME` and user_id = '" & gsUser_ID & "' ) and first_display ='0' and menu_id in ('1','2','3','4') and visible ='1' order by position_no")
+        Dim rd As OdbcDataReader = SqlReader($"select * from tblmenu as m where EXISTS (select * from system_security where `description` = `NAME` and user_id = '" & gsUser_ID & "' ) and first_display ='0' and menu_id in ('1','2','3','4') and visible ='1' order by position_no")
 
         Dim myIndex As Integer = 0
         While rd.Read
-            If fNumisNULL(rd("visible")) = 1 Then
+            If NumIsNull(rd("visible")) = 1 Then
 
 
                 myIndex = gsImgList.Images.IndexOfKey(rd("DESCRIPTION"))
                 trvApplication.Nodes.Add(rd("MENU_ID"), rd("DESCRIPTION"), myIndex).Tag = 0
                 trvApplication.Nodes.Item(i).NodeFont = New Font(trvApplication.Font, FontStyle.Bold)
                 NewPartIndex = NewPartIndex + 1
-                Dim rd_sub As OdbcDataReader = fReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' and sm.description like '%" & thisSearch & "%' and sm.active <> '0' order by sm.description")
+                Dim rd_sub As OdbcDataReader = SqlReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' and sm.description like '%" & thisSearch & "%' and sm.active <> '0' order by sm.description")
                 While rd_sub.Read
-                    Dim T As Integer = fNumisNULL(rd_sub("access_control"))
+                    Dim T As Integer = NumIsNull(rd_sub("access_control"))
                     myIndex = gsImgList.Images.IndexOfKey(rd_sub("sub_id"))
 
                     trvApplication.Nodes(i).Nodes.Add(rd_sub("sub_id"), rd_sub("description"), myIndex).ForeColor = Color.DarkBlue 'Tag = rd("MENU_ID")
@@ -45,12 +45,12 @@ Public Class frmMainMenu
         trvApplication.Nodes.Add(NewPartIndex.ToString, "Reports", myIndex).Tag = 0
         trvApplication.Nodes.Item(i).NodeFont = New Font(trvApplication.Font, FontStyle.Bold)
 
-        Dim rd As OdbcDataReader = fReader("select r.Description as `Report_Group` , s.SUB_ID as `ID` ,s.Description as `Title`,s.FORM as `File`,s.IMAGE_File as `ref_desc` from tblsub_menu  as s inner join report_group as r on r.id = s.group_line  inner join system_security ss ON ss.NAME = s.DESCRIPTION where ss.USER_ID = '" & gsUser_ID & "' and s.DESCRIPTION  like '%" & thisSearch & "%' and s.active <> '0' order by r.ID,s.Description ")
+        Dim rd As OdbcDataReader = SqlReader("select r.Description as `Report_Group` , s.SUB_ID as `ID` ,s.Description as `Title`,s.FORM as `File`,s.IMAGE_File as `ref_desc` from tblsub_menu  as s inner join report_group as r on r.id = s.group_line  inner join system_security ss ON ss.NAME = s.DESCRIPTION where ss.USER_ID = '" & gsUser_ID & "' and s.DESCRIPTION  like '%" & thisSearch & "%' and s.active <> '0' order by r.ID,s.Description ")
 
 
         While rd.Read
 
-            If sType <> fTextisNULL(rd("Report_Group")) Then
+            If sType <> TextIsNull(rd("Report_Group")) Then
                 int3 = int3 + 1
                 myIndex = gsImgList.Images.IndexOfKey("print")
                 trvApplication.Nodes(i).Nodes.Add(rd("ref_desc") & $"-{int3}", rd("Report_Group"), myIndex).Tag = 0
@@ -59,7 +59,7 @@ Public Class frmMainMenu
             myIndex = gsImgList.Images.IndexOfKey("report")
             trvApplication.Nodes(i).Nodes(N).Nodes.Add(rd("ID"), rd("Title"), myIndex).ForeColor = Color.DarkBlue 'Tag =' NewPartIndex
 
-            sType = fTextisNULL(rd("Report_Group"))
+            sType = TextIsNull(rd("Report_Group"))
         End While
 
         rd.Close()
@@ -78,10 +78,10 @@ Public Class frmMainMenu
         trvApplication.Nodes.Add(NewPartIndex.ToString, "Other List", myIndex).Tag = 0
         trvApplication.Nodes.Item(i).NodeFont = New Font(trvApplication.Font, FontStyle.Bold)
 
-        Dim rd As OdbcDataReader = fReader("select sg.description as `Report_Group`,s.sub_id ,s.Description as `sub_desc`,s.`Form`,s.image_file from tblsub_group as sg inner join tblsub_group_details as sgd on sg.group_id = sgd.group_id inner join tblsub_menu as s on s.sub_id = sgd.sub_id where  sg.group_id > '0' and s.DESCRIPTION  like '%" & thisSearch & "%' and s.active <>'0' order by sg.description , s.description ")
+        Dim rd As OdbcDataReader = SqlReader("select sg.description as `Report_Group`,s.sub_id ,s.Description as `sub_desc`,s.`Form`,s.image_file from tblsub_group as sg inner join tblsub_group_details as sgd on sg.group_id = sgd.group_id inner join tblsub_menu as s on s.sub_id = sgd.sub_id where  sg.group_id > '0' and s.DESCRIPTION  like '%" & thisSearch & "%' and s.active <>'0' order by sg.description , s.description ")
         While rd.Read
 
-            If sType <> fTextisNULL(rd("Report_Group")) Then
+            If sType <> TextIsNull(rd("Report_Group")) Then
                 myIndex = gsImgList.Images.IndexOfKey("doc-group")
                 int3 = int3 + 1
                 trvApplication.Nodes(i).Nodes.Add(rd("Report_Group") & $"-{int3}", rd("Report_Group"), myIndex).Tag = 0
@@ -95,7 +95,7 @@ Public Class frmMainMenu
 
 
 
-            sType = fTextisNULL(rd("Report_Group"))
+            sType = TextIsNull(rd("Report_Group"))
         End While
 
         rd.Close()
@@ -103,7 +103,7 @@ Public Class frmMainMenu
         '    Dim t As New ToolStripDropDownButton
         '    Try
 
-        '        Dim rd As OdbcDataReader = fReader("select sg.description as `GROUP_NAME`,s.sub_id ,s.Description as `sub_desc`,s.`Form`,s.image_file from tblsub_group as sg inner join tblsub_group_details as sgd on sg.group_id = sgd.group_id inner join tblsub_menu as s on s.sub_id = sgd.sub_id where  sg.group_id > '0' order by sg.description , s.description ")
+        '        Dim rd As OdbcDataReader = SqlReader("select sg.description as `GROUP_NAME`,s.sub_id ,s.Description as `sub_desc`,s.`Form`,s.image_file from tblsub_group as sg inner join tblsub_group_details as sgd on sg.group_id = sgd.group_id inner join tblsub_menu as s on s.sub_id = sgd.sub_id where  sg.group_id > '0' order by sg.description , s.description ")
         '
         '       While rd.Read
         '            Dim n_desc As String = rd("GROUP_NAME")
@@ -118,10 +118,10 @@ Public Class frmMainMenu
         '                Dim filename As String = System.IO.Path.Combine($"{New Uri(CurrentPath).LocalPath}\image\sub", img)
         '                t.ImageAlign = ContentAlignment.MiddleLeft
         '                t.Image = Image.FromFile(filename)
-        '                fToolSTRIP_ITEM_Sub(t, rd("sub_desc"), rd("sub_id"), rd("Form"), rd("Image_file"))
+        '                ToolStripDropDownObject(t, rd("sub_desc"), rd("sub_id"), rd("Form"), rd("Image_file"))
 
         '            Else
-        '                fToolSTRIP_ITEM_Sub(t, rd("sub_desc"), rd("sub_id"), rd("form"), rd("image_file"))
+        '                ToolStripDropDownObject(t, rd("sub_desc"), rd("sub_id"), rd("form"), rd("image_file"))
         '            End If
         '            temp_group_desc = n_desc
         '        End While
@@ -129,7 +129,7 @@ Public Class frmMainMenu
 
         '        rd.Close()
         '    Catch ex As Exception
-        '        If fMessageBoxErrorYesNo(ex.Message) = True Then
+        '        If MessageBoxErrorYesNo(ex.Message) = True Then
 
         '        Else
         '            End
@@ -153,7 +153,7 @@ Public Class frmMainMenu
             End If
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 '
             Else
                 End
@@ -172,11 +172,11 @@ Public Class frmMainMenu
         Try
 
 
-            Dim rd As OdbcDataReader = fReader($"select s.sub_id,s.description,s.image_file,s.Form from tblsub_group_details as sgd  inner join tblsub_menu as s on s.sub_id =  sgd.sub_id  where sgd.group_id = '0' and s.active <> '0' order by sgd.ID ")
+            Dim rd As OdbcDataReader = SqlReader($"select s.sub_id,s.description,s.image_file,s.Form from tblsub_group_details as sgd  inner join tblsub_menu as s on s.sub_id =  sgd.sub_id  where sgd.group_id = '0' and s.active <> '0' order by sgd.ID ")
             Dim separator_count As Integer = 0
             While rd.Read
 
-                If fNumisNULL(rd("sub_id")) = 0 Then
+                If NumIsNull(rd("sub_id")) = 0 Then
 
                     separator_count = separator_count + 1
                     'fAddMenuToolSeparator(separator_count)
@@ -209,7 +209,7 @@ Public Class frmMainMenu
 
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 QuickAccess()
             Else
                 End
@@ -227,10 +227,10 @@ Public Class frmMainMenu
             Dim t As New ToolStripMenuItem
 
             ' cn.Open()
-            Dim rd As OdbcDataReader = fReader("select r.Description as `Report_Group` , s.SUB_ID as `ID` ,s.Description as `Title`,s.FORM as `File`,s.IMAGE_File as `ref_desc` from tblsub_menu  as s inner join report_group as r on r.id = s.group_line  inner join system_security ss ON ss.NAME = s.DESCRIPTION where ss.USER_ID = '" & gsUser_ID & "' and s.active <> '0'  order by r.ID,s.Description ")
+            Dim rd As OdbcDataReader = SqlReader("select r.Description as `Report_Group` , s.SUB_ID as `ID` ,s.Description as `Title`,s.FORM as `File`,s.IMAGE_File as `ref_desc` from tblsub_menu  as s inner join report_group as r on r.id = s.group_line  inner join system_security ss ON ss.NAME = s.DESCRIPTION where ss.USER_ID = '" & gsUser_ID & "' and s.active <> '0'  order by r.ID,s.Description ")
             While rd.Read
 
-                If sType <> fTextisNULL(rd("Report_Group")) Then
+                If sType <> TextIsNull(rd("Report_Group")) Then
 
                     int3 = 1
                     'ReportsToolStripMenuItem
@@ -241,13 +241,13 @@ Public Class frmMainMenu
                     n.AccessibleName = rd("File") 'File
                     AddHandler n.Click, AddressOf fWhenClickReport
                     t = New ToolStripMenuItem
-                    t.Name = fTextisNULL(rd("Report_Group")).Replace(" ", "")
-                    t.Text = fTextisNULL(rd("Report_Group"))
+                    t.Name = TextIsNull(rd("Report_Group")).Replace(" ", "")
+                    t.Text = TextIsNull(rd("Report_Group"))
                     t.DropDownItems.Add(n)
 
                     ReportsToolStripMenuItem.DropDownItems.Add(t)
 
-                    sType = fTextisNULL(rd("Report_Group"))
+                    sType = TextIsNull(rd("Report_Group"))
                 Else
                     int3 = int3 + 1
                     If int3 = 3 Then
@@ -270,7 +270,7 @@ Public Class frmMainMenu
             ReportsToolStripMenuItem.DropDownItems.Add(t)
             rd.Close()
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
 
         Finally
 
@@ -305,7 +305,7 @@ Public Class frmMainMenu
         gsREPORT_ID = ID
         gsMenuSubID = "32"
         gsReportTabName = Title
-        gsReportFileName = fGetFieldValue("tblsub_menu", "SUB_ID", ID, "Form")
+        gsReportFileName = GetStringFieldValue("tblsub_menu", "SUB_ID", ID, "Form")
 
         Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
         Dim img As Image = Image.FromFile(folder & "report_setup.png")
@@ -321,7 +321,7 @@ Public Class frmMainMenu
         gsReportTabName = prTabname
         gsReportFileName = prReportFileName
         gsRefresh = True
-        ' fmenuSet()
+        ' MenuSet()
 
 
     End Sub
@@ -470,9 +470,9 @@ Public Class frmMainMenu
                 If frmSelectLocation.gsOK = True Then
                     Dim L As Integer = frmSelectLocation.cmbLOCATION_ID.SelectedValue
                     fDoEvents()
-                    Dim rd As OdbcDataReader = fReader("Select ID from `ITEM` WHERE `TYPE` ='0' and INACTIVE ='0'")
+                    Dim rd As OdbcDataReader = SqlReader("Select ID from `ITEM` WHERE `TYPE` ='0' and INACTIVE ='0'")
                     While rd.Read
-                        fReCalculateInventory(rd("ID"), L, frmSelectDate.dtpSelect.Value)
+                        ReCalculateInventory(rd("ID"), L, frmSelectDate.dtpSelect.Value)
                     End While
                 End If
                 frmSelectLocation.Dispose()
@@ -530,7 +530,7 @@ Public Class frmMainMenu
     End Sub
 
     Private Sub frmMainMenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        Dim r As Integer = fMessageBoxQuestionYesNoCancel("Yes = Log-out " & vbNewLine & "No = Close Program ")
+        Dim r As Integer = MessageBoxQuestionYesNoCancel("Yes = Log-out " & vbNewLine & "No = Close Program ")
         If r = 1 Then
             fLogout_user_access_control()
         ElseIf r = 2 Then
@@ -595,12 +595,12 @@ Public Class frmMainMenu
 
             Dim t As Integer = cmbSearchType.SelectedIndex
             Dim sQuery As String = ""
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
 
             Select Case t
                 Case 0
                     sQuery = "SELECT s.`sub_id`,m.`description` AS `Category`, s.`Description` AS `Menu`  FROM tblsub_menu AS s INNER JOIN  tblmenu_list  AS ml ON ml.`sub_id` = s.`sub_id`  INNER JOIN tblmenu AS m ON m.`menu_id` =  ml.`menu_id` inner join system_security as ss on s.`description` = ss.`NAME` and ss.`user_id` = '" & gsUser_ID & "'   WHERE ml.menu_id IN ('1','2','3','4','5','6','7')  AND s.`Description` LIKE '%" & txtSearch.Text & "%' "
-                    fDataGridView(dgvSearch, sQuery)
+                    LoadDataGridView(dgvSearch, sQuery)
                     dgvSearch.Columns(0).Visible = False
                     If dgvSearch.Rows.Count <> 0 Then
                         pnlSearch.Visible = True
@@ -613,7 +613,7 @@ Public Class frmMainMenu
                 Case 1
 
                     sQuery = fContactTransaction(txtSearch.Text)
-                    fDataGridView(dgvSearch, sQuery)
+                    LoadDataGridView(dgvSearch, sQuery)
                     dgvSearch.Columns(0).Visible = False
                     If dgvSearch.Rows.Count <> 0 Then
                         pnlSearch.Visible = True
@@ -626,7 +626,7 @@ Public Class frmMainMenu
                     dgvSearch.Columns(3).Width = 100
                 Case 2
                     sQuery = fReferenceTransaction(txtSearch.Text)
-                    fDataGridView(dgvSearch, sQuery)
+                    LoadDataGridView(dgvSearch, sQuery)
                     dgvSearch.Columns(0).Visible = False
                     If dgvSearch.Rows.Count <> 0 Then
                         pnlSearch.Visible = True
@@ -645,13 +645,13 @@ Public Class frmMainMenu
 
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fQuickSearch()
             Else
                 End
             End If
         Finally
-            fCursorLoadingOn(False)
+            CursorLoadingOn(False)
         End Try
     End Sub
 
@@ -1029,19 +1029,19 @@ FROM
     End Function
     Private Sub fselected_Reference()
         Dim sType As String = dgvSearch.Rows(dgvSearch.CurrentRow.Index).Cells("TYPE").Value
-        Dim i As Integer = fNumisNULL(fNumFieldValue("tblsub_menu", "Description", sType, "sub_id"))
+        Dim i As Integer = NumIsNull(GetNumberFieldValue("tblsub_menu", "Description", sType, "sub_id"))
 
 
         gsMenuSubID = i
         gsRefresh = True
         gsDocument_Finder_ID = dgvSearch.Rows(dgvSearch.CurrentRow.Index).Cells("ID").Value
 
-        Dim rd As OdbcDataReader = fReader($"select * from `tblsub_menu` where sub_id = '{gsMenuSubID}' limit 1")
+        Dim rd As OdbcDataReader = SqlReader($"select * from `tblsub_menu` where sub_id = '{gsMenuSubID}' limit 1")
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
         If rd.Read Then
-            i = fNumisNULL(rd("sub_id"))
-            F = fGetForm(rd("Form"))
+            i = NumIsNull(rd("sub_id"))
+            F = GetFormModule(rd("Form"))
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
             Img = Image.FromFile(folder & rd("image_file"))
             gsSubMenuForm = rd("description")
@@ -1071,7 +1071,7 @@ FROM
 
         'Dim fName As String = ""
         'Dim frm As New Form
-        'frm = fGetForm(fName)
+        'frm = GetFormModule(fName)
         'Dim tp As TabPage = New TabPage(fName)
 
 
@@ -1104,7 +1104,7 @@ FROM
     End Sub
     Private Sub fselected_search()
         Try
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
             pnlSearch.Enabled = False
             Select Case cmbSearchType.SelectedIndex
                 Case 0
@@ -1113,17 +1113,17 @@ FROM
 
                         Try
 
-                            Dim rd As OdbcDataReader = fReader("select r.Description as `Report_Group` , s.SUB_ID as `ID` ,s.Description as `Title`,s.FORM as `File`,s.IMAGE_File as `ref_desc` from tblsub_menu  as s inner join report_group as r on r.id = s.group_line  inner join system_security ss ON ss.NAME = s.DESCRIPTION where ss.USER_ID = '" & gsUser_ID & "' and s.SUB_ID = '" & dgvSearch.Item(0, dgvSearch.CurrentRow.Index).Value & "'  order by r.ID,s.Description")
+                            Dim rd As OdbcDataReader = SqlReader("select r.Description as `Report_Group` , s.SUB_ID as `ID` ,s.Description as `Title`,s.FORM as `File`,s.IMAGE_File as `ref_desc` from tblsub_menu  as s inner join report_group as r on r.id = s.group_line  inner join system_security ss ON ss.NAME = s.DESCRIPTION where ss.USER_ID = '" & gsUser_ID & "' and s.SUB_ID = '" & dgvSearch.Item(0, dgvSearch.CurrentRow.Index).Value & "'  order by r.ID,s.Description")
                             If rd.Read Then
-                                gsReportType = fTextisNULL(rd("ref_desc"))
-                                gsReportTabName = fTextisNULL(rd("Title"))
-                                fShowReportSetup(fTextisNULL(rd("File")), gsReportTabName)
+                                gsReportType = TextIsNull(rd("ref_desc"))
+                                gsReportTabName = TextIsNull(rd("Title"))
+                                fShowReportSetup(TextIsNull(rd("File")), gsReportTabName)
 
                             End If
                             rd.Close()
                         Catch ex As Exception
 
-                            If fMessageBoxErrorYesNo(ex.Message) = True Then
+                            If MessageBoxErrorYesNo(ex.Message) = True Then
 
                             Else
                                 End
@@ -1133,7 +1133,7 @@ FROM
                     Else
                         gsMenuSubID = dgvSearch.Item(0, dgvSearch.CurrentRow.Index).Value
                         gsRefresh = True
-                        fmenuSet()
+                        MenuSet()
 
                     End If
 
@@ -1152,7 +1152,7 @@ FROM
             pnlSearch.Enabled = True
             txtSearch.Clear()
             fLostFocus()
-            fCursorLoadingOn(False)
+            CursorLoadingOn(False)
         End Try
     End Sub
     Private Sub dgvSearch_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSearch.CellDoubleClick
@@ -1641,10 +1641,10 @@ FROM
         If e.Node.ForeColor = Color.DarkBlue Then
             Try
 
-                Dim rd As OdbcDataReader = fReader($"select sub_id as id,description,group_line from  tblsub_menu where description = '{e.Node.Text}' limit 1; ")
+                Dim rd As OdbcDataReader = SqlReader($"select sub_id as id,description,group_line from  tblsub_menu where description = '{e.Node.Text}' limit 1; ")
                 If rd.Read Then
 
-                    If fNumisNULL(rd("group_line")) = 0 Then
+                    If NumIsNull(rd("group_line")) = 0 Then
 
                         OpenFormBySubId(rd("id"))
                     Else
@@ -1653,7 +1653,7 @@ FROM
                     End If
 
                 Else
-                    fMessageboxInfo("Menu not found")
+                    MessageBoxInfo("Menu not found")
                 End If
                 rd.Close()
 

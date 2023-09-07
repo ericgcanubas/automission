@@ -26,7 +26,7 @@ Public Class frmPOSRestoKitchenMonitoring
         Timer1.Stop()
         FlowLayoutPanel1.Controls.Clear()
         Dim N As Integer = 0
-        Dim rd As OdbcDataReader = fReader($"SELECT 
+        Dim rd As OdbcDataReader = SqlReader($"SELECT 
           pts.id,
             pts.`payment_id`,
           DATE_FORMAT(pts.`recorded_on`,'%l:%i:%s %p') AS `TIME_LOG`,
@@ -41,18 +41,18 @@ Public Class frmPOSRestoKitchenMonitoring
             On pn.`PAYMENT_ID` = p.`ID` 
             INNER Join invoice AS i ON
             i.`ID` = pn.`INVOICE_ID`
-            WHERE i.`NOTES` <> '' and pts.`kitchen_status` = 0 AND i.`DATE` = '{fDateFormatMYSQL(DateTime.Now.Date)}' limit 6")
+            WHERE i.`NOTES` <> '' and pts.`kitchen_status` = 0 AND i.`DATE` = '{DateFormatMySql(DateTime.Now.Date)}' limit 6")
 
         While rd.Read
             N = N + 1
             Dim BG As Color
-            If fTextisNULL(rd("NOTES")).ToString.Contains("DINE-IN") = True Then
+            If TextIsNull(rd("NOTES")).ToString.Contains("DINE-IN") = True Then
                 BG = Color.NavajoWhite
             Else
                 BG = Color.Yellow
             End If
 
-            fCreateObject(N, rd("ID"), rd("payment_id"), fNumisNULL(rd("SHIP_TO")), fNumFormatStandard(rd("AMOUNT_APPLIED")), rd("TIME_LOG"), BG)
+            fCreateObject(N, rd("ID"), rd("payment_id"), NumIsNull(rd("SHIP_TO")), NumberFormatStandard(rd("AMOUNT_APPLIED")), rd("TIME_LOG"), BG)
         End While
         rd.Close()
 
@@ -63,7 +63,7 @@ Public Class frmPOSRestoKitchenMonitoring
         Dim btn As Button = DirectCast(sender, Button)
         Dim ID As Integer = btn.AccessibleDescription
 
-        fExecutedOnly($"UPDATE pos_table_served SET kitchen_status = '1' WHERE ID ='{ID}' limit 1;")
+        SqlExecuted($"UPDATE pos_table_served SET kitchen_status = '1' WHERE ID ='{ID}' limit 1;")
         fORDERLIST()
 
     End Sub
@@ -156,7 +156,7 @@ Public Class frmPOSRestoKitchenMonitoring
 
         Dim SQL As String = $"Select i.DESCRIPTION As `MENU`,ii.QUANTITY As `QTY`,ii.RATE As `PRICE`,ii.AMOUNT FROM payment_invoices As pn inner join invoice_items As ii On ii.invoice_id = pn.invoice_id inner join item As i On i.id = ii.item_id where ii.print_in_forms = '0' and  pn.payment_id = '{ID}'  "
 
-        fDataGridView(prDGV, SQL)
+        LoadDataGridView(prDGV, SQL)
         With prDGV.Columns
             .Item("MENU").Width = 260
 

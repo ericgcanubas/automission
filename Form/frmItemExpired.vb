@@ -4,14 +4,14 @@
         tsTITLE.Text = gsSubMenuForm
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvList, "SELECT b.`ID`,i.`CODE` as `BARCODE`,i.`PURCHASE_DESCRIPTION` AS `DESCRIPTION`,b.`BATCH_NO` AS `BATCH #`,b.`EXPIRY_DATE` AS `EXPIRED ON`  FROM `item_batches`  AS b INNER JOIN item AS i ON i.`ID` = b.`ITEM_ID` WHERE i.`INACTIVE` = '0';", item_BS)
-        fDataGrid_Column(dgvList, 48)
+        LoadDataGridViewBinding(dgvList, "SELECT b.`ID`,i.`CODE` as `BARCODE`,i.`PURCHASE_DESCRIPTION` AS `DESCRIPTION`,b.`BATCH_NO` AS `BATCH #`,b.`EXPIRY_DATE` AS `EXPIRED ON`  FROM `item_batches`  AS b INNER JOIN item AS i ON i.`ID` = b.`ITEM_ID` WHERE i.`INACTIVE` = '0';", item_BS)
+        ViewColumn(dgvList, 48)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvList, 48)
+        ViewSwitch(dgvList, 48)
 
-        fDataGrid_Column(dgvList, 48)
+        ViewColumn(dgvList, 48)
     End Sub
 
     Private Sub frmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -20,7 +20,7 @@
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -40,7 +40,7 @@
         Try
 
             If dgvList.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -50,20 +50,20 @@
 
             frmItemExpiredDetails.This_BS = item_BS
             frmItemExpiredDetails.Dgv = dgvList
-            frmItemExpiredDetails.gsID = dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value
+            frmItemExpiredDetails.ID = dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value
             frmItemExpiredDetails.ShowDialog()
             frmItemExpiredDetails.Dispose()
             frmItemExpiredDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvList.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -71,14 +71,14 @@
                 Exit Sub
             End If
 
-            If fMessageBoxQuestion("Do you really want to delete " & dgvList.Rows(dgvList.CurrentRow.Index).Cells("BATCH #").Value & "?") = True Then
-                fExecutedOnly("delete from item_batches where ID = '" & dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value & "' limit 1")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete " & dgvList.Rows(dgvList.CurrentRow.Index).Cells("BATCH #").Value & "?") = True Then
+                SqlExecuted("delete from item_batches where ID = '" & dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value & "' limit 1")
+                DeleteNotify(Me)
                 fRefresh()
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 

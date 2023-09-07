@@ -1,17 +1,17 @@
 ﻿Public Class frmServiceFee
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub frmServiceFee_Load(sender As Object, e As EventArgs) Handles Me.Load
-        fBackGroundImageStyle(Me)
-        fTSDate(tsYEAR, 1, True)
-        fTSDate(tsMONTH, 2, True)
 
-        fDataGrid_Column(dgvServiceFee, 31)
+        DateTSComboBoxLoad(tsYEAR, 1, True)
+        DateTSComboBoxLoad(tsMONTH, 2, True)
+
+        ViewColumn(dgvServiceFee, 31)
     End Sub
     Private Sub fRefresh()
-        fDataGridView(dgvServiceFee, "SELECT ID,Description,Service_Fee_PCT as `Service Fee %`,Format(Sales_Target,2) as `Sales Target`,year_sf as `Year`, monthname(concat('2013/',month_sf,'/1')) as `Month`,Inactive FROM service_fee where YEAR_SF like '" & IIf(tsYEAR.ComboBox.SelectedValue = 0, "%", tsYEAR.ComboBox.SelectedValue) & "' and MONTH_SF like '" & IIf(tsMONTH.ComboBox.SelectedValue = 0, "%", tsMONTH.ComboBox.SelectedValue) & "' ")
+        LoadDataGridView(dgvServiceFee, "SELECT ID,Description,Service_Fee_PCT as `Service Fee %`,Format(Sales_Target,2) as `Sales Target`,year_sf as `Year`, monthname(concat('2013/',month_sf,'/1')) as `Month`,Inactive FROM service_fee where YEAR_SF like '" & IIf(tsYEAR.ComboBox.SelectedValue = 0, "%", tsYEAR.ComboBox.SelectedValue) & "' and MONTH_SF like '" & IIf(tsMONTH.ComboBox.SelectedValue = 0, "%", tsMONTH.ComboBox.SelectedValue) & "' ")
         With dgvServiceFee.Columns
             .Item(0).Visible = False
             .Item(1).Width = 300
@@ -19,9 +19,9 @@
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        fDataGrid_Switch(dgvServiceFee, 31)
+        ViewSwitch(dgvServiceFee, 31)
 
-        fDataGrid_Column(dgvServiceFee, 31)
+        ViewColumn(dgvServiceFee, 31)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewRecordsToolStripMenuItem.Click
@@ -44,7 +44,7 @@
         End If
 
         Dim i As Integer = dgvServiceFee.CurrentRow.Index
-        frmServiceFeeDetails.gsID = dgvServiceFee.Rows(i).Cells("ID").Value
+        frmServiceFeeDetails.ID = dgvServiceFee.Rows(i).Cells("ID").Value
         frmServiceFeeDetails.ShowDialog()
         frmServiceFeeDetails.Dispose()
         frmServiceFeeDetails = Nothing
@@ -65,8 +65,8 @@
             Exit Sub
         End If
         Dim i As Integer = dgvServiceFee.CurrentRow.Index
-        If fMessageBoxQuestion("Are you sure to delete this service fee?") = True Then
-            fExecutedOnly("DELETE from service_fee WHERE ID ='" & dgvServiceFee.Rows(i).Cells("ID").Value & "'")
+        If MessageBoxQuestion("Are you sure to delete this service fee?") = True Then
+            SqlExecuted("DELETE from service_fee WHERE ID ='" & dgvServiceFee.Rows(i).Cells("ID").Value & "'")
             fRefresh()
         End If
 

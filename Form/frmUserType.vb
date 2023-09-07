@@ -1,6 +1,6 @@
 ﻿Public Class frmUserType
     Private Sub frmUserType_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
+
         With cmbUserType
             .Items.Clear()
             .Items.Add("Administrator")

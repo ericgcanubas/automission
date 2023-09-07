@@ -54,14 +54,14 @@
         '========================================
 
 
-        gsPOS_DEFAULT_PRINTER = fTextisNULL(cmbPRINTER.Text)
+        gsPOS_DEFAULT_PRINTER = TextIsNull(cmbPRINTER.Text)
         fSET_SYSTEM_VALUE("POS_DEFAULT_PRINTER", gsPOS_DEFAULT_PRINTER)
 
-        fSET_SYSTEM_VALUE("USE_SMALL_BOX", fNumisNULL(chkSmallBoxMonitoring.Checked))
-        fSET_SYSTEM_VALUE("CUSTOM_DINE_IN_NO", fNumisNULL(numCUSTOM_DINE_IN_NO.Value))
-        fSET_SYSTEM_VALUE("MSG_PRINT_PAYMENT", fNumisNULL(chkMsgPrintPayment.Checked))
-        fSET_SYSTEM_VALUE("PRINT_INVOICE_AFTER_PRINT_PAYMENT", fNumisNULL(chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Checked))
-        fSET_SYSTEM_VALUE("PRINT_OS_AFTER_SAVE_INVOICE", fNumisNULL(chkPRINT_OS_AFTER_SAVE_INVOICE.Checked))
+        fSET_SYSTEM_VALUE("USE_SMALL_BOX", NumIsNull(chkSmallBoxMonitoring.Checked))
+        fSET_SYSTEM_VALUE("CUSTOM_DINE_IN_NO", NumIsNull(numCUSTOM_DINE_IN_NO.Value))
+        fSET_SYSTEM_VALUE("MSG_PRINT_PAYMENT", NumIsNull(chkMsgPrintPayment.Checked))
+        fSET_SYSTEM_VALUE("PRINT_INVOICE_AFTER_PRINT_PAYMENT", NumIsNull(chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Checked))
+        fSET_SYSTEM_VALUE("PRINT_OS_AFTER_SAVE_INVOICE", NumIsNull(chkPRINT_OS_AFTER_SAVE_INVOICE.Checked))
 
         Me.Close()
 

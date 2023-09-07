@@ -15,14 +15,14 @@
             If gsUseImageProduct = True Then
                 Dim SourceFile As String = gsImageSourceFolder
                 If SourceFile = "" Then
-                    fMessageboxWarning("Option-> Destination Attachment not set.")
+                    MessageBoxWarning("Option-> Destination Attachment not set.")
                     Return False
                     Exit Function
                 End If
 
                 If My.Computer.FileSystem.FileExists(SourceFile & "\" & FileName) = True Then
-                    If fMessageboxWarningYesNo("File is already exists do you want to overwrite?") = False Then
-                        fMessageboxInfo("File Upload Canceled.")
+                    If MessageBoxWarningYesNo("File is already exists do you want to overwrite?") = False Then
+                        MessageBoxInfo("File Upload Canceled.")
                         Return False
                         Exit Function
                     End If
@@ -34,11 +34,11 @@
                     Return True
                 Catch ex As Exception
                     Return False
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                 End Try
 
             Else
-                fMessageboxWarning("Option-> Inactive Attachment.")
+                MessageBoxWarning("Option-> Inactive Attachment.")
                 Return False
             End If
         Else
@@ -60,7 +60,7 @@
             Dim StoragePath As String = gsImageSourceFolder
 
             If My.Computer.FileSystem.FileExists(StoragePath & "\" & FileName) = False Then
-                fMessageboxInfo("attachment not found.")
+                MessageBoxInfo("attachment not found.")
                 Exit Sub
             End If
 
@@ -76,7 +76,7 @@
 
             End If
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 End Module

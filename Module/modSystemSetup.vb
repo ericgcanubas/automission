@@ -15,7 +15,7 @@ Module modSystemSetup
                 cn.Close()
                 sValue = ""
                 fMS_execute("INSERT INTO [TBLSYSTEM] ([ID],[SYSTEM_VALUE]) VALUES ('" & prID & "','')")
-                fMessageboxInfo("NEW SYSTEM SETUP CREATED " & prID)
+                MessageBoxInfo("NEW SYSTEM SETUP CREATED " & prID)
 
             End If
 
@@ -23,7 +23,7 @@ Module modSystemSetup
             If cn.State = ConnectionState.Open Then
                 cn.Close()
             End If
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
         Return sValue
 
@@ -42,7 +42,7 @@ Module modSystemSetup
                 cn.Close()
                 sValue = False
                 fMS_execute("INSERT INTO [TBLSYSTEM] ([ID],[SYSTEM_VALUE]) VALUES ('" & prID & "','0')")
-                fMessageboxInfo("NEW SYSTEM SETUP CREATED " & prID)
+                MessageBoxInfo("NEW SYSTEM SETUP CREATED " & prID)
                 sValue = False
             End If
 
@@ -50,7 +50,7 @@ Module modSystemSetup
             If cn.State = ConnectionState.Open Then
                 cn.Close()
             End If
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
         Return sValue
 

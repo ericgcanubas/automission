@@ -22,17 +22,17 @@ Public Class frmLogin
         Try
             ' cn.Open()
 
-            Dim rd As OdbcDataReader = fReader(sql_query)
+            Dim rd As OdbcDataReader = SqlReader(sql_query)
             If rd.Read Then
-                gsUser_ID = fNumisNULL(rd("ID"))
-                system_status_type = fNumisNULL(rd("STATUS"))
+                gsUser_ID = NumIsNull(rd("ID"))
+                system_status_type = NumIsNull(rd("STATUS"))
 
                 Select Case system_status_type
                     Case 1
                         If gsPOS_Mode = False Then
 
                         Else
-                            fMessageboxWarning("User status -> cannot access")
+                            MessageBoxWarning("User status -> cannot access")
                             Exit Sub
                         End If
                     Case 2
@@ -40,13 +40,13 @@ Public Class frmLogin
                         If gsPOS_Mode = True Then
 
                         Else
-                            fMessageboxWarning("User status -> cannot access")
+                            MessageBoxWarning("User status -> cannot access")
                             Exit Sub
                         End If
 
                     Case 3
 
-                        fMessageboxWarning("User Locked")
+                        MessageBoxWarning("User Locked")
                         Exit Sub
                         'LOCKED
 
@@ -54,7 +54,7 @@ Public Class frmLogin
 
                 If fUserDefaulDisabled() = True Then
 
-                    fPop_Up_Msg(Me.Text, "Sorry, you are not allowed to access right now.", False)
+                    PrompNotify(Me.Text, "Sorry, you are not allowed to access right now.", False)
                     rd.Close()
                     Exit Sub
                 End If
@@ -62,30 +62,30 @@ Public Class frmLogin
                     gsMeasureHoursID = fSystemSettingValue_Num("measure_hours")
 
                     If gsMeasureHoursID = 0 Then
-                        fMessageboxInfo("Please set default Measure Hours")
+                        MessageBoxInfo("Please set default Measure Hours")
                         Exit Sub
                     End If
                 End If
 
 
 
-                If fNumisNULL(rd("TYPE")) = 1 Then
+                If NumIsNull(rd("TYPE")) = 1 Then
                     gsAdmin_User = True
                 Else
                     gsAdmin_User = False
                 End If
 
                 If gsPOS_Mode = True Then
-                    gsCashier_ID = fTextisNULL(rd("CONTACT_ID"))
-                    If fGetFieldValue("contact", "id", gsCashier_ID, "id") = "" Then
+                    gsCashier_ID = TextIsNull(rd("CONTACT_ID"))
+                    If GetStringFieldValue("contact", "id", gsCashier_ID, "id") = "" Then
 
-                        fPop_Up_Msg(Me.Text, "Please set a  USER -> CONTACT", False)
+                        PrompNotify(Me.Text, "Please set a  USER -> CONTACT", False)
                         Exit Sub
                     End If
 
                     If fPOS_MACHINE_ID() = 0 Then
 
-                        fPop_Up_Msg(Me.Text, "POS machine No. is not set", False)
+                        PrompNotify(Me.Text, "POS machine No. is not set", False)
                         Exit Sub
                     End If
                 End If
@@ -93,7 +93,7 @@ Public Class frmLogin
 
                 If fGet_user_access_control(gsUser_ID) = True Then
                     ' account is already access
-                    fExecutedOnly("update user_access_control set req_ip_address = '" & GetIPv4Address() & "' ,`status` = '2' where  user_id = '" & gsUser_ID & "' and `status` = '1' limit 1")
+                    SqlExecuted("update user_access_control set req_ip_address = '" & GetIPv4Address() & "' ,`status` = '2' where  user_id = '" & gsUser_ID & "' and `status` = '1' limit 1")
                     frmMessageUserControLoading.ShowDialog()
                     frmMessageUserControLoading.Dispose()
                     frmMessageUserControLoading = Nothing
@@ -106,8 +106,8 @@ Public Class frmLogin
                 'load default
 
                 Dim pass_value As String = ""
-                gsUser_Name = fTextisNULL(rd("Name"))
-                gsUserDescription = fTextisNULL(rd("DESCRIPTION"))
+                gsUser_Name = TextIsNull(rd("Name"))
+                gsUserDescription = TextIsNull(rd("DESCRIPTION"))
                 'If chkRemember_password.Checked = True Then
                 '    pass_value = txtPassword.Text
                 'End If
@@ -122,12 +122,12 @@ Public Class frmLogin
 
                 If gsPOS_Mode = False Then
 
-                    '  Gmail("User Login on BMS", $"Username:{gsUser_Name} {vbNewLine} DateTime:{fDateTimeNow()} {vbNewLine} On BMS", $"{gsGmailAddressTo}@gmail.com")
+                    '  Gmail("User Login on BMS", $"Username:{gsUser_Name} {vbNewLine} DateTime:{GetDateTimeNowSql()} {vbNewLine} On BMS", $"{gsGmailAddressTo}@gmail.com")
 
                     '    frmMenu.Show()
                     frmMainMenu.Show()
                 Else
-                    ' Gmail("User Login on BMS", $"Username:{gsUser_Name} {vbNewLine} DateTime:{fDateTimeNow()} {vbNewLine} On BMS-POS", $"{gsGmailAddressTo}@gmail.com")
+                    ' Gmail("User Login on BMS", $"Username:{gsUser_Name} {vbNewLine} DateTime:{GetDateTimeNowSql()} {vbNewLine} On BMS-POS", $"{gsGmailAddressTo}@gmail.com")
                     Select Case gsPOS_TYPE
                         Case 0
                             fPOS_Reset()
@@ -158,11 +158,11 @@ Public Class frmLogin
                 rd.Close()
                 txtPassword.Clear()
                 txtPassword.Focus()
-                fPop_Up_Msg(Me.Text, "Invalid username or password", False)
+                PrompNotify(Me.Text, "Invalid username or password", False)
             End If
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub
@@ -213,14 +213,14 @@ Public Class frmLogin
         If e.KeyCode = Keys.Enter Then
             If txtUsername.Text.Length = 0 Then
 
-                fPop_Up_Msg(Me.Text, "Please enter username", True)
+                PrompNotify(Me.Text, "Please enter username", True)
                 Exit Sub
             End If
             txtPassword.Focus()
         ElseIf (e.KeyCode = Keys.F3 AndAlso e.Modifiers = Keys.Shift) Then
-            txtUsername.Text = Decrypt(fGetFieldValue("`USER`", "`NAME`", txtUsername.Text, "PASSWORD"))
+            txtUsername.Text = Decrypt(GetStringFieldValue("`USER`", "`NAME`", txtUsername.Text, "PASSWORD"))
         ElseIf (e.KeyCode = Keys.F3 AndAlso e.Modifiers = Keys.Control) Then
-            txtPassword.Text = Decrypt(fGetFieldValue("`USER`", "`NAME`", txtUsername.Text, "PASSWORD"))
+            txtPassword.Text = Decrypt(GetStringFieldValue("`USER`", "`NAME`", txtUsername.Text, "PASSWORD"))
         End If
 
     End Sub
@@ -234,7 +234,7 @@ Public Class frmLogin
         If e.KeyCode = Keys.Enter Then
             If txtPassword.Text.Length = 0 Then
 
-                fPop_Up_Msg(Me.Text, "Please enter password", True)
+                PrompNotify(Me.Text, "Please enter password", True)
 
                 Exit Sub
             End If

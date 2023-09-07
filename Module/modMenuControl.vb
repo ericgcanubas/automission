@@ -18,7 +18,7 @@ Module modMenuControl
         Dim Img As Image = Btn.Image
         Dim f As Form = GetForm(Btn.AccessibleName)
         If f Is Nothing Then
-            fMessageboxExclamation("Menu not found.")
+            MessageBoxExclamation("Menu not found.")
             Exit Sub
         End If
         Dim bAllowed As Boolean = True
@@ -32,7 +32,7 @@ Module modMenuControl
             TabFormOpen(f, frmMainMenu.MyTab, Img)
 
         Else
-            fMessageboxExclamation("No access control.")
+            MessageBoxExclamation("No access control.")
         End If
 
 
@@ -43,7 +43,7 @@ Module modMenuControl
 
         Dim f As Form = GetForm(Btn.AccessibleName)
         If f Is Nothing Then
-            fMessageboxExclamation("Menu not found.")
+            MessageBoxExclamation("Menu not found.")
             Exit Sub
         End If
         Dim bAllowed As Boolean = True
@@ -56,7 +56,7 @@ Module modMenuControl
             TabFormOpen(f, frmMainMenu.MyTab, Img)
 
         Else
-            fMessageboxExclamation("No access control.")
+            MessageBoxExclamation("No access control.")
         End If
 
 
@@ -106,10 +106,10 @@ Module modMenuControl
             Next i
 
 
-            Dim rd As OdbcDataReader = fReader(SQL)
+            Dim rd As OdbcDataReader = SqlReader(SQL)
 
             If rd.Read Then
-                bModal = fNumisNULL(rd("modal"))
+                bModal = NumIsNull(rd("modal"))
 
             End If
             rd.Close()
@@ -197,7 +197,7 @@ Module modMenuControl
             frm = DirectCast(CreateObjectInstance(frmName), Form)
             Return frm
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
             Return Nothing
         End Try
 
@@ -205,14 +205,14 @@ Module modMenuControl
     End Function
 
     Public Sub OpenFormBySubId(ByVal sub_ID As Integer)
-        Dim rd As OdbcDataReader = fReader($"select * from `tblsub_menu` where sub_id = '{sub_ID}' limit 1")
+        Dim rd As OdbcDataReader = SqlReader($"select * from `tblsub_menu` where sub_id = '{sub_ID}' limit 1")
         Dim i As Integer = 0
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
         Dim bModal As Boolean = False
         If rd.Read Then
-            i = fNumisNULL(rd("sub_id"))
-            F = fGetForm(rd("Form"))
+            i = NumIsNull(rd("sub_id"))
+            F = GetFormModule(rd("Form"))
             Try
                 Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
                 Img = Image.FromFile(folder & rd("image_file"))
@@ -224,11 +224,11 @@ Module modMenuControl
 
 
             If F Is Nothing Then
-                fMessageboxInfo("Form not found")
+                MessageBoxInfo("Form not found")
             Else
                 F.Text = rd("description")
                 F.Tag = sub_ID
-                bModal = fNumisNULL(rd("modal"))
+                bModal = NumIsNull(rd("modal"))
 
 
                 If bModal = True Then

@@ -7,11 +7,11 @@
 
     Private Sub frmPOSRoomLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = gsIcon
-        Me.Text = $"POS LOG  #{gsPOS_LOG_ID}  Date on {fDateFormatStandard(gsPOS_DATE)}"
+        Me.Text = $"POS LOG  #{gsPOS_LOG_ID}  Date on {DateFormatStandard(gsPOS_DATE)}"
         fLabel_Digital_M(lblTOTAL)
         fLabel_Digital_M(lblTransactionNo)
-        lblCashierName.Text = fGetFieldValue("contact", "ID", gsCashier_ID, "Name")
-        lblTOTAL.Text = fNumFormatStandard(gsPOS_TOTAL)
+        lblCashierName.Text = GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
+        lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
         lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
         fCOUNT_LOAD()
     End Sub
@@ -41,7 +41,7 @@
 
 
         Else
-            fMessageboxInfo("No Sales Transaction")
+            MessageBoxInfo("No Sales Transaction")
         End If
     End Sub
     Private Sub fCOUNT_LOAD()
@@ -58,7 +58,7 @@
         End If
     End Sub
     Private Sub fPOS_COUNT()
-        gsCASH_COUNT_ID = fNumFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
+        gsCASH_COUNT_ID = GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
     End Sub
     Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
         '  ContextMenuStrip1.Show(Me, btnReport.Location)
@@ -70,8 +70,8 @@
         Dim prPrint_Title As String = "Sales By Customer Summary"
         gsToolPanelView = False
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "tdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         fCryParameterInsertValue(gscryRpt, "*", "customerid")
         fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         fCryParameterInsertValue(gscryRpt, "*", "statusid")
@@ -85,7 +85,7 @@
         fCryParameterInsertValue(gscryRpt, "", "treference")
 
         fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, fDateFormatStandard(gsPOS_DATE), "date_remark")
+        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, "", "amount_label")
         fCryParameterInsertValue(gscryRpt, "false", "accrual")
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
@@ -94,7 +94,7 @@
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Customer " & fDateTimeNow()
+        frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
         frmReportViewer.WindowState = FormWindowState.Maximized
         frmReportViewer.ShowDialog()
         frmReportViewer.Dispose()
@@ -106,8 +106,8 @@
         Dim prPrint_Title As String = "Sales By Summary"
         gsToolPanelView = False
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "tdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         fCryParameterInsertValue(gscryRpt, "*", "customerid")
         fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         fCryParameterInsertValue(gscryRpt, "*", "statusid")
@@ -122,7 +122,7 @@
         fCryParameterInsertValue(gscryRpt, "", "treference")
 
         fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, fDateFormatStandard(gsPOS_DATE), "date_remark")
+        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, "", "amount_label")
         fCryParameterInsertValue(gscryRpt, "false", "accrual")
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
@@ -131,20 +131,20 @@
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Customer " & fDateTimeNow()
+        frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
         frmReportViewer.WindowState = FormWindowState.Maximized
         frmReportViewer.ShowDialog()
         frmReportViewer.Dispose()
     End Sub
     Private Sub fTransactionLog()
         If btnCC.Enabled = True Then
-            fMessageboxWarning("Invalid cash count entry required.")
+            MessageBoxWarning("Invalid cash count entry required.")
             Exit Sub
         End If
 
         fMSgetFieldGetReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
         If gsResto_Sales__File_Name = "" Then
-            fMessageboxInfo("Report not set.")
+            MessageBoxInfo("Report not set.")
             Exit Sub
         End If
         '   Gmail("TEST11", "TEST", "ecanubas@ewgroup.com.ph")
@@ -156,7 +156,7 @@
         fCryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
 
-        fCryParameterInsertValue(gscryRpt, fNumFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
+        fCryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
         fCryParameterInsertValue(gscryRpt, lblCashierName.Text, "user_name")
@@ -166,7 +166,7 @@
         If gsAdmin_User = True Then
             gsToolPanelView = False
             frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
-            frmReportViewer.Text = "POS Preview " & fDateTimeNow()
+            frmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
             frmReportViewer.WindowState = FormWindowState.Normal
             frmReportViewer.ShowDialog()
             frmReportViewer.Dispose()
@@ -177,13 +177,13 @@
     End Sub
     Private Sub fSalesReportReceipt()
         If btnCC.Enabled = True Then
-            fMessageboxWarning("Invalid cash count entry required.")
+            MessageBoxWarning("Invalid cash count entry required.")
             Exit Sub
         End If
 
         fMSgetFieldGetReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
         If gsResto_Sales__File_Name = "" Then
-            fMessageboxInfo("Report not set.")
+            MessageBoxInfo("Report not set.")
             Exit Sub
         End If
         '   Gmail("TEST11", "TEST", "ecanubas@ewgroup.com.ph")
@@ -195,7 +195,7 @@
         fCryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
 
-        fCryParameterInsertValue(gscryRpt, fNumFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
+        fCryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
         fCryParameterInsertValue(gscryRpt, lblCashierName.Text, "user_name")
@@ -205,7 +205,7 @@
         If gsAdmin_User = True Then
             gsToolPanelView = False
             frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
-            frmReportViewer.Text = "POS Preview " & fDateTimeNow()
+            frmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
             frmReportViewer.WindowState = FormWindowState.Normal
             frmReportViewer.ShowDialog()
             frmReportViewer.Dispose()

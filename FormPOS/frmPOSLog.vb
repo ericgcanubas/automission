@@ -18,14 +18,14 @@
 
         fMaterialSkin(Me)
         Me.Icon = gsIcon
-        Me.Text = $"[POINT OF SALES] Transaction On { fDateFormatStandard(gsPOS_DATE)}"
+        Me.Text = $"[POINT OF SALES] Transaction On { DateFormatStandard(gsPOS_DATE)}"
         ' Me.BackColor = ColorTranslator.FromHtml(gsColor_Code)
         gsType = 0
-        lblCashierName.Text = fGetFieldValue("contact", "ID", gsCashier_ID, "Name")
-        lblMachineName.Text = fGetFieldValue("pos_machine", "ID", gsPOS_MACHINE_ID, "NAME")
+        lblCashierName.Text = GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
+        lblMachineName.Text = GetStringFieldValue("pos_machine", "ID", gsPOS_MACHINE_ID, "NAME")
         lblCreated_On.Text = CDate(LOG_DATE)
 
-        lblTOTAL.Text = fNumFormatStandard(gsPOS_TOTAL)
+        lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
         lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
         fCOUNT_LOAD()
 
@@ -40,7 +40,7 @@
         End If
     End Sub
     Private Sub fPOS_COUNT()
-        gsCASH_COUNT_ID = fNumFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
+        gsCASH_COUNT_ID = GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
     End Sub
 
 
@@ -57,8 +57,8 @@
         Dim prPrint_Title As String = "Sales By Buyer Summary"
         gsToolPanelView = False
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "tdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         fCryParameterInsertValue(gscryRpt, "*", "customerid")
         fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         fCryParameterInsertValue(gscryRpt, "*", "statusid")
@@ -72,7 +72,7 @@
         fCryParameterInsertValue(gscryRpt, "", "treference")
 
         fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, fDateFormatStandard(gsPOS_DATE), "date_remark")
+        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, "", "amount_label")
         fCryParameterInsertValue(gscryRpt, "false", "accrual")
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
@@ -81,7 +81,7 @@
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Buyers " & fDateTimeNow()
+        frmReportViewer.Text = "Sales Summary by Buyers " & GetDateTimeNowSql()
         frmReportViewer.WindowState = FormWindowState.Maximized
         frmReportViewer.ShowDialog()
         frmReportViewer.Dispose()
@@ -93,8 +93,8 @@
         Dim prPrint_Title As String = "Sales By Item Summary"
         gsToolPanelView = False
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "tdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         fCryParameterInsertValue(gscryRpt, "*", "customerid")
         fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         fCryParameterInsertValue(gscryRpt, "*", "statusid")
@@ -109,7 +109,7 @@
         fCryParameterInsertValue(gscryRpt, "", "treference")
 
         fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, fDateFormatStandard(gsPOS_DATE), "date_remark")
+        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, "", "amount_label")
         fCryParameterInsertValue(gscryRpt, "false", "accrual")
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
@@ -118,7 +118,7 @@
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Buyers " & fDateTimeNow()
+        frmReportViewer.Text = "Sales Summary by Buyers " & GetDateTimeNowSql()
         frmReportViewer.WindowState = FormWindowState.Maximized
         frmReportViewer.ShowDialog()
         frmReportViewer.Dispose()
@@ -133,8 +133,8 @@
         Dim prPrint_Title As String = "Sales Invoice List"
         gsToolPanelView = False
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "tdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         fCryParameterInsertValue(gscryRpt, "*", "customerid")
         fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         fCryParameterInsertValue(gscryRpt, "*", "statusid")
@@ -148,7 +148,7 @@
         fCryParameterInsertValue(gscryRpt, "", "treference")
 
         fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, fDateFormatStandard(gsPOS_DATE), "date_remark")
+        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, "", "amount_label")
         fCryParameterInsertValue(gscryRpt, "false", "accrual")
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
@@ -157,7 +157,7 @@
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Invoice List " & fDateTimeNow()
+        frmReportViewer.Text = "Sales Invoice List " & GetDateTimeNowSql()
         frmReportViewer.WindowState = FormWindowState.Maximized
         frmReportViewer.ShowDialog()
         frmReportViewer.Dispose()
@@ -169,8 +169,8 @@
         Dim prPrint_Title As String = "POS Transaction Log"
         gsToolPanelView = False
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "tdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         fCryParameterInsertValue(gscryRpt, "*", "customerid")
         fCryParameterInsertValue(gscryRpt, gsPOS_LOG_ID, "pos_log_id")
         fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
@@ -184,13 +184,13 @@
         fCryParameterInsertValue(gscryRpt, "*", "item_class_id")
 
 
-        fCryParameterInsertValue(gscryRpt, fGetFieldValue("location", "id", gsDefault_LOCATION_ID, "NAME"), "myremark")
-        fCryParameterInsertValue(gscryRpt, fDateFormatStandard(gsPOS_DATE), "date_remark")
+        fCryParameterInsertValue(gscryRpt, GetStringFieldValue("location", "id", gsDefault_LOCATION_ID, "NAME"), "myremark")
+        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "POS Log " & fDateTimeNow()
+        frmReportViewer.Text = "POS Log " & GetDateTimeNowSql()
         frmReportViewer.WindowState = FormWindowState.Maximized
         frmReportViewer.ShowDialog()
         frmReportViewer.Dispose()
@@ -227,7 +227,7 @@
     Private Sub fNewEntry()
 
         If gsCASH_COUNT_ID <> 0 Then
-            fMessageboxInfo("Invalid. transaction alreadhy cash count")
+            MessageBoxInfo("Invalid. transaction alreadhy cash count")
             Exit Sub
 
         End If
@@ -242,7 +242,7 @@
     End Sub
     Private Sub fCashCount()
         If gsCASH_COUNT_ID <> 0 Then
-            fMessageboxInfo("Invalid. transaction alreadhy cash count")
+            MessageBoxInfo("Invalid. transaction alreadhy cash count")
             Exit Sub
 
         End If
@@ -261,11 +261,11 @@
     End Sub
     Private Sub fList()
         If gsCASH_COUNT_ID <> 0 Then
-            fMessageboxInfo("Invalid. transaction alreadhy cash count")
+            MessageBoxInfo("Invalid. transaction alreadhy cash count")
             Exit Sub
         End If
         If Val(lblTOTAL.Text) = 0 Then
-            fMessageboxInfo("Transaction not found.")
+            MessageBoxInfo("Transaction not found.")
             Exit Sub
         End If
 
@@ -278,7 +278,7 @@
         If IsVoid = True Then
             fCollect_POSLog()
             fPOS_LOG()
-            lblTOTAL.Text = fNumFormatStandard(gsPOS_TOTAL)
+            lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
             lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
         End If
     End Sub

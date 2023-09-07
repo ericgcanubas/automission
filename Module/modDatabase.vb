@@ -3,25 +3,24 @@ Imports System.Data.Odbc
 
 Module modDatabase
     Public gsErrorMessage As String = $" { vbNewLine } { vbNewLine } Yes = Continue. { vbNewLine } No = Exit Program."
-    Public Function fTransactionCheck(ByVal prID As String, ByVal prTable As String) As Boolean
-        Dim b As Boolean = False
+    Public Function IsTransactionSuccess(ByVal prID As String, ByVal prTable As String) As Boolean
+        Dim ReturnValue As Boolean = False
         Try
-            Dim rd As OdbcDataReader = fReader("Select ID FROM " & prTable & " Where ID ='" & prID & "' Limit 1")
+            Dim rd As OdbcDataReader = SqlReader("Select ID FROM " & prTable & " Where ID ='" & prID & "' Limit 1")
             If rd.Read Then
-                b = True
+                ReturnValue = True
             End If
             rd.Close()
         Catch ex As Exception
 
         End Try
-
-        Return b
+        Return ReturnValue
     End Function
 
-    Public Function fCHECKING_CODE(ByVal prCODE As String, ByVal prTable As String) As String
+    Public Function CheckingCodeReference(ByVal prCODE As String, ByVal prTable As String) As String
         Dim bAlreadyUSed As Boolean = False
         Try
-            Dim rd As OdbcDataReader = fReader("select ID from " & prTable & " where `CODE` = '" & prCODE & "' Limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select ID from " & prTable & " where `CODE` = '" & prCODE & "' Limit 1")
             If rd.Read Then
                 bAlreadyUSed = True
             End If
@@ -32,28 +31,28 @@ Module modDatabase
         If bAlreadyUSed = True Then
             Dim I As Double = Val(prCODE) + 1
             Dim zCODE As String = I.ToString("0000")
-            Return fCHECKING_CODE(zCODE, prTable)
+            Return CheckingCodeReference(zCODE, prTable)
         Else
             Return prCODE
         End If
 
     End Function
-    Public Function fGET_SUM(ByVal sql As String) As Double ' One Field Only
+    Public Function GetSummary(ByVal sql As String) As Double ' One Field Only
         Dim n As Double
         Try
-            Dim rd As OdbcDataReader = fReader(sql)
+            Dim rd As OdbcDataReader = SqlReader(sql)
             If rd.Read Then
-                n = fNumisNULL(rd(0))
+                n = NumIsNull(rd(0))
             End If
             rd.Close()
         Catch ex As Exception
 
-            n = fGET_SUM(sql)
+            n = GetSummary(sql)
         End Try
         Return n
 
     End Function
-    Public Function fGotNullText(ByVal v As String) As String
+    Public Function GotNullText(ByVal v As String) As String
         Try
             If Trim(v) = "" Then
                 Return "NULL"
@@ -64,7 +63,7 @@ Module modDatabase
             Return "NULL"
         End Try
     End Function
-    Public Function fGotNullNumber(ByVal v As Double) As String
+    Public Function GotNullNumber(ByVal v As Double) As String
         Try
             If Trim(v) = 0 Then
                 Return "NULL"
@@ -77,40 +76,48 @@ Module modDatabase
 
     End Function
 
-    Public Function fNullOTherField(ByVal sQuery As String, ByVal sTable As String) As String
+    Public Sub NullOTherField(ByVal Field As String, ByVal sTable As String, ByRef ReturnField As String, ByRef ReturnValue As String)
 
-        Dim xQuiery As String = sQuery
+        Dim Field_ As String = ""
+        Dim Value_ As String = ""
+
         Try
 
-            Dim rd As OdbcDataReader = fReader("DESCRIBE " & sTable)
+            Dim rd As OdbcDataReader = SqlReader("DESCRIBE " & sTable)
             While rd.Read()
-                If sQuery.Contains(rd("Field")) = False Then
-                    If xQuiery = "" Then
-                        xQuiery = rd("Field") & " = NULL"
+                If Field.Contains(rd("Field")) = False Then
+                    If (Field_ = "") Then
+                        Field_ &= Field_ & rd("Field")
+                        Value_ &= Value_ & " NULL "
                     Else
-                        xQuiery = xQuiery & "," & rd("Field") & " = NULL"
+                        Field_ = Field_ & "," & rd("Field")
+                        Value_ &= Value_ & ", NULL "
                     End If
                 End If
             End While
             rd.Close()
-            Return xQuiery
+
+            ReturnField = Field_
+            ReturnValue = Value_
+
         Catch ex As Exception
-            xQuiery = fNullOTherField(sQuery, sTable)
-            Return xQuiery
+            NullOTherField(Field, sTable, ReturnField, ReturnValue)
+
         End Try
 
-    End Function
+    End Sub
 
-    Public Sub fExecutedUsingReading(ByVal c As Control, ByVal sQuery As String)
+
+    Public Sub SqlExecutedUsingReading(ByVal c As Control, ByVal sQuery As String)
 
         Try
-            Using rd As OdbcDataReader = fReader(sQuery)
-                fDisplayField(c, rd)
+            Using rd As OdbcDataReader = SqlReader(sQuery)
+                DisplayFields(c, rd)
             End Using
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
-                fExecutedUsingReading(c, sQuery)
+            If MessageBoxErrorYesNo(ex.Message) = True Then
+                SqlExecutedUsingReading(c, sQuery)
             Else
                 End
             End If
@@ -119,14 +126,15 @@ Module modDatabase
     End Sub
 
 
-    Public Function fDataReader(ByVal sQuery As String) As OdbcDataReader
+    Public Function DataReader(ByVal sQuery As String) As OdbcDataReader
         Try
-            Dim cmd As New OdbcCommand(sQuery, cnn)
-            cmd.CommandTimeout = 999999
+            Dim cmd As New OdbcCommand(sQuery, cnn) With {
+                .CommandTimeout = 999999
+            }
             Return cmd.ExecuteReader
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                Return fDataReader(sQuery)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                Return DataReader(sQuery)
             Else
                 Gmail_ScreenShoot($"System ScreenShoot", $"{gsGmailAddressTo}@gmail.com", ex.Message)
                 End
@@ -134,25 +142,18 @@ Module modDatabase
 
         End Try
     End Function
-    Public Function fReader(ByVal sQuery) As OdbcDataReader
-        'fCursorLoadingOn(True)
-        ' Dim dt As New DataTable
-        'Dim rd As OdbcDataReader = fDataReader(sQuery)
-        'dt.Load(rd)
-        'rd.Close()
-        ' fCursorLoadingOn(False)
-        Return fDataReader(sQuery) 'dt.CreateDataReader
+    Public Function SqlReader(ByVal sQuery) As OdbcDataReader
+
+        Return DataReader(sQuery) 'dt.CreateDataReader
     End Function
-    Public Function fReaderCounting(ByVal sQuery As String, ByRef RowCount As Integer) As OdbcDataReader
-        ' Dim dt As DataTable = New DataTable
-        'Dim rd As OdbcDataReader =
-        Return fDataReader(sQuery)
-        'dt.Load(rd)
-        ' rd.Close()
-        ' RowCount = dt.Rows.Count
-        ' Return dt.CreateDataReader
+    Public Function ReaderCounting(ByVal sQuery As String, ByRef RowCount As Integer) As OdbcDataReader
+        Dim dt As New DataTable
+        Dim rd As OdbcDataReader = DataReader(sQuery)
+        dt.Load(rd)
+        RowCount = dt.Rows.Count
+        Return rd
     End Function
-    Public Sub fExportQuery(ByVal SQL As String)
+    Public Sub ExportQuery(ByVal SQL As String)
 
         If gsDataForwarderIsActive = False Or gsDataForwarderPath = "" Then
             Exit Sub
@@ -166,7 +167,7 @@ Module modDatabase
 
         Dim NumRange As Integer = 0
 
-        Dim fPath As String = Forwarded_CheckiName(file_name, NumRange)
+        Dim fPath As String = ForwardedCheckingName(file_name, NumRange)
 
 
         If NumRange > 8 Then
@@ -176,27 +177,26 @@ Module modDatabase
         ForwardedFilesSave(fPath, SQL)
 
     End Sub
-    Private Function Forwarded_CheckiName(ByVal file_name As String, ByRef r As Integer) As String
+    Private Function ForwardedCheckingName(ByVal file_name As String, ByRef I As Integer) As String
         Dim DirectoryPath As String = gsDataForwarderPath & "\pending"
         Try
 
-            Dim di As IO.DirectoryInfo = New IO.DirectoryInfo(DirectoryPath)
-            If di.Exists = False Then
-                'create pending folder
-                di.Create()
+            Dim FileIO As New IO.DirectoryInfo(DirectoryPath)
+            If FileIO.Exists = False Then
+                FileIO.Create()
             End If
         Catch ex As Exception
 
         End Try
 
-        Dim fPath As String = $"{DirectoryPath}\{file_name}_{r}.txt"
+        Dim StrPath As String = $"{DirectoryPath}\{file_name}_{I}.txt"
 
-        If IO.File.Exists(fPath) = True Then
-            r = r + 1
-            fPath = Forwarded_CheckiName(file_name, r)
+        If IO.File.Exists(StrPath) = True Then
+            I += 1
+            StrPath = ForwardedCheckingName(file_name, I)
         End If
 
-        Return fPath
+        Return StrPath
     End Function
     Private Sub ForwardedFilesSave(ByVal fpath As String, ByVal SQL As String)
 
@@ -205,23 +205,24 @@ Module modDatabase
         afile.Close()
 
     End Sub
-    Public Sub fExecutedOnly(ByVal sQuery As String)
+    Public Sub SqlExecuted(ByVal sQuery As String)
         If sQuery = "" Then Exit Sub
 
         Try
-            fCursorLoadingOn(True)
-            Dim cmd As New OdbcCommand(sQuery, cnn)
-            cmd.CommandTimeout = 999999
+            CursorLoadingOn(True)
+            Dim cmd As New OdbcCommand(sQuery, cnn) With {
+                .CommandTimeout = 999999
+            }
             cmd.ExecuteNonQuery()
-            fCursorLoadingOn(False)
-            fExportQuery(sQuery)
+            CursorLoadingOn(False)
+            ExportQuery(sQuery)
         Catch ex As Exception
 
 
 
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
 
-                fExecutedOnly(sQuery)
+                SqlExecuted(sQuery)
             Else
                 Gmail_ScreenShoot($"BMS ScreenShoot", $"{gsGmailAddressTo}@gmail.com", ex.Message)
                 End
@@ -230,20 +231,20 @@ Module modDatabase
         End Try
 
     End Sub
-    Public Function fGetFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As String
+    Public Function GetStringFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As String
 
 
         Dim zValue As String = ""
         Try
-            Dim rd As OdbcDataReader = fReader("select " & xGet_Value & " from " & xTable & " where " & xCondition & " = '" & xValue & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition & " = '" & xValue & "' limit 1")
             If rd.Read Then
-                zValue = fTextisNULL(rd(xGet_Value))
+                zValue = TextIsNull(rd(xGet_Value))
             End If
             rd.Close()
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = fGetFieldValue(xTable, xCondition, xValue, xGet_Value)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                zValue = GetStringFieldValue(xTable, xCondition, xValue, xGet_Value)
             Else
                 End
             End If
@@ -251,110 +252,110 @@ Module modDatabase
         Return zValue
     End Function
 
-    Public Function fDateFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As Date
+    Public Function GetDateFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As Date
 
 
         Dim zValue As Date = Nothing
         Try
-            Dim rd As OdbcDataReader = fReader("select " & xGet_Value & " from " & xTable & " where " & xCondition & " = '" & xValue & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition & " = '" & xValue & "' limit 1")
             If rd.Read Then
                 zValue = CDate(rd(xGet_Value))
             End If
             rd.Close()
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = fDateFieldValue(xTable, xCondition, xValue, xGet_Value)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                zValue = GetDateFieldValue(xTable, xCondition, xValue, xGet_Value)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function fGetFieldValueByTwoCondtion(ByVal xTable As String, ByVal xCondition1 As String, ByVal xValue1 As String, ByVal xCondition2 As String, ByVal xValue2 As String, ByVal xGet_Value As String) As String
+    Public Function GetStringFieldValueByTwoCondtion(ByVal xTable As String, ByVal xCondition1 As String, ByVal xValue1 As String, ByVal xCondition2 As String, ByVal xValue2 As String, ByVal xGet_Value As String) As String
         Dim zValue As String = ""
         Try
-            Dim rd As OdbcDataReader = fReader("select " & xGet_Value & " from " & xTable & " where " & xCondition1 & " = '" & xValue1 & "' and " & xCondition2 & " = '" & xValue2 & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition1 & " = '" & xValue1 & "' and " & xCondition2 & " = '" & xValue2 & "' limit 1")
             If rd.Read Then
-                zValue = fTextisNULL(rd(xGet_Value))
+                zValue = TextIsNull(rd(xGet_Value))
             End If
             rd.Close()
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = fGetFieldValueByTwoCondtion(xTable, xCondition1, xValue1, xCondition2, xValue2, xGet_Value)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                zValue = GetStringFieldValueByTwoCondtion(xTable, xCondition1, xValue1, xCondition2, xValue2, xGet_Value)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function fNumFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As Double
+    Public Function GetNumberFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As Double
         Dim zValue As Double = 0
         Try
-            Dim rd As OdbcDataReader = fReader("select " & xGet_Value & " from " & xTable & " where " & xCondition & " = '" & xValue & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition & " = '" & xValue & "' limit 1")
             If rd.Read Then
-                zValue = fNumisNULL(rd(xGet_Value))
+                zValue = NumIsNull(rd(xGet_Value))
             End If
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = fNumFieldValue(xTable, xCondition, xValue, xGet_Value)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                zValue = GetNumberFieldValue(xTable, xCondition, xValue, xGet_Value)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function fGetFieldValueOneReturn(ByVal sQuery As String) As String
+    Public Function GetStringFieldValueOneReturn(ByVal sQuery As String) As String
         Dim zValue As String = ""
         Try
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                zValue = fTextisNULL(rd(0))
+                zValue = TextIsNull(rd(0))
             End If
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = fGetFieldValueOneReturn(sQuery)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                zValue = GetStringFieldValueOneReturn(sQuery)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function fNumFieldValueOneReturn(ByVal sQuery As String) As Double
+    Public Function GetNumberFieldValueOneReturn(ByVal sQuery As String) As Double
         Dim zValue As Double = 0
         Try
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                zValue = fNumisNULL(rd(0))
+                zValue = NumIsNull(rd(0))
             End If
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = fNumFieldValueOneReturn(sQuery)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                zValue = GetNumberFieldValueOneReturn(sQuery)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function fNumFieldValueByTwoCondition(ByVal xTable As String, ByVal xCondition1 As String, ByVal xValue1 As String, ByVal xCondition2 As String, ByVal xValue2 As String, ByVal xGet_Value As String) As Double
+    Public Function GetNumberFieldValueByTwoCondition(ByVal xTable As String, ByVal xCondition1 As String, ByVal xValue1 As String, ByVal xCondition2 As String, ByVal xValue2 As String, ByVal xGet_Value As String) As Double
 
 
         Dim zValue As Double = 0
         Try
 
-            Dim rd As OdbcDataReader = fReader("select " & xGet_Value & " from " & xTable & " where " & xCondition1 & " = '" & xValue1 & "' and " & xCondition2 & " = '" & xValue2 & "'  limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition1 & " = '" & xValue1 & "' and " & xCondition2 & " = '" & xValue2 & "'  limit 1")
             If rd.Read Then
-                zValue = fNumisNULL(rd(xGet_Value))
+                zValue = NumIsNull(rd(xGet_Value))
             End If
             rd.Close()
             Return zValue
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = fNumFieldValueByTwoCondition(xTable, xCondition1, xValue1, xCondition2, xValue2, xGet_Value)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                zValue = GetNumberFieldValueByTwoCondition(xTable, xCondition1, xValue1, xCondition2, xValue2, xGet_Value)
             Else
                 End
             End If
@@ -362,8 +363,8 @@ Module modDatabase
         End Try
         Return zValue
     End Function
-    Public Sub fDataGridView(ByVal dgv As DataGridView, ByVal xSQL As String)
-        dgvStyleColor(dgv)
+    Public Sub LoadDataGridView(ByVal dgv As DataGridView, ByVal xSQL As String)
+        ViewStyleColor(dgv)
         Dim iSelected As Integer = 0
         Dim iCountBofore As Integer = dgv.Rows.Count
         Dim iCountAfter As Integer = 0
@@ -387,8 +388,8 @@ Module modDatabase
             sqlDataAdapter.Update(dt)
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                fDataGridView(dgv, xSQL)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                LoadDataGridView(dgv, xSQL)
             Else
                 End
             End If
@@ -399,8 +400,8 @@ Module modDatabase
 
 
     End Sub
-    Public Sub fDataGridView_Standard(ByVal dgv As DataGridView, ByVal xSQL As String)
-        dgvStyleColor(dgv)
+    Public Sub LoadDataGridViewStandard(ByVal dgv As DataGridView, ByVal xSQL As String)
+        ViewStyleColor(dgv)
         Dim iSelected As Integer = 0
         Dim iCountBofore As Integer = dgv.Rows.Count
         Dim iCountAfter As Integer = 0
@@ -424,8 +425,8 @@ Module modDatabase
             sqlDataAdapter.Update(dt)
             ' cn.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                fDataGridView_Standard(dgv, xSQL)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                LoadDataGridViewStandard(dgv, xSQL)
             Else
                 End
             End If
@@ -437,7 +438,7 @@ Module modDatabase
 
 
     End Sub
-    Public Sub fPrimarySetup(ByVal dgv As DataGridView)
+    Public Sub ViewPrimarySetup(ByVal dgv As DataGridView)
         With dgv
             .AllowUserToAddRows = False
             .AllowUserToDeleteRows = False
@@ -451,9 +452,9 @@ Module modDatabase
 
 
     End Sub
-    Public Sub fDataGridView_Binding(ByVal dgv As DataGridView, ByVal xSQL As String, ByRef Ref_bSource As BindingSource)
-        fPrimarySetup(dgv)
-        dgvStyleColor(dgv)
+    Public Sub LoadDataGridViewBinding(ByVal dgv As DataGridView, ByVal xSQL As String, ByRef Ref_bSource As BindingSource)
+        ViewPrimarySetup(dgv)
+        ViewStyleColor(dgv)
 
         Dim sqlDataAdapter As New OdbcDataAdapter
         Dim dt As New DataTable
@@ -467,8 +468,8 @@ Module modDatabase
             dgv.DataSource = bSource
             sqlDataAdapter.Update(dt)
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                fDataGridView_Binding(dgv, xSQL, Ref_bSource)
+            If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
+                LoadDataGridViewBinding(dgv, xSQL, Ref_bSource)
             Else
                 End
             End If
@@ -476,7 +477,7 @@ Module modDatabase
 
 
     End Sub
-    Public Sub fTSComboBox(ByVal cmb As ToolStripComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
+    Public Sub TSComboBoxLoad(ByVal cmb As ToolStripComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
         Try
             Dim StrSql As String = sqlQuery
             Dim cmd As New OdbcCommand(StrSql, cnn)
@@ -499,15 +500,15 @@ Module modDatabase
                 End If
             End With
         Catch ex As Exception
-            fTSComboBox(cmb, sqlQuery, xValue, xDisplay)
+            TSComboBoxLoad(cmb, sqlQuery, xValue, xDisplay)
         End Try
 
     End Sub
-    Public Function This_cmd_1(ByVal StrSql As String) As OdbcCommand
+    Public Function CommandObject(ByVal StrSql As String) As OdbcCommand
         Dim cmd As New OdbcCommand(StrSql, cnn)
         Return cmd
     End Function
-    Public Sub This_cmd_2(ByVal cmd As OdbcCommand, ByVal cmb As ComboBox, ByVal xValue As String, ByVal xDisplay As String)
+    Public Sub CommandObjectComboBoxLoad(ByVal cmd As OdbcCommand, ByVal cmb As ComboBox, ByVal xValue As String, ByVal xDisplay As String)
         Try
 
             Dim da As New OdbcDataAdapter(cmd)
@@ -532,15 +533,15 @@ Module modDatabase
             End If
             If cmb.DropDownStyle <> ComboBoxStyle.Simple Then
 
-                AddHandler cmb.MouseClick, AddressOf fAutoDropDown
-                AddHandler cmb.PreviewKeyDown, AddressOf fEnterToTabDropDown
+                AddHandler cmb.MouseClick, AddressOf AutoDropDownComboBox
+                AddHandler cmb.PreviewKeyDown, AddressOf EnterToTabDropDown
             End If
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
 
     End Sub
-    Public Sub fComboBox(ByVal cmb As ComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
+    Public Sub ComboBoxLoad(ByVal cmb As ComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
         Try
             fDoEvents()
             Dim StrSql As String = sqlQuery
@@ -567,34 +568,27 @@ Module modDatabase
             End If
             If cmb.DropDownStyle <> ComboBoxStyle.Simple Then
 
-                AddHandler cmb.MouseClick, AddressOf fAutoDropDown
-                ' AddHandler cmb.PreviewKeyDown, AddressOf fEnterToTabDropDown
+                AddHandler cmb.MouseClick, AddressOf AutoDropDownComboBox
+                ' AddHandler cmb.PreviewKeyDown, AddressOf EnterToTabDropDown
             End If
 
 
         Catch ex As Exception
-            fMessageBoxErrorYesNo(ex.Message)
+            MessageBoxErrorYesNo(ex.Message)
         End Try
 
     End Sub
 
-    Private Sub fAutoDropDown(ByVal sender As Object, ByVal e As MouseEventArgs)
+    Private Sub AutoDropDownComboBox(ByVal sender As Object, ByVal e As MouseEventArgs)
         Dim cmb As ComboBox = DirectCast(sender, ComboBox)
-
         cmb.DroppedDown = True
-
-
     End Sub
-    Private Sub fEnterToTabDropDown(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs)
+    Private Sub EnterToTabDropDown(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs)
         Dim cmb As ComboBox = DirectCast(sender, ComboBox)
         Dim getForm As Form = cmb.FindForm
         If e.KeyCode = Keys.Enter Then
-
-
             getForm.SelectNextControl(cmb, True, True, True, True)
-            'SendKeys.Send("{TAB}")
-
-
+            'SendKeys.Send("{TAB}"
         Else
             If cmb.CausesValidation = True Then
                 If cmb.Items.Count <> 0 Then
@@ -606,7 +600,7 @@ Module modDatabase
         End If
 
     End Sub
-    Private Sub fEnterToTabDropDownUP(ByVal sender As Object, ByVal e As KeyEventArgs)
+    Private Sub EnterToTabDropDownUP(ByVal sender As Object, ByVal e As KeyEventArgs)
 
         Dim cmb As ComboBox = DirectCast(sender, ComboBox)
 
@@ -619,22 +613,22 @@ Module modDatabase
 
 
     End Sub
-    Public Function fText_Apostrophe(ByVal Str As String) As String
+    Public Function TextApostrophe(ByVal Str As String) As String
         Return Str.Replace("'", "`")
     End Function
-    Public Function fDateisNULL(ByVal EX As Object) As String
+    Public Function DateIsNull(ByVal EX As Object) As String
         Try
             If IsDBNull(EX) = True Then
                 Return ""
             Else
-                Return CDate(fDateFormatMYSQL(EX))
+                Return CDate(DateFormatMySql(EX))
             End If
         Catch ex1 As Exception
             Return ""
         End Try
 
     End Function
-    Public Function fTextisNULL(ByVal EX As Object) As String
+    Public Function TextIsNull(ByVal EX As Object) As String
         Try
             If IsDBNull(EX) = True Then
                 Return ""
@@ -646,7 +640,7 @@ Module modDatabase
         End Try
 
     End Function
-    Public Function fNumisNULL(ByVal ex As Object) As Double
+    Public Function NumIsNull(ByVal ex As Object) As Double
         Try
             If IsDBNull(ex) = True Then
                 Return 0
@@ -660,36 +654,36 @@ Module modDatabase
         End Try
     End Function
 
-    Public Function fGetMaxField(ByVal prField As String, ByVal prTable As String) As Double
+    Public Function GetMaxField(ByVal prField As String, ByVal prTable As String) As Double
         Dim i As Double = 0
         Try
-            Dim rd As OdbcDataReader = fReader($"Select  MAX(CAST({prField} AS UNSIGNED)) As T From `{prTable}`")
+            Dim rd As OdbcDataReader = SqlReader($"Select  MAX(CAST({prField} AS UNSIGNED)) As T From `{prTable}`")
             If rd.Read Then
-                i = fNumisNULL(rd("T")) + 1
+                i = NumIsNull(rd("T")) + 1
             Else
                 i = 1
             End If
             rd.Close()
         Catch ex As Exception
-            i = fGetMaxField(prField, prTable)
+            i = GetMaxField(prField, prTable)
         End Try
         Return i
     End Function
-    Public Function fGetMaxField_LINE(ByVal prField As String, ByVal prTable As String, ByVal prCondition As String, ByVal prValue As String) As String
+    Public Function GetMaxFieldLine(ByVal prField As String, ByVal prTable As String, ByVal prCondition As String, ByVal prValue As String) As String
         Dim i As Double = 0
         Try
-            Dim rd As OdbcDataReader = fReader("Select  MAX(CAST(" & prField & " AS UNSIGNED)) As T From " & prTable & " Where " & prCondition & "='" & prValue & "'")
+            Dim rd As OdbcDataReader = SqlReader("Select  MAX(CAST(" & prField & " AS UNSIGNED)) As T From " & prTable & " Where " & prCondition & "='" & prValue & "'")
             If rd.Read Then
-                i = fNumisNULL(rd("T"))
+                i = NumIsNull(rd("T"))
             End If
             rd.Close()
         Catch ex As Exception
-            i = fGetMaxField_LINE(prField, prTable, prCondition, prValue)
+            i = GetMaxFieldLine(prField, prTable, prCondition, prValue)
         End Try
         Return i + 1
 
     End Function
-    Public Sub fCursorLoadingOn(ByVal bActive As Boolean)
+    Public Sub CursorLoadingOn(ByVal bActive As Boolean)
 
         If bActive = True Then
             Cursor.Current = Cursors.WaitCursor
@@ -699,55 +693,51 @@ Module modDatabase
         End If
 
     End Sub
-    Public Function fNEXT_CODE_Preview(ByVal prTableName As String, ByVal prLocation_ID As Integer) As String
+    Public Function NextCodePreview(ByVal prTableName As String, ByVal prLocation_ID As Integer) As String
         Dim sValue As String = ""
-
-
         If gsIncRefNoByLocation = True Then
             'check if have it
             Try
 
 
-                Dim rd As OdbcDataReader = fReader($"SELECT l.CODE,lr.SYMBOL_CODE,lr.NEXT_CODE,lr.DIGIT_CODE FROM location_reference as lr INNER JOIN location as l ON lr.LOCATION_ID = l.`ID` WHERE lr.LOCATION_ID = '{prLocation_ID}' and lr.TABLE_NAME = '{prTableName}' limit 1")
+                Dim rd As OdbcDataReader = SqlReader($"SELECT l.CODE,lr.SYMBOL_CODE,lr.NEXT_CODE,lr.DIGIT_CODE FROM location_reference as lr INNER JOIN location as l ON lr.LOCATION_ID = l.`ID` WHERE lr.LOCATION_ID = '{prLocation_ID}' and lr.TABLE_NAME = '{prTableName}' limit 1")
                 If rd.Read Then
-                    Dim L As String = fTextisNULL(rd("CODE"))
-                    Dim S As String = fTextisNULL(rd("SYMBOL_CODE"))
-                    Dim D As Integer = fNumisNULL(rd("DIGIT_CODE"))
-                    Dim I As Double = fNumisNULL(rd("NEXT_CODE"))
+                    Dim L As String = TextIsNull(rd("CODE"))
+                    Dim S As String = TextIsNull(rd("SYMBOL_CODE"))
+                    Dim D As Integer = NumIsNull(rd("DIGIT_CODE"))
+                    Dim I As Double = NumIsNull(rd("NEXT_CODE"))
 
                     rd.Close()
                     Dim get_digit As String = ""
                     For r As Integer = 1 To D
-                        get_digit = get_digit & "0"
+                        get_digit &= "0"
                     Next
-                    ' return value = LOC_CODE + SYMBOL_CODE + (VALUE + DIGIT)
+
                     sValue = L & S & I.ToString(get_digit)
-                    ' fExecutedOnly($"UPDATE location_reference SET NEXT_CODE='{I + 1}' WHERE LOCATION_ID = '{prLocation_ID}' and TABLE_NAME = '{prTableName}' limit 1")
 
                 Else
                     rd.Close()
-                    'fExecutedOnly($"INSERT INTO location_reference SET SYMBOL_CODE='{fGetFieldValue("object_type_map", "table_name", prTableName, "SYMBOL_CODE") }',LOCATION_ID='{prLocation_ID}',TABLE_NAME='{prTableName.ToUpper}',NEXT_CODE='1',DIGIT_CODE='5' ")
 
-                    Dim rd1 As OdbcDataReader = fReader("select SYMBOL_CODE from object_type_map where table_name = '" & prTableName & "' limit 1")
+                    Dim rd1 As OdbcDataReader = SqlReader("select SYMBOL_CODE from object_type_map where table_name = '" & prTableName & "' limit 1")
                     If rd1.Read Then
-                        Dim L As String = fTextisNULL(fGetFieldValue("location", "id", prLocation_ID, "CODE"))
-                        Dim S As String = fTextisNULL(rd1("SYMBOL_CODE"))
+                        Dim L As String = TextIsNull(GetStringFieldValue("location", "id", prLocation_ID, "CODE"))
+                        Dim S As String = TextIsNull(rd1("SYMBOL_CODE"))
                         Dim D As Integer = 5
                         Dim I As Double = 1
 
                         Dim get_digit As String = ""
                         For r As Integer = 1 To D
-                            get_digit = get_digit & "0"
+                            get_digit &= "0"
                         Next
                         sValue = L & S & I.ToString(get_digit)
                     End If
                     rd1.Close()
-                    ' return value = LOC_CODE + SYMBOL_CODE + (VALUE + DIGIT)
+
 
                 End If
             Catch ex As Exception
-                If fMessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = fNEXT_CODE_Preview(prTableName, prLocation_ID)
+                If MessageBoxErrorYesNo(ex.Message) = True Then
+                    sValue = NextCodePreview(prTableName, prLocation_ID)
                 Else
                     End
                 End If
@@ -757,28 +747,27 @@ Module modDatabase
 
 
             Try
-                Dim rd As OdbcDataReader = fReader("select SYMBOL_CODE,NEXT_CODE,DIGIT_CODE,USE_YEAR from object_type_map where table_name = '" & prTableName & "' limit 1")
+                Dim rd As OdbcDataReader = SqlReader("select SYMBOL_CODE,NEXT_CODE,DIGIT_CODE,USE_YEAR from object_type_map where table_name = '" & prTableName & "' limit 1")
                 If rd.Read Then
-                    Dim Y As Boolean = fNumisNULL(rd("USE_YEAR"))
-                    Dim S As String = fTextisNULL(rd("SYMBOL_CODE"))
-                    Dim D As Integer = fNumisNULL(rd("DIGIT_CODE"))
-                    Dim I As Double = fNumisNULL(rd("NEXT_CODE"))
+                    Dim Y As Boolean = NumIsNull(rd("USE_YEAR"))
+                    Dim S As String = TextIsNull(rd("SYMBOL_CODE"))
+                    Dim D As Integer = NumIsNull(rd("DIGIT_CODE"))
+                    Dim I As Double = NumIsNull(rd("NEXT_CODE"))
 
                     rd.Close()
                     Dim get_digit As String = ""
                     For r As Integer = 1 To D
-                        get_digit = get_digit & "0"
+                        get_digit &= "0"
                     Next
-                    ' return value = SYMBOL + YEAR + (VALUE + DIGIT)
-                    sValue = S & IIf(Y = True, Date.Now.Year, "") & I.ToString(get_digit)
 
+                    sValue = S & IIf(Y = True, Date.Now.Year, "") & I.ToString(get_digit)
                     Dim NEXT_CODE As Integer = I + 1
-                    ' fExecutedOnly("UPDATE object_type_map set NEXT_CODE ='" & NEXT_CODE & "' where table_name = '" & prTableName & "' limit 1 ")
+
                 End If
 
             Catch ex As Exception
-                If fMessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = fNEXT_CODE_Preview(prTableName, prLocation_ID)
+                If MessageBoxErrorYesNo(ex.Message) = True Then
+                    sValue = NextCodePreview(prTableName, prLocation_ID)
                 Else
                     End
                 End If
@@ -789,19 +778,18 @@ Module modDatabase
         Return sValue
     End Function
 
-    Public Function fNEXT_ITEM_CODE_GET(ByVal TYPE As Integer) As String
+    Public Function GetNextItemCode(ByVal TYPE As Integer) As String
         Dim sValue As String = ""
-        Dim rd As OdbcDataReader = fReader($"select * FROM ITEM_TYPE_MAP where ID = '{TYPE}' LIMIT 1;")
+        Dim rd As OdbcDataReader = SqlReader($"select * FROM ITEM_TYPE_MAP where ID = '{TYPE}' LIMIT 1;")
         If rd.Read Then
-
-            Dim L As String = fTextisNULL(rd("FIRST_CHARACTER"))
-            Dim D As Integer = fNumisNULL(rd("DIGIT_COUNT"))
-            Dim I As Double = fNumisNULL(rd("NEXT_ID"))
+            Dim L As String = TextIsNull(rd("FIRST_CHARACTER"))
+            Dim D As Integer = NumIsNull(rd("DIGIT_COUNT"))
+            Dim I As Double = NumIsNull(rd("NEXT_ID"))
 
             rd.Close()
             Dim get_digit As String = ""
             For r As Integer = 1 To D
-                get_digit = get_digit & "0"
+                get_digit &= "0"
             Next
             sValue = L & I.ToString(get_digit)
         End If
@@ -809,63 +797,57 @@ Module modDatabase
         Return sValue
     End Function
 
-    Public Sub fNEXT_ITEM_CODE_SET(ByVal TYPE As Integer, ByVal THIS_CODE As String)
-        Dim sValue As String = ""
-        Dim rd As OdbcDataReader = fReader($"select * FROM ITEM_TYPE_MAP Where ID = '{TYPE}' LIMIT 1;")
+    Public Sub SetNextItemCode(ByVal TYPE As Integer, ByVal THIS_CODE As String)
+
+        Dim rd As OdbcDataReader = SqlReader($"select * FROM ITEM_TYPE_MAP Where ID = '{TYPE}' LIMIT 1;")
         If rd.Read Then
 
-            Dim L As String = fTextisNULL(rd("FIRST_CHARACTER"))
-            Dim D As Integer = fNumisNULL(rd("DIGIT_COUNT"))
-            Dim I As Double = fNumisNULL(rd("NEXT_ID"))
+            Dim L As String = TextIsNull(rd("FIRST_CHARACTER"))
+            Dim D As Integer = NumIsNull(rd("DIGIT_COUNT"))
+            Dim I As Double = NumIsNull(rd("NEXT_ID"))
 
-            rd.Close()
-            Dim get_digit As String = ""
+            Dim GetDigit As String = ""
             For r As Integer = 1 To D
-                get_digit = get_digit & "0"
+                GetDigit &= "0"
             Next
-            sValue = L & I.ToString(get_digit)
-            If sValue = THIS_CODE Then
-                fExecutedOnly($"UPDATE item_type_map SET NEXT_ID='{I + 1}' WHERE ID = '{TYPE}' limit 1")
+            Dim ReturnValue As String = L & I.ToString(GetDigit)
+            If ReturnValue = THIS_CODE Then
+                SqlExecuted($"UPDATE item_type_map SET NEXT_ID='{I + 1}' WHERE ID = '{TYPE}'")
             End If
         End If
         rd.Close()
 
     End Sub
 
-    Public Function fNEXT_CODE(ByVal prTableName As String, ByVal prLocation_ID As Integer) As String
-        Dim sValue As String = ""
-
-
+    Public Function GetNextCode(ByVal prTableName As String, ByVal prLocation_ID As Integer) As String
+        Dim ReturnValue As String = ""
         If gsIncRefNoByLocation = True Then
-            'check if have it
             Try
 
 
-                Dim rd As OdbcDataReader = fReader($"SELECT l.CODE,lr.SYMBOL_CODE,lr.NEXT_CODE,lr.DIGIT_CODE FROM location_reference as lr INNER JOIN location as l ON lr.LOCATION_ID = l.`ID` WHERE lr.LOCATION_ID = '{prLocation_ID}' and lr.TABLE_NAME = '{prTableName}' limit 1")
+                Dim rd As OdbcDataReader = SqlReader($"SELECT l.CODE,lr.SYMBOL_CODE,lr.NEXT_CODE,lr.DIGIT_CODE FROM location_reference as lr INNER JOIN location as l ON lr.LOCATION_ID = l.`ID` WHERE lr.LOCATION_ID = '{prLocation_ID}' and lr.TABLE_NAME = '{prTableName}' limit 1")
                 If rd.Read Then
-                    Dim L As String = fTextisNULL(rd("CODE"))
-                    Dim S As String = fTextisNULL(rd("SYMBOL_CODE"))
-                    Dim D As Integer = fNumisNULL(rd("DIGIT_CODE"))
-                    Dim I As Double = fNumisNULL(rd("NEXT_CODE"))
-
-                    rd.Close()
-                    Dim get_digit As String = ""
+                    Dim L As String = TextIsNull(rd("CODE"))
+                    Dim S As String = TextIsNull(rd("SYMBOL_CODE"))
+                    Dim D As Integer = NumIsNull(rd("DIGIT_CODE"))
+                    Dim I As Double = NumIsNull(rd("NEXT_CODE"))
+                    Dim GetDigit As String = ""
                     For r As Integer = 1 To D
-                        get_digit = get_digit & "0"
+                        GetDigit &= "0"
                     Next
-                    ' return value = LOC_CODE + SYMBOL_CODE + (VALUE + DIGIT)
-                    sValue = L & S & I.ToString(get_digit)
-                    fExecutedOnly($"UPDATE location_reference SET NEXT_CODE='{I + 1}' WHERE LOCATION_ID = '{prLocation_ID}' and TABLE_NAME = '{prTableName}' limit 1")
+
+                    ReturnValue = L & S & I.ToString(GetDigit)
+                    SqlExecuted($"UPDATE location_reference SET NEXT_CODE='{I + 1}' WHERE LOCATION_ID = '{prLocation_ID}' and TABLE_NAME = '{prTableName}' limit 1")
 
                 Else
-                    rd.Close()
-                    fExecutedOnly($"INSERT INTO location_reference SET SYMBOL_CODE='{fGetFieldValue("object_type_map", "table_name", prTableName, "SYMBOL_CODE") }',LOCATION_ID='{prLocation_ID}',TABLE_NAME='{prTableName.ToUpper}',NEXT_CODE='1',DIGIT_CODE='5' ")
 
-                    sValue = fNEXT_CODE(prTableName, prLocation_ID)
+                    SqlExecuted($"INSERT INTO location_reference SET SYMBOL_CODE='{GetStringFieldValue("object_type_map", "table_name", prTableName, "SYMBOL_CODE") }',LOCATION_ID='{prLocation_ID}',TABLE_NAME='{prTableName.ToUpper}',NEXT_CODE='1',DIGIT_CODE='5' ")
+                    ReturnValue = GetNextCode(prTableName, prLocation_ID)
                 End If
+                rd.Close()
             Catch ex As Exception
-                If fMessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = fNEXT_CODE(prTableName, prLocation_ID)
+                If MessageBoxErrorYesNo(ex.Message) = True Then
+                    ReturnValue = GetNextCode(prTableName, prLocation_ID)
                 Else
                     End
                 End If
@@ -874,28 +856,28 @@ Module modDatabase
 
 
             Try
-                Dim rd As OdbcDataReader = fReader("select SYMBOL_CODE,NEXT_CODE,DIGIT_CODE,USE_YEAR from object_type_map where table_name = '" & prTableName & "' limit 1")
+                Dim rd As OdbcDataReader = SqlReader("select SYMBOL_CODE,NEXT_CODE,DIGIT_CODE,USE_YEAR from object_type_map where table_name = '" & prTableName & "' limit 1")
                 If rd.Read Then
-                    Dim Y As Boolean = fNumisNULL(rd("USE_YEAR"))
-                    Dim S As String = fTextisNULL(rd("SYMBOL_CODE"))
-                    Dim D As Integer = fNumisNULL(rd("DIGIT_CODE"))
-                    Dim I As Double = fNumisNULL(rd("NEXT_CODE"))
+                    Dim Y As Boolean = NumIsNull(rd("USE_YEAR"))
+                    Dim S As String = TextIsNull(rd("SYMBOL_CODE"))
+                    Dim D As Integer = NumIsNull(rd("DIGIT_CODE"))
+                    Dim I As Double = NumIsNull(rd("NEXT_CODE"))
 
-                    rd.Close()
+
                     Dim get_digit As String = ""
                     For r As Integer = 1 To D
-                        get_digit = get_digit & "0"
+                        get_digit &= "0"
                     Next
-                    ' return value = SYMBOL + YEAR + (VALUE + DIGIT)
-                    sValue = S & IIf(Y = True, Date.Now.Year, "") & I.ToString(get_digit)
+
+                    ReturnValue = S & IIf(Y = True, Date.Now.Year, "") & I.ToString(get_digit)
 
                     Dim NEXT_CODE As Integer = I + 1
-                    fExecutedOnly("UPDATE object_type_map set NEXT_CODE ='" & NEXT_CODE & "' where table_name = '" & prTableName & "' limit 1 ")
+                    SqlExecuted("UPDATE object_type_map set NEXT_CODE ='" & NEXT_CODE & "' where table_name = '" & prTableName & "'")
                 End If
-
+                rd.Close()
             Catch ex As Exception
-                If fMessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = fNEXT_CODE(prTableName, prLocation_ID)
+                If MessageBoxErrorYesNo(ex.Message) = True Then
+                    ReturnValue = GetNextCode(prTableName, prLocation_ID)
                 Else
                     End
                 End If
@@ -903,7 +885,7 @@ Module modDatabase
 
         End If
 
-        Return sValue
+        Return ReturnValue
     End Function
 
 End Module

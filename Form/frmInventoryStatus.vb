@@ -9,16 +9,16 @@
         If Me.AccessibleName = "A" Then
             Me.Close()
         Else
-            fCloseForm(Me)
+            ClosedForm(Me)
         End If
     End Sub
     Private Sub fRefreshLocation()
 
-        fTSComboBox(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
+        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
 
     End Sub
     Private Sub frmInventoryStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
-        fBackGroundImageStyle(Me)
+
         fRefreshLocation()
         Dim loc_value As String = gsDefault_LOCATION_ID
         tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "*", loc_value)
@@ -48,7 +48,7 @@
 
             End If
 
-            fDataGridView_Binding(dgvItem, $"Select * from (SELECT 
+            LoadDataGridViewBinding(dgvItem, $"Select * from (SELECT 
   i.ID,
   i.CODE AS `Code`,
   i.`PURCHASE_DESCRIPTION` AS `Purchase Description`,
@@ -69,11 +69,11 @@ where i.inactive = '0' and i.type ='0') as  p WHERE p.On_Hand > -999999999999999
 
             With dgvItem
                 .Columns(0).Visible = False
-                ' fDataGrid_Column(dgvItem, 4)
+                ' ViewColumn(dgvItem, 4)
             End With
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fStatusLoad()
             Else
                 End

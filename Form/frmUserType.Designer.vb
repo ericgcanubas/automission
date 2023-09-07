@@ -47,15 +47,16 @@ Partial Class frmUserType
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.ForeColor = System.Drawing.Color.Black
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(358, 45)
+        Me.Panel1.Size = New System.Drawing.Size(371, 55)
         Me.Panel1.TabIndex = 63
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(8, 10)
+        Me.Label1.Location = New System.Drawing.Point(9, 12)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(164, 25)
         Me.Label1.TabIndex = 0
@@ -66,9 +67,9 @@ Partial Class frmUserType
         Me.ToolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ToolStrip1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel2})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 45)
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 55)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(358, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(371, 25)
         Me.ToolStrip1.TabIndex = 65
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -82,91 +83,97 @@ Partial Class frmUserType
         '
         Me.cmbUserType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbUserType.FormattingEnabled = True
-        Me.cmbUserType.Location = New System.Drawing.Point(169, 84)
+        Me.cmbUserType.Location = New System.Drawing.Point(147, 75)
+        Me.cmbUserType.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbUserType.Name = "cmbUserType"
-        Me.cmbUserType.Size = New System.Drawing.Size(184, 21)
+        Me.cmbUserType.Size = New System.Drawing.Size(210, 24)
         Me.cmbUserType.TabIndex = 66
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 87)
+        Me.Label2.Location = New System.Drawing.Point(11, 79)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(64, 13)
+        Me.Label2.Size = New System.Drawing.Size(73, 16)
         Me.Label2.TabIndex = 67
         Me.Label2.Text = "User Type"
         '
         'txtOLD_PASSWORD
         '
-        Me.txtOLD_PASSWORD.Location = New System.Drawing.Point(169, 122)
+        Me.txtOLD_PASSWORD.Location = New System.Drawing.Point(147, 108)
+        Me.txtOLD_PASSWORD.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtOLD_PASSWORD.Name = "txtOLD_PASSWORD"
-        Me.txtOLD_PASSWORD.Size = New System.Drawing.Size(184, 21)
+        Me.txtOLD_PASSWORD.Size = New System.Drawing.Size(210, 23)
         Me.txtOLD_PASSWORD.TabIndex = 68
         '
         'txtNEW_PASSWORD
         '
-        Me.txtNEW_PASSWORD.Location = New System.Drawing.Point(169, 150)
+        Me.txtNEW_PASSWORD.Location = New System.Drawing.Point(147, 138)
+        Me.txtNEW_PASSWORD.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNEW_PASSWORD.Name = "txtNEW_PASSWORD"
-        Me.txtNEW_PASSWORD.Size = New System.Drawing.Size(184, 21)
+        Me.txtNEW_PASSWORD.Size = New System.Drawing.Size(210, 23)
         Me.txtNEW_PASSWORD.TabIndex = 69
         '
         'txtCONFIRM_PASSWORD
         '
-        Me.txtCONFIRM_PASSWORD.Location = New System.Drawing.Point(169, 178)
+        Me.txtCONFIRM_PASSWORD.Location = New System.Drawing.Point(147, 167)
+        Me.txtCONFIRM_PASSWORD.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCONFIRM_PASSWORD.Name = "txtCONFIRM_PASSWORD"
-        Me.txtCONFIRM_PASSWORD.Size = New System.Drawing.Size(184, 21)
+        Me.txtCONFIRM_PASSWORD.Size = New System.Drawing.Size(210, 23)
         Me.txtCONFIRM_PASSWORD.TabIndex = 70
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 125)
+        Me.Label3.Location = New System.Drawing.Point(11, 112)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(84, 13)
+        Me.Label3.Size = New System.Drawing.Size(95, 16)
         Me.Label3.TabIndex = 71
         Me.Label3.Text = "Old Password"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(10, 153)
+        Me.Label4.Location = New System.Drawing.Point(11, 141)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(89, 13)
+        Me.Label4.Size = New System.Drawing.Size(102, 16)
         Me.Label4.TabIndex = 72
         Me.Label4.Text = "New Password"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(10, 181)
+        Me.Label5.Location = New System.Drawing.Point(11, 171)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(111, 13)
+        Me.Label5.Size = New System.Drawing.Size(123, 16)
         Me.Label5.TabIndex = 73
         Me.Label5.Text = "Confirm Password"
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(182, 230)
+        Me.btnSave.Location = New System.Drawing.Point(148, 198)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(79, 24)
+        Me.btnSave.Size = New System.Drawing.Size(90, 30)
         Me.btnSave.TabIndex = 74
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(267, 230)
+        Me.btnCancel.Location = New System.Drawing.Point(265, 198)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(79, 24)
+        Me.btnCancel.Size = New System.Drawing.Size(90, 30)
         Me.btnCancel.TabIndex = 75
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'frmUserType
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(358, 266)
+        Me.ClientSize = New System.Drawing.Size(371, 243)
         Me.ControlBox = False
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
@@ -180,8 +187,9 @@ Partial Class frmUserType
         Me.Controls.Add(Me.cmbUserType)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.Panel1)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmUserType"

@@ -1,35 +1,34 @@
 ﻿Imports System.Data.Odbc
 Public Class frmDeposit
-    Public gsID As String = gsDocument_Finder_ID
-    Public gsNew As Boolean = IIf(gsID = "", True, False)
+    Public ID As Integer = gsDocument_Finder_ID
+    Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
-    Dim f As Form = New frmFindDocument
-
+    Dim Frm As Form = New frmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
     Private Function fCheckHasChange() As Boolean
         Dim HasChange As Boolean = False
-        Dim squery As String = fFieldCollector(Me)
+        Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
             HasChange = True
-        ElseIf fdgvChange(dgvDeposit, tdgv) = True Then
+        ElseIf DataGridGotChange(dgvDeposit, tdgv) = True Then
             HasChange = True
         End If
         Return HasChange
     End Function
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
     Private Sub frefreshcombox()
-        fComboBox(cmbBANK_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '6')", "ID", "BANK")
-        fComboBox(cmbCASH_BACK_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '6')", "ID", "BANK")
-        fComboBox(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        ComboBoxLoad(cmbBANK_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '6')", "ID", "BANK")
+        ComboBoxLoad(cmbCASH_BACK_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '6')", "ID", "BANK")
+        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
     End Sub
     Private Sub fClear_Info()
         frefreshcombox()
 
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
 
         dgvDeposit.Rows.Clear()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
@@ -46,7 +45,7 @@ Public Class frmDeposit
         fClear_Info()
 
 
-        If gsNew = False Then
+        If IsNew = False Then
             fRefreshInfo()
         End If
     End Sub
@@ -57,17 +56,17 @@ Public Class frmDeposit
 
             fClear_Info()
             bRefreshItem = True
-            Dim sQuery As String = "select * from deposit where ID ='" & gsID & "' Limit 1"
-            fExecutedUsingReading(Me, sQuery)
+            Dim sQuery As String = "select * from deposit where ID ='" & ID & "' Limit 1"
+            SqlExecutedUsingReading(Me, sQuery)
 
 
-            Dim rd As OdbcDataReader = fReader("select d.ID,d.RECEIVED_FROM_ID,c.NAME as `RECEIVED_NAME`,d.ACCOUNT_ID, a.NAME as `ACCOUNT_NAME`, d.payment_method_id, p.`DESCRIPTION` as `payment_method_name`,d.CHECK_NO,d.AMOUNT,d.SOURCE_OBJECT_TYPE,d.SOURCE_OBJECT_ID from deposit_funds as d left outer join contact as c on c.ID = d.Received_From_ID left outer join  account as a on a.ID = d.ACCOUNT_ID left outer join payment_method as p on p.ID = d.payment_method_ID where d.DEPOSIT_ID = '" & gsID & "' ")
+            Dim rd As OdbcDataReader = SqlReader("select d.ID,d.RECEIVED_FROM_ID,c.NAME as `RECEIVED_NAME`,d.ACCOUNT_ID, a.NAME as `ACCOUNT_NAME`, d.payment_method_id, p.`DESCRIPTION` as `payment_method_name`,d.CHECK_NO,d.AMOUNT,d.SOURCE_OBJECT_TYPE,d.SOURCE_OBJECT_ID from deposit_funds as d left outer join contact as c on c.ID = d.Received_From_ID left outer join  account as a on a.ID = d.ACCOUNT_ID left outer join payment_method as p on p.ID = d.payment_method_ID where d.DEPOSIT_ID = '" & ID & "' ")
             While rd.Read
-                dgvDeposit.Rows.Add(rd("ID"), rd("RECEIVED_FROM_ID"), rd("RECEIVED_NAME"), rd("ACCOUNT_ID"), rd("ACCOUNT_NAME"), rd("PAYMENT_METHOD_ID"), rd("PAYMENT_METHOD_NAME"), fTextisNULL(rd("CHECK_NO")), fNumFormatStandard(fNumisNULL(rd("AMOUNT"))), fNumisNULL(rd("SOURCE_OBJECT_TYPE")), fNumisNULL(rd("SOURCE_OBJECT_ID")), "S")
+                dgvDeposit.Rows.Add(rd("ID"), rd("RECEIVED_FROM_ID"), rd("RECEIVED_NAME"), rd("ACCOUNT_ID"), rd("ACCOUNT_NAME"), rd("PAYMENT_METHOD_ID"), rd("PAYMENT_METHOD_NAME"), TextIsNull(rd("CHECK_NO")), NumberFormatStandard(NumIsNull(rd("AMOUNT"))), NumIsNull(rd("SOURCE_OBJECT_TYPE")), NumIsNull(rd("SOURCE_OBJECT_ID")), "S")
             End While
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshInfo()
             Else
                 End
@@ -78,7 +77,7 @@ Public Class frmDeposit
 
         tdgv = New DataGridView
         tdgv = dgvDeposit
-        tQuery = fFieldCollector(Me)
+        tQuery = SqlUpdate(Me)
 
     End Sub
     Private Sub fRefreshColumn()
@@ -111,20 +110,20 @@ Public Class frmDeposit
     Private Sub fEditItem()
         Try
             If dgvDeposit.Rows.Count = 0 Then
-                fMessageboxWarning("Data not found!")
+                MessageBoxWarning("Data not found!")
                 Exit Sub
             End If
             Dim r As DataGridViewRow = dgvDeposit.Rows(dgvDeposit.CurrentRow.Index)
             With frmDepositFunds
-                If fNumisNULL(r.Cells("SOT").Value) <> 0 Then
-                    fMessageboxExclamation("Invalid to edit. this value is set on " & fGetFieldValue("object_type_map", "ID", fNumisNULL(r.Cells("SOT").Value), "NAME"))
+                If NumIsNull(r.Cells("SOT").Value) <> 0 Then
+                    MessageBoxExclamation("Invalid to edit. this value is set on " & GetStringFieldValue("object_type_map", "ID", NumIsNull(r.Cells("SOT").Value), "NAME"))
                     Exit Sub
                 End If
-                .gsReceivedFrom_ID = fTextisNULL(r.Cells("RECEIVED_FROM_ID").Value)
-                .gsAccount_ID = fTextisNULL(r.Cells("ACCOUNT_ID").Value)
-                .gsPayment_Method_ID = fTextisNULL(r.Cells("PAYMENT_METHOD_ID").Value)
-                .gsCheck_NO = fTextisNULL(r.Cells("CHECK_NO").Value)
-                .gsAmount = fNumFormatFixed(r.Cells("AMOUNT").Value)
+                .gsReceivedFrom_ID = TextIsNull(r.Cells("RECEIVED_FROM_ID").Value)
+                .gsAccount_ID = TextIsNull(r.Cells("ACCOUNT_ID").Value)
+                .gsPayment_Method_ID = TextIsNull(r.Cells("PAYMENT_METHOD_ID").Value)
+                .gsCheck_NO = TextIsNull(r.Cells("CHECK_NO").Value)
+                .gsAmount = NumberFormatFixed(r.Cells("AMOUNT").Value)
                 .chkAuto.Visible = False
                 .btnOK.Text = "Update"
                 .ShowDialog()
@@ -136,7 +135,7 @@ Public Class frmDeposit
                 .Dispose()
             End With
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
 
             Else
                 End
@@ -162,9 +161,9 @@ Public Class frmDeposit
         Dim dTotal As Double = 0
         For i As Integer = 0 To dgvDeposit.Rows.Count - 1
             Dim r As DataGridViewRow = dgvDeposit.Rows(i)
-            dTotal = dTotal + fNumFormatFixed(r.Cells("AMOUNT").Value)
+            dTotal = dTotal + NumberFormatFixed(r.Cells("AMOUNT").Value)
         Next
-        lblAMOUNT.Text = fNumFormatStandard(dTotal)
+        lblAMOUNT.Text = NumberFormatStandard(dTotal)
     End Sub
 
     Private Sub lklDelete_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
@@ -172,89 +171,76 @@ Public Class frmDeposit
     End Sub
 
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
-        If fACCESS_NEW_EDIT(Me, gsNew) = False Then
+        If fACCESS_NEW_EDIT(Me, IsNew) = False Then
             Exit Sub
         End If
 
         If Val(cmbBANK_ACCOUNT_ID.SelectedValue) = 0 Then
-            fMessageboxWarning("Please select bank account")
+            MessageBoxWarning("Please select bank account")
             Exit Sub
         End If
 
 
         If dgvDeposit.Rows.Count = 0 Then
-            fMessageboxInfo("Deposit fund not found!")
+            MessageBoxInfo("Deposit fund not found!")
             Exit Sub
         End If
 
-        If fIsClosingDate(dtpDATE.Value, gsNew) = False Then
+        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
-        If gsNew = True Then
-
-
-
-
+        If IsNew = True Then
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = fNEXT_CODE("DEPOSIT", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GetNextCode("DEPOSIT", cmbLOCATION_ID.SelectedValue)
             End If
-            Dim squery As String = fFieldCollector(Me)
-            gsID = fObjectTypeMap_ID("DEPOSIT")
-            squery = squery & ",ID='" & gsID & "',RECORDED_ON ='" & Format(DateTime.Now, "yyyy-MM-dd hh:mm:ss") & "'"
-            squery = fNullOTherField(squery, "`DEPOSIT`")
-            fExecutedOnly("INSERT INTO `deposit` SET " & squery & ";")
+
+            ID = ObjectTypeMapId("DEPOSIT")
+
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO `deposit` ({SQL_Field},ID,RECORDED_ON) VALUES ({SQL_Value},{ID},{GetDateTimeNowSql()}) ")
+
             fTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(gsID, txtCODE.Text, Me.AccessibleName, "New", "", cmbCASH_BACK_ACCOUNT_ID.SelectedValue, fNumisNULL(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", "", cmbCASH_BACK_ACCOUNT_ID.SelectedValue, NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
-
-
             tChangeAccept = True
-
-            fGotChangeTransaction("DEPOSIT", gsID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
-
+            GotChangeTransaction("DEPOSIT", ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
             If gsGotChangeDate = True Then
-                'Main
-                fAccount_journal_Change_date(dtpDATE.Value, fNumisNULL(cmbBANK_ACCOUNT_ID.SelectedValue), 81, gsID, gsLast_Location_ID, gsLast_Date)
+                AccountJournalChangeDate(dtpDATE.Value, NumIsNull(cmbBANK_ACCOUNT_ID.SelectedValue), 81, ID, gsLast_Location_ID, gsLast_Date)
             End If
 
             If gsGotChangeLocation1 = True Then
-                'Main
-                fAccount_journal_Change_Location(cmbLOCATION_ID.SelectedValue, fNumisNULL(cmbBANK_ACCOUNT_ID.SelectedValue), 81, gsID, dtpDATE.Value, gsLast_Location_ID)
+                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(cmbBANK_ACCOUNT_ID.SelectedValue), 81, ID, dtpDATE.Value, gsLast_Location_ID)
             End If
 
-            Dim squery As String = fFieldCollector(Me)
-            squery = squery & " WHERE ID = '" & gsID & "' limit 1;"
-            fExecutedOnly("UPDATE `deposit` SET " & squery)
-            fTransaction_Log(gsID, txtCODE.Text, Me.AccessibleName, "Edit", "", cmbCASH_BACK_ACCOUNT_ID.SelectedValue, fNumisNULL(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SqlExecuted("UPDATE `deposit` SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "'")
+            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", cmbCASH_BACK_ACCOUNT_ID.SelectedValue, NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
-
-        fCursorLoadingOn(True)
-
-        fSaveItem()  ' Save 
-
-        If fTransactionCheck(gsID, "DEPOSIT") = False Then
-            fMessageboxWarning("Please Try Again")
+        If IsTransactionSuccess(ID, "DEPOSIT") = False Then
+            MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
+
+        CursorLoadingOn(True)
+        fSaveItem()  ' Save 
 
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 0, 81, gsID, dtpDATE.Value, 0, fNumisNULL(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            fAccount_Journal_SQL(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 0, 81, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
         End If
         '================================
 
-        ' fJournalTransaction_Deposit(gsID)
+        ' fJournalTransaction_Deposit(ID)
         gsGotChangeDate = False
         gsGotChangeLocation1 = False
 
-        If gsNew = True Then
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
+        If IsNew = True Then
+            PrompNotify(Me.Text, SaveMsg, True)
         Else
-            fPop_Up_Msg(Me.Text, gsUpdateStr, True)
+            PrompNotify(Me.Text, UpdateMsg, True)
         End If
 
         Try
@@ -268,18 +254,18 @@ Public Class frmDeposit
         Catch ex As Exception
 
         Finally
-            If gsID <> "" Then
-                gsNew = False
+            If ID <> "" Then
+                IsNew = False
                 fRefreshInfo()
             End If
         End Try
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
     End Sub
     Private Sub fSetNew()
         fClear_Info()
         fComputed()
-        gsID = ""
-        gsNew = True
+        ID = ""
+        IsNew = True
 
     End Sub
     Private Sub fSaveItem()
@@ -293,19 +279,19 @@ Public Class frmDeposit
                     If gsSkipJournalEntry = False Then
                         If gsGotChangeDate = True Then
                             'Main
-                            fAccount_journal_Change_date(dtpDATE.Value, fNumisNULL(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
+                            AccountJournalChangeDate(dtpDATE.Value, NumIsNull(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
                         End If
 
                         If gsGotChangeLocation1 = True Then
                             'Main
-                            fAccount_journal_Change_Location(cmbLOCATION_ID.SelectedValue, fNumisNULL(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
+                            AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
                         End If
 
                     End If
 
                 Case "A"
-                    Dim i_ID As Double = fObjectTypeMap_ID("deposit_funds")
-                    fExecutedOnly("INSERT INTO `deposit_funds` set ID = '" & i_ID & "',DEPOSIT_ID='" & gsID & "',RECEIVED_FROM_ID=" & fGotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID=" & fGotNullNumber(r.Cells("ACCOUNT_ID").Value) & ",PAYMENT_METHOD_ID=" & fGotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & fGotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "',SOURCE_OBJECT_TYPE=" & fGotNullNumber(r.Cells("SOT").Value) & ",SOURCE_OBJECT_ID=" & fGotNullNumber(r.Cells("SOI").Value) & ";")
+                    Dim i_ID As Double = ObjectTypeMapId("deposit_funds")
+                    SqlExecuted("INSERT INTO `deposit_funds` set ID = '" & i_ID & "',DEPOSIT_ID='" & ID & "',RECEIVED_FROM_ID=" & GotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID=" & GotNullNumber(r.Cells("ACCOUNT_ID").Value) & ",PAYMENT_METHOD_ID=" & GotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & GotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "',SOURCE_OBJECT_TYPE=" & GotNullNumber(r.Cells("SOT").Value) & ",SOURCE_OBJECT_ID=" & GotNullNumber(r.Cells("SOI").Value) & ";")
                     If (r.Cells("SOI").Value) <> 0 Then
                         fDepostUpdate(r.Cells("SOT").Value, r.Cells("SOI").Value, True)
                     End If
@@ -325,20 +311,20 @@ Public Class frmDeposit
 
                      '================================
                 Case "E"
-                    fExecutedOnly("UPDATE `deposit_funds` set RECEIVED_FROM_ID=" & fGotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',PAYMENT_METHOD_ID=" & fGotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & fGotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "' WHERE ID='" & r.Cells("ID").Value & "' and DEPOSIT_ID='" & gsID & "' limit 1;")
+                    SqlExecuted("UPDATE `deposit_funds` set RECEIVED_FROM_ID=" & GotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',PAYMENT_METHOD_ID=" & GotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & GotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "' WHERE ID='" & r.Cells("ID").Value & "' and DEPOSIT_ID='" & ID & "' limit 1;")
                     r.Cells("CONTROL_STATUS").Value = "S"
                     '===========================================
                     If gsSkipJournalEntry = False Then
                         If gsGotChangeDate = True Then
                             'Main
-                            fAccount_journal_Change_date(dtpDATE.Value, fNumisNULL(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
+                            AccountJournalChangeDate(dtpDATE.Value, NumIsNull(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
                         End If
 
                         If gsGotChangeLocation1 = True Then
                             'Main
-                            fAccount_journal_Change_Location(cmbLOCATION_ID.SelectedValue, fNumisNULL(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
+                            AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
                         End If
-                        Dim AMT As Double = fNumFormatFixed(r.Cells("AMOUNT").Value)
+                        Dim AMT As Double = NumberFormatFixed(r.Cells("AMOUNT").Value)
                         Dim E As Integer = 0
                         If AMT < 0 Then
                             E = 0
@@ -349,9 +335,9 @@ Public Class frmDeposit
                     End If
                      '================================
                 Case "D"
-                    fExecutedOnly("DELETE FROM `deposit_funds`  WHERE ID ='" & r.Cells("ID").Value & "' and DEPOSIT_ID='" & gsID & "' limit 1;")
+                    SqlExecuted("DELETE FROM `deposit_funds`  WHERE ID ='" & r.Cells("ID").Value & "' and DEPOSIT_ID='" & ID & "' limit 1;")
 
-                    fAccount_journal_Delete(fNumisNULL(r.Cells("ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 82, r.Cells("ID").Value, dtpDATE.Value)
+                    fAccount_journal_Delete(NumIsNull(r.Cells("ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 82, r.Cells("ID").Value, dtpDATE.Value)
 
                     If (r.Cells("SOI").Value) <> 0 Then
                         fDepostUpdate(r.Cells("SOT").Value, r.Cells("SOI").Value, False)
@@ -393,20 +379,20 @@ Public Class frmDeposit
             Case Else
                 ReturnString = ""
         End Select
-        fExecutedOnly(ReturnString)
+        SqlExecuted(ReturnString)
     End Sub
     Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If fACCESS_FIND(Me) = False Then
             Exit Sub
 
         Else
-            If gsNew = False And gsID <> "" Then
+            If IsNew = False And ID <> "" Then
                 If fCheckHasChange() = True Then
-                    If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                    If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
                         tsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
-                            fMessageboxInfo("Cancel")
+                            MessageBoxInfo("Cancel")
                             Exit Sub
                         End If
                     Else
@@ -416,14 +402,14 @@ Public Class frmDeposit
             End If
         End If
 
-        f.AccessibleName = "deposit"
-        f.Size = New Point(gsMainWith - 50, gsMainHeight - 50)
-        f.ShowDialog()
-        If f.AccessibleDescription <> "" Then
-            If f.AccessibleDescription <> "cancel" Then
+        Frm.AccessibleName = "deposit"
+        Frm.Size = New Point(gsMainWith - 50, gsMainHeight - 50)
+        Frm.ShowDialog()
+        If Frm.AccessibleDescription <> "" Then
+            If Frm.AccessibleDescription <> "cancel" Then
 
-                gsID = f.AccessibleDescription
-                gsNew = False
+                ID = Frm.AccessibleDescription
+                IsNew = False
 
                 fRefreshInfo()
 
@@ -447,22 +433,22 @@ Public Class frmDeposit
 
 
 
-        If gsNew = False Then
+        If IsNew = False Then
             If fACCESS_DELETE(Me) = False Then
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, gsNew) = False Then
+            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
-            If gsNew = False And gsID <> "" Then
+            If IsNew = False And ID <> "" Then
                 If fCheckHasChange() = True Then
-                    If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                    If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
                         tsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
-                            fMessageboxInfo("Cancel")
+                            MessageBoxInfo("Cancel")
                             Exit Sub
                         End If
                     Else
@@ -471,24 +457,24 @@ Public Class frmDeposit
                 End If
             End If
 
-            If fMessageBoxQuestion(gsMessageQuestion) = True Then
+            If MessageBoxQuestion(gsMessageQuestion) = True Then
 
                 Try
                     Dim TMP_SQL As String = ""
-                    Dim rd As OdbcDataReader = fReader("SELECT *  FROM `deposit_funds`  WHERE DEPOSIT_ID='" & gsID & "' and SOURCE_OBJECT_TYPE is not null and SOURCE_OBJECT_ID is not null")
+                    Dim rd As OdbcDataReader = SqlReader("SELECT *  FROM `deposit_funds`  WHERE DEPOSIT_ID='" & ID & "' and SOURCE_OBJECT_TYPE is not null and SOURCE_OBJECT_ID is not null")
                     While rd.Read
                         fDepostUpdate(rd("SOURCE_OBJECT_TYPE"), rd("SOURCE_OBJECT_ID"), False)
                     End While
                     rd.Close()
                     If TMP_SQL <> "" Then
-                        fExecutedOnly(TMP_SQL)
+                        SqlExecuted(TMP_SQL)
                     End If
                 Catch ex As Exception
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                     Exit Sub
                 End Try
 
-                fCursorLoadingOn(True)
+                CursorLoadingOn(True)
 
                 For I As Integer = 0 To dgvDeposit.Rows.Count - 1
                     With dgvDeposit.Rows(I)
@@ -500,18 +486,18 @@ Public Class frmDeposit
                 '===========================================
                 If gsSkipJournalEntry = False Then
                     gsJOURNAL_NO_FORM = 0
-                    fAccount_journal_Delete(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 81, gsID, dtpDATE.Value)
+                    fAccount_journal_Delete(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 81, ID, dtpDATE.Value)
                 End If
                 '================================
-                fExecutedOnly("DELETE FROM `deposit` WHERE ID='" & gsID & "' limit 1;")
+                SqlExecuted("DELETE FROM `deposit` WHERE ID='" & ID & "' limit 1;")
 
 
-                fPop_Up_Msg(Me.Text, gsDeleteStr, True)
+                PrompNotify(Me.Text, DeleteMsg, True)
                 fClear_Info()
                 fComputed()
-                gsID = ""
-                gsNew = True
-                fCursorLoadingOn(False)
+                ID = ""
+                IsNew = True
+                CursorLoadingOn(False)
             End If
 
         End If
@@ -531,19 +517,19 @@ Public Class frmDeposit
             .Item("AMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
         End With
-        fDgvNotSort(dgvDeposit)
+        ViewNotSort(dgvDeposit)
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
             If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -551,7 +537,7 @@ Public Class frmDeposit
                 End If
             End If
         End If
-        If gsNew = False Then
+        If IsNew = False Then
             If fACCESS_PRINT_PREVIEW(Me) = False Then
                 Exit Sub
             End If
@@ -574,7 +560,7 @@ Public Class frmDeposit
             End Try
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
@@ -588,15 +574,15 @@ Public Class frmDeposit
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
 
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
             If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -605,7 +591,7 @@ Public Class frmDeposit
             End If
         End If
 
-        If gsNew = False Then
+        If IsNew = False Then
 
             If fACCESS_PRINT_PREVIEW(Me) = False Then
                 Exit Sub
@@ -628,7 +614,7 @@ Public Class frmDeposit
                 End If
             End Try
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
@@ -656,15 +642,15 @@ Public Class frmDeposit
                         If r.Cells("SOT").Value = "41" Then
                             Try
 
-                                Dim rd As OdbcDataReader = fReader("select p.UNDEPOSITED_FUNDS_ACCOUNT_ID,a.`NAME`,p.RECEIPT_REF_NO from payment as p inner join account as a on a.ID = p.UNDEPOSITED_FUNDS_ACCOUNT_ID where p.id = '" & r.Cells("SOI").Value & "' limit 1")
+                                Dim rd As OdbcDataReader = SqlReader("select p.UNDEPOSITED_FUNDS_ACCOUNT_ID,a.`NAME`,p.RECEIPT_REF_NO from payment as p inner join account as a on a.ID = p.UNDEPOSITED_FUNDS_ACCOUNT_ID where p.id = '" & r.Cells("SOI").Value & "' limit 1")
                                 If rd.Read Then
                                     prAccount_ID = rd("UNDEPOSITED_FUNDS_ACCOUNT_ID")
                                     Account_name = rd("NAME")
-                                    prCheck_No = fTextisNULL(rd("RECEIPT_REF_NO"))
+                                    prCheck_No = TextIsNull(rd("RECEIPT_REF_NO"))
                                 End If
                                 rd.Close()
                             Catch ex As Exception
-                                fExecutedOnly(ex.Message)
+                                SqlExecuted(ex.Message)
 
 
                             End Try
@@ -672,22 +658,22 @@ Public Class frmDeposit
                         ElseIf r.Cells("SOT").Value = "52" Then
                             Try
 
-                                Dim rd As OdbcDataReader = fReader("select p.UNDEPOSITED_FUNDS_ACCOUNT_ID,a.`NAME`,p.PAYMENT_REF_NO from sales_receipt as p inner join account as a on a.ID = p.UNDEPOSITED_FUNDS_ACCOUNT_ID where p.id = '" & r.Cells("SOI").Value & "' limit 1")
+                                Dim rd As OdbcDataReader = SqlReader("select p.UNDEPOSITED_FUNDS_ACCOUNT_ID,a.`NAME`,p.PAYMENT_REF_NO from sales_receipt as p inner join account as a on a.ID = p.UNDEPOSITED_FUNDS_ACCOUNT_ID where p.id = '" & r.Cells("SOI").Value & "' limit 1")
                                 If rd.Read Then
                                     prAccount_ID = rd("UNDEPOSITED_FUNDS_ACCOUNT_ID")
                                     Account_name = rd("NAME")
-                                    prCheck_No = fTextisNULL(rd("PAYMENT_REF_NO"))
+                                    prCheck_No = TextIsNull(rd("PAYMENT_REF_NO"))
                                 End If
                                 rd.Close()
                             Catch ex As Exception
-                                fExecutedOnly(ex.Message)
+                                SqlExecuted(ex.Message)
 
                             End Try
 
                         ElseIf r.Cells("SOT").Value = "64" Then
                             Try
 
-                                Dim rd As OdbcDataReader = fReader("select p.UNDEPOSITED_FUNDS_ACCOUNT_ID,a.`NAME` from pos_log as p inner join account as a on a.ID = p.UNDEPOSITED_FUNDS_ACCOUNT_ID where p.id = '" & r.Cells("SOI").Value & "' limit 1")
+                                Dim rd As OdbcDataReader = SqlReader("select p.UNDEPOSITED_FUNDS_ACCOUNT_ID,a.`NAME` from pos_log as p inner join account as a on a.ID = p.UNDEPOSITED_FUNDS_ACCOUNT_ID where p.id = '" & r.Cells("SOI").Value & "' limit 1")
                                 If rd.Read Then
                                     prAccount_ID = rd("UNDEPOSITED_FUNDS_ACCOUNT_ID")
                                     Account_name = rd("NAME")
@@ -695,7 +681,7 @@ Public Class frmDeposit
                                 End If
                                 rd.Close()
                             Catch ex As Exception
-                                fExecutedOnly(ex.Message)
+                                SqlExecuted(ex.Message)
 
                             End Try
                         End If
@@ -714,7 +700,7 @@ Public Class frmDeposit
     End Sub
 
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
-        If gsNew = True Then
+        If IsNew = True Then
             fSetNew()
         Else
             Dim R As Integer = fRefreshMessage()
@@ -733,15 +719,15 @@ Public Class frmDeposit
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
             If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -750,23 +736,23 @@ Public Class frmDeposit
             End If
         End If
 
-        If gsNew = False Then
-            fTransactionJournal(gsID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 81, cmbBANK_ACCOUNT_ID.SelectedValue, "", txtCODE.Text, txtNOTES.Text)
+        If IsNew = False Then
+            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 81, cmbBANK_ACCOUNT_ID.SelectedValue, "", txtCODE.Text, txtNOTES.Text)
         End If
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(gsID, Me)
+        fHistoryList(ID, Me)
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, gsID)
+        fTransactionLog(Me, ID)
     End Sub
 
 
 
     Private Sub dgvDeposit_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDeposit.RowStateChanged
-        lblCount.Text = fDgvCounting(dgvDeposit)
+        lblCount.Text = DataGridViewCounting(dgvDeposit)
     End Sub
 
     Private Sub TsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
@@ -794,7 +780,7 @@ Public Class frmDeposit
             If dgvDeposit.Rows.Count <> 0 Then
                 Dim i As Integer = dgvDeposit.CurrentRow.Index
 
-                If fNumisNULL(dgvDeposit.Rows(i).Cells(0).Value) <> 0 Then
+                If NumIsNull(dgvDeposit.Rows(i).Cells(0).Value) <> 0 Then
                     dgvDeposit.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                     dgvDeposit.Rows(i).Visible = False
                 Else
@@ -810,10 +796,10 @@ Public Class frmDeposit
     Private Sub frmDeposit_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         If dgvDeposit.Columns.Count = 0 Then Exit Sub
 
-        gsID = gsDocument_Finder_ID
-        gsNew = IIf(gsID = "", True, False)
+        ID = gsDocument_Finder_ID
+        IsNew = IIf(ID = "", True, False)
 
-        If gsNew = False Then
+        If IsNew = False Then
             fRefreshInfo()
         End If
     End Sub
@@ -831,15 +817,15 @@ Public Class frmDeposit
     End Sub
 
     Private Sub SelectPagePrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPagePrintToolStripMenuItem.Click
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
             If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -848,7 +834,7 @@ Public Class frmDeposit
             End If
         End If
 
-        If gsNew = True Then Exit Sub
+        If IsNew = True Then Exit Sub
 
         If fACCESS_PRINT_PREVIEW(Me) = False Then
             Exit Sub
@@ -878,7 +864,7 @@ Public Class frmDeposit
             End Try
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")

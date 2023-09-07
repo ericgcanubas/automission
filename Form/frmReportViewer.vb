@@ -40,7 +40,7 @@ Public Class frmReportViewer
             End If
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
 
@@ -69,9 +69,9 @@ Public Class frmReportViewer
         'End Try
 
 
-        '       fCloseForm(Me)
+        '       ClosedForm(Me)
 
-        If fMessageBoxQuestion("Print now?") = True Then
+        If MessageBoxQuestion("Print now?") = True Then
             rpt.PrintToPrinter(1, False, 0, 0)
         End If
     End Sub
@@ -113,7 +113,7 @@ Public Class frmReportViewer
 
         If e.KeyCode = Keys.P AndAlso e.Modifiers = Keys.Control Then
 
-            If fMessageBoxQuestion("Print now?") = True Then
+            If MessageBoxQuestion("Print now?") = True Then
                 rpt.PrintToPrinter(1, False, 0, 0)
             End If
 

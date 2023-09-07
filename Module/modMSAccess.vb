@@ -28,7 +28,7 @@ Module modMSAccess
 
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
             If cn.State = ConnectionState.Open Then
                 cn.Close()
 
@@ -112,7 +112,7 @@ Module modMSAccess
             Dim cmd As New OleDb.OleDbCommand(xQuery, cn)
             Return cmd.ExecuteReader
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
         Return Nothing
     End Function

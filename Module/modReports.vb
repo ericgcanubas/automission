@@ -15,7 +15,7 @@ Module modReports
             Dim file_path As String = path & "Reports\"
             Return file_path
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
         Return ""
     End Function
@@ -45,11 +45,11 @@ Module modReports
                 If fFileInUse(FilePath) = False Then
                     cryRpt.Load(FilePath, OpenReportMethod.OpenReportByTempCopy)
                 Else
-                    fMessageboxWarning($"File {prReportName}  not exists")
+                    MessageBoxWarning($"File {prReportName}  not exists")
                 End If
 
                 If cryRpt Is Nothing Then
-                    fMessageboxExclamation("Rpt file not found.")
+                    MessageBoxExclamation("Rpt file not found.")
                     Return Nothing
                     Exit Function
                 End If
@@ -63,17 +63,17 @@ Module modReports
             Return cryRpt
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
             Return Nothing
         End Try
 
     End Function
     Public Sub fPreviewReport(ByVal prTabname As String)
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
         gsReportTabName = prTabname
         gsMenuSubID = "31"
         gsRefresh = True
-        ' fmenuSet()
+        ' MenuSet()
         Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
         Dim img As Image = Image.FromFile(folder & "report.png")
         Dim R As New frmReportViewer
@@ -93,7 +93,7 @@ Module modReports
 
         TabFormOpen(R, frmMainMenu.MyTab, img)
 
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
         gsMenuSubID = ""
     End Sub
     Public Sub fCryParameterInsertValue(ByRef cryRpt As ReportDocument, ByVal prValue As String, ByVal prName As String)
@@ -113,7 +113,7 @@ Module modReports
             crParameterValues.Add(crParameterDiscreteValue)
             crParameterFieldDefinition.ApplyCurrentValues(crParameterValues)
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
 

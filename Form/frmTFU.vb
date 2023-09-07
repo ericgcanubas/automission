@@ -27,16 +27,16 @@ Public Class frmTFU
 
             If cn_analyst.State = ConnectionState.Open And cn_selected.State = ConnectionState.Open Then
 
-                If fMessageBoxQuestion("Do you want to continue?") = True Then
+                If MessageBoxQuestion("Do you want to continue?") = True Then
 
-                    Dim rd1 As OdbcDataReader = fReader("SELECT table_name FROM information_schema.tables where table_schema='" & dbname1 & "'")
+                    Dim rd1 As OdbcDataReader = SqlReader("SELECT table_name FROM information_schema.tables where table_schema='" & dbname1 & "'")
                     Dim td As New DataTable
                     td.Load(rd1)
                     Dim t As Integer = td.Rows.Count
                     cn_selected.Close()
                     cn_selected.Open()
                     rd1 = Nothing
-                    rd1 = fReader("SELECT table_name FROM information_schema.tables where table_schema='" & dbname1 & "'")
+                    rd1 = SqlReader("SELECT table_name FROM information_schema.tables where table_schema='" & dbname1 & "'")
                     Dim r As Integer = 0
                     ProgressBar1.Minimum = 0
                     ProgressBar1.Value = 0
@@ -76,7 +76,7 @@ Public Class frmTFU
                 cn_analyst.Close()
             End If
 
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
 
@@ -86,7 +86,7 @@ Public Class frmTFU
         Dim cn_s As New OdbcConnection(constr_select)
         Try
             cn_s.Open()
-            Dim rd As OdbcDataReader = fReader("SHOW COLUMNS FROM  `" & prTable_name & "`")
+            Dim rd As OdbcDataReader = SqlReader("SHOW COLUMNS FROM  `" & prTable_name & "`")
             While rd.Read
                 If fAnalyst_Column(rd, constr_analsyt, prTable_name, rd("FIELD")) = False Then
                     bGood = False
@@ -95,7 +95,7 @@ Public Class frmTFU
             End While
             cn_s.Close()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
             If cn_s.State = ConnectionState.Open Then
                 cn_s.Close()
             End If
@@ -110,9 +110,9 @@ Public Class frmTFU
         Dim cn_a As New OdbcConnection(prCon_A)
         Try
             cn_a.Open()
-            Dim rd As OdbcDataReader = fReader("SHOW COLUMNS FROM `" & prTable_name & "` WHERE FIELD = '" & prField_name & "'")
+            Dim rd As OdbcDataReader = SqlReader("SHOW COLUMNS FROM `" & prTable_name & "` WHERE FIELD = '" & prField_name & "'")
             If rd.Read Then
-                If fTextisNULL(rd_select("FIELD")) = fTextisNULL(rd("FIELD")) Then
+                If TextIsNull(rd_select("FIELD")) = TextIsNull(rd("FIELD")) Then
                     b = True
                 Else
                     b = False
@@ -156,7 +156,7 @@ Public Class frmTFU
             db_port_ex = rd("db_port")
             pr_Db = db_name_ex
         Else
-            fMessageboxInfo("Invalid data!")
+            MessageBoxInfo("Invalid data!")
         End If
 
         If cn.State = ConnectionState.Open Then

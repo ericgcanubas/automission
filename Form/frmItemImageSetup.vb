@@ -12,7 +12,7 @@
         fSET_SYSTEM_VALUE("UseImageProduct", Val(chkUseImageProduct.Checked)) 'TEMPORARY
         fSET_SYSTEM_VALUE("ImageSourceFolder", txtImageSourceFolder.Text)
         fSET_SYSTEM_VALUE("ImageDestinationFolder", txtImageDestinationFolder.Text)
-        fMessageboxInfo("Save = Please restart all running bms.")
+        MessageBoxInfo("Save = Please restart all running bms.")
     End Sub
 
     Private Sub btnBrowse1_Click(sender As Object, e As EventArgs) Handles btnBrowse1.Click

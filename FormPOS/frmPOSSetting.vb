@@ -5,9 +5,9 @@ Public Class frmPOSSetting
     End Sub
     Private Sub fRefresh()
 
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
 
-        fExecutedUsingReading(Me, "select * from pos_machine where ID = '" & xnumID.Value & "' limit 1")
+        SqlExecutedUsingReading(Me, "select * from pos_machine where ID = '" & xnumID.Value & "' limit 1")
 
         ' Dim squery As String = fFieldCollector(Me)
     End Sub
@@ -15,11 +15,11 @@ Public Class frmPOSSetting
         '  fBackGroundImageStyle(Me)
 
         Dim sQueryAccount As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
-        fComboBox(cmbACCOUNT_ID, sQueryAccount, "ID", "T")
-        fComboBox(cmbTYPE, "select  ID,DESCRIPTION from pos_machine_type_map where INACTIVE = '0'", "ID", "DESCRIPTION")
-        fComboBox(cmbDINE_IN_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
-        fComboBox(cmbTAKE_OUT_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
-        fComboBox(cmbDELIVERY_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbACCOUNT_ID, sQueryAccount, "ID", "T")
+        ComboBoxLoad(cmbTYPE, "select  ID,DESCRIPTION from pos_machine_type_map where INACTIVE = '0'", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbDINE_IN_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbTAKE_OUT_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbDELIVERY_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
 
 
 
@@ -35,22 +35,25 @@ Public Class frmPOSSetting
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
-        Dim squery As String = fFieldCollector(Me)
-        Dim rd As OdbcDataReader = fReader("select * from pos_machine where ID = '" & xnumID.Value & "'")
-        Dim gsNew As Boolean = True
-        Dim sql As String = ""
-        Dim myMsg As String = ""
+
+        Dim rd As OdbcDataReader = SqlReader("select * from pos_machine where ID = '" & xnumID.Value & "'")
+        Dim SqlStr As String
+        Dim myMsg As String
         If rd.Read Then
-            sql = "Update pos_machine set " & squery & "  Where ID = '" & xnumID.Value & "'"
+
+            SqlStr = "Update pos_machine set " & SqlUpdate(Me) & "  Where ID = '" & xnumID.Value & "'"
             myMsg = "Edit POS mechine?"
         Else
-            sql = "INSERT pos_machine set " & squery & ",ID = '" & xnumID.Value & "'"
+
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlStr = $"INSERT pos_machine ({SQL_Field},ID) VALUES ({SQL_Value},'{xnumID.Value}')"
             myMsg = "New POS mechine?"
         End If
         rd.Close()
-        If fMessageBoxQuestion(myMsg) = True Then
-            fExecutedOnly(sql)
-            fMessageboxInfo("Save")
+
+        If MessageBoxQuestion(myMsg) = True Then
+            SqlExecuted(SqlStr)
+            MessageBoxInfo("Save")
         End If
 
     End Sub

@@ -3,7 +3,7 @@ Public Class frmVendor
     Public contact_BS As BindingSource
     Private Sub fRefreshData()
 
-        fDataGridView_Binding(dgvVendor, "SELECT 
+        LoadDataGridViewBinding(dgvVendor, "SELECT 
   c.ID,
   c.Name,
   c.POSTAL_ADDRESS AS 'Postal Address',
@@ -25,7 +25,7 @@ WHERE c.Type = '0' ", contact_BS)
         With dgvVendor.Columns
             .Item(0).Visible = False
         End With
-        fDataGrid_Column(dgvVendor, 2) ' 2 = for vendor
+        ViewColumn(dgvVendor, 2) ' 2 = for vendor
     End Sub
 
 
@@ -34,10 +34,10 @@ WHERE c.Type = '0' ", contact_BS)
             Exit Sub
         End If
 
-        frmContactDetails.gsContact_Type = "0"
+        frmContactDetails.ContactTypeId = "0"
 
-        frmContactDetails.bNew = True
-        frmContactDetails.gsID = 0
+        frmContactDetails.IsNew = True
+        frmContactDetails.ID = 0
         frmContactDetails.this_BS = contact_BS
         frmContactDetails.gsDgv = dgvVendor
         frmContactDetails.ShowDialog()
@@ -47,7 +47,7 @@ WHERE c.Type = '0' ", contact_BS)
     End Sub
 
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub frmVendor_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -63,7 +63,7 @@ WHERE c.Type = '0' ", contact_BS)
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
 
         If dgvVendor.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -74,10 +74,10 @@ WHERE c.Type = '0' ", contact_BS)
             dgvVendor.Focus()
             Dim i As Integer = dgvVendor.CurrentRow.Index
             Dim dID As String = dgvVendor.Rows.Item(i).Cells(0).Value
-            frmContactDetails.gsContact_Type = "0"
+            frmContactDetails.ContactTypeId = "0"
 
-            frmContactDetails.bNew = False
-            frmContactDetails.gsID = dID
+            frmContactDetails.IsNew = False
+            frmContactDetails.ID = dID
             frmContactDetails.this_BS = contact_BS
             frmContactDetails.gsDgv = dgvVendor
             frmContactDetails.ShowDialog()
@@ -85,14 +85,14 @@ WHERE c.Type = '0' ", contact_BS)
             frmContactDetails = Nothing
             'fRefreshData()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvVendor.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -104,21 +104,21 @@ WHERE c.Type = '0' ", contact_BS)
             Dim i As Integer = dgvVendor.CurrentRow.Index
             Dim dID As String = dgvVendor.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvVendor.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
-                fExecutedOnly("Delete From contact where id='" & dID & "' limit 1;")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
+                SqlExecuted("Delete From contact where id='" & dID & "' limit 1;")
+                DeleteNotify(Me)
                 fRefreshData()
             End If
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
     Private Sub dgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvVendor.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvVendor, 2) ' 2 = for vendor
-        fDataGrid_Column(dgvVendor, 2) ' 2 = for vendor
+        ViewSwitch(dgvVendor, 2) ' 2 = for vendor
+        ViewColumn(dgvVendor, 2) ' 2 = for vendor
     End Sub
     Private Sub fSearchload()
         Try

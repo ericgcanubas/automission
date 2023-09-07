@@ -20,13 +20,13 @@ FROM
 WHERE 
    i.`TYPE` IN (0,7)
   AND sr.`LOCATION_ID` = '{cmbLocation_ID.SelectedValue}'
-  AND  sr.`DATE` between '{ fDateFormatMYSQL(dtpDateFrom.Value)}' and '{fDateFormatMYSQL(dtpDateTo.Value)}'"
+  AND  sr.`DATE` between '{ DateFormatMySql(dtpDateFrom.Value)}' and '{DateFormatMySql(dtpDateTo.Value)}'"
 
-        fDataGridView(dgvDataList, SQL)
+        LoadDataGridView(dgvDataList, SQL)
 
         For I As Integer = 0 To dgvDataList.Rows.Count - 1
             With dgvDataList.Rows(I)
-                If fNumisNULL(.Cells("Tax Amount").Value) = fNumisNULL(.Cells("Journal Amount").Value) Then
+                If NumIsNull(.Cells("Tax Amount").Value) = NumIsNull(.Cells("Journal Amount").Value) Then
                     .DefaultCellStyle.ForeColor = Color.Blue
 
                 Else
@@ -40,7 +40,7 @@ WHERE
 
     Private Sub FrmSalesVatSales_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        fComboBox(cmbLocation_ID, "Select * from location", "ID", "NAME")
+        ComboBoxLoad(cmbLocation_ID, "Select * from location", "ID", "NAME")
         dtpDateFrom.Value = gsFirstDate
         cmbLocation_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub

@@ -7,7 +7,7 @@ Public Class frmPOSCashCount
         gsCashCOUNT_AMOUNT = 0
 
         fLabel_Digital_S(lblTOTAL)
-        xlblStartingCash.Text = fNumFormatStandard(gsStartingCash_Amount)
+        xlblStartingCash.Text = NumberFormatStandard(gsStartingCash_Amount)
 
         If gsUseCashDenomination = True Then
             Me.Size = New Size(519, 543)
@@ -20,7 +20,7 @@ Public Class frmPOSCashCount
             Dim lbl As Label = Label6
 
             FlowLayoutPanel1.Controls.Clear()
-            Dim rd As OdbcDataReader = fReader("select * from `pos_cash_denomination` where INACTIVE ='0' order by TYPE ASC,NOMINAL_VALUE DESC")
+            Dim rd As OdbcDataReader = SqlReader("select * from `pos_cash_denomination` where INACTIVE ='0' order by TYPE ASC,NOMINAL_VALUE DESC")
             While rd.Read
                 Dim new_pnl As New Panel
                 new_pnl.Name = $"pnl{rd("id")}"
@@ -35,9 +35,9 @@ Public Class frmPOSCashCount
                 new_num.Maximum = num.Maximum
                 new_num.Left = num.Left
                 new_num.Top = num.Top
-                new_num.AccessibleDescription = fTextisNULL(rd("DESCRIPTION"))
+                new_num.AccessibleDescription = TextIsNull(rd("DESCRIPTION"))
 
-                new_num.Tag = fNumisNULL(rd("NOMINAL_VALUE"))
+                new_num.Tag = NumIsNull(rd("NOMINAL_VALUE"))
                 AddHandler new_num.ValueChanged, AddressOf numCustom_ValueChanged
                 AddHandler new_num.Click, AddressOf numCustom_Click
 
@@ -47,8 +47,8 @@ Public Class frmPOSCashCount
                 new_lbl.Font = lbl.Font
                 new_lbl.Left = lbl.Left
                 new_lbl.Top = lbl.Top
-                new_lbl.Text = fTextisNULL(rd("DESCRIPTION"))
-                If fNumisNULL(rd("TYPE")) = 0 Then
+                new_lbl.Text = TextIsNull(rd("DESCRIPTION"))
+                If NumIsNull(rd("TYPE")) = 0 Then
                     new_lbl.ForeColor = Color.DarkBlue
                 Else
                     new_lbl.ForeColor = Color.Brown
@@ -68,7 +68,7 @@ Public Class frmPOSCashCount
 
         Me.Icon = gsIcon
         fMaterialSkin(Me)
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
         AutoTotalFromOthers()
         fCal()
 
@@ -87,7 +87,7 @@ Public Class frmPOSCashCount
     End Sub
     Private Function fgetTotalOther() As Double
         Dim total As Double = 0
-        Dim rd As OdbcDataReader = fReader($"SELECT  IFNULL(SUM(pmm.`AMOUNT_APPLIED`),0) AS `TOTAL` FROM payment AS p INNER JOIN `payment_multi_method` AS pmm ON pmm.`PAYMENT_ID` = p.`ID` INNER JOIN payment_method AS pm ON pm.`ID` = pmm.`PAYMENT_METHOD_ID`  WHERE p.`POS_LOG_ID` =  {gsPOS_LOG_ID} AND pm.`PAYMENT_TYPE` = 8 ")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT  IFNULL(SUM(pmm.`AMOUNT_APPLIED`),0) AS `TOTAL` FROM payment AS p INNER JOIN `payment_multi_method` AS pmm ON pmm.`PAYMENT_ID` = p.`ID` INNER JOIN payment_method AS pm ON pm.`ID` = pmm.`PAYMENT_METHOD_ID`  WHERE p.`POS_LOG_ID` =  {gsPOS_LOG_ID} AND pm.`PAYMENT_TYPE` = 8 ")
         If rd.Read Then
             total = Val(rd("TOTAL"))
         End If
@@ -106,7 +106,7 @@ Public Class frmPOSCashCount
         Dim T As Double = numCASH.Value + numCHECK.Value + numCreditCard.Value + numOtherPayment.Value
         Dim AMT As Double = 0
         AMT = T - gsStartingCash_Amount
-        lblTOTAL.Text = fNumFormatStandard(AMT)
+        lblTOTAL.Text = NumberFormatStandard(AMT)
     End Sub
     Private Sub numCHECK_ValueChanged(sender As Object, e As EventArgs) Handles numCHECK.ValueChanged
         fCal()
@@ -122,22 +122,22 @@ Public Class frmPOSCashCount
     End Sub
     Private Sub BtnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
 
-        If fNumisNULL(lblTOTAL.Text) <= 0 Then
-            fMessageboxInfo("No cash collection.")
+        If NumIsNull(lblTOTAL.Text) <= 0 Then
+            MessageBoxInfo("No cash collection.")
             Exit Sub
         End If
 
-        If fMessagePOSYesNO("Do you want to save your cash count?") = True Then
-            LOG_DATE = fDateTimeNow()
-            '  If fDateFormatMYSQL(gsPOS_DATE) = fDateFormatMYSQL(Date.Now.Date) Then
+        If MessageBoxPointOfSalesYesNO("Do you want to save your cash count?") = True Then
+            LOG_DATE = GetDateTimeNowSql()
+            '  If DateFormatMySql(gsPOS_DATE) = DateFormatMySql(Date.Now.Date) Then
 
             'Else
-            '   LOG_DATE = $"{fDateFormatMYSQL(gsPOS_DATE)} 08:00:01"
+            '   LOG_DATE = $"{DateFormatMySql(gsPOS_DATE)} 08:00:01"
             'End If
 
-            gsCASH_COUNT_ID = fObjectTypeMap_ID("POS_CASH_COUNT")
+            gsCASH_COUNT_ID = ObjectTypeMapId("POS_CASH_COUNT")
 
-            fExecutedOnly($"INSERT INTO pos_cash_count SET TOTAL='{fNumisNULL(lblTOTAL.Text)}',CASH='{numCASH.Value}',`CHECK`='{numCHECK.Value}',CREDIT_CARD='{numCreditCard.Value}',OTHER_PAYMENT='{numOtherPayment.Value}',NOTES='{txtNOTES.Text.Replace("'", "`")}', ID ='{gsCASH_COUNT_ID}' ,POS_MACHINE_ID = '{gsPOS_MACHINE_ID}', POSTED = '1',RECORDED_ON='{LOG_DATE}'")
+            SqlExecuted($"INSERT INTO pos_cash_count SET TOTAL='{NumIsNull(lblTOTAL.Text)}',CASH='{numCASH.Value}',`CHECK`='{numCHECK.Value}',CREDIT_CARD='{numCreditCard.Value}',OTHER_PAYMENT='{numOtherPayment.Value}',NOTES='{txtNOTES.Text.Replace("'", "`")}', ID ='{gsCASH_COUNT_ID}' ,POS_MACHINE_ID = '{gsPOS_MACHINE_ID}', POSTED = '1',RECORDED_ON='{LOG_DATE}'")
 
             If gsUseCashDenomination = True Then
                 Dim SQL As String = ""
@@ -145,27 +145,27 @@ Public Class frmPOSCashCount
                     Dim pnl As Panel = FlowLayoutPanel1.Controls(N)
                     Dim num As NumericUpDown = pnl.Controls($"num{pnl.Tag}")
                     If num.Value <> 0 Then
-                        Dim CD_ID As Integer = fObjectTypeMap_ID("POS_CASH_COUNT_LINES")
+                        Dim CD_ID As Integer = ObjectTypeMapId("POS_CASH_COUNT_LINES")
                         Dim THIS_AMOUNT As Double = (num.Value * num.Tag)
-                        fExecutedOnly($"INSERT INTO pos_cash_count_lines SET ID='{CD_ID}',CASH_COUNT_ID='{gsCASH_COUNT_ID}',DENOMINATION_ID='{pnl.Tag}',NOMINAL_VALUE='{fNumisNULL(num.Tag)}',COUNT='{num.Value}',AMOUNT='{THIS_AMOUNT}';")
+                        SqlExecuted($"INSERT INTO pos_cash_count_lines SET ID='{CD_ID}',CASH_COUNT_ID='{gsCASH_COUNT_ID}',DENOMINATION_ID='{pnl.Tag}',NOMINAL_VALUE='{NumIsNull(num.Tag)}',COUNT='{num.Value}',AMOUNT='{THIS_AMOUNT}';")
                     End If
                 Next
 
 
             End If
 
-            fExecutedOnly($"UPDATE pos_log SET CASH_COUNT_ID = '{gsCASH_COUNT_ID}' WHERE ID ='{gsPOS_LOG_ID}' Limit 1")
+            SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = '{gsCASH_COUNT_ID}' WHERE ID ='{gsPOS_LOG_ID}' Limit 1")
 
             If gsPOS_TYPE = 0 Then
-                fExecutedOnly($"UPDATE sales_receipt SET CASH_COUNT_ID ='{gsCASH_COUNT_ID}' WHERE POS_LOG_ID='{gsPOS_LOG_ID}' and POS_MACHINE_ID = '{gsPOS_MACHINE_ID}' ")
+                SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID ='{gsCASH_COUNT_ID}' WHERE POS_LOG_ID='{gsPOS_LOG_ID}' and POS_MACHINE_ID = '{gsPOS_MACHINE_ID}' ")
             ElseIf gsPOS_TYPE = 2 Then
-                fExecutedOnly($"UPDATE payment SET CASH_COUNT_ID ='{gsCASH_COUNT_ID}' WHERE POS_LOG_ID='{gsPOS_LOG_ID}' and POS_MACHINE_ID = '{gsPOS_MACHINE_ID}' ")
+                SqlExecuted($"UPDATE payment SET CASH_COUNT_ID ='{gsCASH_COUNT_ID}' WHERE POS_LOG_ID='{gsPOS_LOG_ID}' and POS_MACHINE_ID = '{gsPOS_MACHINE_ID}' ")
             End If
 
 
             fPOS_LOG_JOURNAL(gsPOS_LOG_ID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
 
-            gsCashCOUNT_AMOUNT = fNumisNULL(lblTOTAL.Text)
+            gsCashCOUNT_AMOUNT = NumIsNull(lblTOTAL.Text)
 
             If gsCashCountDisplayDiscripancy = True Then
 
@@ -173,7 +173,7 @@ Public Class frmPOSCashCount
                 frmCashCountConfirm.Dispose()
                 frmCashCountConfirm = Nothing
             Else
-                fMessageboxInfo("Successfully")
+                MessageBoxInfo("Successfully")
             End If
 
             Me.Close()
@@ -185,7 +185,7 @@ Public Class frmPOSCashCount
             For N As Integer = 0 To FlowLayoutPanel1.Controls.Count - 1
                 Dim pnl As Panel = FlowLayoutPanel1.Controls(N)
                 Dim num As NumericUpDown = pnl.Controls($"num{pnl.Tag}")
-                ThisAmount = ThisAmount + (num.Value * fNumisNULL(num.Tag))
+                ThisAmount = ThisAmount + (num.Value * NumIsNull(num.Tag))
             Next
         End If
 

@@ -9,13 +9,13 @@ Module modAccount
                 gsACCOUNT_TAG_ID(i) = ""
             Next
             '=============
-            Dim rd As OdbcDataReader = fReader("select ID,TAG from account ")
+            Dim rd As OdbcDataReader = SqlReader("select ID,TAG from account ")
             While rd.Read
-                gsACCOUNT_TAG_ID(rd("ID")) = fTextisNULL(rd("TAG"))
+                gsACCOUNT_TAG_ID(rd("ID")) = TextIsNull(rd("TAG"))
             End While
             rd.Close()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub

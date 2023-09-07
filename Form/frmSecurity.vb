@@ -12,13 +12,13 @@ Public Class frmSecurity
 
         Try
 
-            Dim rd As OdbcDataReader = fReader("select `NAME` as T from system_security where USER_ID = '" & prUser_ID & "' Limit 300")
+            Dim rd As OdbcDataReader = SqlReader("select `NAME` as T from system_security where USER_ID = '" & prUser_ID & "' Limit 300")
             While rd.Read
                 fRefreshDataUser(trvMENU, rd("T"), True)
             End While
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fCheckInfo(prUser_ID)
             Else
                 End
@@ -84,18 +84,17 @@ Public Class frmSecurity
     End Sub
     Private Sub fRefreshUser()
 
-        fDataGridView(dgvUser, "Select u.ID,u.`Name` as `Username`,utm.`Description` as `User type` from User as u inner join user_type_map as utm on u.`Type` = utm.ID ")
+        LoadDataGridView(dgvUser, "Select u.ID,u.`Name` as `Username`,utm.`Description` as `User type` from User as u inner join user_type_map as utm on u.`Type` = utm.ID ")
         dgvUser.Columns.Item("ID").Visible = False
-        'fDatagridViewMode(dgvUser)
+        'DatagridViewMode(dgvUser)
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub frmSecurity_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fColumn()
-        fBackGroundImageStyle(Me)
         fRefreshUser()
         fRefreshList()
 
@@ -109,7 +108,7 @@ Public Class frmSecurity
     End Function
     Private Sub fColumn()
 
-        fDatagridViewMode(dgvAccessControl)
+        DatagridViewMode(dgvAccessControl)
         With dgvAccessControl.Columns
             .Clear()
             .Add("SUB_ID", "SUB_ID")
@@ -137,16 +136,16 @@ Public Class frmSecurity
     Private Sub fRefreshList()
         Try
             Dim i As Integer = 0
-            Dim rd As OdbcDataReader = fReader("select * from tblmenu ")
+            Dim rd As OdbcDataReader = SqlReader("select * from tblmenu ")
             trvMENU.BeginUpdate()
             While rd.Read
 
                 trvMENU.Nodes.Add(rd("MENU_ID"), rd("DESCRIPTION"))
                 trvMENU.Nodes.Item(i).NodeFont = New Font(trvMENU.Font, FontStyle.Bold)
 
-                Dim rd_sub As OdbcDataReader = fReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' order by sm.description")
+                Dim rd_sub As OdbcDataReader = SqlReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' order by sm.description")
                 While rd_sub.Read
-                    Dim T As Integer = fNumisNULL(rd_sub("access_control"))
+                    Dim T As Integer = NumIsNull(rd_sub("access_control"))
                     trvMENU.Nodes(i).Nodes.Add(rd_sub("sub_id"), rd_sub("description"), T)
                 End While
                 rd_sub.Close()
@@ -159,7 +158,7 @@ Public Class frmSecurity
 
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshList()
             Else
                 End
@@ -176,14 +175,14 @@ Public Class frmSecurity
         Dim user_id As Integer = dgvUser.Rows(dgvUser.CurrentRow.Index).Cells(0).Value
         Try
 
-            Dim rd As OdbcDataReader = fReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_security_access as u  on u.sub_id = s.sub_id and u.user_id = '" & user_id & "' where s.access_control = '1' order by ml.menu_id,s.description")
+            Dim rd As OdbcDataReader = SqlReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_security_access as u  on u.sub_id = s.sub_id and u.user_id = '" & user_id & "' where s.access_control = '1' order by ml.menu_id,s.description")
             While rd.Read
-                dgvAccessControl.Rows.Add(fNumisNULL(rd("IDx")), fTextisNULL(rd("description")), fNumisNULL(rd("NEW")), fNumisNULL(rd("EDIT")), fNumisNULL(rd("DELETE")), fNumisNULL(rd("FIND")), fNumisNULL(rd("PRINT_PREVIEW")), IIf(IsDBNull(rd("NEW")), "A", "S"))
+                dgvAccessControl.Rows.Add(NumIsNull(rd("IDx")), TextIsNull(rd("description")), NumIsNull(rd("NEW")), NumIsNull(rd("EDIT")), NumIsNull(rd("DELETE")), NumIsNull(rd("FIND")), NumIsNull(rd("PRINT_PREVIEW")), IIf(IsDBNull(rd("NEW")), "A", "S"))
             End While
             rd.Close()
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 frefreshAccessControl()
             Else
                 End
@@ -329,7 +328,7 @@ Public Class frmSecurity
 
             Next
             If sQuery <> "" Then
-                fExecutedOnly(sQuery)
+                SqlExecuted(sQuery)
             End If
 
 
@@ -338,7 +337,7 @@ Public Class frmSecurity
             fCheckInfo(User_ID)
             frefreshAccessControl()
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
         End Try
     End Sub
     Private Sub fUpdateDataAccessControl()
@@ -358,14 +357,14 @@ Public Class frmSecurity
                 sQuery = "UPDATE user_security_access SET `NEW`='" & Val(dt.Cells("NEW").Value) & "',`EDIT`='" & Val(dt.Cells("EDIT").Value) & "',`DELETE`='" & Val(dt.Cells("DELETE").Value) & "',`FIND`='" & Val(dt.Cells("FIND").Value) & "',`PRINT_PREVIEW`='" & Val(dt.Cells("PRINT_PREVIEW").Value) & "',`MODIFY`=NOW() WHERE `SUB_ID`='" & dt.Cells("SUB_ID").Value & "' and `USER_ID`='" & User_ID & "';"
             End If
 
-            fExecutedOnly(sQuery)
+            SqlExecuted(sQuery)
 
         Next
 
     End Sub
     Private Function fCheckingAccessControl(ByVal prSub_ID As String, ByVal prUser_ID As String) As Boolean
         Dim b As Boolean = False
-        Dim rd As OdbcDataReader = fReader("select * from user_security_access where sub_id = '" & prSub_ID & "' and user_id ='" & prUser_ID & "' limit 1")
+        Dim rd As OdbcDataReader = SqlReader("select * from user_security_access where sub_id = '" & prSub_ID & "' and user_id ='" & prUser_ID & "' limit 1")
         If rd.Read Then
             b = True
         End If
@@ -489,16 +488,16 @@ Public Class frmSecurity
     Private Sub SaveConfigOnUserTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveConfigOnUserTypeToolStripMenuItem.Click
         'Update Type
         If dgvUser.Rows.Count = 0 Then
-            fMessageboxInfo("User not found")
+            MessageBoxInfo("User not found")
             Exit Sub
         End If
         Dim user_id As Integer = dgvUser.Rows(dgvUser.CurrentRow.Index).Cells(0).Value
-        Dim user_type As Integer = fNumFieldValue("user", "ID", user_id, "TYPE")
+        Dim user_type As Integer = GetNumberFieldValue("user", "ID", user_id, "TYPE")
 
-        If fMessageBoxQuestion("Do you want to update user type " & fGetFieldValue("user_type_map", "ID", user_type, "DESCRIPTION") & " base on user " & dgvUser.Rows(dgvUser.CurrentRow.Index).Cells(1).Value) = True Then
+        If MessageBoxQuestion("Do you want to update user type " & GetStringFieldValue("user_type_map", "ID", user_type, "DESCRIPTION") & " base on user " & dgvUser.Rows(dgvUser.CurrentRow.Index).Cells(1).Value) = True Then
             fSecurityUpdate(False, True, user_id, user_type)
             
-            If fMessageBoxQuestion("Do you want to update all user in this user type " & fGetFieldValue("user_type_map", "ID", user_type, "DESCRIPTION")) = True Then
+            If MessageBoxQuestion("Do you want to update all user in this user type " & GetStringFieldValue("user_type_map", "ID", user_type, "DESCRIPTION")) = True Then
                 fSecurityUpdate(True, False, "", user_type)
 
             End If
@@ -509,14 +508,14 @@ Public Class frmSecurity
         'All User
         'Update Type
         If dgvUser.Rows.Count = 0 Then
-            fMessageboxInfo("User not found")
+            MessageBoxInfo("User not found")
             Exit Sub
         End If
         Dim user_id As Integer = dgvUser.Rows(dgvUser.CurrentRow.Index).Cells(0).Value
-        Dim user_type As Integer = fNumFieldValue("user", "ID", user_id, "TYPE")
+        Dim user_type As Integer = GetNumberFieldValue("user", "ID", user_id, "TYPE")
 
 
-        If fMessageBoxQuestion("Do you want to update all user base on user type = " & fGetFieldValue("user_type_map", "ID", user_type, "DESCRIPTION")) = True Then
+        If MessageBoxQuestion("Do you want to update all user base on user type = " & GetStringFieldValue("user_type_map", "ID", user_type, "DESCRIPTION")) = True Then
             fSecurityUpdate(True, False, "", user_type)
         End If
 
@@ -524,8 +523,8 @@ Public Class frmSecurity
     End Sub
 
     Private Sub frmSecurity_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fDgvNotSort(dgvAccessControl)
-        fDgvNotSort(dgvUser)
+        ViewNotSort(dgvAccessControl)
+        ViewNotSort(dgvUser)
     End Sub
 
     Private Sub txtFind_TextChanged(sender As Object, e As EventArgs) Handles txtFind.TextChanged

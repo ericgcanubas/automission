@@ -18,7 +18,7 @@
 
     Private Sub frmPOSStartingCash_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If numAMOUNT.Value <= 0 Then
-            If fMessagePOSYesNO("Are you sure no petty cash?") = False Then
+            If MessageBoxPointOfSalesYesNO("Are you sure no petty cash?") = False Then
                 e.Cancel = True
             End If
         End If

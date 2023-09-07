@@ -1,13 +1,11 @@
 ﻿Public Class frmReferenceSettings
     Private Sub frmReferenceSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-
-        fComboBox(xmbMenu, "select * from object_type_map where IS_DOCUMENT = '1' ", "ID", "NAME")
-        fCLean_and_refresh(Me)
+        ComboBoxLoad(xmbMenu, "select * from object_type_map where IS_DOCUMENT = '1' ", "ID", "NAME")
+        ClearAndRefresh(Me)
 
     End Sub
     Private Sub fRefresh()
-        fExecutedUsingReading(Me, "select * from object_type_map where ID = '" & fNumisNULL(xmbMenu.SelectedValue) & "' limit 1")
+        SqlExecutedUsingReading(Me, "select * from object_type_map where ID = '" & NumIsNull(xmbMenu.SelectedValue) & "' limit 1")
     End Sub
     Private Sub xmbMenu_SelectedIndexChanged(sender As Object, e As EventArgs) Handles xmbMenu.SelectedIndexChanged
         fRefresh()
@@ -44,7 +42,7 @@
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
-        fExecutedOnly("Update object_type_map set " & fFieldCollector(Me) & " Where ID ='" & xmbMenu.SelectedValue & "'")
-        fMessageboxInfo("Save")
+        SqlExecuted("Update object_type_map set " & SqlUpdate(Me) & " Where ID ='" & xmbMenu.SelectedValue & "'")
+        MessageBoxInfo("Save")
     End Sub
 End Class

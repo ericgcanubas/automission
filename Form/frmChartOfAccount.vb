@@ -12,12 +12,12 @@ Public Class frmChartOfAccount
             SQL = $"SELECT a.`ID`,a.`Name`,atm.`DESCRIPTION` AS `Type`,a.`BANK_ACCOUNT_NO` as `Bank Account No.`,a.`LINE_NO` as `Line No.`,IFNULL(ag.`NAME`,'') AS `Group of Accounts`, if(a.`Inactive`=0,'No','Yes') as `Inactive` FROM  account a LEFT OUTER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` LEFT OUTER JOIN account AS ag ON ag.`ID` = a.`GROUP_ACCOUNT_ID` where a.INACTIVE ='0' Order by a.`ID`"
         End If
 
-        fDataGridView_Binding(dgvAccount, SQL, item_BS)
+        LoadDataGridViewBinding(dgvAccount, SQL, item_BS)
 
         With dgvAccount.Columns
             .Item(0).Visible = False
         End With
-        fDataGrid_Column(dgvAccount, 18)
+        ViewColumn(dgvAccount, 18)
 
 
     End Sub
@@ -61,7 +61,7 @@ Public Class frmChartOfAccount
 
     Private Sub fEditAccount()
         If dgvAccount.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
 
@@ -72,15 +72,15 @@ Public Class frmChartOfAccount
         Try
             dgvAccount.Focus()
             Dim i As Integer = dgvAccount.CurrentRow.Index
-            Dim dID As String = dgvAccount.Rows.Item(i).Cells(0).Value
+            Dim ID As Integer = dgvAccount.Rows.Item(i).Cells(0).Value
 
 
 
-            frmAccount.this_BS = item_BS
-            frmAccount.dgv = dgvAccount
-            frmAccount.gsNew = False
-            frmAccount.gsID = dID
-            frmAccount.ShowDialog()
+            FrmAccount.BS = item_BS
+            FrmAccount.View = dgvAccount
+            FrmAccount.IsNew = False
+            FrmAccount.ID = ID
+            FrmAccount.ShowDialog()
             frmAccount.Dispose()
             frmAccount = Nothing
 
@@ -92,7 +92,7 @@ Public Class frmChartOfAccount
 
 
     Private Sub tsClose_Click_1(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
     Private Sub dgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAccount.CellDoubleClick
 
@@ -106,7 +106,7 @@ Public Class frmChartOfAccount
             fEditAccount()
         Else
             If dgvAccount.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
             gsFindID = dgvAccount.CurrentRow.Cells("ID").Value
@@ -166,11 +166,11 @@ Public Class frmChartOfAccount
         Dim Loc_ID As Integer = 0
         If frmSelectLocation.gsOK = True Then
             Loc_ID = frmSelectLocation.cmbLOCATION_ID.SelectedValue
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
             For I As Integer = 0 To dgvAccount.Rows.Count - 1
                 fJAccount(dgvAccount.Rows(I).Cells("ID").Value, Loc_ID)
             Next
-            fCursorLoadingOn(False)
+            CursorLoadingOn(False)
         End If
         frmSelectLocation.Dispose()
         frmSelectLocation = Nothing
@@ -180,20 +180,20 @@ Public Class frmChartOfAccount
     Private Sub fJAccount(ByVal prAccount As Integer, ByVal prLocation As Integer)
         Dim BALANCE As Double = 0
         Dim TEMP_SQL As String = ""
-        Dim rd As OdbcDataReader = fReader($"SELECT * FROM ACCOUNT_JOURNAL WHERE ACCOUNT_ID = '{prAccount}' and LOCATION_ID ='{prLocation}' ORDER BY OBJECT_DATE,ID ")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM ACCOUNT_JOURNAL WHERE ACCOUNT_ID = '{prAccount}' and LOCATION_ID ='{prLocation}' ORDER BY OBJECT_DATE,ID ")
 
         While rd.Read
 
-            If fNumisNULL(rd("ENTRY_TYPE")) = 0 Then
-                BALANCE = BALANCE + fNumisNULL(rd("AMOUNT"))
+            If NumIsNull(rd("ENTRY_TYPE")) = 0 Then
+                BALANCE = BALANCE + NumIsNull(rd("AMOUNT"))
             Else
-                BALANCE = BALANCE - fNumisNULL(rd("AMOUNT"))
+                BALANCE = BALANCE - NumIsNull(rd("AMOUNT"))
             End If
             TEMP_SQL = TEMP_SQL & $" UPDATE `ACCOUNT_JOURNAL` SET ENDING_BALANCE ='{BALANCE}' WHERE `ID`='{rd("ID")}' and LOCATION_ID ='{prLocation}' and ACCOUNT_ID ='{prAccount}'  limit 1;"
         End While
 
         If TEMP_SQL <> "" Then
-            fExecutedOnly(TEMP_SQL)
+            SqlExecuted(TEMP_SQL)
         End If
 
 
@@ -201,18 +201,18 @@ Public Class frmChartOfAccount
     Private Sub fJAccount_Fixed_PREVIOUS_ID(ByVal prAccount As Integer, ByVal prLocation As Integer)
 
         Dim TEMP_SQL As String = ""
-        Dim rd As OdbcDataReader = fReader($"SELECT ID FROM ACCOUNT_JOURNAL WHERE ACCOUNT_ID = '{prAccount}' and LOCATION_ID ='{prLocation}' ORDER BY ID ")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ID FROM ACCOUNT_JOURNAL WHERE ACCOUNT_ID = '{prAccount}' and LOCATION_ID ='{prLocation}' ORDER BY ID ")
         Dim PREVIOUS_ID As Integer = 0
         Dim SEQUENCE_NO As Integer = 0
         While rd.Read
 
-            TEMP_SQL = TEMP_SQL & $" UPDATE `ACCOUNT_JOURNAL` SET PREVIOUS_ID={ fGotNullNumber(PREVIOUS_ID)},SEQUENCE_NO='{SEQUENCE_NO}' WHERE `ID`='{rd("ID")}' and LOCATION_ID ='{prLocation}' and ACCOUNT_ID ='{prAccount}'  limit 1;"
-            PREVIOUS_ID = fNumisNULL(rd("ID"))
+            TEMP_SQL = TEMP_SQL & $" UPDATE `ACCOUNT_JOURNAL` SET PREVIOUS_ID={ GotNullNumber(PREVIOUS_ID)},SEQUENCE_NO='{SEQUENCE_NO}' WHERE `ID`='{rd("ID")}' and LOCATION_ID ='{prLocation}' and ACCOUNT_ID ='{prAccount}'  limit 1;"
+            PREVIOUS_ID = NumIsNull(rd("ID"))
             SEQUENCE_NO = SEQUENCE_NO + 1
         End While
 
         If TEMP_SQL <> "" Then
-            fExecutedOnly(TEMP_SQL)
+            SqlExecuted(TEMP_SQL)
         End If
 
 
@@ -226,10 +226,10 @@ Public Class frmChartOfAccount
                 Dim Loc_ID As Integer = 0
                 If frmSelectLocation.gsOK = True Then
                     Loc_ID = frmSelectLocation.cmbLOCATION_ID.SelectedValue
-                    fCursorLoadingOn(True)
+                    CursorLoadingOn(True)
                     Dim I As Integer = dgvAccount.CurrentRow.Index
                     fJAccount(dgvAccount.Rows(I).Cells("ID").Value, Loc_ID)
-                    fCursorLoadingOn(False)
+                    CursorLoadingOn(False)
                 End If
                 frmSelectLocation.Dispose()
                 frmSelectLocation = Nothing
@@ -256,11 +256,11 @@ Public Class frmChartOfAccount
         Dim Loc_ID As Integer = 0
         If frmSelectLocation.gsOK = True Then
             Loc_ID = frmSelectLocation.cmbLOCATION_ID.SelectedValue
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
             For I As Integer = 0 To dgvAccount.Rows.Count - 1
                 fJAccount_Fixed_PREVIOUS_ID(dgvAccount.Rows(I).Cells("ID").Value, Loc_ID)
             Next
-            fCursorLoadingOn(False)
+            CursorLoadingOn(False)
         End If
         frmSelectLocation.Dispose()
         frmSelectLocation = Nothing
@@ -282,11 +282,11 @@ Public Class frmChartOfAccount
         If fACCESS_NEW_EDIT(Me, True) = False Then
             Exit Sub
         End If
-        frmAccount.this_BS = item_BS
-        frmAccount.dgv = dgvAccount
-        frmAccount.gsNew = True
-        frmAccount.gsID = ""
-        frmAccount.ShowDialog()
+        FrmAccount.BS = item_BS
+        FrmAccount.View = dgvAccount
+        FrmAccount.IsNew = True
+        FrmAccount.ID = 0
+        FrmAccount.ShowDialog()
         frmAccount.Dispose()
         frmAccount = Nothing
     End Sub
@@ -297,7 +297,7 @@ Public Class frmChartOfAccount
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvAccount.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -309,9 +309,9 @@ Public Class frmChartOfAccount
             Dim i As Integer = dgvAccount.CurrentRow.Index
             Dim dID As String = dgvAccount.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvAccount.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
-                fExecutedOnly("Delete From account where id='" & dID & "' limit 1;")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
+                SqlExecuted("Delete From account where id='" & dID & "' limit 1;")
+                DeleteNotify(Me)
                 fRefreshData()
             End If
 
@@ -325,8 +325,8 @@ Public Class frmChartOfAccount
     End Sub
 
     Private Sub tsColumn_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvAccount, 18)
-        fDataGrid_Column(dgvAccount, 18)
+        ViewSwitch(dgvAccount, 18)
+        ViewColumn(dgvAccount, 18)
     End Sub
 
     Private Sub tsReload_Click(sender As Object, e As EventArgs) Handles tsReload.Click

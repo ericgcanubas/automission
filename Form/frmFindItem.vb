@@ -6,7 +6,7 @@
     Dim xSQL As String
     Private Sub fRefreshLocation()
 
-        fTSComboBox(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
+        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
 
     End Sub
     Private Sub fRefreshDataGrid()
@@ -28,7 +28,7 @@
 
             End If
 
-            fDataGridView_Binding(dgvItem, "SELECT 
+            LoadDataGridViewBinding(dgvItem, "SELECT 
   i.ID,
   i.CODE AS `Code`,
   i.`DESCRIPTION` AS `Description`,
@@ -77,11 +77,11 @@ where i.inactive = '0' ", item_BS)
 
             With dgvItem
                 .Columns(0).Visible = False
-                fDataGrid_Column(dgvItem, 4)
+                ViewColumn(dgvItem, 4)
             End With
             fSearchload()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshDataGrid()
             Else
                 End
@@ -141,8 +141,8 @@ where i.inactive = '0' ", item_BS)
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
 
-        fDataGrid_Switch(dgvItem, 4)
-        fDataGrid_Column(dgvItem, 4) ' 4 = for find item
+        ViewSwitch(dgvItem, 4)
+        ViewColumn(dgvItem, 4) ' 4 = for find item
 
     End Sub
 
@@ -150,7 +150,7 @@ where i.inactive = '0' ", item_BS)
         If Me.AccessibleName = "A" Then
             Me.Close()
         Else
-            fCloseForm(Me)
+            ClosedForm(Me)
         End If
 
     End Sub
@@ -165,7 +165,7 @@ where i.inactive = '0' ", item_BS)
     End Sub
     Private Sub fEditItem()
         If dgvItem.Rows.Count = 0 Then
-            fMessageboxInfo("data not found!")
+            MessageBoxInfo("data not found!")
             Exit Sub
         End If
 
@@ -178,17 +178,17 @@ where i.inactive = '0' ", item_BS)
             Dim i As Integer = dgvItem.CurrentRow.Index
             Dim dID As String = dgvItem.Rows.Item(i).Cells(0).Value
 
-            frmItemDetails.bNew = False
+            frmItemDetails.IsNew = False
             frmItemDetails.dgv = dgvItem
             frmItemDetails.this_BS = item_BS
-            frmItemDetails.gsID = dID
+            frmItemDetails.ID = dID
             frmItemDetails.bMain = False
             frmItemDetails.ShowDialog()
             frmItemDetails.Dispose()
             frmItemDetails = Nothing
             'fRefreshDataGrid()
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
         End Try
     End Sub
     Private Sub frmFindItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -221,14 +221,14 @@ where i.inactive = '0' ", item_BS)
 
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
         FirstLoad = False
     End Sub
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs)
         If dgvItem.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -239,13 +239,13 @@ where i.inactive = '0' ", item_BS)
             Dim i As Integer = dgvItem.CurrentRow.Index
             Dim dID As String = dgvItem.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvItem.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
-                fExecutedOnly("Delete From item where id='" & dID & "'")
+            If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
+                SqlExecuted("Delete From item where id='" & dID & "'")
                 fRefreshDataGrid()
 
             End If
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
@@ -262,7 +262,7 @@ where i.inactive = '0' ", item_BS)
                 frmSelectDate.ShowDialog()
                 If frmSelectDate.gsOK = True Then
 
-                    fReCalculateInventory(dgvItem.CurrentRow.Cells("ID").Value, tscmbLocation.ComboBox.SelectedValue, frmSelectDate.dtpSelect.Value)
+                    ReCalculateInventory(dgvItem.CurrentRow.Cells("ID").Value, tscmbLocation.ComboBox.SelectedValue, frmSelectDate.dtpSelect.Value)
 
 
                 End If
@@ -356,8 +356,8 @@ where i.inactive = '0' ", item_BS)
         If fACCESS_NEW_EDIT(frmItem, True) = False Then
             Exit Sub
         End If
-        frmItemDetails.bNew = True
-        frmItemDetails.gsID = ""
+        frmItemDetails.IsNew = True
+        frmItemDetails.ID = ""
         frmItemDetails.dgv = dgvItem
         frmItemDetails.this_BS = item_BS
         frmItemDetails.bMain = False

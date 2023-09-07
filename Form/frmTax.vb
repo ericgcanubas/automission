@@ -5,17 +5,17 @@
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvTax, "SELECT tx.`ID`,tx.`Name`,t.`DESCRIPTION` AS `Tax Type`, IF(IFNULL(tx.`Rate`,'') = '','', CONCAT(FORMAT(tx.`Rate`,0),'%')) AS `Rate`,l.`NAME` AS `Liability Account`,a.`NAME` AS `Asset Account`, tx.`Inactive` FROM tax AS tx  INNER JOIN tax_type_map AS t ON t.`ID` = tx.`TAX_TYPE` LEFT OUTER JOIN account AS l ON l.`ID` = tx.`TAX_ACCOUNT_ID`	 LEFT OUTER JOIN account AS a ON a.`ID` = tx.`ASSET_ACCOUNT_ID`", item_BS)
-        fDataGrid_Column(dgvTax, 34)
+        LoadDataGridViewBinding(dgvTax, "SELECT tx.`ID`,tx.`Name`,t.`DESCRIPTION` AS `Tax Type`, IF(IFNULL(tx.`Rate`,'') = '','', CONCAT(FORMAT(tx.`Rate`,0),'%')) AS `Rate`,l.`NAME` AS `Liability Account`,a.`NAME` AS `Asset Account`, tx.`Inactive` FROM tax AS tx  INNER JOIN tax_type_map AS t ON t.`ID` = tx.`TAX_TYPE` LEFT OUTER JOIN account AS l ON l.`ID` = tx.`TAX_ACCOUNT_ID`	 LEFT OUTER JOIN account AS a ON a.`ID` = tx.`ASSET_ACCOUNT_ID`", item_BS)
+        ViewColumn(dgvTax, 34)
         fTax_Rate_Load()
     End Sub
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvTax, 34)
-        fDataGrid_Column(dgvTax, 34)
+        ViewSwitch(dgvTax, 34)
+        ViewColumn(dgvTax, 34)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -44,7 +44,7 @@
 
         frmTaxDetails.This_BS = item_BS
         frmTaxDetails.Dgv = dgvTax
-        frmTaxDetails.gsID = dgvTax.Rows(i).Cells("ID").Value
+        frmTaxDetails.ID = dgvTax.Rows(i).Cells("ID").Value
         frmTaxDetails.ShowDialog()
         frmTaxDetails.Dispose()
         frmTaxDetails = Nothing
@@ -67,9 +67,9 @@
             Exit Sub
         End If
 
-        If fMessageBoxQuestion("Are you sure to delete this Tax?") = True Then
-            fExecutedOnly("DELETE FROM tax WHERE ID = '" & dgvTax.Rows(i).Cells("ID").Value & "' Limit 1")
-            fDeletePopUp(Me)
+        If MessageBoxQuestion("Are you sure to delete this Tax?") = True Then
+            SqlExecuted("DELETE FROM tax WHERE ID = '" & dgvTax.Rows(i).Cells("ID").Value & "' Limit 1")
+            DeleteNotify(Me)
             fRefresh()
         End If
 

@@ -26,35 +26,35 @@ Module modSystemSettings
                             For Each z As Control In g.Controls
                                 If (TypeOf z Is ComboBox) Then
                                     Dim ojb As ComboBox = z
-                                    fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & IIf(ojb.Name.Contains("cmb") = True, ojb.SelectedValue, ojb.Text) & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
+                                    SqlExecuted("UPDATE system_settings SET `VALUE` ='" & IIf(ojb.Name.Contains("cmb") = True, ojb.SelectedValue, ojb.Text) & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
                                 ElseIf (TypeOf z Is TextBox) Or (TypeOf z Is RichTextBox) Then
-                                    fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & z.Text & "' WHERE `NAME` = '" & Mid(z.Name, 4, z.Name.Length) & "' limit 1;")
+                                    SqlExecuted("UPDATE system_settings SET `VALUE` ='" & z.Text & "' WHERE `NAME` = '" & Mid(z.Name, 4, z.Name.Length) & "' limit 1;")
                                 ElseIf (TypeOf z Is CheckBox) Then
                                     Dim ojb As CheckBox = z
-                                    fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & ojb.Checked & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
+                                    SqlExecuted("UPDATE system_settings SET `VALUE` ='" & ojb.Checked & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
                                 ElseIf (TypeOf z Is NumericUpDown) Then
                                     Dim ojb As NumericUpDown = z
-                                    fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & ojb.Value & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
+                                    SqlExecuted("UPDATE system_settings SET `VALUE` ='" & ojb.Value & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
                                 ElseIf (TypeOf z Is DateTimePicker) Then
                                     Dim ojb As DateTimePicker = z
-                                    fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & IIf(ojb.Checked = False, "", ojb.Value) & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "'limit 1;")
+                                    SqlExecuted("UPDATE system_settings SET `VALUE` ='" & IIf(ojb.Checked = False, "", ojb.Value) & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "'limit 1;")
                                 End If
                             Next
                         End If
                     ElseIf (TypeOf v Is ComboBox) Then
                         Dim ojb As ComboBox = v
-                        fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & IIf(ojb.Name.Contains("cmb") = True, ojb.SelectedValue, ojb.Text) & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
+                        SqlExecuted("UPDATE system_settings SET `VALUE` ='" & IIf(ojb.Name.Contains("cmb") = True, ojb.SelectedValue, ojb.Text) & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
                     ElseIf (TypeOf v Is TextBox) Or (TypeOf v Is RichTextBox) Then
-                        fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & v.Text & "' WHERE `NAME` = '" & Mid(v.Name, 4, v.Name.Length) & "' limit 1;")
+                        SqlExecuted("UPDATE system_settings SET `VALUE` ='" & v.Text & "' WHERE `NAME` = '" & Mid(v.Name, 4, v.Name.Length) & "' limit 1;")
                     ElseIf (TypeOf v Is CheckBox) Then
                         Dim ojb As CheckBox = v
-                        fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & ojb.Checked & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
+                        SqlExecuted("UPDATE system_settings SET `VALUE` ='" & ojb.Checked & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
                     ElseIf (TypeOf v Is NumericUpDown) Then
                         Dim ojb As NumericUpDown = v
-                        fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & ojb.Value & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
+                        SqlExecuted("UPDATE system_settings SET `VALUE` ='" & ojb.Value & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
                     ElseIf (TypeOf v Is DateTimePicker) Then
                         Dim ojb As DateTimePicker = v
-                        fExecutedOnly("UPDATE system_settings SET `VALUE` ='" & IIf(ojb.Checked = False, "", ojb.Value) & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
+                        SqlExecuted("UPDATE system_settings SET `VALUE` ='" & IIf(ojb.Checked = False, "", ojb.Value) & "' WHERE `NAME` = '" & Mid(ojb.Name, 4, ojb.Name.Length) & "' limit 1;")
                     End If
 
                 Next
@@ -66,11 +66,11 @@ Module modSystemSettings
 
 
 
-        ' fExecutedOnly(str_Query) 'MAIN
-        fMessageboxInfo("Save! Re-login")
+        ' SqlExecuted(str_Query) 'MAIN
+        MessageBoxInfo("Save! Re-login")
     End Sub
     Public Sub fObject_Type(ByVal c As Control, ByVal i As Integer, ByVal v As String)
-        Select Case fLeft(c.Controls(i).Name, 3)
+        Select Case StrLeft(c.Controls(i).Name, 3)
 
 
             Case "lbl"
@@ -158,12 +158,12 @@ Module modSystemSettings
             End If
 
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
         End Try
         Return b
     End Function
     Public Sub fLoadSubMenuTypeItem()
-        Dim rd As OdbcDataReader = fReader("select description,form from `tblsub_menu` where active <> '0' ")
+        Dim rd As OdbcDataReader = SqlReader("select description,form from `tblsub_menu` where active <> '0' ")
         While rd.Read
             Dim sName As String = rd("Description")
             Select Case rd("form")
@@ -223,7 +223,7 @@ Module modSystemSettings
         If prDate <= fClosingDate() Then
             If IsNew = True Then
                 bResult = False
-                fMessageboxWarning("Closing date not allowed")
+                MessageBoxWarning("Closing date not allowed")
             Else
 
                 If CBool(fSystemSettingValue("ClosingDatePassword")) = False Then
@@ -246,7 +246,7 @@ Module modSystemSettings
         Try
             Return fSystemSettingValue("ClosingDate")
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
             Return Date.Today
         End Try
     End Function
@@ -268,16 +268,16 @@ Module modSystemSettings
 
         If sValue = "" Then
             Try
-                Dim rd As OdbcDataReader = fReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
+                Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
                 If rd.Read Then
                     sValue = rd("VALUE")
                 Else
-                    fExecutedOnly("INSERT INTO system_settings SET `VALUE`='', `NAME` = '" & prName & "'")
-                    fMessageboxInfo("New settings = " & prName)
+                    SqlExecuted("INSERT INTO system_settings SET `VALUE`='', `NAME` = '" & prName & "'")
+                    MessageBoxInfo("New settings = " & prName)
                 End If
                 rd.Close()
             Catch ex As Exception
-                If fMessageBoxErrorYesNo(ex.Message) = True Then
+                If MessageBoxErrorYesNo(ex.Message) = True Then
                     sValue = fSystemSettingValue(prName)
                 Else
                     End
@@ -298,16 +298,16 @@ Module modSystemSettings
 
         If sValue = False Then
             Try
-                Dim rd As OdbcDataReader = fReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
+                Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
                 If rd.Read Then
                     sValue = rd("VALUE")
                 Else
-                    fExecutedOnly("INSERT INTO system_settings SET `VALUE`='0', `NAME` = '" & prName & "'")
-                    fMessageboxInfo("New settings = " & prName)
+                    SqlExecuted("INSERT INTO system_settings SET `VALUE`='0', `NAME` = '" & prName & "'")
+                    MessageBoxInfo("New settings = " & prName)
                 End If
                 rd.Close()
             Catch ex As Exception
-                If fMessageBoxErrorYesNo(ex.Message) = True Then
+                If MessageBoxErrorYesNo(ex.Message) = True Then
                     sValue = fSystemSettingValue_Bool(prName)
                 Else
                     End
@@ -322,15 +322,15 @@ Module modSystemSettings
 
 
         Try
-            Dim rd As OdbcDataReader = fReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
             If rd.Read Then
-                fExecutedOnly("UPDATE system_settings SET `VALUE`='" & prValue & "' WHERE `NAME` = '" & prName & "'  limit 1;")
+                SqlExecuted("UPDATE system_settings SET `VALUE`='" & prValue & "' WHERE `NAME` = '" & prName & "'  limit 1;")
             Else
-                fMessageboxInfo("System Settings not found.")
+                MessageBoxInfo("System Settings not found.")
             End If
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fSystemSettingUpdateByBool(prName, prValue)
             Else
                 End ' exit program
@@ -344,17 +344,17 @@ Module modSystemSettings
 
 
         Try
-            Dim rd As OdbcDataReader = fReader("select `VALUE` from system_settings WHERE `NAME` = '" & prName & "' Limit 1;")
+            Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings WHERE `NAME` = '" & prName & "' Limit 1;")
             If rd.Read Then
 
-                fExecutedOnly("UPDATE system_settings SET `VALUE`='" & prValue & "' WHERE `NAME` = '" & prName & "'  limit 1;")
+                SqlExecuted("UPDATE system_settings SET `VALUE`='" & prValue & "' WHERE `NAME` = '" & prName & "'  limit 1;")
             Else
-                fMessageboxInfo("System Settings not found.")
+                MessageBoxInfo("System Settings not found.")
             End If
             rd.Close()
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fSystemSettingUpdateByString(prName, prValue)
             Else
                 End ' exit program
@@ -365,15 +365,15 @@ Module modSystemSettings
     End Sub
     Public Sub fSystemSettingUpdateByNumber(ByVal prName As String, ByVal prValue As Double)
         Try
-            Dim rd As OdbcDataReader = fReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1;")
+            Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1;")
             If rd.Read Then
-                fExecutedOnly("UPDATE system_settings SET `VALUE`='" & prValue & "' WHERE `NAME` = '" & prName & "'  limit 1;")
+                SqlExecuted("UPDATE system_settings SET `VALUE`='" & prValue & "' WHERE `NAME` = '" & prName & "'  limit 1;")
             Else
-                fMessageboxInfo("System Settings not found.")
+                MessageBoxInfo("System Settings not found.")
             End If
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fSystemSettingUpdateByNumber(prName, prValue)
             Else
                 End ' exit program
@@ -384,20 +384,20 @@ Module modSystemSettings
     End Sub
     Public Function fSystemSettingValue_Num(ByVal prName As String) As Double
 
-        Dim sValue As Double = fNumisNULL(fMSgetField("system_value", "tblsystem", "ID", prName))
+        Dim sValue As Double = NumIsNull(fMSgetField("system_value", "tblsystem", "ID", prName))
 
         If sValue = 0 Then
             Try
-                Dim rd As OdbcDataReader = fReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
+                Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
                 If rd.Read Then
-                    sValue = fNumisNULL(rd("VALUE"))
+                    sValue = NumIsNull(rd("VALUE"))
                 Else
-                    fExecutedOnly("INSERT INTO system_settings SET `VALUE`='0', `NAME` = '" & prName & "'")
-                    fMessageboxInfo("New settings = " & prName)
+                    SqlExecuted("INSERT INTO system_settings SET `VALUE`='0', `NAME` = '" & prName & "'")
+                    MessageBoxInfo("New settings = " & prName)
                 End If
                 rd.Close()
             Catch ex As Exception
-                If fMessageBoxErrorYesNo(ex.Message) = True Then
+                If MessageBoxErrorYesNo(ex.Message) = True Then
                     sValue = fSystemSettingValue_Num(prName)
                 Else
                     End

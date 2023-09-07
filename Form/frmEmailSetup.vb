@@ -5,8 +5,8 @@
         str_Query = str_Query & "UPDATE system_settings SET `VALUE` ='" & Encrypt(txtGmailPassword.Text) & "' WHERE `NAME` = 'GmailPassword';"
         str_Query = str_Query & "UPDATE system_settings SET `VALUE` ='" & txtGmailAddressTo.Text & "' WHERE `NAME` = 'GmailAddressTo';"
 
-        fExecutedOnly(str_Query)
-        fMessageboxInfo("Save = Please restart all running bms.")
+        SqlExecuted(str_Query)
+        MessageBoxInfo("Save = Please restart all running bms.")
     End Sub
 
     Private Sub frmEmailSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load

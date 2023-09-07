@@ -215,7 +215,7 @@ Partial Class frmPurchaseOrder
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(707, 75)
+        Me.Label8.Location = New System.Drawing.Point(709, 75)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6

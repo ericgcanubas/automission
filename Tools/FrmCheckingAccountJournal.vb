@@ -1,11 +1,11 @@
 ﻿Public Class FrmCheckingAccountJournal
     Private Sub FrmCheckingAccountJournal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        fComboBox(cmbOBJECT, "select * from object_type_map", "ID", "NAME")
+        ComboBoxLoad(cmbOBJECT, "select * from object_type_map", "ID", "NAME")
         cmbOBJECT.SelectedValue = 53
-        fComboBox(cmbACCOUNT_ID, "select * from Account ", "ID", "NAME")
+        ComboBoxLoad(cmbACCOUNT_ID, "select * from Account ", "ID", "NAME")
         cmbACCOUNT_ID.SelectedValue = 47
-        fComboBox(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
         dtpDATE1.Value = gsFirstDate
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
@@ -41,12 +41,12 @@ WHERE NOT EXISTS
     AND aj.`OBJECT_TYPE` = '{cmbOBJECT.SelectedValue}' 
     AND aj.`OBJECT_DATE` = sr.`DATE` 
     AND aj.`OBJECT_ID` = sri.`ID`
-    ) AND sr.`DATE` BETWEEN '{ fDateFormatMYSQL(dtpDATE1.Value)}' 
-  AND '{fDateFormatMYSQL(dtpDATE2.Value)}' 
+    ) AND sr.`DATE` BETWEEN '{ DateFormatMySql(dtpDATE1.Value)}' 
+  AND '{DateFormatMySql(dtpDATE2.Value)}' 
   AND sr.`LOCATION_ID` = '{cmbLOCATION_ID.SelectedValue}' 
   AND i.`TYPE` IN (0, 1, 2, 3, 4, 7)"
 
-        fDataGridView(dgvList, SQL)
+        LoadDataGridView(dgvList, SQL)
         dgvList.Columns(0).Visible = False
 
     End Sub
@@ -62,7 +62,7 @@ WHERE NOT EXISTS
                 gsRefresh = True
                 gsDocument_Finder_ID = dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value
 
-                fmenuSet()
+                MenuSet()
 
                 gsDocument_Finder_ID = ""
 
@@ -74,7 +74,7 @@ WHERE NOT EXISTS
 
                 Dim fName As String = ""
                 Dim frm As New Form
-                frm = fGetForm(fName)
+                frm = GetFormModule(fName)
                 Dim tp As TabPage = New TabPage(fName)
 
 

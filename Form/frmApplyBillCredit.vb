@@ -34,10 +34,10 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
         Try
             Dim bSelected As Boolean
 
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 Dim other_applied As Double = fGetCreditOtherBill(rd("bill_credit_id"), gsID)
-                Dim credit_amount As Double = fNumisNULL(rd("amount")) - other_applied
+                Dim credit_amount As Double = NumIsNull(rd("amount")) - other_applied
                 Dim credit_applied As Double = fGetCreditApplied_Bill(rd("bill_credit_id"), gsVendor_ID, gsID)
                 Dim credit_balance As Double = 0
                 If credit_applied = 0 Then
@@ -45,9 +45,9 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
                 Else
                     bSelected = True
                 End If
-                credit_balance = fNumFormatStandard(credit_amount - credit_applied)
+                credit_balance = NumberFormatStandard(credit_amount - credit_applied)
                 If credit_balance <> 0 Or bSelected = True Then
-                    dgvAvailable.Rows.Add(rd("bill_credit_ID"), bSelected, fDateNowStd, rd("code"), fNumFormatStandard(credit_amount), fNumFormatStandard(credit_applied), fNumFormatStandard(credit_balance))
+                    dgvAvailable.Rows.Add(rd("bill_credit_ID"), bSelected, GetDateNowStd, rd("code"), NumberFormatStandard(credit_amount), NumberFormatStandard(credit_applied), NumberFormatStandard(credit_balance))
                 End If
             End While
 
@@ -55,7 +55,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
 
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshCredit()
             Else
                 End
@@ -64,7 +64,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
     End Sub
 
     Private Sub frmApplyCredits_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
+
         Dim chk As New DataGridViewCheckBoxColumn
         chk.Name = "select"
         chk.HeaderText = " "
@@ -99,25 +99,25 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
         End With
 
         fRefreshCredit()
-        lblDISCOUNT_USED.Text = fNumFormatStandard(fGetSumPaymentApplied(gsID, gsVendor_ID))
-        lblAmount_Due.Text = fNumFormatStandard(gsBalance + fBillSumCreditApplied(gsID, gsVendor_ID))
+        lblDISCOUNT_USED.Text = NumberFormatStandard(fGetSumPaymentApplied(gsID, gsVendor_ID))
+        lblAmount_Due.Text = NumberFormatStandard(gsBalance + fBillSumCreditApplied(gsID, gsVendor_ID))
         fComputed()
-        fDatagridViewMode(dgvAvailable)
+        DatagridViewMode(dgvAvailable)
     End Sub
 
     Private Sub fComputed()
 
         Dim balance_due As Double = 0
-        Dim Amount_due As Double = fNumFormatFixed(lblAmount_Due.Text)
+        Dim Amount_due As Double = NumberFormatFixed(lblAmount_Due.Text)
         Dim credit_applied As Double = 0
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-            credit_applied = credit_applied + fNumFormatFixed(dgvAvailable.Rows(i).Cells("credit_used").Value)
+            credit_applied = credit_applied + NumberFormatFixed(dgvAvailable.Rows(i).Cells("credit_used").Value)
         Next
         balance_due = Amount_due - credit_applied
 
-        lblCreditUsed.Text = fNumFormatStandard(credit_applied)
-        lblBalance_Due.Text = fNumFormatStandard(balance_due)
-        lblTotal.Text = fNumFormatStandard(credit_applied)
+        lblCreditUsed.Text = NumberFormatStandard(credit_applied)
+        lblBalance_Due.Text = NumberFormatStandard(balance_due)
+        lblTotal.Text = NumberFormatStandard(credit_applied)
     End Sub
     Private Sub tsOk_Click(sender As Object, e As EventArgs)
 
@@ -130,32 +130,32 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
         Try
 
 
-            Dim rd_check As OdbcDataReader = fReader("select AMOUNT_APPLIED as a from bill_credit_bills where bill_Credit_ID ='" & prbill_Credit_ID & "' and bill_ID = '" & gsID & "' limit 1; ")
+            Dim rd_check As OdbcDataReader = SqlReader("select AMOUNT_APPLIED as a from bill_credit_bills where bill_Credit_ID ='" & prbill_Credit_ID & "' and bill_ID = '" & gsID & "' limit 1; ")
 
             If rd_check.Read Then
                 If bSelected = True Then
                     'UPDATE
                     If amt_appled <> rd_check("a") Then
-                        fExecutedOnly("UPDATE bill_credit_bills set AMOUNT_APPLIED ='" & amt_appled & "' Where  bill_Credit_ID = '" & prbill_Credit_ID & "' and BILL_ID = '" & gsID & "' limit 1;")
+                        SqlExecuted("UPDATE bill_credit_bills set AMOUNT_APPLIED ='" & amt_appled & "' Where  bill_Credit_ID = '" & prbill_Credit_ID & "' and BILL_ID = '" & gsID & "' limit 1;")
                         bUpdate = True
                     End If
                 Else
                     'DELETE
-                    fExecutedOnly("DELETE FROM bill_credit_bills Where  bill_Credit_ID = '" & prbill_Credit_ID & "' and BILL_ID = '" & gsID & "' limit 1;")
+                    SqlExecuted("DELETE FROM bill_credit_bills Where  bill_Credit_ID = '" & prbill_Credit_ID & "' and BILL_ID = '" & gsID & "' limit 1;")
                     bUpdate = True
                 End If
             Else
                 'INSERT
                 If bSelected = True Then
-                    'fGetMaxField("ID", "bill_credit_bills")
-                    fExecutedOnly("INSERT INTO bill_credit_bills set ID ='" & fObjectTypeMap_ID("BILL_CREDIT_BILLS") & "', bill_Credit_ID = '" & prbill_Credit_ID & "',BILL_ID = '" & gsID & "',AMOUNT_APPLIED ='" & amt_appled & "'")
+                    'GetMaxField("ID", "bill_credit_bills")
+                    SqlExecuted("INSERT INTO bill_credit_bills set ID ='" & ObjectTypeMapId("BILL_CREDIT_BILLS") & "', bill_Credit_ID = '" & prbill_Credit_ID & "',BILL_ID = '" & gsID & "',AMOUNT_APPLIED ='" & amt_appled & "'")
                     bUpdate = True
                 End If
             End If
             rd_check.Close()
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 bUpdate = fSetBill_Credit_Bills(bSelected, amt_appled, prbill_Credit_ID)
             Else
                 End
@@ -179,8 +179,8 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
             nStatus = 2
         End If
 
-        Dim squery As String = "UPDATE bill_Credit SET AMOUNT_APPLIED ='" & total_pay & "',STATUS ='" & nStatus & "',STATUS_DATE ='" & fDateTimeNow() & "' WHERE ID = '" & prBill_Credit_ID & "'"
-        fExecutedOnly(squery)
+        Dim squery As String = "UPDATE bill_Credit SET AMOUNT_APPLIED ='" & total_pay & "',STATUS ='" & nStatus & "',STATUS_DATE ='" & GetDateTimeNowSql() & "' WHERE ID = '" & prBill_Credit_ID & "'"
+        SqlExecuted(squery)
 
     End Sub
 
@@ -211,7 +211,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
 
             If bseleted = False Then
 
-                Dim invoice_balance As Double = fNumFormatFixed(lblBalance_Due.Text)
+                Dim invoice_balance As Double = NumberFormatFixed(lblBalance_Due.Text)
                 Dim credit_balance As Double = 0
                 Dim total_credit_used As Double = 0
                 Dim credit_amt As Double = dgvAvailable.Rows(i_index).Cells("credit_amount").Value
@@ -224,31 +224,31 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
 
                     If credit_balance > credit_amt Then
                         .Cells("select").Value = True
-                        .Cells("credit_used").Value = fNumFormatStandard(credit_amt)
-                        .Cells("credit_balance").Value = fNumFormatStandard(fNumFormatFixed(.Cells("credit_amount").Value) - credit_amt)
+                        .Cells("credit_used").Value = NumberFormatStandard(credit_amt)
+                        .Cells("credit_balance").Value = NumberFormatStandard(NumberFormatFixed(.Cells("credit_amount").Value) - credit_amt)
                     Else
                         If credit_balance <= 0 Then
                             Exit Sub
                         Else
 
                             .Cells("select").Value = True
-                            .Cells("credit_used").Value = fNumFormatStandard(credit_balance)
-                            .Cells("credit_balance").Value = fNumFormatStandard(fNumFormatFixed(.Cells("credit_amount").Value) - credit_balance)
+                            .Cells("credit_used").Value = NumberFormatStandard(credit_balance)
+                            .Cells("credit_balance").Value = NumberFormatStandard(NumberFormatFixed(.Cells("credit_amount").Value) - credit_balance)
                         End If
                     End If
                 End With
             Else
                 With dgvAvailable.Rows(i_index)
                     .Cells("select").Value = False
-                    .Cells("credit_used").Value = fNumFormatStandard(0)
-                    .Cells("credit_balance").Value = fNumFormatStandard(.Cells("credit_amount").Value)
+                    .Cells("credit_used").Value = NumberFormatStandard(0)
+                    .Cells("credit_balance").Value = NumberFormatStandard(.Cells("credit_amount").Value)
                 End With
 
             End If
 
             fComputed()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fSelected_click(i_index)
             Else
                 End
@@ -277,7 +277,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
     End Sub
 
     Private Sub frmApplyBillCredit_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fDgvNotSort(dgvAvailable)
+        ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
     Private Sub btnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -287,13 +287,13 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
         If dgvAvailable.Rows.Count = 0 Then
-            fMessageboxWarning("Credit memo not found")
+            MessageBoxWarning("Credit memo not found")
             Exit Sub
         End If
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
             With dgvAvailable.Rows(i)
-                If fSetBill_Credit_Bills(.Cells(1).Value, fNumFormatFixed(.Cells("credit_used").Value), .Cells(0).Value) = True Then
-                    fBill_Credit_Update_Applied(.Cells(0).Value, fNumFormatFixed(.Cells("credit_amount").Value))
+                If fSetBill_Credit_Bills(.Cells(1).Value, NumberFormatFixed(.Cells("credit_used").Value), .Cells(0).Value) = True Then
+                    fBill_Credit_Update_Applied(.Cells(0).Value, NumberFormatFixed(.Cells("credit_amount").Value))
                 End If
             End With
         Next

@@ -8,13 +8,13 @@ Module modInvoiceTax
         Dim dPayment As Double = 0
         Try
 
-            Dim rd As OdbcDataReader = fReader("select SUM(cmi.AMOUNT_WITHHELD)  as P  from `tax_credit_invoices` as cmi inner join tax_credit as c on c.id = cmi.tax_credit_ID where c.Customer_ID = '" & prCustomer_ID & "' and cmi.Invoice_ID = '" & prID & "'")
+            Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_WITHHELD)  as P  from `tax_credit_invoices` as cmi inner join tax_credit as c on c.id = cmi.tax_credit_ID where c.Customer_ID = '" & prCustomer_ID & "' and cmi.Invoice_ID = '" & prID & "'")
             If rd.Read Then
-                dPayment = fNumisNULL(rd("P"))
+                dPayment = NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 dPayment = fInvoiceSumTaxApplied_Amount(prID, prCustomer_ID)
             Else
                 End
@@ -32,13 +32,13 @@ Module modInvoiceTax
         Dim dPayment As Double = 0
         Try
 
-            Dim rd As OdbcDataReader = fReader("select SUM(cmi.AMOUNT_WITHHELD)  as P  from TAX_CREDIT_invoices as cmi inner join TAX_CREDIT as c on c.id = cmi.TAX_CREDIT_ID where c.Customer_ID = '" & prCustomer_ID & "' and cmi.TAX_CREDIT_ID = '" & prTAX_CREDIT_ID & "' and cmi.Invoice_ID = '" & prInvoice_ID & "'")
+            Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_WITHHELD)  as P  from TAX_CREDIT_invoices as cmi inner join TAX_CREDIT as c on c.id = cmi.TAX_CREDIT_ID where c.Customer_ID = '" & prCustomer_ID & "' and cmi.TAX_CREDIT_ID = '" & prTAX_CREDIT_ID & "' and cmi.Invoice_ID = '" & prInvoice_ID & "'")
             If rd.Read Then
-                dPayment = fNumisNULL(rd("P"))
+                dPayment = NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 dPayment = fGetTexApplied_Invoice(prTAX_CREDIT_ID, prCustomer_ID, prInvoice_ID)
             Else
                 End
@@ -51,14 +51,14 @@ Module modInvoiceTax
         Dim dAmount As Double = 0
 
         Try
-            Dim rd As OdbcDataReader = fReader("select sum(AMOUNT_WITHHELD) as P from credit_Tax_invoices where credit_Tax_ID = '" & prTAX_CREDIT_ID & "' and Invoice_ID <> '" & prInvoice_id & "'")
+            Dim rd As OdbcDataReader = SqlReader("select sum(AMOUNT_WITHHELD) as P from credit_Tax_invoices where credit_Tax_ID = '" & prTAX_CREDIT_ID & "' and Invoice_ID <> '" & prInvoice_id & "'")
             If rd.Read Then
-                dAmount = fNumisNULL(rd("P"))
+                dAmount = NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 dAmount = fGetTaxOtherInvoice(prTAX_CREDIT_ID, prInvoice_id)
             Else
                 End

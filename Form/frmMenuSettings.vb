@@ -1,8 +1,6 @@
 ﻿Imports System.IO
 Public Class frmMenuSettings
     Private Sub frmMenuSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        fBackGroundImageStyle(Me)
         fFormLoad()
         fMainMenu()
         fSub()
@@ -13,20 +11,20 @@ Public Class frmMenuSettings
 
     Private Sub fMainMenu()
         Try
-            fDataGridView(dgvMenu, "select menu_id as `ID`,`Description`,`Image_file` as `Image File`, if(Visible = 1, 'True','False') as Visible  From tblmenu where menu_id <> '5' ")
+            LoadDataGridView(dgvMenu, "select menu_id as `ID`,`Description`,`Image_file` as `Image File`, if(Visible = 1, 'True','False') as Visible  From tblmenu where menu_id <> '5' ")
             dgvMenu.Columns(0).Width = 50
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub
     Private Sub fSub()
         Try
 
-            fDataGridView(dgvSub, "select s.sub_id as `ID`,s.`Description`,s.`Form`, s.`image_file` as `Image File` from tblsub_menu as s where s.group_line ='0' ")
+            LoadDataGridView(dgvSub, "select s.sub_id as `ID`,s.`Description`,s.`Form`, s.`image_file` as `Image File` from tblsub_menu as s where s.group_line ='0' ")
             dgvSub.Columns(0).Width = 50
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
 
         End Try
     End Sub
@@ -36,10 +34,10 @@ Public Class frmMenuSettings
 
             Dim i As Integer = dgvMenu.CurrentRow.Index
             Dim id As Integer = dgvMenu.Rows(i).Cells(0).Value
-            fDataGridView(dgvSubMenu, "select s.sub_id as `ID`,s.`Description` from tblsub_menu as s inner join tblmenu_list as l on l.sub_id = s.sub_id where l.menu_id ='" & id & "' ")
+            LoadDataGridView(dgvSubMenu, "select s.sub_id as `ID`,s.`Description` from tblsub_menu as s inner join tblmenu_list as l on l.sub_id = s.sub_id where l.menu_id ='" & id & "' ")
             dgvSubMenu.Columns(0).Width = 50
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub
@@ -198,7 +196,7 @@ Public Class frmMenuSettings
             Next
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
         fLoadImage_menu()
     End Sub
@@ -213,7 +211,7 @@ Public Class frmMenuSettings
 
     Private Sub EditToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles EditToolStripMenuItem1.Click
         Try
-            frmMenuSettingsSetup.gsID = dgvSub.Rows(dgvSub.CurrentRow.Index).Cells("ID").Value
+            frmMenuSettingsSetup.ID = dgvSub.Rows(dgvSub.CurrentRow.Index).Cells("ID").Value
             frmMenuSettingsSetup.gsMenuType = False
             Dim cmbF As ComboBox = frmMenuSettingsSetup.cmbForm
 
@@ -230,7 +228,7 @@ Public Class frmMenuSettings
             frmMenuSettingsSetup.Dispose()
             frmMenuSettingsSetup = Nothing
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
         fSub()
     End Sub
@@ -241,13 +239,13 @@ Public Class frmMenuSettings
             For i As Integer = 0 To lvMENU.Items.Count - 1
                 cmbI.Items.Add(lvMENU.Items(i).Text)
             Next
-            frmMenuSettingsSetup.gsID = dgvMenu.Rows(dgvMenu.CurrentRow.Index).Cells("ID").Value
+            frmMenuSettingsSetup.ID = dgvMenu.Rows(dgvMenu.CurrentRow.Index).Cells("ID").Value
             frmMenuSettingsSetup.ShowDialog()
             frmMenuSettingsSetup.Dispose()
             frmMenuSettingsSetup = Nothing
             fMainMenu()
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
 
 
@@ -255,19 +253,19 @@ Public Class frmMenuSettings
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         If dgvMenu.Rows.Count = 0 Then
-            fMessageboxInfo("Menu not found!")
+            MessageBoxInfo("Menu not found!")
             Exit Sub
         End If
 
         If dgvSub.Rows.Count = 0 Then
-            fMessageboxInfo("Sub menu not found!")
+            MessageBoxInfo("Sub menu not found!")
             Exit Sub
         End If
 
         Dim menu_id As Integer = dgvMenu.Rows(dgvMenu.CurrentRow.Index).Cells(0).Value
         Dim sub_id As Integer = dgvSub.Rows(dgvSub.CurrentRow.Index).Cells(0).Value
 
-        fExecutedOnly("INSERT INTO tblmenu_list SET menu_id ='" & menu_id & "',sub_id='" & sub_id & "',position_no = '" & Val(fGetMaxField_LINE("position_no", "tblmenu_list", "menu_id", menu_id)) & "'  ")
+        SqlExecuted("INSERT INTO tblmenu_list SET menu_id ='" & menu_id & "',sub_id='" & sub_id & "',position_no = '" & Val(GetMaxFieldLine("position_no", "tblmenu_list", "menu_id", menu_id)) & "'  ")
 
         fSub()
         fSUbMenu()
@@ -280,7 +278,7 @@ Public Class frmMenuSettings
         End If
 
         Dim i As Integer = dgvSubMenu.Rows(dgvSubMenu.CurrentRow.Index).Cells(0).Value
-        fExecutedOnly("DELETE FROM tblmenu_list where sub_id = '" & i & "'")
+        SqlExecuted("DELETE FROM tblmenu_list where sub_id = '" & i & "'")
         fSub()
         fSUbMenu()
     End Sub

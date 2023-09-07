@@ -5,14 +5,14 @@
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvUnitOfMeasure, "Select ID,`Name`,Symbol, If(Inactive=0,'No','Yes') as `Inactive` from Unit_of_measure", item_BS)
-        fDataGrid_Column(dgvUnitOfMeasure, 45)
+        LoadDataGridViewBinding(dgvUnitOfMeasure, "Select ID,`Name`,Symbol, If(Inactive=0,'No','Yes') as `Inactive` from Unit_of_measure", item_BS)
+        ViewColumn(dgvUnitOfMeasure, 45)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvUnitOfMeasure, 45)
+        ViewSwitch(dgvUnitOfMeasure, 45)
 
-        fDataGrid_Column(dgvUnitOfMeasure, 45)
+        ViewColumn(dgvUnitOfMeasure, 45)
     End Sub
 
     Private Sub frmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -21,7 +21,7 @@
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -40,7 +40,7 @@
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         Try
             If dgvUnitOfMeasure.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
             If fACCESS_NEW_EDIT(Me, False) = False Then
@@ -49,34 +49,34 @@
 
             frmUnitofMeasureDetails.Dgv = dgvUnitOfMeasure
             frmUnitofMeasureDetails.This_BS = item_BS
-            frmUnitofMeasureDetails.gsID = dgvUnitOfMeasure.Rows(dgvUnitOfMeasure.CurrentRow.Index).Cells("ID").Value
+            frmUnitofMeasureDetails.ID = dgvUnitOfMeasure.Rows(dgvUnitOfMeasure.CurrentRow.Index).Cells("ID").Value
             frmUnitofMeasureDetails.ShowDialog()
             frmUnitofMeasureDetails.Dispose()
             frmUnitofMeasureDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvUnitOfMeasure.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
             If fACCESS_DELETE(Me) = False Then
                 Exit Sub
             End If
 
-            If fMessageBoxQuestion("Do you really want to delete " & dgvUnitOfMeasure.Rows(dgvUnitOfMeasure.CurrentRow.Index).Cells("NAME").Value & "?") = True Then
-                fExecutedOnly("delete from unit_of_measure where ID = '" & dgvUnitOfMeasure.Rows(dgvUnitOfMeasure.CurrentRow.Index).Cells("ID").Value & "'")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete " & dgvUnitOfMeasure.Rows(dgvUnitOfMeasure.CurrentRow.Index).Cells("NAME").Value & "?") = True Then
+                SqlExecuted("delete from unit_of_measure where ID = '" & dgvUnitOfMeasure.Rows(dgvUnitOfMeasure.CurrentRow.Index).Cells("ID").Value & "'")
+                DeleteNotify(Me)
                 fRefresh()
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
     Private Sub dgvShipVia_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUnitOfMeasure.CellDoubleClick

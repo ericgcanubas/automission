@@ -28,7 +28,7 @@
 
     Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
 
-        fExecutedOnly("update user_access_control set `status`= '0', req_ip_address ='' where `status`= '2' and req_ip_address = '" & GetIPv4Address() & "' and user_id = '" & gsUser_ID & "'")
+        SqlExecuted("update user_access_control set `status`= '0', req_ip_address ='' where `status`= '2' and req_ip_address = '" & GetIPv4Address() & "' and user_id = '" & gsUser_ID & "'")
 
         Me.Close()
     End Sub

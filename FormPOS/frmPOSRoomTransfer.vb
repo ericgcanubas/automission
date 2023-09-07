@@ -15,9 +15,9 @@ Public Class frmPOSRoomTransfer
     End Sub
     Private Sub fRefreshload()
         dgvList.Rows.Clear()
-        Dim rd As OdbcDataReader = fReader($"Select i.id, i.description, {INVOICE_ID_SQL} AS `invoice_id` FROM item AS i WHERE i.type ='{gsCheckInType}' AND i.inactive ='0' ORDER BY i.description")
+        Dim rd As OdbcDataReader = SqlReader($"Select i.id, i.description, {INVOICE_ID_SQL} AS `invoice_id` FROM item AS i WHERE i.type ='{gsCheckInType}' AND i.inactive ='0' ORDER BY i.description")
         While rd.Read
-            If fNumisNULL(rd("invoice_id")) = 0 Then
+            If NumIsNull(rd("invoice_id")) = 0 Then
                 dgvList.Rows.Add(rd("id"), rd("description"))
 
             End If

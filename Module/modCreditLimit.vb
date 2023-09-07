@@ -45,10 +45,10 @@ INNER JOIN contact_type_map AS cm ON c.`TYPE` = cm.`ID`
 
         Try
 
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                prCL = fNumisNULL(rd("CL"))
-                prBALANCE_DUE = fNumisNULL(rd("BALANCE_DUE"))
+                prCL = NumIsNull(rd("CL"))
+                prBALANCE_DUE = NumIsNull(rd("BALANCE_DUE"))
 
             Else
                 prCL = 0
@@ -57,7 +57,7 @@ INNER JOIN contact_type_map AS cm ON c.`TYPE` = cm.`ID`
 
             rd.Close()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 End Module

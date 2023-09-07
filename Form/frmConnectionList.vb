@@ -48,7 +48,7 @@ Public Class frmConnectionList
     '        cn.Open()
     '        cn.Close()
     '    Catch ex As Exception
-    '        fMessageboxExclamation("Something Wrong the Temporaty Data")
+    '        MessageBoxExclamation("Something Wrong the Temporaty Data")
     '        If cn.State = ConnectionState.Open Then
     '            cn.Close()
     '        End If
@@ -100,7 +100,7 @@ Public Class frmConnectionList
 
         If listCon.Items.Count = 0 Then
 
-            fPop_Up_Msg(Me.Text, "Connection has not found.", True)
+            PrompNotify(Me.Text, "Connection has not found.", True)
             Exit Sub
         End If
 
@@ -115,14 +115,14 @@ Public Class frmConnectionList
 
         Catch ex As Exception
 
-            fPop_Up_Msg(Me.Text, "Please select connection", True)
+            PrompNotify(Me.Text, "Please select connection", True)
         End Try
 
     End Sub
     Private Sub fConnect()
         frmSplash = Nothing
         If listCon.Items.Count = 0 Then
-            fMessageboxInfo("Data not found!")
+            MessageBoxInfo("Data not found!")
             Exit Sub
         End If
 
@@ -139,13 +139,13 @@ Public Class frmConnectionList
                     db_password = Decrypt(rd("db_password"))
                     db_port = rd("db_port")
                     gsPOS_Mode = rd("pos_mode")
-                    gsPOS_TYPE = fNumisNULL(rd("db_datasource_name"))
+                    gsPOS_TYPE = NumIsNull(rd("db_datasource_name"))
                     db_Connection = db_server
                     db_Connection_Name = getString
                     fSET_SYSTEM_VALUE("SELECT_CONNECTION", listCon.SelectedIndex)
                 Else
                     cn.Close()
-                    fMessageboxInfo("Invalid data!")
+                    MessageBoxInfo("Invalid data!")
                     Exit Sub
                 End If
                 cn.Close()
@@ -171,11 +171,11 @@ Public Class frmConnectionList
                     If cnn.State = ConnectionState.Open Then
                         Me.Visible = False
                         fThemeLoad()
-                        fPop_Up_Msg(Me.Text, $"{getString} connected to {db_server}.", True)
+                        PrompNotify(Me.Text, $"{getString} connected to {db_server}.", True)
                         frmSplash.Show()
                     End If
                 Catch ex As Exception
-                    fMessageboxWarning(ex.Message)
+                    MessageBoxWarning(ex.Message)
                     If cnn.State = ConnectionState.Open Then
                         cnn.Close()
                     End If
@@ -184,7 +184,7 @@ Public Class frmConnectionList
                 End Try
 
             Catch ex As Exception
-                fMessageboxWarning(ex.Message)
+                MessageBoxWarning(ex.Message)
                 If cn.State = ConnectionState.Open Then
                     cn.Close()
                 End If
@@ -192,21 +192,21 @@ Public Class frmConnectionList
             End Try
 
         Catch ex As Exception
-            '    fMessageboxExclamation(ex.Message)
+            '    MessageBoxExclamation(ex.Message)
         End Try
 
     End Sub
     Private Sub fDelete()
         If fAdministrator() = False Then
-            '  fMessageboxWarning("Not accessible. Run as administrator required!")
+            '  MessageBoxWarning("Not accessible. Run as administrator required!")
             Exit Sub
         End If
 
         If listCon.Items.Count <> 0 Then
             Dim con_name As String = listCon.Items(listCon.SelectedIndex).ToString
-            If fMessageBoxQuestion("Do you want to Remove this Connection (" & con_name & ")") = True Then
+            If MessageBoxQuestion("Do you want to Remove this Connection (" & con_name & ")") = True Then
                 fMS_execute("delete from tblconnection where connection_name = '" & con_name & "'")
-                fPop_Up_Msg(Me.Text, "Connection deleted.", True)
+                PrompNotify(Me.Text, "Connection deleted.", True)
                 fRefreshList()
             End If
         End If

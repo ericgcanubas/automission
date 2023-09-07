@@ -11,22 +11,22 @@ Public Class frmBillCreditBills
 
     Private Sub fComputed()
 
-        Dim credit_amount As Double = fNumFormatFixed(lblCreditAmount.Text)
+        Dim credit_amount As Double = NumberFormatFixed(lblCreditAmount.Text)
         Dim remaining As Double = 0
         Dim total_amt As Double = 0
 
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-            total_amt = total_amt + fNumFormatFixed(dgvAvailable.Rows(i).Cells("Amount_applied").Value)
+            total_amt = total_amt + NumberFormatFixed(dgvAvailable.Rows(i).Cells("Amount_applied").Value)
         Next
         remaining = credit_amount - total_amt
-        lblRemainingCredit.Text = fNumFormatStandard(remaining)
-        lblTotal.Text = fNumFormatStandard(total_amt)
+        lblRemainingCredit.Text = NumberFormatStandard(remaining)
+        lblTotal.Text = NumberFormatStandard(total_amt)
 
     End Sub
 
 
     Private Sub frmBillCreditBill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
+
         Dim chk As New DataGridViewCheckBoxColumn
         chk.Name = "select"
         chk.HeaderText = " "
@@ -61,7 +61,7 @@ Public Class frmBillCreditBills
 
         fBillList()
         fComputed()
-        fDatagridViewMode(dgvAvailable)
+        DatagridViewMode(dgvAvailable)
     End Sub
     Private Sub fBillList()
         dgvAvailable.Rows.Clear()
@@ -90,7 +90,7 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
 
         Try
             Dim bSelected As Boolean
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 Dim credit_applied As Double = fBillSumCreditApplied(rd("bill_id"), gsVendor_ID)
                 If credit_applied = 0 Then
@@ -98,11 +98,11 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
                 Else
                     bSelected = True
                 End If
-                dgvAvailable.Rows.Add(rd("bill_id"), bSelected, fDateFormatStandard(rd("date")), rd("code"), fNumFormatStandard(rd("amount")), fNumFormatStandard(rd("balance_due") + credit_applied), fNumFormatStandard(credit_applied))
+                dgvAvailable.Rows.Add(rd("bill_id"), bSelected, DateFormatStandard(rd("date")), rd("code"), NumberFormatStandard(rd("amount")), NumberFormatStandard(rd("balance_due") + credit_applied), NumberFormatStandard(credit_applied))
             End While
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fBillList()
             Else
                 End
@@ -118,7 +118,7 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
                 Dim bill_balance As Double = dgvAvailable.Rows(i_index).Cells("balance_due").Value
                 Dim credit_balance As Double = 0
                 Dim total_amt As Double = 0
-                Dim credit_amt As Double = fNumFormatFixed(lblCreditAmount.Text)
+                Dim credit_amt As Double = NumberFormatFixed(lblCreditAmount.Text)
                 For i As Integer = 0 To dgvAvailable.Rows.Count - 1
                     total_amt = total_amt + dgvAvailable.Rows(i).Cells("amount_applied").Value
                 Next
@@ -126,20 +126,20 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
                 With dgvAvailable.Rows(i_index)
                     If credit_balance > bill_balance Then
                         .Cells("select").Value = True
-                        .Cells("Amount_applied").Value = fNumFormatStandard(bill_balance)
+                        .Cells("Amount_applied").Value = NumberFormatStandard(bill_balance)
                     Else
                         If credit_balance <= 0 Then
                             Exit Sub
                         Else
                             .Cells("select").Value = True
-                            .Cells("Amount_applied").Value = fNumFormatStandard(credit_balance)
+                            .Cells("Amount_applied").Value = NumberFormatStandard(credit_balance)
                         End If
                     End If
                 End With
             Else
                 With dgvAvailable.Rows(i_index)
                     .Cells("select").Value = False
-                    .Cells("Amount_applied").Value = fNumFormatStandard(0)
+                    .Cells("Amount_applied").Value = NumberFormatStandard(0)
                 End With
             End If
             fComputed()
@@ -186,24 +186,24 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
 
         Try
 
-            Dim rd_check As OdbcDataReader = fReader("select AMOUNT_APPLIED as a from bill_credit_bills where BILL_CREDIT_ID ='" & gsID & "' and BILL_ID = '" & prbill_ID & "' ")
+            Dim rd_check As OdbcDataReader = SqlReader("select AMOUNT_APPLIED as a from bill_credit_bills where BILL_CREDIT_ID ='" & gsID & "' and BILL_ID = '" & prbill_ID & "' ")
             If rd_check.Read Then
                 If bSelected = True Then
                     'UPDATE
                     If amt_appled <> rd_check("a") Then
-                        fExecutedOnly("UPDATE bill_credit_bills set AMOUNT_APPLIED ='" & amt_appled & "' Where  BILL_CREDIT_ID = '" & gsID & "' and BILL_ID = '" & prbill_ID & "'")
+                        SqlExecuted("UPDATE bill_credit_bills set AMOUNT_APPLIED ='" & amt_appled & "' Where  BILL_CREDIT_ID = '" & gsID & "' and BILL_ID = '" & prbill_ID & "'")
                         bUpdate = True
                     End If
                 Else
                     'DELETE
-                    fExecutedOnly("DELETE FROM bill_credit_bills Where  BILL_CREDIT_ID = '" & gsID & "' and BILL_ID = '" & prbill_ID & "'")
+                    SqlExecuted("DELETE FROM bill_credit_bills Where  BILL_CREDIT_ID = '" & gsID & "' and BILL_ID = '" & prbill_ID & "'")
                     bUpdate = True
                 End If
             Else
                 'INSERT
                 If bSelected = True Then
-                    Dim i_ID As Double = fObjectTypeMap_ID("bill_credit_bills")
-                    fExecutedOnly("INSERT INTO bill_credit_bills set ID ='" & i_ID & "', BILL_CREDIT_ID = '" & gsID & "',BILL_ID = '" & prbill_ID & "' , AMOUNT_APPLIED ='" & amt_appled & "'")
+                    Dim i_ID As Double = ObjectTypeMapId("bill_credit_bills")
+                    SqlExecuted("INSERT INTO bill_credit_bills set ID ='" & i_ID & "', BILL_CREDIT_ID = '" & gsID & "',BILL_ID = '" & prbill_ID & "' , AMOUNT_APPLIED ='" & amt_appled & "'")
                     bUpdate = True
                 End If
 
@@ -211,7 +211,7 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
 
             rd_check.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 bUpdate = fSetbill_credit_bills(bSelected, amt_appled, prbill_ID)
             Else
                 End
@@ -235,13 +235,13 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
         Else
             nStatus = 13
         End If
-        squery = "UPDATE bill SET BALANCE_DUE ='" & New_Balance & "',STATUS ='" & nStatus & "',STATUS_DATE ='" & fDateTimeNow() & "' WHERE ID = '" & gsBill & "'"
-        fExecutedOnly(squery)
+        squery = "UPDATE bill SET BALANCE_DUE ='" & New_Balance & "',STATUS ='" & nStatus & "',STATUS_DATE ='" & GetDateTimeNowSql() & "' WHERE ID = '" & gsBill & "'"
+        SqlExecuted(squery)
 
     End Sub
 
     Private Sub frmBillCreditBills_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fDgvNotSort(dgvAvailable)
+        ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
 
@@ -251,12 +251,12 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If dgvAvailable.Rows.Count = 0 Then
-            fMessageboxWarning("Bill not found!")
+            MessageBoxWarning("Bill not found!")
             Exit Sub
         End If
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
             With dgvAvailable.Rows(i)
-                If fSetbill_credit_bills(.Cells(1).Value, fNumFormatFixed(.Cells("Amount_applied").Value), .Cells(0).Value) = True Then
+                If fSetbill_credit_bills(.Cells(1).Value, NumberFormatFixed(.Cells("Amount_applied").Value), .Cells(0).Value) = True Then
                     fBillBalance_Update(.Cells(0).Value, .Cells("Amount").Value)
                 End If
             End With

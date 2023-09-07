@@ -2,19 +2,19 @@
     Public item_BS As BindingSource
     Private Sub frmShipVia_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fBackGroundImageStyle(Me)
+
         fRefresh()
 
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvBinLocation, "Select ID,Code,Description from stock_bin", item_BS)
-        fDataGrid_Column(dgvBinLocation, 41)
+        LoadDataGridViewBinding(dgvBinLocation, "Select ID,Code,Description from stock_bin", item_BS)
+        ViewColumn(dgvBinLocation, 41)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        fDataGrid_Switch(dgvBinLocation, 41)
+        ViewSwitch(dgvBinLocation, 41)
 
-        fDataGrid_Column(dgvBinLocation, 41)
+        ViewColumn(dgvBinLocation, 41)
     End Sub
 
     Private Sub frmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -22,7 +22,7 @@
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs)
@@ -119,7 +119,7 @@
     Private Sub tsUpdate_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         Try
             If dgvBinLocation.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -130,20 +130,20 @@
 
             frmBinLocationDetails.This_BS = item_BS
             frmBinLocationDetails.Dgv = dgvBinLocation
-            frmBinLocationDetails.gsID = dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("ID").Value
+            frmBinLocationDetails.ID = dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("ID").Value
             frmBinLocationDetails.ShowDialog()
             frmBinLocationDetails.Dispose()
             frmBinLocationDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvBinLocation.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -151,14 +151,14 @@
 
                 Exit Sub
             End If
-            If fMessageBoxQuestion("Do you really want to delete " & dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("Description").Value & "?") = True Then
-                fExecutedOnly("delete from stock_bin where ID = '" & dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("ID").Value & "'")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete " & dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("Description").Value & "?") = True Then
+                SqlExecuted("delete from stock_bin where ID = '" & dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("ID").Value & "'")
+                DeleteNotify(Me)
                 fRefresh()
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 

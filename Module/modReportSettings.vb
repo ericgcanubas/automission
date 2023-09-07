@@ -1,5 +1,4 @@
 ﻿
-Imports MySql.Data.MySqlClient
 Module modReportSettings
     Public gsREPORT_ID As String
     Public gsREPORT_FILE_NAME As String

@@ -4,14 +4,14 @@
         tsTITLE.Text = gsSubMenuForm
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvShipVia, "Select ID,Code,Description from Ship_via", item_BS)
-        fDataGrid_Column(dgvShipVia, 40)
+        LoadDataGridViewBinding(dgvShipVia, "Select ID,Code,Description from Ship_via", item_BS)
+        ViewColumn(dgvShipVia, 40)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvShipVia, 40)
+        ViewSwitch(dgvShipVia, 40)
 
-        fDataGrid_Column(dgvShipVia, 40)
+        ViewColumn(dgvShipVia, 40)
     End Sub
 
     Private Sub frmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -20,7 +20,7 @@
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -40,7 +40,7 @@
         Try
 
             If dgvShipVia.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
             If fACCESS_NEW_EDIT(Me, False) = False Then
@@ -49,20 +49,20 @@
 
             frmShipViaDetails.This_BS = item_BS
             frmShipViaDetails.Dgv = dgvShipVia
-            frmShipViaDetails.gsID = dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("ID").Value
+            frmShipViaDetails.ID = dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("ID").Value
             frmShipViaDetails.ShowDialog()
             frmShipViaDetails.Dispose()
             frmShipViaDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvShipVia.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -70,14 +70,14 @@
                 Exit Sub
             End If
 
-            If fMessageBoxQuestion("Do you really want to delete " & dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("Description").Value & "?") = True Then
-                fExecutedOnly("delete from ship_via where ID = '" & dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("ID").Value & "'")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete " & dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("Description").Value & "?") = True Then
+                SqlExecuted("delete from ship_via where ID = '" & dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("ID").Value & "'")
+                DeleteNotify(Me)
                 fRefresh()
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 

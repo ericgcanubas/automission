@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Public Class frmCustomerStatementDetails
     Private Sub frmCustomerStatementDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fComboBox(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+        ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
         dtpFrom.Value = CDate("1/1/2016")
     End Sub
 
@@ -17,14 +17,14 @@ Public Class frmCustomerStatementDetails
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
 
 
-        Dim rd As OdbcDataReader = fReader("select * from contact where `TYPE` = '1' and ID='" & cmbCUSTOMER_ID.SelectedValue & "' limit 1")
+        Dim rd As OdbcDataReader = SqlReader("select * from contact where `TYPE` = '1' and ID='" & cmbCUSTOMER_ID.SelectedValue & "' limit 1")
         If rd.Read Then
             fCryParameterInsertValue(gscryRpt, dtpFrom.Value, "fdate")
             fCryParameterInsertValue(gscryRpt, dtpTo.Value, "tdate")
             fCryParameterInsertValue(gscryRpt, cmbCUSTOMER_ID.Text, "myremark")
-            fCryParameterInsertValue(gscryRpt, fTextisNULL(rd("ID")), "CUSTOMER_ID")
-            fCryParameterInsertValue(gscryRpt, fTextisNULL(rd("CUSTOM_FIELD1")), "CUSTOMER_LEVEL")
-            fCryParameterInsertValue(gscryRpt, fTextisNULL(rd("POSTAL_ADDRESS")), "date_remark")
+            fCryParameterInsertValue(gscryRpt, TextIsNull(rd("ID")), "CUSTOMER_ID")
+            fCryParameterInsertValue(gscryRpt, TextIsNull(rd("CUSTOM_FIELD1")), "CUSTOMER_LEVEL")
+            fCryParameterInsertValue(gscryRpt, TextIsNull(rd("POSTAL_ADDRESS")), "date_remark")
         End If
 
     End Sub

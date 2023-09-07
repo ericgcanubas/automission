@@ -8,14 +8,14 @@
         gsSelect = False
 
 
-        fDataGridView(dgvDocument, gsQuery)
+        LoadDataGridView(dgvDocument, gsQuery)
         dgvDocument.Columns(0).Visible = False
         dgvDocument.Columns(dgvDocument.Columns.Count - 1).Visible = False
         dgvDocument.Columns(dgvDocument.Columns.Count - 2).DefaultCellStyle.Format = "N2"
         If dgvDocument.Rows.Count = 0 Then
 
             bClose = True
-            fMessageboxExclamation("Not available")
+            MessageBoxExclamation("Not available")
 
         End If
     End Sub

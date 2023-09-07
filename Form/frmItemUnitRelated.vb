@@ -12,8 +12,8 @@
     Private Sub frmItemUnitRelated_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fMaterialSkin(Me)
         bSave = False
-        fComboBox(cmbUnit, "select * from unit_of_measure where inactive ='0'", "ID", "NAME")
-        fComboBox(cmbSymbol, "select * from unit_of_measure where inactive ='0'", "ID", "SYMBOL")
+        ComboBoxLoad(cmbUnit, "select * from unit_of_measure where inactive ='0'", "ID", "NAME")
+        ComboBoxLoad(cmbSymbol, "select * from unit_of_measure where inactive ='0'", "ID", "SYMBOL")
         cmbUnit.SelectedValue = iUnit_ID
         cmbSymbol.SelectedValue = iUnit_ID
         bSave = False

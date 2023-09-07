@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Module modDatagridView
     <System.Runtime.CompilerServices.Extension()>
-    Public Function fDgvCounting(ByVal dgv As DataGridView) As Integer
+    Public Function DataGridViewCounting(ByVal dgv As DataGridView) As Integer
         Dim N As Integer = 0
         For I As Integer = 0 To dgv.Rows.Count - 1
             If dgv.Rows(I).Visible = True Then
@@ -11,11 +11,9 @@ Module modDatagridView
         Return N
     End Function
 
-    Public Sub fStatusGridUpdateRefresh(ByVal dgv As DataGridView)
+    Public Sub StatusGridUpdateRefresh(ByVal dgv As DataGridView)
         For i As Integer = 0 To dgv.Rows.Count - 1
             With dgv.Rows(i)
-
-
                 Select Case .Cells("CONTROL_STATUS").Value
                     Case "S"
                        'Do nothing
@@ -29,42 +27,12 @@ Module modDatagridView
             End With
         Next
     End Sub
-    Public Function BackImage(ByVal source As DataGridViewCellPaintingEventArgs) As DataGridViewCellPaintingEventArgs
-        'Exit Function
-
-        'Try
-        '    If gsImageBackground Is Nothing Then Return Nothing : Exit Function
-        '    Dim aRec As Rectangle
-        '    With source
-        '        Dim aBrush As New SolidBrush(.CellStyle.ForeColor)
-        '        Dim aFormat As New StringFormat
-        '        With aFormat
-        '            .Alignment = StringAlignment.Center
-        '            .LineAlignment = StringAlignment.Center
-        '            .Trimming = StringTrimming.EllipsisCharacter
-        '        End With
-        '        With .CellBounds
-        '            aRec = New Rectangle(.X - 1, .Y, .Width, .Height)
-        '        End With
-        '        If gsPOS_Mode = False Then
-        '            .Graphics.DrawImage(gsImageBackground, aRec)
-        '            .Graphics.DrawString(.Value, .CellStyle.Font, aBrush, aRec, aFormat)
-        '        Else
-        '            .Graphics.DrawImage(gsImageBackgroundPOS, aRec)
-        '            .Graphics.DrawString(.Value, .CellStyle.Font, aBrush, aRec, aFormat)
-        '        End If
-        '        .Handled = True
-        '    End With
-        'Catch ex As Exception
-        'End Try
-        'Return source
-    End Function
-    Public Sub fCheckSide(ByVal d As DataGridView)
+    Public Sub CheckSide(ByVal d As DataGridView)
         If d.Rows.Count = 0 Then Exit Sub
         Dim i As Integer = d.CurrentRow.Index
         d.Rows(i).Cells(0).Value = IIf(d.Rows(i).Cells(0).Value = True, False, True)
     End Sub
-    Public Sub dgvStyleColor(ByVal dgv As DataGridView)
+    Public Sub ViewStyleColor(ByVal dgv As DataGridView)
 
         dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249)
         dgv.DefaultCellStyle.SelectionBackColor = Color.DarkCyan
@@ -76,30 +44,23 @@ Module modDatagridView
         End If
 
     End Sub
-    Public Sub fdgvExpensesDisplay(ByVal dgv As DataGridView)
-        dgvStyleColor(dgv)
-        'fPrimarySetup(dgv)
+    Public Sub ViewExpensesDisplay(ByVal dgv As DataGridView)
+        ViewStyleColor(dgv)
         With dgv.Columns
-
             .Item("ACCOUNT").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             .Item("PARTICULAR").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             .Item("AMOUNT").Width = 250
             .Item("AMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             .Item("AMOUNT").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-
-
             .Item("TAX").Width = 40
             .Item("TAX").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             .Item("TAX").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-
             .Item("CLASS").Width = 100
         End With
     End Sub
 
-    Public Sub fdgvItemDisplay(ByVal dgv As DataGridView)
-        'dgvStyleColor(dgv)
-        '  fPrimarySetup(dgv)
-        '  dgv.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing
+    Public Sub ViewItemDisplay(ByVal dgv As DataGridView)
+
         With dgv
             With .Columns
                 .Item("CODE").Width = IIf(gsPOS_Mode = False, 60, 50)
@@ -107,18 +68,12 @@ Module modDatagridView
                 .Item("DESCRIPTION").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
                 If gsPOS_Mode = True Then
                     .Item("DESCRIPTION").Width = 160
-
                 End If
                 If .Contains("QTY") = True Then
                     .Item("QTY").Width = IIf(gsPOS_Mode = False, 30, 25)
                     .Item("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     .Item("QTY").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
                 End If
-
-
-
-
-
                 If .Contains("QUANTITY") = True Then
                     .Item("QUANTITY").Width = 40
                     .Item("QUANTITY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -126,18 +81,11 @@ Module modDatagridView
 
                 End If
 
-
-
-
                 If .Contains("UM") = True Then
-
                     .Item("UM").Width = IIf(gsPOS_Mode = False, 30, 25)
-
                 End If
                 If .Contains("UNIT_DESCRIPTION") = True Then
-
                     .Item("UNIT_DESCRIPTION").Width = 50
-
                 End If
 
                 Dim GotCost As Boolean = False
@@ -240,7 +188,7 @@ Module modDatagridView
 
         End With
     End Sub
-    Public Function fCheckBoolType(ByVal Txt As String) As Boolean
+    Public Function CheckBoolType(ByVal Txt As String) As Boolean
         Select Case Txt.ToUpper
             Case "SELECTED"
                 Return True
@@ -256,7 +204,7 @@ Module modDatagridView
 
         End Select
     End Function
-    Public Function fCheckNumNoDecimal(ByVal Txt As String) As Boolean
+    Public Function CheckNumNoDecimal(ByVal Txt As String) As Boolean
         Select Case Txt.ToUpper
             Case "QTY"
                 Return True
@@ -302,7 +250,7 @@ Module modDatagridView
 
 
     End Function
-    Public Sub fDatagridViewMode(ByVal dgv As DataGridView)
+    Public Sub DatagridViewMode(ByVal dgv As DataGridView)
         Exit Sub
         If dgv.RowHeadersVisible = False Then Exit Sub
         dgv.RowHeadersVisible = False
@@ -315,11 +263,11 @@ Module modDatagridView
         dgv.ColumnHeadersHeight = 50
         dgv.AllowUserToResizeColumns = False
         dgv.AllowUserToResizeRows = False
-        dgvStyleColor(dgv)
+        ViewStyleColor(dgv)
         AddHandler dgv.CellPainting, AddressOf CellPainting
     End Sub
-    Public Sub fDgvNotSort(ByVal dgv As DataGridView)
-        dgvStyleColor(dgv)
+    Public Sub ViewNotSort(ByVal dgv As DataGridView)
+        ViewStyleColor(dgv)
         dgv.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised
         dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised
         dgv.CellBorderStyle = DataGridViewCellBorderStyle.Raised
@@ -337,7 +285,7 @@ Module modDatagridView
             End With
         Next
     End Sub
-    Public Function fColVis(ByVal dgv As DataGridView) As Integer
+    Public Function ColumnViews(ByVal dgv As DataGridView) As Integer
         Dim C As Integer = 0
         For i As Integer = 0 To dgv.Columns.Count - 1
             If dgv.Columns(i).Visible = True Then
@@ -349,13 +297,12 @@ Module modDatagridView
     End Function
     Public Sub CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs)
         If e.RowIndex < 0 Then
-            '  e.BackImage
         End If
     End Sub
-    Public Sub fBindDgvUpdate(ByVal dgv As DataGridView, ByVal xSQL As String, ByVal gsNew As Boolean, ByVal this_BS As BindingSource)
+    Public Sub BindingViewUpdate(ByVal dgv As DataGridView, ByVal xSQL As String, ByVal gsNew As Boolean, ByVal this_BS As BindingSource)
         Try
-            'cn.Open()
-            Dim rd As OdbcDataReader = fReader(xSQL)
+
+            Dim rd As OdbcDataReader = SqlReader(xSQL)
 
             If rd.Read Then
 
@@ -363,28 +310,26 @@ Module modDatagridView
 
                     Dim dt As New DataTable
                     dt = CType(this_BS.DataSource, DataTable)
-                    Dim drToAdd As DataRow = dt.NewRow()
-
-                    'dgv.Rows.Add()
+                    Dim DRow As DataRow = dt.NewRow()
                     For i As Integer = 0 To rd.FieldCount - 1
                         If IsDBNull(rd(i)) = True Then
                             '
-                            drToAdd(i) = System.DBNull.Value
+                            DRow(i) = System.DBNull.Value
                         ElseIf IsNumeric(rd(i)) = True Then
 
-                            drToAdd(i) = fNumisNULL(rd(i))
+                            DRow(i) = NumIsNull(rd(i))
 
                             If Int(rd(i)) = True Then
-                                drToAdd(i) = fNumisNULL(rd(i))
+                                DRow(i) = NumIsNull(rd(i))
                             Else
-                                drToAdd(i) = rd(i)
+                                DRow(i) = rd(i)
                             End If
                         Else
-                            drToAdd(i) = fTextisNULL(rd(i))
+                            DRow(i) = TextIsNull(rd(i))
                         End If
 
                     Next
-                    dt.Rows.Add(drToAdd)
+                    dt.Rows.Add(DRow)
                     dt.AcceptChanges()
                     this_BS.Position = dgv.Rows.Count - 1
                 Else
@@ -397,15 +342,12 @@ Module modDatagridView
                         ElseIf IsNumeric(rd(i)) = True Then
 
                             If Int(rd(i)) = True Then
-                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = fNumisNULL(rd(i))
+                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = NumIsNull(rd(i))
                             Else
-                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = fTextisNULL(rd(i))
+                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = TextIsNull(rd(i))
                             End If
-
-
                         Else
-
-                            dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = fTextisNULL(rd(i))
+                            dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = TextIsNull(rd(i))
                         End If
                     Next
 
@@ -415,21 +357,7 @@ Module modDatagridView
             End If
             rd.Close()
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
-    'Public Sub StandardColWith(ByVal dgv As DataGridView)
-    '    With dgv.Columns
-    '        .Item("CODE").Width = 70
-    '        .Item("DESCRIPTION").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-
-    '        .Item("QTY").Width = 40
-    '        .Item("UNIT_PRICE").Width = 60
-    '        .Item("UM").Width = 40
-    '        .Item("DISCOUNT_TYPE").Width = 50
-    '        .Item("DISCOUNT_RATE").Width = 40
-    '        .Item("AMOUNT").Width = 80
-    '        .Item("TAX").Width = 30
-    '    End With
-    'End Sub
 End Module

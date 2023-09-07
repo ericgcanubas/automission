@@ -1,32 +1,29 @@
 ﻿Imports System.Data.Odbc
 Public Class frmContactDetails
-    Dim f As Form
+    Dim Frm As Form
     Public gsTITLE As String
     Public gsOK As Boolean = False
-    Public gsContact_Type As String = ""
-    Public bNew As Boolean
-    Public gsID As Integer
+    Public ContactTypeId As Integer
+    Public IsNew As Boolean = False
+    Public ID As Integer
     Public gsDgv As DataGridView
     Public this_BS As BindingSource
 
     Private Sub fRefreshCombo()
-        fComboBox(cmbTAX_ID, "select * from tax where tax_type='3'", "ID", "NAME")
+        ComboBoxLoad(cmbTAX_ID, "select * from tax where tax_type='3'", "ID", "NAME")
+        ComboBoxLoad(cmbGROUP_ID, "select * from contact_group", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbPAYMENT_TERMS_ID, "select * from payment_terms", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbSALES_REP_ID, "select * from contact  where type ='2' order by `NAME` ", "ID", "NAME")
+        ComboBoxLoad(cmbPRICE_LEVEL_ID, "select * from price_level", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbPREF_PAYMENT_METHOD_ID, "select * from payment_method", "ID", "DESCRIPTION")
 
-        fComboBox(cmbGROUP_ID, "select * from contact_group", "ID", "DESCRIPTION")
-        fComboBox(cmbPAYMENT_TERMS_ID, "select * from payment_terms", "ID", "DESCRIPTION")
-        fComboBox(cmbSALES_REP_ID, "select * from contact  where type ='2' order by `NAME` ", "ID", "NAME")
-        fComboBox(cmbPRICE_LEVEL_ID, "select * from price_level", "ID", "DESCRIPTION")
-        fComboBox(cmbPREF_PAYMENT_METHOD_ID, "select * from payment_method", "ID", "DESCRIPTION")
-
-        Select Case gsContact_Type
+        Select Case ContactTypeId
             Case "1"
-                '  fComboBox(cmbOther_Contact_ID, "select * from contact where type ='6' order by `NAME`", "ID", "NAME")
-                fComboBox(cmbREFERRAL_ID, "select * from contact where type in('6','1','2') order by `NAME` ", "ID", "NAME")
+                ComboBoxLoad(cmbREFERRAL_ID, "select * from contact where type in ('6','1','2') order by `NAME` ", "ID", "NAME")
                 On Error Resume Next
                 cmbTAX_ID.SelectedIndex = 0
             Case "6"
-                ' fComboBox(cmbOther_Contact_ID, "select * from contact where type ='6' order by `NAME` ", "ID", "NAME")
-                fComboBox(cmbREFERRAL_ID, "select * from contact where type in('6','1','2') order by `NAME`", "ID", "NAME")
+                ComboBoxLoad(cmbREFERRAL_ID, "select * from contact where type in('6','1','2') order by `NAME`", "ID", "NAME")
         End Select
 
 
@@ -52,7 +49,7 @@ Public Class frmContactDetails
     Private Sub fCheckingDiscountCardNumber()
 
 
-        Dim rd As OdbcDataReader = fReader($"select next_number,prefix from discountcardnumber where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
+        Dim rd As OdbcDataReader = SqlReader($"select next_number,prefix from discountcardnumber where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
 
         If rd.Read Then
             Dim get_digit As String = ""
@@ -60,10 +57,10 @@ Public Class frmContactDetails
                 get_digit = get_digit & "0"
             Next
 
-            txtACCOUNT_NO.Text = fNumisNULL(rd("prefix")) & fNumisNULL(rd("next_number")).ToString(get_digit)
+            txtACCOUNT_NO.Text = NumIsNull(rd("prefix")) & NumIsNull(rd("next_number")).ToString(get_digit)
         Else
 
-            fExecutedOnly($"INSERT INTO discountcardnumber SET  location_id = '{gsDefault_LOCATION_ID}',next_number ='1' ")
+            SqlExecuted($"INSERT INTO discountcardnumber SET  location_id = '{gsDefault_LOCATION_ID}',next_number ='1' ")
             fCheckingDiscountCardNumber()
         End If
         rd.Close()
@@ -71,22 +68,22 @@ Public Class frmContactDetails
 
     Private Sub fUpdateDiscountCardNumber()
 
-        Dim rd As OdbcDataReader = fReader($"select next_number from discountcardnumber where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
+        Dim rd As OdbcDataReader = SqlReader($"select next_number from discountcardnumber where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
 
         If rd.Read Then
-            fExecutedOnly($"UPDATE discountcardnumber SET `next_number` = '{ fNumisNULL(rd("next_number")) + 1}' where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
+            SqlExecuted($"UPDATE discountcardnumber SET `next_number` = '{ NumIsNull(rd("next_number")) + 1}' where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
         End If
         rd.Close()
     End Sub
     Private Sub fRefreshForm()
         fRefreshCombo()
         Try
-            Dim sQuery As String = "select * from contact where id = '" & gsID & "' Limit 1;"
-            fExecutedUsingReading(Me, sQuery)
+            Dim sQuery As String = "select * from contact where id = '" & ID & "' Limit 1;"
+            SqlExecutedUsingReading(Me, sQuery)
 
 
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshForm()
             Else
                 End
@@ -111,8 +108,8 @@ Public Class frmContactDetails
 
     Private Sub frmContact_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        If gsContact_Type = "" Then
-            fMessageboxExclamation("Invalid contact type")
+        If ContactTypeId = "" Then
+            MessageBoxExclamation("Invalid contact type")
             Exit Sub
         Else
             If gsPOS_Mode = True Or (this_BS Is Nothing And gsDgv Is Nothing) Then
@@ -120,9 +117,9 @@ Public Class frmContactDetails
 
             End If
 
-            Select Case gsContact_Type
+            Select Case ContactTypeId
                 Case "0" ' Vendor
-                    f = frmVendor
+                    Frm = frmVendor
                     xlblTAX.Text = "Input Tax"
                     gsTITLE = "Seller"
                     Label21.Visible = False
@@ -142,14 +139,14 @@ Public Class frmContactDetails
 
                     xnumDISCOUNT.Visible = False
 
-                    If bNew = False Then
+                    If IsNew = False Then
                         Me.Text = "Edit Seller"
                     Else
                         Me.Text = "New Seller"
                     End If
 
                 Case "1" 'Customer
-                    f = frmCustomer
+                    Frm = frmCustomer
                     xlblTAX.Text = "Output Tax"
 
 
@@ -162,7 +159,7 @@ Public Class frmContactDetails
                 Case "2" 'Employee
 
 
-                    f = frmEmployee
+                    Frm = frmEmployee
                     xlblTAX.Visible = False
                     cmbTAX_ID.Visible = False
                     gsTITLE = IIf(gsPOS_Mode = True, "Salesman", "Member")
@@ -188,7 +185,7 @@ Public Class frmContactDetails
                 Case "5" 'Manager
                     xlblTAX.Visible = False
                     cmbTAX_ID.Visible = False
-                    f = frmManager
+                    Frm = frmManager
 
                     lbxDiscount.Visible = True
                     xnumDISCOUNT.Visible = True
@@ -196,7 +193,7 @@ Public Class frmContactDetails
                 Case "6" 'Dealer
                     xlblTAX.Visible = False
                     cmbTAX_ID.Visible = False
-                    f = frmDealer
+                    Frm = frmDealer
                     gsTITLE = "Dealer"
 
             End Select
@@ -205,7 +202,7 @@ Public Class frmContactDetails
 
         fRefreshForm()
 
-        If bNew = False Then
+        If IsNew = False Then
             Me.Text = gsTITLE & " :: EDIT"
             txtACCOUNT_NO.Enabled = True
             txtNAME.Enabled = True
@@ -218,7 +215,7 @@ Public Class frmContactDetails
         chkINACTIVE.Text = gsTITLE & " is inactive"
     End Sub
     Private Sub txtNAME_TextChanged(sender As Object, e As EventArgs) Handles txtNAME.TextChanged
-        If bNew = True Then
+        If IsNew = True Then
             txtCOMPANY_NAME.Text = txtNAME.Text.Trim
             txtPRINT_NAME_AS.Text = txtNAME.Text.Trim
 
@@ -236,28 +233,28 @@ Public Class frmContactDetails
     End Sub
 
     Private Sub BtnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
-        If gsContact_Type = "" Then
-            fMessageboxExclamation("No sign for contact type")
+        If ContactTypeId = "" Then
+            MessageBoxExclamation("No sign for contact type")
             Exit Sub
         End If
         If Trim(txtNAME.Text) = "" Then
-            fMessageboxWarning("Please Enter Name")
+            MessageBoxWarning("Please Enter Name")
             Exit Sub
         End If
 
-        If bNew = True Then
+        If IsNew = True Then
             txtNAME.Text = Trim(txtNAME.Text.ToUpper)
             Try
-                Dim rd As OdbcDataReader = fReader("select ID from contact where name ='" & txtNAME.Text & "' Limit 1")
+                Dim rd As OdbcDataReader = SqlReader("select ID from contact where name ='" & txtNAME.Text & "' Limit 1")
                 If rd.Read Then
-                    fMessageboxExclamation("Name is already registered")
+                    MessageBoxExclamation("Name is already registered")
                     rd.Close()
                     Exit Sub
                 End If
                 rd.Close()
 
             Catch ex As Exception
-                If fMessageBoxErrorYesNo(ex.Message) = True Then
+                If MessageBoxErrorYesNo(ex.Message) = True Then
 
                 Else
                     End
@@ -267,15 +264,18 @@ Public Class frmContactDetails
             End Try
 
             If Trim(txtACCOUNT_NO.Text) = "" Then
-                Dim dAcount_No As Double = Val(fGetMaxField_LINE("ACCOUNT_NO", "CONTACT", "TYPE", gsContact_Type))
+                Dim dAcount_No As Double = Val(GetMaxFieldLine("ACCOUNT_NO", "CONTACT", "TYPE", ContactTypeId))
                 txtACCOUNT_NO.Text = dAcount_No.ToString("0000")
-                fObjectTypeMap_NEXT_ID_UPDATE0(dAcount_No, fGetFieldValue("CONTACT_TYPE_MAP", "ID", gsContact_Type, "DESCRIPTION"))
+                ObjectTypeMapNextIdUpdateByName(dAcount_No, GetStringFieldValue("CONTACT_TYPE_MAP", "ID", ContactTypeId, "DESCRIPTION"))
             End If
 
-            Dim sQuery As String = fFieldCollector(Me)
-            gsID = fObjectTypeMap_ID("CONTACT")
-            fExecutedOnly("INSERT INTO contact set " & sQuery & ", TYPE = '" & gsContact_Type & "',ID = '" & gsID & "'")
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
+
+            ID = ObjectTypeMapId("CONTACT")
+            Dim SQL_Field As String = ""
+            Dim SQL_Value As String = ""
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO contact ({SQL_Field},ID,`TYPE`) VALUES ({SQL_Value},{ID},'{ContactTypeId}') ")
+            PrompNotify(Me.Text, SaveMsg, True)
             If gsPOS_Mode = True Or (this_BS Is Nothing And gsDgv Is Nothing) Then
 
                 'Must have a Function
@@ -286,16 +286,15 @@ Public Class frmContactDetails
                 Exit Sub
             End If
         Else
-            Dim sQuery As String = fFieldCollector(Me)
-            fExecutedOnly("UPDATE contact set " & sQuery & " where ID = '" & gsID & "' and TYPE = '" & gsContact_Type & "'")
-
-            fPop_Up_Msg(Me.Text, gsUpdateStr, True)
+            Dim sQuery As String = SqlUpdate(Me)
+            SqlExecuted("UPDATE contact set " & sQuery & " where ID = '" & ID & "' and TYPE = '" & ContactTypeId & "'")
+            PrompNotify(Me.Text, UpdateMsg, True)
 
         End If
 
 
         Dim sql_Refresh As String = ""
-        Select Case gsContact_Type
+        Select Case ContactTypeId
             Case "0" 'VENDOR
                 sql_Refresh = "SELECT 
     c.ID,
@@ -319,7 +318,7 @@ LEFT  OUTER JOIN contact AS s
     ON p.id = c.payment_terms_id 
  LEFT OUTER JOIN price_level AS pl 
     ON pl.id = c.price_level_id 
-WHERE c.Type = '0' and c.`ID` = '" & gsID & "' limit 1"
+WHERE c.Type = '0' and c.`ID` = '" & ID & "' limit 1"
 
             Case "1" ' CUSTOMER
                 sql_Refresh = "SELECT 
@@ -353,7 +352,7 @@ LEFT  OUTER JOIN contact AS d
     ON p.id = c.payment_terms_id 
  LEFT OUTER JOIN price_level AS pl 
     ON pl.id = c.price_level_id 
-WHERE c.Type = '1' and c.ID = '" & gsID & "' limit 1"
+WHERE c.Type = '1' and c.ID = '" & ID & "' limit 1"
             Case "2" 'EMPLOYEE
                 sql_Refresh = "SELECT 
   c.ID,
@@ -380,7 +379,7 @@ LEFT  OUTER JOIN contact AS s
     ON p.id = c.payment_terms_id 
  LEFT OUTER JOIN price_level AS pl 
     ON pl.id = c.price_level_id 
-WHERE c.Type = '2' and c.`ID` = '" & gsID & "' limit 1"
+WHERE c.Type = '2' and c.`ID` = '" & ID & "' limit 1"
             Case "3"
 
             Case "4"
@@ -411,16 +410,16 @@ LEFT OUTER JOIN contact AS s
     ON p.id = c.payment_terms_id 
  LEFT OUTER JOIN price_level AS pl 
     ON pl.id = c.price_level_id 
-WHERE c.Type = '6' and c.`ID` = '" & gsID & "' limit 1"
+WHERE c.Type = '6' and c.`ID` = '" & ID & "' limit 1"
         End Select
 
 
 
-        fContactUpdate(gsDgv, bNew, this_BS, sql_Refresh)
-        bNew = True
-        gsID = 0
+        fContactUpdate(gsDgv, IsNew, this_BS, sql_Refresh)
+        IsNew = True
+        ID = 0
         fRefreshCombo()
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
 
 
         Me.Text = gsTITLE & " :: NEW"
@@ -428,7 +427,7 @@ WHERE c.Type = '6' and c.`ID` = '" & gsID & "' limit 1"
         txtNAME.Enabled = True
         Me.Refresh()
 
-        If fACCESS_NEW_EDIT(f, bNew) = False Then
+        If fACCESS_NEW_EDIT(Frm, IsNew) = False Then
             Me.Close()
         End If
     End Sub

@@ -3,57 +3,50 @@ Imports System.Reflection
 
 Module modFormFunction
     Public MainForm As Form
-    Public Function fChecked(ByVal prCheckObj As CheckBox) As Integer
+    Public Function CheckBoxObject(ByVal prCheckObj As CheckBox) As Integer
         If prCheckObj.Checked = True Then
             Return 1
         Else
             Return 0
         End If
     End Function
-    Public Sub fToolSTRIP_ITEM(ByRef i As ToolStripMenuItem, ByVal prDesc As String, ByVal prSub_ID As String, ByVal Form_name As String, ByVal Image_name As String)
-        Dim b As New ToolStripMenuItem
-        b.Name = prDesc.Replace(" ", "")
-        b.Text = prDesc
+    Public Sub ToolStripItemComponent(ByRef i As ToolStripMenuItem, ByVal prDesc As String, ByVal prSub_ID As String, ByVal Form_name As String, ByVal Image_name As String)
+        Dim TSMenuItem As New ToolStripMenuItem With {
+            .Name = prDesc.Replace(" ", ""),
+            .Text = prDesc
+        }
 
         If Image_name <> "" Then
-            b.Tag = prSub_ID
+            TSMenuItem.Tag = prSub_ID
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
-            b.Image = Image.FromFile(folder & Image_name)
-            b.AccessibleName = Form_name
-            b.AccessibleDescription = prSub_ID
-            AddHandler b.Click, AddressOf ThisOpenMenuTool
+            TSMenuItem.Image = Image.FromFile(folder & Image_name)
+            TSMenuItem.AccessibleName = Form_name
+            TSMenuItem.AccessibleDescription = prSub_ID
+            AddHandler TSMenuItem.Click, AddressOf ThisOpenMenuTool
         End If
-
-
-        i.DropDownItems.Add(b)
-
-
+        i.DropDownItems.Add(TSMenuItem)
     End Sub
-    Public Sub fToolSTRIP_ITEM_Sub(ByRef i As ToolStripDropDownButton, ByVal prDesc As String, ByVal prSub_ID As String, ByVal Form_name As String, ByVal Image_name As String)
-        Dim b As New ToolStripMenuItem
-        b.Name = prDesc.Replace(" ", "")
-        b.Text = prDesc
-
+    Public Sub ToolStripDropDownObject(ByRef i As ToolStripDropDownButton, ByVal prDesc As String, ByVal prSub_ID As String, ByVal Form_name As String, ByVal Image_name As String)
+        Dim TSDropDownObject As New ToolStripMenuItem With {
+            .Name = prDesc.Replace(" ", ""),
+            .Text = prDesc
+        }
         If Image_name <> "" Then
-            b.Tag = prSub_ID
+            TSDropDownObject.Tag = prSub_ID
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
-            b.Image = Image.FromFile(folder & Image_name)
-            b.AccessibleName = Form_name
-            b.AccessibleDescription = prSub_ID
-            AddHandler b.Click, AddressOf ThisOpenMenuTool
+            TSDropDownObject.Image = Image.FromFile(folder & Image_name)
+            TSDropDownObject.AccessibleName = Form_name
+            TSDropDownObject.AccessibleDescription = prSub_ID
+            AddHandler TSDropDownObject.Click, AddressOf ThisOpenMenuTool
         End If
-
-
-        i.DropDownItems.Add(b)
-
-
+        i.DropDownItems.Add(TSDropDownObject)
     End Sub
-    Public Function fdgvChange(ByVal org_dgv As DataGridView, ByVal tmp_dgv As DataGridView) As Boolean
+    Public Function DataGridGotChange(ByVal org_dgv As DataGridView, ByVal tmp_dgv As DataGridView) As Boolean
         Dim HasChange As Boolean = False
         Try
             For r As Integer = 0 To org_dgv.Rows.Count - 1
                 For c As Integer = 0 To org_dgv.Columns.Count - 1
-                    If fTextisNULL(org_dgv.Rows(r).Cells(c).Value) <> fTextisNULL(tmp_dgv.Rows(r).Cells(c).Value) Then
+                    If TextIsNull(org_dgv.Rows(r).Cells(c).Value) <> TextIsNull(tmp_dgv.Rows(r).Cells(c).Value) Then
                         HasChange = True
                         Exit For
                     End If
@@ -63,7 +56,7 @@ Module modFormFunction
             If HasChange = False Then
                 For r As Integer = 0 To tmp_dgv.Rows.Count - 1
                     For c As Integer = 0 To tmp_dgv.Columns.Count - 1
-                        If fTextisNULL(tmp_dgv.Rows(r).Cells(c).Value) <> fTextisNULL(org_dgv.Rows(r).Cells(c).Value) Then
+                        If TextIsNull(tmp_dgv.Rows(r).Cells(c).Value) <> TextIsNull(org_dgv.Rows(r).Cells(c).Value) Then
                             HasChange = True
                             Exit For
                         End If
@@ -72,115 +65,65 @@ Module modFormFunction
                 Next
             End If
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
         Return HasChange
     End Function
-    Public Function fGetObjectTypeMap_ID(ByVal prTABLE_NAME As String) As Double
-        Return fNumFieldValue("OBJECT_TYPE_MAP", "TABLE_NAME", prTABLE_NAME, "ID")
+    Public Function GetObjectTypeMapID(ByVal prTABLE_NAME As String) As Integer
+        Return GetNumberFieldValue("OBJECT_TYPE_MAP", "TABLE_NAME", prTABLE_NAME, "ID")
     End Function
-    Public Function fGetDocumentTypeMapID_FROM_OBJECT_ID(ByVal object_ID As Integer) As Double
-
-        Return fNumFieldValueOneReturn($"SELECT o.`DOCUMENT_TYPE` FROM object_type_map AS o WHERE o.`ID` = '{object_ID}' AND o.`IS_DOCUMENT` = '1' limit 1;")
-
+    Public Function GetDocumentTypeMapIdFromObjectId(ByVal object_ID As Integer) As Integer
+        Return GetNumberFieldValueOneReturn($"SELECT o.`DOCUMENT_TYPE` FROM object_type_map AS o WHERE o.`ID` = '{object_ID}' AND o.`IS_DOCUMENT` = '1' limit 1;")
     End Function
-    Public Function fObjectTypeMap_ID(ByVal prTABLE_NAME As String) As Double
-        Dim I As Double = 0
-        Dim rd As OdbcDataReader = fReader("SELECT NEXT_ID FROM  object_type_map WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
+    Public Function ObjectTypeMapId(ByVal prTABLE_NAME As String) As Integer
+        Dim I As Integer = 0
+        Dim rd As OdbcDataReader = SqlReader("SELECT NEXT_ID FROM  object_type_map WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
         If rd.Read Then
-            I = fNumisNULL(rd("NEXT_ID"))
+            I = NumIsNull(rd("NEXT_ID"))
         Else
-            fMessageboxExclamation(prTABLE_NAME & " table not found")
+            MessageBoxExclamation(prTABLE_NAME & " table not found")
             End
         End If
         rd.Close()
-        fObjectTypeMap_NEXT_ID_UPDATE(I, prTABLE_NAME)
+        ObjectTypeMapNextIdUpdateByTableName(I, prTABLE_NAME)
         Return I
     End Function
-    Private Sub fObjectTypeMap_NEXT_ID_UPDATE(ByVal prID_Number As Double, ByVal prTABLE_NAME As String)
-        fExecutedOnly("UPDATE object_type_map SET NEXT_ID ='" & (prID_Number + 1) & "' WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
+    Private Sub ObjectTypeMapNextIdUpdateByTableName(ByVal prID_Number As Double, ByVal prTABLE_NAME As String)
+        SqlExecuted("UPDATE object_type_map SET NEXT_ID ='" & (prID_Number + 1) & "' WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
     End Sub
-    Public Sub fObjectTypeMap_NEXT_ID_UPDATE0(ByVal prID_Number As Double, ByVal prNAME As String)
-        fExecutedOnly("UPDATE object_type_map SET NEXT_ID ='" & (prID_Number + 1) & "' WHERE `NAME` = '" & prNAME & "' LIMIT 1")
+    Public Sub ObjectTypeMapNextIdUpdateByName(ByVal prID_Number As Double, ByVal prNAME As String)
+        SqlExecuted("UPDATE object_type_map SET NEXT_ID ='" & (prID_Number + 1) & "' WHERE `NAME` = '" & prNAME & "' LIMIT 1")
     End Sub
-    Public Function fObjectTypeMap(ByVal prTABLE_NAME As String) As Double
-        Dim prID_Number As Double = 0
+    Public Function ObjectTypeMap(ByVal prTABLE_NAME As String) As Integer
+        Dim NextID As Integer = 0
 
         Try
-            'cn.Open()
-            Dim rd As OdbcDataReader = fReader("SELECT NEXT_ID FROM WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
+            Dim rd As OdbcDataReader = SqlReader("SELECT NEXT_ID FROM WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
             If rd.Read Then
-                prID_Number = fNumisNULL(rd("NEXT_ID"))
+                NextID = NumIsNull(rd("NEXT_ID"))
             Else
-                prID_Number = 1
+                NextID = 1
             End If
             rd.Close()
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
-                prID_Number = fObjectTypeMap(prTABLE_NAME)
+            If MessageBoxErrorYesNo(ex.Message) = True Then
+                NextID = ObjectTypeMap(prTABLE_NAME)
             Else
                 End
             End If
         End Try
-        Return prID_Number
+        Return NextID
     End Function
 
-    Public Function fisDate(ByVal xp As String) As Date
+    Public Function FixDate(ByVal xp As String) As Date
         If IsDate(xp) = True Then
             Return xp
         Else
             Return Date.Now.Date
         End If
     End Function
-    'Public Sub fDiscount_ReComputed(ByVal dgv As DataGridView)
-    '    Dim T As Double = 0
-    '    Dim sGROUP_ITEM_ACTIVE As Boolean = False
-    '    Dim sGROUP_ITEM_ID As Integer = 0
-    '    For i As Integer = 0 To dgv.Rows.Count - 1
-    '        Dim d As DataGridViewRow = dgv.Rows(i)
-    '        If d.Visible = True Then
-    '            If d.Cells("ITEM_TYPE").Value = 5 Then
-    '                If Format(d.Cells("AMOUNT").Value, "FIXED") <> Format(T, "FIXED") Then
-    '                    d.Cells("AMOUNT").Value = Format(T, "FIXED")
-    '                    If d.Cells("CONTROL_STATUS").Value = "S" Then
-    '                        d.Cells("CONTROL_STATUS").Value = "E"
-    '                    End If
-
-    '                End If
-
-    '            ElseIf fDISCOUNT_ITEM(d.Cells("ITEM_TYPE").Value) = True Then
-    '                Dim L As Double = T * ((fNumisNULL(d.Cells("UNIT_PRICE").Value) * -1) / 100)
-    '                T = T - Format(L, "FIXED")
-    '                If Format(d.Cells("AMOUNT").Value, "FIXED") <> Format(L, "FIXED") * -1 Then
-    '                    d.Cells("AMOUNT").Value = Format(L, "FIXED") * -1
-    '                    If d.Cells("CONTROL_STATUS").Value = "S" Then
-    '                        d.Cells("CONTROL_STATUS").Value = "E"
-    '                    End If
-
-    '                End If
-    '            Else
-    '                If sGROUP_ITEM_ACTIVE = True Then
-    '                    If sGROUP_ITEM_ID = d.Cells("ITEM_ID").Value Then
-    '                        sGROUP_ITEM_ACTIVE = False
-    '                        T = T + Format(d.Cells("AMOUNT").Value, "FIXED")
-    '                    End If
-    '                ElseIf fGROUP_ITEM(d.Cells("ITEM_TYPE").Value, sGROUP_ITEM_ACTIVE) = True Then
-    '                    sGROUP_ITEM_ID = d.Cells("ITEM_ID").Value
-    '                Else
-    '                    T = T + Format(d.Cells("AMOUNT").Value, "FIXED")
-    '                End If
-
-
-    '            End If
-
-    '        End If
-    '    Next
-
-    'End Sub
-    Public Sub fGROUP_ReComputed(ByVal dgv As DataGridView)
-        Dim T As Double = 0
-
+    Public Sub GoupItemComputed(ByVal dgv As DataGridView)
         Dim sGROUP_ITEM_ID As Integer = 0
         Dim sGROUP_ITEM_ACTIVE As Boolean = False
         Dim sGROUP_ITEM_COUNT As Integer = 0
@@ -188,14 +131,14 @@ Module modFormFunction
         For i As Integer = 0 To dgv.Rows.Count - 1
             Dim d As DataGridViewRow = dgv.Rows(i)
             If d.Visible = True Then
-                If fGROUP_ITEM(d.Cells("ITEM_TYPE").Value, sGROUP_ITEM_ACTIVE) = True Then
+                If IsGroupItem(d.Cells("ITEM_TYPE").Value, sGROUP_ITEM_ACTIVE) = True Then
 
                     If sGROUP_ITEM_ID = 0 Then
                         sGROUP_ITEM_ID = d.Cells("ITEM_ID").Value
                         sGROUP_ITEM_COUNT = sGROUP_ITEM_COUNT + 1
                     ElseIf sGROUP_ITEM_COUNT <> 0 And sGROUP_ITEM_ID <> d.Cells("ITEM_ID").Value Then
                         sGROUP_ITEM_COUNT = sGROUP_ITEM_COUNT + 1
-                        sGROUP_AMOUNT_COLLECTION = sGROUP_AMOUNT_COLLECTION + d.Cells("AMOUNT").Value
+                        sGROUP_AMOUNT_COLLECTION += d.Cells("AMOUNT").Value
 
                     ElseIf sGROUP_ITEM_ID = d.Cells("ITEM_ID").Value Then
                         d.Cells("AMOUNT").Value = sGROUP_AMOUNT_COLLECTION
@@ -213,130 +156,85 @@ Module modFormFunction
         Next
 
     End Sub
-    Public Sub fgsImagePathArrayClear()
+    Public Sub ImagePathArrayClear()
         For i As Integer = 0 To 9999
             gsImagePathArray(i) = ""
         Next
     End Sub
 
-    Public Function fGROUP_ITEM(ByVal prITEM_TYPE As Integer, ByVal prActive As Boolean) As Boolean
-        Dim b As Boolean = False
-        If prActive = False Then
-
-            If prITEM_TYPE = 6 Then
-                b = True
+    Public Function IsGroupItem(ByVal ItemType As Integer, ByVal IsActive As Boolean) As Boolean
+        Dim ReturnValue As Boolean = False
+        If IsActive = False Then
+            If ItemType = 6 Then
+                ReturnValue = True
             End If
-
         Else
-            b = prActive
+            ReturnValue = IsActive
         End If
 
-        Return b
+        Return ReturnValue
 
     End Function
-    'Public Sub fDiscount_Set()
-    '    For i As Integer = 0 To 9999
-    '        gsDiscount_Item_ID(i) = ""
-    '    Next
-
-    '    Dim v As Integer = -1
-    '    Try
-
-    '        Dim rd As OdbcDataReader = fReader("select ID from item where `TYPE` = '7' ")
-    '        While rd.Read
-    '            v = v + 1
-    '            gsDiscount_Item_ID(v) = fNumisNULL(rd("ID"))
-    '        End While
-    '        rd.Close()
-    '    Catch ex As Exception
-
-    '        fMessageboxError(ex)
-    '    End Try
-
-    'End Sub
-    'Public Sub fOther_Charge_Set()
-    '    'OTHER CHARGE & SERVICE CHARGE
-
-    '    For i As Integer = 0 To 9999
-    '        gsOther_Charge_Item_ID(i) = ""
-    '    Next
-
-    '    Dim v As Integer = -1
-    '    Try
-
-    '        Dim rd As OdbcDataReader = fReader("select ID from item where `TYPE` in ('3','4')  ")
-    '        While rd.Read
-    '            v = v + 1
-    '            gsOther_Charge_Item_ID(v) = fNumisNULL(rd("ID"))
-    '        End While
-    '        rd.Close()
-    '    Catch ex As Exception
-    '        fMessageboxError(ex)
-    '    End Try
-
-    'End Sub
-
-    Public Function fDISCOUNT_ITEM(ByVal prITEM_TYPE As Integer) As Boolean
-        Dim b As Boolean = False
-        If prITEM_TYPE = 7 Then
-            b = True
+    Public Function IsDiscountItem(ByVal ItemType As Integer) As Boolean
+        Dim ReturnValue As Boolean = False
+        If ItemType = 7 Then
+            ReturnValue = True
         End If
-        Return b
-
+        Return ReturnValue
     End Function
-    Public Function fOTHER_CHARGE_ITEM(ByVal prITEM_TYPE As Integer) As Boolean
-        Dim b As Boolean = False
-        If prITEM_TYPE = 4 Then
-            b = True
+    Public Function IsOtherChargeItem(ByVal ItemType As Integer) As Boolean
+        Dim ReturnValue As Boolean = False
+        If ItemType = 4 Then
+            ReturnValue = True
         End If
-        Return b
+        Return ReturnValue
 
     End Function
-    Public Sub fTSDate(ByVal cmb As ToolStripComboBox, ByVal d As Integer, ByVal bAllowedAll As Boolean)
+    Public Sub DateTSComboBoxLoad(ByVal cmb As ToolStripComboBox, ByVal Num As Integer, ByVal IsAllowedAll As Boolean)
         Try
 
             With cmb.ComboBox
                 .DisplayMember = "Text"
                 .ValueMember = "Value"
-                Dim tb As New DataTable
-                tb.Columns.Add("Text", GetType(String))
-                tb.Columns.Add("Value", GetType(Integer))
+                Dim DataTableList As New DataTable
+                DataTableList.Columns.Add("Text", GetType(String))
+                DataTableList.Columns.Add("Value", GetType(Integer))
 
-                If d = 1 Then
+                If Num = 1 Then
 
-                    If bAllowedAll = True Then
-                        tb.Rows.Add("All Year", 0)
+                    If IsAllowedAll = True Then
+                        DataTableList.Rows.Add("All Year", 0)
                     End If
                     Dim n As Integer = Date.Now.Year + 1
                     For i As Integer = n To 2015 Step -1
-                        tb.Rows.Add(i, i)
+                        DataTableList.Rows.Add(i, i)
                     Next
-                    .DataSource = tb
-                    If bAllowedAll = True Then
+                    .DataSource = DataTableList
+                    If IsAllowedAll = True Then
                         .SelectedIndex = 0
                     Else
                         .SelectedValue = Date.Now.Year
                     End If
-                ElseIf d = 2 Then
+                ElseIf Num = 2 Then
 
-                    If bAllowedAll = True Then
-                        tb.Rows.Add("All Month", 0)
+                    If IsAllowedAll = True Then
+                        DataTableList.Rows.Add("All Month", 0)
                     End If
-                    tb.Rows.Add("January", 1)
-                    tb.Rows.Add("February", 2)
-                    tb.Rows.Add("March", 3)
-                    tb.Rows.Add("April", 4)
-                    tb.Rows.Add("May", 5)
-                    tb.Rows.Add("June", 6)
-                    tb.Rows.Add("July", 7)
-                    tb.Rows.Add("Auguest", 8)
-                    tb.Rows.Add("September", 9)
-                    tb.Rows.Add("October", 10)
-                    tb.Rows.Add("November", 11)
-                    tb.Rows.Add("December", 12)
-                    .DataSource = tb
+                    DataTableList.Rows.Add("January", 1)
+                    DataTableList.Rows.Add("February", 2)
+                    DataTableList.Rows.Add("March", 3)
+                    DataTableList.Rows.Add("April", 4)
+                    DataTableList.Rows.Add("May", 5)
+                    DataTableList.Rows.Add("June", 6)
+                    DataTableList.Rows.Add("July", 7)
+                    DataTableList.Rows.Add("Auguest", 8)
+                    DataTableList.Rows.Add("September", 9)
+                    DataTableList.Rows.Add("October", 10)
+                    DataTableList.Rows.Add("November", 11)
+                    DataTableList.Rows.Add("December", 12)
+                    .DataSource = DataTableList
 
-                    If bAllowedAll = True Then
+                    If IsAllowedAll = True Then
                         .SelectedIndex = 0
                     Else
                         .SelectedValue = Date.Now.Month
@@ -356,11 +254,11 @@ Module modFormFunction
             End With
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
-    Public Sub fYear(ByVal c As ComboBox)
+    Public Sub YearlyComboBoxLoad(ByVal c As ComboBox)
 
         c.DisplayMember = "Text"
         c.ValueMember = "Value"
@@ -377,7 +275,7 @@ Module modFormFunction
 
         c.SelectedValue = Date.Now.Year
     End Sub
-    Public Sub fMonth(ByVal c As ComboBox)
+    Public Sub MonthlyComboBoxLoad(ByVal c As ComboBox)
         c.DisplayMember = "Text"
         c.ValueMember = "Value"
         Dim tb As New DataTable
@@ -398,7 +296,7 @@ Module modFormFunction
         c.DataSource = tb
         c.SelectedValue = Date.Now.Month
     End Sub
-    Public Function fComboBoxIndexValue(ByVal cmb As ComboBox) As String
+    Public Function ComboBoxSelected(ByVal cmb As ComboBox) As String
         If cmb.SelectedIndex < 0 Then
             Return "NULL"
 
@@ -407,121 +305,6 @@ Module modFormFunction
 
         End If
     End Function
-
-
-
-    Public Sub fBackGroundImageStyle(ByVal frm As Form)
-        Exit Sub
-        Try
-            If gsPOS_Mode = True Then
-                gsImageBackground = gsImageBackground
-            End If
-            fCursorLoadingOn(True)
-            frm.Font = New Font("Open Sans", 8)
-            frm.Icon = gsIcon
-            frm.BackColor = ColorTranslator.FromHtml(gsColor_Code)
-            For i As Integer = 0 To frm.Controls.Count - 1
-                Select Case frm.Controls(i).Name
-
-
-                    Case "Panel1"
-                        Dim pnl As Panel = frm.Controls(i)
-                        pnl.BackgroundImage = gsImageBackground
-                        pnl.BackgroundImageLayout = ImageLayout.Stretch
-                        pnl.BackColor = ColorTranslator.FromHtml(gsColor_Code)
-                        pnl.BorderStyle = BorderStyle.None
-                    Case "ToolStrip1"
-                        Dim ts As ToolStrip = frm.Controls(i)
-                        ts.BackgroundImage = gsImageBackground
-                        ts.BackgroundImageLayout = ImageLayout.Stretch
-                        ts.BackColor = ColorTranslator.FromHtml(gsColor_Code)
-                    Case "StatusStrip1"
-                        Dim ss As StatusStrip = frm.Controls(i)
-                        ss.BackgroundImage = gsImageBackground
-                        ss.BackgroundImageLayout = ImageLayout.Stretch
-                        ss.BackColor = ColorTranslator.FromHtml(gsColor_Code)
-
-                    Case "MenuStrip1"
-                        Dim ms As MenuStrip = frm.Controls(i)
-                        ms.BackgroundImage = gsImageBackground
-                        ms.BackgroundImageLayout = ImageLayout.Stretch
-                        ms.BackColor = ColorTranslator.FromHtml(gsColor_Code)
-
-                    Case "dgvDocument"
-                        Dim dgv As DataGridView = frm.Controls(i)
-                        fDatagridViewMode(dgv)
-                        dgv.BackgroundColor = ColorTranslator.FromHtml(gsColor_Code)
-                    Case "dgvItem"
-                        Dim dgv As DataGridView = frm.Controls(i)
-                        fDatagridViewMode(dgv)
-                    Case "GroupBox5"
-                        Dim g As GroupBox = frm.Controls(i)
-                        For x As Integer = 0 To g.Controls.Count - 1
-                            Select Case fLeft(g.Controls(x).Name, 3)
-
-                                Case "dgv"
-                                    Dim dgv As DataGridView = g.Controls(x)
-                                    fDatagridViewMode(dgv)
-                            End Select
-                        Next
-
-                    Case Else
-                        If fLeft(frm.Controls(i).Name, 3) = "gpb" Then
-                            frm.Controls(i).BackgroundImage = gsImageBackground
-                            frm.Controls(i).BackgroundImageLayout = ImageLayout.Stretch
-                        End If
-
-                End Select
-            Next
-            Dim bLabel As Boolean = False
-            Dim bPicture As Boolean = False
-            For i As Integer = 0 To frm.Controls.Count - 1
-                If frm.Controls.Item(i).Name = "Panel1" Then
-                    Dim c As Panel = frm.Controls.Item(i)
-                    For v As Integer = 0 To c.Controls.Count - 1
-                        If c.Controls.Item(v).Name = "PictureBox1" Then
-                            c.Height = 50
-                            Dim p As PictureBox = c.Controls.Item(v)
-                            Dim sFileImage As String = fGetFieldValue("tblsub_menu", "form", frm.Name.Replace("Details", ""), "image_file")
-                            If sFileImage <> "" Then
-                                p.Image = Image.FromFile(Application.StartupPath & "/image/sub/" & sFileImage)
-                            End If
-                            p.Height = 45
-                            p.Width = 50
-                            p.BackColor = Color.Transparent
-                            p.Parent = c
-                            bPicture = True
-
-                            If bPicture = True And bLabel = True Then
-                                Exit For
-                            End If
-
-                        ElseIf c.Controls.Item(v).Name = "Label1" Then
-                            Dim l As Label = c.Controls.Item(v)
-                            l.Font = New Font(gsFont, 14, FontStyle.Bold)
-                            l.Height = 50
-                            l.TextAlign = ContentAlignment.MiddleCenter
-                            l.Top = 10
-                            l.Left = 50
-                            l.BackColor = Color.Transparent
-                            l.Parent = c
-                            bLabel = True
-                            'l.Text = fGetFieldValue("tblsub_menu", "form", frm.Name.Replace("Details", ""), "description")
-                            If bPicture = True And bLabel = True Then
-                                Exit For
-                            End If
-                        End If
-                    Next
-                End If
-            Next
-        Catch ex As Exception
-            ' fMessageboxError(ex)
-        Finally
-            fCursorLoadingOn(False)
-        End Try
-    End Sub
-
-
     Public Function CreateObjectInstance(ByVal objectName As String) As Object
         Dim obj As Object
         Try
@@ -537,7 +320,7 @@ Module modFormFunction
         Return obj
 
     End Function
-    Public Sub fCloseForm(ByVal f As Form)
+    Public Sub ClosedForm(ByVal f As Form)
         f.Close()
         Exit Sub
         Dim sFormName As String = f.Name
@@ -550,9 +333,9 @@ Module modFormFunction
 
 
         Dim frm As New Form
-        frm = fGetForm(fName)
+        frm = GetFormModule(fName)
         frm.Name = sFormName
-        Dim tp As TabPage = New TabPage(sFormName)
+        Dim TPage As New TabPage(sFormName)
         Dim i_selected As Integer = 0
         Dim x_select As Integer = gsTabControl.SelectedIndex
         For i As Integer = 0 To gsTabControl.Controls.Count - 1
@@ -569,17 +352,17 @@ Module modFormFunction
         Next
 
         If gsTabControl.Controls.Count <> 0 Then
-            i_selected = i_selected - 1
+            i_selected -= 1
             If i_selected > 0 Then
                 gsTabControl.SelectTab(i_selected)
             End If
         End If
 
-        fmenuSet()
+        MenuSet()
     End Sub
-    Public Sub fRefreshMenu()
+    Public Sub RefreshMenuModule()
         gsflpPanel.Visible = False
-        fRemoveControl()
+        RemoveControl()
         Try
             Dim sQuery As String = ""
             Dim bMenuCountRead As Boolean = False
@@ -593,7 +376,7 @@ Module modFormFunction
                 bMainMenu = True
             End If
 
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 If bMenuCountRead = True Then
                     iMenuCount = iMenuCount + 1
@@ -616,10 +399,10 @@ Module modFormFunction
 
 
                 If bMainMenu = False Then
-                    fAddPanel(gsflpPanelMain, rd("menu_id"), rd("description"), file_path, sForm)
+                    AddingPanel(gsflpPanelMain, rd("menu_id"), rd("description"), file_path, sForm)
                 Else
                     If gsMenuID <> "" Then
-                        fAddPanel(gsflpPanel, rd("menu_id"), rd("description"), file_path, sForm)
+                        AddingPanel(gsflpPanel, rd("menu_id"), rd("description"), file_path, sForm)
                     End If
 
                 End If
@@ -629,7 +412,7 @@ Module modFormFunction
 
 
             If gsMenuID <> "" Then
-                gsMenuTitle.Text = fGetFieldValue("tblmenu", "menu_id", gsMenuID, "description")
+                gsMenuTitle.Text = GetStringFieldValue("tblmenu", "menu_id", gsMenuID, "description")
             End If
         Catch ex As Exception
 
@@ -637,18 +420,18 @@ Module modFormFunction
         End Try
         gsflpPanel.Visible = True
         bMainMenu = True
-        '   fCursorLoadingOn(False)
+        '   CursorLoadingOn(False)
     End Sub
-    Public Sub fRemoveControl()
+    Public Sub RemoveControl()
         gsflpPanel.Controls.Clear()
 
     End Sub
-    Public Sub fmenuSet()
-        fCursorLoadingOn(True)
+    Public Sub MenuSet()
+        CursorLoadingOn(True)
         If gsMenuID = "" Then
             If gsRefresh = True Then
                 gsRefresh = False
-                fRefreshMenu()
+                RefreshMenuModule()
                 For i As Integer = 0 To gsTabControl.Controls.Count - 1
                     gsTabControl.Controls.RemoveAt(0)
                 Next
@@ -657,14 +440,14 @@ Module modFormFunction
             If gsRefresh = True Then
                 gsRefresh = False
                 If gsMenuSubID = "" Then
-                    fRefreshMenu()
+                    RefreshMenuModule()
                 Else
                     If gsMenuSubID = "32" Then
                         For i As Integer = 0 To gsTabControl.Controls.Count - 1
                             If gsTabControl.Controls(i).AccessibleName = gsMenuSubID Then
                                 If gsTabControl.Controls(i).Text = gsReportTabName Then
                                     gsTabControl.SelectTab(i)
-                                    fCursorLoadingOn(False)
+                                    CursorLoadingOn(False)
                                     Exit Sub
                                 End If
                             End If
@@ -678,7 +461,7 @@ Module modFormFunction
                                     Dim f As Form = gsTabControl.TabPages(i).Controls.Item(0)
                                     f.Text = gsDocument_Finder_ID
                                 End If
-                                fCursorLoadingOn(False)
+                                CursorLoadingOn(False)
                                 Exit Sub
                             End If
 
@@ -702,42 +485,42 @@ Module modFormFunction
 
                     Try
 
-                        fCursorLoadingOn(True)
+                        CursorLoadingOn(True)
 
 
-                        Dim rd As OdbcDataReader = fReader("select * from tblsub_menu where sub_id = '" & gsMenuSubID & "' limit 1")
+                        Dim rd As OdbcDataReader = SqlReader("select * from tblsub_menu where sub_id = '" & gsMenuSubID & "' limit 1")
                         If rd.Read() Then
                             Dim frmName As String = rd("form")
-                            Dim iModal As Integer = fNumisNULL(rd("modal"))
+                            Dim iModal As Integer = NumIsNull(rd("modal"))
                             Dim sDescription As String = rd("description")
                             gsSubMenuForm = sDescription
                             rd.Close()
 
                             Dim objFRM As New Form()
-                            objFRM = fGetForm(frmName)
+                            objFRM = GetFormModule(frmName)
 
                             If iModal = 0 Then
 
                                 If gsMenuSubID = 32 Then
                                     objFRM.Name = frmName & gsREPORT_ID
                                 End If
-                                Dim tp As TabPage = New TabPage
+                                Dim TPage As New TabPage
                                 If gsMenuSubID = 32 Then
-                                    tp.Name = frmName & gsREPORT_ID
+                                    TPage.Name = frmName & gsREPORT_ID
                                 Else
-                                    tp.Name = frmName
+                                    TPage.Name = frmName
                                 End If
 
 
-                                tp.AccessibleName = gsMenuSubID
-                                tp.ImageKey = gsMenuSubID
+                                TPage.AccessibleName = gsMenuSubID
+                                TPage.ImageKey = gsMenuSubID
 
                                 If gsMenuSubID = 32 Then
-                                    tp.Text = "       " & gsReportTabName & " " & sDescription
+                                    TPage.Text = "       " & gsReportTabName & " " & sDescription
                                 ElseIf gsMenuSubID = 31 Then
-                                    tp.Text = "       " & gsReportTabName & " Preview"
+                                    TPage.Text = "       " & gsReportTabName & " Preview"
                                 Else
-                                    tp.Text = "       " & sDescription
+                                    TPage.Text = "       " & sDescription
                                 End If
 
                                 With objFRM
@@ -748,11 +531,11 @@ Module modFormFunction
                                     .AutoScroll = True
                                     .AccessibleName = gsMenuSubID
                                 End With
-                                tp.Controls.Add(objFRM)
-                                gsTabControl.Controls.Add(tp)
+                                TPage.Controls.Add(objFRM)
+                                gsTabControl.Controls.Add(TPage)
 
                                 For i As Integer = 0 To gsTabControl.TabCount - 1
-                                    If gsTabControl.TabPages(i).Name = tp.Name Then
+                                    If gsTabControl.TabPages(i).Name = TPage.Name Then
                                         gsTabControl.SelectTab(i)
                                     End If
                                 Next
@@ -768,9 +551,9 @@ Module modFormFunction
                         End If
 
                     Catch ex As Exception
-                        fMessageboxWarning(ex.Message)
+                        MessageBoxWarning(ex.Message)
                     Finally
-                        fCursorLoadingOn(False)
+                        CursorLoadingOn(False)
                     End Try
 
 
@@ -788,41 +571,32 @@ Module modFormFunction
             ' gsSystem_Name.Visible = True
 
         End If
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
     End Sub
 
-    Public Sub fTabName(ByVal fName As String, ByVal prTabName As String)
-        Exit Sub
-        Dim frm As New Form
-        frm = fGetForm(fName)
-        Dim tp As TabPage = New TabPage(fName)
-        For i As Integer = 0 To gsTabControl.Controls.Count - 1
-            If gsTabControl.Controls(i).TabIndex = i Then
-                gsTabControl.Controls.Item(i).Text = prTabName
-                Exit For
-            End If
-        Next
-        fmenuSet()
-    End Sub
-    Public Function fGetForm(ByVal frmName As String) As Form
-        Dim frm As New Form()
+
+    Public Function GetFormModule(ByVal frmName As String) As Form
+
         Try
-            frm = DirectCast(CreateObjectInstance(frmName), Form)
+            Dim frm As Form = DirectCast(CreateObjectInstance(frmName), Form)
             Return frm
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
             Return Nothing
         End Try
     End Function
-    Public Sub fAddPanel(ByVal c As Control, ByVal vName As String, ByVal vText As String, ByVal image_path As String, ByVal xForm As String)
+    Public Sub AddingPanel(ByVal c As Control, ByVal vName As String, ByVal vText As String, ByVal image_path As String, ByVal xForm As String)
         Dim img As Image
-        Dim p As Panel = New Panel
-        Dim l As Label = New Label
+        Dim p As New Panel With {
+            .Name = "pnl" & vName,
+            .AccessibleName = xForm
+        }
 
-        l.Name = "lbl" & vName
-        l.Text = vText
-        p.Name = "pnl" & vName
-        p.AccessibleName = xForm
+        Dim l As New Label With {
+            .Name = "lbl" & vName,
+            .Text = vText
+        }
+
         If image_path <> "" Then
 
 
@@ -833,24 +607,25 @@ Module modFormFunction
                     p.BackgroundImage = img
                     p.BackgroundImageLayout = ImageLayout.Stretch
                 Else
-                    Dim pic As PictureBox = New PictureBox
-                    pic.Name = "pic" & vName
-                    pic.Image = img
-                    pic.SizeMode = PictureBoxSizeMode.StretchImage
-                    pic.Size = New Point(30, 30)
-                    pic.Dock = DockStyle.Left
+                    Dim pic As New PictureBox With {
+                        .Name = "pic" & vName,
+                        .Image = img,
+                        .SizeMode = PictureBoxSizeMode.StretchImage,
+                        .Size = New Point(30, 30),
+                        .Dock = DockStyle.Left
+                    }
                     pic.BringToFront()
                     p.Controls.Add(pic)
                 End If
 
 
             Catch ex As Exception
-                fMessageboxWarning(ex.Message)
+                MessageBoxWarning(ex.Message)
             End Try
 
-            AddHandler p.MouseEnter, AddressOf fPanelEnter
-            AddHandler p.MouseLeave, AddressOf fPanelLeave
-            AddHandler p.Click, AddressOf fPanelClick
+            AddHandler p.MouseEnter, AddressOf PanelEntered
+            AddHandler p.MouseLeave, AddressOf PanelLeaved
+            AddHandler p.Click, AddressOf PanelClick
         End If
 
         If gsMenuID = "" Then
@@ -860,9 +635,9 @@ Module modFormFunction
         Else
             p.Size = New Point(210, 20)
             l.Font = New Font("Open Sans", 10, FontStyle.Regular)
-            AddHandler l.MouseEnter, AddressOf fLabelEnter
-            AddHandler l.MouseLeave, AddressOf fLabelLeave
-            AddHandler l.Click, AddressOf fLabelClick
+            AddHandler l.MouseEnter, AddressOf LabelEntered
+            AddHandler l.MouseLeave, AddressOf LabelLeaved
+            AddHandler l.Click, AddressOf LabelClick
             l.ForeColor = Color.Black
         End If
 
@@ -886,7 +661,7 @@ Module modFormFunction
 
     End Sub
 
-    Public Sub fPanelEnter(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub PanelEntered(ByVal sender As Object, ByVal e As EventArgs)
         Dim img As Image = gsImageBackground
         Dim p As Panel = DirectCast(sender, Panel)
         p.BackColor = Color.White
@@ -899,7 +674,7 @@ Module modFormFunction
         l.ForeColor = Color.Blue
     End Sub
 
-    Public Sub fLabelEnter(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub LabelEntered(ByVal sender As Object, ByVal e As EventArgs)
         Dim c As Label = DirectCast(sender, Label)
         Dim f As Panel = gsflpPanel
         Dim p As New Panel
@@ -921,7 +696,7 @@ Module modFormFunction
         Dim l As Label = CType(p.Controls("lbl" & p.Name.Replace("pnl", "")), Label)
         l.ForeColor = Color.Black
     End Sub
-    Public Sub fPanelLeave(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub PanelLeaved(ByVal sender As Object, ByVal e As EventArgs)
         Dim p As Panel = DirectCast(sender, Panel)
         If p.AccessibleDescription <> "x" Then
             p.BackgroundImage = Nothing
@@ -932,7 +707,7 @@ Module modFormFunction
         l.ForeColor = Color.Black
     End Sub
 
-    Public Sub fLabelLeave(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub LabelLeaved(ByVal sender As Object, ByVal e As EventArgs)
         Dim c As Label = DirectCast(sender, Label)
         Dim f As Panel = gsflpPanel
         Dim p As New Panel
@@ -955,17 +730,17 @@ Module modFormFunction
 
 
 
-    Public Sub fShowingTab(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub ShowingTab(ByVal sender As Object, ByVal e As EventArgs)
         gsShowSubMenu = True
     End Sub
-    Public Sub fHidingTab(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub HidingTab(ByVal sender As Object, ByVal e As EventArgs)
         gsShowSubMenu = False
     End Sub
-    Public Sub fBlueLight(ByVal n As Object)
+    Public Sub BlueLight(ByVal n As Object)
         n.Select(0, n.Value.ToString.Length + 3)
     End Sub
 
-    Public Sub fPanelClick(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub PanelClick(ByVal sender As Object, ByVal e As EventArgs)
 
         Dim p As Panel = DirectCast(sender, Panel)
         p.BackColor = Color.Black
@@ -995,10 +770,10 @@ Module modFormFunction
             gsMenuID = p.Name.Replace("pnl", "")
         End If
         gsRefresh = True
-        fmenuSet()
+        MenuSet()
     End Sub
 
-    Public Sub fLabelClick(ByVal sender As Object, ByVal e As EventArgs)
+    Public Sub LabelClick(ByVal sender As Object, ByVal e As EventArgs)
 
         Dim l As Label = DirectCast(sender, Label)
 
@@ -1035,16 +810,16 @@ Module modFormFunction
             gsMenuID = p.Name.Replace("pnl", "")
         End If
         gsRefresh = True
-        fmenuSet()
+        MenuSet()
     End Sub
 
-    Public Function fLeft(ByVal x As String, ByVal i As String) As String
+    Public Function StrLeft(ByVal x As String, ByVal i As String) As String
         Return Microsoft.VisualBasic.Left(x, i)
     End Function
-    Public Function fRight(ByVal x As String, ByVal i As String) As String
+    Public Function StrRight(ByVal x As String, ByVal i As String) As String
         Return Microsoft.VisualBasic.Right(x, i)
     End Function
-    Public Sub fDataGrid_Switch(ByVal dgv As DataGridView, ByVal gsID As Integer)
+    Public Sub ViewSwitch(ByVal dgv As DataGridView, ByVal gsID As Integer)
         Try
             For i As Integer = 0 To dgv.Columns.Count - 1
                 If i = 0 Then
@@ -1076,16 +851,16 @@ Module modFormFunction
             frmCheckList.Dispose()
             frmCheckList = Nothing
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
-    Public Sub fDataGrid_Column(ByVal dgv As DataGridView, ByVal gsID As Integer)
+    Public Sub ViewColumn(ByVal dgv As DataGridView, ByVal gsID As Integer)
 
         dgv.Columns(0).Visible = False
 
         Dim cn As New OleDb.OleDbConnection(fMS_Con)
         Try
-            fCursorLoadingOn(True)
+            CursorLoadingOn(True)
             cn.Open()
             Dim cmd As New OleDb.OleDbCommand("select * from tblcolumn where id = " & gsID & " ", cn)
 
@@ -1097,20 +872,20 @@ Module modFormFunction
 
             Else
                 fMS_execute("insert into tblcolumn (ID) values (" & gsID & ") ")
-                fMessageboxInfo("New Row Added")
+                MessageBoxInfo("New Row Added")
             End If
             cn.Close()
         Catch ex As Exception
             If cn.State = ConnectionState.Open Then
                 cn.Close()
             End If
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         Finally
-            fCursorLoadingOn(False)
+            CursorLoadingOn(False)
         End Try
     End Sub
-    Public Sub fComboBoxNull(ByVal cmb As ComboBox, ByVal prID_NAME As String, ByVal prDESC_NAME As String)
-        fComboBox(cmb, "SELECT '' as " & prID_NAME & ", '' as " & prDESC_NAME & " ", prID_NAME, prDESC_NAME)
+    Public Sub ComboBoxNull(ByVal cmb As ComboBox, ByVal prID_NAME As String, ByVal prDESC_NAME As String)
+        ComboBoxLoad(cmb, "SELECT '' as " & prID_NAME & ", '' as " & prDESC_NAME & " ", prID_NAME, prDESC_NAME)
     End Sub
 
 End Module

@@ -4,8 +4,8 @@ Public Class frmPOSOrderEntry
     Public gsCloseCall As Boolean = False
     Dim bNewContact As Boolean = False
 
-    Public gsID As String = gsDocument_Finder_ID
-    Public gsNew As Boolean = IIf(gsID = "", True, False)
+    Public ID As String = gsDocument_Finder_ID
+    Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
     Dim bEntryAddItem As Boolean = False
     Dim f As Form = New frmFindDocument
@@ -17,12 +17,12 @@ Public Class frmPOSOrderEntry
     Private Sub dgvProductItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvProductItem.RowStateChanged
         tsCOUNT.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
-        Dim squery As String = fFieldCollector(Me)
+        Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
             HasChange = True
-        ElseIf fdgvChange(dgvProductItem, tdgv) = True Then
+        ElseIf DataGridGotChange(dgvProductItem, tdgv) = True Then
             HasChange = True
         End If
         Return HasChange
@@ -45,13 +45,13 @@ Public Class frmPOSOrderEntry
 
         fcolumnGrid()
         fclear_Info()
-        If gsNew = False Then
-            fRefreshInfo(gsID)
-            fRefreshItem(gsID)
+        If IsNew = False Then
+            fRefreshInfo(ID)
+            fRefreshItem(ID)
         End If
         '=============================
 
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
         fMaterialSkin(Me)
         Me.Icon = gsIcon
 
@@ -83,7 +83,7 @@ Public Class frmPOSOrderEntry
         gsSTARTING_RECEIPT_NO = 0
         gsENDING_RECEIPT_NO = 0
 
-        Me.AccessibleName = fGetFieldValue("tblsub_menu", "form", "frmSalesOrder", "sub_id")
+        Me.AccessibleName = GetStringFieldValue("tblsub_menu", "form", "frmSalesOrder", "sub_id")
 
         gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
 
@@ -109,7 +109,7 @@ Public Class frmPOSOrderEntry
     Private Sub fclear_Info()
 
         fRefreshCombo()
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
         lblCODE.Text = ""
         xlblAcctNo.Text = ""
         xlblCustomer_Name.Text = ""
@@ -140,11 +140,11 @@ Public Class frmPOSOrderEntry
         Try
 
             Dim sQuery As String = "select * from sales_order where ID = '" & prID & "' Limit 1"
-            fExecutedUsingReading(Me, sQuery)
+            SqlExecutedUsingReading(Me, sQuery)
 
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshInfo(prID)
             Else
                 End
@@ -192,33 +192,33 @@ FROM
     ON d.`ID` = ii.`DISCOUNT_TYPE` 
   LEFT OUTER JOIN rate_type_map AS rt 
     ON rt.`ID` = ii.`RATE_TYPE`
-   WHERE ii.`SALES_ORDER_ID` = '" & gsID & "' Order by ii.LINE_NO"
+   WHERE ii.`SALES_ORDER_ID` = '" & ID & "' Order by ii.LINE_NO"
 
 
         Try
             Dim x As Integer = 0
 
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 dgvProductItem.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 2
                     With dgvProductItem.Columns(i)
                         If fCheckNumStandard(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = fNumFormatStandard(fNumisNULL(rd(i)))
-                        ElseIf fCheckNumNoDecimal(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = fNumFormatNoDecimal(fNumisNULL(rd(i)))
-                        ElseIf fCheckBoolType(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = CBool(fNumisNULL(rd(i)))
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
+                        ElseIf CheckNumNoDecimal(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
+                        ElseIf CheckBoolType(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
                         Else
 
 
-                            If sGROUP_ITEM_COUNT <> 0 And sGROUP_ITEM_ID = fNumisNULL(rd("ITEM_ID")) And i = 1 Then
+                            If sGROUP_ITEM_COUNT <> 0 And sGROUP_ITEM_ID = NumIsNull(rd("ITEM_ID")) And i = 1 Then
                                 sGROUP_ITEM_COUNT = 0
                                 sGROUP_ITEM_ID = 0
                                 sGROUP_ITEM_ACTIVE = False
                                 dgvProductItem.Rows(x).Cells(i).Value = ""
                             Else
-                                dgvProductItem.Rows(x).Cells(i).Value = fTextisNULL(rd(i))
+                                dgvProductItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
                             End If
                         End If
                     End With
@@ -228,13 +228,13 @@ FROM
             End While
             rd.Close()
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
         Finally
 
             fComputed()
             tdgv = New DataGridView
             tdgv = dgvProductItem
-            tQuery = fFieldCollector(Me)
+            tQuery = SqlUpdate(Me)
 
         End Try
 
@@ -249,13 +249,13 @@ FROM
         End If
     End Function
     Private Sub fRefreshCombo()
-        fComboBox(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-        fComboBox(cmbCLASS_ID, "select * from class order by `NAME`", "ID", "NAME")
-        fComboBox(cmbPAYMENT_TERMS_ID, "select * from payment_terms ORDER BY ID DESC", "ID", "DESCRIPTION")
-        fComboBox(cmbSALES_REP_ID, "select * from contact where type ='2' order by `NAME`", "ID", "NAME")
-        fComboBox(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
-        'fComboBox(cmbSHIP_VIA_ID, "select * from ship_via", "ID", "DESCRIPTION")
-        fComboBox(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
+        ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+        ComboBoxLoad(cmbCLASS_ID, "select * from class order by `NAME`", "ID", "NAME")
+        ComboBoxLoad(cmbPAYMENT_TERMS_ID, "select * from payment_terms ORDER BY ID DESC", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbSALES_REP_ID, "select * from contact where type ='2' order by `NAME`", "ID", "NAME")
+        ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
+        'ComboBoxLoad(cmbSHIP_VIA_ID, "select * from ship_via", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
 
     End Sub
     Private Sub fcolumnGrid()
@@ -338,13 +338,13 @@ FROM
         End With
     End Sub
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
 
     Private Function fCheckifDiscountNext(ByVal ndex As Integer) As Boolean
         Try
-            If fDISCOUNT_ITEM(dgvProductItem.Rows(ndex + 1).Cells("ITEM_TYPE").Value) = True Then
+            If IsDiscountItem(dgvProductItem.Rows(ndex + 1).Cells("ITEM_TYPE").Value) = True Then
                 Return True
             Else
                 Return False
@@ -364,7 +364,7 @@ FROM
 
         fComputed()
 
-        Select Case fNumisNULL(cmbOUTPUT_TAX_ID.SelectedValue)
+        Select Case NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue)
             Case 14
                 xlblTax.Text = "0% Vat"
             Case 12
@@ -376,14 +376,14 @@ FROM
 
         Try
 
-            Dim rd As OdbcDataReader = fReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & fNumisNULL(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblOUTPUT_TAX_VAT_METHOD.Text = fTextisNULL(rd("VAT_METHOD"))
+                lblOUTPUT_TAX_VAT_METHOD.Text = TextIsNull(rd("VAT_METHOD"))
             End If
             rd.Close()
         Catch ex As Exception
             lblOUTPUT_TAX_VAT_METHOD.Text = ""
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 cmbOUTPUT_TAX_ID_SelectedIndexChanged(sender, e)
             Else
                 End
@@ -395,7 +395,7 @@ FROM
         Try
 
             If dgvProductItem.Rows.Count = 0 Then
-                fMessageboxExclamation("Data Not Found!")
+                MessageBoxExclamation("Data Not Found!")
                 Exit Sub
             End If
             Dim bAlreadySave As Boolean = False
@@ -403,19 +403,19 @@ FROM
 
             Dim d As DataGridViewRow = dgvProductItem.Rows(I)
             If d.Cells("ITEM_TYPE").Value = 5 Then
-                fMessageboxInfo("Invalid to Edit")
+                MessageBoxInfo("Invalid to Edit")
                 Exit Sub
-            ElseIf fDISCOUNT_ITEM(d.Cells("ITEM_TYPE").Value) = True Then
-                fMessageboxInfo("Invalid to Edit")
+            ElseIf IsDiscountItem(d.Cells("ITEM_TYPE").Value) = True Then
+                MessageBoxInfo("Invalid to Edit")
                 Exit Sub
-            ElseIf fNumisNULL(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
-                fMessageboxInfo("Invalid to Edit")
+            ElseIf NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
+                MessageBoxInfo("Invalid to Edit")
                 Exit Sub
             End If
 
             With frmAddItem
                 .gsNonInventoryItem = True
-                If fNumisNULL(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
+                If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
                     bAlreadySave = True
@@ -454,7 +454,7 @@ FROM
             frmAddItem.Dispose()
             frmAddItem = Nothing
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
         End Try
     End Sub
 
@@ -471,13 +471,13 @@ FROM
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If gsNew = False And gsID <> "" Then
-                If fCheckHasChange() = True Then
-                    If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+            If IsNew = False And ID <> "" Then
+                If CheckHasChange() = True Then
+                    If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
                         tsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
-                            fMessageboxInfo("Cancel")
+                            MessageBoxInfo("Cancel")
                             Exit Sub
                         End If
                     Else
@@ -492,12 +492,12 @@ FROM
         If f.AccessibleDescription <> "" Then
             If f.AccessibleDescription <> "cancel" Then
                 fclear_Info()
-                gsID = f.AccessibleDescription
-                gsNew = False
+                ID = f.AccessibleDescription
+                IsNew = False
 
 
-                fRefreshInfo(gsID)
-                fRefreshItem(gsID)
+                fRefreshInfo(ID)
+                fRefreshItem(ID)
 
             End If
 
@@ -526,57 +526,48 @@ FROM
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
 
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
-            fMessageboxInfo("Please Customer")
+            MessageBoxInfo("Please Customer")
             Exit Sub
         End If
 
         If dgvProductItem.Rows.Count = 0 Then
-            fMessageboxInfo("No item Enter")
+            MessageBoxInfo("No item Enter")
             Exit Sub
         End If
 
-        If fACCESS_NEW_EDIT(frmSalesOrder, gsNew) = False Then
+        If fACCESS_NEW_EDIT(frmSalesOrder, IsNew) = False Then
             Exit Sub
         End If
 
-        If gsNew = True Then
+        If IsNew = True Then
 
-            'If fIsClosingDate(dtpDATE.Value) = False Then
-            '    Exit Sub
-            'End If
 
             If Trim(lblCODE.Text) = "" Then
-                lblCODE.Text = fNEXT_CODE("SALES_ORDER", cmbLOCATION_ID.SelectedValue)
+                lblCODE.Text = GetNextCode("SALES_ORDER", cmbLOCATION_ID.SelectedValue)
             End If
 
             dtpDATE.Checked = True
-            Dim squery As String = fFieldCollector(Me)
-            gsID = fObjectTypeMap_ID("sales_order")
-            squery = squery & ",ID = '" & gsID & "',RECORDED_ON = '" & Format(Date.Now, "yyyy-MM-dd hh:mm:ss") & "',STATUS='2',STATUS_DATE ='" & Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss") & "'"
-            squery = fNullOTherField(squery, "sales_order")
-            fExecutedOnly("INSERT INTO sales_order SET " & squery)
+
+            ID = ObjectTypeMapId("sales_order")
+
+            SqlCreate(Me, SQL_Field, SQL_Value)
+
+            SqlExecuted($"INSERT INTO sales_order ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},{GetDateTimeNowSql()},2,{GetDateTimeNowSql()})")
 
             fTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(gsID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", fNumisNULL(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
-
-            'If fIsClosingDate(dtpDATE.Value) = False Then
-            '    Exit Sub
-            'End If
-
             tChangeAccept = True
-            Dim squery As String = fFieldCollector(Me)
-
-            squery = squery & " WHERE ID = '" & gsID & "' limit 1"
-            fExecutedOnly("UPDATE sales_order SET " & squery)
-            fTransaction_Log(gsID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", fNumisNULL(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            Dim squery As String = SqlUpdate(Me) & " WHERE ID = '" & ID & "' "
+            SqlExecuted("UPDATE sales_order SET " & squery)
+            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
-        If fTransactionCheck(gsID, "sales_order") = False Then
-            fMessageboxWarning("Please try again")
+        If IsTransactionSuccess(ID, "sales_order") = False Then
+            MessageBoxWarning("Please try again")
             Exit Sub
         Else
-            fSaveItem(gsID)  ' Save item
+            fSaveItem(ID)  ' Save item
         End If
 
         Try
@@ -589,10 +580,10 @@ FROM
         Catch ex As Exception
 
         Finally
-            If gsID <> "" Then
-                gsNew = False
-                fRefreshInfo(gsID)
-                fRefreshItem(gsID)
+            If ID <> "" Then
+                IsNew = False
+                fRefreshInfo(ID)
+                fRefreshItem(ID)
             End If
 
         End Try
@@ -601,8 +592,8 @@ FROM
         fclear_Info()
         dgvProductItem.Rows.Clear()
         fComputed()
-        gsID = ""
-        gsNew = True
+        ID = ""
+        IsNew = True
 
     End Sub
     Private Sub fEstimate_ITEM_UPDATE(ByVal prITEM_ID As Double, ByVal prINVOICED_QTY As Double, ByVal ADD_EDIT As Boolean)
@@ -612,16 +603,16 @@ FROM
 
         Dim SO_SQL As String
 
-        Dim get_SO_ID As String = fGetFieldValue("estimate_items", "ID", prITEM_ID, "estimate_ID")
+        Dim get_SO_ID As String = GetStringFieldValue("estimate_items", "ID", prITEM_ID, "estimate_ID")
 
         If ADD_EDIT = True Then
             SO_SQL = "Update Estimate_items SET `FINAL_QTY` = '" & prINVOICED_QTY & "' ,`CLOSED` = '1' where ID = '" & prITEM_ID & "' Limit 1"
         Else
             SO_SQL = "Update Estimate_items SET `FINAL_QTY` = NULL,`CLOSED` = '0' where ID = '" & prITEM_ID & "' Limit 1"
         End If
-        fExecutedOnly(SO_SQL)
+        SqlExecuted(SO_SQL)
 
-        fExecutedOnly("Update Estimate set `STATUS` = '3'  where ID = '" & get_SO_ID & "' limit 1")
+        SqlExecuted("Update Estimate set `STATUS` = '3'  where ID = '" & get_SO_ID & "' limit 1")
     End Sub
 
     Private Sub fSaveItem(ByVal dID As String)
@@ -639,33 +630,33 @@ FROM
 
                     Case "S"
                         'UPDATE TAX ONLY
-                        fTax_Computation(cmbOUTPUT_TAX_ID, fNumisNULL(.Cells("AMOUNT").Value), fNumisNULL(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SQL_SCRIPT = "UPDATE sales_order_items SET TAXABLE_AMOUNT = '" & fNumisNULL(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & fNumisNULL(.Cells("TAX_AMOUNT").Value) & "' WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & fGotNullNumber(fNumisNULL(.Cells("ID").Value))
-                        fExecutedOnly(SQL_SCRIPT)
+                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SQL_SCRIPT = "UPDATE sales_order_items SET TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value))
+                        SqlExecuted(SQL_SCRIPT)
                     Case "A"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, fNumisNULL(.Cells("AMOUNT").Value), fNumisNULL(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        Dim i_ID As Double = fObjectTypeMap_ID("SALES_ORDER_ITEMS")
-                        SQL_SCRIPT = "INSERT INTO sales_order_items SET LINE_NO='" & fGetMaxField_LINE("LINE_NO", "SALES_ORDER_ITEMS", "SALES_ORDER_ID", dID) & "',ID='" & i_ID & "',QUANTITY ='" & fNumisNULL(.Cells("QTY").Value) & "',RATE = '" & fNumisNULL(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & fGotNullNumber(fNumisNULL(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & fGotNullNumber(fNumisNULL(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & fNumisNULL(.Cells("AMOUNT").Value) & "',TAXABLE='" & fNumisNULL(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & fNumisNULL(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & fNumisNULL(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & fNumisNULL(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & fGotNullNumber(fNumisNULL(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & fNumisNULL(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & fNumisNULL(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & fGotNullNumber(fNumisNULL(.Cells("UNIT_ID").Value)) & ",SALES_ORDER_ID ='" & dID & "',CLOSED ='0',INVOICED_QTY= NULL,PRICE_LEVEL_ID = " & fGotNullNumber(fNumisNULL(.Cells("PRICE_LEVEL_ID").Value)) & ",GROUP_LINE_ID = " & fGotNullNumber(sGROUP_ITEM_ID)
-                        fExecutedOnly(SQL_SCRIPT)
+                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        Dim i_ID As Double = ObjectTypeMapId("SALES_ORDER_ITEMS")
+                        SQL_SCRIPT = "INSERT INTO sales_order_items SET LINE_NO='" & GetMaxFieldLine("LINE_NO", "SALES_ORDER_ITEMS", "SALES_ORDER_ID", dID) & "',ID='" & i_ID & "',QUANTITY ='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",SALES_ORDER_ID ='" & dID & "',CLOSED ='0',INVOICED_QTY= NULL,PRICE_LEVEL_ID = " & GotNullNumber(NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",GROUP_LINE_ID = " & GotNullNumber(sGROUP_ITEM_ID)
+                        SqlExecuted(SQL_SCRIPT)
 
-                        fEstimate_ITEM_UPDATE(fNumisNULL(.Cells("ESTIMATE_LINE_ID").Value), fNumisNULL(.Cells("QTY").Value), True)
+                        fEstimate_ITEM_UPDATE(NumIsNull(.Cells("ESTIMATE_LINE_ID").Value), NumIsNull(.Cells("QTY").Value), True)
 
-                        If fGROUP_ITEM(fNumisNULL(.Cells("ITEM_TYPE").Value), sGROUP_ITEM_ACTIVE) = True And sGROUP_ITEM_ID = 0 Then
-                            sGROUP_ITEM_ID = fNumisNULL(.Cells("ITEM_ID").Value)
+                        If IsGroupItem(NumIsNull(.Cells("ITEM_TYPE").Value), sGROUP_ITEM_ACTIVE) = True And sGROUP_ITEM_ID = 0 Then
+                            sGROUP_ITEM_ID = NumIsNull(.Cells("ITEM_ID").Value)
                             sGROUP_ITEM_ACTIVE = True
-                        ElseIf fNumisNULL(.Cells("ITEM_ID").Value) = sGROUP_ITEM_ID Then
+                        ElseIf NumIsNull(.Cells("ITEM_ID").Value) = sGROUP_ITEM_ID Then
                             sGROUP_ITEM_ID = 0
                             sGROUP_ITEM_ACTIVE = False
                         End If
 
                     Case "E"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, fNumisNULL(.Cells("AMOUNT").Value), fNumisNULL(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SQL_SCRIPT = "UPDATE sales_order_items SET QUANTITY='" & fNumisNULL(.Cells("QTY").Value) & "',RATE = '" & fNumisNULL(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & fGotNullNumber(fNumisNULL(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & fGotNullNumber(fNumisNULL(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & fNumisNULL(.Cells("AMOUNT").Value) & "',TAXABLE='" & fNumisNULL(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & fNumisNULL(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & fNumisNULL(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & fNumisNULL(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & fGotNullNumber(fNumisNULL(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & fNumisNULL(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & fNumisNULL(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & fGotNullNumber(fNumisNULL(.Cells("UNIT_ID").Value)) & " WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & fGotNullNumber(fNumisNULL(.Cells("ID").Value)) & ""
-                        fExecutedOnly(SQL_SCRIPT)
-                        fEstimate_ITEM_UPDATE(fNumisNULL(.Cells("ESTIMATE_LINE_ID").Value), fNumisNULL(.Cells("QTY").Value), True)
+                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SQL_SCRIPT = "UPDATE sales_order_items SET QUANTITY='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & " WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & ""
+                        SqlExecuted(SQL_SCRIPT)
+                        fEstimate_ITEM_UPDATE(NumIsNull(.Cells("ESTIMATE_LINE_ID").Value), NumIsNull(.Cells("QTY").Value), True)
                     Case "D"
-                        SQL_SCRIPT = "DELETE FROM sales_order_items WHERE SALES_ORDER_ID ='" & dID & "' and ID = '" & fNumisNULL(.Cells("ID").Value) & "'"
-                        fExecutedOnly(SQL_SCRIPT)
+                        SQL_SCRIPT = "DELETE FROM sales_order_items WHERE SALES_ORDER_ID ='" & dID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "'"
+                        SqlExecuted(SQL_SCRIPT)
                 End Select
 
             End With
@@ -678,25 +669,25 @@ FROM
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
 
-        If gsNew = False Then
+        If IsNew = False Then
             If fACCESS_DELETE(Me) = False Then
                 Exit Sub
             End If
-            If fIsClosingDate(dtpDATE.Value, gsNew) = False Then
+            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
-            If fMessageBoxQuestion(gsMessageQuestion) = True Then
+            If MessageBoxQuestion(gsMessageQuestion) = True Then
 
-                fExecutedOnly("DELETE FROM sales_order_items WHERE SALES_ORDER_ID = '" & gsID & "'")
+                SqlExecuted("DELETE FROM sales_order_items WHERE SALES_ORDER_ID = '" & ID & "'")
 
-                fExecutedOnly("DELETE FROM sales_order WHERE ID = '" & gsID & "'")
+                SqlExecuted("DELETE FROM sales_order WHERE ID = '" & ID & "'")
 
-                fTransaction_Log(gsID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", fNumisNULL(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
-                gsID = ""
-                gsNew = True
+                ID = ""
+                IsNew = True
 
             End If
 
@@ -722,8 +713,8 @@ FROM
         Me.Location = New Point(0, 0)
 
 
-        fdgvItemDisplay(dgvProductItem)
-        fDgvNotSort(dgvProductItem)
+        ViewItemDisplay(dgvProductItem)
+        ViewNotSort(dgvProductItem)
         btnDISCON.PerformClick()
     End Sub
 
@@ -738,11 +729,11 @@ FROM
         If cmbCUSTOMER_ID.Text = "" Then Exit Sub
 
         xlblCustomer_Name.Text = cmbCUSTOMER_ID.Text
-        xlblAcctNo.Text = fGetFieldValue("CONTACT", "ID", fNumisNULL(cmbCUSTOMER_ID.SelectedValue), "ACCOUNT_NO")
-        Dim rd As OdbcDataReader = fReader($"select TAX_ID from contact where id ='{fNumisNULL(cmbCUSTOMER_ID.SelectedValue)}' and `type` = '1' limit 1 ")
+        xlblAcctNo.Text = GetStringFieldValue("CONTACT", "ID", NumIsNull(cmbCUSTOMER_ID.SelectedValue), "ACCOUNT_NO")
+        Dim rd As OdbcDataReader = SqlReader($"select TAX_ID from contact where id ='{NumIsNull(cmbCUSTOMER_ID.SelectedValue)}' and `type` = '1' limit 1 ")
         If rd.Read Then
-            If fNumisNULL(rd("TAX_ID")) <> 0 Then
-                cmbOUTPUT_TAX_ID.SelectedValue = fNumisNULL(rd("TAX_ID"))
+            If NumIsNull(rd("TAX_ID")) <> 0 Then
+                cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
 
             Else
                 cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
@@ -752,15 +743,15 @@ FROM
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+            If CheckHasChange() = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -768,7 +759,7 @@ FROM
                 End If
             End If
         End If
-        If gsNew = False Then
+        If IsNew = False Then
             If fACCESS_PRINT_PREVIEW(frmSalesOrder) = False Then
                 Exit Sub
             End If
@@ -794,7 +785,7 @@ FROM
 
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
@@ -807,15 +798,15 @@ FROM
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+            If CheckHasChange() = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -823,7 +814,7 @@ FROM
                 End If
             End If
         End If
-        If gsNew = False Then
+        If IsNew = False Then
             If fACCESS_PRINT_PREVIEW(frmSalesOrder) = False Then
                 Exit Sub
             End If
@@ -848,7 +839,7 @@ FROM
 
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
@@ -861,30 +852,30 @@ FROM
     End Sub
 
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
-        If gsNew = True Then
+        If IsNew = True Then
             fclear_Info()
 
         Else
-            If fMessageBoxQuestion("Create new?") = True Then
-                gsNew = True
-                gsID = ""
+            If MessageBoxQuestion("Create new?") = True Then
+                IsNew = True
+                ID = ""
                 fclear_Info()
 
             Else
                 fclear_Info()
-                fRefreshInfo(gsID)
-                fRefreshItem(gsID)
+                fRefreshInfo(ID)
+                fRefreshItem(ID)
             End If
 
         End If
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(gsID, Me)
+        fHistoryList(ID, Me)
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, gsID)
+        fTransactionLog(Me, ID)
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
@@ -904,13 +895,13 @@ FROM
         End Try
 
         If cmbCUSTOMER_ID Is Nothing Then Exit Sub
-        If gsNew = False Then Exit Sub
+        If IsNew = False Then Exit Sub
         If cmbCUSTOMER_ID.Text = "" Then Exit Sub
 
-        Dim rd As OdbcDataReader = fReader($"select * from contact where id ='{s}' and `type` = '1' limit 1 ")
+        Dim rd As OdbcDataReader = SqlReader($"select * from contact where id ='{s}' and `type` = '1' limit 1 ")
         If rd.Read Then
-            If fNumisNULL(rd("TAX_ID")) <> 0 Then
-                cmbOUTPUT_TAX_ID.SelectedValue = fNumisNULL(rd("TAX_ID"))
+            If NumIsNull(rd("TAX_ID")) <> 0 Then
+                cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
 
             End If
 
@@ -924,24 +915,24 @@ FROM
             Dim StrText As String = Trim(cmbCUSTOMER_ID.Text)
             If cmbCUSTOMER_ID.SelectedIndex = -1 Then
                 If StrText.Length = 0 Then Exit Sub
-                If gsNew = True Then
+                If IsNew = True Then
                     If fACCESS_NEW_EDIT(frmCustomer, True) = False Then
                         Exit Sub
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
 
-                    frmContactDetails.gsContact_Type = "1"
+                    frmContactDetails.ContactTypeId = "1"
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
-                    frmContactDetails.bNew = True
-                    frmContactDetails.gsID = ""
+                    frmContactDetails.IsNew = True
+                    frmContactDetails.ID = ""
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
                     If frmContactDetails.gsOK = True Then
-                        fComboBox(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-                        cmbCUSTOMER_ID.SelectedValue = frmContactDetails.gsID
+                        ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+                        cmbCUSTOMER_ID.SelectedValue = frmContactDetails.ID
                         cmbCUSTOMER_ID_LostFocus(sender, e)
                     End If
                     frmContactDetails.Dispose()
@@ -954,7 +945,7 @@ FROM
 
     Private Sub tsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
-            fMessageboxInfo("Please select customer")
+            MessageBoxInfo("Please select customer")
             Exit Sub
         End If
 
@@ -1000,14 +991,14 @@ FROM
 
     Private Sub frmSalesOrder_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
-        gsID = gsDocument_Finder_ID
-        gsNew = IIf(gsID = "", True, False)
+        ID = gsDocument_Finder_ID
+        IsNew = IIf(ID = "", True, False)
         If Me.Text = "" Then
 
         End If
-        If gsNew = False Then
-            fRefreshInfo(gsID)
-            fRefreshItem(gsID)
+        If IsNew = False Then
+            fRefreshInfo(ID)
+            fRefreshItem(ID)
         End If
     End Sub
 
@@ -1018,7 +1009,7 @@ FROM
             Exit Sub
         End Try
         If cmbSALES_REP_ID Is Nothing Then Exit Sub
-        If gsNew = False Then Exit Sub
+        If IsNew = False Then Exit Sub
         If cmbSALES_REP_ID.Text = "" Then Exit Sub
         xlblSalesRep.Text = cmbSALES_REP_ID.Text
     End Sub
@@ -1080,7 +1071,7 @@ FROM
     Private Sub btnBACK_Click(sender As Object, e As EventArgs) Handles btnBACK.Click
         If dgvProductItem.Rows.Count <> 0 Then
 
-            If fMessageBoxQuestion("Are you sure want to back?") = False Then
+            If MessageBoxQuestion("Are you sure want to back?") = False Then
                 Exit Sub
             End If
         End If
@@ -1095,7 +1086,7 @@ FROM
         frmPOSContacts.ShowDialog()
 
         If frmPOSContacts.gsOK = True Then
-            fComboBox(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+            ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
 
             cmbCUSTOMER_ID.SelectedValue = frmPOSContacts.gsContact_ID
         Else
@@ -1105,16 +1096,16 @@ FROM
         frmPOSContacts = Nothing
 
         If bNewContact = True Then
-            frmContactDetails.bNew = True
+            frmContactDetails.IsNew = True
             '  frmContactDetails.PictureBox1.Image = tsCustomer.Image
-            frmContactDetails.gsContact_Type = 1
+            frmContactDetails.ContactTypeId = 1
             frmContactDetails.ShowDialog()
             If frmContactDetails.gsOK = True Then
                 xlblCustomer_Name.Text = ""
                 xlblAcctNo.Text = ""
 
-                fComboBox(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-                cmbCUSTOMER_ID.SelectedValue = frmContactDetails.gsID
+                ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+                cmbCUSTOMER_ID.SelectedValue = frmContactDetails.ID
             End If
             frmContactDetails.Dispose()
             frmContactDetails = Nothing
@@ -1128,11 +1119,11 @@ FROM
 
         If frmPOSContacts.gsOK = True Then
             If frmPOSContacts.gsContact_ID = 0 Then
-                fComboBox(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedIndex = -1
                 xlblSalesRep.Text = ""
             Else
-                fComboBox(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedValue = frmPOSContacts.gsContact_ID
             End If
         Else
@@ -1142,13 +1133,13 @@ FROM
         frmPOSContacts = Nothing
         If bNewContact = True Then
             '   frmContactDetails.PictureBox1.Image = tsSalesRep.Image
-            frmContactDetails.bNew = True
-            frmContactDetails.gsContact_Type = 2
+            frmContactDetails.IsNew = True
+            frmContactDetails.ContactTypeId = 2
             frmContactDetails.ShowDialog()
             If frmContactDetails.gsOK = True Then
                 xlblSalesRep.Text = ""
-                fComboBox(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
-                cmbSALES_REP_ID.SelectedValue = frmContactDetails.gsID
+                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                cmbSALES_REP_ID.SelectedValue = frmContactDetails.ID
             End If
             frmContactDetails.Dispose()
             frmContactDetails = Nothing

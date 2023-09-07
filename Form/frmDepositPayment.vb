@@ -2,7 +2,7 @@
     Public gsOK As Boolean = False
     Public gsLocation_ID As Integer
     Private Sub frmDepositPayment_Load(sender As Object, e As EventArgs) Handles Me.Load
-        fBackGroundImageStyle(Me)
+
 
         fRefreshLocation()
         fRefreshMethod()
@@ -14,19 +14,19 @@
         gsOK = False
     End Sub
     Private Sub fRefreshLocation()
-        fTSComboBox(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '' AS `id`,'All Location' AS `NAME` FROM location ORDER BY `ID`", "ID", "NAME")
+        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '' AS `id`,'All Location' AS `NAME` FROM location ORDER BY `ID`", "ID", "NAME")
     End Sub
     Private Sub fRefreshMethod()
-        fTSComboBox(tscmbPaymentMethod, " select '' as `ID`  , 'All Payment Methods' as DESCRIPTION  union select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+        TSComboBoxLoad(tscmbPaymentMethod, " select '' as `ID`  , 'All Payment Methods' as DESCRIPTION  union select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
     End Sub
     Private Sub fRefreshList()
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
         Dim dt As New DataGridViewCheckBoxColumn
         dt.HeaderText = " "
         dt.Name = "select"
         dgvAvailable.Columns.Clear()
 
-        fDataGridView(dgvAvailable, "SELECT * FROM (SELECT '41' AS `SOT`,p.`ID` AS `SOI`, p.Date,'Payment' AS `Type`,p.`CODE` AS `Reference`,p.`PAYMENT_METHOD_ID`, (SELECT Description FROM payment_method  WHERE ID = p.`PAYMENT_METHOD_ID` LIMIT 1 ) AS `Payment Method`,p.`CUSTOMER_ID` , (SELECT `Name` FROM contact WHERE ID = p.`CUSTOMER_ID` LIMIT 1 ) AS `Received From`,p.`LOCATION_ID`,(SELECT `NAME` FROM location WHERE id = p.`LOCATION_ID` LIMIT 1) AS `Location`, p.`Amount` FROM payment AS p WHERE p.POS_LOG_ID = NULL and  p.`DEPOSITED` = '0' and  p.`PAYMENT_METHOD_ID`  like '%" & tscmbPaymentMethod.ComboBox.SelectedValue & "%' and p.`location_id` like '%" & tscmbLocation.ComboBox.SelectedValue & "%' and p.UNDEPOSITED_FUNDS_ACCOUNT_ID IS NOT NULL UNION 
+        LoadDataGridView(dgvAvailable, "SELECT * FROM (SELECT '41' AS `SOT`,p.`ID` AS `SOI`, p.Date,'Payment' AS `Type`,p.`CODE` AS `Reference`,p.`PAYMENT_METHOD_ID`, (SELECT Description FROM payment_method  WHERE ID = p.`PAYMENT_METHOD_ID` LIMIT 1 ) AS `Payment Method`,p.`CUSTOMER_ID` , (SELECT `Name` FROM contact WHERE ID = p.`CUSTOMER_ID` LIMIT 1 ) AS `Received From`,p.`LOCATION_ID`,(SELECT `NAME` FROM location WHERE id = p.`LOCATION_ID` LIMIT 1) AS `Location`, p.`Amount` FROM payment AS p WHERE p.POS_LOG_ID = NULL and  p.`DEPOSITED` = '0' and  p.`PAYMENT_METHOD_ID`  like '%" & tscmbPaymentMethod.ComboBox.SelectedValue & "%' and p.`location_id` like '%" & tscmbLocation.ComboBox.SelectedValue & "%' and p.UNDEPOSITED_FUNDS_ACCOUNT_ID IS NOT NULL UNION 
 SELECT '52' AS `SOT`,p.`ID` AS `SOI`, p.Date,'Sales Receipt' AS `Type`,p.`CODE` AS `Reference`,p.`PAYMENT_METHOD_ID`, (SELECT Description FROM payment_method  WHERE ID = p.`PAYMENT_METHOD_ID` LIMIT 1 ) AS `Payment Method`,p.`CUSTOMER_ID` , (SELECT `Name` FROM contact WHERE ID = p.`CUSTOMER_ID` LIMIT 1 ) AS `Received From`,p.`LOCATION_ID`,(SELECT `NAME` FROM location WHERE id = p.`LOCATION_ID` LIMIT 1) AS `Location`, p.`Amount` FROM sales_receipt AS p WHERE p.POS_LOG_ID = null and p.`DEPOSITED` = '0' and  p.`PAYMENT_METHOD_ID`  like '%" & tscmbPaymentMethod.ComboBox.SelectedValue & "%' and p.`location_id` like '%" & tscmbLocation.ComboBox.SelectedValue & "%' and p.UNDEPOSITED_FUNDS_ACCOUNT_ID IS NOT NULL UNION 
 SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `Type`,'' AS `Reference`, '' AS `PAYMENT_METHOD_ID`, '' AS `Payment Method`, '' as `CUSTOMER_ID` , '' AS `Received From`,p.`LOCATION_ID`,(SELECT `NAME` FROM location WHERE id = p.`LOCATION_ID` LIMIT 1) AS `Branch`, cc.TOTAL as `Amount` FROM pos_log AS p inner join pos_cash_count as cc on cc.id = p.cash_count_id WHERE p.`DEPOSITED` = '0' and p.`location_id` like '%" & tscmbLocation.ComboBox.SelectedValue & "%' and p.UNDEPOSITED_FUNDS_ACCOUNT_ID IS NOT NULL)  AS t WHERE t.AMOUNT <>  '0'  ORDER BY t.`Date` DESC")
 
@@ -42,7 +42,7 @@ SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `
             .Item("AMOUNT").DefaultCellStyle.Format = "N2"
         End With
 
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
     End Sub
 
 
@@ -57,7 +57,7 @@ SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `
         Next
 
         If gsOK = False Then
-            fMessageboxInfo("Payment not selected")
+            MessageBoxInfo("Payment not selected")
             Exit Sub
         End If
         gsLocation_ID = Val(tscmbLocation.ComboBox.SelectedValue)
@@ -126,7 +126,7 @@ SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `
             End With
 
         Next
-        lblTotal.Text = fNumFormatStandard(T)
+        lblTotal.Text = NumberFormatStandard(T)
 
     End Sub
 

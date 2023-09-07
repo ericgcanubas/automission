@@ -10,7 +10,7 @@ Public Class frmRequestForm
 
 
 
-        fDataGridView(dgvRequest, "select r.ID, r.Date, r.Code, c.name as `Vendor`, l.name as `Location`,r.location_id,r.vendor_id from purchase_request as r inner join location as l on l.id = r.location_id inner join contact as c on c.ID = r.vendor_id  WHERE r.status ='2'  ")
+        LoadDataGridView(dgvRequest, "select r.ID, r.Date, r.Code, c.name as `Vendor`, l.name as `Location`,r.location_id,r.vendor_id from purchase_request as r inner join location as l on l.id = r.location_id inner join contact as c on c.ID = r.vendor_id  WHERE r.status ='2'  ")
 
         dgvRequest.Columns(0).Visible = False
 
@@ -169,7 +169,7 @@ FROM
         Try
             Dim x As Integer = 0
             ' cn.Open()
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
 
 
@@ -178,16 +178,16 @@ FROM
                 For i As Integer = 0 To rd.FieldCount - 1
 
                     If i = 4 Or i = 6 Or i = 8 Then
-                        dgvItem.Rows(x).Cells(i).Value = fgetTypeValue(fNumisNULL(rd(i)))
+                        dgvItem.Rows(x).Cells(i).Value = fgetTypeValue(NumIsNull(rd(i)))
                     ElseIf i = 10 Then
-                        Dim b As Boolean = fNumisNULL(rd(i))
+                        Dim b As Boolean = NumIsNull(rd(i))
                         dgvItem.Rows(x).Cells(i).Value = b
                     ElseIf i = 9 Then
-                        dgvItem.Rows(x).Cells(i).Value = fNumisNULL(rd("RATE")) * fNumisNULL(rd("QUANTITY"))
+                        dgvItem.Rows(x).Cells(i).Value = NumIsNull(rd("RATE")) * NumIsNull(rd("QUANTITY"))
                     ElseIf i = 0 Then
                         dgvItem.Rows(x).Cells(i).Value = False
                     Else
-                        dgvItem.Rows(x).Cells(i).Value = fTextisNULL(rd(i))
+                        dgvItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
 
                     End If
 
@@ -200,7 +200,7 @@ FROM
             End While
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 frefreshItem()
             Else
                 End
@@ -302,10 +302,10 @@ FROM
 
 
             Else
-                fMessageboxInfo("No item selected")
+                MessageBoxInfo("No item selected")
             End If
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 

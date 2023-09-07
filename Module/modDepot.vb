@@ -2,7 +2,7 @@
 Module modDepot
 
     Public Sub fDepotConnected(ByVal prOrder As ComboBox, ByVal prDealer As ComboBox, ByVal prSales_REP As ComboBox)
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
 
 
         Try
@@ -16,14 +16,14 @@ Module modDepot
             End If
 
 
-            Dim rd As OdbcDataReader = fReader("select * from contact where id = '" & CStr(prOrder.SelectedValue.ToString) & "' Limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select * from contact where id = '" & CStr(prOrder.SelectedValue.ToString) & "' Limit 1")
             If rd.Read Then
-                Select Case fNumisNULL(rd("TYPE"))
+                Select Case NumIsNull(rd("TYPE"))
                     Case 1
                         ' Dealer
-                        prDealer.SelectedValue = fNumisNULL(rd("OTHER_CONTACT_ID"))
+                        prDealer.SelectedValue = NumIsNull(rd("OTHER_CONTACT_ID"))
                         ' Manager
-                        prSales_REP.SelectedValue = fNumisNULL(rd("SALES_REP_ID"))
+                        prSales_REP.SelectedValue = NumIsNull(rd("SALES_REP_ID"))
                     Case 5
                         ' Manager
                         prDealer.SelectedValue = 0
@@ -32,7 +32,7 @@ Module modDepot
                         ' Dealer
                         prDealer.SelectedValue = prOrder.SelectedValue
 
-                        prSales_REP.SelectedValue = fNumisNULL(rd("SALES_REP_ID"))
+                        prSales_REP.SelectedValue = NumIsNull(rd("SALES_REP_ID"))
                         ' Manager
 
                 End Select
@@ -42,7 +42,7 @@ Module modDepot
         Catch ex As Exception
 
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fDepotConnected(prOrder, prDealer, prSales_REP)
             Else
                 End
@@ -52,30 +52,30 @@ Module modDepot
 
 
 
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
     End Sub
 
 
 
     Public Function fgetRunningTotal(ByVal dt1 As String, ByVal dt2 As String) As Double ' OVER ALL COLLECTION
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
 
         Dim sqlx As String = "SELECT SUM(pv.`AMOUNT_APPLIED`)  FROM payment_invoices AS pv INNER JOIN  payment AS p ON p.`ID` = pv.`PAYMENT_ID` inner join invoice as i on pv.INVOICE_ID = i.ID WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "'"
         Dim sqls As String = "SELECT SUM(i.`AMOUNT`)   FROM sales_receipt AS i  WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "'"
 
-        Dim n As Double = fGET_SUM(sqlx)
-        n = n + fGET_SUM(sqls)
+        Dim n As Double = GetSummary(sqlx)
+        n = n + GetSummary(sqls)
 
         Return n
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
     End Function
     Public Function fgetRunningTotalByManager(ByVal dt1 As String, ByVal dt2 As String, ByVal prContact_ID As String)
 
         Dim sqlx As String = "SELECT SUM(pv.`AMOUNT_APPLIED`)  FROM payment_invoices AS pv INNER JOIN  payment AS p ON p.`ID` = pv.`PAYMENT_ID` inner join invoice as i on pv.INVOICE_ID = i.ID WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "' and  i.MANAGER_ID = '" & prContact_ID & "'"
         Dim sqls As String = "SELECT SUM(i.`AMOUNT`)   FROM sales_receipt AS i  WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "' and  i.MANAGER_ID = '" & prContact_ID & "'"
 
-        Dim n As Double = fGET_SUM(sqlx)
-        n = n + fGET_SUM(sqls)
+        Dim n As Double = GetSummary(sqlx)
+        n = n + GetSummary(sqls)
 
         Return n
 
@@ -86,8 +86,8 @@ Module modDepot
         Dim sqlx As String = "SELECT SUM(pv.`AMOUNT_APPLIED`)  FROM payment_invoices AS pv INNER JOIN  payment AS p ON p.`ID` = pv.`PAYMENT_ID` inner join invoice as i on pv.INVOICE_ID = i.ID WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "' and  i.DEALER_ID = '" & prContact_ID & "'"
         Dim sqls As String = "SELECT SUM(i.`AMOUNT`)   FROM sales_receipt AS i  WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "' and  i.DEALER_ID = '" & prContact_ID & "'"
 
-        Dim n As Double = fGET_SUM(sqlx)
-        n = n + fGET_SUM(sqls)
+        Dim n As Double = GetSummary(sqlx)
+        n = n + GetSummary(sqls)
 
         Return n
 
@@ -135,11 +135,11 @@ WHERE c.Type = '6' AND c.`OTHER_CONTACT_ID` = '" & prContact_ID & "' "
             Dim n As Integer = 0
             Dim r As Double = 0
             'cn.Open()
-            Dim rd As OdbcDataReader = fReader(sql)
+            Dim rd As OdbcDataReader = SqlReader(sql)
             While rd.Read
-                If fNumisNULL(rd(0)) <= fNumisNULL(rd(1)) Then
+                If NumIsNull(rd(0)) <= NumIsNull(rd(1)) Then
                     n = n + 1
-                    r = r + fNumisNULL(rd(1))
+                    r = r + NumIsNull(rd(1))
                 End If
             End While
             rd.Close()
@@ -155,7 +155,7 @@ WHERE c.Type = '6' AND c.`OTHER_CONTACT_ID` = '" & prContact_ID & "' "
 
         Catch ex As Exception
 
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
         Return b

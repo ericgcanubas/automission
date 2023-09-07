@@ -11,11 +11,11 @@
 
 
     Private Sub frmDepositFunds_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-        fComboBox(cmbReceivedFrom, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `PAY_TO` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "PAY_TO")
+
+        ComboBoxLoad(cmbReceivedFrom, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `PAY_TO` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "PAY_TO")
         Dim sql_statement As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
-        fComboBox(cmbAccounts, sql_statement, "ID", "T")
-        fComboBox(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbAccounts, sql_statement, "ID", "T")
+        ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
 
 
 
@@ -45,17 +45,17 @@
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
         'If Val(cmbReceivedFrom.SelectedValue) = 0 Then
-        '    fMessageboxWarning("Please select received from ")
+        '    MessageBoxWarning("Please select received from ")
         '    Exit Sub
         'End If
 
         If Val(cmbAccounts.SelectedValue) = 0 Then
-            fMessageboxWarning("Please select accounts")
+            MessageBoxWarning("Please select accounts")
             Exit Sub
         End If
 
         If numAmount.Value = 0 Then
-            fMessageboxWarning("Please enter amount")
+            MessageBoxWarning("Please enter amount")
             Exit Sub
         End If
 
@@ -81,7 +81,7 @@
 
             fAdd_Deposit_fund(gsDGV, True, gsReceivedFrom_ID, gsAccount_ID, gsPayment_Method_ID, gsCheck_NO, gsAmount)
 
-            fCLean_and_refresh(Me)
+            ClearAndRefresh(Me)
             cmbReceivedFrom.Focus()
             chkAuto.Checked = True
         End If

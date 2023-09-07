@@ -19,7 +19,7 @@ Public Class FrmPOSCreatePaymentMultiMethod
 
         fMethodList()
         fMethodListSet()
-        xlblCustomer_Name.Text = fGetFieldValue("CONTACT", "id", gsCUSTOMER_ID, "NAME")
+        xlblCustomer_Name.Text = GetStringFieldValue("CONTACT", "id", gsCUSTOMER_ID, "NAME")
         gsOK = False
         txtRECEIPT_REF_NO.Text = fGET_NEXT_RECEIPT_NO()
         txtRECEIPT_REF_NO.ReadOnly = True
@@ -41,7 +41,7 @@ Public Class FrmPOSCreatePaymentMultiMethod
         Dim ThisAMOUNT As Double = 0
         For N As Integer = 0 To dgvINVOICE_LIST.Rows.Count - 1
             Dim ThisInvoice_ID As Integer = dgvINVOICE_LIST.Rows(N).Cells(0).Value
-            ThisAMOUNT = ThisAMOUNT + fNumFieldValue("INVOICE", "ID", ThisInvoice_ID, "AMOUNT")
+            ThisAMOUNT = ThisAMOUNT + GetNumberFieldValue("INVOICE", "ID", ThisInvoice_ID, "AMOUNT")
         Next
 
         Return ThisAMOUNT
@@ -49,12 +49,12 @@ Public Class FrmPOSCreatePaymentMultiMethod
 
     Private Function fNEXT_LOG_SERIAL_NO() As Integer
         Dim i As Integer = 0
-        Dim rd As OdbcDataReader = fReader("select NEXT_LOG_SERIAL_NO from POS_MACHINE where ID = '" & gsPOS_MACHINE_ID & "' limit 1")
+        Dim rd As OdbcDataReader = SqlReader("select NEXT_LOG_SERIAL_NO from POS_MACHINE where ID = '" & gsPOS_MACHINE_ID & "' limit 1")
         If rd.Read Then
-            i = fNumisNULL(rd("NEXT_LOG_SERIAL_NO"))
+            i = NumIsNull(rd("NEXT_LOG_SERIAL_NO"))
         End If
         rd.Close()
-        fExecutedOnly("Update pos_machine set NEXT_LOG_SERIAL_NO = '" & i + 1 & "' where ID ='" & gsPOS_MACHINE_ID & "' limit 1 ")
+        SqlExecuted("Update pos_machine set NEXT_LOG_SERIAL_NO = '" & i + 1 & "' where ID ='" & gsPOS_MACHINE_ID & "' limit 1 ")
         Return 1
     End Function
     Private Sub fMethodList()
@@ -68,7 +68,7 @@ Public Class FrmPOSCreatePaymentMultiMethod
         End With
         With dgvMethod.Rows
             .Clear()
-            Dim rd As OdbcDataReader = fReader("SELECT ID,DESCRIPTION FROM PAYMENT_METHOD ")
+            Dim rd As OdbcDataReader = SqlReader("SELECT ID,DESCRIPTION FROM PAYMENT_METHOD ")
             While rd.Read
                 .Add(rd("ID"), rd("DESCRIPTION"))
             End While
@@ -96,12 +96,12 @@ Public Class FrmPOSCreatePaymentMultiMethod
             TOTAL = TOTAL + dgvMethodSet.Rows(I).Cells("AMOUNT").Value
         Next
 
-        lblAMOUNT.Text = fNumFormatStandard(TOTAL)
-        Dim C As Double = TOTAL - fNumisNULL(lblAMOUNT_APPLIED.Text)
+        lblAMOUNT.Text = NumberFormatStandard(TOTAL)
+        Dim C As Double = TOTAL - NumIsNull(lblAMOUNT_APPLIED.Text)
         If C <= 0 Then
             C = 0
         End If
-        xlblCHANGE.Text = fNumFormatStandard(C)
+        xlblCHANGE.Text = NumberFormatStandard(C)
     End Sub
     Private Sub btnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCANCEL.Click
         Me.Close()
@@ -109,32 +109,32 @@ Public Class FrmPOSCreatePaymentMultiMethod
 
     Private Sub btnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
         If dgvMethodSet.Rows.Count = 0 Then
-            fMessageboxInfo("No payment method found.")
+            MessageBoxInfo("No payment method found.")
             Exit Sub
         End If
 
-        If fNumisNULL(lblAMOUNT.Text) < fNumisNULL(lblAMOUNT_APPLIED.Text) Then
-            fMessageboxWarning("Invalid payment tender must higher value.")
+        If NumIsNull(lblAMOUNT.Text) < NumIsNull(lblAMOUNT_APPLIED.Text) Then
+            MessageBoxWarning("Invalid payment tender must higher value.")
             Exit Sub
         End If
 
         '==============================
-        gsID = fObjectTypeMap_ID("payment")
+        gsID = ObjectTypeMapId("payment")
         'MAIN
         Dim SQL_INSERT As String = $"INSERT INTO `payment`
 SET `ID` = '{gsID}',
   `RECORDED_ON` = '{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}',
-  `CODE` = '{fNEXT_CODE("PAYMENT", gsDefault_LOCATION_ID)}',
-  `DATE` = '{fDateFormatMYSQL(gsPOS_DATE)}',
+  `CODE` = '{GetNextCode("PAYMENT", gsDefault_LOCATION_ID)}',
+  `DATE` = '{DateFormatMySql(gsPOS_DATE)}',
   `CUSTOMER_ID` = '{gsCUSTOMER_ID}',
   `LOCATION_ID` = '{gsDefault_LOCATION_ID}',
-  `AMOUNT` = '{fNumisNULL(lblAMOUNT.Text)}',
-  `AMOUNT_APPLIED` = '{ fNumisNULL(lblAMOUNT_APPLIED.Text)}',
+  `AMOUNT` = '{NumIsNull(lblAMOUNT.Text)}',
+  `AMOUNT_APPLIED` = '{ NumIsNull(lblAMOUNT_APPLIED.Text)}',
   `PAYMENT_METHOD_ID` = '{gsPaymentMethodID}',
   `CARD_NO` = '{txtCARD_NO.Text}',
-  `CARD_EXPIRY_DATE` = {IIf(dtpCARD_EXPIRY_DATE.Checked = True, $"'{fDateFormatMYSQL(dtpCARD_EXPIRY_DATE.Value)}'", "null")},
+  `CARD_EXPIRY_DATE` = {IIf(dtpCARD_EXPIRY_DATE.Checked = True, $"'{DateFormatMySql(dtpCARD_EXPIRY_DATE.Value)}'", "null")},
   `RECEIPT_REF_NO` = '{txtRECEIPT_REF_NO.Text}',
-  `RECEIPT_DATE` = {IIf(dtpRECEIPT_DATE.Checked = True, $"'{fDateFormatMYSQL(dtpRECEIPT_DATE.Value)}'", "null")},
+  `RECEIPT_DATE` = {IIf(dtpRECEIPT_DATE.Checked = True, $"'{DateFormatMySql(dtpRECEIPT_DATE.Value)}'", "null")},
   `NOTES` = '{txtNOTES.Text}',
   `UNDEPOSITED_FUNDS_ACCOUNT_ID` = '{gsDRAWER_ACCOUNT_ID}',
   `OVERPAYMENT_ACCOUNT_ID` = NULL,
@@ -146,23 +146,23 @@ SET `ID` = '{gsID}',
   `CASH_COUNT_ID` = NULL,
   `ACCOUNTS_RECEIVABLE_ID` = '{gsDefault_ACCOUNTS_RECEIVABLE_ID}';"
 
-        fExecutedOnly(SQL_INSERT)
+        SqlExecuted(SQL_INSERT)
 
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(gsDRAWER_ACCOUNT_ID, gsDefault_LOCATION_ID, gsCUSTOMER_ID, 41, gsID, gsPOS_DATE, 0, fNumFormatFixed(lblAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
+            fAccount_Journal_SQL(gsDRAWER_ACCOUNT_ID, gsDefault_LOCATION_ID, gsCUSTOMER_ID, 41, gsID, gsPOS_DATE, 0, NumberFormatFixed(lblAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
         End If
         '================================
         'ITEM
 
 
         For N As Integer = 0 To dgvINVOICE_LIST.Rows.Count - 1
-            Dim ThisID As Integer = fObjectTypeMap_ID("PAYMENT_INVOICES")
+            Dim ThisID As Integer = ObjectTypeMapId("PAYMENT_INVOICES")
             Dim ThisInvoice_ID As Integer = dgvINVOICE_LIST.Rows(N).Cells(0).Value
-            Dim ThisAMOUNT As Double = fNumFieldValue("INVOICE", "ID", ThisInvoice_ID, "AMOUNT")
+            Dim ThisAMOUNT As Double = GetNumberFieldValue("INVOICE", "ID", ThisInvoice_ID, "AMOUNT")
 
-            fExecutedOnly($"INSERT INTO `payment_invoices`
+            SqlExecuted($"INSERT INTO `payment_invoices`
    SET `ID` = '{ThisID}',
   `PAYMENT_ID` = '{gsID}',
   `INVOICE_ID` = '{ThisInvoice_ID}',
@@ -184,7 +184,7 @@ SET `ID` = '{gsID}',
 
 
         For I As Integer = 0 To dgvMethodSet.Rows.Count - 1
-            fExecutedOnly($"INSERT INTO payment_multi_method SET PAYMENT_ID = '{gsID}',PAYMENT_METHOD_ID ='{ dgvMethodSet.Rows(I).Cells("ID").Value }',AMOUNT_APPLIED='{dgvMethodSet.Rows(I).Cells("AMOUNT").Value}'")
+            SqlExecuted($"INSERT INTO payment_multi_method SET PAYMENT_ID = '{gsID}',PAYMENT_METHOD_ID ='{ dgvMethodSet.Rows(I).Cells("ID").Value }',AMOUNT_APPLIED='{dgvMethodSet.Rows(I).Cells("AMOUNT").Value}'")
         Next
 
 
@@ -203,7 +203,7 @@ SET `ID` = '{gsID}',
             gsENDING_RECEIPT_NO = Val(txtRECEIPT_REF_NO.Text)
         End If
         'If gsDINE_IN_ID <> gsORDER_TYPE Then
-        '    fExecutedOnly($"INSERT INTO pos_table_served SET order_type_id='{gsORDER_TYPE}', RECORDED_ON = '{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}', PAYMENT_ID ='{gsID}',IS_ACTIVE='-1',CASHIER_ID='{gsCashier_ID}', POS_LOG_ID = '{gsPOS_LOG_ID}',TABLE_NO='{gsTABLE_NO}';")
+        '    SqlExecuted($"INSERT INTO pos_table_served SET order_type_id='{gsORDER_TYPE}', RECORDED_ON = '{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}', PAYMENT_ID ='{ID}',IS_ACTIVE='-1',CASHIER_ID='{gsCashier_ID}', POS_LOG_ID = '{gsPOS_LOG_ID}',TABLE_NO='{gsTABLE_NO}';")
         'End If
 
         fCollect_POSLog_Resto()
@@ -214,7 +214,7 @@ SET `ID` = '{gsID}',
     Private Sub fUpdateInvoiceBalance(ByVal prInvoice_ID As String, ByVal prCustomer_ID As String)
 
         Dim dTotal_Payment As Double = fGetSumPaymentApplied(prInvoice_ID, prCustomer_ID) + fGetSumCreditApplied(prInvoice_ID, prCustomer_ID) + fInvoiceSumTaxApplied_Amount(prInvoice_ID, prCustomer_ID)
-        Dim dTotal_Amount As Double = fNumFieldValue("INVOICE", "ID", prInvoice_ID, "AMOUNT")
+        Dim dTotal_Amount As Double = GetNumberFieldValue("INVOICE", "ID", prInvoice_ID, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer = 0
         If 0 >= dTotal_Balance Then
@@ -227,18 +227,18 @@ SET `ID` = '{gsID}',
             nStatus = 13
         End If
 
-        fExecutedOnly("UPDATE invoice SET BALANCE_DUE ='" & fNumFormatFixed(dTotal_Balance) & "',STATUS='" & nStatus & "',STATUS_DATE ='" & Format(Date.Now, "yyyy-MM-dd HH:mm:ss") & "' WHERE Customer_ID ='" & prCustomer_ID & "' and ID ='" & prInvoice_ID & "' limit 1;")
+        SqlExecuted("UPDATE invoice SET BALANCE_DUE ='" & NumberFormatFixed(dTotal_Balance) & "',STATUS='" & nStatus & "',STATUS_DATE ='" & Format(Date.Now, "yyyy-MM-dd HH:mm:ss") & "' WHERE Customer_ID ='" & prCustomer_ID & "' and ID ='" & prInvoice_ID & "' limit 1;")
     End Sub
     Private Sub fGetUpdateSO_UsingINVOICE(ByVal INVOICE_ID As Integer)
         Dim TMP_SO_ID As Integer = 0
-        Dim rd As OdbcDataReader = fReader($"SELECT soi.`SALES_ORDER_ID` FROM invoice_items AS ii INNER JOIN sales_order_items AS soi ON soi.`ID` = ii.`REF_LINE_ID`  AND ii.`ITEM_ID` = soi.`ITEM_ID` WHERE ii.`INVOICE_ID` ='{INVOICE_ID}' order by soi.`SALES_ORDER_ID`")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT soi.`SALES_ORDER_ID` FROM invoice_items AS ii INNER JOIN sales_order_items AS soi ON soi.`ID` = ii.`REF_LINE_ID`  AND ii.`ITEM_ID` = soi.`ITEM_ID` WHERE ii.`INVOICE_ID` ='{INVOICE_ID}' order by soi.`SALES_ORDER_ID`")
         While rd.Read
 
-            If TMP_SO_ID <> fNumisNULL(rd("SALES_ORDER_ID")) Then
-                fExecutedOnly($"UPDATE sales_order SET STATUS ='14',STATUS_DATE= '{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}' WHERE ID ='{fNumisNULL(rd("SALES_ORDER_ID"))}' limit 1;")
+            If TMP_SO_ID <> NumIsNull(rd("SALES_ORDER_ID")) Then
+                SqlExecuted($"UPDATE sales_order SET STATUS ='14',STATUS_DATE= '{Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss")}' WHERE ID ='{NumIsNull(rd("SALES_ORDER_ID"))}' limit 1;")
             End If
 
-            TMP_SO_ID = fNumisNULL(rd("SALES_ORDER_ID"))
+            TMP_SO_ID = NumIsNull(rd("SALES_ORDER_ID"))
         End While
         rd.Close()
 
@@ -315,7 +315,7 @@ SET `ID` = '{gsID}',
 
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
         Try
-            Dim L As Integer = fNumisNULL(gsValue.Length)
+            Dim L As Integer = NumIsNull(gsValue.Length)
             If L = 0 Then
                 gsValue = ""
             Else
@@ -379,15 +379,15 @@ SET `ID` = '{gsID}',
     End Sub
 
     Private Sub btnAdded_Click(sender As Object, e As EventArgs) Handles btnAdded.Click
-        If fNumisNULL(xxlblValue.Text) = 0 Then
-            fMessageboxExclamation($"No {xxMETHOD_LABEL.Text} Value ")
+        If NumIsNull(xxlblValue.Text) = 0 Then
+            MessageBoxExclamation($"No {xxMETHOD_LABEL.Text} Value ")
             Exit Sub
         End If
 
         If dgvMethod.Rows.Count = 0 Then Exit Sub
 
         With dgvMethod.CurrentRow
-            dgvMethodSet.Rows.Add(.Cells("ID").Value, .Cells("METHOD").Value, fNumFormatStandard(fNumisNULL(xxlblValue.Text)))
+            dgvMethodSet.Rows.Add(.Cells("ID").Value, .Cells("METHOD").Value, NumberFormatStandard(NumIsNull(xxlblValue.Text)))
             xxlblValue.Text = ""
             gsValue = ""
             dgvMethod.Rows.RemoveAt(.Index)

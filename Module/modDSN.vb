@@ -41,7 +41,7 @@
                 MsgBox("Create Failed - " & Left$(strError.ToString, nErrorLen))
             End If
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message & " [Create User DSN INFO Message]")
+            MessageBoxExclamation(ex.Message & " [Create User DSN INFO Message]")
         End Try
     End Sub
 End Module

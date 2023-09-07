@@ -7,7 +7,7 @@
     End Sub
     Private Sub fRefresh()
 
-        fDataGridView(dgvList, $"SELECT 
+        LoadDataGridView(dgvList, $"SELECT 
 aj.`ID`,
 a.`NAME` AS `Account Name`,
 aj.`OBJECT_DATE` AS `Entry date`,
@@ -48,16 +48,16 @@ GROUP BY aj.`JOURNAL_NO`,
     End Sub
     Private Sub RemoveAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemoveAllToolStripMenuItem.Click
         If dgvList.Rows.Count = 0 Then
-            fMessageboxInfo("Data not found")
+            MessageBoxInfo("Data not found")
             Exit Sub
         End If
 
-        If fMessageBoxQuestion("Do you want to remove this duplicate journal?") = True Then
+        If MessageBoxQuestion("Do you want to remove this duplicate journal?") = True Then
             For I As Integer = 0 To dgvList.Rows.Count - 1
                 fRemoveAccountJournal(dgvList.Rows(I).Cells("ID").Value)
             Next
 
-            fMessageboxInfo("Successfully remove.")
+            MessageBoxInfo("Successfully remove.")
             fRefresh()
         End If
 
@@ -66,7 +66,7 @@ GROUP BY aj.`JOURNAL_NO`,
     End Sub
     Private Sub fRemoveAccountJournal(ByVal ID As Integer)
 
-        fExecutedOnly($"Delete from account_journal Where ID = '{ID}' limit 1;")
+        SqlExecuted($"Delete from account_journal Where ID = '{ID}' limit 1;")
 
     End Sub
 

@@ -1,18 +1,17 @@
 ﻿Public Class frmClass
     Dim item_BS As BindingSource
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
     Private Sub frmClass_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fBackGroundImageStyle(Me)
         fRefresh()
     End Sub
 
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvCLASS, "Select ID,`Name`, if(`Inactive`=0,'No','Yes') as `Inactive` from Class", item_BS)
+        LoadDataGridViewBinding(dgvCLASS, "Select ID,`Name`, if(`Inactive`=0,'No','Yes') as `Inactive` from Class ", item_BS)
         dgvCLASS.Columns(0).Visible = False
-        fDataGrid_Column(dgvCLASS, 36)
+        ViewColumn(dgvCLASS, 36)
     End Sub
 
     Private Sub frmClass_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -40,7 +39,7 @@
         End If
         frmClassDetails.This_BS = item_BS
         frmClassDetails.Dgv = dgvCLASS
-        frmClassDetails.gsID = dgvCLASS.Rows(dgvCLASS.CurrentRow.Index).Cells(0).Value
+        frmClassDetails.ID = dgvCLASS.Rows(dgvCLASS.CurrentRow.Index).Cells(0).Value
         frmClassDetails.ShowDialog()
         frmClassDetails.Dispose()
         frmClassDetails = Nothing
@@ -53,9 +52,9 @@
         If fACCESS_DELETE(Me) = False Then
             Exit Sub
         End If
-        If fMessageBoxQuestion("Are you sure to delete this class") = True Then
-            fExecutedOnly("Delete FROM class WHERE ID = '" & dgvCLASS.Rows(dgvCLASS.CurrentRow.Index).Cells(0).Value & "'")
-            fDeletePopUp(Me)
+        If MessageBoxQuestion("Are you sure to delete this class") = True Then
+            SqlExecuted("Delete FROM class WHERE ID = '" & dgvCLASS.Rows(dgvCLASS.CurrentRow.Index).Cells(0).Value & "'")
+            DeleteNotify(Me)
             fRefresh()
         End If
 
@@ -73,9 +72,9 @@
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvCLASS, 36)
+        ViewSwitch(dgvCLASS, 36)
 
-        fDataGrid_Column(dgvCLASS, 36)
+        ViewColumn(dgvCLASS, 36)
     End Sub
 
     Private Sub fSearchload()
@@ -86,7 +85,6 @@
 
                 If dgvCLASS.Columns(I).Visible = True Then
                     If I < 11 And I > 0 Then
-
 
                         If strFInd = "" Then
                             strFInd = $"[{dgvCLASS.Columns(I).HeaderText}] like '%" & tsTxtSearch.Text & "%'"

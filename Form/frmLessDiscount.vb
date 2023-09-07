@@ -1,11 +1,10 @@
-﻿Imports MySql.Data.MySqlClient
+﻿
 Public Class frmLessDiscount
     Private Sub frmLessDiscount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView(dgvLDP, "SELECT ID,DESCRIPTION,day_from as `FROM`, day_to as `TO`, less_percent as `PERCENT`,INACTIVE  FROM less_discount_penalty ")
+        LoadDataGridView(dgvLDP, "SELECT ID,DESCRIPTION,day_from as `FROM`, day_to as `TO`, less_percent as `PERCENT`,INACTIVE  FROM less_discount_penalty ")
         dgvLDP.Columns(0).Visible = False
         dgvLDP.Columns(1).Width = 300
         dgvLDP.Columns(2).Width = 50
@@ -19,7 +18,7 @@ Public Class frmLessDiscount
 
     Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
         With frmLessDiscountDetails
-            .gsNew = True
+            .IsNew = True
             .ShowDialog()
             .Dispose()
             frmLessDiscountDetails = Nothing
@@ -30,8 +29,8 @@ Public Class frmLessDiscount
     Private Sub EditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditToolStripMenuItem.Click
         If dgvLDP.Rows.Count = 0 Then Exit Sub
         With frmLessDiscountDetails
-            .gsID = dgvLDP.Rows(dgvLDP.CurrentRow.Index).Cells(0).Value
-            .gsNew = False
+            .ID = dgvLDP.Rows(dgvLDP.CurrentRow.Index).Cells(0).Value
+            .IsNew = False
             .ShowDialog()
             .Dispose()
             frmLessDiscountDetails = Nothing

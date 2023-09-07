@@ -6,41 +6,37 @@ Module modMessageBox
     Public gsErrorLimit As Integer = 50
     Public gsProductName As String = Assembly.GetExecutingAssembly().GetName().Name & " ver [" & Application.ProductVersion & "]  "
 
-    Public Sub fMessageboxWarning(ByVal Msg As String)
-        fPop_Up_Msg(gsSystemName, Msg, False)
-
-        '   MessageBox.Show(Msg, gsProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning)
-
+    Public Sub MessageBoxWarning(ByVal Msg As String)
+        PrompNotify(gsSystemName, Msg, False)
     End Sub
-    Public Function fMessageboxWarningYesNo(ByVal Msg As String) As Boolean
+    Public Function MessageBoxWarningYesNo(ByVal Msg As String) As Boolean
         If MessageBox.Show(Msg, gsProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
             Return True
         Else
             Return False
         End If
     End Function
-    Public Sub fMessageboxInfo(ByVal Msg As String)
-        '    MessageBox.Show(Msg, gsProductName, MessageBoxButtons.OK, MessageBoxIcon.Information)
-        fPop_Up_Msg(gsSystemName, Msg, True)
+    Public Sub MessageBoxInfo(ByVal Msg As String)
+        PrompNotify(gsSystemName, Msg, True)
     End Sub
 
-    Public Sub fMessageboxExclamation(ByVal Msg As String)
-        '  MessageBox.Show(Msg, gsProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-        fPop_Up_Msg(gsSystemName, Msg, False)
+    Public Sub MessageBoxExclamation(ByVal Msg As String)
+        PrompNotify(gsSystemName, Msg, False)
     End Sub
 
-    Public Function fMessageBoxQuestion(ByVal Msg As String) As Boolean
+    Public Function MessageBoxQuestion(ByVal Msg As String) As Boolean
         If MessageBox.Show(Msg, gsProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             Return True
         Else
             Return False
         End If
     End Function
-    Public Function fMessageBoxErrorYesNo(ByVal Msg As String) As Boolean
+    Public Function MessageBoxErrorYesNo(ByVal Msg As String) As Boolean
 
-        Dim B As Boolean = False
+        Dim B As Boolean
+
         If gsErrorCount < gsErrorLimit Then
-            gsErrorCount = gsErrorCount + 1
+            gsErrorCount += 1
             If cnn.State = ConnectionState.Open Then
                 cnn.Close()
             End If
@@ -69,7 +65,7 @@ Module modMessageBox
         End If
         Return B
     End Function
-    Public Function fMessageBoxQuestionYesNoCancel(ByVal Msg As String) As Integer
+    Public Function MessageBoxQuestionYesNoCancel(ByVal Msg As String) As Integer
         Dim dr As DialogResult = MessageBox.Show(Msg, gsProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
         If dr = DialogResult.Yes Then
@@ -81,7 +77,7 @@ Module modMessageBox
         End If
 
     End Function
-    Public Function fMessagePOSYesNO(ByVal Msg As String) As Boolean
+    Public Function MessageBoxPointOfSalesYesNO(ByVal Msg As String) As Boolean
         frmPOSMessageYesNo.gsMessage = Msg
         frmPOSMessageYesNo.ShowDialog()
         Dim B As Boolean = frmPOSMessageYesNo.gsClickYes

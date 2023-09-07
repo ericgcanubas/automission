@@ -20,8 +20,8 @@
 
         fMaterialSkin(Me)
         Dim sql_statement As String = "SELECT a.ID, a.`NAME` AS T FROM account AS a  Where a.INACTIVE ='0'  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
-        fComboBox(cmbAccounts, sql_statement, "ID", "T")
-        fComboBox(cmbClass, "Select ID,NAME from CLASS", "ID", "NAME")
+        ComboBoxLoad(cmbAccounts, sql_statement, "ID", "T")
+        ComboBoxLoad(cmbClass, "Select ID,NAME from CLASS", "ID", "NAME")
         If gsAccount_ID <> "" Then
             cmbAccounts.SelectedValue = gsAccount_ID
             cmbAccounts.Enabled = False
@@ -38,13 +38,13 @@
         rtbParticular.Text = gsParticular
     End Sub
     Private Sub cmbAccounts_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAccounts.SelectedIndexChanged
-        ThisType.Text = fGetFieldValueOneReturn($"SELECT atm.`DESCRIPTION` FROM account AS a INNER JOIN `account_type_map` AS atm  ON a.`TYPE` =  atm.`ID` WHERE a.`ID` ='{cmbAccounts.SelectedValue}' limit 1;")
+        ThisType.Text = GetStringFieldValueOneReturn($"SELECT atm.`DESCRIPTION` FROM account AS a INNER JOIN `account_type_map` AS atm  ON a.`TYPE` =  atm.`ID` WHERE a.`ID` ='{cmbAccounts.SelectedValue}' limit 1;")
     End Sub
 
     Private Sub cmbAccounts_Leave(sender As Object, e As EventArgs) Handles cmbAccounts.Leave
         If Trim(cmbAccounts.Text) <> "" Then
             numAmount.Focus()
-            fBlueLight(numAmount)
+            BlueLight(numAmount)
         End If
     End Sub
 
@@ -53,7 +53,7 @@
     End Sub
 
     Private Sub numAmount_GotFocus(sender As Object, e As EventArgs) Handles numAmount.GotFocus
-        fBlueLight(numAmount)
+        BlueLight(numAmount)
     End Sub
 
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs)
@@ -92,12 +92,12 @@
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If Trim(cmbAccounts.Text) = "" Then
-            fMessageboxInfo("Please select account")
+            MessageBoxInfo("Please select account")
             Exit Sub
         End If
 
         'If numAmount.Value = 0 Then
-        '    fMessageboxInfo("Please enter the value for amount ")
+        '    MessageBoxInfo("Please enter the value for amount ")
         '    Exit Sub
         'End If
 
@@ -110,7 +110,7 @@
         If gsNew = True Then
             If gsSave = True Then
                 fAddRow_Data_Expenses(gsDGV, True, gsAccount_ID, gsAmount, gsTax, gsParticular, gsClass_ID, "A")
-                fCLean_and_refresh(Me)
+                CLearAndRefresh(Me)
             End If
         Else
             Me.Close()

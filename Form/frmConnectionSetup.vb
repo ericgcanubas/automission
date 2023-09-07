@@ -10,19 +10,19 @@ Public Class frmConnectionSetup
             cn.Open()
             Dim rd As OleDb.OleDbDataReader = fMSgetReader("select * from tblconnection where connection_name = '" & strCon_Name & "'", cn)
             If rd.Read Then
-                txtConnectionName.Text = fTextisNULL(rd("connection_name"))
-                txtServer.Text = fTextisNULL(rd("db_server"))
-                txtDatabase.Text = fTextisNULL(rd("db_name"))
-                txtUsername.Text = fTextisNULL(rd("db_username"))
-                txtPassword.Text = fTextisNULL(Decrypt(rd("db_password")))
-                txtPort.Text = fTextisNULL(rd("db_port"))
-                cmbPOS_TYPE.SelectedIndex = fNumisNULL(rd("db_datasource_name"))
+                txtConnectionName.Text = TextIsNull(rd("connection_name"))
+                txtServer.Text = TextIsNull(rd("db_server"))
+                txtDatabase.Text = TextIsNull(rd("db_name"))
+                txtUsername.Text = TextIsNull(rd("db_username"))
+                txtPassword.Text = TextIsNull(Decrypt(rd("db_password")))
+                txtPort.Text = TextIsNull(rd("db_port"))
+                cmbPOS_TYPE.SelectedIndex = NumIsNull(rd("db_datasource_name"))
                 chkPOS_MODE.Checked = rd("POS_MODE")
 
             End If
             cn.Close()
         Catch ex As Exception
-            fMessageboxExclamation("Something Wrong the Temporaty Data")
+            MessageBoxExclamation("Something Wrong the Temporaty Data")
             If cn.State = ConnectionState.Open Then
                 cn.Close()
             End If
@@ -54,13 +54,13 @@ Public Class frmConnectionSetup
                 cn.Open()
                 Dim rd As OleDb.OleDbDataReader = fMSgetReader("select * from tblconnection where connection_name ='" & txtConnectionName.Text & "'", cn)
                 If rd.Read Then
-                    fMessageboxWarning("Connection name is already use!")
+                    MessageBoxWarning("Connection name is already use!")
                     cn.Close()
                     Exit Sub
 
                 End If
             Catch ex As Exception
-                fMessageboxWarning(ex.Message)
+                MessageBoxWarning(ex.Message)
                 If cn.State = ConnectionState.Open Then
                     cn.Close()
                 End If
@@ -75,9 +75,9 @@ Public Class frmConnectionSetup
         fMS_execute(sql_query)
 
         If bNew = True Then
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
+            PrompNotify(Me.Text, SaveMsg, True)
         Else
-            fPop_Up_Msg(Me.Text, gsUpdateStr, True)
+            PrompNotify(Me.Text, UpdateMsg, True)
         End If
 
         Me.Close()
@@ -88,22 +88,22 @@ Public Class frmConnectionSetup
     Private Sub btnTesting_Click(sender As Object, e As EventArgs) Handles btnTesting.Click
 
         If txtServer.Text.Length < 3 Then
-            fPop_Up_Msg("Test Connection", "Server Character must above 3 ", False)
+            PrompNotify("Test Connection", "Server Character must above 3 ", False)
             Exit Sub
         End If
 
         If txtDatabase.Text.Length < 3 Then
-            fPop_Up_Msg("Test Connection", "Database Character must above 3 ", False)
+            PrompNotify("Test Connection", "Database Character must above 3 ", False)
             Exit Sub
         End If
 
         If txtUsername.Text.Length < 3 Then
-            fPop_Up_Msg("Test Connection", "Username Character must above 3 ", False)
+            PrompNotify("Test Connection", "Username Character must above 3 ", False)
             Exit Sub
         End If
 
         If txtPort.Text.Length < 3 Then
-            fPop_Up_Msg("Test Connection", "Port Character must above 3 ", False)
+            PrompNotify("Test Connection", "Port Character must above 3 ", False)
             Exit Sub
         End If
 
@@ -113,12 +113,12 @@ Public Class frmConnectionSetup
         Dim cn As New OdbcConnection(strConnect)
         Try
             cn.Open()
-            fPop_Up_Msg(Me.Text, "Successfully connected.", True)
+            PrompNotify(Me.Text, "Successfully connected.", True)
             bTest = True
             cn.Close()
         Catch ex As Exception
             bTest = False
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 End Class

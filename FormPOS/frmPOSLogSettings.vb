@@ -22,7 +22,7 @@
         '========================================
 
 
-        gsPOS_DEFAULT_PRINTER = fTextisNULL(cmbPRINTER.Text)
+        gsPOS_DEFAULT_PRINTER = TextIsNull(cmbPRINTER.Text)
         fSET_SYSTEM_VALUE("POS_DEFAULT_PRINTER", gsPOS_DEFAULT_PRINTER)
 
 
@@ -33,7 +33,7 @@
         fSET_SYSTEM_VALUE("POS_STARTING_CASH", xchkPOS_STARTING_CASH.Checked)
         fSystemSettingUpdateByBool("POSPrintPreview", chkPOSPrintPreview.Checked)
 
-        fMessageboxInfo("Please re-login again.")
+        MessageBoxInfo("Please re-login again.")
         Me.Close()
 
     End Sub

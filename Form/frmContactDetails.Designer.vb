@@ -216,7 +216,7 @@ Partial Class frmContactDetails
         '
         Me.chkAPPLY_FINANCE_CHARGE.AutoSize = True
         Me.chkAPPLY_FINANCE_CHARGE.BackColor = System.Drawing.Color.Transparent
-        Me.chkAPPLY_FINANCE_CHARGE.Location = New System.Drawing.Point(678, 485)
+        Me.chkAPPLY_FINANCE_CHARGE.Location = New System.Drawing.Point(695, 480)
         Me.chkAPPLY_FINANCE_CHARGE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkAPPLY_FINANCE_CHARGE.Name = "chkAPPLY_FINANCE_CHARGE"
         Me.chkAPPLY_FINANCE_CHARGE.Size = New System.Drawing.Size(169, 20)
@@ -370,7 +370,7 @@ Partial Class frmContactDetails
         '
         Me.chkINACTIVE.AutoSize = True
         Me.chkINACTIVE.BackColor = System.Drawing.Color.Transparent
-        Me.chkINACTIVE.Location = New System.Drawing.Point(439, 482)
+        Me.chkINACTIVE.Location = New System.Drawing.Point(427, 480)
         Me.chkINACTIVE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkINACTIVE.Name = "chkINACTIVE"
         Me.chkINACTIVE.Size = New System.Drawing.Size(160, 20)
@@ -493,13 +493,13 @@ Partial Class frmContactDetails
         Me.tsSaveNew.Image = CType(resources.GetObject("tsSaveNew.Image"), System.Drawing.Image)
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSaveNew.Name = "tsSaveNew"
-        Me.tsSaveNew.Size = New System.Drawing.Size(91, 17)
+        Me.tsSaveNew.Size = New System.Drawing.Size(91, 22)
         Me.tsSaveNew.Text = "Save && New"
         '
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(42, 17)
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel2.Text = "       "
         '
         'tsDiscard
@@ -508,7 +508,7 @@ Partial Class frmContactDetails
         Me.tsDiscard.Image = CType(resources.GetObject("tsDiscard.Image"), System.Drawing.Image)
         Me.tsDiscard.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDiscard.Name = "tsDiscard"
-        Me.tsDiscard.Size = New System.Drawing.Size(59, 17)
+        Me.tsDiscard.Size = New System.Drawing.Size(59, 22)
         Me.tsDiscard.Text = "Discard"
         '
         'tsClose
@@ -518,7 +518,7 @@ Partial Class frmContactDetails
         Me.tsClose.Image = CType(resources.GetObject("tsClose.Image"), System.Drawing.Image)
         Me.tsClose.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsClose.Name = "tsClose"
-        Me.tsClose.Size = New System.Drawing.Size(46, 17)
+        Me.tsClose.Size = New System.Drawing.Size(46, 22)
         Me.tsClose.Text = "Close"
         '
         'Label3
@@ -769,7 +769,7 @@ Partial Class frmContactDetails
         '
         'btnSAVE
         '
-        Me.btnSAVE.Location = New System.Drawing.Point(704, 541)
+        Me.btnSAVE.Location = New System.Drawing.Point(704, 520)
         Me.btnSAVE.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnSAVE.Name = "btnSAVE"
         Me.btnSAVE.Size = New System.Drawing.Size(86, 28)
@@ -779,7 +779,7 @@ Partial Class frmContactDetails
         '
         'btnCANCEL
         '
-        Me.btnCANCEL.Location = New System.Drawing.Point(797, 541)
+        Me.btnCANCEL.Location = New System.Drawing.Point(797, 520)
         Me.btnCANCEL.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnCANCEL.Name = "btnCANCEL"
         Me.btnCANCEL.Size = New System.Drawing.Size(86, 28)
@@ -789,7 +789,7 @@ Partial Class frmContactDetails
         '
         'btnReset
         '
-        Me.btnReset.Location = New System.Drawing.Point(15, 534)
+        Me.btnReset.Location = New System.Drawing.Point(14, 520)
         Me.btnReset.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(86, 28)
@@ -801,7 +801,7 @@ Partial Class frmContactDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(902, 577)
+        Me.ClientSize = New System.Drawing.Size(902, 559)
         Me.Controls.Add(Me.cboSALUTATION)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnCANCEL)

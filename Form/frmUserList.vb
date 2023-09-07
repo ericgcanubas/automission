@@ -10,7 +10,7 @@ Public Class frmUserList
 
     Private Sub fRefreshDataGrid()
 
-        fDataGridView_Binding(dgvUser, "SELECT 
+        LoadDataGridViewBinding(dgvUser, "SELECT 
   u.`ID`,
   u.`Name`,
   u.`Description`,
@@ -53,16 +53,16 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
         End With
 
 
-        fDataGrid_Column(dgvUser, 11)
+        ViewColumn(dgvUser, 11)
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvUser, 11)
-        fDataGrid_Column(dgvUser, 11)
+        ViewSwitch(dgvUser, 11)
+        ViewColumn(dgvUser, 11)
     End Sub
 
 
@@ -79,7 +79,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
 
             .gsDgv = dgvUser
             .gsBS = Item_BS
-            .gsNew = True
+            .IsNew = True
             .ShowDialog()
             .Dispose()
         End With
@@ -89,7 +89,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         If dgvUser.Rows.Count = 0 Then
-            fMessageboxInfo("Data not found!")
+            MessageBoxInfo("Data not found!")
             Exit Sub
         End If
         Try
@@ -101,8 +101,8 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
             Dim i As Integer = dgvUser.CurrentRow.Index
             Dim dID As String = dgvUser.Rows.Item(i).Cells(0).Value
 
-            frmUserDetails.gsNew = False
-            frmUserDetails.gsID = dID
+            frmUserDetails.IsNew = False
+            frmUserDetails.ID = dID
             frmUserDetails.gsDgv = dgvUser
             frmUserDetails.gsBS = Item_BS
             frmUserDetails.ShowDialog()
@@ -110,7 +110,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
             frmUserDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
@@ -124,7 +124,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvUser.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -136,19 +136,19 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
             Dim i As Integer = dgvUser.CurrentRow.Index
             Dim dID As String = dgvUser.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvUser.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete this user: " & dName & "?") = True Then
-                fExecutedOnly($"DELETE FROM user_sessions where user_id ='{dID}'")
-                fExecutedOnly($"delete from user_default where user_id ='{dID}' ")
-                fExecutedOnly($"delete from user_security_access where user_id ='{dID}' ")
-                fExecutedOnly($"delete from user_access_control where user_id ='{dID}' ")
-                fExecutedOnly($"delete from system_security where user_id ='{dID}' ")
-                fExecutedOnly("Delete From user where id='" & dID & "' limit 1")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete this user: " & dName & "?") = True Then
+                SqlExecuted($"DELETE FROM user_sessions where user_id ='{dID}'")
+                SqlExecuted($"delete from user_default where user_id ='{dID}' ")
+                SqlExecuted($"delete from user_security_access where user_id ='{dID}' ")
+                SqlExecuted($"delete from user_access_control where user_id ='{dID}' ")
+                SqlExecuted($"delete from system_security where user_id ='{dID}' ")
+                SqlExecuted("Delete From user where id='" & dID & "' limit 1")
+                DeleteNotify(Me)
                 fRefreshDataGrid()
             End If
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
@@ -192,7 +192,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
 
     End Sub
     Private Sub frmUserList_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fDgvNotSort(dgvUser)
+        ViewNotSort(dgvUser)
     End Sub
 
     Private Sub tsTxtSearch_Click(sender As Object, e As EventArgs)
@@ -214,7 +214,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
 
     Private Sub UpdateAccessToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateAccessToolStripMenuItem.Click
         If dgvUser.Rows.Count = 0 Then
-            fMessageboxInfo("User not selected")
+            MessageBoxInfo("User not selected")
             Exit Sub
         End If
 
@@ -227,7 +227,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
             frmUserSecurity.Dispose()
             frmUserSecurity = Nothing
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
@@ -235,7 +235,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
         With frmUserDefault
             Dim i As Integer = dgvUser.CurrentRow.Index
             Dim dID As String = dgvUser.Rows.Item(i).Cells(0).Value
-            .gsID = dID
+            .ID = dID
             .ShowDialog()
             .Dispose()
         End With

@@ -1,8 +1,8 @@
-﻿Imports MySql.Data.MySqlClient
+﻿
 Public Class frmPenalty
     Private Sub frmPenaltyInvoice_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        fBackGroundImageStyle(Me)
+
         fRefresh()
 
 
@@ -29,18 +29,18 @@ FROM
     ON c.`ID` = i.`CUSTOMER_ID` 
 	INNER JOIN penalty_type_map AS ptm ON ptm.`ID` = i.`PENALTY_TYPE_ID`
 WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & Format(Now.Date, "yyyy-MM-dd") & "' "
-        fDataGridView(dgvInvoice, gsQuery)
+        LoadDataGridView(dgvInvoice, gsQuery)
         dgvInvoice.Columns(0).Visible = False
         dgvInvoice.Columns(0).Width = 40
         dgvInvoice.Columns("Total Balance").Width = 110
         dgvInvoice.Columns("Rate %").Width = 80
         dgvInvoice.Columns("Name of Order").Width = 100
-        ' fDatagridViewMode(dgvInvoice)
+        ' DatagridViewMode(dgvInvoice)
 
-        fDataGrid_Column(dgvInvoice, 35)
+        ViewColumn(dgvInvoice, 35)
     End Sub
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub dgvInvoice_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellContentClick
@@ -49,7 +49,7 @@ WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & Format(Now.Date,
 
     Private Sub dgvInvoice_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellDoubleClick
         'If dgvInvoice.Rows.Count = 0 Then Exit Sub
-        'frmPenaltyDetails.gsID = dgvInvoice.Rows(e.RowIndex).Cells("ID").Value
+        'frmPenaltyDetails.ID = dgvInvoice.Rows(e.RowIndex).Cells("ID").Value
         'frmPenaltyDetails.ShowDialog()
         'frmPenaltyDetails.Dispose()
         'frmPenaltyDetails = Nothing
@@ -60,7 +60,7 @@ WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & Format(Now.Date,
         gsRefresh = True
         gsDocument_Finder_ID = dgvInvoice.Rows(dgvInvoice.CurrentRow.Index).Cells(0).Value
 
-        fmenuSet()
+        MenuSet()
 
         gsDocument_Finder_ID = ""
 
@@ -72,7 +72,7 @@ WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & Format(Now.Date,
 
         Dim fName As String = ""
         Dim frm As New Form
-        frm = fGetForm(fName)
+        frm = GetFormModule(fName)
         Dim tp As TabPage = New TabPage(fName)
 
 
@@ -112,8 +112,8 @@ WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & Format(Now.Date,
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        fDataGrid_Switch(dgvInvoice, 35)
+        ViewSwitch(dgvInvoice, 35)
 
-        fDataGrid_Column(dgvInvoice, 35)
+        ViewColumn(dgvInvoice, 35)
     End Sub
 End Class

@@ -23,7 +23,7 @@ Public Class FrmPOSRoom
 
         dgvList.Rows.Clear()
         Dim SQL As String = $"Select i.id, i.description,{INVOICE_ID_SQL} AS `invoice_id`, {INVOICE_CHECK_IN} as `CHECK_IN`, {INVOICE_CHECK_OUT}  as `CHECK_OUT`, {INVOICE_ITEM_QTY} as `HOURS`, {INVOICE_BALANCE} as `BALANCE` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' and  {INVOICE_NULL_SQL} is not null   ORDER BY i.description"
-        Dim rd As OdbcDataReader = fReader(SQL)
+        Dim rd As OdbcDataReader = SqlReader(SQL)
         While rd.Read
             fTimeCreate(rd("id"), rd("description"), rd("invoice_id"), CDate(rd("CHECK_IN")), CDate(rd("CHECK_OUT")), rd("HOURS"), rd("BALANCE"))
         End While
@@ -36,7 +36,7 @@ Public Class FrmPOSRoom
         gsSelectNotAvailableRoom = False
         flpBox.Controls.Clear()
         Dim SQL_DB As String = $"Select i.id, i.description, {INVOICE_ID_SQL} As `invoice_id`, {INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.id"
-        Dim rd As OdbcDataReader = fReader(SQL_DB)
+        Dim rd As OdbcDataReader = SqlReader(SQL_DB)
         While rd.Read
             fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
         End While
@@ -86,7 +86,7 @@ Public Class FrmPOSRoom
 
     End Sub
     Private Sub fLoadGroup()
-        Dim rd As OdbcDataReader = fReader($"SELECT g.`ID`,g.`DESCRIPTION` FROM item_group AS g INNER JOIN item AS i ON i.`GROUP_ID` = g.`ID` AND g.`ITEM_TYPE` = i.`TYPE` WHERE  i.`TYPE` ='{gsCheckInType}' GROUP BY g.`DESCRIPTION` order by g.ID")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT g.`ID`,g.`DESCRIPTION` FROM item_group AS g INNER JOIN item AS i ON i.`GROUP_ID` = g.`ID` AND g.`ITEM_TYPE` = i.`TYPE` WHERE  i.`TYPE` ='{gsCheckInType}' GROUP BY g.`DESCRIPTION` order by g.ID")
         While rd.Read
             Dim tsbtn As New ToolStripButton
             tsbtn.Name = $"tsbtn{rd("id")}"
@@ -116,7 +116,7 @@ Public Class FrmPOSRoom
         gsSelectAvailableRoom = False
         gsSelectNotAvailableRoom = False
         flpBox.Controls.Clear()
-        Dim rd As OdbcDataReader = fReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' and i.GROUP_ID ='{  fNumisNULL(ts.Tag)}' AND i.inactive ='0' ORDER BY i.id")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' and i.GROUP_ID ='{  NumIsNull(ts.Tag)}' AND i.inactive ='0' ORDER BY i.id")
         While rd.Read
             fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
         End While
@@ -131,16 +131,16 @@ Public Class FrmPOSRoom
 
 
         Dim bStartNew As Boolean = False
-        'POS LOG   DATE(recorded_On) ='{fDateFormatMYSQL(gsPOS_DATE)}'
-        Dim rd As OdbcDataReader = fReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID, RECORDED_ON,CASHIER_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and LOCATION_ID = '{gsDefault_LOCATION_ID}' and `CASH_COUNT_ID` is null ORDER BY ID DESC Limit 1;")
+        'POS LOG   DATE(recorded_On) ='{DateFormatMySql(gsPOS_DATE)}'
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID, RECORDED_ON,CASHIER_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and LOCATION_ID = '{gsDefault_LOCATION_ID}' and `CASH_COUNT_ID` is null ORDER BY ID DESC Limit 1;")
         If rd.Read Then
-            If gsCashier_ID <> fNumisNULL(rd("CASHIER_ID")) Then
-                fMessageboxExclamation("Please set cash count from last user. ")
+            If gsCashier_ID <> NumIsNull(rd("CASHIER_ID")) Then
+                MessageBoxExclamation("Please set cash count from last user. ")
                 gsCloseCall = True
                 Exit Sub
             End If
 
-            'If fNumisNULL(rd("CASH_COUNT_ID")) <> 0 Then
+            'If NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
             '    FrmPOSLogSwitch.ShowDialog()
             '    bStartNew = FrmPOSLogSwitch.gsStartNew
             '    FrmPOSLogSwitch.Dispose()
@@ -152,17 +152,17 @@ Public Class FrmPOSRoom
             'End If
 
             gsPOS_DATE = CDate(rd("RECORDED_ON"))
-            gsSTARTING_RECEIPT_NO = fNumisNULL(rd("STARTING_RECEIPT_NO"))
-            gsPOS_LOG_ID = fNumisNULL(rd("ID"))
-            gsSTARTING_CASH_ID = fNumisNULL(rd("STARTING_CASH_ID"))
-            gsENDING_RECEIPT_NO = fNumisNULL(rd("ENDING_RECEIPT_NO"))
-            gsCASH_COUNT_ID = fNumisNULL(rd("CASH_COUNT_ID"))
+            gsSTARTING_RECEIPT_NO = NumIsNull(rd("STARTING_RECEIPT_NO"))
+            gsPOS_LOG_ID = NumIsNull(rd("ID"))
+            gsSTARTING_CASH_ID = NumIsNull(rd("STARTING_CASH_ID"))
+            gsENDING_RECEIPT_NO = NumIsNull(rd("ENDING_RECEIPT_NO"))
+            gsCASH_COUNT_ID = NumIsNull(rd("CASH_COUNT_ID"))
 
         Else
 
 NewPOS_LOG:
 
-            If fMessagePOSYesNO("Create New POS Shift log?") = True Then
+            If MessageBoxPointOfSalesYesNO("Create New POS Shift log?") = True Then
 
                 gsCASH_COUNT_ID = 0
                 Dim sAMount As Double = 0
@@ -174,30 +174,30 @@ NewPOS_LOG:
                     frmPOSStartingCash = Nothing
                 End If
 
-                gsSTARTING_CASH_ID = fObjectTypeMap_ID("POS_STARTING_CASH")
-                If fDateFormatMYSQL(gsPOS_DATE) = fDateFormatMYSQL(Date.Now.Date) Then
-                    LOG_DATE = fDateTimeNow()
+                gsSTARTING_CASH_ID = ObjectTypeMapId("POS_STARTING_CASH")
+                If DateFormatMySql(gsPOS_DATE) = DateFormatMySql(Date.Now.Date) Then
+                    LOG_DATE = GetDateTimeNowSql()
                 Else
-                    LOG_DATE = $"{fDateFormatMYSQL(gsPOS_DATE)} 08:00:01"
+                    LOG_DATE = $"{DateFormatMySql(gsPOS_DATE)} 08:00:01"
                 End If
 
-                fExecutedOnly($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{sAMount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
+                SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{sAMount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
                 fPOS_STARTING_CASH_JOURNAL(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
                 fPOS_LOG()
 
             Else
-                Dim rd_temp As OdbcDataReader = fReader($"select * from pos_log where location_id = '{gsDefault_LOCATION_ID}' order by id desc limit 1;")
+                Dim rd_temp As OdbcDataReader = SqlReader($"select * from pos_log where location_id = '{gsDefault_LOCATION_ID}' order by id desc limit 1;")
                 If rd_temp.Read Then
-                    If gsCashier_ID = fNumisNULL(rd_temp("cashier_id")) Then
+                    If gsCashier_ID = NumIsNull(rd_temp("cashier_id")) Then
 
-                        If fMessagePOSYesNO($"Do yo want to open the previous POS LOG No. {rd_temp("id")}") = True Then
+                        If MessageBoxPointOfSalesYesNO($"Do yo want to open the previous POS LOG No. {rd_temp("id")}") = True Then
 
                             gsPOS_DATE = CDate(rd_temp("RECORDED_ON"))
-                            gsSTARTING_RECEIPT_NO = fNumisNULL(rd_temp("STARTING_RECEIPT_NO"))
-                            gsPOS_LOG_ID = fNumisNULL(rd_temp("ID"))
-                            gsSTARTING_CASH_ID = fNumisNULL(rd_temp("STARTING_CASH_ID"))
-                            gsENDING_RECEIPT_NO = fNumisNULL(rd_temp("ENDING_RECEIPT_NO"))
-                            gsCASH_COUNT_ID = fNumisNULL(rd_temp("CASH_COUNT_ID"))
+                            gsSTARTING_RECEIPT_NO = NumIsNull(rd_temp("STARTING_RECEIPT_NO"))
+                            gsPOS_LOG_ID = NumIsNull(rd_temp("ID"))
+                            gsSTARTING_CASH_ID = NumIsNull(rd_temp("STARTING_CASH_ID"))
+                            gsENDING_RECEIPT_NO = NumIsNull(rd_temp("ENDING_RECEIPT_NO"))
+                            gsCASH_COUNT_ID = NumIsNull(rd_temp("CASH_COUNT_ID"))
                         End If
 
                     End If
@@ -218,9 +218,9 @@ NewPOS_LOG:
 
         dgvList.Height = CheckInPanelHeight
 
-        gsHours_Item_ID = fNumFieldValueOneReturn($"SELECT ID from ITEM where BASE_UNIT_ID = '{gsMeasureHoursID}' limit 1;")
+        gsHours_Item_ID = GetNumberFieldValueOneReturn($"SELECT ID from ITEM where BASE_UNIT_ID = '{gsMeasureHoursID}' limit 1;")
         If gsHours_Item_ID = 0 Then
-            fMessageboxExclamation("no item hours created.")
+            MessageBoxExclamation("no item hours created.")
         End If
 
         tsUsername.Text = gsUser_Name
@@ -246,13 +246,13 @@ NewPOS_LOG:
         gsIncRefNoByLocation = fIncRefNoByLocation()
         gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
 
-        Me.AccessibleName = fGetFieldValue("tblsub_menu", "form", "frmInvoice", "sub_id")
+        Me.AccessibleName = GetStringFieldValue("tblsub_menu", "form", "frmInvoice", "sub_id")
 
         gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
         gsCASH_OVER_SHORT_EXPENSES = fCashOverShortExpense()
         gsPOSDefaultCustomer_ID = fSystemSettingValue("POSDefaultCustomerId")
-        gsPOS_RESTAURANT_TABLE_NO = fGetFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
-        gsDRAWER_ACCOUNT_ID = fGetFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
+        gsPOS_RESTAURANT_TABLE_NO = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
+        gsDRAWER_ACCOUNT_ID = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
 
         fLoadRoomAll()
         fLoadOtherMenu()
@@ -317,8 +317,8 @@ NewPOS_LOG:
 
     End Sub
     Private Sub Report_Click(sender As Object, e As EventArgs)
-        frmPOSRoomDetails.gsID = 0
-        frmPOSRoomDetails.gsNew = True
+        frmPOSRoomDetails.ID = 0
+        frmPOSRoomDetails.IsNew = True
         frmPOSRoomDetails.Text = "Walk-In Cusomter"
         frmPOSRoomDetails.gsWalkInCustomer = True
         frmPOSRoomDetails.ShowDialog()
@@ -332,9 +332,9 @@ NewPOS_LOG:
         gsSelectAvailableRoom = True
         gsSelectNotAvailableRoom = False
         flpBox.Controls.Clear()
-        Dim rd As OdbcDataReader = fReader($"SELECT i.id,i.description,{INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.description")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description,{INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.description")
         While rd.Read
-            If fTextisNULL(rd("Invoice_id")) = "0" Then
+            If TextIsNull(rd("Invoice_id")) = "0" Then
                 fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
             End If
 
@@ -346,9 +346,9 @@ NewPOS_LOG:
         gsSelectAvailableRoom = False
         gsSelectNotAvailableRoom = True
         flpBox.Controls.Clear()
-        Dim rd As OdbcDataReader = fReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`, {INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.description")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`, {INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.description")
         While rd.Read
-            If fTextisNULL(rd("Invoice_id")) <> "0" Then
+            If TextIsNull(rd("Invoice_id")) <> "0" Then
                 fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
             End If
         End While
@@ -395,9 +395,9 @@ NewPOS_LOG:
 
     End Sub
     Private Sub btnSetAsAvailable_Click(sender As Object, e As EventArgs)
-        If fMessagePOSYesNO("Do you want to set as Available?") = True Then
+        If MessageBoxPointOfSalesYesNO("Do you want to set as Available?") = True Then
             Dim btn As Button = DirectCast(sender, Button)
-            fExecutedOnly($"UPDATE invoice SET `CUSTOM_FIELD3` = '{fDateTimeNow()}',`DEALER_ID`='{gsPOS_LOG_ID}'  WHERE `ID`= '{Val(btn.Tag)}' limit 1; ")
+            SqlExecuted($"UPDATE invoice SET `CUSTOM_FIELD3` = '{GetDateTimeNowSql()}',`DEALER_ID`='{gsPOS_LOG_ID}'  WHERE `ID`= '{Val(btn.Tag)}' limit 1; ")
             fPreviewRefresh()
         End If
     End Sub
@@ -585,9 +585,9 @@ NewPOS_LOG:
                     End If
                 ElseIf .Cells("STATUS").Value = "CHECK-OUT" Then
 
-                    If fMessagePOSYesNO("Do you want to set as Available?") = True Then
+                    If MessageBoxPointOfSalesYesNO("Do you want to set as Available?") = True Then
 
-                        fExecutedOnly($"UPDATE invoice SET `CUSTOM_FIELD3` = '{fDateTimeNow()}',`DEALER_ID`='{gsPOS_LOG_ID}'  WHERE `ID`= '{INVOICE_ID}' limit 1; ")
+                        SqlExecuted($"UPDATE invoice SET `CUSTOM_FIELD3` = '{GetDateTimeNowSql()}',`DEALER_ID`='{gsPOS_LOG_ID}'  WHERE `ID`= '{INVOICE_ID}' limit 1; ")
                         fPreviewRefresh()
                     End If
 

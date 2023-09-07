@@ -15,9 +15,29 @@
 
 
     End Sub
-    Public Sub fTransaction_Log(ByVal prTrans_ID As String, ByVal prReference As String, ByVal prSub_ID As String, ByVal prTrans_Type As String, ByVal prContact_ID As String, ByVal prAccount_ID As String, ByVal prAmount As Double, ByVal prLOCATION_ID As String)
+    Public Sub fTransaction_Log(ByVal prTrans_ID As Integer, ByVal prReference As String, ByVal prSub_ID As String, ByVal prTrans_Type As String, ByVal prContact_ID As String, ByVal prAccount_ID As String, ByVal prAmount As Double, ByVal prLOCATION_ID As String)
 
-        fExecutedOnly("INSERT INTO transaction_log SET USER_ID = '" & gsUser_ID & "',REFERENCE = '" & prReference & "',`DATE` = '" & Format(DateTime.Now, "yyyy-MM-dd hh:mm:ss") & "',SUB_ID = '" & prSub_ID & "',TRANSACTION_ID = '" & prTrans_ID & "',`TRANSACTION_TYPE`='" & prTrans_Type & "',CONTACT_ID = '" & prContact_ID & "',ACCOUNT_ID='" & prAccount_ID & "',AMOUNT = '" & prAmount & "', LOCATION_ID = '" & prLOCATION_ID & "'")
+        SqlExecuted("INSERT INTO transaction_log 
+            (USER_ID,
+            REFERENCE,
+            DATE,
+            SUB_ID,
+            TRANSACTION_ID,
+            TRANSACTION_TYPE,
+            CONTACT_ID,
+            ACCOUNT_ID,
+            AMOUNT,
+            LOCATION_ID)
+            VALUE ('" & gsUser_ID & "',
+            '" & prReference & "',
+            '" & GetDateTimeNowSql() & "',
+            '" & prSub_ID & "',
+            '" & prTrans_ID & "',
+            '" & prTrans_Type & "',
+            '" & prContact_ID & "',
+            '" & prAccount_ID & "',
+            '" & prAmount & "',
+            '" & prLOCATION_ID & "')")
 
     End Sub
 

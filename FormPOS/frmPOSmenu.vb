@@ -6,8 +6,8 @@ Public Class frmPOSmenu
     Public gsCloseCall As Boolean = False
     Dim bNewContact As Boolean = False
     Dim gsMemberDiscount As Double
-    Public gsID As String = gsDocument_Finder_ID
-    Public gsNew As Boolean = IIf(gsID = "", True, False)
+    Public ID As String = gsDocument_Finder_ID
+    Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
     Dim f As Form = New frmFindDocument
     Dim tdgv As DataGridView
@@ -16,7 +16,7 @@ Public Class frmPOSmenu
     Dim h As Integer = 0
     Dim REF_NAME As String
 
-    Private Sub fMaster_KeyDown(sender As Object, e As KeyEventArgs)
+    Private Sub Master_KeyDown(sender As Object, e As KeyEventArgs)
         If txtSearchEntry.Focused = True Then
             If dgvProductItem.Rows.Count <> 0 Then
                 Exit Sub
@@ -24,7 +24,7 @@ Public Class frmPOSmenu
         End If
 
         If e.KeyCode = Keys.F4 AndAlso e.Modifiers = Keys.Control Then
-            fPrintSave(True)
+            PrintAndSave(True)
             Exit Sub
         End If
 
@@ -100,25 +100,25 @@ Public Class frmPOSmenu
 
 
     End Sub
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
-        Dim squery As String = fFieldCollector(Me)
+        Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
             HasChange = True
-        ElseIf fdgvChange(dgvProductItem, tdgv) = True Then
+        ElseIf DataGridGotChange(dgvProductItem, tdgv) = True Then
             HasChange = True
         End If
         Return HasChange
     End Function
 
-    Public Sub fPOS_LOG_MENU()
-        fSetNew()
+    Public Sub PosLogMenu()
+        SetNew()
         With frmPOSLog
             fCollect_POSLog()
             .ShowDialog()
             If .gsType = 1 Then
 
-                fLoadMenu()
+                LoadMenu()
 
             ElseIf .gsType = 0 Then
 
@@ -132,7 +132,7 @@ Public Class frmPOSmenu
 
     End Sub
 
-    Private Sub frmSalesReceipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub SalesReceipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         gsPOS_DEFAULT_PRINTER = fGet_System_VALUE("POS_DEFAULT_PRINTER")
         gsDEFAULT_PRINTER = fGet_System_VALUE("DEFAULT_PRINTER")
@@ -163,8 +163,8 @@ Public Class frmPOSmenu
         fLabel_Digital_L(xlblChange)
         fLabel_Digital_L(lblPAYMENT_AMOUNT)
 
-        fComboxRefresh()
-        fCLean_and_refresh(Me)
+        ComboxRefresh()
+        ClearAndRefresh(Me)
         fMaterialSkin(Me)
         Me.Icon = gsIcon
         fTender_Column()
@@ -193,7 +193,7 @@ Public Class frmPOSmenu
         gsSTARTING_RECEIPT_NO = 0
         gsENDING_RECEIPT_NO = 0
 
-        Me.AccessibleName = fGetFieldValue("tblsub_menu", "form", "frmSalesReceipt", "sub_id")
+        Me.AccessibleName = GetStringFieldValue("tblsub_menu", "form", "frmSalesReceipt", "sub_id")
 
         gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
 
@@ -206,35 +206,32 @@ Public Class frmPOSmenu
         gsDefault_LOCATION_ID = fLoadLocationDefault()
         gsIncRefNoByLocation = fIncRefNoByLocation()
         gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
-        gsDRAWER_ACCOUNT_ID = fGetFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
+        gsDRAWER_ACCOUNT_ID = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
         gsPOS_TYPE_ID = fPOS_machine_type_map()
 
         Me.Text = "POS - " & gsSystemName
-
-
-
         fcolumnGrid_U_SalesReceipt(dgvProductItem)
         gsMainWith = Me.Width
         gsMainHeight = Me.Height
-        fComputed()
+        POSComputed()
 
     End Sub
 
-    Private Sub fRefreshInfo(ByVal prID As String)
+    Private Sub POSRefreshInfo(ByVal prID As String)
         Try
             Dim sQuery As String = "select * from sales_receipt where ID = '" & prID & "' Limit 1"
-            fExecutedUsingReading(Me, sQuery)
-            cmbCUSTOMER_ID_SelectedIndexChanged(1, Nothing)
+            SqlExecutedUsingReading(Me, sQuery)
+            CUSTOMER_ID_SelectedIndexChanged(1, Nothing)
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshInfo(prID)
+            If MessageBoxErrorYesNo(ex.Message) = True Then
+                POSRefreshInfo(prID)
             Else
                 End
             End If
         End Try
     End Sub
 
-    Private Sub fRefreshItem(prID As String)
+    Private Sub RefreshItem(prID As String)
         dgvProductItem.Rows.Clear()
         bRefreshItem = True
         Dim sGROUP_ITEM_ID As Integer = 0
@@ -242,8 +239,8 @@ Public Class frmPOSmenu
         Dim sGROUP_ITEM_COUNT As Integer = 0
         Dim sQuery As String = "SELECT 
   ii.`ID`,
-  i.`CODE`,
-  i.`DESCRIPTION`,
+  RowNum.`CODE`,
+  RowNum.`DESCRIPTION`,
   ii.`QUANTITY`,
   u.`SYMBOL`,
   ii.`RATE`,
@@ -269,8 +266,8 @@ Public Class frmPOSmenu
   ii.`POS_NOTES`,
   ii.`PRINT_IN_FORMS`,
   ii.`DEPOSITED`,
-  i.TYPE as `ITEM_TYPE`,
-  i.`NON_DISCOUNTED_ITEM`,
+  RowNum.TYPE as `ITEM_TYPE`,
+  RowNum.`NON_DISCOUNTED_ITEM`,
   ii.GROUP_LINE_ID,
   ii.BATCH_ID,
   B.BATCH_NO
@@ -278,8 +275,8 @@ Public Class frmPOSmenu
 FROM
 
   sales_receipt_items AS ii 
-  LEFT OUTER JOIN item AS i 
-    ON i.id = ii.`ITEM_ID` 
+  LEFT OUTER JOIN item AS RowNum 
+    ON RowNum.id = ii.`ITEM_ID` 
   LEFT OUTER JOIN unit_of_measure AS u 
     ON u.`ID` = ii.`UNIT_ID` 
   LEFT OUTER JOIN discount_type AS d 
@@ -289,66 +286,59 @@ FROM
 LEFT OUTER JOIN ITEM_BATCHES as B
 B.ID = ii.BATCH_ID
 
-    WHERE  ii.`sales_receipt_ID` = '" & gsID & "' Order by ii.LINE_NO"
+    WHERE  ii.`sales_receipt_ID` = '" & ID & "' Order by ii.LINE_NO"
 
         Try
-            Dim x As Integer = 0
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim XRow As Integer = 0
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 dgvProductItem.Rows.Add()
-                For i As Integer = 0 To rd.FieldCount - 1
-                    With dgvProductItem.Columns(i)
+                For RowNum As Integer = 0 To rd.FieldCount - 1
+                    With dgvProductItem.Columns(RowNum)
                         If fCheckNumStandard(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = fNumFormatStandard(fNumisNULL(rd(i)))
-                        ElseIf fCheckNumNoDecimal(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = fNumFormatNoDecimal(fNumisNULL(rd(i)))
-                        ElseIf fCheckBoolType(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = CBool(fNumisNULL(rd(i)))
+                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = NumberFormatStandard(NumIsNull(rd(RowNum)))
+                        ElseIf CheckNumNoDecimal(.Name) = True Then
+                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = NumberFormatNoDecimal(NumIsNull(rd(RowNum)))
+                        ElseIf CheckBoolType(.Name) = True Then
+                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = CBool(NumIsNull(rd(RowNum)))
                         Else
 
 
 
-                            dgvProductItem.Rows(x).Cells(i).Value = fTextisNULL(rd(i))
+                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = TextIsNull(rd(RowNum))
 
                         End If
                     End With
                 Next
-                x = x + 1
+                XRow += 1
             End While
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshItem(prID)
+            If MessageBoxErrorYesNo(ex.Message) = True Then
+                RefreshItem(prID)
             Else
                 End
             End If
         End Try
         bRefreshItem = False
-        fComputed()
+        POSComputed()
         tdgv = New DataGridView
         tdgv = dgvProductItem
-        tQuery = fFieldCollector(Me)
+        tQuery = SqlUpdate(Me)
 
     End Sub
-    Private Sub fGet_TENDER_LIST()
+    Private Sub GetTenderList()
         dgvTENDER_LIST.Rows.Clear()
-        Dim rd As OdbcDataReader = fReader($"select s.ID,s.PAYMENT_METHOD_ID,s.AMOUNT,s.PAYMENT_REF_NO,s.CARD_NO,p.DESCRIPTION from sales_receipt_tender as s inner join payment_method as p on p.id = s.payment_method_id where sales_receipt_id = '{gsID}' and POS_LOG_ID ='{lblPOS_LOG_ID.Text}'")
+        Dim rd As OdbcDataReader = SqlReader($"select s.ID,s.PAYMENT_METHOD_ID,s.AMOUNT,s.PAYMENT_REF_NO,s.CARD_NO,p.DESCRIPTION from sales_receipt_tender as s inner join payment_method as p on p.id = s.payment_method_id where sales_receipt_id = '{ID}' and POS_LOG_ID ='{lblPOS_LOG_ID.Text}'")
         While rd.Read
-            dgvTENDER_LIST.Rows.Add(rd("PAYMENT_METHOD_ID"), rd("DESCRIPTION"), fNumFormatStandard(rd("AMOUNT")), rd("PAYMENT_REF_NO"), rd("CARD_NO"))
+            dgvTENDER_LIST.Rows.Add(rd("PAYMENT_METHOD_ID"), rd("DESCRIPTION"), NumberFormatStandard(rd("AMOUNT")), rd("PAYMENT_REF_NO"), rd("CARD_NO"))
         End While
-        fpaymethod()
+        PaymentMethodPOS()
 
     End Sub
-    'Private Function fgetTypeValue(ByVal dt As String) As String
-    '    If IsNumeric(dt) = True Then
-    '        Return Format(dt, "Standard")
-    '    Else
-    '        Return Nothing
-    '    End If
-    'End Function
-    Private Sub fclear_Info()
+    Private Sub ClearInfoPOS()
 
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
 
         dgvProductItem.Rows.Clear()
         dgvTENDER_LIST.Rows.Clear()
@@ -359,30 +349,30 @@ B.ID = ii.BATCH_ID
         xlblTax.Text = " TAX"
 
     End Sub
-    Private Sub fComboxRefresh()
-        fComboBox(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+    Private Sub ComboxRefresh()
+        ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
         cmbCUSTOMER_ID.SelectedIndex = -1
-        fComboBox(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+        ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
         cmbPAYMENT_METHOD_ID.SelectedIndex = -1
-        fComboBox(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
-        fComboBox(cmbCLASS_ID, "select * from class", "ID", "NAME")
-        fComboBox(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        ComboBoxLoad(cmbCLASS_ID, "select * from class", "ID", "NAME")
+        ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
         cmbSALES_REP_ID.SelectedIndex = -1
-        fComboBox(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
+        ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
 
     End Sub
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub Find_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If gsNew = False And gsID <> "" Then
-                If fCheckHasChange() = True Then
-                    If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+            If IsNew = False And ID <> "" Then
+                If CheckHasChange() = True Then
+                    If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        fSaveEntry()
+                        POSSaveEntry()
 
                         If tChangeAccept = False Then
-                            fMessageboxInfo("Cancel")
+                            MessageBoxInfo("Cancel")
                             Exit Sub
                         End If
                     Else
@@ -395,19 +385,19 @@ B.ID = ii.BATCH_ID
         f.ShowDialog()
         If f.AccessibleDescription <> "" Then
             If f.AccessibleDescription <> "cancel" Then
-                fclear_Info()
-                gsID = f.AccessibleDescription
-                gsNew = False
-                fRefreshInfo(gsID)
-                fRefreshItem(gsID)
+                ClearInfoPOS()
+                ID = f.AccessibleDescription
+                IsNew = False
+                POSRefreshInfo(ID)
+                RefreshItem(ID)
             End If
         End If
 
 
     End Sub
-    Private Function fCheckifDiscountNext(ByVal ndex As Integer) As Boolean
+    Private Function POSCheckifDiscountNext(ByVal ndex As Integer) As Boolean
         Try
-            If fDISCOUNT_ITEM(dgvProductItem.Rows(ndex + 1).Cells("ITEM_TYPE").Value) = True Then
+            If IsDiscountItem(dgvProductItem.Rows(ndex + 1).Cells("ITEM_TYPE").Value) = True Then
                 Return True
             Else
                 Return False
@@ -417,21 +407,18 @@ B.ID = ii.BATCH_ID
         End Try
 
     End Function
-    Private Sub fComputed()
+    Private Sub POSComputed()
         Dim gsSalesSubTotal As Double
         fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
-        xxxlblSUB_TOTAL.Text = fNumFormatStandard(gsSalesSubTotal)
+        xxxlblSUB_TOTAL.Text = NumberFormatStandard(gsSalesSubTotal)
 
     End Sub
 
-    Private Sub cmbPAYMENT_METHOD_ID_SelectedValueChanged(sender As Object, e As EventArgs)
+    Private Sub PAYMENT_METHOD_ID_SelectedValueChanged(sender As Object, e As EventArgs)
 
-        Dim card_no As Boolean = False
+        Dim card_no As Boolean
         Dim card_value As Boolean = False
         Try
-
-
-
             Dim I As Integer = 0
             If cmbPAYMENT_METHOD_ID.Items.Count <> 0 Then
                 I = Val(cmbPAYMENT_METHOD_ID.SelectedValue)
@@ -473,7 +460,7 @@ B.ID = ii.BATCH_ID
 
         Catch ex As Exception
             REF_NAME = "O.R No."
-            card_no = False
+
             card_value = False
         End Try
 
@@ -482,24 +469,24 @@ B.ID = ii.BATCH_ID
 
     End Sub
 
-    Private Sub fSaveEntry()
+    Private Sub POSSaveEntry()
 
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
-            fMessageboxInfo("Please  select customer")
+            MessageBoxInfo("Please  select customer")
             Exit Sub
         End If
         If dgvProductItem.Rows.Count = 0 Then
-            fMessageboxInfo("No item entry")
+            MessageBoxInfo("No item entry")
             Exit Sub
         End If
         If cmbPAYMENT_METHOD_ID.Text = "" Then
-            fMessageboxInfo("Please select payment method")
+            MessageBoxInfo("Please select payment method")
             Exit Sub
         End If
 
 
-        If fNumisNULL(lblPAYMENT_AMOUNT.Text) = 0 Then
-            fMessageboxInfo("Please enter payment")
+        If NumIsNull(lblPAYMENT_AMOUNT.Text) = 0 Then
+            MessageBoxInfo("Please enter payment")
             Exit Sub
         End If
 
@@ -518,24 +505,24 @@ B.ID = ii.BATCH_ID
                 ' lets check
                 Try
 
-                    Dim rdExists_OR As OdbcDataReader = fReader($"select RECORDED_ON from SALES_RECEIPT WHERE PAYMENT_REF_NO = '{txtPAYMENT_REF_NO.Text.Replace("'", "`")}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' limit 1;")
+                    Dim rdExists_OR As OdbcDataReader = SqlReader($"select RECORDED_ON from SALES_RECEIPT WHERE PAYMENT_REF_NO = '{txtPAYMENT_REF_NO.Text.Replace("'", "`")}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' limit 1;")
                     If rdExists_OR.Read Then
                         rdExists_OR.Close()
 
-                        fMessageboxWarning($"O.R # {txtPAYMENT_REF_NO.Text} already exists.")
+                        MessageBoxWarning($"O.R # {txtPAYMENT_REF_NO.Text} already exists.")
                         Exit Sub
                     End If
                     rdExists_OR.Close()
 
                 Catch ex As Exception
-                    fMessageboxInfo(ex.Message)
+                    MessageBoxInfo(ex.Message)
                     Exit Sub
                 End Try
 
 
 
                 If txtPAYMENT_REF_NO.Text.Length = 0 Then
-                    fMessageboxExclamation($"{REF_NAME} is required. save entry canceled.")
+                    MessageBoxExclamation($"{REF_NAME} is required. save entry canceled.")
                     Exit Sub
                 End If
 
@@ -544,23 +531,23 @@ B.ID = ii.BATCH_ID
                 ' lets check
                 Try
 
-                    Dim rdExists_OR As OdbcDataReader = fReader($"select RECORDED_ON from SALES_RECEIPT WHERE PAYMENT_REF_NO = '{txtPAYMENT_REF_NO.Text.Replace("'", "`")}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' limit 1;")
+                    Dim rdExists_OR As OdbcDataReader = SqlReader($"select RECORDED_ON from SALES_RECEIPT WHERE PAYMENT_REF_NO = '{txtPAYMENT_REF_NO.Text.Replace("'", "`")}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' limit 1;")
                     If rdExists_OR.Read Then
                         rdExists_OR.Close()
 
-                        fMessageboxWarning($"O.R # {txtPAYMENT_REF_NO.Text} already exists.")
+                        MessageBoxWarning($"O.R # {txtPAYMENT_REF_NO.Text} already exists.")
                         Exit Sub
                     End If
                     rdExists_OR.Close()
 
                 Catch ex As Exception
-                    fMessageboxInfo(ex.Message)
+                    MessageBoxInfo(ex.Message)
                     Exit Sub
                 End Try
 
 
                 If txtPAYMENT_REF_NO.Text.Length = 0 Then
-                    fMessageboxExclamation($"{REF_NAME} is required. save entry canceled.")
+                    MessageBoxExclamation($"{REF_NAME} is required. save entry canceled.")
                     Exit Sub
                 End If
             End If
@@ -568,7 +555,7 @@ B.ID = ii.BATCH_ID
 
 
         If dgvTENDER_LIST.Rows.Count = 0 Then
-            fMessageboxInfo("No Payment added. save entry canceled.")
+            MessageBoxInfo("No Payment added. save entry canceled.")
             Exit Sub
         End If
 
@@ -580,30 +567,30 @@ B.ID = ii.BATCH_ID
             TsSaveFile.Enabled = False
         End If
 
-        If gsNew = True Then
+        If IsNew = True Then
 
             lblCASHIER_ID.Text = gsCashier_ID
-            lblCODE.Text = fNEXT_CODE("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
+            lblCODE.Text = GetNextCode("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
             lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text = gsDRAWER_ACCOUNT_ID 'POS user only
             lblDEPOSITED.Text = "0"
 
-            Dim squery As String = fFieldCollector(Me)
-            gsID = fObjectTypeMap_ID("SALES_RECEIPT")
-            squery = squery & ",ID='" & gsID & "',RECORDED_ON='" & Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss") & "',STATUS='3',STATUS_DATE='" & Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss") & "'"
-            squery = fNullOTherField(squery, "SALES_RECEIPT")
 
-            fExecutedOnly("INSERT INTO sales_receipt SET " & squery & ";")
+            SqlCreate(Me, SQL_FIELD, SQL_VALUE)
+            ID = ObjectTypeMapId("SALES_RECEIPT")
+            SqlExecuted($"INSERT INTO sales_receipt ({SQL_FIELD},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_VALUE},{ID},{GetDateTimeNowSql()},3,{GetDateTimeNowSql()})")
+
+
             fTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(gsID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", fNumisNULL(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
             tChangeAccept = True
-            Dim squery As String = fFieldCollector(Me)
-            squery = squery & " WHERE ID = '" & gsID & "' limit 1;"
+            Dim squery As String = SqlUpdate(Me)
+            squery = squery & " WHERE ID = '" & ID & "' limit 1;"
 
-            fExecutedOnly("UPDATE sales_receipt SET " & squery)
-            fTransaction_Log(gsID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", fNumisNULL(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SqlExecuted("UPDATE sales_receipt SET " & squery)
+            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -612,38 +599,34 @@ B.ID = ii.BATCH_ID
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
 
-            fAccount_Journal_SQL(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, gsID, CDate(dtpDATE.Value), 0, fNumisNULL(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
-            If fNumisNULL(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
-                fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, gsID, CDate(dtpDATE.Value), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
+            fAccount_Journal_SQL(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
+                fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, ID, CDate(dtpDATE.Value), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                fAccount_Journal_SQL(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, gsID, CDate(dtpDATE.Value), 1, fNumisNULL(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                fAccount_Journal_SQL(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
 
         End If
         '================================
 
-        If gsNew = True Then
-
+        If IsNew = True Then
             If OR_REF = False Then
-
                 fUPDATE_NEXT_RECEIPT_NO()
             Else
-                fExecutedOnly("Update pos_machine SET NEXT_RECEIPT_NO = '" & Val(txtPAYMENT_REF_NO.Text) + 1 & "' where ID = '" & gsPOS_MACHINE_ID & "' limit 1;")
+                SqlExecuted("Update pos_machine SET NEXT_RECEIPT_NO = '" & Val(txtPAYMENT_REF_NO.Text) + 1 & "' where ID = '" & gsPOS_MACHINE_ID & "' limit 1;")
             End If
 
         End If
-        fPOS_TENDER(gsID)
-        '   fSaveItem()  ' Save item
-        fSales_Receipt_Save_Item_Set(gsID, dgvProductItem, cmbOUTPUT_TAX_ID, cmbLOCATION_ID, dtpDATE)
-
-        If fTransactionCheck(gsID, "SALES_RECEIPT") = False Then
-            fMessageboxWarning("Please try again")
+        PosTender(ID)
+        SaveSalesReceiptItem(ID, dgvProductItem, cmbOUTPUT_TAX_ID, cmbLOCATION_ID, dtpDATE)
+        If IsTransactionSuccess(ID, "SALES_RECEIPT") = False Then
+            MessageBoxWarning("Please try again")
             Exit Sub
         End If
 
 
         bSaveAccept = True
-        fSavePopUp(Me, gsNew)
+        SaveNotify(Me, IsNew)
 
 
         If gsSTARTING_RECEIPT_NO = 0 Then
@@ -653,52 +636,47 @@ B.ID = ii.BATCH_ID
             gsENDING_RECEIPT_NO = Val(txtPAYMENT_REF_NO.Text)
         End If
 
-        gsNew = False
+        IsNew = False
         TsSaveFile.Enabled = True
 
     End Sub
 
-    Private Sub fPOS_TENDER(ByVal SALES_RECEIPT_ID As Integer)
+    Private Sub PosTender(ByVal SALES_RECEIPT_ID As Integer)
 
         For I As Integer = 0 To dgvTENDER_LIST.Rows.Count - 1
 
             Dim R As DataGridViewRow = dgvTENDER_LIST.Rows(I)
-            Dim rd As OdbcDataReader = fReader($"select * from sales_receipt_tender where SALES_RECEIPT_ID = '{SALES_RECEIPT_ID}' and PAYMENT_METHOD_ID ='{R.Cells("PAYMENT_METHOD_ID").Value}' and POS_LOG_ID ='{lblPOS_LOG_ID.Text}' limit 5;")
+            Dim rd As OdbcDataReader = SqlReader($"select * from sales_receipt_tender where SALES_RECEIPT_ID = '{SALES_RECEIPT_ID}' and PAYMENT_METHOD_ID ='{R.Cells("PAYMENT_METHOD_ID").Value}' and POS_LOG_ID ='{lblPOS_LOG_ID.Text}' limit 5;")
             If rd.Read Then
                 If R.Visible = True Then
-                    fExecutedOnly($"UPDATE sales_receipt_tender  SET AMOUNT = '{R.Cells("AMOUNT").Value}',PAYMENT_REF_NO='{R.Cells("PAYMENT_REF_NO").Value}',CARD_NO='{R.Cells("CARD_NO").Value}'  WHERE SALES_RECEIPT_ID = '{SALES_RECEIPT_ID}' and PAYMENT_METHOD_ID ='{R.Cells("PAYMENT_METHOD_ID").Value}' and POS_LOG_ID ='{lblPOS_LOG_ID.Text}' limit 1;")
+                    SqlExecuted($"UPDATE sales_receipt_tender  SET AMOUNT = '{R.Cells("AMOUNT").Value}',PAYMENT_REF_NO='{R.Cells("PAYMENT_REF_NO").Value}',CARD_NO='{R.Cells("CARD_NO").Value}'  WHERE SALES_RECEIPT_ID = '{SALES_RECEIPT_ID}' and PAYMENT_METHOD_ID ='{R.Cells("PAYMENT_METHOD_ID").Value}' and POS_LOG_ID ='{lblPOS_LOG_ID.Text}' limit 1;")
                 Else
-                    fExecutedOnly($"DELETE FROM sales_receipt_tender WHERE SALES_RECEIPT_ID = '{SALES_RECEIPT_ID}' and PAYMENT_METHOD_ID ='{R.Cells("PAYMENT_METHOD_ID").Value}' and POS_LOG_ID ='{lblPOS_LOG_ID.Text}' limit 1; ")
+                    SqlExecuted($"DELETE FROM sales_receipt_tender WHERE SALES_RECEIPT_ID = '{SALES_RECEIPT_ID}' and PAYMENT_METHOD_ID ='{R.Cells("PAYMENT_METHOD_ID").Value}' and POS_LOG_ID ='{lblPOS_LOG_ID.Text}' limit 1; ")
                 End If
             Else
 
-                fExecutedOnly($"INSERT INTO sales_receipt_tender  SET AMOUNT = '{R.Cells("AMOUNT").Value}',PAYMENT_REF_NO='{R.Cells("PAYMENT_REF_NO").Value}',CARD_NO='{R.Cells("CARD_NO").Value}',SALES_RECEIPT_ID = '{SALES_RECEIPT_ID}',PAYMENT_METHOD_ID ='{R.Cells("PAYMENT_METHOD_ID").Value}',POS_LOG_ID ='{lblPOS_LOG_ID.Text}';")
+                SqlExecuted($"INSERT INTO sales_receipt_tender  SET AMOUNT = '{R.Cells("AMOUNT").Value}',PAYMENT_REF_NO='{R.Cells("PAYMENT_REF_NO").Value}',CARD_NO='{R.Cells("CARD_NO").Value}',SALES_RECEIPT_ID = '{SALES_RECEIPT_ID}',PAYMENT_METHOD_ID ='{R.Cells("PAYMENT_METHOD_ID").Value}',POS_LOG_ID ='{lblPOS_LOG_ID.Text}';")
             End If
             rd.Close()
 
         Next
 
     End Sub
-    Private Sub fSetNew()
-        fclear_Info()
+    Private Sub SetNew()
+        ClearInfoPOS()
         dgvProductItem.Rows.Clear()
         dgvTENDER_LIST.Rows.Clear()
-        fComputed()
-        gsID = ""
-        gsNew = True
+        POSComputed()
+        ID = ""
+        IsNew = True
         gsMemberDiscount = 0
         lblPAYMENT_AMOUNT.Text = "0.00"
         xlblChange.Text = "0.00"
-        fComputed()
+        POSComputed()
     End Sub
-    'Private Sub fSaveItem()
-
-
-
-    'End Sub
-    Private Sub cmbOUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
-        fComputed()
-        Select Case fNumisNULL(cmbOUTPUT_TAX_ID.SelectedValue)
+    Private Sub OUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
+        POSComputed()
+        Select Case NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue)
             Case 14
                 xlblTax.Text = " 0% VAT"
             Case 12
@@ -710,10 +688,10 @@ B.ID = ii.BATCH_ID
 
         Try
 
-            Dim rd As OdbcDataReader = fReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & fNumisNULL(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblOUTPUT_TAX_VAT_METHOD.Text = fTextisNULL(rd("VAT_METHOD"))
-                lblOUTPUT_TAX_ACCOUNT_ID.Text = fTextisNULL(rd("TAX_ACCOUNT_ID"))
+                lblOUTPUT_TAX_VAT_METHOD.Text = TextIsNull(rd("VAT_METHOD"))
+                lblOUTPUT_TAX_ACCOUNT_ID.Text = TextIsNull(rd("TAX_ACCOUNT_ID"))
             Else
                 lblOUTPUT_TAX_VAT_METHOD.Text = ""
                 lblOUTPUT_TAX_ACCOUNT_ID.Text = ""
@@ -725,16 +703,16 @@ B.ID = ii.BATCH_ID
         End Try
     End Sub
 
-    Private Sub fEditItem()
+    Private Sub EditItem()
         Try
 
             If dgvProductItem.Rows.Count = 0 Then
-                fMessageboxExclamation("Data Not Found!")
+                MessageBoxExclamation("Data Not Found!")
                 Exit Sub
             End If
 
             If Val(lblPAYMENT_AMOUNT.Text) <> 0 Then
-                fMessageboxInfo($"Please remove {xlblTender.Text} amount")
+                MessageBoxInfo($"Please remove {xlblTender.Text} amount")
                 Exit Sub
             End If
 
@@ -743,20 +721,20 @@ B.ID = ii.BATCH_ID
 
             Dim d As DataGridViewRow = dgvProductItem.Rows(I)
             If d.Cells("ITEM_TYPE").Value = 5 Then
-                fMessageboxInfo("Invalid to Edit")
+                MessageBoxInfo("Invalid to Edit")
                 Exit Sub
-            ElseIf fDISCOUNT_ITEM(d.Cells("ITEM_TYPE").Value) = True Then
-                fMessageboxInfo("Invalid to Edit")
+            ElseIf IsDiscountItem(d.Cells("ITEM_TYPE").Value) = True Then
+                MessageBoxInfo("Invalid to Edit")
                 Exit Sub
-            ElseIf fNumisNULL(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
-                fMessageboxInfo("Invalid to Edit")
+            ElseIf NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
+                MessageBoxInfo("Invalid to Edit")
                 Exit Sub
             End If
             Dim GROUP_LINE_ID As Integer = 0
             tsITEM_MENU_TOOLS.Enabled = False
             With frmAddItem
 
-                If fNumisNULL(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
+                If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
                     bAlreadySave = True
@@ -793,43 +771,34 @@ B.ID = ii.BATCH_ID
 
                 End If
             End With
-            fComputed()
+            POSComputed()
             frmAddItem.Dispose()
             frmAddItem = Nothing
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
         End Try
         tsITEM_MENU_TOOLS.Enabled = True
     End Sub
 
-
-
-    Private Sub lklEdit_LinkClicked()
-        fEditItem()
-    End Sub
-    Private Sub dgvProductItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellClick
+    Private Sub ProductItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellClick
         If e.ColumnIndex = 9 Then
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
             fTax_Value(dgvProductItem)
-            fComputed()
+            POSComputed()
         End If
     End Sub
-    Private Sub dgvProductItem_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellContentClick
-
+    Private Sub ProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvProductItem.KeyDown
+        Master_KeyDown(sender, e)
     End Sub
 
-    Private Sub dgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvProductItem.KeyDown
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub dgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
-        fEditItem()
+    Private Sub ProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
+        EditItem()
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
@@ -837,7 +806,7 @@ B.ID = ii.BATCH_ID
 
     Private Sub dgvProductItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvProductItem.RowsAdded
         If bRefreshItem = False Then
-            fComputed()
+            POSComputed()
         End If
 
     End Sub
@@ -848,18 +817,18 @@ B.ID = ii.BATCH_ID
 
     Private Function fGET_GRAND_TOTAL(ByVal prDATE As Date) As Double
         Dim G_TOTAL As Double = 0
-        Dim rd As OdbcDataReader = fReader($"SELECT pl.`GRAND_TOTAL`
+        Dim rd As OdbcDataReader = SqlReader($"SELECT pl.`GRAND_TOTAL`
 FROM
   sales_receipt AS sr 
   INNER JOIN pos_log AS pl 
     ON pl.`ID` = sr.`POS_LOG_ID` 
-WHERE sr.`DATE` < '{fDateFormatMYSQL(prDATE)}' AND
+WHERE sr.`DATE` < '{DateFormatMySql(prDATE)}' AND
 sr.`POS_MACHINE_ID` = '{gsPOS_MACHINE_ID}' and sr.LOCATION_ID = '{gsDefault_LOCATION_ID}'
 ORDER BY sr.`DATE` DESC, sr.`ID` DESC 
 LIMIT 1")
 
         If rd.Read Then
-            G_TOTAL = fNumisNULL(rd("GRAND_TOTAL"))
+            G_TOTAL = NumIsNull(rd("GRAND_TOTAL"))
 
         End If
 
@@ -873,8 +842,8 @@ LIMIT 1")
         'Me.Height = H_PC
         'Me.Location = New Point(0, 0)
 
-        fdgvItemDisplay(dgvProductItem)
-        fDgvNotSort(dgvProductItem)
+        ViewItemDisplay(dgvProductItem)
+        ViewNotSort(dgvProductItem)
 
         Dim IsExit As Boolean = False
         With frmPOSTransactionList
@@ -900,11 +869,11 @@ LIMIT 1")
 
         Dim bStartNew As Boolean = False
         'POS LOG
-        Dim rd As OdbcDataReader = fReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID,TRANSACTION_DATE,RECORDED_ON FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and ID ='{gsPOS_LOG_ID}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and CASHIER_ID = '{gsCashier_ID}' ORDER BY ID DESC Limit 1;")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID,TRANSACTION_DATE,RECORDED_ON FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and ID ='{gsPOS_LOG_ID}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and CASHIER_ID = '{gsCashier_ID}' ORDER BY ID DESC Limit 1;")
         If rd.Read Then
-            LOG_DATE = fDateTimeFormatStandard(rd("RECORDED_ON"))
+            LOG_DATE = DateTimeFormatMySql(rd("RECORDED_ON"))
 
-            If fNumisNULL(rd("CASH_COUNT_ID")) <> 0 Then
+            If NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
                 FrmPOSLogSwitch.ShowDialog()
                 bStartNew = FrmPOSLogSwitch.gsStartNew
                 FrmPOSLogSwitch.Dispose()
@@ -915,12 +884,12 @@ LIMIT 1")
                 GoTo NewPOS_LOG
             End If
 
-            gsSTARTING_RECEIPT_NO = fNumisNULL(rd("STARTING_RECEIPT_NO"))
-            gsPOS_LOG_ID = fNumisNULL(rd("ID"))
-            gsSTARTING_CASH_ID = fNumisNULL(rd("STARTING_CASH_ID"))
-            gsStartingCash_Amount = fNumFieldValue("pos_starting_cash", "ID", gsSTARTING_CASH_ID, "AMOUNT")
-            gsENDING_RECEIPT_NO = fNumisNULL(rd("ENDING_RECEIPT_NO"))
-            gsCASH_COUNT_ID = fNumisNULL(rd("CASH_COUNT_ID"))
+            gsSTARTING_RECEIPT_NO = NumIsNull(rd("STARTING_RECEIPT_NO"))
+            gsPOS_LOG_ID = NumIsNull(rd("ID"))
+            gsSTARTING_CASH_ID = NumIsNull(rd("STARTING_CASH_ID"))
+            gsStartingCash_Amount = GetNumberFieldValue("pos_starting_cash", "ID", gsSTARTING_CASH_ID, "AMOUNT")
+            gsENDING_RECEIPT_NO = NumIsNull(rd("ENDING_RECEIPT_NO"))
+            gsCASH_COUNT_ID = NumIsNull(rd("CASH_COUNT_ID"))
             gsPOS_DATE = CDate(rd("TRANSACTION_DATE"))
         Else
 NewPOS_LOG:
@@ -934,16 +903,16 @@ NewPOS_LOG:
                 frmPOSStartingCash = Nothing
             End If
 
-            gsSTARTING_CASH_ID = fObjectTypeMap_ID("POS_STARTING_CASH")
+            gsSTARTING_CASH_ID = ObjectTypeMapId("POS_STARTING_CASH")
 
-            LOG_DATE = fDateTimeNow()
+            LOG_DATE = GetDateTimeNowSql()
 
-            fExecutedOnly($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{gsStartingCash_Amount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
+            SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{gsStartingCash_Amount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
             fPOS_STARTING_CASH_JOURNAL(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
             fPOS_LOG()
         End If
         rd.Close()
-        fPOS_LOG_MENU()
+        PosLogMenu()
         Exit Sub
 
 
@@ -955,7 +924,7 @@ NewPOS_LOG:
         f.Close()
     End Sub
     Private Sub fCreateMenu(ByVal prName As String, ByVal prDesplay As String, ByVal f As Form)
-        h = h + 163
+        h += 163
         f.Size = New Size(h, f.Height)
         Dim b As New Button
         b.Font = New Font(gsFont, 20, FontStyle.Bold)
@@ -968,8 +937,8 @@ NewPOS_LOG:
         gsPublicButton = b
     End Sub
 
-    Private Sub fPOSTypeEntry(ByVal f As Form)
-        Dim rd As OdbcDataReader = fReader("select * from pos_machine_type_map  where inactive = '0' order by id desc")
+    Private Sub POSTypeEntry(ByVal f As Form)
+        Dim rd As OdbcDataReader = SqlReader("select * from pos_machine_type_map  where inactive = '0' order by id desc")
         While rd.Read
             Dim id As Integer = rd("ID")
             Dim sName As String = "&" & rd("DESCRIPTION")
@@ -978,15 +947,12 @@ NewPOS_LOG:
         rd.Close()
         h = 0
     End Sub
-    Private Sub fLoadMenu()
-
-
-
+    Private Sub LoadMenu()
         Select Case Val(gsPOS_TYPE_ID)
 
             Case 0
                 'Cash Registry
-                fclear_Info()
+                ClearInfoPOS()
 
                 fDefaultAccountLoad()
 
@@ -1001,7 +967,7 @@ NewPOS_LOG:
                     cmbPAYMENT_METHOD_ID_SelectedIndexChanged(0, EventArgs.Empty)
                 End If
 
-                lblCODE.Text = fNEXT_CODE_Preview("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
+                lblCODE.Text = NextCodePreview("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
                 lblPOS_MACHINE_ID.Text = gsPOS_MACHINE_ID
                 lblPOS_TIMESTAMP.Text = Format(DateTime.Now, "yyyy-MM-dd hh:mm:ss")
                 lblPOS_POSTED.Text = "1"
@@ -1011,7 +977,7 @@ NewPOS_LOG:
 
             Case 1
                 'Order Entry 
-                fclear_Info()
+                ClearInfoPOS()
 
                 fDefaultAccountLoad()
 
@@ -1027,12 +993,12 @@ NewPOS_LOG:
                 lblPOS_POSTED.Text = "0"
         End Select
 
-        ' fpaymethod()
-        fComputed()
+        ' PaymentMethodPOS()
+        POSComputed()
     End Sub
-    Private Sub cmbCUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
+    Private Sub CUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
 
-        Dim s As String = ""
+        Dim s As String
 
         Try
             s = cmbCUSTOMER_ID.SelectedValue
@@ -1041,14 +1007,14 @@ NewPOS_LOG:
         End Try
 
         If cmbCUSTOMER_ID Is Nothing Then Exit Sub
-        ' If gsNew = False Then Exit Sub
+        ' If IsNew = False Then Exit Sub
         If cmbCUSTOMER_ID.Text = "" Then Exit Sub
         xlblCustomer_Name.Text = cmbCUSTOMER_ID.Text
-        xlblAcctNo.Text = fGetFieldValue("CONTACT", "ID", cmbCUSTOMER_ID.SelectedValue, "ACCOUNT_NO")
-        Dim rd As OdbcDataReader = fReader($"select TAX_ID from contact where id ='{s}' and `type` = '1' limit 1 ")
+        xlblAcctNo.Text = GetStringFieldValue("CONTACT", "ID", cmbCUSTOMER_ID.SelectedValue, "ACCOUNT_NO")
+        Dim rd As OdbcDataReader = SqlReader($"select TAX_ID from contact where id ='{s}' and `type` = '1' limit 1 ")
         If rd.Read Then
-            If fNumisNULL(rd("TAX_ID")) <> 0 Then
-                cmbOUTPUT_TAX_ID.SelectedValue = fNumisNULL(rd("TAX_ID"))
+            If NumIsNull(rd("TAX_ID")) <> 0 Then
+                cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
 
             Else
                 cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
@@ -1058,23 +1024,18 @@ NewPOS_LOG:
         End If
         rd.Close()
     End Sub
-
-
-
-
-
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
-        If gsNew = True Then
-            fSaveEntry()
+        If IsNew = True Then
+            POSSaveEntry()
 
         Else
-            If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+            If CheckHasChange() = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    fSaveEntry()
+                    POSSaveEntry()
 
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -1083,11 +1044,7 @@ NewPOS_LOG:
             End If
         End If
 
-        If gsNew = False Then
-
-            'If fACCESS_PRINT_PREVIEW(Me) = False Then
-            '    Exit Sub
-            'End If
+        If IsNew = False Then
 
             Dim cn As New OleDb.OleDbConnection(fMS_Con)
             Dim prFile_name As String = ""
@@ -1107,7 +1064,7 @@ NewPOS_LOG:
             End Try
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fReportParam()
+            POSReportParam()
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
@@ -1115,8 +1072,8 @@ NewPOS_LOG:
 
         End If
     End Sub
-    Private Sub fReportParam()
-        fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+    Private Sub POSReportParam()
+        fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
@@ -1124,18 +1081,18 @@ NewPOS_LOG:
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyTin"), "tin_number")
 
     End Sub
-    Private Sub tsPrintNow_Click(sender As Object, e As EventArgs) Handles tsPrintNow.Click
-        If gsNew = True Then
-            fSaveEntry()
+    Private Sub PrintNow_Click(sender As Object, e As EventArgs) Handles tsPrintNow.Click
+        If IsNew = True Then
+            POSSaveEntry()
 
         Else
-            If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+            If CheckHasChange() = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    fSaveEntry()
+                    POSSaveEntry()
 
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -1148,6 +1105,7 @@ NewPOS_LOG:
         If bSaveAccept = True Then
 
             fSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
+
             Dim cn As New OleDb.OleDbConnection(fMS_Con)
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
@@ -1167,8 +1125,8 @@ NewPOS_LOG:
             End Try
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
-            fReportParam()
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            POSReportParam()
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -1179,16 +1137,15 @@ NewPOS_LOG:
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
-        If gsNew = True Then
-            fSaveEntry()
+        If IsNew = True Then
+            POSSaveEntry()
         Else
-            If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+            If CheckHasChange() = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    fSaveEntry()
-
+                    POSSaveEntry()
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -1196,56 +1153,33 @@ NewPOS_LOG:
                 End If
             End If
         End If
-        If gsNew = False Then
-            fTransactionJournal(gsID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 52, 5, cmbCUSTOMER_ID.Text, lblCODE.Text, txtNOTES.Text)
+        If IsNew = False Then
+            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 52, 5, cmbCUSTOMER_ID.Text, lblCODE.Text, txtNOTES.Text)
         End If
     End Sub
-
-    Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles ToolStripButton5.Click
-
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
-        If gsNew = True Then
-            fSetNew()
+    Private Sub Discard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+        If IsNew = True Then
+            SetNew()
         Else
-            If fMessageBoxQuestion("Create new?") = True Then
-                fSetNew()
+            If MessageBoxQuestion("Create new?") = True Then
+                SetNew()
             Else
 
-                fRefreshInfo(gsID)
-                fRefreshItem(gsID)
+                POSRefreshInfo(ID)
+                RefreshItem(ID)
             End If
 
         End If
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(gsID, Me)
+        fHistoryList(ID, Me)
     End Sub
-
-    Private Sub ToolStripLabel7_Click(sender As Object, e As EventArgs) Handles ToolStripLabel7.Click
-
-    End Sub
-
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, gsID)
+        fTransactionLog(Me, ID)
     End Sub
 
-    Private Sub txtNOTES_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label13_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label14_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-
-    Private Sub frmPOSmenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub POSmenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         If gsCloseCall = True Then
             bActiveFirst = False
             frmSplash.Show()
@@ -1256,85 +1190,34 @@ NewPOS_LOG:
         End If
     End Sub
 
-    Private Sub tsCustomer_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsTax_Click(sender As Object, e As EventArgs)
-
-
-
-    End Sub
-    Private Sub fpaymethod()
-        ' xlblPaymentMethod.Text = "P. Method : " & cmbPAYMENT_METHOD_ID.Text & IIf(txtPAYMENT_REF_NO.Text.Length = 0, "", vbNewLine & lbslREF_No.Text & " : ") & txtPAYMENT_REF_NO.Text & IIf(txtCARD_NO.Text.Length = 0, "", vbNewLine & lbslCARD_NO.Text & " : ") & txtCARD_NO.Text
-
+    Private Sub PaymentMethodPOS()
         xlblTender.Text = "PAYMENT TENDER"
-        lblPAYMENT_AMOUNT.Text = fNumFormatStandard(fTenderSum())
-        xlblChange.Text = fNumFormatStandard(fNumisNULL(lblAMOUNT.Text) - fNumisNULL(lblPAYMENT_AMOUNT.Text))
-
-
+        lblPAYMENT_AMOUNT.Text = NumberFormatStandard(TenderSum())
+        xlblChange.Text = NumberFormatStandard(NumIsNull(lblAMOUNT.Text) - NumIsNull(lblPAYMENT_AMOUNT.Text))
     End Sub
-    Private Function fTenderSum() As Double
-        Dim AMT As Double = 0
-
+    Private Function TenderSum() As Double
+        Dim Amount As Double = 0
         For i As Integer = 0 To dgvTENDER_LIST.Rows.Count - 1
             If dgvTENDER_LIST.Rows(i).Visible = True Then
-                AMT = AMT + dgvTENDER_LIST.Rows(i).Cells("AMOUNT").Value
-                ' txtNOTES.Text = txtNOTES.Text & $"TYPE->{dgvTENDER_LIST.Rows(i).Cells("METHOD").Value}/ REF#->{dgvTENDER_LIST.Rows(i).Cells("PAYMENT_REF_NO").Value.ToString.Replace("'", "")}/ OTHER No.->{dgvTENDER_LIST.Rows(i).Cells("CARD_NO").Value.ToString.Replace("'", "")}"
-                'METHOD,PAYMENT_REF_NO,CARD_NO,
+                Amount += NumIsNull(dgvTENDER_LIST.Rows(i).Cells("AMOUNT").Value)
             End If
         Next
-        Return AMT
+        Return Amount
     End Function
     Private Sub cmbPAYMENT_METHOD_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_METHOD_ID.SelectedIndexChanged
-        fpaymethod()
+        PaymentMethodPOS()
     End Sub
 
     Private Sub fReset()
-        fclear_Info()
-
+        ClearInfoPOS()
     End Sub
-
-
-
-
     Private Sub frmPOSmenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If gsCloseCall = True Then
             e.Cancel = False
         Else
             e.Cancel = True
         End If
-
-
-
-
     End Sub
-
-    Private Sub tsTendered_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsExit_Click(sender As Object, e As EventArgs)
-        fPOS_LOG_MENU()
-
-    End Sub
-
-    Private Sub btnEdit_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsSalesRep_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub cmbSALES_REP_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSALES_REP_ID.SelectedIndexChanged
         Try
             Dim s As String = cmbSALES_REP_ID.SelectedValue
@@ -1342,107 +1225,24 @@ NewPOS_LOG:
             Exit Sub
         End Try
         If cmbSALES_REP_ID Is Nothing Then Exit Sub
-        If gsNew = False Then Exit Sub
+        If IsNew = False Then Exit Sub
         If cmbSALES_REP_ID.Text = "" Then Exit Sub
         xlblSalesRep.Text = cmbSALES_REP_ID.Text
-    End Sub
-    Private Sub tsPrintReceipt_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs)
-        tsCustomer_Click(sender, e)
-    End Sub
-
-
-
-    Private Sub TaxToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        tsTax_Click(sender, e)
-    End Sub
-
-    Private Sub SalesRepToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        tsSalesRep_Click(sender, e)
-    End Sub
-
-    Private Sub ClassToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub OrderListToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        tsOrderEntry_Click(sender, e)
-    End Sub
-
-    Private Sub tsOrderEntry_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub TenderedToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        tsTendered_Click(sender, e)
-    End Sub
-
-    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        tsPrintReceipt_Click(sender, e)
-    End Sub
-
-    Private Sub DrawerToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsOpenDrawer_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    'Private Sub ResetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ResetToolStripMenuItem.Click
-    '    tsReset_Click(sender, e)
-    'End Sub
-
-
-
-    Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-
-    Private Sub tsAddItem_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub tsEditItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsRemoveItem_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub tsTextFind_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsTextFind_TextChanged(sender As Object, e As EventArgs)
-        fGetQuickFind(dgvProductItem, txtSearchEntry.Text)
     End Sub
 
     Private Sub fResetFile()
         If dgvProductItem.Rows.Count <> 0 Then
-            If fMessageBoxQuestion("Do you want to reset?") = False Then
+            If MessageBoxQuestion("Do you want to reset?") = False Then
                 Exit Sub
             End If
         End If
-        fLoadMenu()
+        LoadMenu()
 
     End Sub
 
-    Private Sub MaterialRaisedButton7_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub fSaveFile()
+    Private Sub SaveFile()
         If dgvProductItem.Rows.Count = 0 Then
-            fMessageboxInfo("No item entry")
+            MessageBoxInfo("No item entry")
             Exit Sub
         End If
 
@@ -1458,13 +1258,13 @@ NewPOS_LOG:
 
         bSaveAccept = False
 
-        fSaveEntry()
+        POSSaveEntry()
 
         If bSaveAccept = True Then
             If PrintSave = False Then
                 fCollect_POSLog()
                 fPOS_LOG()
-                fPOS_LOG_MENU()
+                PosLogMenu()
             End If
 
         End If
@@ -1472,9 +1272,9 @@ NewPOS_LOG:
         PrintSave = False
 
     End Sub
-    Private Sub fPrintSave(ByVal IsOption As Boolean)
+    Private Sub PrintAndSave(ByVal IsOption As Boolean)
         If dgvProductItem.Rows.Count = 0 Then
-            fMessageboxInfo("No item entry")
+            MessageBoxInfo("No item entry")
             Exit Sub
         End If
         PrintSave = True
@@ -1494,12 +1294,12 @@ NewPOS_LOG:
             PrintSave = False
             fCollect_POSLog()
             fPOS_LOG()
-            fPOS_LOG_MENU()
+            PosLogMenu()
         End If
 
 
     End Sub
-    Private Sub ftaxFile()
+    Private Sub TaxFile()
         frmPOSTax.ShowDialog()
         If frmPOSTax.gsOk = True Then
             cmbOUTPUT_TAX_ID.SelectedValue = frmPOSTax.gsTax_Id
@@ -1511,26 +1311,13 @@ NewPOS_LOG:
 
     End Sub
 
-    Private Sub BtnSavePrint_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub MaterialRaisedButton9_Click(sender As Object, e As EventArgs)
-        '  tsOpenDrawer_Click(sender, e)
-    End Sub
-
-
-    Private Sub BtnTAX_Click(sender As Object, e As EventArgs)
-        '    fPrintSave(False)
-    End Sub
-    Private Sub fBuyer()
+    Private Sub CustomerLoad()
 
         frmPOSContacts.gsContact_Type = 1
         frmPOSContacts.ShowDialog()
 
         If frmPOSContacts.gsOK = True Then
-            fComboBox(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+            ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
 
             cmbCUSTOMER_ID.SelectedValue = frmPOSContacts.gsContact_ID
         Else
@@ -1540,16 +1327,14 @@ NewPOS_LOG:
         frmPOSContacts = Nothing
 
         If bNewContact = True Then
-            frmContactDetails.bNew = True
-            '  frmContactDetails.PictureBox1.Image = tsCustomer.Image
-            frmContactDetails.gsContact_Type = 1
+            frmContactDetails.IsNew = True
+            frmContactDetails.ContactTypeId = 1
             frmContactDetails.ShowDialog()
             If frmContactDetails.gsOK = True Then
                 xlblCustomer_Name.Text = ""
                 xlblAcctNo.Text = ""
-
-                fComboBox(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-                cmbCUSTOMER_ID.SelectedValue = frmContactDetails.gsID
+                ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+                cmbCUSTOMER_ID.SelectedValue = frmContactDetails.ID
             End If
             frmContactDetails.Dispose()
             frmContactDetails = Nothing
@@ -1559,17 +1344,18 @@ NewPOS_LOG:
 
 
 
-    Private Sub fMember()
+    Private Sub EmployeeLoad()
+
         frmPOSContacts.gsContact_Type = 2
         frmPOSContacts.ShowDialog()
 
         If frmPOSContacts.gsOK = True Then
             If frmPOSContacts.gsContact_ID = 0 Then
-                fComboBox(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedIndex = -1
                 xlblSalesRep.Text = ""
             Else
-                fComboBox(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedValue = frmPOSContacts.gsContact_ID
             End If
         Else
@@ -1579,132 +1365,35 @@ NewPOS_LOG:
         frmPOSContacts = Nothing
         If bNewContact = True Then
             '   frmContactDetails.PictureBox1.Image = tsSalesRep.Image
-            frmContactDetails.bNew = True
-            frmContactDetails.gsContact_Type = 2
+            frmContactDetails.IsNew = True
+            frmContactDetails.ContactTypeId = 2
             frmContactDetails.ShowDialog()
             If frmContactDetails.gsOK = True Then
                 xlblSalesRep.Text = ""
-                fComboBox(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
-                cmbSALES_REP_ID.SelectedValue = frmContactDetails.gsID
+                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                cmbSALES_REP_ID.SelectedValue = frmContactDetails.ID
             End If
             frmContactDetails.Dispose()
             frmContactDetails = Nothing
             bNewContact = False
         End If
     End Sub
-    Private Sub BtnSALESMAN_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub BtnBACK_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub BtnFIND_Click(sender As Object, e As EventArgs)
-        'With frmPOSFindEntry
-        '    .ShowDialog()
-        '    If .GetID <> 0 Then
-        '        fclear_Info()
-        '        gsID = .GetID
-        '        gsNew = False
-        '        fRefreshInfo(gsID)
-        '        fRefreshItem(gsID)
-        '        fGet_TENDER_LIST()
-        '        Dim P As Double = lblPAYMENT_AMOUNT.Text
-        '        lblPAYMENT_AMOUNT.Text = fNumFormatStandard(P)
-        '    End If
-        'End With
-    End Sub
-
-    Private Sub btnSave_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnSavePrint_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnTAX_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnBACK_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnCUSTOMER_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnDISCON_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnDrawer_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnFIND_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnITEMLIST_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnORDER_ENTRY_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnPaymentMethod_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnSALESMAN_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles xlblChangeLab.Click
-
-    End Sub
-
-    Private Sub LblOUTPUT_TAX_AMOUNT_Click(sender As Object, e As EventArgs) Handles lblOUTPUT_TAX_AMOUNT.Click
-
-    End Sub
-
-    Private Sub ToolStrip2_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles tsITEM_MENU_TOOLS.ItemClicked
-
-    End Sub
-
     Private Sub ToolStrip2_KeyDown(sender As Object, e As KeyEventArgs) Handles tsITEM_MENU_TOOLS.KeyDown
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub Panel1_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub TsTextFind_Click_1(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsTextFind_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-
+        Master_KeyDown(sender, e)
     End Sub
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
-        If gsNew = True Then
-            fSaveEntry()
+        If IsNew = True Then
+            POSSaveEntry()
 
         Else
-            If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+            If CheckHasChange() = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    fSaveEntry()
+                    POSSaveEntry()
 
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -1713,7 +1402,7 @@ NewPOS_LOG:
             End If
         End If
 
-        If gsNew = True Then
+        If IsNew = True Then
             Exit Sub
         End If
 
@@ -1741,8 +1430,8 @@ NewPOS_LOG:
             End Try
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
-            fReportParam()
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            POSReportParam()
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             If v = 2 Then
@@ -1750,7 +1439,7 @@ NewPOS_LOG:
 
                 frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-                frmReportViewer.Text = "POS Preview " & fDateTimeNow()
+                frmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
                 frmReportViewer.WindowState = FormWindowState.Normal
                 frmReportViewer.ShowDialog()
                 frmReportViewer.Dispose()
@@ -1765,26 +1454,14 @@ NewPOS_LOG:
         frmPrintPage.Dispose()
         frmPrintPage = Nothing
     End Sub
-
-    Private Sub FlowLayoutPanel1_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
-
-    Private Sub LblPAYMENT_AMOUNT_Click(sender As Object, e As EventArgs) Handles lblPAYMENT_AMOUNT.Click
-
-    End Sub
-
-    Private Sub lblPAYMENT_AMOUNT_TextChanged(sender As Object, e As EventArgs) Handles lblPAYMENT_AMOUNT.TextChanged
-
-    End Sub
-    Private Sub fPayment()
+    Private Sub PaymentModeFunc()
         If dgvProductItem.Rows.Count = 0 Then
-            fMessageboxInfo("Please enter item.")
+            MessageBoxInfo("Please enter item.")
             Exit Sub
         End If
 
         If dgvTENDER_LIST.Rows.Count <> 0 Then
-            Dim N As Integer = fMessageBoxQuestionYesNoCancel($"Please select payment option? {vbNewLine}{vbNewLine} Edit payment = [YES] {vbNewLine}{vbNewLine} Add Payment = [NO] {vbNewLine}{vbNewLine} ")
+            Dim N As Integer = MessageBoxQuestionYesNoCancel($"Please select payment option? {vbNewLine}{vbNewLine} Edit payment = [YES] {vbNewLine}{vbNewLine} Add Payment = [NO] {vbNewLine}{vbNewLine} ")
             If N = 1 Then
                 fEditPayment()
 
@@ -1797,15 +1474,12 @@ NewPOS_LOG:
         End If
 
     End Sub
-    Private Sub btnPaymentOption_Click(sender As Object, e As EventArgs)
 
-    End Sub
     Private Sub fSet_From_Main()
         For I As Integer = 0 To dgvTENDER_LIST.Rows.Count - 1
             Dim R As DataGridViewRow = dgvTENDER_LIST.Rows(I)
             If dgvTENDER_LIST.Rows.Count = 1 Then
                 If R.Visible = True Then
-
                     txtPAYMENT_REF_NO.Text = R.Cells("PAYMENT_REF_NO").Value
                     txtCARD_NO.Text = R.Cells("CARD_NO").Value
                     cmbPAYMENT_METHOD_ID.SelectedValue = R.Cells("PAYMENT_METHOD_ID").Value
@@ -1818,14 +1492,14 @@ NewPOS_LOG:
     Private Sub fAddPayment()
         With frmPOSPayment
 
-            .gsTransTotal = fNumisNULL(lblAMOUNT.Text)
+            .gsTransTotal = NumIsNull(lblAMOUNT.Text)
 
             .numAMOUNT.Visible = True
-            fComboBox(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+            ComboBoxLoad(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
             .gsPaymentMethod_ID = fPaymentMethodDefault()
             .gsPAYMENT_REF_NO = ""
             .gsCARD_NO = ""
-            .gsAMOUNT = fNumFormatFixed(lblAMOUNT.Text)
+            .gsAMOUNT = NumberFormatFixed(lblAMOUNT.Text)
             .gsNOTES = txtNOTES.Text
 
             .ShowDialog()
@@ -1837,14 +1511,14 @@ NewPOS_LOG:
                     If R.Cells("PAYMENT_METHOD_ID").Value = .gsPaymentMethod_ID Then
                         txtNOTES.Text = .gsNOTES
 
-                        If fMessageBoxQuestion("Payment Type already exists. do you want to replace?") = True Then
+                        If MessageBoxQuestion("Payment Type already exists. do you want to replace?") = True Then
                             R.Visible = True
                             R.Cells("AMOUNT").Value = .gsAMOUNT
                             R.Cells("PAYMENT_REF_NO").Value = .gsPAYMENT_REF_NO
                             R.Cells("CARD_NO").Value = .gsCARD_NO
-                            fpaymethod()
+                            PaymentMethodPOS()
                         Else
-                            fMessageboxInfo("Cancel proccess.")
+                            MessageBoxInfo("Cancel proccess.")
                         End If
 
                         Exit Sub
@@ -1855,7 +1529,7 @@ NewPOS_LOG:
 
                 dgvTENDER_LIST.Rows.Add(.gsPaymentMethod_ID, .cmbPAYMENT_METHOD_ID.Text, .gsAMOUNT, .gsPAYMENT_REF_NO, .gsCARD_NO)
 
-                fpaymethod()
+                PaymentMethodPOS()
                 fSet_From_Main()
             End If
             .Dispose()
@@ -1883,44 +1557,24 @@ NewPOS_LOG:
         'ss
     End Sub
 
-    Private Sub btnORDERLIST_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub btnAddPaymentOption_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub DgvTENDER_LIST_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
-
-    End Sub
-
-    Private Sub btnEditPaymentOption_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles xlblAcctNo.Click
-
-    End Sub
     Private Sub fEditPayment()
         If dgvProductItem.Rows.Count = 0 Then
-            fMessageboxInfo("Please enter item.")
+            MessageBoxInfo("Please enter item.")
             Exit Sub
         End If
         If dgvTENDER_LIST.Rows.Count = 0 Then
 
-            fMessageboxInfo("No payment selected")
+            MessageBoxInfo("No payment selected")
             Exit Sub
 
 
         End If
 
         With frmPOSPayment
-            .gsTransTotal = fNumisNULL(lblAMOUNT.Text)
+            .gsTransTotal = NumIsNull(lblAMOUNT.Text)
             .btnDelete.Visible = True
             .numAMOUNT.Visible = True
-            fComboBox(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+            ComboBoxLoad(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
             .gsPaymentMethod_ID = dgvTENDER_LIST.CurrentRow.Cells("PAYMENT_METHOD_ID").Value
             .gsPAYMENT_REF_NO = dgvTENDER_LIST.CurrentRow.Cells("PAYMENT_REF_NO").Value
             .gsCARD_NO = dgvTENDER_LIST.CurrentRow.Cells("CARD_NO").Value
@@ -1936,92 +1590,78 @@ NewPOS_LOG:
                         R.Cells("AMOUNT").Value = .gsAMOUNT
                         R.Cells("PAYMENT_REF_NO").Value = .gsPAYMENT_REF_NO
                         R.Cells("CARD_NO").Value = .gsCARD_NO
-                        fpaymethod()
+                        PaymentMethodPOS()
                         fSet_From_Main()
                         Exit For
                     End If
 
                 Next
-                fpaymethod()
+                PaymentMethodPOS()
 
             ElseIf .gsRemove = True Then
                 dgvTENDER_LIST.CurrentRow.Visible = False
-                fpaymethod()
+                PaymentMethodPOS()
             End If
             .Dispose()
         End With
         frmPOSPayment = Nothing
     End Sub
-    Private Sub btnAddPaymentOption_DoubleClick(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub dgvTENDER_LIST_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
-
-    End Sub
-
-    Private Sub btnITEMLIST_Click(sender As Object, e As EventArgs)
-
-
-
-    End Sub
-
     Private Sub tsRefresh_Click(sender As Object, e As EventArgs) Handles tsRefresh.Click
         fResetFile()
     End Sub
 
     Private Sub TsSaveFile_Click(sender As Object, e As EventArgs) Handles TsSaveFile.Click
-        fSaveFile()
+        SaveFile()
     End Sub
 
     Private Sub tsTax_Click_1(sender As Object, e As EventArgs) Handles tsTax.Click
-        ftaxFile()
+        TaxFile()
     End Sub
 
     Private Sub tsBuyer_Click(sender As Object, e As EventArgs) Handles tsBuyer.Click
-        fBuyer()
+        CustomerLoad()
     End Sub
 
     Private Sub tsSalesman_Click(sender As Object, e As EventArgs) Handles tsSalesman.Click
-        fMember()
+        EmployeeLoad()
     End Sub
 
     Private Sub ToolStripButton10_Click(sender As Object, e As EventArgs) Handles tsPayment.Click
-        fPayment()
+        PaymentModeFunc()
     End Sub
 
     Private Sub ToolStripButton11_Click(sender As Object, e As EventArgs) Handles tsBack.Click
         If dgvProductItem.Rows.Count <> 0 Then
 
-            If fMessageBoxQuestion("Are you sure want to back?") = False Then
+            If MessageBoxQuestion("Are you sure want to back?") = False Then
                 Exit Sub
             End If
         End If
 
-        fPOS_LOG_MENU()
+        PosLogMenu()
     End Sub
 
     Private Sub tsDeleteItem_Click(sender As Object, e As EventArgs) Handles tsDeleteItem.Click
         If dgvProductItem.Rows.Count <> 0 Then
             dgvProductItem.Select()
             fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
-            fComputed()
+            POSComputed()
         End If
     End Sub
 
     Private Sub tsUpdateItem_Click(sender As Object, e As EventArgs) Handles tsUpdateItem.Click
-        fEditItem()
+        EditItem()
         dgvProductItem.Focus()
     End Sub
 
     Private Sub tsAdd_Click(sender As Object, e As EventArgs) Handles tsAdd.Click
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
-            fMessageboxInfo("Please select customer")
+            MessageBoxInfo("Please select customer")
             Exit Sub
         End If
 
         If Val(lblPAYMENT_AMOUNT.Text) <> 0 Then
-            fMessageboxInfo($"Please remove {xlblTender.Text} amount")
+            MessageBoxInfo($"Please remove {xlblTender.Text} amount")
             Exit Sub
         End If
 
@@ -2060,7 +1700,7 @@ NewPOS_LOG:
             .ShowDialog()
 
         End With
-        fComputed()
+        POSComputed()
         frmAddItemSidePanel.Dispose()
         frmAddItemSidePanel = Nothing
         dgvProductItem.Focus()
@@ -2072,7 +1712,7 @@ NewPOS_LOG:
     End Sub
 
     Private Sub txtSearchEntry_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearchEntry.KeyDown
-        fMaster_KeyDown(sender, e)
+        Master_KeyDown(sender, e)
     End Sub
 
     Private Sub dgvTENDER_LIST_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTENDER_LIST.CellContentClick
@@ -2080,7 +1720,7 @@ NewPOS_LOG:
     End Sub
 
     Private Sub dgvTENDER_LIST_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvTENDER_LIST.KeyDown
-        fMaster_KeyDown(sender, e)
+        Master_KeyDown(sender, e)
     End Sub
 
     Private Sub xlblSalesRep_Click(sender As Object, e As EventArgs) Handles xlblSalesRep.Click
@@ -2090,4 +1730,6 @@ NewPOS_LOG:
     Private Sub StatusStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles StatusStrip1.ItemClicked
 
     End Sub
+
+
 End Class

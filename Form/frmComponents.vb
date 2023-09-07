@@ -29,21 +29,21 @@ Public Class frmComponents
             xRate.Visible = False
 
             Me.Text = "Item Hours"
-            fComboBox(cmbCode, gsItemCodeHoursList, "ID", "CODE")
-            fComboBox(cmbDescription, gsItemDescriptionHoursList, "ID", "DESCRIPTION")
+            ComboBoxLoad(cmbCode, gsItemCodeHoursList, "ID", "CODE")
+            ComboBoxLoad(cmbDescription, gsItemDescriptionHoursList, "ID", "DESCRIPTION")
 
         ElseIf Me.CausesValidation = True Then
             Me.Text = "Item Components"
-            fComboBox(cmbCode, gsItemCodeAssembly, "ID", "CODE")
-            fComboBox(cmbDescription, gsItemDescriptionAssembly, "ID", "DESCRIPTION")
+            ComboBoxLoad(cmbCode, gsItemCodeAssembly, "ID", "CODE")
+            ComboBoxLoad(cmbDescription, gsItemDescriptionAssembly, "ID", "DESCRIPTION")
         Else
             Me.Text = "Item Group"
-            fComboBox(cmbCode, gsItemCodeGROUP, "ID", "CODE")
-            fComboBox(cmbDescription, gsItemDescriptionGROUP, "ID", "DESCRIPTION")
+            ComboBoxLoad(cmbCode, gsItemCodeGROUP, "ID", "CODE")
+            ComboBoxLoad(cmbDescription, gsItemDescriptionGROUP, "ID", "DESCRIPTION")
         End If
 
 
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
         If gsNew = True Then
             numQty.Value = 1
             btnOK.Text = "&Add"
@@ -77,14 +77,14 @@ Public Class frmComponents
 
     Private Sub SearchItemToolStripMenuItem_Click(sender As Object, e As EventArgs)
         'Try
-        '    f.AccessibleName = "A"
-        '    f.Size = New Point(gsMainWith - 50, gsMainHeight - 50)
-        '    f.ShowDialog()
-        '    If f.AccessibleDescription <> "" Then
-        '        If f.AccessibleDescription <> "cancel" Then
-        '            cmbCode.SelectedValue = f.AccessibleDescription
+        '    Frm.AccessibleName = "A"
+        '    Frm.Size = New Point(gsMainWith - 50, gsMainHeight - 50)
+        '    Frm.ShowDialog()
+        '    If Frm.AccessibleDescription <> "" Then
+        '        If Frm.AccessibleDescription <> "cancel" Then
+        '            cmbCode.SelectedValue = Frm.AccessibleDescription
 
-        '            fBlueLight(numQty)
+        '            BlueLight(numQty)
         '            numQty.Focus()
 
         '        End If
@@ -96,15 +96,15 @@ Public Class frmComponents
     End Sub
 
     Private Sub cmbCode_LostFocus(sender As Object, e As EventArgs) Handles cmbCode.LostFocus
-        If fNumisNULL(cmbCode.SelectedValue) <> 0 Then
-            fBlueLight(numQty)
+        If NumIsNull(cmbCode.SelectedValue) <> 0 Then
+            BlueLight(numQty)
             numQty.Focus()
         End If
     End Sub
 
     Private Sub cmbDescription_LostFocus(sender As Object, e As EventArgs) Handles cmbDescription.LostFocus
-        If fNumisNULL(cmbDescription.SelectedValue) <> 0 Then
-            fBlueLight(numQty)
+        If NumIsNull(cmbDescription.SelectedValue) <> 0 Then
+            BlueLight(numQty)
             numQty.Focus()
         End If
     End Sub
@@ -114,7 +114,7 @@ Public Class frmComponents
     End Sub
 
     Private Sub numRate_GotFocus(sender As Object, e As EventArgs) Handles numRate.GotFocus
-        fBlueLight(numRate)
+        BlueLight(numRate)
     End Sub
 
     Private Sub numQty_ValueChanged(sender As Object, e As EventArgs) Handles numQty.ValueChanged
@@ -122,7 +122,7 @@ Public Class frmComponents
     End Sub
 
     Private Sub numQty_GotFocus(sender As Object, e As EventArgs) Handles numQty.GotFocus
-        fBlueLight(numQty)
+        BlueLight(numQty)
     End Sub
 
     Private Sub FileToolStripMenuItem_Click(sender As Object, e As EventArgs)
@@ -131,17 +131,17 @@ Public Class frmComponents
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If cmbCode.Text = "" Then
-            fMessageboxExclamation("Invalid item code")
+            MessageBoxExclamation("Invalid item code")
             Exit Sub
         ElseIf cmbDescription.Text = "" Then
-            fMessageboxExclamation("Invalid description")
+            MessageBoxExclamation("Invalid description")
             Exit Sub
         ElseIf numQty.Value = 0 Then
-            fMessageboxExclamation("Please enter quantity")
+            MessageBoxExclamation("Please enter quantity")
             Exit Sub
         End If
 
-        'gsID = cmbCode.SelectedValue
+        'ID = cmbCode.SelectedValue
         'gsQty = numQty.Value
         'gsRate = numRate.Value
 

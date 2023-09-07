@@ -77,13 +77,13 @@ WHERE EXISTS
     AND J.LOCATION_ID = a.`LOCATION_ID` AND a.`JOURNAL_NO` <  j.`JOURNAL_NO`)
 ORDER BY a.`ID`"
     Private Sub btnReferesh_Click(sender As Object, e As EventArgs) Handles btnReferesh.Click
-        fDataGridView_Standard(dgvCLASS, sQuery)
+        LoadDataGridViewStandard(dgvCLASS, sQuery)
         lblTotal.Text = "Total Record " & dgvCLASS.Rows.Count
 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        fCursorLoadingOn(True)
+        CursorLoadingOn(True)
 
         For i As Integer = 0 To dgvCLASS.Rows.Count - 1
 
@@ -95,8 +95,8 @@ ORDER BY a.`ID`"
             End With
             lblRunning.Text = "Total Progress " & (i + 1)
         Next
-        fCursorLoadingOn(False)
+        CursorLoadingOn(False)
 
-        fMessageboxInfo("Proccess Complete")
+        MessageBoxInfo("Proccess Complete")
     End Sub
 End Class

@@ -2,13 +2,13 @@
 Public Class frmInventoryAdjustmentType
     Dim item_BS As BindingSource
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvInventoryAdjustmentType, 43)
-        fDataGrid_Column(dgvInventoryAdjustmentType, 43)
+        ViewSwitch(dgvInventoryAdjustmentType, 43)
+        ViewColumn(dgvInventoryAdjustmentType, 43)
 
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvInventoryAdjustmentType, "select i.ID,i.Code,i.Description, a.`Name`  as `Account` from Inventory_Adjustment_Type as i left outer join account as a on a.ID = i.account_id", item_BS)
-        fDataGrid_Column(dgvInventoryAdjustmentType, 43)
+        LoadDataGridViewBinding(dgvInventoryAdjustmentType, "select i.ID,i.Code,i.Description, a.`Name`  as `Account` from Inventory_Adjustment_Type as i left outer join account as a on a.ID = i.account_id", item_BS)
+        ViewColumn(dgvInventoryAdjustmentType, 43)
     End Sub
     Private Sub frmInventoryAdjustmentType_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
@@ -35,7 +35,7 @@ Public Class frmInventoryAdjustmentType
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         Try
             If dgvInventoryAdjustmentType.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found!")
+                MessageBoxInfo("Data not found!")
                 Exit Sub
             End If
             If fACCESS_NEW_EDIT(Me, False) = False Then
@@ -45,7 +45,7 @@ Public Class frmInventoryAdjustmentType
 
             frmInventoryAdjustmentTypeDetails.This_BS = item_BS
             frmInventoryAdjustmentTypeDetails.Dgv = dgvInventoryAdjustmentType
-            frmInventoryAdjustmentTypeDetails.gsID = dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("ID").Value
+            frmInventoryAdjustmentTypeDetails.ID = dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("ID").Value
             frmInventoryAdjustmentTypeDetails.ShowDialog()
             frmInventoryAdjustmentTypeDetails.Dispose()
             frmInventoryAdjustmentTypeDetails = Nothing
@@ -60,7 +60,7 @@ Public Class frmInventoryAdjustmentType
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvInventoryAdjustmentType.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found!")
+                MessageBoxInfo("Data not found!")
                 Exit Sub
             End If
 
@@ -68,9 +68,9 @@ Public Class frmInventoryAdjustmentType
                 Exit Sub
             End If
 
-            If fMessageBoxQuestion("Do you really want to delete " & dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("Description").Value & "?") = True Then
-                fExecutedOnly("Delete FROM inventory_adjustment_type where id = '" & dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("ID").Value & "'")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Do you really want to delete " & dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("Description").Value & "?") = True Then
+                SqlExecuted("Delete FROM inventory_adjustment_type where id = '" & dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("ID").Value & "'")
+                DeleteNotify(Me)
                 fRefresh()
             End If
 

@@ -5,13 +5,13 @@
     Private Sub fRefreshData()
         Dim SQL As String = "select cd.`ID`,cd.`CODE`,cd.`DESCRIPTION`,cd.NOMINAL_VALUE as `NOMINAL VALUE`,ct.DESCRIPTION as `TYPE`, if( cd.`INACTIVE`=0,'No','Yes') as `INACTIVE` from pos_cash_denomination  as cd inner join pos_cash_type_map as ct on ct.id = cd.type "
 
-        fDataGridView_Binding(dgvList, SQL, item_BS)
+        LoadDataGridViewBinding(dgvList, SQL, item_BS)
 
         With dgvList.Columns
             .Item(0).Visible = False
             .Item(3).DefaultCellStyle.Format = "N2"
         End With
-        fDataGrid_Column(dgvList, 47)
+        ViewColumn(dgvList, 47)
 
     End Sub
     Private Sub fSearchload()
@@ -53,14 +53,14 @@
     End Sub
 
     Private Sub Tscolumn_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvList, 47) ' 2 = for vendor
+        ViewSwitch(dgvList, 47) ' 2 = for vendor
 
-        fDataGrid_Column(dgvList, 46) ' 2 = for vendor
+        ViewColumn(dgvList, 46) ' 2 = for vendor
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
         With frmPOSCashDenominationDetails
-            .gsID = 0
+            .ID = 0
             .ShowDialog()
             If .gsOK = True Then
                 fRefreshData()
@@ -73,7 +73,7 @@
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvList.Rows.Count = 0 Then
-            fMessageboxInfo("data not found.")
+            MessageBoxInfo("data not found.")
             Exit Sub
         End If
         If fACCESS_DELETE(Me) = False Then
@@ -81,15 +81,15 @@
         End If
 
 
-        If fMessageBoxQuestion("Are you sure to delete this cash denomination?") = True Then
+        If MessageBoxQuestion("Are you sure to delete this cash denomination?") = True Then
             Try
                 dgvList.Select()
                 Dim ID As Integer = dgvList.CurrentRow.Cells(0).Value
-                fExecutedOnly($"delete from pos_cash_denomination where id = '{ID}' limit 1;")
-                fDeletePopUp(Me)
+                SqlExecuted($"delete from pos_cash_denomination where id = '{ID}' limit 1;")
+                DeleteNotify(Me)
                 fRefreshData()
             Catch ex As Exception
-                fMessageboxExclamation(ex.Message)
+                MessageBoxExclamation(ex.Message)
             End Try
         End If
 
@@ -99,13 +99,13 @@
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         If dgvList.Rows.Count = 0 Then
-            fMessageboxInfo("data not found.")
+            MessageBoxInfo("data not found.")
             Exit Sub
         End If
 
         With frmPOSCashDenominationDetails
             dgvList.Select()
-            .gsID = dgvList.CurrentRow.Cells(0).Value
+            .ID = dgvList.CurrentRow.Cells(0).Value
             .ShowDialog()
             If .gsOK = True Then
                 fRefreshData()

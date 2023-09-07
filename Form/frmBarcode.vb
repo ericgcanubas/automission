@@ -26,7 +26,7 @@ Public Class frmBarcode
             PictureBox1.Image.Save(Application.StartupPath & $"/image/barcode/{BCODE}.png")
 
         Next
-        fMessageboxInfo("Auto save image complete.")
+        MessageBoxInfo("Auto save image complete.")
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click

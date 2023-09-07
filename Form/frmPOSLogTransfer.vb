@@ -28,10 +28,10 @@ FROM
     ON s.`ID`  = p.`STARTING_CASH_ID`
     LEFT OUTER JOIN pos_cash_count AS cc 
     ON cc.`ID` = p.`CASH_COUNT_ID`
-    WHERE p.`ID` <> '{ThisPOSlogID}' and p.`LOCATION_ID` = '{ThisLocationID}' and date(p.RECORDED_ON) ='{fDateFormatMYSQL(ThisPOS_DATE)}' 
+    WHERE p.`ID` <> '{ThisPOSlogID}' and p.`LOCATION_ID` = '{ThisLocationID}' and date(p.RECORDED_ON) ='{DateFormatMySql(ThisPOS_DATE)}' 
     ORDER BY p.`RECORDED_ON` desc"
 
-        fDataGridView(dgvPOSLog, sql)
+        LoadDataGridView(dgvPOSLog, sql)
 
     End Sub
 
@@ -39,30 +39,30 @@ FROM
 
         If dgvPOSLog.Rows.Count <> 0 Then
             Dim TransferPOSLogID As Integer = dgvPOSLog.CurrentRow.Cells(0).Value
-            If fMessageBoxQuestion("Are you sure want to transfer ?") = True Then
+            If MessageBoxQuestion("Are you sure want to transfer ?") = True Then
 
                 'POS CASH COUNT
                 fPOS_LOG_JOURNAL_DELETE(ThisPOSlogID, gsCASH_OVER_SHORT_EXPENSES, ThisPOS_DATE)
-                fExecutedOnly($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
-                fExecutedOnly($"UPDATE sales_receipt SET CASH_COUNT_ID =null WHERE POS_LOG_ID='{ThisPOSlogID}' ")
-                fExecutedOnly($"DELETE FROM  pos_cash_count WHERE ID ='{ThisPOS_Cash_Count_ID}'")
+                SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
+                SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID =null WHERE POS_LOG_ID='{ThisPOSlogID}' ")
+                SqlExecuted($"DELETE FROM  pos_cash_count WHERE ID ='{ThisPOS_Cash_Count_ID}'")
 
 
                 'POS STARTING CASH
                 fPOS_STARTING_CASH_JOURNAL_Delete(ThisPOS_STARTING_CASH_ID, ThisPOS_DATE, ThisLocationID)
-                fExecutedOnly($"UPDATE pos_log SET STARTING_CASH_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
-                fExecutedOnly($"DELETE FROM pos_starting_cash WHERE id = '{ThisPOS_STARTING_CASH_ID}' limit 1;")
+                SqlExecuted($"UPDATE pos_log SET STARTING_CASH_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
+                SqlExecuted($"DELETE FROM pos_starting_cash WHERE id = '{ThisPOS_STARTING_CASH_ID}' limit 1;")
 
                 'Sales Receipt update from new POS log
-                fExecutedOnly($"UPDATE sales_receipt SET POS_LOG_ID ='{TransferPOSLogID}' WHERE POS_LOG_ID ='{ThisPOSlogID}'  and LOCATION_ID ='{ThisLocationID}' ")
+                SqlExecuted($"UPDATE sales_receipt SET POS_LOG_ID ='{TransferPOSLogID}' WHERE POS_LOG_ID ='{ThisPOSlogID}'  and LOCATION_ID ='{ThisLocationID}' ")
 
                 'REMOVE POS LOG
-                fExecutedOnly($"DELETE FROM pos_log WHERE id = '{ThisPOSlogID}' limit 1;")
+                SqlExecuted($"DELETE FROM pos_log WHERE id = '{ThisPOSlogID}' limit 1;")
 
 
 
                 Transfer_ClickOK = True
-                fMessageboxInfo("Successful.")
+                MessageBoxInfo("Successful.")
                 Me.Close()
 
 
@@ -71,26 +71,26 @@ FROM
         Else
 
             If ThisPOSlogID = 0 Then
-                fMessageboxInfo("Data not found.")
+                MessageBoxInfo("Data not found.")
 
                 Exit Sub
             End If
 
-            If fMessageboxWarningYesNo("Are you sure to delete This LOG?") = True Then
+            If MessageBoxWarningYesNo("Are you sure to delete This LOG?") = True Then
                 'POS CASH COUNT
                 fPOS_LOG_JOURNAL_DELETE(ThisPOSlogID, gsCASH_OVER_SHORT_EXPENSES, ThisPOS_DATE)
-                fExecutedOnly($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
-                fExecutedOnly($"UPDATE sales_receipt SET CASH_COUNT_ID =null WHERE POS_LOG_ID='{ThisPOSlogID}' ")
-                fExecutedOnly($"DELETE FROM  pos_cash_count WHERE ID ='{ThisPOS_Cash_Count_ID}'")
+                SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
+                SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID =null WHERE POS_LOG_ID='{ThisPOSlogID}' ")
+                SqlExecuted($"DELETE FROM  pos_cash_count WHERE ID ='{ThisPOS_Cash_Count_ID}'")
 
 
                 'POS STARTING CASH
                 fPOS_STARTING_CASH_JOURNAL_Delete(ThisPOS_STARTING_CASH_ID, ThisPOS_DATE, ThisLocationID)
-                fExecutedOnly($"UPDATE pos_log SET STARTING_CASH_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
-                fExecutedOnly($"DELETE FROM pos_starting_cash WHERE id = '{ThisPOS_STARTING_CASH_ID}' limit 1;")
+                SqlExecuted($"UPDATE pos_log SET STARTING_CASH_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
+                SqlExecuted($"DELETE FROM pos_starting_cash WHERE id = '{ThisPOS_STARTING_CASH_ID}' limit 1;")
 
                 'REMOVE POS LOG
-                fExecutedOnly($"DELETE FROM pos_log WHERE id = '{ThisPOSlogID}' limit 1;")
+                SqlExecuted($"DELETE FROM pos_log WHERE id = '{ThisPOSlogID}' limit 1;")
             End If
 
         End If

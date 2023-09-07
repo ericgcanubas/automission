@@ -11,7 +11,7 @@
 
     End Sub
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
@@ -20,7 +20,7 @@
     End Sub
     Private Sub fRefreshData()
 
-        fDataGridView_Binding(dgvCustomer, "SELECT 
+        LoadDataGridViewBinding(dgvCustomer, "SELECT 
   c.ID,
   c.Name,
   c.POSTAL_ADDRESS AS 'Postal Address',
@@ -57,7 +57,7 @@ WHERE c.Type = '1' ", contact_BS)
             .Item(0).Visible = False
 
         End With
-        fDataGrid_Column(dgvCustomer, "1")
+        ViewColumn(dgvCustomer, "1")
     End Sub
 
 
@@ -165,9 +165,9 @@ WHERE c.Type = '1' ", contact_BS)
             Exit Sub
         End If
 
-        frmContactDetails.gsContact_Type = "1"
-        frmContactDetails.bNew = True
-        frmContactDetails.gsID = 0
+        frmContactDetails.ContactTypeId = "1"
+        frmContactDetails.IsNew = True
+        frmContactDetails.ID = 0
         frmContactDetails.gsDgv = dgvCustomer
         frmContactDetails.this_BS = contact_BS
         frmContactDetails.ShowDialog()
@@ -184,14 +184,14 @@ WHERE c.Type = '1' ", contact_BS)
     End Sub
 
     Private Sub tsColumn_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvCustomer, 1)
+        ViewSwitch(dgvCustomer, 1)
 
-        fDataGrid_Column(dgvCustomer, 1)
+        ViewColumn(dgvCustomer, 1)
     End Sub
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvCustomer.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -202,19 +202,19 @@ WHERE c.Type = '1' ", contact_BS)
             Dim i As Integer = dgvCustomer.CurrentRow.Index
             Dim dID As String = dgvCustomer.Rows.Item(i).Cells(0).Value
             Dim dName As String = dgvCustomer.Rows.Item(i).Cells(1).Value
-            If fMessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
-                fExecutedOnly("Delete From contact where id='" & dID & "'")
+            If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
+                SqlExecuted("Delete From contact where id='" & dID & "'")
                 fRefreshData()
             End If
 
         Catch ex As Exception
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
     Private Sub tsUpdate_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         If dgvCustomer.Rows.Count = 0 Then
-            fMessageboxWarning("Data not found")
+            MessageBoxWarning("Data not found")
             Exit Sub
         End If
         Try
@@ -225,10 +225,10 @@ WHERE c.Type = '1' ", contact_BS)
             dgvCustomer.Focus()
             Dim i As Integer = dgvCustomer.CurrentRow.Index
             Dim dID As String = dgvCustomer.Rows.Item(i).Cells(0).Value
-            frmContactDetails.gsContact_Type = "1"
+            frmContactDetails.ContactTypeId = "1"
 
-            frmContactDetails.bNew = False
-            frmContactDetails.gsID = dID
+            frmContactDetails.IsNew = False
+            frmContactDetails.ID = dID
             frmContactDetails.this_BS = contact_BS
             frmContactDetails.gsDgv = dgvCustomer
             frmContactDetails.ShowDialog()

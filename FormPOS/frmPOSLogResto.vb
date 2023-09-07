@@ -4,13 +4,13 @@
     Private Sub frmPOSLogResto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.Icon = gsIcon
-        Me.Text = $"POS LOG Details #{gsPOS_LOG_ID}  Date on {fDateFormatStandard(gsPOS_DATE)}"
+        Me.Text = $"POS LOG Details #{gsPOS_LOG_ID}  Date on {DateFormatStandard(gsPOS_DATE)}"
 
         fLabel_Digital_M(lblTOTAL)
         fLabel_Digital_M(lblTransactionNo)
 
-        lblCashierName.Text = fGetFieldValue("contact", "ID", gsCashier_ID, "Name")
-        lblTOTAL.Text = fNumFormatStandard(gsPOS_TOTAL)
+        lblCashierName.Text = GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
+        lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
 
         lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
         fCOUNT_LOAD()
@@ -32,7 +32,7 @@
         End If
     End Sub
     Private Sub fPOS_COUNT()
-        gsCASH_COUNT_ID = fNumFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
+        gsCASH_COUNT_ID = GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
     End Sub
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         gsThemeNo = 0
@@ -48,31 +48,31 @@
         If gsPOS_SERVED_ONLY = False Then
 
             If gsSalesOrder_File_Name = "" Then
-                fMessageBoxQuestion("SO:No Report file found")
+                MessageBoxQuestion("SO:No Report file found")
                 Exit Sub
             End If
 
             If gsInvoice_File_Name = "" Then
-                fMessageBoxQuestion("NV:No Report file found")
+                MessageBoxQuestion("NV:No Report file found")
                 Exit Sub
             End If
 
 
             If gsPayment_File_Name = "" Then
-                fMessageBoxQuestion("PN:No Report file found")
+                MessageBoxQuestion("PN:No Report file found")
                 Exit Sub
             End If
 
         Else
 
             If gsInvoice_File_Name = "" Then
-                fMessageBoxQuestion("NV:No Report file found")
+                MessageBoxQuestion("NV:No Report file found")
                 Exit Sub
             End If
 
 
             If gsPayment_File_Name = "" Then
-                fMessageBoxQuestion("PN:No Report file found")
+                MessageBoxQuestion("PN:No Report file found")
                 Exit Sub
             End If
 
@@ -86,7 +86,7 @@
 
     Private Sub btnCC_Click(sender As Object, e As EventArgs) Handles btnCC.Click
         If gsRestoNotEmpty = True Then
-            fMessageboxInfo("Please transaction not cleared.")
+            MessageBoxInfo("Please transaction not cleared.")
             Exit Sub
         End If
 
@@ -106,7 +106,7 @@
 
 
         Else
-            fMessageboxInfo("No Sales Transaction")
+            MessageBoxInfo("No Sales Transaction")
         End If
 
     End Sub
@@ -120,8 +120,8 @@
         Dim prPrint_Title As String = "Sales By Customer Summary"
         gsToolPanelView = False
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "tdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         fCryParameterInsertValue(gscryRpt, "*", "customerid")
         fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         fCryParameterInsertValue(gscryRpt, "*", "statusid")
@@ -135,7 +135,7 @@
         fCryParameterInsertValue(gscryRpt, "", "treference")
 
         fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, fDateFormatStandard(gsPOS_DATE), "date_remark")
+        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, "", "amount_label")
         fCryParameterInsertValue(gscryRpt, "false", "accrual")
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
@@ -144,7 +144,7 @@
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Customer " & fDateTimeNow()
+        frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
         frmReportViewer.WindowState = FormWindowState.Maximized
         frmReportViewer.ShowDialog()
         frmReportViewer.Dispose()
@@ -156,8 +156,8 @@
         Dim prPrint_Title As String = "Sales By Item Summary"
         gsToolPanelView = False
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, fDateFormatMYSQL(gsPOS_DATE), "tdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         fCryParameterInsertValue(gscryRpt, "*", "customerid")
         fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         fCryParameterInsertValue(gscryRpt, "*", "statusid")
@@ -172,7 +172,7 @@
         fCryParameterInsertValue(gscryRpt, "", "treference")
 
         fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, fDateFormatStandard(gsPOS_DATE), "date_remark")
+        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, "", "amount_label")
         fCryParameterInsertValue(gscryRpt, "false", "accrual")
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
@@ -181,7 +181,7 @@
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Customer " & fDateTimeNow()
+        frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
         frmReportViewer.WindowState = FormWindowState.Maximized
         frmReportViewer.ShowDialog()
         frmReportViewer.Dispose()
@@ -189,13 +189,13 @@
 
     Private Sub fSalesReportReceipt()
         If gsRestoNotEmpty = True Then
-            fMessageboxInfo("Please transaction not cleared.")
+            MessageBoxInfo("Please transaction not cleared.")
             Exit Sub
         End If
 
         fMSgetFieldGetReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
         If gsResto_Sales__File_Name = "" Then
-            fMessageboxInfo("Report not set.")
+            MessageBoxInfo("Report not set.")
             Exit Sub
         End If
         '   Gmail("TEST11", "TEST", "ecanubas@ewgroup.com.ph")
@@ -207,7 +207,7 @@
         fCryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
 
-        fCryParameterInsertValue(gscryRpt, fNumFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
+        fCryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
         fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
 
@@ -217,7 +217,7 @@
         If gsAdmin_User = True Then
             gsToolPanelView = False
             frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
-            frmReportViewer.Text = "POS Preview " & fDateTimeNow()
+            frmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
             frmReportViewer.WindowState = FormWindowState.Normal
             frmReportViewer.ShowDialog()
             frmReportViewer.Dispose()
@@ -226,8 +226,8 @@
         End If
     End Sub
     Private Sub btnVOID_Click(sender As Object, e As EventArgs) Handles btnVOID.Click
-        If fNumisNULL(lblTransactionNo.Text) = 0 Then
-            fMessageboxInfo("No Entry available.")
+        If NumIsNull(lblTransactionNo.Text) = 0 Then
+            MessageBoxInfo("No Entry available.")
             Exit Sub
         End If
         fMSgetFieldGetReports(gsPayment_Print_Title, gsPayment_File_Name, frmReceivePayment.Name)

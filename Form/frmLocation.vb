@@ -15,12 +15,12 @@
     End Sub
 
     Private Sub frmLocation_Load(sender As Object, e As EventArgs) Handles Me.Load
-        fBackGroundImageStyle(Me)
+
         fRefreshList()
-        fDataGrid_Column(dgvLocation, "29")
+        ViewColumn(dgvLocation, "29")
     End Sub
     Private Sub fRefreshList()
-        fDataGridView_Binding(dgvLocation, "select  l.`ID`,l.`Code`,l.`Name`,ifnull(p.DESCRIPTION,'') as `Price level`,l.Inactive from location as l left outer join price_level as p on p.ID = l.price_level_id", item_BS)
+        LoadDataGridViewBinding(dgvLocation, "select  l.`ID`,l.`Code`,l.`Name`,ifnull(p.DESCRIPTION,'') as `Price level`,l.Inactive from location as l left outer join price_level as p on p.ID = l.price_level_id", item_BS)
 
         With dgvLocation.Columns
             .Item(0).Visible = False
@@ -29,13 +29,13 @@
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvLocation, 29)
+        ViewSwitch(dgvLocation, 29)
 
-        fDataGrid_Column(dgvLocation, 29)
+        ViewColumn(dgvLocation, 29)
     End Sub
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
@@ -70,11 +70,11 @@
             Exit Sub
         End If
 
-        If fMessageBoxQuestion("Are you sure to delete this location?") = True Then
+        If MessageBoxQuestion("Are you sure to delete this location?") = True Then
             Dim i As Integer = dgvLocation.CurrentRow.Index
 
-            fExecutedOnly("DELETE FROM location where ID = '" & dgvLocation.Rows(i).Cells("ID").Value & "' limit 1;")
-            fDeletePopUp(Me)
+            SqlExecuted("DELETE FROM location where ID = '" & dgvLocation.Rows(i).Cells("ID").Value & "' limit 1;")
+            DeleteNotify(Me)
             fRefreshList()
         End If
     End Sub

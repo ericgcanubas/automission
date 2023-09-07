@@ -1,8 +1,8 @@
 ﻿Public Class frmItemGroup
     Public Item_BS As BindingSource
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvItemGroup, 39)
-        fDataGrid_Column(dgvItemGroup, 39)
+        ViewSwitch(dgvItemGroup, 39)
+        ViewColumn(dgvItemGroup, 39)
     End Sub
 
     Private Sub frmItemGroup_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -10,8 +10,8 @@
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvItemGroup, "Select ig.ID,ig.Code,ig.Description,itm.Description as `Item Type` from item_group as ig inner join item_type_map as itm on itm.ID = ig.item_type ", Item_BS)
-        fDataGrid_Column(dgvItemGroup, 39)
+        LoadDataGridViewBinding(dgvItemGroup, "Select ig.ID,ig.Code,ig.Description,itm.Description as `Item Type` from item_group as ig inner join item_type_map as itm on itm.ID = ig.item_type ", Item_BS)
+        ViewColumn(dgvItemGroup, 39)
 
     End Sub
 
@@ -34,7 +34,7 @@
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         Try
             If dgvItemGroup.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -43,13 +43,13 @@
             End If
             frmItemGroupDetails.This_BS = Item_BS
             frmItemGroupDetails.Dgv = dgvItemGroup
-            frmItemGroupDetails.gsID = dgvItemGroup.Rows(dgvItemGroup.CurrentRow.Index).Cells("ID").Value
+            frmItemGroupDetails.ID = dgvItemGroup.Rows(dgvItemGroup.CurrentRow.Index).Cells("ID").Value
             frmItemGroupDetails.ShowDialog()
             frmItemGroupDetails.Dispose()
             frmItemGroupDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
 
     End Sub
@@ -57,7 +57,7 @@
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvItemGroup.Rows.Count = 0 Then
-                fMessageboxInfo("Data not found")
+                MessageBoxInfo("Data not found")
                 Exit Sub
             End If
 
@@ -65,14 +65,14 @@
                 Exit Sub
             End If
 
-            If fMessageBoxQuestion("Are you sure to delete this item group?") = True Then
-                fExecutedOnly("Delete from item_group where id = '" & dgvItemGroup.Rows(dgvItemGroup.CurrentRow.Index).Cells("ID").Value & "' limit 1")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Are you sure to delete this item group?") = True Then
+                SqlExecuted("Delete from item_group where id = '" & dgvItemGroup.Rows(dgvItemGroup.CurrentRow.Index).Cells("ID").Value & "' limit 1")
+                DeleteNotify(Me)
                 fRefresh()
             End If
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
     Private Sub dgvItemGroup_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItemGroup.CellDoubleClick

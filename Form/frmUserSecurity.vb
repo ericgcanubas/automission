@@ -12,13 +12,13 @@ Public Class frmUserSecurity
         FalseAll(trvMENU)
         Try
 
-            Dim rd As OdbcDataReader = fReader("select `NAME` as T from system_security where USER_ID = '" & prUser_ID & "' Limit 300")
+            Dim rd As OdbcDataReader = SqlReader("select `NAME` as T from system_security where USER_ID = '" & prUser_ID & "' Limit 300")
             While rd.Read
                 RefreshDataUser(trvMENU, rd("T"), True)
             End While
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 CheckInfo(prUser_ID)
             Else
                 End
@@ -90,7 +90,7 @@ Public Class frmUserSecurity
     End Function
     Private Sub fColumn()
 
-        fDatagridViewMode(dgvAccessControl)
+        DatagridViewMode(dgvAccessControl)
         With dgvAccessControl.Columns
             .Clear()
             .Add("SUB_ID", "SUB_ID")
@@ -119,16 +119,16 @@ Public Class frmUserSecurity
         Try
             trvMENU.Nodes.Clear()
             Dim i As Integer = 0
-            Dim rd As OdbcDataReader = fReader("select * from tblmenu  WHERE visible <> '0' ")
+            Dim rd As OdbcDataReader = SqlReader("select * from tblmenu  WHERE visible <> '0' ")
             trvMENU.BeginUpdate()
             While rd.Read
 
                 trvMENU.Nodes.Add(rd("MENU_ID"), rd("DESCRIPTION"))
                 trvMENU.Nodes.Item(i).NodeFont = New Font(trvMENU.Font, FontStyle.Bold)
 
-                Dim rd_sub As OdbcDataReader = fReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' and sm.active <> '0' order by sm.description")
+                Dim rd_sub As OdbcDataReader = SqlReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' and sm.active <> '0' order by sm.description")
                 While rd_sub.Read
-                    Dim T As Integer = fNumisNULL(rd_sub("access_control"))
+                    Dim T As Integer = NumIsNull(rd_sub("access_control"))
                     trvMENU.Nodes(i).Nodes.Add(rd_sub("sub_id"), rd_sub("description"), T)
                 End While
                 rd_sub.Close()
@@ -141,7 +141,7 @@ Public Class frmUserSecurity
 
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefreshList()
             Else
                 End
@@ -158,14 +158,14 @@ Public Class frmUserSecurity
         Dim user_id As Integer = gsSelect_User_ID
         Try
 
-            Dim rd As OdbcDataReader = fReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_security_access as u  on u.sub_id = s.sub_id and u.user_id = '" & user_id & "' where s.access_control = '1' and s.active <> '0' order by ml.menu_id,s.description")
+            Dim rd As OdbcDataReader = SqlReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_security_access as u  on u.sub_id = s.sub_id and u.user_id = '" & user_id & "' where s.access_control = '1' and s.active <> '0' order by ml.menu_id,s.description")
             While rd.Read
-                dgvAccessControl.Rows.Add(fNumisNULL(rd("IDx")), fTextisNULL(rd("description")), fNumisNULL(rd("NEW")), fNumisNULL(rd("EDIT")), fNumisNULL(rd("DELETE")), fNumisNULL(rd("FIND")), fNumisNULL(rd("PRINT_PREVIEW")), IIf(IsDBNull(rd("NEW")), "A", "S"))
+                dgvAccessControl.Rows.Add(NumIsNull(rd("IDx")), TextIsNull(rd("description")), NumIsNull(rd("NEW")), NumIsNull(rd("EDIT")), NumIsNull(rd("DELETE")), NumIsNull(rd("FIND")), NumIsNull(rd("PRINT_PREVIEW")), IIf(IsDBNull(rd("NEW")), "A", "S"))
             End While
             rd.Close()
         Catch ex As Exception
 
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 frefreshAccessControl()
             Else
                 End
@@ -279,14 +279,14 @@ Public Class frmUserSecurity
                     Else
                         'INSERT
                         Dim SQL_ As String = fAddSystemSecurity(tnC.Text, User_ID)
-                        fExecutedOnly(SQL_)
+                        SqlExecuted(SQL_)
                     End If
 
                 Else
                     If tnC.ToolTipText = "S" Then
                         'DELETE
                         Dim SQL_ As String = fDeleteSystemSecurity(tnC.Text, User_ID)
-                        fExecutedOnly(SQL_)
+                        SqlExecuted(SQL_)
                     End If
                 End If
 
@@ -300,14 +300,14 @@ Public Class frmUserSecurity
                             Else
                                 'INSERT
                                 Dim SQL_ As String = fAddSystemSecurity(n.Text, User_ID)
-                                fExecutedOnly(SQL_)
+                                SqlExecuted(SQL_)
                             End If
 
                         Else
                             If n.ToolTipText = "S" Then
                                 'DELETE
                                 Dim SQL_ As String = fDeleteSystemSecurity(n.Text, User_ID)
-                                fExecutedOnly(SQL_)
+                                SqlExecuted(SQL_)
                             End If
                         End If
 
@@ -325,10 +325,10 @@ Public Class frmUserSecurity
             frefreshAccessControl()
 
 
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
+            PrompNotify(Me.Text, SaveMsg, True)
 
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
         End Try
     End Sub
     Private Sub fUpdateDataAccessControl()
@@ -344,13 +344,13 @@ Public Class frmUserSecurity
                 'UPDATE 
                 sQuery = "UPDATE user_security_access SET `NEW`='" & Val(dt.Cells("NEW").Value) & "',`EDIT`='" & Val(dt.Cells("EDIT").Value) & "',`DELETE`='" & Val(dt.Cells("DELETE").Value) & "',`FIND`='" & Val(dt.Cells("FIND").Value) & "',`PRINT_PREVIEW`='" & Val(dt.Cells("PRINT_PREVIEW").Value) & "',`MODIFY`=NOW() WHERE `SUB_ID`='" & dt.Cells("SUB_ID").Value & "' and `USER_ID`='" & User_ID & "';"
             End If
-            fExecutedOnly(sQuery)
+            SqlExecuted(sQuery)
         Next
 
     End Sub
     Private Function fCheckingAccessControl(ByVal prSub_ID As String, ByVal prUser_ID As String) As Boolean
         Dim b As Boolean = False
-        Dim rd As OdbcDataReader = fReader("select * from user_security_access where sub_id ='" & prSub_ID & "' and user_id ='" & prUser_ID & "' limit 1")
+        Dim rd As OdbcDataReader = SqlReader("select * from user_security_access where sub_id ='" & prSub_ID & "' and user_id ='" & prUser_ID & "' limit 1")
         If rd.Read Then
             b = True
         End If
@@ -444,7 +444,7 @@ Public Class frmUserSecurity
     End Sub
 
     Private Sub frmUserSecurity_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fDgvNotSort(dgvAccessControl)
+        ViewNotSort(dgvAccessControl)
     End Sub
     Private Sub txtFind2_TextChanged(sender As Object, e As EventArgs) Handles txtFind2.TextChanged
         fGetQuickFind(dgvAccessControl, txtFind2.Text)

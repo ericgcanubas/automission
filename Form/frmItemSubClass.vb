@@ -5,20 +5,20 @@
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        fDataGridView_Binding(dgvSubClass, "select  isc.ID, isc.Code,isc.Description, ic.Description as `Class` from item_sub_class as isc  inner join item_class as ic on ic.id = isc.class_id ", item_BS)
-        fDataGrid_Column(dgvSubClass, 38)
+        LoadDataGridViewBinding(dgvSubClass, "select  isc.ID, isc.Code,isc.Description, ic.Description as `Class` from item_sub_class as isc  inner join item_class as ic on ic.id = isc.class_id ", item_BS)
+        ViewColumn(dgvSubClass, 38)
     End Sub
 
 
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        fDataGrid_Switch(dgvSubClass, 38)
+        ViewSwitch(dgvSubClass, 38)
 
-        fDataGrid_Column(dgvSubClass, 38)
+        ViewColumn(dgvSubClass, 38)
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -26,8 +26,8 @@
             Exit Sub
         End If
 
-        frmItemSubClassDetails.This_BS = item_BS
-        frmItemSubClassDetails.Dgv = dgvSubClass
+        frmItemSubClassDetails.BS = item_BS
+        frmItemSubClassDetails.View = dgvSubClass
         frmItemSubClassDetails.ShowDialog()
         frmItemSubClassDetails.Dispose()
         frmItemSubClassDetails = Nothing
@@ -37,22 +37,22 @@
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         Try
             If dgvSubClass.Rows.Count = 0 Then
-                fMessageboxInfo("Data now found!")
+                MessageBoxInfo("Data now found!")
                 Exit Sub
             End If
             If fACCESS_NEW_EDIT(Me, False) = False Then
                 Exit Sub
             End If
 
-            frmItemSubClassDetails.This_BS = item_BS
-            frmItemSubClassDetails.Dgv = dgvSubClass
-            frmItemSubClassDetails.gsID = dgvSubClass.Rows(dgvSubClass.CurrentRow.Index).Cells("ID").Value
+            frmItemSubClassDetails.BS = item_BS
+            frmItemSubClassDetails.View = dgvSubClass
+            frmItemSubClassDetails.ID = dgvSubClass.Rows(dgvSubClass.CurrentRow.Index).Cells("ID").Value
             frmItemSubClassDetails.ShowDialog()
             frmItemSubClassDetails.Dispose()
             frmItemSubClassDetails = Nothing
 
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
 
     End Sub
@@ -64,7 +64,7 @@
 
         Try
             If dgvSubClass.Rows.Count = 0 Then
-                fMessageboxInfo("Data now found!")
+                MessageBoxInfo("Data now found!")
                 Exit Sub
             End If
 
@@ -72,13 +72,13 @@
                 Exit Sub
             End If
 
-            If fMessageBoxQuestion("Are you sure to delete this item sub-class?") = True Then
-                fExecutedOnly("DELETE FROM item_sub_class where id = '" & dgvSubClass.Rows(dgvSubClass.CurrentRow.Index).Cells("ID").Value & "' limit 1")
-                fDeletePopUp(Me)
+            If MessageBoxQuestion("Are you sure to delete this item sub-class?") = True Then
+                SqlExecuted("DELETE FROM item_sub_class where id = '" & dgvSubClass.Rows(dgvSubClass.CurrentRow.Index).Cells("ID").Value & "' limit 1")
+                DeleteNotify(Me)
                 fRefresh()
             End If
         Catch ex As Exception
-            fMessageboxExclamation(ex.Message)
+            MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 

@@ -1,14 +1,12 @@
 ﻿
 Public Class frmThemeStyle
     Private Sub frmThemeStyle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fBackGroundImageStyle(Me)
-
         fRefreshData()
     End Sub
 
     Private Sub fRefreshData()
 
-        fDataGridView(dgvTheme, "Select * from theme ")
+        LoadDataGridView(dgvTheme, "Select * from theme ")
         dgvTheme.Columns(1).Visible = False
         dgvTheme.Columns(2).Visible = False
         dgvTheme.Columns(3).Visible = False
@@ -37,7 +35,7 @@ Public Class frmThemeStyle
             txtBACKGROUND_PATH.Text = dgvTheme.Rows(e.RowIndex).Cells(4).Value
 
         Catch ex As Exception
-            fMessageboxInfo(ex.Message)
+            MessageBoxInfo(ex.Message)
         End Try
 
     End Sub
@@ -54,9 +52,9 @@ Public Class frmThemeStyle
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If dgvTheme.Rows.Count = 0 Then Exit Sub
 
-        fExecutedOnly("update theme set active = '0' ")
-        fExecutedOnly("update theme set active = '1' where title = '" & txtTITLE.Text & "'")
-        fMessageboxInfo(txtTITLE.Text & " is apply")
+        SqlExecuted("update theme set active = '0' ")
+        SqlExecuted("update theme set active = '1' where title = '" & txtTITLE.Text & "'")
+        MessageBoxInfo(txtTITLE.Text & " is apply")
         fRefreshData()
     End Sub
 
@@ -77,12 +75,12 @@ Public Class frmThemeStyle
 
         If txtTITLE.Enabled = False Then
             'EDIT
-            fExecutedOnly("UPDATE theme  SET color_code = '" & txtCOLOR_CODE.Text & "',banner='" & txtBANNER_PATH.Text & "',left_banner='" & txtLEFT_BANNER_PATH.Text & "',background = '" & txtBACKGROUND_PATH.Text & "' WHERE title = '" & txtTITLE.Text & "'")
+            SqlExecuted("UPDATE theme  SET color_code = '" & txtCOLOR_CODE.Text & "',banner='" & txtBANNER_PATH.Text & "',left_banner='" & txtLEFT_BANNER_PATH.Text & "',background = '" & txtBACKGROUND_PATH.Text & "' WHERE title = '" & txtTITLE.Text & "'")
             fRefreshData()
 
         Else
             'New
-            fExecutedOnly("INSERT INTO theme  SET title = '" & txtTITLE.Text & "',color_code = '" & txtCOLOR_CODE.Text & "',banner='" & txtBANNER_PATH.Text & "',left_banner='" & txtLEFT_BANNER_PATH.Text & "',background = '" & txtBACKGROUND_PATH.Text & "'")
+            SqlExecuted("INSERT INTO theme  SET title = '" & txtTITLE.Text & "',color_code = '" & txtCOLOR_CODE.Text & "',banner='" & txtBANNER_PATH.Text & "',left_banner='" & txtLEFT_BANNER_PATH.Text & "',background = '" & txtBACKGROUND_PATH.Text & "'")
             fRefreshData()
         End If
     End Sub

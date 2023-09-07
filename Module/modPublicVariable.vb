@@ -177,7 +177,7 @@ Module modPublicVariable
 
 
     Public gsReportFileName As String
-    Public gsDocument_Finder_ID As String = ""
+    Public gsDocument_Finder_ID As Integer = 0
     Public gsHotKey As Boolean = False
 
     Public gsTextInvoice As String
@@ -205,7 +205,7 @@ Module modPublicVariable
     Public gsTextFundTransfer As String
     Public gsTextWriteCheck As String
 
-    Public gsCashier_ID As String
+    Public gsCashier_ID As Integer
     Public gsPOSEntryType As Integer
     Public gsPublicButton As Button
 

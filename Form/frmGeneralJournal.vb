@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Public Class frmGeneralJournal
-    Public gsID As String = gsDocument_Finder_ID
-    Public gsNew As Boolean = IIf(gsID = "", True, False)
+    Public ID As String = gsDocument_Finder_ID
+    Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim f As Form = New frmFindDocument
     Dim bItemRefresh As Boolean = False
     Dim tdgv As DataGridView
@@ -9,17 +9,16 @@ Public Class frmGeneralJournal
     Dim tChangeAccept As Boolean = False
     Private Function fCheckHasChange() As Boolean
         Dim HasChange As Boolean = False
-        Dim squery As String = fFieldCollector(Me)
+        Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
             HasChange = True
-        ElseIf fdgvChange(dgvDetails, tdgv) = True Then
+        ElseIf DataGridGotChange(dgvDetails, tdgv) = True Then
             HasChange = True
         End If
         Return HasChange
     End Function
     Private Sub frmGeneralJournal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tsTITLE.Text = gsSubMenuForm
-        fBackGroundImageStyle(Me)
         fColumnGrid()
         fClearInfo()
 
@@ -34,8 +33,8 @@ Public Class frmGeneralJournal
             .Item("CLASS").Width = 100
         End With
 
-        fDgvNotSort(dgvDetails)
-        If gsNew = False Then
+        ViewNotSort(dgvDetails)
+        If IsNew = False Then
             fRefresh_Details()
         End If
 
@@ -44,7 +43,7 @@ Public Class frmGeneralJournal
         dtpDATE.Checked = True
         dtpDATE.Value = Date.Now
         fRefreshCombox()
-        fCLean_and_refresh(Me)
+        ClearAndRefresh(Me)
 
         dgvDetails.Rows.Clear()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
@@ -83,13 +82,13 @@ Public Class frmGeneralJournal
         Dim c As Double = 0
         For i As Integer = 0 To dgv.Rows.Count - 1
             If dgv.Rows(i).Visible = True Then
-                d = d + fNumFormatFixed(fNumisNULL(dgv.Rows(i).Cells("DEBIT").Value))
-                c = c + fNumFormatFixed(fNumisNULL(dgv.Rows(i).Cells("CREDIT").Value))
+                d = d + NumberFormatFixed(NumIsNull(dgv.Rows(i).Cells("DEBIT").Value))
+                c = c + NumberFormatFixed(NumIsNull(dgv.Rows(i).Cells("CREDIT").Value))
             End If
         Next
 
-        lbld.Text = fNumFormatStandard(d)
-        lblc.Text = fNumFormatStandard(c)
+        lbld.Text = NumberFormatStandard(d)
+        lblc.Text = NumberFormatStandard(c)
 
         'collecting
         Dim wACCT_NAME As Integer
@@ -109,14 +108,14 @@ Public Class frmGeneralJournal
     End Sub
     Private Sub fRefresh_Details()
         bItemRefresh = True
-        Dim sQuery As String = "select * from `general_journal` where id = '" & gsID & "' limit 1"
+        Dim sQuery As String = "select * from `general_journal` where id = '" & ID & "' limit 1"
         Try
 
-            fExecutedUsingReading(Me, sQuery)
+            SqlExecutedUsingReading(Me, sQuery)
 
-            sQuery = "select g.`ID`,g.`account_id`,a.`name` as `Account_Name`, g.`entry_type`,g.`Debit`,g.`Credit`,g.`Amount`,g.`Notes`,g.`class_id`,c.`name` as `Class_Name` from general_journal_details as g left outer join `account` as a on a.ID = g.account_id left outer join class as c on c.id = g.class_id where g.general_journal_id = '" & gsID & "'"
+            sQuery = "select g.`ID`,g.`account_id`,a.`name` as `Account_Name`, g.`entry_type`,g.`Debit`,g.`Credit`,g.`Amount`,g.`Notes`,g.`class_id`,c.`name` as `Class_Name` from general_journal_details as g left outer join `account` as a on a.ID = g.account_id left outer join class as c on c.id = g.class_id where g.general_journal_id = '" & ID & "'"
             dgvDetails.Rows.Clear()
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 Dim d_amount As String = ""
                 Dim c_amount As String = ""
@@ -127,7 +126,7 @@ Public Class frmGeneralJournal
                     'credit
                     c_amount = Format(rd("credit"), "Standard")
                 End If
-                dgvDetails.Rows.Add(rd("ID"), rd("Account_ID"), rd("account_name"), rd("entry_type"), d_amount, c_amount, rd("amount"), fTextisNULL(rd("notes")), fTextisNULL(rd("Class_ID")), fTextisNULL(rd("class_name")), "S")
+                dgvDetails.Rows.Add(rd("ID"), rd("Account_ID"), rd("account_name"), rd("entry_type"), d_amount, c_amount, rd("amount"), TextIsNull(rd("notes")), TextIsNull(rd("Class_ID")), TextIsNull(rd("class_name")), "S")
             End While
 
             rd.Close()
@@ -136,9 +135,9 @@ Public Class frmGeneralJournal
 
             tdgv = New DataGridView
             tdgv = dgvDetails
-            tQuery = fFieldCollector(Me)
+            tQuery = SqlUpdate(Me)
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 fRefresh_Details()
             Else
                 End
@@ -150,10 +149,10 @@ Public Class frmGeneralJournal
 
 
     Private Sub fRefreshCombox()
-        fComboBox(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
     End Sub
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        fCloseForm(Me)
+        ClosedForm(Me)
     End Sub
 
     Private Sub lklNew_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
@@ -169,8 +168,8 @@ Public Class frmGeneralJournal
         With frmJournalEntry
             Dim r As DataGridViewRow = dgvDetails.Rows(dgvDetails.CurrentRow.Index)
             .gsAccount_ID = r.Cells("ACCOUNT_ID").Value
-            .gsDebit = fNumFormatFixed(fNumisNULL(r.Cells("DEBIT").Value))
-            .gsCredit = fNumFormatFixed(fNumisNULL(r.Cells("CREDIT").Value))
+            .gsDebit = NumberFormatFixed(NumIsNull(r.Cells("DEBIT").Value))
+            .gsCredit = NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))
             .gsNotes = r.Cells("NOTES").Value
             .gsClass_ID = r.Cells("CLASS_ID").Value
             .chkAuto.Visible = False
@@ -203,61 +202,62 @@ Public Class frmGeneralJournal
 
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If dgvDetails.Rows.Count = 0 Then
-            fMessageboxExclamation("Details required")
+            MessageBoxExclamation("Details required")
             Exit Sub
         End If
 
         If Val(lblDEBIT.Text) <> Val(lblCREDIT.Text) Then
-            fMessageboxExclamation("Balance required!")
+            MessageBoxExclamation("Balance required!")
             Exit Sub
         End If
 
-        If fACCESS_NEW_EDIT(Me, gsNew) = False Then
+        If fACCESS_NEW_EDIT(Me, IsNew) = False Then
             Exit Sub
         End If
 
-        If fIsClosingDate(dtpDATE.Value, gsNew) = False Then
+        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
-        Dim SQL_SCRIPT As String = ""
-        If gsNew = True Then
+
+        If IsNew = True Then
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = fNEXT_CODE("general_journal", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GetNextCode("general_journal", cmbLOCATION_ID.SelectedValue)
             End If
 
-            gsID = fObjectTypeMap_ID("general_journal")
-            Dim sQuery As String = fFieldCollector(Me)
-            SQL_SCRIPT = "INSERT INTO `general_journal` SET " & sQuery & ",ID = '" & gsID & "',RECORDED_ON = '" & Format(DateTime.Now, "yyyy-MM-dd hh:mm:ss") & "' ;"
+            ID = ObjectTypeMapId("general_journal")
+
+
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO general_journal ({SQL_Field},ID,RECORDED_ON) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}') ")
             fTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(gsID, txtCODE.Text, Me.AccessibleName, "New", "", "", 0, cmbLOCATION_ID.SelectedValue)
+            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", 0, cmbLOCATION_ID.SelectedValue)
         Else
 
-
             tChangeAccept = True
-
-            fGotChangeTransaction("general_journal", gsID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
-            Dim sQuery As String = fFieldCollector(Me)
-            SQL_SCRIPT = "UPDATE `general_journal` SET " & sQuery & " Where `ID` = '" & gsID & "' limit 1;"
-            fTransaction_Log(gsID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", 0, cmbLOCATION_ID.SelectedValue)
+            GotChangeTransaction("general_journal", ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
+            SqlExecuted("UPDATE `general_journal` SET " & SqlUpdate(Me) & " Where `ID` = '" & ID & "'")
+            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", 0, cmbLOCATION_ID.SelectedValue)
 
         End If
 
 
 
 
+
+
+
+        If IsTransactionSuccess(ID, "GENERAL_JOURNAL") = False Then
+            MessageBoxWarning("Please Try Again")
+            Exit Sub
+        End If
 
         fSaveDetails()
 
-        If fTransactionCheck(gsID, "GENERAL_JOURNAL") = False Then
-            fMessageboxWarning("Please Try Again")
-            Exit Sub
-        End If
-
-        If gsNew = True Then
-            fPop_Up_Msg(Me.Text, gsSaveStr, True)
+        If IsNew = True Then
+            PrompNotify(Me.Text, SaveMsg, True)
         Else
-            fPop_Up_Msg(Me.Text, gsUpdateStr, True)
+            PrompNotify(Me.Text, UpdateMsg, True)
         End If
 
 
@@ -274,8 +274,8 @@ Public Class frmGeneralJournal
         Catch ex As Exception
 
         Finally
-            If gsID <> "" Then
-                gsNew = False
+            If ID <> "" Then
+                IsNew = False
                 fRefresh_Details()
             End If
         End Try
@@ -285,8 +285,8 @@ Public Class frmGeneralJournal
     Private Sub fSetNew()
 
         fClearInfo()
-        gsID = ""
-        gsNew = True
+        ID = ""
+        IsNew = True
 
     End Sub
     Private Sub fSaveDetails()
@@ -297,53 +297,53 @@ Public Class frmGeneralJournal
 
             Select Case r.Cells("CONTROL_STATUS").Value
                 Case "S"
-                    fExecutedOnly("UPDATE `general_journal_details` Set LINE_NO='" & i & "' WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & gsID & "' limit 1;")
+                    SqlExecuted("UPDATE `general_journal_details` Set LINE_NO='" & i & "' WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
                     If gsGotChangeDate = True And gsSkipJournalEntry = False Then
                         'Main
-                        fAccount_journal_Change_date(dtpDATE.Value, fNumisNULL(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
+                        AccountJournalChangeDate(dtpDATE.Value, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
                     End If
                     If gsGotChangeLocation1 = True And gsSkipJournalEntry = False Then
                         'Main
-                        fAccount_journal_Change_Location(cmbLOCATION_ID.SelectedValue, fNumisNULL(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
+                        AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
                     End If
 
                     If gsGotChangeLocation1 = False And gsGotChangeDate = False Then
                         If gsSkipJournalEntry = False Then
-                            fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, fNumisNULL(r.Cells("DEBIT").Value), fNumisNULL(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                            fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                         End If
                     End If
 
                 Case "A"
-                    Dim i_ID As Double = fObjectTypeMap_ID("general_journal_details")
-                    fExecutedOnly("INSERT INTO `general_journal_details` SET ID='" & i_ID & "',GENERAL_JOURNAL_ID='" & gsID & "',LINE_NO='" & i & "',ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',DEBIT=" & fGotNullNumber(fNumFormatFixed(fNumisNULL(r.Cells("DEBIT").Value))) & ",`CREDIT` = " & fGotNullNumber(fNumFormatFixed(fNumisNULL(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & fGotNullNumber(fNumFormatFixed(fNumisNULL(r.Cells("AMOUNT").Value))) & ",NOTES=" & fGotNullText(fTextisNULL(r.Cells("NOTES").Value)) & ",CLASS_ID=" & fGotNullText(r.Cells("CLASS_ID").Value) & ";")
+                    Dim i_ID As Double = ObjectTypeMapId("general_journal_details")
+                    SqlExecuted("INSERT INTO `general_journal_details` SET ID='" & i_ID & "',GENERAL_JOURNAL_ID='" & ID & "',LINE_NO='" & i & "',ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',DEBIT=" & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("DEBIT").Value))) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("AMOUNT").Value))) & ",NOTES=" & GotNullText(TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GotNullText(r.Cells("CLASS_ID").Value) & ";")
                     r.Cells("ID").Value = i_ID
 
                     '===========================================
                     If gsSkipJournalEntry = False Then
-                        fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, fNumisNULL(r.Cells("DEBIT").Value), fNumisNULL(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                        fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                     End If
                     '===========================================
                     r.Cells("CONTROL_STATUS").Value = "S"
                 Case "E"
 
-                    fExecutedOnly("UPDATE `general_journal_details` Set LINE_NO='" & i & "', `ACCOUNT_ID`='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',`DEBIT`=" & fGotNullNumber(Format(fNumisNULL(r.Cells("DEBIT").Value), "FIXED")) & ",`CREDIT` = " & fGotNullNumber(fNumFormatFixed(fNumisNULL(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & fGotNullNumber(fNumFormatFixed(fNumisNULL(r.Cells("AMOUNT").Value))) & ",`NOTES`=" & fGotNullText(fTextisNULL(r.Cells("NOTES").Value)) & ",CLASS_ID=" & fGotNullText(r.Cells("CLASS_ID").Value) & " WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & gsID & "' limit 1;")
+                    SqlExecuted("UPDATE `general_journal_details` Set LINE_NO='" & i & "', `ACCOUNT_ID`='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',`DEBIT`=" & GotNullNumber(Format(NumIsNull(r.Cells("DEBIT").Value), "FIXED")) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("AMOUNT").Value))) & ",`NOTES`=" & GotNullText(TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GotNullText(r.Cells("CLASS_ID").Value) & " WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
                     If gsGotChangeDate = True Then
                         'Main
-                        fAccount_journal_Change_date(dtpDATE.Value, fNumisNULL(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
+                        AccountJournalChangeDate(dtpDATE.Value, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
                     End If
 
                     If gsGotChangeLocation1 = True Then
                         'Main
-                        fAccount_journal_Change_Location(cmbLOCATION_ID.SelectedValue, fNumisNULL(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
+                        AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
                     End If
                     '===========================================
                     If gsSkipJournalEntry = False Then
-                        fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, fNumisNULL(r.Cells("DEBIT").Value), fNumisNULL(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                        fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                     End If
                     '==========================================
                     r.Cells("CONTROL_STATUS").Value = "S"
                 Case "D"
-                    fExecutedOnly("DELETE FROM general_journal_details WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & gsID & "' limit 1;")
+                    SqlExecuted("DELETE FROM general_journal_details WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
                     If gsSkipJournalEntry = False Then
                         fAccount_journal_Delete(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 84, r.Cells("ID").Value, dtpDATE.Value)
                     End If
@@ -359,13 +359,13 @@ Public Class frmGeneralJournal
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If gsNew = False And gsID <> "" Then
+            If IsNew = False And ID <> "" Then
                 If fCheckHasChange() = True Then
-                    If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                    If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
                         tsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
-                            fMessageboxInfo("Cancel")
+                            MessageBoxInfo("Cancel")
                             Exit Sub
                         End If
                     Else
@@ -381,8 +381,8 @@ Public Class frmGeneralJournal
         If f.AccessibleDescription <> "" Then
             If f.AccessibleDescription <> "cancel" Then
                 fClearInfo()
-                gsID = f.AccessibleDescription
-                gsNew = False
+                ID = f.AccessibleDescription
+                IsNew = False
                 fRefresh_Details()
 
 
@@ -395,22 +395,22 @@ Public Class frmGeneralJournal
     End Sub
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
-        If gsNew = False Then
+        If IsNew = False Then
             If fACCESS_DELETE(Me) = False Then
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, gsNew) = False Then
+            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
-            If gsNew = False And gsID <> "" Then
+            If IsNew = False And ID <> "" Then
                 If fCheckHasChange() = True Then
-                    If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                    If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
                         tsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
-                            fMessageboxInfo("Cancel")
+                            MessageBoxInfo("Cancel")
                             Exit Sub
                         End If
                     Else
@@ -420,8 +420,8 @@ Public Class frmGeneralJournal
             End If
 
 
-            If fMessageBoxQuestion(gsMessageQuestion) = True Then
-                ' fDeleteGeneralJournal(gsID)
+            If MessageBoxQuestion(gsMessageQuestion) = True Then
+                ' fDeleteGeneralJournal(ID)
 
                 For N As Integer = 0 To dgvDetails.Rows.Count - 1
                     dgvDetails.Rows(N).Cells("CONTROL_STATUS").Value = "D"
@@ -430,12 +430,12 @@ Public Class frmGeneralJournal
                 fSaveDetails()
 
 
-                fExecutedOnly("DELETE FROM `general_journal` WHERE ID='" & gsID & "' limit 1;")
-                fPop_Up_Msg(Me.Text, gsDeleteStr, True)
-                fTransaction_Log(gsID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
+                SqlExecuted("DELETE FROM `general_journal` WHERE ID='" & ID & "' limit 1;")
+                PrompNotify(Me.Text, DeleteMsg, True)
+                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
                 fClearInfo()
-                gsNew = True
-                gsID = ""
+                IsNew = True
+                ID = ""
 
             End If
 
@@ -452,15 +452,15 @@ Public Class frmGeneralJournal
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         'PREVIEW =====================================================================
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
             If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -468,7 +468,7 @@ Public Class frmGeneralJournal
                 End If
             End If
         End If
-        If gsNew = False Then
+        If IsNew = False Then
             If fACCESS_PRINT_PREVIEW(Me) = False Then
                 Exit Sub
             End If
@@ -491,7 +491,7 @@ Public Class frmGeneralJournal
             End Try
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
@@ -508,15 +508,15 @@ Public Class frmGeneralJournal
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         'PRINT ========================================================================
 
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
             If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -525,7 +525,7 @@ Public Class frmGeneralJournal
             End If
         End If
 
-        If gsNew = False Then
+        If IsNew = False Then
 
             If fACCESS_PRINT_PREVIEW(Me) = False Then
                 Exit Sub
@@ -548,7 +548,7 @@ Public Class frmGeneralJournal
                 End If
             End Try
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
@@ -561,7 +561,7 @@ Public Class frmGeneralJournal
     End Sub
 
     Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
-        If gsNew = True Then
+        If IsNew = True Then
             fSetNew()
         Else
             Dim R As Integer = fRefreshMessage()
@@ -576,19 +576,19 @@ Public Class frmGeneralJournal
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, gsID)
+        fTransactionLog(Me, ID)
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
             If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -596,7 +596,7 @@ Public Class frmGeneralJournal
                 End If
             End If
         End If
-        If gsNew = True Then
+        If IsNew = True Then
             Exit Sub
         End If
 
@@ -617,9 +617,9 @@ Public Class frmGeneralJournal
     End Sub
 
     Private Sub frmGeneralJournal_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
-        gsID = gsDocument_Finder_ID
-        gsNew = IIf(gsID = "", True, False)
-        If gsNew = False Then
+        ID = gsDocument_Finder_ID
+        IsNew = IIf(ID = "", True, False)
+        If IsNew = False Then
 
             fRefresh_Details()
         End If
@@ -650,7 +650,7 @@ Public Class frmGeneralJournal
             If dgvDetails.Rows.Count <> 0 Then
                 Dim i As Integer = dgvDetails.CurrentRow.Index
 
-                If fNumisNULL(dgvDetails.Rows(i).Cells(0).Value) <> 0 Then
+                If NumIsNull(dgvDetails.Rows(i).Cells(0).Value) <> 0 Then
 
                     dgvDetails.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                     dgvDetails.Rows(i).Visible = False
@@ -680,15 +680,15 @@ Public Class frmGeneralJournal
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
         'Select Print Page ============================================================
-        If gsNew = True Then
+        If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
             If fCheckHasChange() = True Then
-                If fMessageBoxQuestion(gsMessageCheckEdit) = True Then
+                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
-                        fMessageboxInfo("Cancel")
+                        MessageBoxInfo("Cancel")
                         Exit Sub
                     End If
                 Else
@@ -697,7 +697,7 @@ Public Class frmGeneralJournal
             End If
         End If
 
-        If gsNew = True Then Exit Sub
+        If IsNew = True Then Exit Sub
 
         If fACCESS_PRINT_PREVIEW(Me) = False Then
             Exit Sub
@@ -727,7 +727,7 @@ Public Class frmGeneralJournal
             End Try
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(gsID), "myid")
+            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
             fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")

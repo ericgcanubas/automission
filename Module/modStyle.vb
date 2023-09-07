@@ -30,7 +30,7 @@ Module modStyle
 
 
 
-            Dim rd As OdbcDataReader = fReader("select * from theme where active = '1'  limit 1 ")
+            Dim rd As OdbcDataReader = SqlReader("select * from theme where active = '1'  limit 1 ")
             If rd.Read Then
                 gsColor_Code = rd("color_code")
                 gsPath_Banner = rd("banner")
@@ -46,7 +46,7 @@ Module modStyle
 
         Catch ex As Exception
 
-            fMessageboxWarning(ex.Message)
+            MessageBoxWarning(ex.Message)
         End Try
 
     End Sub

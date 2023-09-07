@@ -27,7 +27,7 @@
         fSET_SYSTEM_VALUE("DataForwarderPath", txtDataForwarderPath.Text)
         gsDataForwarderPath = txtDataForwarderPath.Text
 
-        fMessageboxInfo(Me.Text & " =  Save")
+        MessageBoxInfo(Me.Text & " =  Save")
 
     End Sub
 
@@ -38,7 +38,7 @@
     End Sub
 
     Private Sub frmSystemDefault_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fComboBox(xcmbDrawerAccountId, "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME", "ID", "T")
+        ComboBoxLoad(xcmbDrawerAccountId, "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME", "ID", "T")
         fLoadPrinter(cmbPrinter)
         cmbPrinter.Text = gsDEFAULT_PRINTER
 

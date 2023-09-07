@@ -250,7 +250,7 @@ FROM
         Try
             Dim x As Integer = 0
 
-            Dim rd As OdbcDataReader = fReader(sQuery)
+            Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
 
 
@@ -259,13 +259,13 @@ FROM
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvItem.Columns(i)
                         If fCheckNumStandard(.Name) = True Then
-                            dgvItem.Rows(x).Cells(i).Value = fNumFormatStandard(fNumisNULL(rd(i)))
-                        ElseIf fCheckNumNoDecimal(.Name) = True Then
-                            dgvItem.Rows(x).Cells(i).Value = fNumFormatNoDecimal(fNumisNULL(rd(i)))
-                        ElseIf fCheckBoolType(.Name) = True Then
-                            dgvItem.Rows(x).Cells(i).Value = CBool(fNumisNULL(rd(i)))
+                            dgvItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
+                        ElseIf CheckNumNoDecimal(.Name) = True Then
+                            dgvItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
+                        ElseIf CheckBoolType(.Name) = True Then
+                            dgvItem.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
                         Else
-                            dgvItem.Rows(x).Cells(i).Value = fTextisNULL(rd(i))
+                            dgvItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
                         End If
                     End With
 
@@ -276,7 +276,7 @@ FROM
             End While
             rd.Close()
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 frefreshItem()
             Else
                 End
@@ -306,7 +306,7 @@ FROM
         ' fBackGroundImageStyle(Me)
 
 
-        fComboBox(cmbLOCATION_ID, "SELECT `id`,`name` FROM location UNION SELECT '' AS `id`,'All Location' AS `NAME` FROM location ORDER BY `ID`", "ID", "NAME")
+        ComboBoxLoad(cmbLOCATION_ID, "SELECT `id`,`name` FROM location UNION SELECT '' AS `id`,'All Location' AS `NAME` FROM location ORDER BY `ID`", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
 
@@ -331,7 +331,7 @@ FROM
         Catch ex As Exception
 
         End Try
-        fDataGridView(dgvDocument, "SELECT p.ID,
+        LoadDataGridView(dgvDocument, "SELECT p.ID,
   p.CODE AS `Reference`,
   p.`Date`,
   t.`Description` AS `Payment Terms`,
@@ -372,7 +372,7 @@ p.vendor_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
         Catch ex As Exception
 
         End Try
-        fDataGridView(dgvDocument, "SELECT p.ID,
+        LoadDataGridView(dgvDocument, "SELECT p.ID,
   p.CODE AS `Reference`,
   p.`Date`,
   t.`Description` AS `Payment Terms`,
@@ -416,7 +416,7 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
         Catch ex As Exception
 
         End Try
-        fDataGridView(dgvDocument, "SELECT p.ID,
+        LoadDataGridView(dgvDocument, "SELECT p.ID,
   p.CODE AS `Reference`,
   p.`Date`,
   t.`Description` AS `Payment Terms`,
@@ -510,7 +510,7 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
     '        Next
 
     '    Catch ex As Exception
-    '        fMessageboxExclamation(ex.Message)
+    '        MessageBoxExclamation(ex.Message)
     '    End Try
     'End Sub
     Private Sub fAvailableTransferToSelected(ByVal a As DataGridViewRow)
@@ -528,7 +528,7 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
 
     Private Sub dgvItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellClick
         'If e.ColumnIndex = 0 Then
-        '    fCheckSide(dgvItem)
+        '    CheckSide(dgvItem)
         'End If
 
     End Sub
@@ -563,7 +563,7 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
 
     'Private Sub btnBackToAvailable_Click(sender As Object, e As EventArgs)
     '    If dgvSelected.Rows.Count = 0 Then
-    '        fMessageboxInfo("No item selected")
+    '        MessageBoxInfo("No item selected")
     '        Exit Sub
     '    End If
 
@@ -606,7 +606,7 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
 
     'Private Sub dgvSelected_CellClick(sender As Object, e As DataGridViewCellEventArgs)
     '    If e.ColumnIndex = 0 Then
-    '        fCheckSide(dgvSelected)
+    '        CheckSide(dgvSelected)
     '    End If
     'End Sub
 
@@ -632,8 +632,8 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
 
     Private Sub frmAvailableItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         fcolumnGrid()
-        fDatagridViewMode(dgvItem)
-        fDgvNotSort(dgvItem)
+        DatagridViewMode(dgvItem)
+        ViewNotSort(dgvItem)
         fChangeData()
 
         dgvItem.Columns("SELECTED").Width = 20
@@ -667,10 +667,10 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
                                 fRow_Data_Item_Bill(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), 0, d.Cells("ID").Value, 0)
                             Case 1
 
-                                fRow_Data_Item_Invoice(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), fNumisNULL(d.Cells("ID").Value), fNumisNULL(d.Cells("PRICE_LEVEL_ID").Value), fNumisNULL(d.Cells("GROUP_LINE_ID").Value), CBool(fNumisNULL(d.Cells("PRINT_IN_FORMS").Value)), 0)
+                                fRow_Data_Item_Invoice(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), NumIsNull(d.Cells("ID").Value), NumIsNull(d.Cells("PRICE_LEVEL_ID").Value), NumIsNull(d.Cells("GROUP_LINE_ID").Value), CBool(NumIsNull(d.Cells("PRINT_IN_FORMS").Value)), 0)
 
                             Case 2
-                                fRow_Data_Item_Sales_Order(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), d.Cells("ID").Value, fNumisNULL(d.Cells("PRICE_LEVEL_ID").Value), CBool(fNumisNULL(d.Cells("PRINT_IN_FORMS").Value)), fNumisNULL(d.Cells("GROUP_LINE_ID").Value))
+                                fRow_Data_Item_Sales_Order(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), d.Cells("ID").Value, NumIsNull(d.Cells("PRICE_LEVEL_ID").Value), CBool(NumIsNull(d.Cells("PRINT_IN_FORMS").Value)), NumIsNull(d.Cells("GROUP_LINE_ID").Value))
 
                         End Select
                     End If
@@ -682,10 +682,10 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
 
 
             Else
-                fMessageboxInfo("No item selected")
+                MessageBoxInfo("No item selected")
             End If
         Catch ex As Exception
-            If fMessageBoxErrorYesNo(ex.Message) = True Then
+            If MessageBoxErrorYesNo(ex.Message) = True Then
                 btnOk_Click(sender, e)
             Else
                 End

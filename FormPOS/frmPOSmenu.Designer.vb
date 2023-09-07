@@ -133,19 +133,19 @@ Partial Class frmPOSmenu
         'ToolStripLabel4
         '
         Me.ToolStripLabel4.Name = "ToolStripLabel4"
-        Me.ToolStripLabel4.Size = New System.Drawing.Size(43, 22)
+        Me.ToolStripLabel4.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel4.Text = "       "
         '
         'ToolStripLabel3
         '
         Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(43, 22)
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel3.Text = "       "
         '
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(43, 22)
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel2.Text = "       "
         '
         'cmbCLASS_ID
@@ -160,7 +160,7 @@ Partial Class frmPOSmenu
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(43, 22)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel1.Text = "       "
         '
         'lblPOS_TIMESTAMP
@@ -280,7 +280,7 @@ Partial Class frmPOSmenu
         Me.tsSaveNew.Image = CType(resources.GetObject("tsSaveNew.Image"), System.Drawing.Image)
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSaveNew.Name = "tsSaveNew"
-        Me.tsSaveNew.Size = New System.Drawing.Size(107, 22)
+        Me.tsSaveNew.Size = New System.Drawing.Size(106, 22)
         Me.tsSaveNew.Text = "Save and New"
         '
         'tsDiscard
@@ -289,7 +289,7 @@ Partial Class frmPOSmenu
         Me.tsDiscard.Image = CType(resources.GetObject("tsDiscard.Image"), System.Drawing.Image)
         Me.tsDiscard.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDiscard.Name = "tsDiscard"
-        Me.tsDiscard.Size = New System.Drawing.Size(60, 22)
+        Me.tsDiscard.Size = New System.Drawing.Size(59, 22)
         Me.tsDiscard.Text = "Discard"
         '
         'tsFind
@@ -298,7 +298,7 @@ Partial Class frmPOSmenu
         Me.tsFind.Image = CType(resources.GetObject("tsFind.Image"), System.Drawing.Image)
         Me.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsFind.Name = "tsFind"
-        Me.tsFind.Size = New System.Drawing.Size(39, 22)
+        Me.tsFind.Size = New System.Drawing.Size(38, 22)
         Me.tsFind.Text = "Find"
         '
         'tsPrintNow
@@ -307,7 +307,7 @@ Partial Class frmPOSmenu
         Me.tsPrintNow.Image = CType(resources.GetObject("tsPrintNow.Image"), System.Drawing.Image)
         Me.tsPrintNow.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsPrintNow.Name = "tsPrintNow"
-        Me.tsPrintNow.Size = New System.Drawing.Size(42, 22)
+        Me.tsPrintNow.Size = New System.Drawing.Size(41, 22)
         Me.tsPrintNow.Text = "Print"
         '
         'ToolStripDropDownButton2
@@ -322,13 +322,13 @@ Partial Class frmPOSmenu
         'PreviewToolStripMenuItem
         '
         Me.PreviewToolStripMenuItem.Name = "PreviewToolStripMenuItem"
-        Me.PreviewToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.PreviewToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.PreviewToolStripMenuItem.Text = "Preview"
         '
         'SelectPrintPageToolStripMenuItem
         '
         Me.SelectPrintPageToolStripMenuItem.Name = "SelectPrintPageToolStripMenuItem"
-        Me.SelectPrintPageToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
+        Me.SelectPrintPageToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.SelectPrintPageToolStripMenuItem.Text = "Select Print Page"
         '
         'ToolStripButton2
@@ -337,13 +337,13 @@ Partial Class frmPOSmenu
         Me.ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), System.Drawing.Image)
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(58, 22)
+        Me.ToolStripButton2.Size = New System.Drawing.Size(57, 22)
         Me.ToolStripButton2.Text = "History"
         '
         'ToolStripLabel5
         '
         Me.ToolStripLabel5.Name = "ToolStripLabel5"
-        Me.ToolStripLabel5.Size = New System.Drawing.Size(43, 22)
+        Me.ToolStripLabel5.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel5.Text = "       "
         '
         'ToolStripButton3
@@ -352,13 +352,13 @@ Partial Class frmPOSmenu
         Me.ToolStripButton3.Image = CType(resources.GetObject("ToolStripButton3.Image"), System.Drawing.Image)
         Me.ToolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton3.Name = "ToolStripButton3"
-        Me.ToolStripButton3.Size = New System.Drawing.Size(58, 22)
+        Me.ToolStripButton3.Size = New System.Drawing.Size(57, 22)
         Me.ToolStripButton3.Text = "Journal"
         '
         'ToolStripLabel6
         '
         Me.ToolStripLabel6.Name = "ToolStripLabel6"
-        Me.ToolStripLabel6.Size = New System.Drawing.Size(43, 22)
+        Me.ToolStripLabel6.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel6.Text = "       "
         Me.ToolStripLabel6.Visible = False
         '
@@ -368,7 +368,7 @@ Partial Class frmPOSmenu
         Me.ToolStripButton5.Image = CType(resources.GetObject("ToolStripButton5.Image"), System.Drawing.Image)
         Me.ToolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton5.Name = "ToolStripButton5"
-        Me.ToolStripButton5.Size = New System.Drawing.Size(99, 22)
+        Me.ToolStripButton5.Size = New System.Drawing.Size(98, 22)
         Me.ToolStripButton5.Text = "Apply Credits"
         Me.ToolStripButton5.Visible = False
         '
@@ -376,7 +376,7 @@ Partial Class frmPOSmenu
         '
         Me.ToolStripLabel8.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ToolStripLabel8.Name = "ToolStripLabel8"
-        Me.ToolStripLabel8.Size = New System.Drawing.Size(43, 22)
+        Me.ToolStripLabel8.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel8.Text = "       "
         '
         'tsDelete
@@ -385,7 +385,7 @@ Partial Class frmPOSmenu
         Me.tsDelete.Image = CType(resources.GetObject("tsDelete.Image"), System.Drawing.Image)
         Me.tsDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDelete.Name = "tsDelete"
-        Me.tsDelete.Size = New System.Drawing.Size(54, 22)
+        Me.tsDelete.Size = New System.Drawing.Size(53, 22)
         Me.tsDelete.Text = "Delete"
         '
         'tsClose
@@ -395,14 +395,14 @@ Partial Class frmPOSmenu
         Me.tsClose.Image = CType(resources.GetObject("tsClose.Image"), System.Drawing.Image)
         Me.tsClose.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsClose.Name = "tsClose"
-        Me.tsClose.Size = New System.Drawing.Size(47, 22)
+        Me.tsClose.Size = New System.Drawing.Size(46, 22)
         Me.tsClose.Text = "Close"
         '
         'ToolStripLabel7
         '
         Me.ToolStripLabel7.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ToolStripLabel7.Name = "ToolStripLabel7"
-        Me.ToolStripLabel7.Size = New System.Drawing.Size(43, 22)
+        Me.ToolStripLabel7.Size = New System.Drawing.Size(42, 22)
         Me.ToolStripLabel7.Text = "       "
         '
         'ToolStripButton4
@@ -411,7 +411,7 @@ Partial Class frmPOSmenu
         Me.ToolStripButton4.Image = CType(resources.GetObject("ToolStripButton4.Image"), System.Drawing.Image)
         Me.ToolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton4.Name = "ToolStripButton4"
-        Me.ToolStripButton4.Size = New System.Drawing.Size(42, 22)
+        Me.ToolStripButton4.Size = New System.Drawing.Size(41, 22)
         Me.ToolStripButton4.Text = "Logs"
         '
         'lblTAXABLE_AMOUNT
@@ -503,7 +503,7 @@ Partial Class frmPOSmenu
         Me.tsITEM_MENU_TOOLS.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TsSaveFile, Me.tsRefresh, Me.tsTax, Me.tsPayment, Me.tsBack, Me.ToolStripSeparator3, Me.tsSalesman, Me.tsBuyer, Me.ToolStripSeparator1})
         Me.tsITEM_MENU_TOOLS.Location = New System.Drawing.Point(0, 0)
         Me.tsITEM_MENU_TOOLS.Name = "tsITEM_MENU_TOOLS"
-        Me.tsITEM_MENU_TOOLS.Size = New System.Drawing.Size(842, 64)
+        Me.tsITEM_MENU_TOOLS.Size = New System.Drawing.Size(842, 57)
         Me.tsITEM_MENU_TOOLS.TabIndex = 5
         Me.tsITEM_MENU_TOOLS.Text = "ToolStrip2"
         '
@@ -514,7 +514,7 @@ Partial Class frmPOSmenu
         Me.TsSaveFile.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.TsSaveFile.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.TsSaveFile.Name = "TsSaveFile"
-        Me.TsSaveFile.Size = New System.Drawing.Size(93, 61)
+        Me.TsSaveFile.Size = New System.Drawing.Size(93, 54)
         Me.TsSaveFile.Text = "&Save Entry"
         Me.TsSaveFile.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -525,7 +525,7 @@ Partial Class frmPOSmenu
         Me.tsRefresh.Image = Global.Automission.My.Resources.Resources.m_refresh
         Me.tsRefresh.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRefresh.Name = "tsRefresh"
-        Me.tsRefresh.Size = New System.Drawing.Size(83, 61)
+        Me.tsRefresh.Size = New System.Drawing.Size(83, 54)
         Me.tsRefresh.Text = "&Reset File"
         Me.tsRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.tsRefresh.ToolTipText = "Reset"
@@ -537,7 +537,7 @@ Partial Class frmPOSmenu
         Me.tsTax.Image = Global.Automission.My.Resources.Resources.tax
         Me.tsTax.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsTax.Name = "tsTax"
-        Me.tsTax.Size = New System.Drawing.Size(77, 61)
+        Me.tsTax.Size = New System.Drawing.Size(77, 54)
         Me.tsTax.Text = "&Tax Type"
         Me.tsTax.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -548,7 +548,7 @@ Partial Class frmPOSmenu
         Me.tsPayment.Image = Global.Automission.My.Resources.Resources.receive_payment
         Me.tsPayment.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsPayment.Name = "tsPayment"
-        Me.tsPayment.Size = New System.Drawing.Size(78, 61)
+        Me.tsPayment.Size = New System.Drawing.Size(78, 54)
         Me.tsPayment.Text = "&Payment"
         Me.tsPayment.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -560,7 +560,7 @@ Partial Class frmPOSmenu
         Me.tsBack.Image = Global.Automission.My.Resources.Resources.Logout
         Me.tsBack.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsBack.Name = "tsBack"
-        Me.tsBack.Size = New System.Drawing.Size(59, 61)
+        Me.tsBack.Size = New System.Drawing.Size(59, 54)
         Me.tsBack.Text = "&Exit    "
         Me.tsBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -568,7 +568,7 @@ Partial Class frmPOSmenu
         '
         Me.ToolStripSeparator3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 64)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 57)
         '
         'tsSalesman
         '
@@ -578,8 +578,8 @@ Partial Class frmPOSmenu
         Me.tsSalesman.Image = Global.Automission.My.Resources.Resources.employee
         Me.tsSalesman.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSalesman.Name = "tsSalesman"
-        Me.tsSalesman.Size = New System.Drawing.Size(73, 61)
-        Me.tsSalesman.Text = "&Member"
+        Me.tsSalesman.Size = New System.Drawing.Size(84, 54)
+        Me.tsSalesman.Text = "&Salesman"
         Me.tsSalesman.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'tsBuyer
@@ -590,15 +590,15 @@ Partial Class frmPOSmenu
         Me.tsBuyer.Image = Global.Automission.My.Resources.Resources.customer
         Me.tsBuyer.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsBuyer.Name = "tsBuyer"
-        Me.tsBuyer.Size = New System.Drawing.Size(63, 61)
-        Me.tsBuyer.Text = "&Buyers"
+        Me.tsBuyer.Size = New System.Drawing.Size(86, 54)
+        Me.tsBuyer.Text = "&Customer"
         Me.tsBuyer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 64)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 57)
         '
         'xlblTOTAL
         '
@@ -646,7 +646,7 @@ Partial Class frmPOSmenu
         Me.lblCASHIER_ID.AutoSize = True
         Me.lblCASHIER_ID.Location = New System.Drawing.Point(8, 104)
         Me.lblCASHIER_ID.Name = "lblCASHIER_ID"
-        Me.lblCASHIER_ID.Size = New System.Drawing.Size(16, 16)
+        Me.lblCASHIER_ID.Size = New System.Drawing.Size(15, 16)
         Me.lblCASHIER_ID.TabIndex = 116
         Me.lblCASHIER_ID.Text = "0"
         Me.lblCASHIER_ID.Visible = False
@@ -737,7 +737,7 @@ Partial Class frmPOSmenu
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Location = New System.Drawing.Point(635, 3)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(94, 16)
+        Me.Label4.Size = New System.Drawing.Size(93, 16)
         Me.Label4.TabIndex = 11
         Me.Label4.Text = "Search Entry"
         '

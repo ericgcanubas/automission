@@ -970,10 +970,10 @@
     <Compile Include="Form\spSupport\frmAccessDenied.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\frmAccount.Designer.vb">
-      <DependentUpon>frmAccount.vb</DependentUpon>
+    <Compile Include="Form\FrmAccount.Designer.vb">
+      <DependentUpon>FrmAccount.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\frmAccount.vb">
+    <Compile Include="Form\FrmAccount.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\frmAccountJournalDuplicateRemove.Designer.vb">
@@ -2616,8 +2616,8 @@
     <EmbeddedResource Include="Form\spSupport\frmAccessDenied.resx">
       <DependentUpon>frmAccessDenied.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\frmAccount.resx">
-      <DependentUpon>frmAccount.vb</DependentUpon>
+    <EmbeddedResource Include="Form\FrmAccount.resx">
+      <DependentUpon>FrmAccount.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmAccountJournalDuplicateRemove.resx">
       <DependentUpon>frmAccountJournalDuplicateRemove.vb</DependentUpon>

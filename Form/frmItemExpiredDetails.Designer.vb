@@ -38,7 +38,7 @@ Partial Class frmItemExpiredDetails
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(566, 119)
+        Me.btnCancel.Location = New System.Drawing.Point(560, 113)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(99, 30)
@@ -49,7 +49,7 @@ Partial Class frmItemExpiredDetails
         'btnSave
         '
         Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(459, 119)
+        Me.btnSave.Location = New System.Drawing.Point(453, 113)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(99, 30)
@@ -60,11 +60,11 @@ Partial Class frmItemExpiredDetails
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(66, 18)
+        Me.Label1.Location = New System.Drawing.Point(55, 17)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(60, 16)
+        Me.Label1.Size = New System.Drawing.Size(75, 16)
         Me.Label1.TabIndex = 72
-        Me.Label1.Text = "Barcode"
+        Me.Label1.Text = "Item Code"
         '
         'cmbITEM_ID
         '
@@ -78,7 +78,7 @@ Partial Class frmItemExpiredDetails
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(13, 51)
+        Me.Label2.Location = New System.Drawing.Point(13, 44)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(115, 16)
         Me.Label2.TabIndex = 74
@@ -87,7 +87,7 @@ Partial Class frmItemExpiredDetails
         'xxcmbDESCRIPTION
         '
         Me.xxcmbDESCRIPTION.FormattingEnabled = True
-        Me.xxcmbDESCRIPTION.Location = New System.Drawing.Point(133, 47)
+        Me.xxcmbDESCRIPTION.Location = New System.Drawing.Point(133, 40)
         Me.xxcmbDESCRIPTION.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.xxcmbDESCRIPTION.Name = "xxcmbDESCRIPTION"
         Me.xxcmbDESCRIPTION.Size = New System.Drawing.Size(526, 24)
@@ -96,7 +96,7 @@ Partial Class frmItemExpiredDetails
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(55, 83)
+        Me.Label3.Location = New System.Drawing.Point(55, 70)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(72, 16)
         Me.Label3.TabIndex = 76
@@ -104,7 +104,7 @@ Partial Class frmItemExpiredDetails
         '
         'txtBATCH_NO
         '
-        Me.txtBATCH_NO.Location = New System.Drawing.Point(133, 80)
+        Me.txtBATCH_NO.Location = New System.Drawing.Point(133, 67)
         Me.txtBATCH_NO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtBATCH_NO.Name = "txtBATCH_NO"
         Me.txtBATCH_NO.Size = New System.Drawing.Size(199, 23)
@@ -113,16 +113,16 @@ Partial Class frmItemExpiredDetails
         'dtpEXPIRY_DATE
         '
         Me.dtpEXPIRY_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpEXPIRY_DATE.Location = New System.Drawing.Point(514, 80)
+        Me.dtpEXPIRY_DATE.Location = New System.Drawing.Point(514, 67)
         Me.dtpEXPIRY_DATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpEXPIRY_DATE.Name = "dtpEXPIRY_DATE"
-        Me.dtpEXPIRY_DATE.Size = New System.Drawing.Size(143, 23)
+        Me.dtpEXPIRY_DATE.Size = New System.Drawing.Size(145, 23)
         Me.dtpEXPIRY_DATE.TabIndex = 78
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(423, 83)
+        Me.Label4.Location = New System.Drawing.Point(423, 70)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(82, 16)
         Me.Label4.TabIndex = 79
@@ -134,10 +134,10 @@ Partial Class frmItemExpiredDetails
         Me.btnFind.BackgroundImage = Global.Automission.My.Resources.Resources.m_search
         Me.btnFind.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btnFind.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnFind.Location = New System.Drawing.Point(377, 12)
+        Me.btnFind.Location = New System.Drawing.Point(377, 13)
         Me.btnFind.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnFind.Name = "btnFind"
-        Me.btnFind.Size = New System.Drawing.Size(24, 27)
+        Me.btnFind.Size = New System.Drawing.Size(30, 24)
         Me.btnFind.TabIndex = 80
         Me.btnFind.UseVisualStyleBackColor = False
         '
@@ -145,7 +145,7 @@ Partial Class frmItemExpiredDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(679, 162)
+        Me.ClientSize = New System.Drawing.Size(679, 150)
         Me.Controls.Add(Me.btnFind)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.dtpEXPIRY_DATE)
