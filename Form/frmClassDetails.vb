@@ -21,7 +21,7 @@ Public Class frmClassDetails
         Else
             If MessageBoxQuestion("Create new?") = True Then
                 IsNew = True
-                ID = ""
+                ID = 0
                 ClearAndRefresh(Me)
             Else
                 SqlExecutedUsingReading(Me, "select * from class where id = '" & ID & "' Limit 1")

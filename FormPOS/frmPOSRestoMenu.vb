@@ -31,8 +31,8 @@ Public Class frmPOSRestoMenu
             bActiveFirst = False
             frmSplash.Show()
             frmSplash.Timer1.Enabled = True
-            gsMenuSubID = ""
-            gsMenuID = ""
+            gsMenuSubID = 0
+            gsMenuID = 0
             Me.Dispose()
         End If
     End Sub
@@ -1775,7 +1775,7 @@ FROM
         fclear_Info()
         dgvProductItem.Rows.Clear()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -2031,7 +2031,7 @@ FROM
         Else
             If MessageBoxQuestion("Create new?") = True Then
                 IsNew = True
-                ID = ""
+                ID = 0
                 fclear_Info()
 
             Else

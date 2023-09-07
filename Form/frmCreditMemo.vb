@@ -41,8 +41,8 @@ Public Class frmCreditMemo
         fclear_Info()
 
         If IsNew = False Then
-            fRefreshField(ID)
-            fRefreshItem(ID)
+            fRefreshField()
+            fRefreshItem()
             tsApplyCredits.Enabled = True
         Else
             tsApplyCredits.Enabled = False
@@ -132,15 +132,15 @@ Public Class frmCreditMemo
 
         End With
     End Sub
-    Private Sub fRefreshField(ByVal id As String)
+    Private Sub fRefreshField()
 
         Try
 
-            Dim sQuery As String = "select * from credit_memo where ID = '" & id & "' Limit 1"
+            Dim sQuery As String = "select * from credit_memo where ID = '" & ID & "' Limit 1"
             SqlExecutedUsingReading(Me, sQuery)
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshField(id)
+                fRefreshField()
             Else
                 End
             End If
@@ -153,7 +153,7 @@ Public Class frmCreditMemo
             tsApplyCredits.Enabled = False
         End If
     End Sub
-    Private Sub fRefreshItem(ByVal xID As String)
+    Private Sub fRefreshItem()
         dgvProductItem.Rows.Clear()
         bRefreshItem = True
         Dim sGROUP_ITEM_ID As Integer = 0
@@ -243,7 +243,7 @@ ON B.ID = II.BATCH_ID
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshItem(xID)
+                fRefreshItem()
             Else
                 End
             End If
@@ -308,7 +308,7 @@ ON B.ID = II.BATCH_ID
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -333,8 +333,8 @@ ON B.ID = II.BATCH_ID
                 ID = f.AccessibleDescription
                 IsNew = False
 
-                fRefreshField(ID)
-                fRefreshItem(ID)
+                fRefreshField()
+                fRefreshItem()
 
             End If
 
@@ -558,10 +558,10 @@ ON B.ID = II.BATCH_ID
             End If
         Catch ex As Exception
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
-                fRefreshField(ID)
-                fRefreshItem(ID)
+                fRefreshField()
+                fRefreshItem()
             End If
 
         End Try
@@ -572,7 +572,7 @@ ON B.ID = II.BATCH_ID
         fclear_Info()
         dgvProductItem.Rows.Clear()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
         gsMemberDiscount = 0
 
@@ -766,7 +766,7 @@ ON B.ID = II.BATCH_ID
                 Exit Sub
             End If
 
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -826,7 +826,7 @@ ON B.ID = II.BATCH_ID
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
-                ID = ""
+                ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
                 If IsNew = False Then
@@ -945,8 +945,8 @@ ON B.ID = II.BATCH_ID
                 fSetNew()
             ElseIf R = 2 Then
 
-                fRefreshField(ID)
-                fRefreshItem(ID)
+                fRefreshField()
+                fRefreshItem()
             End If
 
         End If
@@ -1077,12 +1077,12 @@ ON B.ID = II.BATCH_ID
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
 
-                    frmContactDetails.ContactTypeId = "1"
+                    frmContactDetails.ContactTypeId = 1
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -1147,11 +1147,11 @@ ON B.ID = II.BATCH_ID
     Private Sub frmCreditMemo_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
-            fRefreshField(ID)
-            fRefreshItem(ID)
+            fRefreshField()
+            fRefreshItem()
             tsApplyCredits.Enabled = True
         Else
             tsApplyCredits.Enabled = False

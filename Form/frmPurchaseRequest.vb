@@ -430,7 +430,7 @@ FROM
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -536,7 +536,7 @@ FROM
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshField(ID)
                 fRefreshItem(ID)
@@ -548,7 +548,7 @@ FROM
         fclear_Info()
         dgvProductItem.Rows.Clear()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -617,7 +617,7 @@ FROM
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
-                ID = ""
+                ID = 0
                 IsNew = True
             End If
         End If
@@ -797,12 +797,7 @@ FROM
             .sFormName = Me.Name
             .gsCOST_AMOUNT_ONLY = True
             .dgv = dgvProductItem
-            '.gsSelection = True
-            '.gsSelection_Query = "select * from class"
-            '.gsSelection_Label = "Class"
-            '.gsSelection_DESCRIPTION = "NAME"
-            '.gsSelection_VALUE = "ID"
-            '.gsSelection_ID = ""
+
             .gsDate = dtpDATE.Value
             .gsLOCATION_ID = cmbLOCATION_ID.SelectedValue
             .ShowDialog()
@@ -838,7 +833,7 @@ FROM
     Private Sub frmPurchaseRequest_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
             fRefreshField(ID)

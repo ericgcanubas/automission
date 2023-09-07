@@ -215,7 +215,7 @@ Public Class frmPaymentTermsDetails
         BindingViewUpdate(Dgv, $"select  ID,CODE,DESCRIPTION,INACTIVE from payment_terms WHere ID = '{ID}' limit 1", IsNew, This_BS)
         ClearAndRefresh(Me)
 
-        ID = ""
+        ID = 0
         IsNew = True
 
         If fACCESS_NEW_EDIT(frmPaymentTerms, IsNew) = False Then

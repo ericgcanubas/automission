@@ -366,7 +366,7 @@ Module modFormFunction
         Try
             Dim sQuery As String = ""
             Dim bMenuCountRead As Boolean = False
-            If gsMenuID <> "" Then
+            If gsMenuID > 0 Then
                 sQuery = "select sm.sub_id as menu_id,sm.description,form,image_file from tblmenu_list as ml  inner join tblsub_menu as sm on sm.sub_id = ml.sub_id where EXISTS (select * from system_security where `description` = `NAME` and user_id = '" & gsUser_ID & "' ) and  ml.menu_id = '" & gsMenuID & "' order by sm.description"
                 bMainMenu = True
             Else
@@ -383,12 +383,12 @@ Module modFormFunction
                 End If
                 Dim file_path As String = ""
                 Dim sForm As String = ""
-                If gsMenuID <> "" Then
+                If gsMenuID > 0 Then
                     sForm = rd("form")
                 End If
                 If rd("image_file") <> "" Then
                     Dim path As String = AppDomain.CurrentDomain.BaseDirectory
-                    If gsMenuID <> "" Then
+                    If gsMenuID > 0 Then
                         file_path = path & "image\sub\" & rd("image_file")
                     Else
                         file_path = path & "image\menu\" & rd("image_file")
@@ -401,7 +401,7 @@ Module modFormFunction
                 If bMainMenu = False Then
                     AddingPanel(gsflpPanelMain, rd("menu_id"), rd("description"), file_path, sForm)
                 Else
-                    If gsMenuID <> "" Then
+                    If gsMenuID > 0 Then
                         AddingPanel(gsflpPanel, rd("menu_id"), rd("description"), file_path, sForm)
                     End If
 
@@ -411,7 +411,7 @@ Module modFormFunction
 
 
 
-            If gsMenuID <> "" Then
+            If gsMenuID > 0 Then
                 gsMenuTitle.Text = GetStringFieldValue("tblmenu", "menu_id", gsMenuID, "description")
             End If
         Catch ex As Exception
@@ -428,7 +428,7 @@ Module modFormFunction
     End Sub
     Public Sub MenuSet()
         CursorLoadingOn(True)
-        If gsMenuID = "" Then
+        If gsMenuID <= 0 Then
             If gsRefresh = True Then
                 gsRefresh = False
                 RefreshMenuModule()
@@ -439,10 +439,10 @@ Module modFormFunction
         Else
             If gsRefresh = True Then
                 gsRefresh = False
-                If gsMenuSubID = "" Then
+                If gsMenuSubID <= 0 Then
                     RefreshMenuModule()
                 Else
-                    If gsMenuSubID = "32" Then
+                    If gsMenuSubID = 32 Then
                         For i As Integer = 0 To gsTabControl.Controls.Count - 1
                             If gsTabControl.Controls(i).AccessibleName = gsMenuSubID Then
                                 If gsTabControl.Controls(i).Text = gsReportTabName Then
@@ -453,11 +453,11 @@ Module modFormFunction
                             End If
 
                         Next
-                    ElseIf gsMenuSubID <> "31" Then
+                    ElseIf gsMenuSubID <> 31 Then
                         For i As Integer = 0 To gsTabControl.Controls.Count - 1
                             If gsTabControl.Controls(i).AccessibleName = gsMenuSubID Then
                                 gsTabControl.SelectTab(i)
-                                If gsDocument_Finder_ID <> "" Then
+                                If gsDocument_Finder_ID > 0 Then
                                     Dim f As Form = gsTabControl.TabPages(i).Controls.Item(0)
                                     f.Text = gsDocument_Finder_ID
                                 End If
@@ -470,9 +470,9 @@ Module modFormFunction
 
                     End If
                     '--------------------
-                    If gsMenuSubID = "31" Then
+                    If gsMenuSubID = 31 Then
                         'ReportView
-                    ElseIf gsMenuSubID = "32" Then
+                    ElseIf gsMenuSubID = 32 Then
                         'ReportSetup
                     Else
 
@@ -602,7 +602,7 @@ Module modFormFunction
 
             Try
                 img = Image.FromFile(image_path)
-                If gsMenuID = "" Then
+                If gsMenuID <= 0 Then
                     p.AccessibleDescription = "x"
                     p.BackgroundImage = img
                     p.BackgroundImageLayout = ImageLayout.Stretch
@@ -628,7 +628,7 @@ Module modFormFunction
             AddHandler p.Click, AddressOf PanelClick
         End If
 
-        If gsMenuID = "" Then
+        If gsMenuID <= 0 Then
             p.Size = New Point(85, 70)
             l.Font = New Font("Open Sans", 8, FontStyle.Bold)
             l.ForeColor = Color.Black
@@ -648,7 +648,7 @@ Module modFormFunction
 
         p.Controls.Add(l)
 
-        If gsMenuID = "" Then
+        If gsMenuID <= 0 Then
             p.BorderStyle = BorderStyle.None
             l.TextAlign = ContentAlignment.MiddleLeft
             l.Dock = DockStyle.Top
@@ -747,27 +747,27 @@ Module modFormFunction
         Dim l As Label = CType(p.Controls("lbl" & p.Name.Replace("pnl", "")), Label)
         l.ForeColor = Color.Red
 
-        If gsMenuID <> "" Then
+        If gsMenuID > 0 Then
             If p.Name.Replace("pnl", "") = 0 Then
 
-                gsMenuSubID = ""
-                gsMenuID = ""
+                gsMenuSubID = 0
+                gsMenuID = 0
 
             Else
                 If p.AccessibleName = "" Then
-                    gsMenuSubID = ""
-                    gsMenuID = ""
-                    gsMenuID = p.Name.Replace("pnl", "")
+                    gsMenuSubID = 0
+                    gsMenuID = 9
+                    gsMenuID = NumIsNull(p.Name.Replace("pnl", ""))
 
                 Else
                     gsSubMenuForm = l.Text
-                    gsMenuSubID = p.Name.Replace("pnl", "")
+                    gsMenuSubID = NumIsNull(p.Name.Replace("pnl", ""))
                 End If
 
 
             End If
         Else
-            gsMenuID = p.Name.Replace("pnl", "")
+            gsMenuID = NumIsNull(p.Name.Replace("pnl", ""))
         End If
         gsRefresh = True
         MenuSet()
@@ -791,14 +791,14 @@ Module modFormFunction
         '  Dim p As Panel = CType(l.Controls("pnl" & l.Name.Replace("lbl", "")), Panel)
         l.ForeColor = Color.Red
 
-        If gsMenuID <> "" Then
+        If gsMenuID > 0 Then
             If p.Name.Replace("pnl", "") = 0 Then
-                gsMenuSubID = ""
-                gsMenuID = ""
+                gsMenuSubID = 0
+                gsMenuID = 0
             Else
                 If p.AccessibleName = "" Then
-                    gsMenuSubID = ""
-                    gsMenuID = ""
+                    gsMenuSubID = 0
+                    gsMenuID = 0
                     gsMenuID = p.Name
 
                 Else

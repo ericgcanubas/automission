@@ -210,7 +210,7 @@ Public Class frmBillPayment
             End If
         Catch ex As Exception
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshInfo()
             End If
@@ -220,7 +220,7 @@ Public Class frmBillPayment
     Private Sub fSetNew()
         fClear_Info()
         IsNew = True
-        ID = ""
+        ID = 0
 
     End Sub
 
@@ -256,7 +256,7 @@ Public Class frmBillPayment
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -548,7 +548,7 @@ WHERE  EXISTS
                 Exit Sub
             End If
 
-            If IsNew = False And ID <> "" Then ' if got change
+            If IsNew = False And ID > 0 Then ' if got change
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -588,7 +588,7 @@ WHERE  EXISTS
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(numAMOUNT.Value), cmbLOCATION_ID.SelectedValue)
                 fClear_Info()
                 IsNew = True
-                ID = ""
+                ID = 0
                 CursorLoadingOn(False)
             End If
 
@@ -767,31 +767,10 @@ WHERE  EXISTS
 
         TabFormOpen(F, frmMainMenu.MyTab, Img)
         F.TabIndex = gsDocument_Finder_ID
-        gsDocument_Finder_ID = ""
+        gsDocument_Finder_ID = 0
 
     End Sub
 
-    Private Sub btnDiscount_Click(sender As Object, e As EventArgs)
-
-    End Sub
-    Private Sub btnCredit_Click(sender As Object, e As EventArgs)
-        '   If Me.Text = Me.Name Then Exit Sub
-
-    End Sub
-    'Private Function fBillBalance_Update(ByVal gsBill As String, prORG_Amount As Double) As Double
-    '    Dim total_pay As Double = fBillSumPaymentApplied(gsBill, cmbPAY_TO_ID.SelectedValue) + fBillSumCreditApplied(gsBill, cmbPAY_TO_ID.SelectedValue) + fBillSumTaxApplied_Amount(gsBill, cmbPAY_TO_ID.SelectedValue)
-    '    Dim New_Balance As Double = prORG_Amount - total_pay
-    '    Dim squery As String
-    '    Dim nStatus As Integer = 0
-    '    If 0 >= New_Balance Then
-    '        nStatus = 11
-    '    Else
-    '        nStatus = 13
-    '    End If
-    '    squery = "UPDATE `BILL` SET BALANCE_DUE ='" & New_Balance & "',STATUS ='" & nStatus & "',STATUS_DATE ='" & Format(Date.Now, "yyyy-MM-dd HH:mm:ss") & "' WHERE ID = '" & gsBill & "'"
-    '    SqlExecuted(squery)
-    '    Return New_Balance
-    'End Function
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
@@ -892,14 +871,10 @@ WHERE  EXISTS
         frmPrintPage = Nothing
     End Sub
 
-    Private Sub txtFind_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub frmBillPayment_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
             fRefreshInfo()

@@ -16,7 +16,7 @@
         frmContactDetails.ContactTypeId = "5"
 
         frmContactDetails.IsNew = True
-        frmContactDetails.ID = ""
+        frmContactDetails.ID = 0
         frmContactDetails.ShowDialog()
         frmContactDetails.Dispose()
         frmContactDetails = Nothing

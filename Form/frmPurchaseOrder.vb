@@ -347,7 +347,7 @@ FROM
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -442,7 +442,7 @@ FROM
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshField()
                 fRefreshItem()
@@ -455,7 +455,7 @@ FROM
         fclear_Info()
         dgvProductItem.Rows.Clear()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -516,7 +516,7 @@ FROM
             End If
 
 
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -546,7 +546,7 @@ FROM
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
-                ID = ""
+                ID = 0
                 IsNew = True
             End If
         End If
@@ -751,12 +751,12 @@ FROM
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/vendor.png")
 
-                    frmContactDetails.ContactTypeId = "0"
+                    frmContactDetails.ContactTypeId = 0
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -782,12 +782,6 @@ FROM
             .sFormName = Me.Name
             .gsCOST_AMOUNT_ONLY = True
             .dgv = dgvProductItem
-            '.gsSelection = True
-            '.gsSelection_Query = "select * from class"
-            '.gsSelection_Label = "Class"
-            '.gsSelection_DESCRIPTION = "NAME"
-            '.gsSelection_VALUE = "ID"
-            '.gsSelection_ID = ""
             .gsDate = dtpDATE.Value
             .gsLOCATION_ID = cmbLOCATION_ID.SelectedValue
             .ShowDialog()

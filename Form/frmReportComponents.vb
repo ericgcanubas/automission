@@ -1,7 +1,7 @@
 ﻿Public Class frmReportComponents
     Private Sub lklNew_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklNew.LinkClicked
         With frmReportComponentItems
-            .ID = ""
+            .ID = 0
             .ShowDialog()
             .Dispose()
         End With

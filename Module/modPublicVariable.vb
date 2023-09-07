@@ -27,8 +27,8 @@ Module modPublicVariable
 
     ' Public gsProduct_LOGO As Image = Image.FromFile(Application.StartupPath & "\image\toolbar\Softwarematic_BMS.png")
 
-    Public gsMenuID As String
-    Public gsMenuSubID As String
+    Public gsMenuID As Integer
+    Public gsMenuSubID As Integer
     Public gsRefresh As Boolean = True
     Public gsMainWith As Double
     Public gsMainHeight As Double

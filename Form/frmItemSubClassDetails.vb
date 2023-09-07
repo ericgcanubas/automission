@@ -50,7 +50,7 @@ Public Class frmItemSubClassDetails
         SaveNotify(Me, IsNew)
         BindingViewUpdate(View, $"select isc.ID, isc.Code,isc.Description, ic.Description as `Class` from item_sub_class as isc  inner join item_class as ic on ic.id = isc.class_id Where isc.ID = '{ID}' limit 1", IsNew, BS)
         ClearAndRefresh(Me)
-        ID = ""
+        ID = 0
         IsNew = True
 
 

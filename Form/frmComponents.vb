@@ -1,26 +1,14 @@
 ﻿
 Public Class frmComponents
     Dim f As Form = New frmFindItem
-    Public gsID As String
+    Public ID As Integer
     Public gsQTY As Double
     Public gsRATE As Double
     Public gsITEM_ID As Double
-    Public gsNew As Boolean
+    Public IsNew As Boolean
     Public gsDGV As DataGridView
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
-    Private Sub btnSave_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
     Private Sub frmComponents_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '634, 209   default size
-
-        fMaterialSkin(Me)
-
         If Me.HelpButton = True Then
 
             numQty.Visible = False
@@ -44,7 +32,7 @@ Public Class frmComponents
 
 
         ClearAndRefresh(Me)
-        If gsNew = True Then
+        If IsNew = True Then
             numQty.Value = 1
             btnOK.Text = "&Add"
         Else
@@ -74,27 +62,6 @@ Public Class frmComponents
         End Try
 
     End Sub
-
-    Private Sub SearchItemToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        'Try
-        '    Frm.AccessibleName = "A"
-        '    Frm.Size = New Point(gsMainWith - 50, gsMainHeight - 50)
-        '    Frm.ShowDialog()
-        '    If Frm.AccessibleDescription <> "" Then
-        '        If Frm.AccessibleDescription <> "cancel" Then
-        '            cmbCode.SelectedValue = Frm.AccessibleDescription
-
-        '            BlueLight(numQty)
-        '            numQty.Focus()
-
-        '        End If
-        '    End If
-
-        'Catch ex As Exception
-
-        'End Try
-    End Sub
-
     Private Sub cmbCode_LostFocus(sender As Object, e As EventArgs) Handles cmbCode.LostFocus
         If NumIsNull(cmbCode.SelectedValue) <> 0 Then
             BlueLight(numQty)
@@ -124,11 +91,6 @@ Public Class frmComponents
     Private Sub numQty_GotFocus(sender As Object, e As EventArgs) Handles numQty.GotFocus
         BlueLight(numQty)
     End Sub
-
-    Private Sub FileToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If cmbCode.Text = "" Then
             MessageBoxExclamation("Invalid item code")
@@ -141,14 +103,7 @@ Public Class frmComponents
             Exit Sub
         End If
 
-        'ID = cmbCode.SelectedValue
-        'gsQty = numQty.Value
-        'gsRate = numRate.Value
-
-        'bSave = True
-        'Me.Close()
-
-        If gsNew = True Then
+        If IsNew = True Then
             gsDGV.Rows.Add("", cmbCode.Text, cmbDescription.Text, numQty.Value, numRate.Value, "n", cmbCode.SelectedValue)
             gsDGV.CurrentCell = gsDGV.Rows(gsDGV.Rows.Count - 1).Cells(1) 'Last Row HighLight
         Else
@@ -157,12 +112,12 @@ Public Class frmComponents
                 .Cells("DESCRIPTION").Value = cmbDescription.Text
                 .Cells("QTY").Value = numQty.Value
                 .Cells("RATE").Value = numRate.Value
-                .Cells("STATUS").Value = IIf(gsID = "", "n", "e")
+                .Cells("STATUS").Value = IIf(ID = 0, "n", "e")
                 .Cells("ITEM_ID").Value = cmbCode.SelectedValue
             End With
 
         End If
-        gsNew = True
+        IsNew = True
         btnOK.Text = "Add"
         cmbCode.SelectedIndex = -1
         cmbDescription.SelectedIndex = -1

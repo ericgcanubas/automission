@@ -365,7 +365,7 @@ B.ID = ii.BATCH_ID
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -667,7 +667,7 @@ B.ID = ii.BATCH_ID
         dgvProductItem.Rows.Clear()
         dgvTENDER_LIST.Rows.Clear()
         POSComputed()
-        ID = ""
+        ID = 0
         IsNew = True
         gsMemberDiscount = 0
         lblPAYMENT_AMOUNT.Text = "0.00"
@@ -1184,8 +1184,8 @@ NewPOS_LOG:
             bActiveFirst = False
             frmSplash.Show()
             frmSplash.Timer1.Enabled = True
-            gsMenuSubID = ""
-            gsMenuID = ""
+            gsMenuSubID = 0
+            gsMenuID = 0
             Me.Dispose()
         End If
     End Sub

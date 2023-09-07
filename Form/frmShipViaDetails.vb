@@ -39,7 +39,7 @@ Public Class frmShipViaDetails
         SaveNotify(Me, IsNew)
         BindingViewUpdate(Dgv, $"Select ID,Code,Description from Ship_via WHERE ID='{ID}' limit 1 ", IsNew, This_BS)
         ClearAndRefresh(Me)
-        ID = ""
+        ID = 0
         IsNew = True
         If fACCESS_NEW_EDIT(frmShipVia, IsNew) = False Then
             Me.Close()

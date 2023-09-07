@@ -7,7 +7,7 @@ Public Class frmBinLocationDetails
     Private Sub frmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.Text = "Create Bin"
-        If ID <> "" Then
+        If ID > 0 Then
 
             Try
 
@@ -36,7 +36,7 @@ Public Class frmBinLocationDetails
         Else
             If MessageBoxQuestion("Create new?") = True Then
                 IsNew = True
-                ID = ""
+                ID = 0
                 ClearAndRefresh(Me)
             Else
 

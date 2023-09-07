@@ -183,7 +183,7 @@ Public Class frmTaxDetails
 
             If MessageBoxQuestion("Create new?") = True Then
                 IsNew = True
-                ID = ""
+                ID = 0
                 ClearAndRefresh(Me)
             Else
 

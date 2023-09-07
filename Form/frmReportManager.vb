@@ -4,7 +4,7 @@
         With frmReportManagerComponent
             .FormMain = Me
             .SUB_ID = gsSUB_ID
-            .ID = ""
+            .ID = 0
             .ShowDialog()
             .Dispose()
         End With

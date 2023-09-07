@@ -254,7 +254,7 @@ Public Class frmDeposit
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshInfo()
             End If
@@ -264,7 +264,7 @@ Public Class frmDeposit
     Private Sub fSetNew()
         fClear_Info()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -386,7 +386,7 @@ Public Class frmDeposit
             Exit Sub
 
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -442,7 +442,7 @@ Public Class frmDeposit
                 Exit Sub
             End If
 
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -491,11 +491,10 @@ Public Class frmDeposit
                 '================================
                 SqlExecuted("DELETE FROM `deposit` WHERE ID='" & ID & "' limit 1;")
 
-
                 PrompNotify(Me.Text, DeleteMsg, True)
                 fClear_Info()
                 fComputed()
-                ID = ""
+                ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
             End If
@@ -797,7 +796,7 @@ Public Class frmDeposit
         If dgvDeposit.Columns.Count = 0 Then Exit Sub
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
             fRefreshInfo()

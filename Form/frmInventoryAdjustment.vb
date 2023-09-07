@@ -395,7 +395,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             End If
         Catch ex As Exception
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefresh_Info()
             End If
@@ -445,7 +445,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
     Private Sub fSetNew()
 
         fClear_Info()
-        ID = ""
+        ID = 0
         IsNew = True
         gsImportActive = False
         fcolumn_adjustment()
@@ -563,7 +563,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -649,7 +649,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 PrompNotify(Me.Text, DeleteMsg, True)
 
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
-                ID = ""
+                ID = 0
                 IsNew = True
                 fClear_Info()
                 CursorLoadingOn(False)
@@ -932,7 +932,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             dtpDATE.Enabled = False
             cmbLOCATION_ID.Enabled = False
 
-            ID = ""
+            ID = 0
             IsNew = True
             gsBIR_Active = False
             dgvItem.Rows.Clear()
@@ -959,7 +959,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
 

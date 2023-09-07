@@ -253,7 +253,7 @@ Public Class frmTaxCredit
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -429,7 +429,7 @@ Public Class frmTaxCredit
             End If
         Catch ex As Exception
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshInfo()
 
@@ -440,7 +440,7 @@ Public Class frmTaxCredit
     Private Sub fSetNew()
         fClear_Info()
         IsNew = True
-        ID = ""
+        ID = 0
         fCheckBill()
 
     End Sub
@@ -557,7 +557,7 @@ Public Class frmTaxCredit
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fClear_Info()
                 IsNew = True
-                ID = ""
+                ID = 0
                 CursorLoadingOn(False)
             End If
 
@@ -701,7 +701,7 @@ Public Class frmTaxCredit
     Private Sub frmTaxCredit_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
             fRefreshInfo()
@@ -747,7 +747,7 @@ Public Class frmTaxCredit
 
         TabFormOpen(F, frmMainMenu.MyTab, Img)
         F.TabIndex = gsDocument_Finder_ID
-        gsDocument_Finder_ID = ""
+        gsDocument_Finder_ID = 0
     End Sub
 
     Private Sub TsFindText_Click(sender As Object, e As EventArgs) Handles tsFindText.Click

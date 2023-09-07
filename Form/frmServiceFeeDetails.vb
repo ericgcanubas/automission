@@ -10,7 +10,7 @@ Public Class frmServiceFeeDetails
 
         YearlyComboBoxLoad(cmbYEAR_SF)
         MonthlyComboBoxLoad(cmbMONTH_SF)
-        If ID <> "" Then
+        If ID > 0 Then
             fRefresh()
             IsNew = False
         End If

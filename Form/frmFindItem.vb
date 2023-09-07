@@ -357,7 +357,7 @@ where i.inactive = '0' ", item_BS)
             Exit Sub
         End If
         frmItemDetails.IsNew = True
-        frmItemDetails.ID = ""
+        frmItemDetails.ID = 0
         frmItemDetails.dgv = dgvItem
         frmItemDetails.this_BS = item_BS
         frmItemDetails.bMain = False

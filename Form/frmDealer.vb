@@ -15,10 +15,10 @@ Public Class frmDealer
             Exit Sub
         End If
 
-        frmContactDetails.ContactTypeId = "6"
+        frmContactDetails.ContactTypeId = 6
 
         frmContactDetails.IsNew = True
-        frmContactDetails.ID = ""
+        frmContactDetails.ID = 0
         frmContactDetails.this_BS = contact_BS
         frmContactDetails.gsDgv = dgvDealer
         frmContactDetails.ShowDialog()
@@ -27,11 +27,6 @@ Public Class frmDealer
         'fRefreshData()
     End Sub
     Private Sub fRefreshData()
-        'If tsYEAR.ComboBox.SelectedIndex < 0 Then
-        '    Exit Sub
-        'ElseIf tsMONTH.ComboBox.SelectedIndex < 0 Then
-        '    Exit Sub
-        'End If
 
         Dim m As String = "%"
         Try

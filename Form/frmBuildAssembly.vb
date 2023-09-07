@@ -24,7 +24,7 @@ Public Class frmBuildAssembly
     Private Sub fSetNew()
         fclear_info()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
     End Sub
 
@@ -58,7 +58,7 @@ Public Class frmBuildAssembly
     Private Sub fRefreshInfo()
 
 
-        Dim sQuery As String = "select * from `build_assembly` where id = '" & ID & "' limit 1;"
+        Dim sQuery As String = "select * from `build_assembly` where id = '" & ID & "' limit 1"
         Try
 
             SqlExecutedUsingReading(Me, sQuery)
@@ -121,9 +121,6 @@ Public Class frmBuildAssembly
             If Basic_Unit_ID <> "" Then
 
                 in_sql = "In ('" & Basic_Unit_ID & "'"
-
-
-
 
                 Dim rd As OdbcDataReader = SqlReader("select UNIT_ID from item_units where ITEM_ID ='" & cmbASSEMBLY_ITEM_ID.SelectedValue & "'")
                 While rd.Read
@@ -208,11 +205,6 @@ Public Class frmBuildAssembly
                 prQty = NumIsNull(rd("QUANTITY"))
                 prAmount = NumIsNull(rd("AMOUNT"))
                 prASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-            Else
-                'prID = 0
-                'prQty = 0
-                'prAmount = 0
-                'prASSET_ACCOUNT_ID = ""
             End If
             rd.Close()
         Catch ex As Exception
@@ -395,7 +387,7 @@ Public Class frmBuildAssembly
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshInfo()
             End If
@@ -510,7 +502,7 @@ Public Class frmBuildAssembly
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -594,7 +586,7 @@ Public Class frmBuildAssembly
                 SqlExecuted("delete from build_assembly where id = '" & ID & "' limit 1;")
                 PrompNotify(Me.Text, DeleteMsg, True)
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
-                ID = ""
+                ID = 0
                 fclear_info()
                 IsNew = True
                 CursorLoadingOn(False)
@@ -766,15 +758,10 @@ Public Class frmBuildAssembly
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
         fTransactionLog(Me, ID)
     End Sub
-
-    Private Sub GroupBox5_Enter(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub frmBuildAssembly_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
             fRefreshInfo()
         End If

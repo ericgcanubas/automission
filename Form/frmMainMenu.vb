@@ -284,7 +284,7 @@ Public Class frmMainMenu
         gsReportType = t.AccessibleDescription
         gsReportTabName = t.Text
         gsREPORT_ID = t.Name
-        gsMenuSubID = "32"
+        gsMenuSubID = 32
         gsReportTabName = t.Text
         gsReportFileName = t.AccessibleName
 
@@ -295,7 +295,7 @@ Public Class frmMainMenu
 
 
         TabFormOpen(R, Me.MyTab, img)
-        gsMenuSubID = ""
+        gsMenuSubID = 0
     End Sub
     Private Sub OpenReport(ByVal ID As Integer, ByVal Title As String)
 
@@ -303,7 +303,7 @@ Public Class frmMainMenu
         gsReportType = ID
         gsReportTabName = Title
         gsREPORT_ID = ID
-        gsMenuSubID = "32"
+        gsMenuSubID = 32
         gsReportTabName = Title
         gsReportFileName = GetStringFieldValue("tblsub_menu", "SUB_ID", ID, "Form")
 
@@ -314,7 +314,7 @@ Public Class frmMainMenu
 
 
         TabFormOpen(R, Me.MyTab, img)
-        gsMenuSubID = ""
+        gsMenuSubID = 0
     End Sub
     Private Sub fShowReportSetup(ByVal prReportFileName As String, ByVal prTabname As String)
 
@@ -349,20 +349,13 @@ Public Class frmMainMenu
         Me.Icon = gsIcon
         QuickAccess()
         fLoadReport()
-        'MenuMainLoad()
-        'If TSMenu.Items.Count <> 0 Then
-        '    TSMenu.Items(0).PerformClick()
-        'End If
+
 
         gsMainWith = Me.Width - Me.Width / 4
         gsMainHeight = Me.Height - Me.Height / 6
 
 
-        'If gsSideBarMenuPostionRight = True Then
-        '    myPanel.Left = gsMainWith - myPanel.Width
-        '    MyTab.Left = 5
-        '    TSToolMenu.Left = 5
-        'End If
+
 
         UtilityToolStripMenuItem.DropDownItems.Add(gsUtility)
         gsFolderDialog = FolderBrowserDialog1
@@ -395,10 +388,6 @@ Public Class frmMainMenu
 
     Private Sub FindItemToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FindItemToolStripMenuItem.Click
         OpenFormBySubId(14)
-    End Sub
-
-    Private Sub SecurityToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        ' OpenFormBySubId(30) already new setup from use -> security
     End Sub
 
     Private Sub UserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserToolStripMenuItem.Click
@@ -546,8 +535,8 @@ Public Class frmMainMenu
         bActiveFirst = False
         frmSplash.Show()
         frmSplash.Timer1.Enabled = True
-        gsMenuSubID = ""
-        gsMenuID = ""
+        gsMenuSubID = 0
+        gsMenuID = 0
         Me.Dispose()
     End Sub
 
@@ -1061,44 +1050,7 @@ FROM
 
         TabFormOpen(F, Me.MyTab, Img)
         F.TabIndex = gsDocument_Finder_ID
-        gsDocument_Finder_ID = ""
-
-        'If gscryRpt IsNot Nothing Then
-        '    gscryRpt.Close()
-        '    gscryRpt.Dispose()
-        '    gscryRpt = Nothing
-        'End If
-
-        'Dim fName As String = ""
-        'Dim frm As New Form
-        'frm = GetFormModule(fName)
-        'Dim tp As TabPage = New TabPage(fName)
-
-
-        'Dim i_selected As Integer = 0
-
-        'For x As Integer = 0 To gsTabControl.Controls.Count - 1
-        '    If gsTabControl.Controls.Item(x).Name = fName Then
-        '        i_selected = x
-        '        gsTabControl.Controls.RemoveAt(x)
-        '        If gsTabControl.Controls.Count = 0 Then
-        '            gsTabControl.Visible = False
-        '        End If
-        '        Exit For
-        '    End If
-
-
-        'Next
-
-        'If gsTabControl.Controls.Count <> 0 Then
-        '    i_selected = i_selected - 1
-
-        '    If i_selected > 0 Then
-        '        gsTabControl.SelectTab(i_selected)
-
-        '    End If
-
-        'End If
+        gsDocument_Finder_ID = 0
 
 
     End Sub

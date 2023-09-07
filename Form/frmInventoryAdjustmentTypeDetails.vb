@@ -33,7 +33,7 @@ Public Class frmInventoryAdjustmentTypeDetails
         Else
             If MessageBoxQuestion("Create new?") = True Then
                 IsNew = True
-                ID = ""
+                ID = 0
                 ClearAndRefresh(Me)
             Else
 
@@ -65,7 +65,7 @@ Public Class frmInventoryAdjustmentTypeDetails
         BindingViewUpdate(Dgv, $"select i.ID,i.Code,i.Description, a.`Name`  as `Account` from Inventory_Adjustment_Type as i left outer join account as a on a.ID = i.account_id WHERE i.`ID` = '{ID}' limit 1", IsNew, This_BS)
         ClearAndRefresh(Me)
         IsNew = True
-        ID = ""
+        ID = 0
 
 
         If fACCESS_NEW_EDIT(frmInventoryAdjustmentType, IsNew) = False Then

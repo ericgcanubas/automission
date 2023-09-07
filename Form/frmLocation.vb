@@ -49,7 +49,7 @@
             frmLocationDetails.This_BS = item_BS
             frmLocationDetails.Dgv = dgvLocation
             Dim i As Integer = dgvLocation.CurrentRow.Index
-            frmLocationDetails.gsID = dgvLocation.Rows(i).Cells("ID").Value
+            frmLocationDetails.ID = dgvLocation.Rows(i).Cells("ID").Value
             frmLocationDetails.ShowDialog()
             frmLocationDetails.Dispose()
             frmLocationDetails = Nothing

@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Public Class frmBills
     Public ID As Integer = gsDocument_Finder_ID
-    Public IsNew As Boolean = IIf(ID = "", True, False)
+    Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
     Dim bRefreshExpenses As Boolean = False
     Dim f As Form = New frmFindDocument
@@ -661,7 +661,7 @@ FROM
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshField(ID)
                 fRefreshItem(ID)
@@ -678,7 +678,7 @@ FROM
         dgvProductItem.Rows.Clear()
         dgvExpenses.Rows.Clear()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -885,7 +885,7 @@ FROM
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -1128,10 +1128,8 @@ FROM
                         End With
                     Next
 
-
-
                     fComputed()
-                    ID = ""
+                    ID = 0
                     IsNew = True
                 Else
 
@@ -1139,7 +1137,7 @@ FROM
                     dgvProductItem.Rows.Clear()
                     dgvExpenses.Rows.Clear()
                     fComputed()
-                    ID = ""
+                    ID = 0
                     IsNew = True
                 End If
 
@@ -1153,14 +1151,6 @@ FROM
 
 
         End If
-
-    End Sub
-
-    Private Sub TabPage2_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub dgvProductItem_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs)
 
     End Sub
 
@@ -1185,12 +1175,12 @@ FROM
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/vendor.png")
 
-                    frmContactDetails.ContactTypeId = "0"
+                    frmContactDetails.ContactTypeId = 0
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -1622,7 +1612,7 @@ FROM
     Private Sub frmBills_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
             fRefreshField(ID)
             fRefreshItem(ID)

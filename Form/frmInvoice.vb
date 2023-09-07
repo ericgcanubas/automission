@@ -472,7 +472,7 @@ ON B.ID = II.BATCH_ID
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshInfo()
                 fRefreshItem() 'Must Refresh Item
@@ -487,7 +487,7 @@ ON B.ID = II.BATCH_ID
         dgvProductItem.Rows.Clear()
         fComputed()
 
-        ID = ""
+        ID = 0
         IsNew = True
         gsMemberDiscount = 0
 
@@ -642,7 +642,7 @@ ON B.ID = II.BATCH_ID
             Exit Sub
 
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -1022,7 +1022,7 @@ ON B.ID = II.BATCH_ID
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
-                ID = ""
+                ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
             End If
@@ -1237,12 +1237,12 @@ ON B.ID = II.BATCH_ID
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
 
-                    frmContactDetails.ContactTypeId = "1"
+                    frmContactDetails.ContactTypeId = 1
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -1329,7 +1329,7 @@ ON B.ID = II.BATCH_ID
 
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
 
         If IsNew = False Then

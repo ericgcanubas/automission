@@ -47,7 +47,7 @@ Public Class frmItemGroupDetails
         SaveNotify(Me, IsNew)
         BindingViewUpdate(Dgv, $"Select ig.ID,ig.Code,ig.Description,itm.Description as `Item Type` from item_group as ig inner join item_type_map as itm on itm.ID = ig.item_type Where ig.ID= '{ID}'  limit 1", IsNew, This_BS)
         ClearAndRefresh(Me)
-        ID = ""
+        ID = 0
         IsNew = True
 
         If fACCESS_NEW_EDIT(frmItemGroup, IsNew) = False Then

@@ -232,43 +232,6 @@ Public Class frmPriceLevelDetails
         End If
 
     End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If IsNew = True Then
-
-            dgvProductItem.Rows.Clear()
-            ClearAndRefresh(Me)
-            ID = ""
-
-        Else
-            If MessageBoxQuestion("Create new?") = True Then
-                IsNew = True
-                dgvProductItem.Rows.Clear()
-                ClearAndRefresh(Me)
-                ID = ""
-
-            Else
-
-                Try
-
-                    SqlExecutedUsingReading(Me, "select * from price_level where ID = '" & ID & "' Limit 1")
-
-                    If cmbTYPE.SelectedValue = 1 Then
-                        fLoadItem()
-                    End If
-                    IsNew = False
-
-                Catch ex As Exception
-                    MessageBoxWarning(ex.Message)
-                End Try
-            End If
-        End If
-    End Sub
-
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtDESCRIPTION.Text) = "" Then
             MessageBoxInfo("Please enter price level description")

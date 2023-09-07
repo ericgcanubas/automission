@@ -192,7 +192,7 @@ FROM
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -538,7 +538,7 @@ FROM
     End Sub
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
-        If IsNew = False And ID <> "" Then
+        If IsNew = False And ID > 0 Then
             If fACCESS_DELETE(Me) = False Then
                 Exit Sub
             End If
@@ -584,7 +584,7 @@ FROM
                 SqlExecuted("DELETE FROM sales_receipt WHERE ID ='" & ID & "' limit 1; ")
                 PrompNotify(Me.Text, DeleteMsg, True)
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
-                ID = ""
+                ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
 
@@ -848,12 +848,12 @@ FROM
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
 
-                    frmContactDetails.ContactTypeId = "1"
+                    frmContactDetails.ContactTypeId = 1
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -982,7 +982,7 @@ FROM
 
     Private Sub frmSalesReceipt_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
             fRefreshInfo(ID)
             fRefreshItem(ID)

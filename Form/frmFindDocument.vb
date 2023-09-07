@@ -1295,7 +1295,7 @@ FROM
                 TabFormOpen(F, frmMainMenu.MyTab, Img)
                 gsDocument_Finder_ID = dgvDocument.Rows(dgvDocument.CurrentRow.Index).Cells("ID").Value
                 F.TabIndex = gsDocument_Finder_ID
-                gsDocument_Finder_ID = ""
+                gsDocument_Finder_ID = 0
 
             Else
                 Dim x As Integer = dgvDocument.CurrentRow.Index

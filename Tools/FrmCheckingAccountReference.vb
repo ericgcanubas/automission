@@ -60,7 +60,7 @@ where aj.`ACCOUNT_ID` = '{cmbACCOUNT_ID.SelectedValue}'
 
             MenuSet()
 
-            gsDocument_Finder_ID = ""
+            gsDocument_Finder_ID = 0
 
             If gscryRpt IsNot Nothing Then
                 gscryRpt.Close()

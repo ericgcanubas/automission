@@ -2,7 +2,7 @@
 
 Public Class frmReceivePayment
     Public ID As Integer = gsDocument_Finder_ID
-    Public IsNew As Boolean = IIf(ID = "", True, False)
+    Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim f As Form = New frmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
@@ -17,9 +17,7 @@ Public Class frmReceivePayment
         End If
         Return HasChange
     End Function
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
+
     Private Sub frmReceivePayment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AccountLabel.Visible = gsShowAccounts
         cmbACCOUNTS_RECEIVABLE_ID.Visible = gsShowAccounts
@@ -386,8 +384,7 @@ WHERE  EXISTS
 
         TabFormOpen(F, frmMainMenu.MyTab, Img)
         F.TabIndex = Val(gsDocument_Finder_ID)
-        gsDocument_Finder_ID = ""
-
+        gsDocument_Finder_ID = 0
 
     End Sub
     Private Sub fCheckInvoice()
@@ -602,7 +599,7 @@ WHERE  EXISTS
             Exit Sub
 
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -734,7 +731,7 @@ WHERE  EXISTS
                     fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(numAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                     IsNew = True
-                    ID = ""
+                    ID = 0
                     CursorLoadingOn(False)
                     fClear_Info()
 
@@ -946,7 +943,7 @@ WHERE  EXISTS
     End Sub
     Private Sub frmReceivePayment_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
             fRefreshInfo()
         End If

@@ -517,9 +517,10 @@ Module modQuery
 
     Public Sub SqlCreate(ByVal c As Control, ByRef RefField As String, ByRef RefValue As String)
         Dim err_i As Integer = 0
+        Dim str_Field As String = ""
+        Dim str_Value As String = ""
         Try
-            Dim str_Field As String = ""
-            Dim str_Value As String = ""
+
 
             For i As Integer = 0 To c.Controls.Count - 1
                 err_i = i
@@ -545,17 +546,14 @@ Module modQuery
 
                     Dim ex_value As String = SetObjectValue(c, i)
                     If ex_value = "NULL" Then
-                        ' 
+                        str_Value &= $"{IIf(str_Field <> "", ",", "")}{ex_value}"
+                        str_Field &= $"{IIf(str_Field <> "", ",", "")}{stvalue.Substring(3)}"
 
-                        str_Field &= str_Field & $"{IIf(str_Field <> "", ",", "")} { stvalue.Substring(3)}"
-
-                        str_Value &= $"{IIf(str_Field <> "", ",", "")} {ex_value}"
                     Else
 
+                        str_Value &= $"{IIf(str_Field <> "", ",", "")}'{Trim(ex_value.Replace("'", "`"))}'"
+                        str_Field &= $"{IIf(str_Field <> "", ",", "")}{stvalue.Substring(3)}"
 
-                        str_Field &= $"{IIf(str_Field <> "", ",", "")} { stvalue.Substring(3)}"
-
-                        str_Value &= str_Value & $"{IIf(str_Field <> "", ",", "")} '{Trim(ex_value.Replace("'", "`"))}'"
                     End If
 
 
@@ -563,11 +561,13 @@ Module modQuery
 
                 End If
             Next
+
             RefField = str_Field
             RefValue = str_Value
         Catch ex As Exception
             MessageBoxExclamation(ex.Message & "(" & err_i & ")")
 
         End Try
+
     End Sub
 End Module

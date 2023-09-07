@@ -334,7 +334,7 @@ Public Class frmStockTransfer
             End If
         Catch ex As Exception
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefresh_info()
                 fRefresh_item()
@@ -346,7 +346,7 @@ Public Class frmStockTransfer
 
     Private Sub fSetNew()
         fClear_Info()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -485,7 +485,7 @@ Public Class frmStockTransfer
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -558,7 +558,7 @@ Public Class frmStockTransfer
                 DeleteNotify(Me)
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fClear_Info()
-                ID = ""
+                ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
             End If
@@ -732,14 +732,9 @@ Public Class frmStockTransfer
     Private Sub dgvStock_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvStock.RowStateChanged
         lblCount.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
-
-    Private Sub CostUpdateSaveToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub frmStockTransfer_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
             fRefresh_info()

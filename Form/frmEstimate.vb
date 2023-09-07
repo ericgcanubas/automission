@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Public Class frmEstimate
-    Public ID As String = gsDocument_Finder_ID
+    Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
     Dim f As Form = New frmFindDocument
@@ -344,7 +344,7 @@ FROM
             Exit Sub
         Else
 
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -460,7 +460,7 @@ FROM
 
         Finally
 
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshInfo()
                 fRefreshItem()
@@ -475,7 +475,7 @@ FROM
         fclear_Info()
         dgvProductItem.Rows.Clear()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -544,14 +544,13 @@ Again:
             If MessageBoxQuestion(gsMessageQuestion) = True Then
 
                 SqlExecuted("DELETE FROM estimate_items WHERE ESTIMATE_ID = '" & ID & "'")
-
                 SqlExecuted("DELETE FROM estimate WHERE ID = '" & ID & "' limit 1")
                 PrompNotify(Me.Text, DeleteMsg, True)
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
-                ID = ""
+                ID = 0
                 IsNew = True
 
             End If
@@ -726,12 +725,12 @@ Again:
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
 
-                    frmContactDetails.ContactTypeId = "1"
+                    frmContactDetails.ContactTypeId = 1
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -752,7 +751,7 @@ Again:
 
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
         If Me.Text = "" Then
 
         End If

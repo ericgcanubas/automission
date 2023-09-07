@@ -48,13 +48,6 @@ WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & Format(Now.Date,
     End Sub
 
     Private Sub dgvInvoice_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellDoubleClick
-        'If dgvInvoice.Rows.Count = 0 Then Exit Sub
-        'frmPenaltyDetails.ID = dgvInvoice.Rows(e.RowIndex).Cells("ID").Value
-        'frmPenaltyDetails.ShowDialog()
-        'frmPenaltyDetails.Dispose()
-        'frmPenaltyDetails = Nothing
-
-
 
         gsMenuSubID = 2
         gsRefresh = True
@@ -62,7 +55,7 @@ WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & Format(Now.Date,
 
         MenuSet()
 
-        gsDocument_Finder_ID = ""
+        gsDocument_Finder_ID = 0
 
         If gscryRpt IsNot Nothing Then
             gscryRpt.Close()
@@ -73,9 +66,7 @@ WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & Format(Now.Date,
         Dim fName As String = ""
         Dim frm As New Form
         frm = GetFormModule(fName)
-        Dim tp As TabPage = New TabPage(fName)
-
-
+        Dim TPage As New TabPage(fName)
         Dim i_selected As Integer = 0
 
         For x As Integer = 0 To gsTabControl.Controls.Count - 1

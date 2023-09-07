@@ -64,9 +64,9 @@ WHERE NOT EXISTS
 
                 MenuSet()
 
-                gsDocument_Finder_ID = ""
+            gsDocument_Finder_ID = 0
 
-                If gscryRpt IsNot Nothing Then
+            If gscryRpt IsNot Nothing Then
                     gscryRpt.Close()
                     gscryRpt.Dispose()
                     gscryRpt = Nothing

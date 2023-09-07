@@ -94,7 +94,7 @@ Module modReports
         TabFormOpen(R, frmMainMenu.MyTab, img)
 
         CursorLoadingOn(False)
-        gsMenuSubID = ""
+        gsMenuSubID = 0
     End Sub
     Public Sub fCryParameterInsertValue(ByRef cryRpt As ReportDocument, ByVal prValue As String, ByVal prName As String)
         Try

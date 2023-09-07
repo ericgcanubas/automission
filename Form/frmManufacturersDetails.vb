@@ -8,7 +8,7 @@ Public Class frmManufacturersDetails
     Private Sub frmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
-        If ID <> "" Then
+        If ID > 0 Then
 
             Try
 
@@ -21,10 +21,6 @@ Public Class frmManufacturersDetails
             End Try
         End If
 
-    End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
     End Sub
 
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles btnSave.Click
@@ -54,27 +50,10 @@ Public Class frmManufacturersDetails
 
         BindingViewUpdate(Dgv, $"Select ID,Code,`Name` from Manufacturer WHERE ID='{ID}' limit 1", IsNew, This_BS)
         ClearAndRefresh(Me)
-        ID = ""
+        ID = 0
         IsNew = True
-
-
         If fACCESS_NEW_EDIT(frmManufacturers, IsNew) = False Then
             Me.Close()
-        End If
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If IsNew = True Then
-            ClearAndRefresh(Me)
-        Else
-            If MessageBoxQuestion("Create new?") = True Then
-                IsNew = True
-                ID = ""
-                ClearAndRefresh(Me)
-            Else
-
-                SqlExecutedUsingReading(Me, "select * from manufacturer where id = '" & ID & "' limit 1")
-            End If
         End If
     End Sub
 

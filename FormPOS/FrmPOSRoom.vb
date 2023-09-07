@@ -439,8 +439,8 @@ NewPOS_LOG:
             bActiveFirst = False
             frmSplash.Show()
             frmSplash.Timer1.Enabled = True
-            gsMenuSubID = ""
-            gsMenuID = ""
+            gsMenuSubID = 0
+            gsMenuID = 0
             Me.Dispose()
         End If
     End Sub

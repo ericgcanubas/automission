@@ -497,7 +497,7 @@ Public Class frmStockReceived
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -572,7 +572,7 @@ Public Class frmStockReceived
                 DeleteNotify(Me)
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fClear_Info()
-                ID = ""
+                ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
             End If
@@ -582,7 +582,7 @@ Public Class frmStockReceived
     Private Sub frmStockTransfer_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
         If Me.Text = Me.Name Then Exit Sub
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
             fRefresh_info()

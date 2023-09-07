@@ -31,7 +31,7 @@
         Else
             If MessageBoxQuestion("Create new?") = True Then
                 IsNew = True
-                ID = ""
+                ID = 0
                 ClearAndRefresh(Me)
             Else
 
@@ -63,7 +63,7 @@
         SaveNotify(Me, IsNew)
         BindingViewUpdate(Dgv, $"SELECT b.`ID`,i.`CODE`,i.`PURCHASE_DESCRIPTION` AS `DESCRIPTION`,b.`BATCH_NO` AS `BATCH #`,b.`EXPIRY_DATE` AS `EXPIRED ON`  FROM `item_batches`  AS b INNER JOIN item AS i ON i.`ID` = b.`ITEM_ID` WHERE i.`INACTIVE` = '0' and b.id = '{ID}' limit 1;", IsNew, This_BS)
         ClearAndRefresh(Me)
-        ID = ""
+        ID = 0
         IsNew = True
 
         If fACCESS_NEW_EDIT(frmShipVia, IsNew) = False Then

@@ -5,12 +5,12 @@ Module modMenuControl
     Public CurrentPath As String = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase)
     Public Sub ThisOpenMenuTool(sender As Object, e As EventArgs)
 
-        If gsMenuSubID = "32" Then
+        If gsMenuSubID = 32 Then
 
         Else
 
         End If
-        gsMenuSubID = ""
+        gsMenuSubID = 0
         Dim Btn As ToolStripMenuItem = DirectCast(sender, ToolStripMenuItem)
 
 

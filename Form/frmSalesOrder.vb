@@ -25,12 +25,12 @@ Public Class frmSalesOrder
     End Function
     Private Sub frmSalesOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tsTITLE.Text = gsSubMenuForm
-        'fBackGroundImageStyle(Me)
+
         fcolumnGrid_U_SalesOrder(dgvProductItem)
         fclear_Info()
         If IsNew = False Then
-            fRefreshInfo(ID)
-            fRefreshItem(ID)
+            fRefreshInfo()
+            fRefreshItem()
         End If
 
     End Sub
@@ -51,24 +51,24 @@ Public Class frmSalesOrder
         dtpDATE.Value = fTransactionDefaultDate()
         cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
     End Sub
-    Private Sub fRefreshInfo(ByVal prID As String)
+    Private Sub fRefreshInfo()
 
 
 
         Try
 
-            Dim sQuery As String = "select * from sales_order where ID = '" & prID & "' Limit 1"
+            Dim sQuery As String = "select * from sales_order where ID = '" & ID & "' Limit 1"
             SqlExecutedUsingReading(Me, sQuery)
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshInfo(prID)
+                fRefreshInfo()
             Else
                 End
             End If
         End Try
     End Sub
-    Private Sub fRefreshItem(prID As String)
+    Private Sub fRefreshItem()
         dgvProductItem.Rows.Clear()
         Dim sGROUP_ITEM_ID As Integer = 0
         Dim sGROUP_ITEM_ACTIVE As Boolean = False
@@ -276,7 +276,7 @@ FROM
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -301,8 +301,8 @@ FROM
                 IsNew = False
 
 
-                fRefreshInfo(ID)
-                fRefreshItem(ID)
+                fRefreshInfo()
+                fRefreshItem()
 
             End If
 
@@ -397,10 +397,10 @@ FROM
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
-                fRefreshInfo(ID)
-                fRefreshItem(ID)
+                fRefreshInfo()
+                fRefreshItem()
             End If
 
         End Try
@@ -409,7 +409,7 @@ FROM
         fclear_Info()
         dgvProductItem.Rows.Clear()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -496,7 +496,7 @@ Again:
                 Exit Sub
             End If
 
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -525,7 +525,7 @@ Again:
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
-                ID = ""
+                ID = 0
                 IsNew = True
 
             End If
@@ -729,8 +729,8 @@ Again:
                 fSetNew()
             ElseIf R = 2 Then
                 fclear_Info()
-                fRefreshInfo(ID)
-                fRefreshItem(ID)
+                fRefreshInfo()
+                fRefreshItem()
             End If
 
         End If
@@ -787,12 +787,12 @@ Again:
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
 
-                    frmContactDetails.ContactTypeId = "1"
+                    frmContactDetails.ContactTypeId = 1
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -846,13 +846,13 @@ Again:
     Private Sub frmSalesOrder_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
         If Me.Text = "" Then
 
         End If
         If IsNew = False Then
-            fRefreshInfo(ID)
-            fRefreshItem(ID)
+            fRefreshInfo()
+            fRefreshItem()
         End If
     End Sub
 

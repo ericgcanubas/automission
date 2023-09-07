@@ -1,7 +1,7 @@
 ﻿
 Public Class frmLocationDetails
-    Public gsID As String
-    Public gsNew As Boolean = True
+    Public ID As String
+    Public IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
@@ -12,8 +12,8 @@ Public Class frmLocationDetails
     Private Sub frmLocationDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbPRICE_LEVEL_ID, "SELECT `ID`,`DESCRIPTION` from price_level ", "ID", "DESCRIPTION")
-        If gsID <> "" Then
-            gsNew = False
+        If ID > 0 Then
+            IsNew = False
             fRefresh()
         End If
 
@@ -22,7 +22,7 @@ Public Class frmLocationDetails
 
         Try
 
-            Dim sQuery As String = "select * from location where id = '" & gsID & "' Limit 1"
+            Dim sQuery As String = "select * from location where id = '" & ID & "' Limit 1"
             SqlExecutedUsingReading(Me, sQuery)
 
         Catch ex As Exception
@@ -47,44 +47,29 @@ Public Class frmLocationDetails
         End If
 
 
-        If gsNew = False Then
-            SqlExecuted("UPDATE location set  `CODE`='" & txtCODE.Text & "', `NAME` = '" & txtNAME.Text & "', PRICE_LEVEL_ID = " & GotNullNumber(cmbPRICE_LEVEL_ID.SelectedValue) & ",inactive ='" & Val(chkINACTIVE.Checked) & "'  where id = '" & gsID & "' limit 1")
+        If IsNew = False Then
+            SqlExecuted("UPDATE location set  `CODE`='" & txtCODE.Text & "', `NAME` = '" & txtNAME.Text & "', PRICE_LEVEL_ID = " & GotNullNumber(cmbPRICE_LEVEL_ID.SelectedValue) & ",inactive ='" & Val(chkINACTIVE.Checked) & "'  where id = '" & ID & "' limit 1")
 
         Else
-            gsID = ObjectTypeMapId("LOCATION")
-            SqlExecuted("INSERT INTO location set `CODE`='" & txtCODE.Text & "',`NAME` = '" & txtNAME.Text & "', PRICE_LEVEL_ID = " & GotNullNumber(cmbPRICE_LEVEL_ID.SelectedValue) & ",inactive ='" & Val(chkINACTIVE.Checked) & "',Id = '" & gsID & "'")
+            ID = ObjectTypeMapId("LOCATION")
+            SqlExecuted("INSERT INTO location set `CODE`='" & txtCODE.Text & "',`NAME` = '" & txtNAME.Text & "', PRICE_LEVEL_ID = " & GotNullNumber(cmbPRICE_LEVEL_ID.SelectedValue) & ",inactive ='" & Val(chkINACTIVE.Checked) & "',Id = '" & ID & "'")
 
         End If
 
-        If gsNew = True Then
+        If IsNew = True Then
             PrompNotify(Me.Text, SaveMsg, True)
         Else
             PrompNotify(Me.Text, UpdateMsg, True)
         End If
-        BindingViewUpdate(Dgv, $"select  l.`ID`,l.`CODE`,l.`Name`,ifnull(p.DESCRIPTION,'') as `Price level`,l.Inactive from location as l left outer join price_level as p on p.ID = l.price_level_id WHERE  l.`ID` ='{gsID}' Limit 1;", gsNew, This_BS)
+        BindingViewUpdate(Dgv, $"select  l.`ID`,l.`CODE`,l.`Name`,ifnull(p.DESCRIPTION,'') as `Price level`,l.Inactive from location as l left outer join price_level as p on p.ID = l.price_level_id WHERE  l.`ID` ='{ID}' Limit 1;", IsNew, This_BS)
         ClearAndRefresh(Me)
-        gsNew = True
-        gsID = ""
+        IsNew = True
+        ID = 0
 
-        If fACCESS_NEW_EDIT(frmLocation, gsNew) = False Then
+        If fACCESS_NEW_EDIT(frmLocation, IsNew) = False Then
             Me.Close()
         End If
 
     End Sub
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If gsNew = True Then
-            ClearAndRefresh(Me)
-        Else
-
-            If MessageBoxQuestion("Create new?") = True Then
-                gsNew = True
-                gsID = ""
-                ClearAndRefresh(Me)
-            Else
-
-                fRefresh()
-            End If
-        End If
-    End Sub
 End Class

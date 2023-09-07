@@ -26,29 +26,6 @@ Public Class frmPaymentMethodsDetails
         txtCODE.Clear()
         txtDESCRIPTION.Clear()
     End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If IsNew = True Then
-            ClearAndRefresh(Me)
-        Else
-            If MessageBoxQuestion("Create new?") = True Then
-                IsNew = True
-                ID = ""
-                ClearAndRefresh(Me)
-            Else
-
-                SqlExecutedUsingReading(Me, "select * from payment_method where id = '" & ID & "' limit 1")
-            End If
-        End If
-    End Sub
-
     Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
         If Trim(txtDESCRIPTION.Text) = "" Then
             MessageBoxInfo("Please enter description")

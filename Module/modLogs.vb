@@ -1,6 +1,6 @@
 ﻿Module modLogs
 
-    Public Sub fTransactionLog(ByVal f As Form, ByVal prID As String)
+    Public Sub fTransactionLog(ByVal f As Form, ByVal prID As Integer)
 
         Dim sub_id As Integer = f.AccessibleName
 

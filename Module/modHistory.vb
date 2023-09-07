@@ -356,45 +356,8 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
 
         TabFormOpen(F, frmMainMenu.MyTab, Img)
         F.TabIndex = gsDocument_Finder_ID
-        gsDocument_Finder_ID = ""
+        gsDocument_Finder_ID = 0
 
-
-
-        'If gscryRpt IsNot Nothing Then
-        '    gscryRpt.Close()
-        '    gscryRpt.Dispose()
-        '    gscryRpt = Nothing
-        'End If
-
-        'Dim fName As String = ""
-        'Dim frm As New Form
-        'frm = GetFormModule(fName)
-        'Dim tp As TabPage = New TabPage(fName)
-        'Dim i_selected As Integer = 0
-        'For x As Integer = 0 To gsTabControl.Controls.Count - 1
-        '    If gsTabControl.Controls.Item(x).Name = fName Then
-
-        '        i_selected = x
-        '        gsTabControl.Controls.RemoveAt(x)
-        '        If gsTabControl.Controls.Count = 0 Then
-        '            gsTabControl.Visible = False
-        '        End If
-
-        '        Exit For
-        '    End If
-
-
-        'Next
-
-        'If gsTabControl.Controls.Count <> 0 Then
-        '    i_selected = i_selected - 1
-
-        '    If i_selected > 0 Then
-        '        gsTabControl.SelectTab(i_selected)
-
-        '    End If
-
-        'End If
 
 
     End Sub

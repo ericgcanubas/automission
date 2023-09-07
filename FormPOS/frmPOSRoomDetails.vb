@@ -659,7 +659,7 @@ APPROVED:
         dgvProductItem.Rows.Clear()
         fComputed()
 
-        ID = ""
+        ID = 0
         IsNew = True
         gsMemberDiscount = 0
 
@@ -1452,7 +1452,7 @@ APPROVED:
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -1560,7 +1560,7 @@ APPROVED:
 
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
 
         If IsNew = False Then

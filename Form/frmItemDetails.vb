@@ -1026,11 +1026,9 @@ Public Class frmItemDetails
 
     End Function
     Private Sub fDATA_SQL(ByVal prDATA As String, ByVal ITEM_UNITS_ID As Double)
-        'item_unit_price_levels
-        ' Dim TEMP_SQL As String = ""
-        Dim Data As String = prDATA
 
-        Dim ID As String = ""
+        Dim Data As String = prDATA
+        Dim DataID As String = ""
         Dim PRICE_LEVEL_ID As String = ""
         Dim PRICE_LEVEL As String = ""
         Dim CUSTOM_PRICE As String = ""
@@ -1049,12 +1047,12 @@ Public Class frmItemDetails
                         Case "n"
                             SqlExecuted($" INSERT INTO item_unit_price_levels  SET PRICE_LEVEL_ID = '{PRICE_LEVEL_ID}', CUSTOM_PRICE='{CUSTOM_PRICE}',ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}',ID='{ObjectTypeMapId("ITEM_UNIT_PRICE_LEVELS")}';")
                         Case "e"
-                            SqlExecuted($" UPDATE item_unit_price_levels SET PRICE_LEVEL_ID = '{PRICE_LEVEL_ID}', CUSTOM_PRICE='{CUSTOM_PRICE}' WHERE ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}' and ID='{ID}' Limit 1;")
+                            SqlExecuted($" UPDATE item_unit_price_levels SET PRICE_LEVEL_ID = '{PRICE_LEVEL_ID}', CUSTOM_PRICE='{CUSTOM_PRICE}' WHERE ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}' and ID='{DataID}' Limit 1;")
                         Case "d"
-                            SqlExecuted($" DELETE FROM item_unit_price_levels WHERE ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}' and ID='{ID}' Limit 1;")
+                            SqlExecuted($" DELETE FROM item_unit_price_levels WHERE ITEM_UNIT_LINE_ID='{ITEM_UNITS_ID}' and ID='{DataID}' Limit 1;")
                     End Select
 
-                    ID = ""
+                    DataID = ""
                     PRICE_LEVEL_ID = ""
                     PRICE_LEVEL = ""
                     CUSTOM_PRICE = ""
@@ -1064,7 +1062,7 @@ Public Class frmItemDetails
                 Else
                     Select Case R
                         Case 0
-                            ID = ID & S
+                            DataID = DataID & S
                         Case 1
                             PRICE_LEVEL_ID = PRICE_LEVEL_ID & S
                         Case 2
@@ -1137,7 +1135,7 @@ Public Class frmItemDetails
         Dim T As Double = 0
         dgvComponents.Rows.Clear()
         Dim rd As OdbcDataReader = SqlReader($"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate`,i.ID as `ITEM_ID` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
-        '  LoadDataGridView(dgvItem, $"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
+        '  LoadDataGridView(dgvItem, $"SELECT ic.RowID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate` FROM item_components AS ic INNER JOIN item AS i ON i.`RowID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{RowID}' ")
         While rd.Read
             dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), NumIsNull(rd("Quantity")), NumIsNull(rd("RATE")), "s", rd("ITEM_ID"))
             T = T + NumIsNull(rd("RATE"))
@@ -1183,7 +1181,7 @@ Public Class frmItemDetails
 
         dgvComponents.Rows.Clear()
         Dim rd As OdbcDataReader = SqlReader($"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate`,i.ID as `ITEM_ID` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
-        '  LoadDataGridView(dgvItem, $"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
+        '  LoadDataGridView(dgvItem, $"SELECT ic.RowID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate` FROM item_components AS ic INNER JOIN item AS i ON i.`RowID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{RowID}' ")
         While rd.Read
             dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), NumIsNull(rd("Quantity")), NumIsNull(rd("RATE")), "s", rd("ITEM_ID"))
 
@@ -1373,7 +1371,7 @@ Public Class frmItemDetails
         If Data <> "" Then
 
 
-            Dim ID As String = ""
+            Dim RowID As String = ""
             Dim PRICE_LEVEL_ID As String = ""
             Dim PRICE_LEVEL As String = ""
             Dim CUSTOM_PRICE As String = ""
@@ -1385,8 +1383,8 @@ Public Class frmItemDetails
                 If S = "," Then
                     R = R + 1
                 ElseIf S = ";" Then
-                    dgvUM_Price_level.Rows.Add(ID, PRICE_LEVEL_ID, PRICE_LEVEL, CUSTOM_PRICE, STATUS)
-                    ID = ""
+                    dgvUM_Price_level.Rows.Add(RowID, PRICE_LEVEL_ID, PRICE_LEVEL, CUSTOM_PRICE, STATUS)
+                    RowID = ""
                     PRICE_LEVEL_ID = ""
                     PRICE_LEVEL = ""
                     CUSTOM_PRICE = ""
@@ -1395,7 +1393,7 @@ Public Class frmItemDetails
                 Else
                     Select Case R
                         Case 0
-                            ID = ID & S
+                            RowID = RowID & S
                         Case 1
                             PRICE_LEVEL_ID = PRICE_LEVEL_ID & S
                         Case 2
@@ -1522,7 +1520,7 @@ FROM  location AS l
         Else
             If MessageBoxQuestion("Create new?") = True Then
                 IsNew = True
-                ID = ""
+                ID = 0
                 fGeneral_Refresh()
             Else
 
@@ -1535,8 +1533,8 @@ FROM  location AS l
 
         With frmComponents
             .CausesValidation = False
-            .gsNew = True
-            .gsID = ""
+            .IsNew = True
+            .ID = ""
             .gsQTY = 1
             .gsRATE = 0
             .gsDGV = dgvComponents
@@ -1560,11 +1558,11 @@ FROM  location AS l
         With frmComponents
             .CausesValidation = False
             .gsDGV = dgvComponents
-            .gsID = dgvComponents.CurrentRow.Cells("ID").Value
+            .ID = dgvComponents.CurrentRow.Cells("ID").Value
             .gsITEM_ID = dgvComponents.CurrentRow.Cells("ITEM_ID").Value
             .gsQTY = dgvComponents.CurrentRow.Cells("QTY").Value
             .gsRATE = NumIsNull(dgvComponents.CurrentRow.Cells("RATE").Value)
-            .gsNew = False
+            .IsNew = False
             .ShowDialog()
             .Dispose()
         End With
@@ -1915,7 +1913,7 @@ FROM  location AS l
         End If
 
         IsNew = True
-        ID = ""
+        ID = 0
         ClearAndRefresh(Me)
         ClearAndRefresh(tpInfo)
         ClearAndRefresh(tpOther)
@@ -1952,9 +1950,9 @@ FROM  location AS l
                 .CausesValidation = False
             End If
 
-            .gsNew = True
+            .IsNew = True
             .gsDGV = dgvComponents
-            .gsID = ""
+            .ID = ""
             .gsQTY = 1
             .gsRATE = 0
             If cmbTYPE.SelectedValue = 9 Then
@@ -1988,9 +1986,9 @@ FROM  location AS l
             End If
 
             .gsDGV = dgvComponents
-            .gsNew = False
+            .IsNew = False
             .gsITEM_ID = dgvComponents.Rows(i).Cells("ITEM_ID").Value
-            .gsID = dgvComponents.Rows(i).Cells("ID").Value
+            .ID = dgvComponents.Rows(i).Cells("ID").Value
             .gsQTY = dgvComponents.Rows(i).Cells("QTY").Value
             .gsRATE = NumIsNull(dgvComponents.Rows(i).Cells("RATE").Value)
             If cmbTYPE.SelectedValue = 9 Then
@@ -2223,14 +2221,14 @@ FROM  location AS l
         With dgvOrder_Preference.Rows(i)
 
 
-            Dim dID As String = dgvOrder_Preference.Rows.Item(i).Cells("LOCATION_ID").Value ' Location ID
+            Dim dID As String = dgvOrder_Preference.Rows.Item(i).Cells("LOCATION_ID").Value ' Location RowID
             Dim dDescription As String = dgvOrder_Preference.Rows.Item(i).Cells("LOCATION").Value 'Location Name
 
 
 
             Dim dSave As Boolean = False
             frmItemPreference.bSave = dSave
-            frmItemPreference.gsDescription = dDescription 'Price Level ID
+            frmItemPreference.gsDescription = dDescription 'Price Level RowID
             frmItemPreference.gsOrderPoint = NumIsNull(.Cells("ORDER_POINT").Value)
             frmItemPreference.gsOrderQty = NumIsNull(.Cells("ORDER_QTY").Value)
             frmItemPreference.gsOrderLeadTime = NumIsNull(.Cells("ORDER_LEADTIME").Value)
@@ -2342,7 +2340,7 @@ FROM  location AS l
         Dim dSave As Boolean = False
         With frmInsertValue
             .txtValue.TextAlign = HorizontalAlignment.Right
-            .gsID = dID 'Price Level ID
+            .gsID = dID 'Price Level RowID
             .gsDescription = dDescription
             .gsFORM_NAME = "Price Level"
             .gsValue = dValue

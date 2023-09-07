@@ -405,7 +405,7 @@ FROM
             Exit Sub
 
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -714,7 +714,7 @@ FROM
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshField()
                 fRefreshItem()
@@ -737,7 +737,7 @@ FROM
         dgvProductItem.Rows.Clear()
         dgvExpenses.Rows.Clear()
         fComputed()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -1018,7 +1018,7 @@ FROM
                     dgvProductItem.Rows.Clear()
                     dgvExpenses.Rows.Clear()
                     fComputed()
-                    ID = ""
+                    ID = 0
                     IsNew = True
                     CursorLoadingOn(False)
                 End If
@@ -1304,12 +1304,12 @@ FROM
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/vendor.png")
 
-                    frmContactDetails.ContactTypeId = "0"
+                    frmContactDetails.ContactTypeId = 0
                     frmContactDetails.txtNAME.Text = StrText ' must auto insert
                     frmContactDetails.txtCOMPANY_NAME.Text = StrText
                     frmContactDetails.txtPRINT_NAME_AS.Text = StrText
                     frmContactDetails.IsNew = True
-                    frmContactDetails.ID = ""
+                    frmContactDetails.ID = 0
                     frmContactDetails.gsDgv = Nothing
                     frmContactDetails.this_BS = Nothing
                     frmContactDetails.ShowDialog()
@@ -1356,7 +1356,7 @@ FROM
     Private Sub frmBillCredit_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
             fRefreshField()
             fRefreshItem()

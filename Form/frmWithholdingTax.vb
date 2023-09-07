@@ -262,7 +262,7 @@ Public Class frmWithholdingTax
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -456,7 +456,7 @@ Public Class frmWithholdingTax
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefreshInfo()
             End If
@@ -469,7 +469,7 @@ Public Class frmWithholdingTax
 
         fClear_Info()
         IsNew = True
-        ID = ""
+        ID = 0
         fCheckBill()
 
     End Sub
@@ -569,7 +569,7 @@ Public Class frmWithholdingTax
             End If
 
 
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -608,7 +608,7 @@ Public Class frmWithholdingTax
                     MessageBoxWarning(ex.Message)
                 End Try
 
-                ID = ""
+                ID = 0
                 IsNew = True
                 fClear_Info()
                 CursorLoadingOn(False)
@@ -757,7 +757,7 @@ Public Class frmWithholdingTax
     Private Sub frmWithholdingTax_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
             fRefreshInfo()
@@ -798,7 +798,7 @@ Public Class frmWithholdingTax
 
         TabFormOpen(F, frmMainMenu.MyTab, Img)
         F.TabIndex = gsDocument_Finder_ID
-        gsDocument_Finder_ID = ""
+        gsDocument_Finder_ID = 0
     End Sub
 
     Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged

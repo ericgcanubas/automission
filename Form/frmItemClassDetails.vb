@@ -17,19 +17,6 @@ Public Class frmItemClassDetails
             End Try
         End If
     End Sub
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If IsNew = True Then
-            ClearAndRefresh(Me)
-        Else
-            If MessageBoxQuestion("Create new?") = True Then
-                IsNew = True
-                ID = ""
-                ClearAndRefresh(Me)
-            Else
-                SqlExecutedUsingReading(Me, "select * from item_class where id = '" & ID & "' limit 1")
-            End If
-        End If
-    End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
@@ -62,5 +49,9 @@ Public Class frmItemClassDetails
         If fACCESS_NEW_EDIT(frmItemClass, IsNew) = False Then
             Me.Close()
         End If
+    End Sub
+
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        Me.Close()
     End Sub
 End Class

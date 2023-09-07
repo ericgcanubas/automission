@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Public Class frmGeneralJournal
-    Public ID As String = gsDocument_Finder_ID
+    Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim f As Form = New frmFindDocument
     Dim bItemRefresh As Boolean = False
@@ -274,7 +274,7 @@ Public Class frmGeneralJournal
         Catch ex As Exception
 
         Finally
-            If ID <> "" Then
+            If ID > 0 Then
                 IsNew = False
                 fRefresh_Details()
             End If
@@ -285,7 +285,7 @@ Public Class frmGeneralJournal
     Private Sub fSetNew()
 
         fClearInfo()
-        ID = ""
+        ID = 0
         IsNew = True
 
     End Sub
@@ -359,7 +359,7 @@ Public Class frmGeneralJournal
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -404,7 +404,7 @@ Public Class frmGeneralJournal
                 Exit Sub
             End If
 
-            If IsNew = False And ID <> "" Then
+            If IsNew = False And ID > 0 Then
                 If fCheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
@@ -618,7 +618,7 @@ Public Class frmGeneralJournal
 
     Private Sub frmGeneralJournal_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         ID = gsDocument_Finder_ID
-        IsNew = IIf(ID = "", True, False)
+        IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
 
             fRefresh_Details()
