@@ -1,4 +1,4 @@
-﻿Public Class frmContactGroup
+﻿Public Class FrmContactGroup
     Dim item_BS As BindingSource
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm

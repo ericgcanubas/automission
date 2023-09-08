@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmWriteCheck
+Partial Class FrmWriteCheck
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmWriteCheck
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmWriteCheck))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmWriteCheck))
         Me.cmbBANK_ACCOUNT_ID = New System.Windows.Forms.ComboBox()
         Me.cmbPAY_TO_ID = New System.Windows.Forms.ComboBox()
         Me.xlblPayTo = New System.Windows.Forms.Label()

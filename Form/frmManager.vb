@@ -1,4 +1,4 @@
-﻿Public Class frmManager
+﻿Public Class FrmManager
     Public contact_BS As BindingSource
     Private Sub frmManager_Load(sender As Object, e As EventArgs) Handles Me.Load
 

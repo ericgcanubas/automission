@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmContactDetails
+Public Class FrmContactDetails
     Dim Frm As Form
     Public gsTITLE As String
     Public gsOK As Boolean = False

@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 
-Public Class frmStockTransfer
-    Dim f As Form = New frmFindDocument
+Public Class FrmStockTransfer
+    Dim f As Form = New FrmFindDocument
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim tdgv As DataGridView

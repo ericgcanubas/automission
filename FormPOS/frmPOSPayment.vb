@@ -1,4 +1,4 @@
-﻿Public Class frmPOSPayment
+﻿Public Class FrmPOSPayment
 
     Public gsTransTotal As Double = 0
     Public gsOk As Boolean = False

@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 
-Public Class frmStockReceived
-    Dim f As Form = New frmFindDocument
+Public Class FrmStockReceived
+    Dim f As Form = New FrmFindDocument
     Dim bRefreshItem As Boolean = False
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)

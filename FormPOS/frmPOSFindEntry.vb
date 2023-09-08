@@ -1,4 +1,4 @@
-﻿Public Class frmPOSFindEntry
+﻿Public Class FrmPOSFindEntry
     Dim BS As BindingSource
     Public GetID As Integer
 

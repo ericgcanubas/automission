@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmTFU
+Public Class FrmTFU
 
     Public gsText As String
 

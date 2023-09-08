@@ -1,5 +1,5 @@
 ﻿
-Public Class frmVendor
+Public Class FrmVendor
     Public contact_BS As BindingSource
     Private Sub fRefreshData()
 

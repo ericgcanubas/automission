@@ -1,4 +1,4 @@
-﻿Public Class frmCreditMemoOption
+﻿Public Class FrmCreditMemoOption
     Public iSelect As Integer = 0
     Private Sub frmCreditMemoOption_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'fBackGroundImageStyle(Me)

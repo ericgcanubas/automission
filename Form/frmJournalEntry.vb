@@ -1,4 +1,4 @@
-﻿Public Class frmJournalEntry
+﻿Public Class FrmJournalEntry
     Public tmp_dgv As DataGridView
     Public gsSave As Boolean = False
     Public gsAccount_ID As String

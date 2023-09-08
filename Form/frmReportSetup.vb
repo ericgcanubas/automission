@@ -2,7 +2,7 @@
 'Select Case`STOCK IN` AS `TYPE`,`STOCK IN` AS `VALUE` UNION
 'Select Case`STOCK OUT` AS `TYPE`,`STOCK OUT` AS `VALUE`
 Imports System.Data.Odbc
-Public Class frmReportSetup
+Public Class FrmReportSetup
 
     Dim Report_Type As String
     Dim bIsDataSet As Boolean

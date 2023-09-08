@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmCustomerStatementDetails
+Public Class FrmCustomerStatementDetails
     Private Sub frmCustomerStatementDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
         dtpFrom.Value = CDate("1/1/2016")

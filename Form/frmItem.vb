@@ -1,5 +1,5 @@
 ﻿
-Public Class frmItem
+Public Class FrmItem
     Public item_BS As BindingSource
     Private Sub fRefreshDataGrid()
 

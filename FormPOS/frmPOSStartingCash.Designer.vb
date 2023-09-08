@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmPOSStartingCash
+Partial Class FrmPOSStartingCash
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmPOSStartingCash
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOSStartingCash))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPOSStartingCash))
         Me.numAMOUNT = New System.Windows.Forms.NumericUpDown()
         Me.btnOK = New Bunifu.Framework.UI.BunifuThinButton2()
         Me.BunifuGradientPanel5 = New Bunifu.Framework.UI.BunifuGradientPanel()

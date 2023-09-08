@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmPOSRoomDetails
+Partial Class FrmPOSRoomDetails
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmPOSRoomDetails
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOSRoomDetails))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPOSRoomDetails))
         Me.ToolStripLabel12 = New System.Windows.Forms.ToolStripLabel()
         Me.cmbCUSTOMER_ID = New System.Windows.Forms.ComboBox()
         Me.cmbSHIP_VIA_ID = New System.Windows.Forms.ComboBox()

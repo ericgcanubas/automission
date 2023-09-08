@@ -1,4 +1,4 @@
-﻿Public Class frmDiscountBill
+﻿Public Class FrmDiscountBill
     Public gsDISCOUNT_AMOUNT As Double = 0
     Public gsDISCOUNT_ACCOUNT_ID As String
     Public gsDISCOUNT_DATE As Date

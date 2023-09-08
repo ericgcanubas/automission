@@ -1,4 +1,4 @@
-﻿Public Class frmSubMenuGroup
+﻿Public Class FrmSubMenuGroup
     Private Sub frmSubMenuGroup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fRefreshMenu()
         fRefreshSubMenuGroup()

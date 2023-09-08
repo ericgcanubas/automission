@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmTaxDetails
+Partial Class FrmTaxDetails
     Inherits System.Windows.Forms.Form
 
 

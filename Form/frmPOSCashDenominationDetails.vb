@@ -1,4 +1,4 @@
-﻿Public Class frmPOSCashDenominationDetails
+﻿Public Class FrmPOSCashDenominationDetails
     Public ID As Integer
     Public gsOK As Boolean
     Private Sub FrmPOSCashDenominationDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load

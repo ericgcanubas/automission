@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSRestoKitchenMonitoring
+Public Class FrmPOSRestoKitchenMonitoring
     Public gsCloseCall As Boolean
 
     Private Sub frmPOSOrderEntry_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmUserDetails
+Public Class FrmUserDetails
     Public ID As Integer
     Public IsNew As Boolean
     Public gsDgv As DataGridView

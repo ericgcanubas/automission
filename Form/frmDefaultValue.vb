@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmDefaultValue
+Public Class FrmDefaultValue
     Private Sub fControlRotation(ByVal prName As String, ByVal prValue As String)
         Try
 

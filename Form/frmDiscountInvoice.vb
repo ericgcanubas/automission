@@ -1,4 +1,4 @@
-﻿Public Class frmDiscountInvoice
+﻿Public Class FrmDiscountInvoice
     Public gsDISCOUNT_AMOUNT As Double = 0
     Public gsDISCOUNT_ACCOUNT_ID As String
     Public gsOK As Boolean = False

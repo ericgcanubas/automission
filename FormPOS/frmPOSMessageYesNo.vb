@@ -1,4 +1,4 @@
-﻿Public Class frmPOSMessageYesNo
+﻿Public Class FrmPOSMessageYesNo
     Public gsClickYes As Boolean = False
     Public gsMessage As String
     Private Sub frmPOSMessageYesNo_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmChartOfAccount
+Public Class FrmChartOfAccount
     Public item_BS As BindingSource
     Public gsFindMode As Boolean
     Public gsFindID As Double

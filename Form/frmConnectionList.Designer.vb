@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmConnectionList
+Partial Class FrmConnectionList
     Inherits System.Windows.Forms.Form
     ' Inherits MaterialSkin.Controls.MaterialForm
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmConnectionList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmConnectionList))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmConnectionList))
         Me.listCon = New System.Windows.Forms.ListBox()
         Me.BunifuThinButton21 = New Bunifu.Framework.UI.BunifuThinButton2()
         Me.BunifuCustomLabel1 = New Bunifu.Framework.UI.BunifuCustomLabel()

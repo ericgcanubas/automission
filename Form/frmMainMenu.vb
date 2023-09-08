@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmMainMenu
+Public Class FrmMainMenu
     Dim ApplicationClick As Boolean = False
     Dim drag As Boolean
     Dim mousex As Integer
@@ -290,7 +290,7 @@ Public Class frmMainMenu
 
         Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
         Dim img As Image = Image.FromFile(folder & "report_setup.png")
-        Dim R As New frmReportSetup
+        Dim R As New FrmReportSetup
 
 
 
@@ -309,7 +309,7 @@ Public Class frmMainMenu
 
         Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
         Dim img As Image = Image.FromFile(folder & "report_setup.png")
-        Dim R As New frmReportSetup
+        Dim R As New FrmReportSetup
         R.Text = Title
 
 

@@ -1,6 +1,6 @@
 ﻿Imports ZXing
 Imports System.Text.RegularExpressions
-Public Class frmBarcode
+Public Class FrmBarcode
 
 
     Public dgv As DataGridView

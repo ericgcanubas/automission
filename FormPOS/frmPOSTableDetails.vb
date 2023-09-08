@@ -1,4 +1,4 @@
-﻿Public Class frmPOSTableDetails
+﻿Public Class FrmPOSTableDetails
     Public gsTABLE_NO As Integer
     Public gsORDER_TYPE As Integer
     Public gsClickOk As Boolean = False

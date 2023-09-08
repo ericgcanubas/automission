@@ -1,5 +1,5 @@
 ﻿
-Public Class frmServiceFeeDetails
+Public Class FrmServiceFeeDetails
     Public ID As Integer
     Public IsNew As Boolean = True
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click

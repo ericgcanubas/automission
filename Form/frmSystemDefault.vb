@@ -1,4 +1,4 @@
-﻿Public Class frmSystemDefault
+﻿Public Class FrmSystemDefault
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
         gsDEFAULT_PRINTER = cmbPrinter.Text

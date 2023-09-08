@@ -1,4 +1,4 @@
-﻿Public Class frmEmailSetup
+﻿Public Class FrmEmailSetup
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Dim str_Query As String = ""
         str_Query = str_Query & "UPDATE system_settings SET `VALUE` ='" & txtGmailUsername.Text & "' WHERE `NAME` = 'GmailUsername';"

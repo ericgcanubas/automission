@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSRoomTransfer
+Public Class FrmPOSRoomTransfer
     Public gsTransfer_Item_ID As Integer
     Dim gsCheckInType As Integer = 10
     Dim INVOICE_ID_SQL As String = $" IFNULL((SELECT n.id FROM  invoice AS n  INNER JOIN invoice_items AS ni ON  ni.invoice_id = n.id WHERE ni.item_id = i.`ID`  AND n.ship_via_id = '{gsCheckInType}' LIMIT 1),0) "

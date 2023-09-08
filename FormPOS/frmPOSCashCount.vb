@@ -1,6 +1,6 @@
 ﻿
 Imports System.Data.Odbc
-Public Class frmPOSCashCount
+Public Class FrmPOSCashCount
 
     Private Sub frmPOSCashCount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

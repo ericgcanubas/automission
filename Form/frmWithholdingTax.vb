@@ -1,9 +1,9 @@
 ﻿Imports System.Data.Odbc
-Public Class frmWithholdingTax
+Public Class FrmWithholdingTax
 
     Public ID As String = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False

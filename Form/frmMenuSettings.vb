@@ -1,5 +1,5 @@
 ﻿Imports System.IO
-Public Class frmMenuSettings
+Public Class FrmMenuSettings
     Private Sub frmMenuSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fFormLoad()
         fMainMenu()

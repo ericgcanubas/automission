@@ -1,5 +1,5 @@
 ﻿
-Public Class frmPortfolioReport
+Public Class FrmPortfolioReport
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         If Trim(cmbSALES_MANAGER.Text) = "" Then
             MessageBoxInfo("Please select sales manager")

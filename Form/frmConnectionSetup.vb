@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmConnectionSetup
+Public Class FrmConnectionSetup
     Public bNew As Boolean
     Dim bTest As Boolean = False
     Public strCon_Name As String

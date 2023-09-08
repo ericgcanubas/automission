@@ -1,5 +1,5 @@
 ﻿
-Public Class frmItemUnitMeasurePriceLevel
+Public Class FrmItemUnitMeasurePriceLevel
     Public bSave As Boolean
     Public iPrice_Level_id As Integer = 0
     Public iCustomer_Price As Double = 0

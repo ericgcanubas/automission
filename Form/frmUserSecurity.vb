@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmUserSecurity
+Public Class FrmUserSecurity
     Public gsSelect_User_ID As Integer
     Public gsSelect_UserName As String
     Dim bSelected As Boolean

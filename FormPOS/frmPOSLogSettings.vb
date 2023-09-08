@@ -1,4 +1,4 @@
-﻿Public Class frmPOSLogSettings
+﻿Public Class FrmPOSLogSettings
     Private Sub frmPOSLogSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'PRINT_OS_AFTER_SAVE_INVOICE
         fLoadPrinter(cmbPRINTER)

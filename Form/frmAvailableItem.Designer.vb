@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmAvailableItem
+Partial Class FrmAvailableItem
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

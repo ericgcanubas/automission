@@ -1,3 +1,3 @@
-﻿Public Class frmPOSRoomReports
+﻿Public Class FrmPOSRoomReports
 
 End Class

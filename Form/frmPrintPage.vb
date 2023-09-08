@@ -1,4 +1,4 @@
-﻿Public Class frmPrintPage
+﻿Public Class FrmPrintPage
     Public frmName As String
     Public prValue As Integer = 0
     Private Sub frmPrintPage_Load(sender As Object, e As EventArgs) Handles MyBase.Load

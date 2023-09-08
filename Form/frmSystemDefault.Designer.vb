@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmSystemDefault
+Partial Class FrmSystemDefault
     Inherits System.Windows.Forms.Form
 
 

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmSecurity
+Public Class FrmSecurity
     Dim bSelected As Boolean
 
     Dim NodesThatMatch As New List(Of TreeNode)

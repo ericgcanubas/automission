@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSSetting
+Public Class FrmPOSSetting
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub

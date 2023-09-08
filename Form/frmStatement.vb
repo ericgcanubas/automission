@@ -1,4 +1,4 @@
-﻿Public Class frmStatement
+﻿Public Class FrmStatement
     Private Sub frmStatement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '  fBackGroundImageStyle(Me)
         fDataRangeLoad()

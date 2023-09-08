@@ -1,4 +1,4 @@
-﻿Public Class frmPOSLogList
+﻿Public Class FrmPOSLogList
     Public item_BS As BindingSource
     Dim firstLoad As Boolean = True
     Private Sub fRefreshData()

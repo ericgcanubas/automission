@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmStockReceived
+Partial Class FrmStockReceived
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmStockReceived
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStockReceived))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmStockReceived))
         Me.ToolStrip2 = New System.Windows.Forms.ToolStrip()
         Me.tsAddItem = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripLabel10 = New System.Windows.Forms.ToolStripSeparator()

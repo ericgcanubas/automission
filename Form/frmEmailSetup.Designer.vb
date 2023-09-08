@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmEmailSetup
+Partial Class FrmEmailSetup
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

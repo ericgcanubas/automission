@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmDatabaseReset
+Public Class FrmDatabaseReset
     Private Sub frmDatabaseReset_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         chkTableList.Items.Clear()
         Dim rd As OdbcDataReader = SqlReader("select description from document_type_map order by id")

@@ -1,5 +1,5 @@
 ﻿
-Public Class frmInventoryAdjustmentType
+Public Class FrmInventoryAdjustmentType
     Dim item_BS As BindingSource
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
         ViewSwitch(dgvInventoryAdjustmentType, 43)

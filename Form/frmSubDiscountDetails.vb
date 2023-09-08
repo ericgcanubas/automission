@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmSubDiscountDetails
+Public Class FrmSubDiscountDetails
     Public ID As Integer
     Public IsNew As Boolean = True
 

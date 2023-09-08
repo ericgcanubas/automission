@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmAvailableItem
+Public Class FrmAvailableItem
     Public gsCONTACT_ID As String
     Public gsType As Integer
     Public gsdgv As DataGridView

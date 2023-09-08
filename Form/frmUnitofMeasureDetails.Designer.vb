@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmUnitofMeasureDetails
+Partial Class FrmUnitofMeasureDetails
     Inherits System.Windows.Forms.Form
 
 

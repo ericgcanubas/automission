@@ -1,5 +1,5 @@
 ﻿
-Public Class frmCollectionList
+Public Class FrmCollectionList
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
 
         Dim path As String = AppDomain.CurrentDomain.BaseDirectory

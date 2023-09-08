@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSLogDetails
+Public Class FrmPOSLogDetails
     Public gsID As Integer
     Dim ThisLocationID As Integer
     Dim POS_STARTING_CASH_ID As Integer

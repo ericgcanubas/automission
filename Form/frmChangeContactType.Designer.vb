@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmChangeContactType
+Partial Class FrmChangeContactType
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

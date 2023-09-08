@@ -1,10 +1,10 @@
 ﻿Imports System.Data.Odbc
-Public Class frmBillCredit
+Public Class FrmBillCredit
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
     Dim bRefreshExpenses As Boolean = False
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Dim tdgv As DataGridView
     Dim tdgvE As DataGridView
     Dim tQuery As String

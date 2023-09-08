@@ -1,4 +1,4 @@
-﻿Public Class frmPOSNumpad
+﻿Public Class FrmPOSNumpad
     Public gsValue As String
     Public gsEnter As Boolean = False
     Private Sub fGetValue()

@@ -1,6 +1,6 @@
 ﻿Imports System.DateTime
 Imports System.Data.Odbc
-Public Class frmReportMonthly
+Public Class FrmReportMonthly
     Dim f As Date
     Dim t As Date
     Private Sub frmDepotSalesAcheivementReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load

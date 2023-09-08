@@ -1,4 +1,4 @@
-﻿Public Class frmReportManager
+﻿Public Class FrmReportManager
     Public gsSUB_ID As String
     Private Sub lklNew_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklNew.LinkClicked
         With frmReportManagerComponent

@@ -1,4 +1,4 @@
-﻿Public Class frmItemPreference
+﻿Public Class FrmItemPreference
     Public bSave As Boolean
     Public gsDescription As String
     Public gsOrderPoint As Double

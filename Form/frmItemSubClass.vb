@@ -1,4 +1,4 @@
-﻿Public Class frmItemSubClass
+﻿Public Class FrmItemSubClass
     Public item_BS As BindingSource
     Private Sub frmItemSubClass_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm

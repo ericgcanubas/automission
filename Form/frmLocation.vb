@@ -1,4 +1,4 @@
-﻿Public Class frmLocation
+﻿Public Class FrmLocation
     Dim item_BS As BindingSource
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
         If fACCESS_NEW_EDIT(Me, True) = False Then

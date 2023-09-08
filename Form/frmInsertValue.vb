@@ -1,4 +1,4 @@
-﻿Public Class frmInsertValue
+﻿Public Class FrmInsertValue
     Public gsID As String
     Public gsFORM_NAME As String = "Enter Value"
     Public gsDescription As String

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSRestoPendingToPaid
+Public Class FrmPOSRestoPendingToPaid
     Public gsID As Integer
     Public gsClickOK As Boolean = False
     Private Sub frmPOSRestoPendingToPaid_Load(sender As Object, e As EventArgs) Handles MyBase.Load

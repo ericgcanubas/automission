@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmContactGroupDetails
+Partial Class FrmContactGroupDetails
     Inherits System.Windows.Forms.Form
 
 

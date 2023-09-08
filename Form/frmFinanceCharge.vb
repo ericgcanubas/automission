@@ -1,4 +1,4 @@
-﻿Public Class frmFinanceCharge
+﻿Public Class FrmFinanceCharge
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         ClosedForm(Me)
     End Sub

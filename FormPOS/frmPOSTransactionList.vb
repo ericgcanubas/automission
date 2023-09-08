@@ -1,4 +1,4 @@
-﻿Public Class frmPOSTransactionList
+﻿Public Class FrmPOSTransactionList
     Public gsBS As BindingSource
     Public gsResume As Boolean = False
     Public gsNew As Boolean = False

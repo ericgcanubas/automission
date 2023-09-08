@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPaymentTermsDetails
+Public Class FrmPaymentTermsDetails
     Public ID As Integer
     Public IsNew As Boolean = True
     Public This_BS As BindingSource

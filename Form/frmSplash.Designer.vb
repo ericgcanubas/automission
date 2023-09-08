@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmSplash
+Partial Class FrmSplash
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

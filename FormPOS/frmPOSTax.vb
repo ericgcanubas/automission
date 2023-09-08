@@ -1,4 +1,4 @@
-﻿Public Class frmPOSTax
+﻿Public Class FrmPOSTax
     Public gsTax_Id As Integer
     Public gsOk As Boolean
     Private Sub frmPOSTax_Load(sender As Object, e As EventArgs) Handles MyBase.Load

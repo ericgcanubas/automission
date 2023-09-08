@@ -1,6 +1,6 @@
 ﻿
 
-Public Class frmConnectionList
+Public Class FrmConnectionList
 
 
     Dim HiLiteBrush As New SolidBrush(Color.FromKnownColor(KnownColor.LightSkyBlue))

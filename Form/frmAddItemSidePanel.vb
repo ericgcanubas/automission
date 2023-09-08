@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmAddItemSidePanel
+Public Class FrmAddItemSidePanel
     Dim gsTextChange As Boolean = False
     Dim BS_ITEM As BindingSource
     Dim ItemType As Integer
@@ -11,7 +11,7 @@ Public Class frmAddItemSidePanel
     Public gsNON_PORFOLIO_COMPUTATION As Boolean = False
     Public gsNonInventoryItem As Boolean = True
     Public gsNew As Boolean = False
-    Dim f As Form = New frmFindItem
+    Dim f As Form = New FrmFindItem
     Public gsCOST_AMOUNT_ONLY As Boolean = False
     Public gsMEMBER As Boolean = False
     Public gsMEMEBER_DISCOUNT As Double = 0

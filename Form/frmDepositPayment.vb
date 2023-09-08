@@ -1,4 +1,4 @@
-﻿Public Class frmDepositPayment
+﻿Public Class FrmDepositPayment
     Public gsOK As Boolean = False
     Public gsLocation_ID As Integer
     Private Sub frmDepositPayment_Load(sender As Object, e As EventArgs) Handles Me.Load

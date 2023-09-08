@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmLogin
+Public Class FrmLogin
     Public bLogin As Boolean = False
 
 

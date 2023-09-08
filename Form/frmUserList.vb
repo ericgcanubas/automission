@@ -1,5 +1,5 @@
 ﻿
-Public Class frmUserList
+Public Class FrmUserList
 
     Dim Item_BS As BindingSource
 

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmCreditMemoInvoice
+Public Class FrmCreditMemoInvoice
     Public gsID As String
     Public gsCustomer_ID As Integer
     Public gsLocation_ID As Integer

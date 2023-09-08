@@ -1,4 +1,4 @@
-﻿Public Class frmItemUnitRelated
+﻿Public Class FrmItemUnitRelated
     Public bSave As Boolean
     Public iUnit_ID As Integer = 0
     Private Sub btnCancel_Click(sender As Object, e As EventArgs)

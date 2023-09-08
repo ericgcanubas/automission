@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPriceLevelDetails
+Public Class FrmPriceLevelDetails
     Public ID As Integer
     Dim IsNew As Boolean = True
     Public This_BS As BindingSource

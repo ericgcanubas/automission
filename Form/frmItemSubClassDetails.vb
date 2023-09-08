@@ -1,5 +1,5 @@
 ﻿
-Public Class frmItemSubClassDetails
+Public Class FrmItemSubClassDetails
     Public ID As Integer
     Dim IsNew As Boolean = True
     Public BS As BindingSource

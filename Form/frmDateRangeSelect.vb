@@ -1,4 +1,4 @@
-﻿Public Class frmDateRangeSelect
+﻿Public Class FrmDateRangeSelect
     Public DateFrom As Date
     Public DateTo As Date
     Public gsOK As Boolean = False

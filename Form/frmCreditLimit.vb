@@ -1,4 +1,4 @@
-﻿Public Class frmCreditLimit
+﻿Public Class FrmCreditLimit
 
 
 

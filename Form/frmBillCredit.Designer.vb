@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmBillCredit
+Partial Class FrmBillCredit
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmBillCredit
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmBillCredit))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmBillCredit))
         Me.lblINPUT_TAX_VAT_METHOD = New System.Windows.Forms.Label()
         Me.lblINPUT_TAX_RATE = New System.Windows.Forms.Label()
         Me.lblINPUT_TAX_ACCOUNT_ID = New System.Windows.Forms.Label()

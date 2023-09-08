@@ -1,4 +1,4 @@
-﻿Public Class frmPOSLogResto
+﻿Public Class FrmPOSLogResto
     Public gsGotVoid As Boolean
     Public gsRestoNotEmpty As Boolean = False
     Private Sub frmPOSLogResto_Load(sender As Object, e As EventArgs) Handles MyBase.Load

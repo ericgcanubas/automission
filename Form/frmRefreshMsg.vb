@@ -1,4 +1,4 @@
-﻿Public Class frmRefreshMsg
+﻿Public Class FrmRefreshMsg
     Public gsSelect As Integer = 0
     Private Sub frmRefreshMsg_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         gsSelect = 0

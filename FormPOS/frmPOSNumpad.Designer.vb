@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmPOSNumpad
+Partial Class FrmPOSNumpad
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

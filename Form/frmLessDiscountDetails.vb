@@ -1,5 +1,5 @@
 ﻿
-Public Class frmLessDiscountDetails
+Public Class FrmLessDiscountDetails
     Public IsNew As Boolean = True
     Public ID As Integer
 

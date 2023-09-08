@@ -1,5 +1,5 @@
 ﻿Imports System.DateTime
-Public Class frmDealer
+Public Class FrmDealer
     Public contact_BS As BindingSource
     Private Sub frmDealer_Load(sender As Object, e As EventArgs) Handles Me.Load
         TSComboBoxLoad(tsManager, " SELECT '%' as ID, 'All Manager' as `NAME` UNION SELECT ID,`NAME` FROM contact WHERE `type`='2'", "ID", "NAME")

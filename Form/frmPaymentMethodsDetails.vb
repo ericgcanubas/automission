@@ -1,5 +1,5 @@
 ﻿
-Public Class frmPaymentMethodsDetails
+Public Class FrmPaymentMethodsDetails
     Public This_BS As BindingSource
     Public Dgv As DataGridView
     Public ID As Integer

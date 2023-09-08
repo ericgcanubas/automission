@@ -1,5 +1,5 @@
-﻿Public Class frmCashCountConfirm
-    Private Sub frmCashCountConfirm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+﻿Public Class FrmCashCountConfirm
+    Private Sub FrmCashCountConfirm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         lblTOTALSALES.Text = NumberFormatStandard(gsPOS_TOTAL)
         fLabel_Digital_M(lblTOTALSALES)

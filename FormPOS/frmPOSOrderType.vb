@@ -1,3 +1,3 @@
-﻿Public Class frmPOSOrderType
+﻿Public Class FrmPOSOrderType
 
 End Class

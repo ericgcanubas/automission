@@ -1,5 +1,5 @@
 ﻿
-Public Class frmReportSetting
+Public Class FrmReportSetting
     Private Sub fRefresh()
         LoadDataGridView(dgvReport, "select s.SUB_ID as `Report ID`,s.Description,s.form as `Report file`, r.description as `Report Group`,s.image_file as `Ref Description` from tblsub_menu as s left outer join report_group as r on (r.id = s.group_line) inner join tblmenu_list as ml on (ml.sub_id = s.sub_id  and ml.menu_id = '5') ")
 

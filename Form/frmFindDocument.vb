@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmFindDocument
+Public Class FrmFindDocument
     Public firstLoad As Boolean = True
     Public gsSelected As Boolean = False
     Public gsGET_ID As String = ""

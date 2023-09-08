@@ -1,5 +1,5 @@
 ﻿
-Public Class frmThemeStyle
+Public Class FrmThemeStyle
     Private Sub frmThemeStyle_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fRefreshData()
     End Sub

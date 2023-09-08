@@ -1,5 +1,5 @@
 ﻿
-Public Class frmReportSettingDetails
+Public Class FrmReportSettingDetails
     Public ID As Integer
     Public IsNew As Boolean = False
 

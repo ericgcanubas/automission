@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSOrderEntry
+Public Class FrmPOSOrderEntry
 
     Public gsCloseCall As Boolean = False
     Dim bNewContact As Boolean = False
@@ -8,7 +8,7 @@ Public Class frmPOSOrderEntry
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
     Dim bEntryAddItem As Boolean = False
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
 
     Dim tdgv As DataGridView
     Dim tQuery As String

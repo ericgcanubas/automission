@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmBillPayment
+Partial Class FrmBillPayment
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmBillPayment
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmBillPayment))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmBillPayment))
         Me.cmbACCOUNTS_PAYABLE_ID = New System.Windows.Forms.ComboBox()
         Me.AccountLabel = New System.Windows.Forms.Label()
         Me.cmbLOCATION_ID = New System.Windows.Forms.ComboBox()

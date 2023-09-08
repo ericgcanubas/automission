@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmMessageUserControl
+Public Class FrmMessageUserControl
     Dim n As Integer = 10
 
     Public gsAllowed As Boolean = False

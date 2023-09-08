@@ -1,4 +1,4 @@
-﻿Public Class frmAddExpenses
+﻿Public Class FrmAddExpenses
 
     Public sFormName As String = ""
 

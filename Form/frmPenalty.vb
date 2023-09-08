@@ -1,5 +1,5 @@
 ﻿
-Public Class frmPenalty
+Public Class FrmPenalty
     Private Sub frmPenaltyInvoice_Load(sender As Object, e As EventArgs) Handles Me.Load
 
 

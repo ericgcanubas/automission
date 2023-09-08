@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmItemLocationDefaults
+Partial Class FrmItemLocationDefaults
     Inherits System.Windows.Forms.Form
 
 

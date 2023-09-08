@@ -1,4 +1,4 @@
-﻿Public Class frmClass
+﻿Public Class FrmClass
     Dim item_BS As BindingSource
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
         ClosedForm(Me)

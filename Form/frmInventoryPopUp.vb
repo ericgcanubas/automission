@@ -1,3 +1,3 @@
-﻿Public Class frmInventoryPopUp
+﻿Public Class FrmInventoryPopUp
 
 End Class

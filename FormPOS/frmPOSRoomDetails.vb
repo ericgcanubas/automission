@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSRoomDetails
+Public Class FrmPOSRoomDetails
 
     Public gsWalkInCustomer As Boolean = False
     Public gsCHECK_IN As Integer
@@ -13,7 +13,7 @@ Public Class frmPOSRoomDetails
 
     Dim bRefreshItem As Boolean = False
     Dim bEntryAddItem As Boolean = False
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Dim bLoadOn As Boolean = False
 
     Dim tdgv As DataGridView

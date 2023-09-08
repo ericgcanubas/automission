@@ -1,4 +1,4 @@
-﻿Public Class frmPOSLog
+﻿Public Class FrmPOSLog
     Public gsType As Integer
     Private Sub frmPOSLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

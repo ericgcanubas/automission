@@ -76,7 +76,7 @@ Module modReports
         ' MenuSet()
         Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
         Dim img As Image = Image.FromFile(folder & "report.png")
-        Dim R As New frmReportViewer
+        Dim R As New FrmReportViewer
 
         R.Text = prTabname & " Preview"
         R.AccessibleDescription = R.Text

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmRequestForm
+Public Class FrmRequestForm
     Public gslocation_select_Id As Double
     Public gsVendor_select_Id As Double
     Public gsPR_select_Id As Double

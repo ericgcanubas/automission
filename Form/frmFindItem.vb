@@ -1,4 +1,4 @@
-﻿Public Class frmFindItem
+﻿Public Class FrmFindItem
     Dim dt As Date = Date.Now
     Dim sLocation_ID As String
     Public item_BS As BindingSource

@@ -1,6 +1,6 @@
 ﻿Imports CrystalDecisions.Windows.Forms
 
-Public Class frmReportViewer
+Public Class FrmReportViewer
     Dim rpt As New CrystalDecisions.CrystalReports.Engine.ReportDocument
     Public gsSearchRedBox As String
     Private Sub frmReportViewer_Load(sender As Object, e As EventArgs) Handles Me.Load

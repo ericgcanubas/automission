@@ -1,4 +1,4 @@
-﻿Public Class frmItemGroup
+﻿Public Class FrmItemGroup
     Public Item_BS As BindingSource
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
         ViewSwitch(dgvItemGroup, 39)

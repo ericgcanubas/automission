@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmSalesReceipt
+Partial Class FrmSalesReceipt
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmSalesReceipt
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSalesReceipt))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmSalesReceipt))
         Me.dgvProductItem = New System.Windows.Forms.DataGridView()
         Me.lblOUTPUT_TAX_VAT_METHOD = New System.Windows.Forms.Label()
         Me.lblAMOUNT = New System.Windows.Forms.Label()

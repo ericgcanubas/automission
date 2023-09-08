@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmSettings
+Public Class FrmSettings
 
 
 

@@ -1,4 +1,4 @@
-﻿Public Class frmReportComponents
+﻿Public Class FrmReportComponents
     Private Sub lklNew_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklNew.LinkClicked
         With frmReportComponentItems
             .ID = 0

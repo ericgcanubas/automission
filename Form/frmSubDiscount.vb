@@ -1,5 +1,5 @@
 ﻿
-Public Class frmSubDiscount
+Public Class FrmSubDiscount
     Private Sub frmSubDiscount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fRefresh()
 

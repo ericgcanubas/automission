@@ -1,5 +1,5 @@
 ﻿
-Public Class frmManufacturersDetails
+Public Class FrmManufacturersDetails
     Public ID As String
     Dim IsNew As Boolean = True
     Public This_BS As BindingSource

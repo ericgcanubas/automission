@@ -1,4 +1,4 @@
-﻿Public Class frmPOSCashDenomination
+﻿Public Class FrmPOSCashDenomination
     Public item_BS As BindingSource
     Public gsFindID As Double
 

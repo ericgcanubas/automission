@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPRAvailable
+Public Class FrmPRAvailable
     Public gsFirest As Boolean = True
     Public dgv As DataGridView
     Private Sub frmPRAvailable_Load(sender As Object, e As EventArgs) Handles MyBase.Load

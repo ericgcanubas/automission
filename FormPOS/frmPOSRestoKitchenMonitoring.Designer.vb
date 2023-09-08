@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmPOSRestoKitchenMonitoring
+Partial Class FrmPOSRestoKitchenMonitoring
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class frmPOSRestoKitchenMonitoring
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOSRestoKitchenMonitoring))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPOSRestoKitchenMonitoring))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.xlblTIME = New System.Windows.Forms.Label()
         Me.btnDONE = New System.Windows.Forms.Button()

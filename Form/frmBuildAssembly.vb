@@ -1,10 +1,10 @@
 ﻿Imports System.Data.Odbc
 
-Public Class frmBuildAssembly
+Public Class FrmBuildAssembly
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim Basic_Unit_ID As String = ""
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPenaltyDetails
+Public Class FrmPenaltyDetails
     Public gsID As String = ""
     Private Sub frmPenaltyDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

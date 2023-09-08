@@ -1,4 +1,4 @@
-﻿Public Class frmItemExpired
+﻿Public Class FrmItemExpired
     Dim item_BS As BindingSource
     Private Sub frmShipVia_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm

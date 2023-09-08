@@ -1,8 +1,8 @@
 ﻿Imports System.Data.Odbc
-Public Class frmInventoryAdjustment
+Public Class FrmInventoryAdjustment
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
-    Dim Frm As Form = New frmFindDocument
+    Dim Frm As Form = New FrmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False

@@ -1,4 +1,4 @@
-﻿Public Class frmReferenceSettings
+﻿Public Class FrmReferenceSettings
     Private Sub frmReferenceSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ComboBoxLoad(xmbMenu, "select * from object_type_map where IS_DOCUMENT = '1' ", "ID", "NAME")
         ClearAndRefresh(Me)

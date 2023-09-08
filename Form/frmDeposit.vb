@@ -1,9 +1,9 @@
 ﻿Imports System.Data.Odbc
-Public Class frmDeposit
+Public Class FrmDeposit
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
-    Dim Frm As Form = New frmFindDocument
+    Dim Frm As Form = New FrmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False

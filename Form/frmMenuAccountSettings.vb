@@ -1,3 +1,3 @@
-﻿Public Class frmMenuAccountSettings
+﻿Public Class FrmMenuAccountSettings
 
 End Class

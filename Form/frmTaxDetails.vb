@@ -1,5 +1,5 @@
 ﻿
-Public Class frmTaxDetails
+Public Class FrmTaxDetails
 
     Public ID As Integer
     Public IsNew As Boolean = True

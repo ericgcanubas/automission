@@ -1,4 +1,4 @@
-﻿Public Class frmTax
+﻿Public Class FrmTax
     Dim item_BS As BindingSource
     Private Sub frmPaymentTerms_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm

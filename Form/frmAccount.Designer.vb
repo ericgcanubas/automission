@@ -96,7 +96,7 @@ Partial Class FrmAccount
         '
         Me.chkINACTIVE.AutoSize = True
         Me.chkINACTIVE.BackColor = System.Drawing.Color.Transparent
-        Me.chkINACTIVE.Location = New System.Drawing.Point(155, 102)
+        Me.chkINACTIVE.Location = New System.Drawing.Point(155, 107)
         Me.chkINACTIVE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkINACTIVE.Name = "chkINACTIVE"
         Me.chkINACTIVE.Size = New System.Drawing.Size(80, 20)
@@ -106,7 +106,7 @@ Partial Class FrmAccount
         '
         'Save
         '
-        Me.Save.Location = New System.Drawing.Point(308, 102)
+        Me.Save.Location = New System.Drawing.Point(308, 107)
         Me.Save.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Save.Name = "Save"
         Me.Save.Size = New System.Drawing.Size(86, 28)
@@ -116,7 +116,7 @@ Partial Class FrmAccount
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(400, 102)
+        Me.Cancel.Location = New System.Drawing.Point(400, 107)
         Me.Cancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(86, 28)

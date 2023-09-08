@@ -1,4 +1,4 @@
-﻿Public Class frmPOSKeyboard
+﻿Public Class FrmPOSKeyboard
     Public gsIsPassword As Boolean = False
     Public gsValue As String
     Public gsEnter As Boolean

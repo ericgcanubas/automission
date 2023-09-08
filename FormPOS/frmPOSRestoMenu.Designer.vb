@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmPOSRestoMenu
+Partial Class FrmPOSRestoMenu
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class frmPOSRestoMenu
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOSRestoMenu))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPOSRestoMenu))
         Me.cmbCUSTOMER_ID = New System.Windows.Forms.ComboBox()
         Me.cmbSALES_REP_ID = New System.Windows.Forms.ComboBox()
         Me.dgvProductItem = New System.Windows.Forms.DataGridView()

@@ -1,4 +1,4 @@
-﻿Public Class frmChangeContactType
+﻿Public Class FrmChangeContactType
     Public gsID As Integer = 0
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()

@@ -1,4 +1,4 @@
-﻿Public Class frmSelectDate
+﻿Public Class FrmSelectDate
     Public gsOK As Boolean
     Private Sub frmSelectDate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

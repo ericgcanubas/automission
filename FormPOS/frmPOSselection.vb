@@ -1,4 +1,4 @@
-﻿Public Class frmPOSselection
+﻿Public Class FrmPOSselection
 
     Public LastButton As Button
 

@@ -1,4 +1,4 @@
-﻿Public Class frmItemLocationDefaults
+﻿Public Class FrmItemLocationDefaults
     Public bSave As Boolean
     Public purchase_id As Integer = 0
     Public sales_id As Integer = 0

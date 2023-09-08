@@ -1,4 +1,4 @@
-﻿Public Class frmDateRange
+﻿Public Class FrmDateRange
     Private Sub frmDateRange_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = gsReportName
 

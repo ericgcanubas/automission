@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmMenuSettingsSetup
+Public Class FrmMenuSettingsSetup
     Public ID As Integer = 0
     Public gsMenuType As Boolean = True
     Public IsNew As Boolean = True

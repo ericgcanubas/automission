@@ -1,5 +1,5 @@
 ﻿
-Public Class frmClassDetails
+Public Class FrmClassDetails
     Public This_BS As BindingSource
     Public Dgv As DataGridView
     Public ID As Integer = 0

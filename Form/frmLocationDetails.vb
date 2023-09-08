@@ -1,5 +1,5 @@
 ﻿
-Public Class frmLocationDetails
+Public Class FrmLocationDetails
     Public ID As String
     Public IsNew As Boolean = True
     Public This_BS As BindingSource

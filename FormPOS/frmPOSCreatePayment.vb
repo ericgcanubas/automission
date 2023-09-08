@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSCreatePayment
+Public Class FrmPOSCreatePayment
     Public gsOK As Boolean = False
     Public gsID As Integer
     Public gsTABLE_NO As Integer

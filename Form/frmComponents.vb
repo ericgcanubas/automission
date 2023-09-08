@@ -1,6 +1,6 @@
 ﻿
-Public Class frmComponents
-    Dim f As Form = New frmFindItem
+Public Class FrmComponents
+    Dim f As Form = New FrmFindItem
     Public ID As Integer
     Public gsQTY As Double
     Public gsRATE As Double

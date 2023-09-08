@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
-Public Class frmWriteCheck
-    Dim f As Form = New frmFindDocument
+Public Class FrmWriteCheck
+    Dim f As Form = New FrmFindDocument
     Public ID As String = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False

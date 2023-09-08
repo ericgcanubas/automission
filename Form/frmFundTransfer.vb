@@ -1,8 +1,8 @@
 ﻿
-Public Class frmFundTransfer
+Public Class FrmFundTransfer
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
-    Dim Frm As Form = New frmFindDocument
+    Dim Frm As Form = New FrmFindDocument
 
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False

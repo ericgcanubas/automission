@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmReportViewer
+Partial Class FrmReportViewer
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

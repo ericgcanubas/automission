@@ -1,10 +1,10 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPurchaseRequest
+Public Class FrmPurchaseRequest
 
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False

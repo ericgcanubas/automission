@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSRestoMenu
+Public Class FrmPOSRestoMenu
     Public gsJustClick As Boolean = False
     Public gsMemberDiscount As Double = 0
     Public ID As Integer = 0
@@ -9,7 +9,7 @@ Public Class frmPOSRestoMenu
     Public IsNew As Boolean = False
     Dim bRefreshItem As Boolean = False
     Dim bEntryAddItem As Boolean = False
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Public gsCloseCall As Boolean = False
     Dim tdgv As DataGridView
     Dim tQuery As String

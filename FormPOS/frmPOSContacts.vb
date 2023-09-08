@@ -1,4 +1,4 @@
-﻿Public Class frmPOSContacts
+﻿Public Class FrmPOSContacts
     Public gsContact_ID As String
     Public gsOK As Boolean = False
     Public gsContact_Type As Integer = 0

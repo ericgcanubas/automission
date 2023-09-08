@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmEditAdjustmentItem
+Public Class FrmEditAdjustmentItem
     Public aITEM_ID As Integer
     Public aSOURCE_REF_ID As Integer
     Public aAdjustment_ID As Integer

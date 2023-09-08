@@ -1,4 +1,4 @@
-﻿Public Class frmCustomGroupItem
+﻿Public Class FrmCustomGroupItem
     Public gsITEM_ID As Integer
     Dim BS_LIST As BindingSource
     Dim FIRST_Load As Boolean = True

@@ -1,4 +1,4 @@
-﻿Public Class frmUserType
+﻿Public Class FrmUserType
     Private Sub frmUserType_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         With cmbUserType

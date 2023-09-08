@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmBillCreditBills
+Public Class FrmBillCreditBills
     Public gsID As String
     Public gsVendor_ID As Integer
     Public gsLocation_ID As Integer

@@ -1,4 +1,4 @@
-﻿Public Class frmAccountJournalError
+﻿Public Class FrmAccountJournalError
     Dim sQuery As String = "
 SELECT m.`Type`,m.date,m.code,m.notes,m.contact_name,l.`NAME` AS `LOCATION_NAME` FROM account_journal AS a INNER JOIN 
 (

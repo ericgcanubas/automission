@@ -1,11 +1,11 @@
 ﻿Imports System.Data.Odbc
-Public Class frmSalesReceipt '
+Public Class FrmSalesReceipt '
 
     Dim gsMemberDiscount As Double
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False

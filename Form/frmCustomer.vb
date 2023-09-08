@@ -1,4 +1,4 @@
-﻿Public Class frmCustomer
+﻿Public Class FrmCustomer
     Public contact_BS As BindingSource
 
     Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load

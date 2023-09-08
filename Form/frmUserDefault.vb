@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmUserDefault
+Public Class FrmUserDefault
     Public ID As Integer
     Private Sub frmUserDefault_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")

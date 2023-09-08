@@ -1,5 +1,5 @@
 ﻿
-Public Class frmReportComponentItems
+Public Class FrmReportComponentItems
     Public ID As Integer
     Private Sub frmReportComponentItems_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

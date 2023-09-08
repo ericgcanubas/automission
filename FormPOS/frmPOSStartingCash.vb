@@ -1,4 +1,4 @@
-﻿Public Class frmPOSStartingCash
+﻿Public Class FrmPOSStartingCash
     Public gsStartAmount As Double
     Private Sub frmPOSStartingCash_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' fMaterialSkin(Me)

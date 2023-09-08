@@ -1,4 +1,4 @@
-﻿Public Class frmEmployee
+﻿Public Class FrmEmployee
     Public contact_BS As BindingSource
     Private Sub fRefreshData()
 

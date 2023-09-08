@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmPOSContacts
+Partial Class FrmPOSContacts
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

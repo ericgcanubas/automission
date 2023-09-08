@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSmenu
+Public Class FrmPOSmenu
     Dim PrintSave As Boolean = False
     Dim bSaveAccept As Boolean
     Dim OR_REF As Boolean
@@ -9,7 +9,7 @@ Public Class frmPOSmenu
     Public ID As String = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
     Dim bRefreshItem As Boolean = False
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
@@ -167,7 +167,7 @@ Public Class frmPOSmenu
         ClearAndRefresh(Me)
         fMaterialSkin(Me)
         Me.Icon = gsIcon
-        fTender_Column()
+        Tender_Column()
 
         pcLOGO.BackgroundImage = gsImageNameApp
         pcLOGO.BackgroundImageLayout = ImageLayout.Stretch
@@ -575,9 +575,9 @@ B.ID = ii.BATCH_ID
             lblDEPOSITED.Text = "0"
 
 
-            SqlCreate(Me, SQL_FIELD, SQL_VALUE)
+            SqlCreate(Me, SQL_Field, SQL_Value)
             ID = ObjectTypeMapId("SALES_RECEIPT")
-            SqlExecuted($"INSERT INTO sales_receipt ({SQL_FIELD},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_VALUE},{ID},{GetDateTimeNowSql()},3,{GetDateTimeNowSql()})")
+            SqlExecuted($"INSERT INTO sales_receipt ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},{GetDateTimeNowSql()},3,{GetDateTimeNowSql()})")
 
 
             fTransactionDateSelectUpdate(dtpDATE.Value)
@@ -926,12 +926,13 @@ NewPOS_LOG:
     Private Sub fCreateMenu(ByVal prName As String, ByVal prDesplay As String, ByVal f As Form)
         h += 163
         f.Size = New Size(h, f.Height)
-        Dim b As New Button
-        b.Font = New Font(gsFont, 20, FontStyle.Bold)
-        b.Name = prName
-        b.Text = prDesplay
-        b.Size = New Size(163, 123)
-        b.Dock = DockStyle.Left
+        Dim b As New Button With {
+            .Font = New Font(gsFont, 20, FontStyle.Bold),
+            .Name = prName,
+            .Text = prDesplay,
+            .Size = New Size(163, 123),
+            .Dock = DockStyle.Left
+        }
         f.Controls.Add(b)
         AddHandler b.Click, AddressOf fClickMenu
         gsPublicButton = b
@@ -964,7 +965,7 @@ NewPOS_LOG:
                 cmbPAYMENT_METHOD_ID.SelectedValue = fPaymentMethodDefault()
                 If OR_REF = False Then
                     txtPAYMENT_REF_NO.Text = fGET_NEXT_RECEIPT_NO()
-                    cmbPAYMENT_METHOD_ID_SelectedIndexChanged(0, EventArgs.Empty)
+                    PAYMENT_METHOD_ID_SelectedIndexChanged(0, EventArgs.Empty)
                 End If
 
                 lblCODE.Text = NextCodePreview("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
@@ -1204,21 +1205,21 @@ NewPOS_LOG:
         Next
         Return Amount
     End Function
-    Private Sub cmbPAYMENT_METHOD_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_METHOD_ID.SelectedIndexChanged
+    Private Sub PAYMENT_METHOD_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_METHOD_ID.SelectedIndexChanged
         PaymentMethodPOS()
     End Sub
 
-    Private Sub fReset()
+    Private Sub ResetForm()
         ClearInfoPOS()
     End Sub
-    Private Sub frmPOSmenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub POSmenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If gsCloseCall = True Then
             e.Cancel = False
         Else
             e.Cancel = True
         End If
     End Sub
-    Private Sub cmbSALES_REP_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSALES_REP_ID.SelectedIndexChanged
+    Private Sub SALES_REP_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSALES_REP_ID.SelectedIndexChanged
         Try
             Dim s As String = cmbSALES_REP_ID.SelectedValue
         Catch ex As Exception
@@ -1230,7 +1231,7 @@ NewPOS_LOG:
         xlblSalesRep.Text = cmbSALES_REP_ID.Text
     End Sub
 
-    Private Sub fResetFile()
+    Private Sub ResetFile()
         If dgvProductItem.Rows.Count <> 0 Then
             If MessageBoxQuestion("Do you want to reset?") = False Then
                 Exit Sub
@@ -1341,9 +1342,6 @@ NewPOS_LOG:
             bNewContact = False
         End If
     End Sub
-
-
-
     Private Sub EmployeeLoad()
 
         frmPOSContacts.gsContact_Type = 2
@@ -1463,19 +1461,18 @@ NewPOS_LOG:
         If dgvTENDER_LIST.Rows.Count <> 0 Then
             Dim N As Integer = MessageBoxQuestionYesNoCancel($"Please select payment option? {vbNewLine}{vbNewLine} Edit payment = [YES] {vbNewLine}{vbNewLine} Add Payment = [NO] {vbNewLine}{vbNewLine} ")
             If N = 1 Then
-                fEditPayment()
+                EditPayment()
 
             ElseIf N = 2 Then
-
-                fAddPayment()
+                AddPayment()
             End If
         Else
-            fAddPayment()
+            AddPayment()
         End If
 
     End Sub
 
-    Private Sub fSet_From_Main()
+    Private Sub Set_From_Main()
         For I As Integer = 0 To dgvTENDER_LIST.Rows.Count - 1
             Dim R As DataGridViewRow = dgvTENDER_LIST.Rows(I)
             If dgvTENDER_LIST.Rows.Count = 1 Then
@@ -1489,7 +1486,7 @@ NewPOS_LOG:
         Next
 
     End Sub
-    Private Sub fAddPayment()
+    Private Sub AddPayment()
         With frmPOSPayment
 
             .gsTransTotal = NumIsNull(lblAMOUNT.Text)
@@ -1530,13 +1527,13 @@ NewPOS_LOG:
                 dgvTENDER_LIST.Rows.Add(.gsPaymentMethod_ID, .cmbPAYMENT_METHOD_ID.Text, .gsAMOUNT, .gsPAYMENT_REF_NO, .gsCARD_NO)
 
                 PaymentMethodPOS()
-                fSet_From_Main()
+                Set_From_Main()
             End If
             .Dispose()
         End With
         frmPOSPayment = Nothing
     End Sub
-    Private Sub fTender_Column()
+    Private Sub Tender_Column()
 
         With dgvTENDER_LIST.Columns
             .Clear()
@@ -1557,7 +1554,7 @@ NewPOS_LOG:
         'ss
     End Sub
 
-    Private Sub fEditPayment()
+    Private Sub EditPayment()
         If dgvProductItem.Rows.Count = 0 Then
             MessageBoxInfo("Please enter item.")
             Exit Sub
@@ -1591,7 +1588,7 @@ NewPOS_LOG:
                         R.Cells("PAYMENT_REF_NO").Value = .gsPAYMENT_REF_NO
                         R.Cells("CARD_NO").Value = .gsCARD_NO
                         PaymentMethodPOS()
-                        fSet_From_Main()
+                        Set_From_Main()
                         Exit For
                     End If
 
@@ -1606,23 +1603,23 @@ NewPOS_LOG:
         End With
         frmPOSPayment = Nothing
     End Sub
-    Private Sub tsRefresh_Click(sender As Object, e As EventArgs) Handles tsRefresh.Click
-        fResetFile()
+    Private Sub Refresh_Click(sender As Object, e As EventArgs) Handles tsRefresh.Click
+        ResetFile()
     End Sub
 
     Private Sub TsSaveFile_Click(sender As Object, e As EventArgs) Handles TsSaveFile.Click
         SaveFile()
     End Sub
 
-    Private Sub tsTax_Click_1(sender As Object, e As EventArgs) Handles tsTax.Click
+    Private Sub Tax_Click_1(sender As Object, e As EventArgs) Handles tsTax.Click
         TaxFile()
     End Sub
 
-    Private Sub tsBuyer_Click(sender As Object, e As EventArgs) Handles tsBuyer.Click
+    Private Sub Buyer_Click(sender As Object, e As EventArgs) Handles tsBuyer.Click
         CustomerLoad()
     End Sub
 
-    Private Sub tsSalesman_Click(sender As Object, e As EventArgs) Handles tsSalesman.Click
+    Private Sub Salesman_Click(sender As Object, e As EventArgs) Handles tsSalesman.Click
         EmployeeLoad()
     End Sub
 
@@ -1632,16 +1629,14 @@ NewPOS_LOG:
 
     Private Sub ToolStripButton11_Click(sender As Object, e As EventArgs) Handles tsBack.Click
         If dgvProductItem.Rows.Count <> 0 Then
-
             If MessageBoxQuestion("Are you sure want to back?") = False Then
                 Exit Sub
             End If
         End If
-
         PosLogMenu()
     End Sub
 
-    Private Sub tsDeleteItem_Click(sender As Object, e As EventArgs) Handles tsDeleteItem.Click
+    Private Sub DeleteItem_Click(sender As Object, e As EventArgs) Handles tsDeleteItem.Click
         If dgvProductItem.Rows.Count <> 0 Then
             dgvProductItem.Select()
             fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
@@ -1649,12 +1644,12 @@ NewPOS_LOG:
         End If
     End Sub
 
-    Private Sub tsUpdateItem_Click(sender As Object, e As EventArgs) Handles tsUpdateItem.Click
+    Private Sub UpdateItem_Click(sender As Object, e As EventArgs) Handles tsUpdateItem.Click
         EditItem()
         dgvProductItem.Focus()
     End Sub
 
-    Private Sub tsAdd_Click(sender As Object, e As EventArgs) Handles tsAdd.Click
+    Private Sub TSAdd_Click(sender As Object, e As EventArgs) Handles tsAdd.Click
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
             MessageBoxInfo("Please select customer")
             Exit Sub

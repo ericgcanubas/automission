@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmInventoryReComputed
+Public Class FrmInventoryReComputed
 
     Public gsITEM_ID As Integer
     Public gsLOCATION_ID As Integer

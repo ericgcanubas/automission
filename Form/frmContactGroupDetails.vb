@@ -1,5 +1,5 @@
 ﻿
-Public Class frmContactGroupDetails
+Public Class FrmContactGroupDetails
     Public dgv As DataGridView
     Public This_BS As BindingSource
     Public ID As Integer 

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmInvoice
+Public Class FrmInvoice
     Public gsMemberDiscount As Double = 0
     Public ID As Integer = gsDocument_Finder_ID
     Public IsNew As Boolean = IIf(ID = 0, True, False)
@@ -7,7 +7,7 @@ Public Class frmInvoice
 
     Dim bRefreshItem As Boolean = False
     Dim bEntryAddItem As Boolean = False
-    Dim f As Form = New frmFindDocument
+    Dim f As Form = New FrmFindDocument
     Dim bLoadOn As Boolean = False
 
     Dim tdgv As DataGridView

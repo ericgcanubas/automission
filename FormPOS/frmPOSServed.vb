@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmPOSServed
+Public Class FrmPOSServed
     Public gsOK As Boolean = False
     Public gsTABLE_NO As Integer
     Public gsORDER_TYPE As Integer

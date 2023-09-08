@@ -1,4 +1,4 @@
-﻿Public Class frmAccountJournalDuplicateRemove
+﻿Public Class FrmAccountJournalDuplicateRemove
     Dim sQuery As String = "SELECT a.`ID`,a.`JOURNAL_NO`,a.`AMOUNT`, acct.`NAME` AS `ACCOUNT_NAME`,a.`ACCOUNT_ID`,a.OBJECT_TYPE,a.OBJECT_ID,a.SUBSIDIARY_ID,m.`Type`,m.date,m.code,m.contact_id,a.location_id,m.notes,m.contact_name,l.`NAME` AS `LOCATION_NAME`,acct.`TYPE` AS ACCT_TYPE FROM account_journal AS a INNER JOIN 
 (
 SELECT * FROM (

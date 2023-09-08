@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmSplash
+Public Class FrmSplash
     Dim r As Integer = 0
     Dim f As Integer = 10
     Private Sub frmSplash_Load(sender As Object, e As EventArgs) Handles MyBase.Load

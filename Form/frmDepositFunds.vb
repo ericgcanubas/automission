@@ -1,4 +1,4 @@
-﻿Public Class frmDepositFunds
+﻿Public Class FrmDepositFunds
     Public gsDGV As DataGridView
     Public gsSave As Boolean = False
 

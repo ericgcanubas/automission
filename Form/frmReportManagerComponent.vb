@@ -1,4 +1,4 @@
-﻿Public Class frmReportManagerComponent
+﻿Public Class FrmReportManagerComponent
     Public ID As Integer
     Public SUB_ID As Integer
     Public FormMain As Form

@@ -1,4 +1,4 @@
-﻿Public Class frmSelectLocation
+﻿Public Class FrmSelectLocation
     Public gsOK As Boolean
     Private Sub frmSelectLocation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ComboBoxLoad(cmbLOCATION_ID, "SELECT ID,NAME FROM LOCATION WHERE INACTIVE ='0'", "ID", "NAME")

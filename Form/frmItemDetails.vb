@@ -1,7 +1,7 @@
 ﻿Imports System.Globalization
 Imports System.Drawing.Imaging
 Imports System.Data.Odbc
-Public Class frmItemDetails
+Public Class FrmItemDetails
     Public GoLoad As Boolean = True
     Public bMain As Boolean = False
     Public IsNew As Boolean

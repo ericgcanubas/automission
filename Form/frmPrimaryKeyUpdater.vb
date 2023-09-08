@@ -1,4 +1,4 @@
-﻿Public Class frmPrimaryKeyUpdater
+﻿Public Class FrmPrimaryKeyUpdater
     Private Sub frmPrimaryKeyUpdater_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         RefreshList()
     End Sub
