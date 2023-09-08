@@ -53,7 +53,7 @@ Module modInventoryItem
 
     Public Sub ReCalculateInventory(ByVal prITEM_ID As Integer, ByVal prLOCATION_ID As Integer, ByVal ThisDate As Date)
         CursorLoadingOn(True)
-        Dim Qty_END_T As Double = fQTY_ACTUAL_ON_DATE_LOCATION(prITEM_ID, ThisDate, prLOCATION_ID)
+        Dim Qty_END_T As Double = QtyActualOnDateLocation(prITEM_ID, ThisDate, prLOCATION_ID)
 
         Dim NewSQL As String = ""
 

@@ -2,7 +2,7 @@
 Module modQuantityOnHand
 
 
-    Public Function fQTY_ACTUAL_ON_DATE_LOCATION(ByVal prItem_ID As Integer, ByVal dt As Date, ByVal sLocation_ID As String) As Double
+    Public Function QtyActualOnDateLocation(ByVal prItem_ID As Integer, ByVal dt As Date, ByVal sLocation_ID As String) As Double
 
         Dim sON_HAND As String
 

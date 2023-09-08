@@ -154,7 +154,7 @@ Module modGotChange
         ReCalculateInventory(item_id, LOCATION_ID, Change_SOURCE_REF_DATE)
     End Sub
     Public Function ItemInventoryChangeDateAdjust(ByVal Change_SOURCE_REF_DATE As Date, ByVal item_id As Integer, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_ID As Integer, ByVal LOCATION_ID As Integer, ByVal L_DATE As Date) As Double
-        Dim QTY_ONHAND As Double = fQTY_ACTUAL_ON_DATE_LOCATION(item_id, Change_SOURCE_REF_DATE, LOCATION_ID)
+        Dim QTY_ONHAND As Double = QtyActualOnDateLocation(item_id, Change_SOURCE_REF_DATE, LOCATION_ID)
         Dim QTY_END As Double = GetNumberFieldValueOneReturn($"SELECT ENDING_QUANTITY FROM item_inventory  WHERE ITEM_ID = '{item_id}' and  LOCATION_ID = '{LOCATION_ID}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE ='{DateFormatMySql(L_DATE)}' limit 1;")
         Dim QTY_D As Double = QTY_END - QTY_ONHAND
         SqlExecuted($"UPDATE item_inventory SET QUANTITY ='{QTY_D}',SOURCE_REF_DATE = '{DateFormatMySql(Change_SOURCE_REF_DATE)}' WHERE ITEM_ID = '{item_id}' and  LOCATION_ID = '{LOCATION_ID}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE ='{DateFormatMySql(L_DATE)}' limit 1;")
@@ -169,7 +169,7 @@ Module modGotChange
     End Sub
 
     Public Function ItemInventoryChangeLocationAdjust(ByVal Change_LOCATION_ID As Integer, ByVal item_id As Integer, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_ID As Integer, ByVal SOURCE_REF_DATE As Date, ByVal L_LOCATION_ID As Integer) As Double
-        Dim QTY_ONHAND As Double = fQTY_ACTUAL_ON_DATE_LOCATION(item_id, SOURCE_REF_DATE, Change_LOCATION_ID)
+        Dim QTY_ONHAND As Double = QtyActualOnDateLocation(item_id, SOURCE_REF_DATE, Change_LOCATION_ID)
         Dim QTY_END As Double = GetNumberFieldValueOneReturn($"SELECT ENDING_QUANTITY FROM item_inventory  WHERE ITEM_ID = '{item_id}' and  SOURCE_REF_DATE = '{DateFormatMySql(SOURCE_REF_DATE)}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and LOCATION_ID ='{L_LOCATION_ID}' limit 1;")
         Dim QTY_D As Double = QTY_ONHAND - QTY_END
 

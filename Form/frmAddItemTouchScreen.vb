@@ -242,7 +242,7 @@ Public Class FrmAddItemTouchScreen
     End Sub
     Private Function fCHECK_ITEM_ONHAND(ByVal prITEM_ID As Integer, ByVal prDESCRIPTION As String, ByVal prQTY As Double) As Boolean
         Dim bON_HAND As Boolean = True
-        Dim iQty As Double = fQTY_ACTUAL_ON_DATE_LOCATION(prITEM_ID, gsDate, gsLOCATION_ID)
+        Dim iQty As Double = QtyActualOnDateLocation(prITEM_ID, gsDate, gsLOCATION_ID)
 
         Dim nQTY As Double = (numQty.Value * IIf(Val(lblQty_Base.Text) = 0, 1, Val(lblQty_Base.Text))) + fdgvGetQty(prITEM_ID)
 
@@ -661,7 +661,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
         dgvSearch.Visible = True
 
         BlueLight(numQty)
-        xlblOnHand.Text = fQTY_ACTUAL_ON_DATE_LOCATION(cmbItem_Code.SelectedValue, gsDate, gsLOCATION_ID)
+        xlblOnHand.Text = QtyActualOnDateLocation(cmbItem_Code.SelectedValue, gsDate, gsLOCATION_ID)
         If NumIsNull(cmbItem_Code.SelectedValue) = 0 Then
             txtSearch.Focus()
         End If
@@ -1243,7 +1243,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
     End Sub
 
     Private Sub numUnit_price_KeyPress(sender As Object, e As KeyPressEventArgs) Handles numUnit_price.KeyPress
-        ' fComputation()
+        ' ItemComputation()
     End Sub
 
 
@@ -1453,13 +1453,13 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             'If gsSelection = True Then
             '    gsSelection_ID = cmbSelection.SelectedValue
             'End If
-            'fComputation()
+            'ItemComputation()
             'If frmInventoryAdjustment.Name = sFormName Then
             '    If IsNew = True Then
             '        fAddItem_Inventory_Row(dgv, IsNew, gsItem_ID, gsUM, gsQty, gsBase_Qty, gsUnit_Price, "A", gsLOCATION_ID, gsDate)
             '        dgv.Focus()
             '        dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(ColumnViews(dgv)) 'Last Row HighLight
-            '        fClearAll()
+            '        ClearAllFromForm()
             '    End If
             'Else
             '    Me.Close()

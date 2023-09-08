@@ -876,7 +876,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                             Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM inventory_adjustment_items AS ii WHERE ii.`INVENTORY_ADJUSTMENT_ID` = '{ID}' ")
                             While rd.Read
 
-                                Dim dCurrent_Qty As Double = fQTY_ACTUAL_ON_DATE_LOCATION(rd("ITEM_ID"), dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
+                                Dim dCurrent_Qty As Double = QtyActualOnDateLocation(rd("ITEM_ID"), dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
                                 Dim prNew_Qty As Double = fGetInventoryAdjustmentENDING(rd("ITEM_ID"), cmbLOCATION_ID.SelectedValue, rd("ID"))
                                 Dim dQty_Diff As Integer = prNew_Qty - dCurrent_Qty
 
