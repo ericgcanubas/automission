@@ -1572,7 +1572,7 @@ APPROVED:
     Private Sub txtCODE_TextChanged(sender As Object, e As EventArgs) Handles txtCODE.TextChanged
 
     End Sub
-    'Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs)
+    'Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs)
     '    fGetQuickFind(dgvProductItem, tsFindText.Text)
     'End Sub
 

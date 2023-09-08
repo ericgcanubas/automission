@@ -670,7 +670,7 @@ ON B.ID = II.BATCH_ID
             Computed()
         End If
     End Sub
-    Private Sub dgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
+    Private Sub DgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
         EditItem()
     End Sub
 
@@ -811,7 +811,7 @@ ON B.ID = II.BATCH_ID
 
     End Sub
 
-    Private Sub tsPrint_Click(sender As Object, e As EventArgs) Handles tsPrint.Click
+    Private Sub TsPrint_Click(sender As Object, e As EventArgs) Handles tsPrint.Click
         If IsNew = True Then
             TsSaveNew_Click(sender, e)
         Else
@@ -864,7 +864,7 @@ ON B.ID = II.BATCH_ID
         End If
     End Sub
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
 
         If IsNew = False Then
             If fACCESS_DELETE(Me) = False Then
@@ -980,136 +980,26 @@ ON B.ID = II.BATCH_ID
 
     End Sub
 
-    Private Sub dgvProductItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvProductItem.RowsAdded
+    Private Sub DgvProductItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvProductItem.RowsAdded
         If bRefreshItem = False Then
             Computed()
         End If
 
     End Sub
 
-    Private Sub dgvProductItem_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellContentClick
-
-    End Sub
-
-    Private Sub frmInvoice_Activated(sender As Object, e As EventArgs) Handles Me.Activated
-
-    End Sub
-    Public Sub fDocumentRequest()
-
-    End Sub
-
-    Private Sub frmInvoice_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-
-
-    End Sub
-
-    Private Sub cmbPAYMENT_TERMS_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_TERMS_ID.SelectedIndexChanged
-
+    Private Sub CmbPAYMENT_TERMS_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_TERMS_ID.SelectedIndexChanged
         fSetDueDate_PaymentTerms(cmbPAYMENT_TERMS_ID, dtpDUE_DATE, dtpDATE)
-
-
     End Sub
 
-    Private Sub Label12_Click(sender As Object, e As EventArgs) Handles Label12.Click
-
-    End Sub
-
-    Private Sub frmInvoice_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmInvoice_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ViewItemDisplay(dgvProductItem)
-        '    ViewItemDisplay(dgvProductItem)
         ViewNotSort(dgvProductItem)
     End Sub
 
-    Private Sub cmbMANAGER_ID_SelectedIndexChanged(sender As Object, e As EventArgs)
-        '    fDepotAvailDiscount()
-    End Sub
-    'Private Sub fDepotAvailDiscount()
-    '    Dim dBasicDiscount As Double = 0
-    '    Dim dRabites As Double = 0
-    '    Try
-    '        If cmbMANAGER_ID.Text <> "" Then
-
-
-    '            dBasicDiscount = GetStringFieldValue("contact", "ID", cmbMANAGER_ID.SelectedValue, "DISCOUNT")
-
-
-    '            If cmbMANAGER_ID.SelectedValue = cmbCUSTOMER_ID.SelectedValue Then
-    '                dtpDATE.Checked = True
-    '                Dim dt1 As Date = FirstDayOfMonth(dtpDATE.Value)
-    '                dt1 = dt1.AddMonths(-1)
-    '                Dim dt2 As Date = LastDayOfMonth(dt1)
-    '                Dim R_number As Double = 0
-
-
-    '                If fManagerHitSalesTargetViaDealer(Format(dt1, "yyyy-MM-dd"), Format(dt2, "yyyy-MM-dd"), cmbCUSTOMER_ID.SelectedValue, R_number) = True Then
-    '                    dRabites = R_number * (Val(fSystemSettingValue("ManagerRebites")) / 100)
-    '                    gsMemberDiscount = dBasicDiscount
-    '                Else
-    '                    gsMemberDiscount = dBasicDiscount
-    '                End If
-    '            Else
-    '                gsMemberDiscount = dBasicDiscount
-    '            End If
-    '        Else
-    '            gsMemberDiscount = 0
-    '        End If
-    '    Catch ex As Exception
-    '        'fMessageboxError(ex)
-    '    End Try
-
-
-
-
-
-
-    'End Sub
-
-    'Private Sub cmbMANAGER_ID_SelectedValueChanged(sender As Object, e As EventArgs)
-    '    fDepotAvailDiscount()
-    'End Sub
-
-    'Private Sub cmbMANAGER_ID_TextChanged(sender As Object, e As EventArgs)
-    '    fDepotAvailDiscount()
-    'End Sub
-
-    'Private Sub cmbPENALTY_TYPE_ID_SelectedIndexChanged(sender As Object, e As EventArgs)
-    '    Try
-
-    '        Dim gsTYPE As String = ""
-    '        Select Case cmbPENALTY_TYPE_ID.SelectedValue
-    '            Case 0
-    '                lblPENALTY_RATE.Text = "0"
-    '            Case 1
-    '                lblPENALTY_RATE.Text = GetNumberFieldValue("contact", "ID", cmbCUSTOMER_ID.SelectedValue, "FIXED_PENALTY")
-    '            Case 2
-    '                lblPENALTY_RATE.Text = GetNumberFieldValue("contact", "ID", cmbCUSTOMER_ID.SelectedValue, "RUNNING_PENALTY")
-    '            Case Else
-    '                lblPENALTY_RATE.Text = "0"
-    '        End Select
-    '        POSComputed()
-
-    '    Catch ex As Exception
-    '        lblPENALTY_RATE.Text = "0"
-    '    End Try
-
-    'End Sub
-
-    Private Sub dtpDUE_DATE_ValueChanged(sender As Object, e As EventArgs) Handles dtpDUE_DATE.ValueChanged
+    Private Sub DtpDUE_DATE_ValueChanged(sender As Object, e As EventArgs) Handles dtpDUE_DATE.ValueChanged
         Computed()
     End Sub
 
-    Private Sub tsPrint_DisplayStyleChanged(sender As Object, e As EventArgs) Handles tsPrint.DisplayStyleChanged
-
-    End Sub
-
-    Private Sub ToolStripDropDownButton2_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButton2.Click
-
-    End Sub
-
-    Private Sub cmbCUSTOMER_ID_LostFocus(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.LostFocus
-        '   fLESS_PENALTY_DISCOUNT_ACTIVE()
-
-    End Sub
     Private Sub CustomerTax()
         Application.DoEvents()
         Dim s As Integer
@@ -1157,24 +1047,14 @@ ON B.ID = II.BATCH_ID
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-
         fHistoryList(ID, Me)
-
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         fTransactionLog(Me, ID)
     End Sub
 
-    Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
-
-    End Sub
-
-    Private Sub txtFind_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub cmbCUSTOMER_ID_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbCUSTOMER_ID.KeyDown
+    Private Sub CmbCUSTOMER_ID_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbCUSTOMER_ID.KeyDown
         If e.KeyCode = Keys.Insert Then
             Dim StrText As String = Trim(cmbCUSTOMER_ID.Text)
             If cmbCUSTOMER_ID.SelectedIndex = -1 Then
@@ -1197,7 +1077,7 @@ ON B.ID = II.BATCH_ID
                     If FrmContactDetails.gsOK = True Then
                         ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
                         cmbCUSTOMER_ID.SelectedValue = FrmContactDetails.ID
-                        cmbCUSTOMER_ID_LostFocus(sender, e)
+
                     End If
                     FrmContactDetails.Dispose()
                     FrmContactDetails = Nothing
@@ -1207,7 +1087,7 @@ ON B.ID = II.BATCH_ID
         End If
     End Sub
 
-    Private Sub tsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
+    Private Sub TsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Or cmbCUSTOMER_ID.SelectedValue Is Nothing Or cmbCUSTOMER_ID.Text = "" Then
             MessageBoxInfo("Please select customer")
             Exit Sub
@@ -1251,14 +1131,14 @@ ON B.ID = II.BATCH_ID
         FrmAddItem = Nothing
     End Sub
 
-    Private Sub tsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
+    Private Sub TsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
         EditItem()
     End Sub
 
-    Private Sub tsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
-        fDeleteItem()
+    Private Sub TsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
+        DeleteItem()
     End Sub
-    Private Sub fDeleteItem()
+    Private Sub DeleteItem()
 
         Try
             If dgvProductItem.Rows.Count <> 0 Then
@@ -1272,7 +1152,7 @@ ON B.ID = II.BATCH_ID
 
     End Sub
 
-    Private Sub frmInvoice_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmInvoice_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
 
 
@@ -1286,21 +1166,10 @@ ON B.ID = II.BATCH_ID
         End If
 
     End Sub
-    Private Sub txtCODE_TextChanged(sender As Object, e As EventArgs) Handles txtCODE.TextChanged
 
-    End Sub
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         fGetQuickFind(dgvProductItem, tsFindText.Text)
     End Sub
-
-    Private Sub LblOUTPUT_TAX_AMOUNT_Click(sender As Object, e As EventArgs) Handles lblOUTPUT_TAX_AMOUNT.Click
-
-    End Sub
-
-    Private Sub ToolStripLabel11_Click(sender As Object, e As EventArgs) Handles ToolStripLabel11.Click
-
-    End Sub
-
     Private Sub ToCreditMemoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToCreditMemoToolStripMenuItem.Click
         If IsNew = True Then
             TsSaveNew_Click(sender, e)
@@ -1348,7 +1217,7 @@ ON B.ID = II.BATCH_ID
         FrmApplyCredits = Nothing
     End Sub
 
-    Private Sub cmbCUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
+    Private Sub CmbCUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
         CustomerTax()
 
         If bEntryAddItem = True Then
@@ -1360,7 +1229,7 @@ ON B.ID = II.BATCH_ID
         If cmbCUSTOMER_ID.Enabled = False Then Exit Sub
         If cmbCUSTOMER_ID.Text = "" Then Exit Sub
         Dim sql As String = ""
-        '  fDepotConnected(cmbCUSTOMER_ID, cmbDEALER_ID, cmbSALES_REP_ID)
+
         Try
             sql = "SELECT count(p.`CODE`) as t FROM  sales_order AS p   LEFT OUTER JOIN payment_terms AS t  ON t.ID = p.payment_terms_id   INNER JOIN sales_order_items AS pt    ON pt.`SALES_ORDER_ID` = p.`ID` WHERE pt.`CLOSED` = '0'   AND p.Customer_ID = '" & cmbCUSTOMER_ID.SelectedValue & "'   GROUP BY p.`CODE`"
         Catch ex As Exception
@@ -1387,7 +1256,7 @@ ON B.ID = II.BATCH_ID
                         Computed() ' i forgot
                         bRefreshItem = False
                     End With
-                    frmAvailableItem = Nothing
+                    FrmAvailableItem = Nothing
                 End If
             End If
             rd.Close()
