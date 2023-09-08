@@ -88,7 +88,7 @@ Module modFormFunction
         Return GetNumberFieldValueOneReturn($"SELECT o.`DOCUMENT_TYPE` FROM object_type_map AS o WHERE o.`ID` = '{object_ID}' AND o.`IS_DOCUMENT` = '1' limit 1;")
     End Function
     Public Function ObjectTypeMapId(ByVal prTABLE_NAME As String) As Integer
-        Dim I As Integer = 0
+        Dim I As Integer
         Dim rd As OdbcDataReader = SqlReader("SELECT NEXT_ID FROM  object_type_map WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
         If rd.Read Then
             I = NumIsNull(rd("NEXT_ID"))
@@ -107,7 +107,7 @@ Module modFormFunction
         SqlExecuted("UPDATE object_type_map SET NEXT_ID ='" & (prID_Number + 1) & "' WHERE `NAME` = '" & prNAME & "' LIMIT 1")
     End Sub
     Public Function ObjectTypeMap(ByVal prTABLE_NAME As String) As Integer
-        Dim NextID As Integer = 0
+        Dim NextID As Integer
 
         Try
             Dim rd As OdbcDataReader = SqlReader("SELECT NEXT_ID FROM WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
@@ -147,9 +147,9 @@ Module modFormFunction
 
                     If sGROUP_ITEM_ID = 0 Then
                         sGROUP_ITEM_ID = d.Cells("ITEM_ID").Value
-                        sGROUP_ITEM_COUNT = sGROUP_ITEM_COUNT + 1
+                        sGROUP_ITEM_COUNT += 1
                     ElseIf sGROUP_ITEM_COUNT <> 0 And sGROUP_ITEM_ID <> d.Cells("ITEM_ID").Value Then
-                        sGROUP_ITEM_COUNT = sGROUP_ITEM_COUNT + 1
+                        sGROUP_ITEM_COUNT += 1
                         sGROUP_AMOUNT_COLLECTION += d.Cells("AMOUNT").Value
 
                     ElseIf sGROUP_ITEM_ID = d.Cells("ITEM_ID").Value Then
@@ -391,7 +391,7 @@ Module modFormFunction
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 If bMenuCountRead = True Then
-                    iMenuCount = iMenuCount + 1
+                    iMenuCount += 1
                 End If
                 Dim file_path As String = ""
                 Dim sForm As String = ""

@@ -40,9 +40,6 @@ Public Class FrmSplash
                 ImgListAddMore(imglist, rd("sub_id"), ImagePath)
             End While
             rd.Close()
-
-
-            '========================
             ImgListAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "1", "description"), "\image\menu\customer.png")
             ImgListAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "2", "description"), "\image\menu\vendor.png")
             ImgListAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "3", "description"), "\image\menu\company.png")

@@ -9,7 +9,7 @@ Public Class FrmContactDetails
     Public gsDgv As DataGridView
     Public this_BS As BindingSource
 
-    Private Sub fRefreshCombo()
+    Private Sub RefreshCombo()
         ComboBoxLoad(cmbTAX_ID, "select * from tax where tax_type='3'", "ID", "NAME")
         ComboBoxLoad(cmbGROUP_ID, "select * from contact_group", "ID", "DESCRIPTION")
         ComboBoxLoad(cmbPAYMENT_TERMS_ID, "select * from payment_terms", "ID", "DESCRIPTION")
@@ -41,42 +41,37 @@ Public Class FrmContactDetails
 
         If gsPOS_Mode = True Then
             'Active From POS - Create Customer Only
-            fCheckingDiscountCardNumber()
+            CheckingDiscountCardNumber()
         End If
 
     End Sub
 
-    Private Sub fCheckingDiscountCardNumber()
-
-
+    Private Sub CheckingDiscountCardNumber()
         Dim rd As OdbcDataReader = SqlReader($"select next_number,prefix from discountcardnumber where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
-
         If rd.Read Then
             Dim get_digit As String = ""
             For r As Integer = 1 To 6
-                get_digit = get_digit & "0"
+                get_digit &= "0"
             Next
 
             txtACCOUNT_NO.Text = NumIsNull(rd("prefix")) & NumIsNull(rd("next_number")).ToString(get_digit)
         Else
 
             SqlExecuted($"INSERT INTO discountcardnumber SET  location_id = '{gsDefault_LOCATION_ID}',next_number ='1' ")
-            fCheckingDiscountCardNumber()
+            CheckingDiscountCardNumber()
         End If
         rd.Close()
     End Sub
 
-    Private Sub fUpdateDiscountCardNumber()
-
+    Private Sub UpdateDiscountCardNumber()
         Dim rd As OdbcDataReader = SqlReader($"select next_number from discountcardnumber where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
-
         If rd.Read Then
             SqlExecuted($"UPDATE discountcardnumber SET `next_number` = '{ NumIsNull(rd("next_number")) + 1}' where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
         End If
         rd.Close()
     End Sub
-    Private Sub fRefreshForm()
-        fRefreshCombo()
+    Private Sub RefreshForm()
+        RefreshCombo()
         Try
             Dim sQuery As String = "select * from contact where id = '" & ID & "' Limit 1;"
             SqlExecutedUsingReading(Me, sQuery)
@@ -84,119 +79,110 @@ Public Class FrmContactDetails
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshForm()
+                RefreshForm()
             Else
                 End
             End If
         End Try
     End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
-
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
-
-    End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         If gsPOS_Mode = True Then
             gsOK = False
         End If
         Me.Close()
     End Sub
 
-    Private Sub frmContact_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmContact_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
         If gsPOS_Mode = True Or (this_BS Is Nothing And gsDgv Is Nothing) Then
-                tsSaveNew.Text = "&Save"
+            tsSaveNew.Text = "&Save"
 
-            End If
+        End If
 
-            Select Case ContactTypeId
-                Case "0" ' Vendor
-                    Frm = frmVendor
-                    xlblTAX.Text = "Input Tax"
-                    gsTITLE = "Seller"
-                    Label21.Visible = False
-                    Label23.Visible = False
-                    Label24.Visible = False
-                    xlblCardNUmber.Visible = False
-                    Label26.Visible = False
-                    Label27.Visible = False
-                    cmbSALES_REP_ID.Visible = False
-                    numCREDIT_LIMIT.Visible = False
-                    cmbPREF_PAYMENT_METHOD_ID.Visible = False
-                    txtCREDIT_CARD_NO.Visible = False
-                    dtpCREDIT_CARD_EXPIRY_DATE.Visible = False
-                    Label27.Visible = False
-                    cmbPRICE_LEVEL_ID.Visible = False
-                    chkAPPLY_FINANCE_CHARGE.Visible = False
+        Select Case ContactTypeId
+            Case "0" ' Vendor
+                Frm = FrmVendor
+                xlblTAX.Text = "Input Tax"
+                gsTITLE = "Seller"
+                Label21.Visible = False
+                Label23.Visible = False
+                Label24.Visible = False
+                xlblCardNUmber.Visible = False
+                Label26.Visible = False
+                Label27.Visible = False
+                cmbSALES_REP_ID.Visible = False
+                numCREDIT_LIMIT.Visible = False
+                cmbPREF_PAYMENT_METHOD_ID.Visible = False
+                txtCREDIT_CARD_NO.Visible = False
+                dtpCREDIT_CARD_EXPIRY_DATE.Visible = False
+                Label27.Visible = False
+                cmbPRICE_LEVEL_ID.Visible = False
+                chkAPPLY_FINANCE_CHARGE.Visible = False
 
-                    xnumDISCOUNT.Visible = False
+                xnumDISCOUNT.Visible = False
 
-                    If IsNew = False Then
-                        Me.Text = "Edit Seller"
-                    Else
-                        Me.Text = "New Seller"
-                    End If
+                If IsNew = False Then
+                    Me.Text = "Edit Seller"
+                Else
+                    Me.Text = "New Seller"
+                End If
 
-                Case "1" 'Customer
-                    Frm = frmCustomer
-                    xlblTAX.Text = "Output Tax"
-
-
-                    dtpCUSTOM_FIELD4.Checked = True
-                    gsTITLE = "Buyer"
+            Case "1" 'Customer
+                Frm = FrmCustomer
+                xlblTAX.Text = "Output Tax"
 
 
-
-
-                Case "2" 'Employee
-
-
-                    Frm = frmEmployee
-                    xlblTAX.Visible = False
-                    cmbTAX_ID.Visible = False
-                    gsTITLE = IIf(gsPOS_Mode = True, "Salesman", "Member")
-
-
-                    xlblLevel.Text = "Position"
-
-                    Label28.Visible = False
-                    Label29.Visible = False
-                    xlblOriented.Visible = False
-                    dtpCUSTOM_FIELD3.Visible = False
-                    dtpCUSTOM_FIELD4.Visible = False
-                    txtCUSTOM_FIELD5.Visible = False
+                dtpCUSTOM_FIELD4.Checked = True
+                gsTITLE = "Buyer"
 
 
 
 
-                Case "3" 'Tax Agency
-                    gsTITLE = "Tax Agency"
-                Case "4" 'Other Contacts
-                    gsTITLE = "Other Contacts"
-
-                Case "5" 'Manager
-                    xlblTAX.Visible = False
-                    cmbTAX_ID.Visible = False
-                    Frm = frmManager
-
-                    lbxDiscount.Visible = True
-                    xnumDISCOUNT.Visible = True
-
-                Case "6" 'Dealer
-                    xlblTAX.Visible = False
-                    cmbTAX_ID.Visible = False
-                    Frm = frmDealer
-                    gsTITLE = "Dealer"
-
-            End Select
+            Case "2" 'Employee
 
 
-        fRefreshForm()
+                Frm = FrmEmployee
+                xlblTAX.Visible = False
+                cmbTAX_ID.Visible = False
+                gsTITLE = IIf(gsPOS_Mode = True, "Salesman", "Member")
+
+
+                xlblLevel.Text = "Position"
+
+                Label28.Visible = False
+                Label29.Visible = False
+                xlblOriented.Visible = False
+                dtpCUSTOM_FIELD3.Visible = False
+                dtpCUSTOM_FIELD4.Visible = False
+                txtCUSTOM_FIELD5.Visible = False
+
+
+
+
+            Case "3" 'Tax Agency
+                gsTITLE = "Tax Agency"
+            Case "4" 'Other Contacts
+                gsTITLE = "Other Contacts"
+
+            Case "5" 'Manager
+                xlblTAX.Visible = False
+                cmbTAX_ID.Visible = False
+                Frm = FrmManager
+
+                lbxDiscount.Visible = True
+                xnumDISCOUNT.Visible = True
+
+            Case "6" 'Dealer
+                xlblTAX.Visible = False
+                cmbTAX_ID.Visible = False
+                Frm = FrmDealer
+                gsTITLE = "Dealer"
+
+        End Select
+
+
+        RefreshForm()
 
         If IsNew = False Then
             Me.Text = gsTITLE & " :: EDIT"
@@ -210,7 +196,7 @@ Public Class FrmContactDetails
         End If
         chkINACTIVE.Text = gsTITLE & " is inactive"
     End Sub
-    Private Sub txtNAME_TextChanged(sender As Object, e As EventArgs) Handles txtNAME.TextChanged
+    Private Sub TxtNAME_TextChanged(sender As Object, e As EventArgs) Handles txtNAME.TextChanged
         If IsNew = True Then
             txtCOMPANY_NAME.Text = txtNAME.Text.Trim
             txtPRINT_NAME_AS.Text = txtNAME.Text.Trim
@@ -218,7 +204,7 @@ Public Class FrmContactDetails
         End If
     End Sub
 
-    Private Sub txtNAME_Click(sender As Object, e As EventArgs) Handles txtNAME.Click
+    Private Sub TxtNAME_Click(sender As Object, e As EventArgs) Handles txtNAME.Click
 
         fKeyBoardToTouch(txtNAME, xlblName.Text)
 
@@ -272,7 +258,7 @@ Public Class FrmContactDetails
             If gsPOS_Mode = True Or (this_BS Is Nothing And gsDgv Is Nothing) Then
 
                 'Must have a Function
-                fUpdateDiscountCardNumber()
+                UpdateDiscountCardNumber()
 
                 gsOK = True
                 Me.Close()
@@ -411,7 +397,7 @@ WHERE c.Type = '6' and c.`ID` = '" & ID & "' limit 1"
         fContactUpdate(gsDgv, IsNew, this_BS, sql_Refresh)
         IsNew = True
         ID = 0
-        fRefreshCombo()
+        RefreshCombo()
         ClearAndRefresh(Me)
 
 
@@ -430,70 +416,31 @@ WHERE c.Type = '6' and c.`ID` = '" & ID & "' limit 1"
     End Sub
 
     Private Sub BtnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
-        fRefreshForm()
+        RefreshForm()
     End Sub
-
-    Private Sub TxtCOMPANY_NAME_TextChanged(sender As Object, e As EventArgs) Handles txtCOMPANY_NAME.TextChanged
-
-    End Sub
-
-    Private Sub txtCOMPANY_NAME_Click(sender As Object, e As EventArgs) Handles txtCOMPANY_NAME.Click
-
+    Private Sub TxtCOMPANY_NAME_Click(sender As Object, e As EventArgs) Handles txtCOMPANY_NAME.Click
         fKeyBoardToTouch(txtCOMPANY_NAME, xlblCompanyName.Text)
-
-
     End Sub
-
-    Private Sub TxtFIRST_NAME_TextChanged(sender As Object, e As EventArgs) Handles txtFIRST_NAME.TextChanged
-
-    End Sub
-
-    Private Sub TxtMIDDLE_NAME_TextChanged(sender As Object, e As EventArgs) Handles txtMIDDLE_NAME.TextChanged
-
-    End Sub
-
-    Private Sub txtFIRST_NAME_Click(sender As Object, e As EventArgs) Handles txtFIRST_NAME.Click
+    Private Sub TxtFIRST_NAME_Click(sender As Object, e As EventArgs) Handles txtFIRST_NAME.Click
         fKeyBoardToTouch(txtFIRST_NAME, "Firstname")
     End Sub
 
-    Private Sub txtMIDDLE_NAME_Click(sender As Object, e As EventArgs) Handles txtMIDDLE_NAME.Click
+    Private Sub TxtMIDDLE_NAME_Click(sender As Object, e As EventArgs) Handles txtMIDDLE_NAME.Click
         fKeyBoardToTouch(txtMIDDLE_NAME, "M.I")
     End Sub
-
-    Private Sub txtLAST_NAME_Click(sender As Object, e As EventArgs) Handles txtLAST_NAME.Click
+    Private Sub TxtLAST_NAME_Click(sender As Object, e As EventArgs) Handles txtLAST_NAME.Click
         fKeyBoardToTouch(txtLAST_NAME, "Lastname")
     End Sub
-
-    Private Sub TxtCONTACT_PERSON_TextChanged(sender As Object, e As EventArgs) Handles txtCONTACT_PERSON.TextChanged
-
-    End Sub
-
-    Private Sub txtCONTACT_PERSON_Click(sender As Object, e As EventArgs) Handles txtCONTACT_PERSON.Click
+    Private Sub TxtCONTACT_PERSON_Click(sender As Object, e As EventArgs) Handles txtCONTACT_PERSON.Click
         fKeyBoardToTouch(txtCONTACT_PERSON, xlblContactPerson.Text)
     End Sub
-
-    Private Sub TxtTELEPHONE_NO_TextChanged(sender As Object, e As EventArgs) Handles txtTELEPHONE_NO.TextChanged
-
-    End Sub
-
-    Private Sub txtTELEPHONE_NO_Click(sender As Object, e As EventArgs) Handles txtTELEPHONE_NO.Click
-
+    Private Sub TxtTELEPHONE_NO_Click(sender As Object, e As EventArgs) Handles txtTELEPHONE_NO.Click
         fKeyBoardToTouch(txtTELEPHONE_NO, xlblTeleNumber.Text)
     End Sub
-
-    Private Sub TxtEMAIL_TextChanged(sender As Object, e As EventArgs) Handles txtEMAIL.TextChanged
-
-    End Sub
-
-    Private Sub txtEMAIL_Click(sender As Object, e As EventArgs) Handles txtEMAIL.Click
+    Private Sub TxtEMAIL_Click(sender As Object, e As EventArgs) Handles txtEMAIL.Click
         fKeyBoardToTouch(txtEMAIL, xlblEmail.Text)
     End Sub
-
-    Private Sub TxtMOBILE_NO_TextChanged(sender As Object, e As EventArgs) Handles txtMOBILE_NO.TextChanged
-
-    End Sub
-
-    Private Sub txtMOBILE_NO_Click(sender As Object, e As EventArgs) Handles txtMOBILE_NO.Click
+    Private Sub TxtMOBILE_NO_Click(sender As Object, e As EventArgs) Handles txtMOBILE_NO.Click
         fKeyBoardToTouch(txtMOBILE_NO, xlblMobile.Text)
     End Sub
 
