@@ -159,7 +159,7 @@ CASH_COUNT_ID=null," & sValueSet
         rd.Close()
     End Sub
 
-    '    Private Function fGET_GRAND_TOTAL(ByVal prDATE As Date) As Double
+    '    Private Function GET_GRAND_TOTAL(ByVal prDATE As Date) As Double
     '        Dim G_TOTAL As Double = 0
     '        Dim rd As OdbcDataReader = SqlReader($"SELECT pl.`GRAND_TOTAL`
     'FROM

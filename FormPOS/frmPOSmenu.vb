@@ -758,9 +758,6 @@ B.ID = ii.BATCH_ID
                 .gslblTAXABLE_AMOUNT = lblTAXABLE_AMOUNT
                 .gslblNONTAXABLE_AMOUNT = lblNONTAXABLE_AMOUNT
                 .gslblOUTPUT_TAX_RATE = lblOUTPUT_TAX_RATE
-
-
-
                 .StartPosition = FormStartPosition.Manual
                 Dim H_PC As Integer = My.Computer.Screen.WorkingArea.Height - (.Height)
                 .Location = New Point(dgvProductItem.Location.X, H_PC)
@@ -797,25 +794,15 @@ B.ID = ii.BATCH_ID
         EditItem()
     End Sub
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TSClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         ClosedForm(Me)
     End Sub
-
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
-    End Sub
-
-    Private Sub dgvProductItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvProductItem.RowsAdded
+    Private Sub DgvProductItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvProductItem.RowsAdded
         If bRefreshItem = False Then
             POSComputed()
         End If
-
     End Sub
-
-    Private Sub frmSalesReceipt_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-
-    End Sub
-
-    Private Function fGET_GRAND_TOTAL(ByVal prDATE As Date) As Double
+    Private Function GET_GRAND_TOTAL(ByVal prDATE As Date) As Double
         Dim G_TOTAL As Double = 0
         Dim rd As OdbcDataReader = SqlReader($"SELECT pl.`GRAND_TOTAL`
 FROM
@@ -835,18 +822,13 @@ LIMIT 1")
         Return G_TOTAL
     End Function
 
-    Private Sub frmSalesReceipt_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub POSMenu_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         Dim H_PC As Integer = My.Computer.Screen.WorkingArea.Height
-        ' Dim H_ As Integer = Screen.PrimaryScreen.Bounds.Height
-        'Me.Width = Screen.PrimaryScreen.Bounds.Width
-        'Me.Height = H_PC
-        'Me.Location = New Point(0, 0)
-
         ViewItemDisplay(dgvProductItem)
         ViewNotSort(dgvProductItem)
 
         Dim IsExit As Boolean = False
-        With frmPOSTransactionList
+        With FrmPOSTransactionList
             .ShowDialog()
             If .gsResume = True Then
                 gsPOS_LOG_ID = .Select_POS_LOG_ID
@@ -857,9 +839,9 @@ LIMIT 1")
                 IsExit = True
             End If
 
-            frmPOSTransactionList.Dispose()
+            FrmPOSTransactionList.Dispose()
         End With
-        frmPOSTransactionList = Nothing
+        FrmPOSTransactionList = Nothing
         If IsExit = True Then
             gsCloseCall = True
             Me.Close()
@@ -897,10 +879,10 @@ NewPOS_LOG:
             gsStartingCash_Amount = 0
             gsSTARTING_CASH_ID = 0
             If fPOS_STARTING_CASH() = True Then
-                frmPOSStartingCash.ShowDialog()
-                gsStartingCash_Amount = frmPOSStartingCash.gsStartAmount
-                frmPOSStartingCash.Dispose()
-                frmPOSStartingCash = Nothing
+                FrmPOSStartingCash.ShowDialog()
+                gsStartingCash_Amount = FrmPOSStartingCash.gsStartAmount
+                FrmPOSStartingCash.Dispose()
+                FrmPOSStartingCash = Nothing
             End If
 
             gsSTARTING_CASH_ID = ObjectTypeMapId("POS_STARTING_CASH")
@@ -917,13 +899,13 @@ NewPOS_LOG:
 
 
     End Sub
-    Private Sub fClickMenu(sender As Object, e As EventArgs)
+    Private Sub ClickMenu(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         gsPOSEntryType = btn.Name
         Dim f As Form = btn.FindForm
         f.Close()
     End Sub
-    Private Sub fCreateMenu(ByVal prName As String, ByVal prDesplay As String, ByVal f As Form)
+    Private Sub CreateMenu(ByVal prName As String, ByVal prDesplay As String, ByVal f As Form)
         h += 163
         f.Size = New Size(h, f.Height)
         Dim b As New Button With {
@@ -934,7 +916,7 @@ NewPOS_LOG:
             .Dock = DockStyle.Left
         }
         f.Controls.Add(b)
-        AddHandler b.Click, AddressOf fClickMenu
+        AddHandler b.Click, AddressOf ClickMenu
         gsPublicButton = b
     End Sub
 
@@ -943,7 +925,7 @@ NewPOS_LOG:
         While rd.Read
             Dim id As Integer = rd("ID")
             Dim sName As String = "&" & rd("DESCRIPTION")
-            fCreateMenu(id, sName, f)
+            CreateMenu(id, sName, f)
         End While
         rd.Close()
         h = 0
@@ -1701,30 +1683,11 @@ NewPOS_LOG:
         dgvProductItem.Focus()
         tsITEM_MENU_TOOLS.Enabled = True
     End Sub
-
-    Private Sub txtSearchEntry_TextChanged(sender As Object, e As EventArgs) Handles txtSearchEntry.TextChanged
-
-    End Sub
-
-    Private Sub txtSearchEntry_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearchEntry.KeyDown
+    Private Sub TxtSearchEntry_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearchEntry.KeyDown
         Master_KeyDown(sender, e)
     End Sub
-
-    Private Sub dgvTENDER_LIST_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTENDER_LIST.CellContentClick
-
-    End Sub
-
-    Private Sub dgvTENDER_LIST_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvTENDER_LIST.KeyDown
+    Private Sub DgvTENDER_LIST_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvTENDER_LIST.KeyDown
         Master_KeyDown(sender, e)
     End Sub
-
-    Private Sub xlblSalesRep_Click(sender As Object, e As EventArgs) Handles xlblSalesRep.Click
-
-    End Sub
-
-    Private Sub StatusStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles StatusStrip1.ItemClicked
-
-    End Sub
-
 
 End Class

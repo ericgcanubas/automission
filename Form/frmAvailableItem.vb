@@ -484,15 +484,15 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
     '            If dgv.Cells(0).Value = True And dgv.Visible = True Then
 
     '                With dgvSelected
-    '                    Dim r As Integer = .Rows.Count
+    '                    Dim R_number As Integer = .Rows.Count
     '                    .Rows.Add()
 
-    '                    .Rows(r).Cells(0).Value = False
-    '                    .Rows(r).Cells(1).Value = dgvDocument.Rows(dgvDocument.CurrentRow.Index).Cells(1).Value
+    '                    .Rows(R_number).Cells(0).Value = False
+    '                    .Rows(R_number).Cells(1).Value = dgvDocument.Rows(dgvDocument.CurrentRow.Index).Cells(1).Value
 
     '                    For n As Integer = 2 To .Columns.Count - 1
 
-    '                        .Rows(r).Cells(n).Value = dgv.Cells(n - 1).Value
+    '                        .Rows(R_number).Cells(n).Value = dgv.Cells(n - 1).Value
 
     '                    Next
 

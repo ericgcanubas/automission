@@ -13,7 +13,7 @@ Public Class FrmInvoice
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Sub dgvProductItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvProductItem.RowStateChanged
+    Private Sub DgvProductItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvProductItem.RowStateChanged
         lblCount.Text = DirectCast(sender, DataGridView).Rows.Count
 
         If Val(lblCount.Text) = 0 Then
@@ -24,23 +24,9 @@ Public Class FrmInvoice
             cmbCUSTOMER_ID.Enabled = False
         End If
     End Sub
-    Private Function fCheckHasChange() As Boolean
-        Dim HasChange As Boolean = False
-        Dim squery As String = SqlUpdate(Me)
-        If squery <> tQuery Then
-            HasChange = True
-        ElseIf DataGridGotChange(dgvProductItem, tdgv) = True Then
-            HasChange = True
-        End If
-
-        Return HasChange
-    End Function
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
 
 
-    Private Sub fRefreshCombo()
+    Private Sub RefreshCombo()
 
         ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
         ComboBoxLoad(cmbCLASS_ID, "select ID,NAME from class", "ID", "NAME")
@@ -52,7 +38,7 @@ Public Class FrmInvoice
         ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
     End Sub
 
-    Private Sub fRefreshItem()
+    Private Sub RefreshItem()
         bRefreshItem = True
         dgvProductItem.Rows.Clear()
 
@@ -128,14 +114,14 @@ ON B.ID = II.BATCH_ID
                 If CBool(NumIsNull(rd("PRINT_IN_FORMS"))) = True Then
                     dgvProductItem.Rows(x).Visible = False
                 End If
-                x = x + 1
+                x += 1
             End While
             rd.Close()
 
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         Finally
-            fComputed()
+            Computed()
             tdgv = New DataGridView
             tdgv = dgvProductItem
             tQuery = SqlUpdate(Me)
@@ -148,14 +134,14 @@ ON B.ID = II.BATCH_ID
 
     End Sub
 
-    Private Sub fclear_Info()
-        fRefreshCombo()
+    Private Sub ClearInfo()
+        RefreshCombo()
         ClearAndRefresh(Me)
 
         dtpDISCOUNT_DATE.Checked = False
         dtpDUE_DATE.Checked = False
         dgvProductItem.Rows.Clear()
-        fComputed()
+        Computed()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
         cmbLOCATION_ID.Enabled = fLockLocation()
         cmbPAYMENT_TERMS_ID.SelectedValue = fPaymentTermsDefault()
@@ -163,7 +149,7 @@ ON B.ID = II.BATCH_ID
         cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
         cmbACCOUNTS_RECEIVABLE_ID.SelectedValue = gsDefault_ACCOUNTS_RECEIVABLE_ID
     End Sub
-    Private Function fCheckingfGotCreditLimit() As Boolean
+    Private Function CheckingfGotCreditLimit() As Boolean
         Dim bHold As Boolean = False
         Try
 
@@ -204,7 +190,7 @@ ON B.ID = II.BATCH_ID
 
 
     End Function
-    Private Function fCheckingfGotAgingLimit() As Boolean
+    Private Function CheckingfGotAgingLimit() As Boolean
         Dim d As Date = Date.Now.Date
         Dim b As Boolean = False
         Dim i As Integer = fArAgingLimit()
@@ -274,7 +260,7 @@ ON B.ID = II.BATCH_ID
                     End If
                 Catch ex As Exception
                     If MessageBoxErrorYesNo(ex.Message) = True Then
-                        b = fCheckingfGotAgingLimit()
+                        b = CheckingfGotAgingLimit()
                     Else
                         End
                     End If
@@ -286,14 +272,14 @@ ON B.ID = II.BATCH_ID
         Return b
     End Function
 
-    Private Sub dgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvProductItem.KeyDown
+    Private Sub DgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvProductItem.KeyDown
         If (e.KeyCode = Keys.I AndAlso e.Modifiers = Keys.Control) Then
             If dgvProductItem.Rows.Count <> 0 And IsNew = False Then
                 InventoryVDetailsQuickView(dgvProductItem.CurrentRow.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, gsBusinessDateStart, txtCODE.Text)
             End If
         End If
     End Sub
-    Private Sub frmInvoice_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmInvoice_Load(sender As Object, e As EventArgs) Handles Me.Load
         spJournal.Visible = gsShowAccounts
         tsJournal.Visible = gsShowAccounts
         AccountLabel.Visible = gsShowAccounts
@@ -302,12 +288,12 @@ ON B.ID = II.BATCH_ID
         tsTITLE.Text = gsSubMenuForm
         fcolumnGrid_U_Invoice(dgvProductItem)
 
-        fclear_Info()
+        ClearInfo()
 
 
         If IsNew = False Then
-            fRefreshInfo()
-            fRefreshItem()
+            RefreshInfo()
+            RefreshItem()
 
         End If
 
@@ -317,7 +303,7 @@ ON B.ID = II.BATCH_ID
 
 
 
-    Private Sub fRefreshInfo()
+    Private Sub RefreshInfo()
         Try
 
             Dim sQuery As String = "select * from invoice where ID = '" & ID & "' Limit 1;"
@@ -325,13 +311,13 @@ ON B.ID = II.BATCH_ID
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshInfo()
+                RefreshInfo()
             Else
                 End
             End If
         End Try
     End Sub
-    Private Function fSO_ITEM_UPDATE(ByVal REF_LINE_ID As Integer, ByVal prINVOICED_QTY As Double, ByVal isUPDATE As Boolean, ByRef THIS_SO_ID As Integer) As String
+    Private Function SalesOrderIitemUpdate(ByVal REF_LINE_ID As Integer, ByVal prINVOICED_QTY As Double, ByVal isUPDATE As Boolean, ByRef THIS_SO_ID As Integer) As String
 
         Dim SO_SQL As String = ""
         If REF_LINE_ID <> 0 Then
@@ -347,7 +333,7 @@ ON B.ID = II.BATCH_ID
         Return SO_SQL
     End Function
 
-    Private Sub fCheck_Status_SO(ByVal THIS_SO_ID As Integer)
+    Private Sub Check_Status_SO(ByVal THIS_SO_ID As Integer)
 
         Dim rd As OdbcDataReader = SqlReader($"select  * from sales_order_items Where SALES_ORDER_ID = '{THIS_SO_ID}' and `CLOSED` = '1' limit 1;")
         Dim E As Integer
@@ -363,7 +349,7 @@ ON B.ID = II.BATCH_ID
 
 
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
 
 
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
@@ -395,11 +381,11 @@ ON B.ID = II.BATCH_ID
         If IsNew = True Then
 
 
-            If fCheckingfGotCreditLimit() = True Then
+            If CheckingfGotCreditLimit() = True Then
                 Exit Sub
             End If
 
-            If fCheckingfGotAgingLimit() = True Then
+            If CheckingfGotAgingLimit() = True Then
                 Exit Sub
             End If
 
@@ -466,7 +452,7 @@ ON B.ID = II.BATCH_ID
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = "tsSaveNew" Then
-                fSetNew()
+                SetNew()
             End If
 
         Catch ex As Exception
@@ -474,18 +460,18 @@ ON B.ID = II.BATCH_ID
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefreshInfo()
-                fRefreshItem() 'Must Refresh Item
+                RefreshInfo()
+                RefreshItem() 'Must Refresh Item
             End If
 
         End Try
 
 
     End Sub
-    Private Sub fSetNew()
-        fclear_Info()
+    Private Sub SetNew()
+        ClearInfo()
         dgvProductItem.Rows.Clear()
-        fComputed()
+        Computed()
 
         ID = 0
         IsNew = True
@@ -493,7 +479,7 @@ ON B.ID = II.BATCH_ID
 
     End Sub
 
-    Private Sub fEditItem()
+    Private Sub EditItem()
         Try
 
             If dgvProductItem.Rows.Count = 0 Then
@@ -520,7 +506,7 @@ ON B.ID = II.BATCH_ID
             End If
 
             Dim gsGROUP_ID As Integer = 0
-            With frmAddItem
+            With FrmAddItem
 
                 If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
@@ -546,7 +532,7 @@ ON B.ID = II.BATCH_ID
                 .gslblTAXABLE_AMOUNT = lblTAXABLE_AMOUNT
                 .gslblNONTAXABLE_AMOUNT = lblNONTAXABLE_AMOUNT
                 .gslblOUTPUT_TAX_RATE = lblOUTPUT_TAX_RATE
-                frmAddItem.ShowDialog()
+                FrmAddItem.ShowDialog()
 
                 If .gsSave = True Then
 
@@ -554,37 +540,21 @@ ON B.ID = II.BATCH_ID
 
                 End If
             End With
-            fComputed()
-            frmAddItem.Dispose()
-            frmAddItem = Nothing
+            Computed()
+            FrmAddItem.Dispose()
+            FrmAddItem = Nothing
 
         Catch ex As Exception
             MessageBoxInfo(ex.Message)
         End Try
     End Sub
-
-    Private Sub lklDelete_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-
-    End Sub
-    Private Function fGet_Discount_Item()
+    Private Function Get_Discount_Item()
         Dim Amt As Double = 0
         If dgvProductItem.Rows.Count <> 0 Then
-            'If NumIsNull(cmbPENALTY_TYPE_ID.SelectedValue) = 3 Then
-            '    Dim item_id As Double = NumIsNull(fSystemSettingValue("TargetPenaltyDiscount"))
-            '    For i As Integer = 0 To dgvProductItem.Rows.Count - 1
-            '        If item_id = dgvProductItem.Rows(i).Cells("ITEM_ID").Value Then
-            '            Amt = dgvProductItem.Rows(i).Cells("AMOUNT").Value
-            '            Exit For
-            '        End If
-            '    Next
-
-            'End If
-
         End If
         Return Amt
     End Function
-    Private Function fCheckifDiscountNext(ByVal ndex As Integer) As Boolean
+    Private Function CheckifDiscountNext(ByVal ndex As Integer) As Boolean
         Try
             If IsDiscountItem(dgvProductItem.Rows(ndex + 1).Cells("ITEM_TYPE").Value) = True Then
                 Return True
@@ -596,7 +566,7 @@ ON B.ID = II.BATCH_ID
         End Try
 
     End Function
-    Public Sub fComputed()
+    Public Sub Computed()
         Dim gsSalesSubTotal As Double
         fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
         Dim dPayment_applied As Double = fGetSumPaymentApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fGetSumCreditApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fInvoiceSumTaxApplied_Amount(ID, cmbCUSTOMER_ID.SelectedValue)
@@ -611,12 +581,10 @@ ON B.ID = II.BATCH_ID
 
     End Sub
 
-    Private Sub cmbOUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
-        fComputed()
-        '    Dim cn As New MySqlConnection(mysqlConstr)
-
+    Private Sub CmbOUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
+        Computed()
         Try
-            '   cn.Open()
+
             Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
                 lblOUTPUT_TAX_VAT_METHOD.Text = TextIsNull(rd("VAT_METHOD"))
@@ -632,21 +600,16 @@ ON B.ID = II.BATCH_ID
             lblOUTPUT_TAX_ACCOUNT_ID.Text = ""
         End Try
     End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
-
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If fACCESS_FIND(Me) = False Then
             Exit Sub
 
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckingHasChange(Me, tQuery, dgvProductItem, tdgv) = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -660,8 +623,6 @@ ON B.ID = II.BATCH_ID
 
         f.AccessibleName = "invoice"
         f.Size = New Point(gsMainWith - 50, gsMainHeight - 50)
-
-
         f.ShowDialog()
         If f.AccessibleDescription <> "" Then
 
@@ -669,11 +630,11 @@ ON B.ID = II.BATCH_ID
                 IsNew = False
 
 
-                fclear_Info()
+                ClearInfo()
                 ID = f.AccessibleDescription
 
-                fRefreshInfo()
-                fRefreshItem()
+                RefreshInfo()
+                RefreshItem()
 
             End If
 
@@ -683,57 +644,44 @@ ON B.ID = II.BATCH_ID
         'Frm.Dispose()
         'Frm = Nothing
 
-
-
-
     End Sub
-
-
-
-
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
-                fclear_Info()
-                fRefreshInfo()
-                fRefreshItem()
+                ClearInfo()
+                RefreshInfo()
+                RefreshItem()
             End If
 
         End If
     End Sub
 
-    Private Sub dgvProductItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellClick
+    Private Sub DgvProductItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellClick
         If e.ColumnIndex = 9 Then
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
             fTax_Value(dgvProductItem)
-            fComputed()
+            Computed()
         End If
     End Sub
-
-    Private Sub tsApplyCredits_Click(sender As Object, e As EventArgs) Handles tsApplyCredits.Click
-
-    End Sub
-
     Private Sub dgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
-        fEditItem()
+        EditItem()
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckingHasChange(Me, tQuery, dgvProductItem, tdgv) = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -790,12 +738,12 @@ ON B.ID = II.BATCH_ID
 
 
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckingHasChange(Me, tQuery, dgvProductItem, tdgv) = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -814,10 +762,10 @@ ON B.ID = II.BATCH_ID
             Exit Sub
         End If
 
-        frmPrintPage.frmName = Me.Name
-        frmPrintPage.ShowDialog()
+        FrmPrintPage.frmName = Me.Name
+        FrmPrintPage.ShowDialog()
 
-        Dim v As Integer = frmPrintPage.prValue
+        Dim v As Integer = FrmPrintPage.prValue
         If v = 1 Or v = 2 Then
 
             Dim prFile_name As String = ""
@@ -856,8 +804,8 @@ ON B.ID = II.BATCH_ID
 
 
         End If
-        frmPrintPage.Dispose()
-        frmPrintPage = Nothing
+        FrmPrintPage.Dispose()
+        FrmPrintPage = Nothing
 
 
 
@@ -865,12 +813,12 @@ ON B.ID = II.BATCH_ID
 
     Private Sub tsPrint_Click(sender As Object, e As EventArgs) Handles tsPrint.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckingHasChange(Me, tQuery, dgvProductItem, tdgv) = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -1019,9 +967,9 @@ ON B.ID = II.BATCH_ID
 
                 fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
-                fclear_Info()
+                ClearInfo()
                 dgvProductItem.Rows.Clear()
-                fComputed()
+                Computed()
                 ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
@@ -1034,7 +982,7 @@ ON B.ID = II.BATCH_ID
 
     Private Sub dgvProductItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvProductItem.RowsAdded
         If bRefreshItem = False Then
-            fComputed()
+            Computed()
         End If
 
     End Sub
@@ -1090,11 +1038,11 @@ ON B.ID = II.BATCH_ID
     '                Dim dt1 As Date = FirstDayOfMonth(dtpDATE.Value)
     '                dt1 = dt1.AddMonths(-1)
     '                Dim dt2 As Date = LastDayOfMonth(dt1)
-    '                Dim r As Double = 0
+    '                Dim R_number As Double = 0
 
 
-    '                If fManagerHitSalesTargetViaDealer(Format(dt1, "yyyy-MM-dd"), Format(dt2, "yyyy-MM-dd"), cmbCUSTOMER_ID.SelectedValue, r) = True Then
-    '                    dRabites = r * (Val(fSystemSettingValue("ManagerRebites")) / 100)
+    '                If fManagerHitSalesTargetViaDealer(Format(dt1, "yyyy-MM-dd"), Format(dt2, "yyyy-MM-dd"), cmbCUSTOMER_ID.SelectedValue, R_number) = True Then
+    '                    dRabites = R_number * (Val(fSystemSettingValue("ManagerRebites")) / 100)
     '                    gsMemberDiscount = dBasicDiscount
     '                Else
     '                    gsMemberDiscount = dBasicDiscount
@@ -1147,7 +1095,7 @@ ON B.ID = II.BATCH_ID
     'End Sub
 
     Private Sub dtpDUE_DATE_ValueChanged(sender As Object, e As EventArgs) Handles dtpDUE_DATE.ValueChanged
-        fComputed()
+        Computed()
     End Sub
 
     Private Sub tsPrint_DisplayStyleChanged(sender As Object, e As EventArgs) Handles tsPrint.DisplayStyleChanged
@@ -1187,12 +1135,12 @@ ON B.ID = II.BATCH_ID
     End Sub
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckingHasChange(Me, tQuery, dgvProductItem, tdgv) = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -1232,27 +1180,27 @@ ON B.ID = II.BATCH_ID
             If cmbCUSTOMER_ID.SelectedIndex = -1 Then
                 If StrText.Length = 0 Then Exit Sub
                 If IsNew = True Then
-                    If fACCESS_NEW_EDIT(frmCustomer, True) = False Then
+                    If fACCESS_NEW_EDIT(FrmCustomer, True) = False Then
                         Exit Sub
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
 
-                    frmContactDetails.ContactTypeId = 1
-                    frmContactDetails.txtNAME.Text = StrText ' must auto insert
-                    frmContactDetails.txtCOMPANY_NAME.Text = StrText
-                    frmContactDetails.txtPRINT_NAME_AS.Text = StrText
-                    frmContactDetails.IsNew = True
-                    frmContactDetails.ID = 0
-                    frmContactDetails.gsDgv = Nothing
-                    frmContactDetails.this_BS = Nothing
-                    frmContactDetails.ShowDialog()
-                    If frmContactDetails.gsOK = True Then
+                    FrmContactDetails.ContactTypeId = 1
+                    FrmContactDetails.txtNAME.Text = StrText ' must auto insert
+                    FrmContactDetails.txtCOMPANY_NAME.Text = StrText
+                    FrmContactDetails.txtPRINT_NAME_AS.Text = StrText
+                    FrmContactDetails.IsNew = True
+                    FrmContactDetails.ID = 0
+                    FrmContactDetails.gsDgv = Nothing
+                    FrmContactDetails.this_BS = Nothing
+                    FrmContactDetails.ShowDialog()
+                    If FrmContactDetails.gsOK = True Then
                         ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-                        cmbCUSTOMER_ID.SelectedValue = frmContactDetails.ID
+                        cmbCUSTOMER_ID.SelectedValue = FrmContactDetails.ID
                         cmbCUSTOMER_ID_LostFocus(sender, e)
                     End If
-                    frmContactDetails.Dispose()
-                    frmContactDetails = Nothing
+                    FrmContactDetails.Dispose()
+                    FrmContactDetails = Nothing
                 End If
 
             End If
@@ -1266,18 +1214,18 @@ ON B.ID = II.BATCH_ID
         End If
 
         If IsNew = True Then
-            If fCheckingfGotCreditLimit() = True Then
+            If CheckingfGotCreditLimit() = True Then
                 cmbCUSTOMER_ID.Text = ""
                 Exit Sub
             End If
 
-            If fCheckingfGotAgingLimit() = True Then
+            If CheckingfGotAgingLimit() = True Then
                 cmbCUSTOMER_ID.Text = ""
                 Exit Sub
             End If
         End If
 
-        With frmAddItem
+        With FrmAddItem
             .gsUseItemBatch = True
             bRefreshItem = False
             .dgv = dgvProductItem
@@ -1298,13 +1246,13 @@ ON B.ID = II.BATCH_ID
             .ShowDialog()
 
         End With
-        fComputed()
-        frmAddItem.Dispose()
-        frmAddItem = Nothing
+        Computed()
+        FrmAddItem.Dispose()
+        FrmAddItem = Nothing
     End Sub
 
     Private Sub tsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
-        fEditItem()
+        EditItem()
     End Sub
 
     Private Sub tsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
@@ -1316,7 +1264,7 @@ ON B.ID = II.BATCH_ID
             If dgvProductItem.Rows.Count <> 0 Then
                 dgvProductItem.Select()
                 fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
-                fComputed()
+                Computed()
             End If
         Catch ex As Exception
 
@@ -1333,8 +1281,8 @@ ON B.ID = II.BATCH_ID
 
 
         If IsNew = False Then
-            fRefreshInfo()
-            fRefreshItem()
+            RefreshInfo()
+            RefreshItem()
         End If
 
     End Sub
@@ -1355,12 +1303,12 @@ ON B.ID = II.BATCH_ID
 
     Private Sub ToCreditMemoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToCreditMemoToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckingHasChange(Me, tQuery, dgvProductItem, tdgv) = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -1376,7 +1324,7 @@ ON B.ID = II.BATCH_ID
             Exit Sub
         End If
 
-        With frmApplyCredits
+        With FrmApplyCredits
             .gsID = ID
             .gsCustomer_ID = cmbCUSTOMER_ID.SelectedValue
             .gsLocation_ID = cmbLOCATION_ID.SelectedValue
@@ -1389,15 +1337,15 @@ ON B.ID = II.BATCH_ID
             .ShowDialog()
             If .gsOk = True Then
                 'ADD UPDATE ' to 
-                fComputed()
+                Computed()
 
                 IsNew = False
-                tsSaveNew_Click(1, e)
+                TsSaveNew_Click(1, e)
             End If
             .Dispose()
 
         End With
-        frmApplyCredits = Nothing
+        FrmApplyCredits = Nothing
     End Sub
 
     Private Sub cmbCUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
@@ -1424,7 +1372,7 @@ ON B.ID = II.BATCH_ID
             If rd.Read Then
 
                 If NumIsNull(rd("t")) <> 0 Then
-                    With frmAvailableItem
+                    With FrmAvailableItem
                         bEntryAddItem = True
                         .gsdgv = dgvProductItem
                         .gsCONTACT_ID = cmbCUSTOMER_ID.SelectedValue
@@ -1436,7 +1384,7 @@ ON B.ID = II.BATCH_ID
                         End If
                         ' cmbCUSTOMER_ID.SelectedValue = .gsCONTACT_ID
                         .Dispose()
-                        fComputed() ' i forgot
+                        Computed() ' i forgot
                         bRefreshItem = False
                     End With
                     frmAvailableItem = Nothing

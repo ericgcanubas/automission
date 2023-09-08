@@ -1913,12 +1913,12 @@ FROM
 
     'Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
     '    If IsNew = True Then
-    '        tsSaveNew_Click(sender, e)
+    '        TsSaveNew_Click(sender, e)
     '    Else
     '        If CheckHasChange() = True Then
     '            If MessageBoxQuestion(gsMessageCheckEdit) = True Then
     '                tChangeAccept = False
-    '                tsSaveNew_Click(sender, e)
+    '                TsSaveNew_Click(sender, e)
     '                If tChangeAccept = False Then
     '                    MessageBoxInfo("Cancel")
     '                    Exit Sub
@@ -1939,10 +1939,10 @@ FROM
     '        Dim cn As New OleDb.OleDbConnection(fMS_Con)
     '        Try
     '            cn.Open()
-    '            Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
-    '            If r.Read Then
-    '                prPrint_Title = r("print_title")
-    '                prFile_name = r("file_name")
+    '            Dim R_number As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+    '            If R_number.Read Then
+    '                prPrint_Title = R_number("print_title")
+    '                prFile_name = R_number("file_name")
     '            End If
     '            cn.Close()
     '        Catch ex As Exception
@@ -1968,12 +1968,12 @@ FROM
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         'If IsNew = True Then
-        '    tsSaveNew_Click(sender, e)
+        '    TsSaveNew_Click(sender, e)
         'Else
         '    If CheckHasChange() = True Then
         '        If MessageBoxQuestion(gsMessageCheckEdit) = True Then
         '            tChangeAccept = False
-        '            tsSaveNew_Click(sender, e)
+        '            TsSaveNew_Click(sender, e)
         '            If tChangeAccept = False Then
         '                MessageBoxInfo("Cancel")
         '                Exit Sub
@@ -1994,10 +1994,10 @@ FROM
         '    Dim cn As New OleDb.OleDbConnection(fMS_Con)
         '    Try
         '        cn.Open()
-        '        Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
-        '        If r.Read Then
-        '            prPrint_Title = r("print_title")
-        '            prFile_name = r("file_name")
+        '        Dim R_number As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+        '        If R_number.Read Then
+        '            prPrint_Title = R_number("print_title")
+        '            prFile_name = R_number("file_name")
         '        End If
         '        cn.Close()
         '    Catch ex As Exception
@@ -2192,12 +2192,12 @@ FROM
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
         'If IsNew = True Then
-        '    tsSaveNew_Click(sender, e)
+        '    TsSaveNew_Click(sender, e)
         'Else
         '    If CheckHasChange() = True Then
         '        If MessageBoxQuestion(gsMessageCheckEdit) = True Then
         '            tChangeAccept = False
-        '            tsSaveNew_Click(sender, e)
+        '            TsSaveNew_Click(sender, e)
         '            If tChangeAccept = False Then
         '                MessageBoxInfo("Cancel")
         '                Exit Sub
@@ -2221,10 +2221,10 @@ FROM
         '    Dim cn As New OleDb.OleDbConnection(fMS_Con)
         '    Try
         '        cn.Open()
-        '        Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
-        '        If r.Read Then
-        '            prPrint_Title = r("print_title")
-        '            prFile_name = r("file_name")
+        '        Dim R_number As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+        '        If R_number.Read Then
+        '            prPrint_Title = R_number("print_title")
+        '            prFile_name = R_number("file_name")
         '        End If
         '        cn.Close()
         '    Catch ex As Exception

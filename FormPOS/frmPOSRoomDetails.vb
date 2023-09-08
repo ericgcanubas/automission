@@ -1300,11 +1300,11 @@ APPROVED:
     '                Dim dt1 As Date = FirstDayOfMonth(dtpDATE.Value)
     '                dt1 = dt1.AddMonths(-1)
     '                Dim dt2 As Date = LastDayOfMonth(dt1)
-    '                Dim r As Double = 0
+    '                Dim R_number As Double = 0
 
 
-    '                If fManagerHitSalesTargetViaDealer(Format(dt1, "yyyy-MM-dd"), Format(dt2, "yyyy-MM-dd"), cmbCUSTOMER_ID.SelectedValue, r) = True Then
-    '                    dRabites = r * (Val(fSystemSettingValue("ManagerRebites")) / 100)
+    '                If fManagerHitSalesTargetViaDealer(Format(dt1, "yyyy-MM-dd"), Format(dt2, "yyyy-MM-dd"), cmbCUSTOMER_ID.SelectedValue, R_number) = True Then
+    '                    dRabites = R_number * (Val(fSystemSettingValue("ManagerRebites")) / 100)
     '                    gsMemberDiscount = dBasicDiscount
     '                Else
     '                    gsMemberDiscount = dBasicDiscount

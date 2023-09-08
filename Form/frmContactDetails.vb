@@ -18,11 +18,11 @@ Public Class FrmContactDetails
         ComboBoxLoad(cmbPREF_PAYMENT_METHOD_ID, "select * from payment_method", "ID", "DESCRIPTION")
 
         Select Case ContactTypeId
-            Case "1"
+            Case 1
                 ComboBoxLoad(cmbREFERRAL_ID, "select * from contact where type in ('6','1','2') order by `NAME` ", "ID", "NAME")
                 On Error Resume Next
                 cmbTAX_ID.SelectedIndex = 0
-            Case "6"
+            Case 6
                 ComboBoxLoad(cmbREFERRAL_ID, "select * from contact where type in('6','1','2') order by `NAME`", "ID", "NAME")
         End Select
 
@@ -108,11 +108,8 @@ Public Class FrmContactDetails
 
     Private Sub frmContact_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        If ContactTypeId = "" Then
-            MessageBoxExclamation("Invalid contact type")
-            Exit Sub
-        Else
-            If gsPOS_Mode = True Or (this_BS Is Nothing And gsDgv Is Nothing) Then
+
+        If gsPOS_Mode = True Or (this_BS Is Nothing And gsDgv Is Nothing) Then
                 tsSaveNew.Text = "&Save"
 
             End If
@@ -197,7 +194,6 @@ Public Class FrmContactDetails
                     gsTITLE = "Dealer"
 
             End Select
-        End If
 
 
         fRefreshForm()
@@ -233,10 +229,7 @@ Public Class FrmContactDetails
     End Sub
 
     Private Sub BtnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
-        If ContactTypeId = "" Then
-            MessageBoxExclamation("No sign for contact type")
-            Exit Sub
-        End If
+
         If Trim(txtNAME.Text) = "" Then
             MessageBoxWarning("Please Enter Name")
             Exit Sub
@@ -295,7 +288,7 @@ Public Class FrmContactDetails
 
         Dim sql_Refresh As String = ""
         Select Case ContactTypeId
-            Case "0" 'VENDOR
+            Case 0 'VENDOR
                 sql_Refresh = "SELECT 
     c.ID,
   c.Name,
@@ -320,7 +313,7 @@ LEFT  OUTER JOIN contact AS s
     ON pl.id = c.price_level_id 
 WHERE c.Type = '0' and c.`ID` = '" & ID & "' limit 1"
 
-            Case "1" ' CUSTOMER
+            Case 1 ' CUSTOMER
                 sql_Refresh = "SELECT 
   c.ID,
   c.Name,
@@ -353,7 +346,7 @@ LEFT  OUTER JOIN contact AS d
  LEFT OUTER JOIN price_level AS pl 
     ON pl.id = c.price_level_id 
 WHERE c.Type = '1' and c.ID = '" & ID & "' limit 1"
-            Case "2" 'EMPLOYEE
+            Case 2 'EMPLOYEE
                 sql_Refresh = "SELECT 
   c.ID,
   c.Name,
@@ -380,11 +373,11 @@ LEFT  OUTER JOIN contact AS s
  LEFT OUTER JOIN price_level AS pl 
     ON pl.id = c.price_level_id 
 WHERE c.Type = '2' and c.`ID` = '" & ID & "' limit 1"
-            Case "3"
+            Case 3
 
-            Case "4"
-            Case "5" 'MANAGER
-            Case "6" 'DEALER
+            Case 4
+            Case 5 'MANAGER
+            Case 6 'DEALER
                 sql_Refresh = "SELECT 
   c.ID,
   c.Name,
