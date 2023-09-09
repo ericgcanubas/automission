@@ -127,12 +127,12 @@ Partial Class FrmBills
         'ToolStrip1
         '
         Me.ToolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsSaveNew, Me.ToolStripSeparator4, Me.tsDiscard, Me.ToolStripLabel2, Me.tsFind, Me.ToolStripLabel3, Me.tsNowPrint, Me.ToolStripDropDownButton2, Me.ToolStripLabel4, Me.ToolStripButton2, Me.spJournal, Me.tsJournal, Me.ToolStripLabel9, Me.tsApplyCredits, Me.ToolStripSeparator5, Me.tsDelete, Me.ToolStripLabel7, Me.ToolStripButton4, Me.tsTITLE})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1114, 52)
+        Me.ToolStrip1.Size = New System.Drawing.Size(1114, 55)
         Me.ToolStrip1.Stretch = True
         Me.ToolStrip1.TabIndex = 86
         Me.ToolStrip1.Text = "ToolStrip1"
@@ -195,7 +195,7 @@ Partial Class FrmBills
         Me.ToolStripDropDownButton2.Image = CType(resources.GetObject("ToolStripDropDownButton2.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton2.Name = "ToolStripDropDownButton2"
-        Me.ToolStripDropDownButton2.Size = New System.Drawing.Size(13, 49)
+        Me.ToolStripDropDownButton2.Size = New System.Drawing.Size(13, 52)
         '
         'PreviewToolStripMenuItem
         '
@@ -302,11 +302,11 @@ Partial Class FrmBills
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(243, 485)
+        Me.Label14.Location = New System.Drawing.Point(3, 529)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 88
-        Me.Label14.Text = "Remarks"
+        Me.Label14.Text = "Notes"
         '
         'cmbINPUT_TAX_ID
         '
@@ -315,7 +315,7 @@ Partial Class FrmBills
         Me.cmbINPUT_TAX_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbINPUT_TAX_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbINPUT_TAX_ID.FormattingEnabled = True
-        Me.cmbINPUT_TAX_ID.Location = New System.Drawing.Point(49, 481)
+        Me.cmbINPUT_TAX_ID.Location = New System.Drawing.Point(52, 498)
         Me.cmbINPUT_TAX_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbINPUT_TAX_ID.Name = "cmbINPUT_TAX_ID"
         Me.cmbINPUT_TAX_ID.Size = New System.Drawing.Size(171, 24)
@@ -327,7 +327,7 @@ Partial Class FrmBills
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label15.ForeColor = System.Drawing.Color.Blue
-        Me.Label15.Location = New System.Drawing.Point(605, 539)
+        Me.Label15.Location = New System.Drawing.Point(605, 534)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(492, 1)
         Me.Label15.TabIndex = 90
@@ -337,7 +337,7 @@ Partial Class FrmBills
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Location = New System.Drawing.Point(15, 485)
+        Me.Label13.Location = New System.Drawing.Point(18, 501)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(29, 16)
         Me.Label13.TabIndex = 85
@@ -349,7 +349,7 @@ Partial Class FrmBills
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Blue
-        Me.Label16.Location = New System.Drawing.Point(601, 523)
+        Me.Label16.Location = New System.Drawing.Point(601, 518)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(69, 16)
         Me.Label16.TabIndex = 91
@@ -359,11 +359,11 @@ Partial Class FrmBills
         '
         Me.txtNOTES.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNOTES.Location = New System.Drawing.Point(313, 481)
+        Me.txtNOTES.Location = New System.Drawing.Point(52, 526)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNOTES.Name = "txtNOTES"
         Me.txtNOTES.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtNOTES.Size = New System.Drawing.Size(783, 23)
+        Me.txtNOTES.Size = New System.Drawing.Size(532, 23)
         Me.txtNOTES.TabIndex = 89
         '
         'Label17
@@ -372,7 +372,7 @@ Partial Class FrmBills
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.Transparent
         Me.Label17.ForeColor = System.Drawing.Color.Blue
-        Me.Label17.Location = New System.Drawing.Point(750, 523)
+        Me.Label17.Location = New System.Drawing.Point(750, 518)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(45, 16)
         Me.Label17.TabIndex = 92
@@ -383,7 +383,7 @@ Partial Class FrmBills
         Me.lblINPUT_TAX_AMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblINPUT_TAX_AMOUNT.BackColor = System.Drawing.Color.Transparent
         Me.lblINPUT_TAX_AMOUNT.ForeColor = System.Drawing.Color.Blue
-        Me.lblINPUT_TAX_AMOUNT.Location = New System.Drawing.Point(584, 540)
+        Me.lblINPUT_TAX_AMOUNT.Location = New System.Drawing.Point(584, 535)
         Me.lblINPUT_TAX_AMOUNT.Name = "lblINPUT_TAX_AMOUNT"
         Me.lblINPUT_TAX_AMOUNT.Size = New System.Drawing.Size(83, 21)
         Me.lblINPUT_TAX_AMOUNT.TabIndex = 93
@@ -395,7 +395,7 @@ Partial Class FrmBills
         Me.lblAMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblAMOUNT.BackColor = System.Drawing.Color.Transparent
         Me.lblAMOUNT.ForeColor = System.Drawing.Color.Blue
-        Me.lblAMOUNT.Location = New System.Drawing.Point(669, 540)
+        Me.lblAMOUNT.Location = New System.Drawing.Point(669, 535)
         Me.lblAMOUNT.Name = "lblAMOUNT"
         Me.lblAMOUNT.Size = New System.Drawing.Size(126, 21)
         Me.lblAMOUNT.TabIndex = 94
@@ -415,7 +415,7 @@ Partial Class FrmBills
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(48, 76)
+        Me.Label2.Location = New System.Drawing.Point(49, 76)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(52, 16)
         Me.Label2.TabIndex = 0
@@ -445,7 +445,7 @@ Partial Class FrmBills
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(19, 105)
+        Me.Label3.Location = New System.Drawing.Point(20, 104)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(81, 16)
         Me.Label3.TabIndex = 4
@@ -454,7 +454,7 @@ Partial Class FrmBills
         'dtpDUE_DATE
         '
         Me.dtpDUE_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDUE_DATE.Location = New System.Drawing.Point(541, 128)
+        Me.dtpDUE_DATE.Location = New System.Drawing.Point(105, 129)
         Me.dtpDUE_DATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDUE_DATE.Name = "dtpDUE_DATE"
         Me.dtpDUE_DATE.ShowCheckBox = True
@@ -464,7 +464,7 @@ Partial Class FrmBills
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(467, 132)
+        Me.Label4.Location = New System.Drawing.Point(31, 133)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(68, 16)
         Me.Label4.TabIndex = 2
@@ -475,7 +475,7 @@ Partial Class FrmBills
         Me.lblBALANCE_DUE.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblBALANCE_DUE.BackColor = System.Drawing.Color.Transparent
         Me.lblBALANCE_DUE.ForeColor = System.Drawing.Color.Blue
-        Me.lblBALANCE_DUE.Location = New System.Drawing.Point(947, 540)
+        Me.lblBALANCE_DUE.Location = New System.Drawing.Point(947, 535)
         Me.lblBALANCE_DUE.Name = "lblBALANCE_DUE"
         Me.lblBALANCE_DUE.Size = New System.Drawing.Size(150, 21)
         Me.lblBALANCE_DUE.TabIndex = 100
@@ -497,7 +497,7 @@ Partial Class FrmBills
         Me.Label18.AutoSize = True
         Me.Label18.BackColor = System.Drawing.Color.Transparent
         Me.Label18.ForeColor = System.Drawing.Color.Blue
-        Me.Label18.Location = New System.Drawing.Point(845, 523)
+        Me.Label18.Location = New System.Drawing.Point(845, 518)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(89, 16)
         Me.Label18.TabIndex = 97
@@ -509,7 +509,7 @@ Partial Class FrmBills
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.Transparent
         Me.Label19.ForeColor = System.Drawing.Color.Blue
-        Me.Label19.Location = New System.Drawing.Point(1011, 523)
+        Me.Label19.Location = New System.Drawing.Point(1011, 518)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(88, 16)
         Me.Label19.TabIndex = 98
@@ -520,7 +520,7 @@ Partial Class FrmBills
         Me.lbxPaymentApplied.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbxPaymentApplied.BackColor = System.Drawing.Color.Transparent
         Me.lbxPaymentApplied.ForeColor = System.Drawing.Color.Blue
-        Me.lbxPaymentApplied.Location = New System.Drawing.Point(806, 540)
+        Me.lbxPaymentApplied.Location = New System.Drawing.Point(806, 535)
         Me.lbxPaymentApplied.Name = "lbxPaymentApplied"
         Me.lbxPaymentApplied.Size = New System.Drawing.Size(130, 21)
         Me.lbxPaymentApplied.TabIndex = 99
@@ -540,7 +540,7 @@ Partial Class FrmBills
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(498, 78)
+        Me.Label7.Location = New System.Drawing.Point(498, 79)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(38, 16)
         Me.Label7.TabIndex = 4
@@ -549,7 +549,7 @@ Partial Class FrmBills
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(541, 74)
+        Me.dtpDATE.Location = New System.Drawing.Point(541, 75)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(126, 23)
@@ -558,7 +558,7 @@ Partial Class FrmBills
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(692, 76)
+        Me.Label8.Location = New System.Drawing.Point(675, 77)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
@@ -566,7 +566,7 @@ Partial Class FrmBills
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(767, 74)
+        Me.txtCODE.Location = New System.Drawing.Point(751, 75)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(137, 23)
@@ -588,14 +588,14 @@ Partial Class FrmBills
         Me.cmbLOCATION_ID.Location = New System.Drawing.Point(541, 101)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(241, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(192, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'cmbACCOUNTS_PAYABLE_ID
         '
         Me.cmbACCOUNTS_PAYABLE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbACCOUNTS_PAYABLE_ID.FormattingEnabled = True
-        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(105, 128)
+        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(541, 128)
         Me.cmbACCOUNTS_PAYABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_PAYABLE_ID.Name = "cmbACCOUNTS_PAYABLE_ID"
         Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(342, 24)
@@ -604,25 +604,25 @@ Partial Class FrmBills
         'AccountLabel
         '
         Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(38, 132)
+        Me.AccountLabel.Location = New System.Drawing.Point(439, 133)
         Me.AccountLabel.Name = "AccountLabel"
-        Me.AccountLabel.Size = New System.Drawing.Size(62, 16)
+        Me.AccountLabel.Size = New System.Drawing.Size(99, 16)
         Me.AccountLabel.TabIndex = 13
-        Me.AccountLabel.Text = "Account"
+        Me.AccountLabel.Text = "Acct. Payable"
         '
         'xlblRECEIVED_LOCATION
         '
         Me.xlblRECEIVED_LOCATION.BackColor = System.Drawing.Color.White
         Me.xlblRECEIVED_LOCATION.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.xlblRECEIVED_LOCATION.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xlblRECEIVED_LOCATION.Location = New System.Drawing.Point(882, 101)
+        Me.xlblRECEIVED_LOCATION.Location = New System.Drawing.Point(830, 101)
         Me.xlblRECEIVED_LOCATION.Name = "xlblRECEIVED_LOCATION"
-        Me.xlblRECEIVED_LOCATION.Size = New System.Drawing.Size(181, 24)
+        Me.xlblRECEIVED_LOCATION.Size = New System.Drawing.Size(220, 24)
         Me.xlblRECEIVED_LOCATION.TabIndex = 12
         '
         'xlblRECEIVED
         '
-        Me.xlblRECEIVED.Location = New System.Drawing.Point(791, 107)
+        Me.xlblRECEIVED.Location = New System.Drawing.Point(739, 107)
         Me.xlblRECEIVED.Name = "xlblRECEIVED"
         Me.xlblRECEIVED.Size = New System.Drawing.Size(87, 16)
         Me.xlblRECEIVED.TabIndex = 10
@@ -635,11 +635,11 @@ Partial Class FrmBills
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Location = New System.Drawing.Point(14, 166)
+        Me.TabControl1.Location = New System.Drawing.Point(5, 160)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1088, 294)
+        Me.TabControl1.Size = New System.Drawing.Size(1097, 330)
         Me.TabControl1.TabIndex = 0
         '
         'TabPage1
@@ -651,7 +651,7 @@ Partial Class FrmBills
         Me.TabPage1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TabPage1.Size = New System.Drawing.Size(1080, 265)
+        Me.TabPage1.Size = New System.Drawing.Size(1089, 301)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Item Entry"
         '
@@ -669,7 +669,7 @@ Partial Class FrmBills
         Me.dgvProductItem.MultiSelect = False
         Me.dgvProductItem.Name = "dgvProductItem"
         Me.dgvProductItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvProductItem.Size = New System.Drawing.Size(1074, 195)
+        Me.dgvProductItem.Size = New System.Drawing.Size(1083, 231)
         Me.dgvProductItem.TabIndex = 4
         '
         'ToolStrip5
@@ -677,9 +677,9 @@ Partial Class FrmBills
         Me.ToolStrip5.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel1, Me.lblCount, Me.lbsTotal_Amount_Item, Me.ToolStripLabel15})
-        Me.ToolStrip5.Location = New System.Drawing.Point(3, 236)
+        Me.ToolStrip5.Location = New System.Drawing.Point(3, 272)
         Me.ToolStrip5.Name = "ToolStrip5"
-        Me.ToolStrip5.Size = New System.Drawing.Size(1074, 25)
+        Me.ToolStrip5.Size = New System.Drawing.Size(1083, 25)
         Me.ToolStrip5.TabIndex = 151
         Me.ToolStrip5.Text = "ToolStrip5"
         '
@@ -716,7 +716,7 @@ Partial Class FrmBills
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAddItem, Me.ToolStripLabel10, Me.tsEditItem, Me.ToolStripSeparator1, Me.tsRemoveItem, Me.tsFindText, Me.ToolStripLabel11})
         Me.ToolStrip2.Location = New System.Drawing.Point(3, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(1074, 37)
+        Me.ToolStrip2.Size = New System.Drawing.Size(1083, 37)
         Me.ToolStrip2.TabIndex = 148
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -921,7 +921,7 @@ Partial Class FrmBills
         'dtpDISCOUNT_DATE
         '
         Me.dtpDISCOUNT_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDISCOUNT_DATE.Location = New System.Drawing.Point(314, 101)
+        Me.dtpDISCOUNT_DATE.Location = New System.Drawing.Point(314, 100)
         Me.dtpDISCOUNT_DATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDISCOUNT_DATE.Name = "dtpDISCOUNT_DATE"
         Me.dtpDISCOUNT_DATE.ShowCheckBox = True
@@ -931,13 +931,13 @@ Partial Class FrmBills
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(237, 105)
+        Me.Label5.Location = New System.Drawing.Point(237, 104)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(75, 16)
         Me.Label5.TabIndex = 103
         Me.Label5.Text = "Disc. Date"
         '
-        'frmBills
+        'FrmBills
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -947,7 +947,6 @@ Partial Class FrmBills
         Me.Controls.Add(Me.lblRECEIVED_LOCATION_ID)
         Me.Controls.Add(Me.cmbACCOUNTS_PAYABLE_ID)
         Me.Controls.Add(Me.cmbPAYMENT_TERMS_ID)
-        Me.Controls.Add(Me.AccountLabel)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.xlblRECEIVED_LOCATION)
         Me.Controls.Add(Me.Label3)
@@ -979,9 +978,10 @@ Partial Class FrmBills
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.cmbINPUT_TAX_ID)
         Me.Controls.Add(Me.Label14)
+        Me.Controls.Add(Me.AccountLabel)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmBills"
+        Me.Name = "FrmBills"
         Me.Text = " Bill"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

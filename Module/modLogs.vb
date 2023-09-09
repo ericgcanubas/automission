@@ -1,6 +1,6 @@
 ﻿Module modLogs
 
-    Public Sub fTransactionLog(ByVal f As Form, ByVal prID As Integer)
+    Public Sub ShowTransactionLog(ByVal f As Form, ByVal prID As Integer)
 
         Dim sub_id As Integer = f.AccessibleName
 
@@ -15,7 +15,7 @@
 
 
     End Sub
-    Public Sub fTransaction_Log(ByVal prTrans_ID As Integer, ByVal prReference As String, ByVal prSub_ID As String, ByVal prTrans_Type As String, ByVal prContact_ID As String, ByVal prAccount_ID As String, ByVal prAmount As Double, ByVal prLOCATION_ID As String)
+    Public Sub SetTransactionLog(ByVal prTrans_ID As Integer, ByVal prReference As String, ByVal prSub_ID As String, ByVal prTrans_Type As String, ByVal prContact_ID As String, ByVal prAccount_ID As String, ByVal prAmount As Double, ByVal prLOCATION_ID As String)
 
         SqlExecuted("INSERT INTO transaction_log 
             (USER_ID,

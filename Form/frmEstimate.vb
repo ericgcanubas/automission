@@ -428,11 +428,11 @@ FROM
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO estimate ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',2,'{GetDateTimeNowSql()}') ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
             tChangeAccept = True
             SqlExecuted("UPDATE estimate SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "'")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
 
@@ -546,7 +546,7 @@ Again:
                 SqlExecuted("DELETE FROM estimate_items WHERE ESTIMATE_ID = '" & ID & "'")
                 SqlExecuted("DELETE FROM estimate WHERE ID = '" & ID & "' limit 1")
                 PrompNotify(Me.Text, DeleteMsg, True)
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
@@ -671,7 +671,7 @@ Again:
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(ID, Me)
+        ShowHistoryList(ID, Me)
     End Sub
 
     Private Sub cmbPAYMENT_TERMS_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_TERMS_ID.SelectedIndexChanged
@@ -679,7 +679,7 @@ Again:
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles tsCreateSalesOrder.Click

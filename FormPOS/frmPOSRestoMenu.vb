@@ -1415,7 +1415,7 @@ FROM
 
             SqlExecuted($"INSERT INTO invoice ({SQL_Field1},{SQL_Field2},ID,RECORDED_ON,SHIP_DATE,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE,IS_FC) VALUES ({SQL_Value1},{SQL_Value2},'{ID}','{GetDateTimeNowSql()}','{DateFormatMySql(gsPOS_DATE)}','{ORDER_TYPE_ID}','{numTableSelected}','{nStatus}',{GetDateTimeNowSql()},0) ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
 
         Else
@@ -1434,7 +1434,7 @@ FROM
             nStatus = IIf(NumIsNull(lblAMOUNT.Text) <= 0, 16, 13)
             squery = squery & $",STATUS='" & nStatus & "',STATUS_DATE ='" & GetDateTimeNowSql() & "' WHERE ID = '" & ID & "'"
             SqlExecuted($"UPDATE invoice SET {squery},STATUS='{nStatus}',STATUS_DATE ='{ GetDateTimeNowSql()}' WHERE ID = '{ID}'")
-            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -1734,7 +1734,7 @@ FROM
                             (ID,RECORDED_ON,DATE_NEEDED,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE) 
                             VALUES ({ID},'{GetDateTimeNowSql()}','{DateFormatMySql(Date.Now)}','{ORDER_TYPE_ID}','numTableSelected',16,{GetDateTimeNowSql()})  ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
@@ -1744,7 +1744,7 @@ FROM
             Dim squery As String = SqlUpdate(Me)
             squery = squery & " WHERE ID = '" & ID & "' limit 1"
             SqlExecuted("UPDATE sales_order SET " & squery)
-            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
         If IsTransactionSuccess(ID, "sales_order") = False Then
@@ -1915,7 +1915,7 @@ FROM
     '    If IsNew = True Then
     '        TsSaveNew_Click(sender, e)
     '    Else
-    '        If CheckHasChange() = True Then
+    '        If IsCheckHasChange() = True Then
     '            If MessageBoxQuestion(gsMessageCheckEdit) = True Then
     '                tChangeAccept = False
     '                TsSaveNew_Click(sender, e)
@@ -1970,7 +1970,7 @@ FROM
         'If IsNew = True Then
         '    TsSaveNew_Click(sender, e)
         'Else
-        '    If CheckHasChange() = True Then
+        '    If IsCheckHasChange() = True Then
         '        If MessageBoxQuestion(gsMessageCheckEdit) = True Then
         '            tChangeAccept = False
         '            TsSaveNew_Click(sender, e)
@@ -2043,7 +2043,7 @@ FROM
         End If
     End Sub
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(ID, Me)
+        ShowHistoryList(ID, Me)
     End Sub
 
 
@@ -2194,7 +2194,7 @@ FROM
         'If IsNew = True Then
         '    TsSaveNew_Click(sender, e)
         'Else
-        '    If CheckHasChange() = True Then
+        '    If IsCheckHasChange() = True Then
         '        If MessageBoxQuestion(gsMessageCheckEdit) = True Then
         '            tChangeAccept = False
         '            TsSaveNew_Click(sender, e)
@@ -2716,7 +2716,7 @@ CREATE_NOW:
                 '================================
 
                 SqlExecuted("delete from invoice where id ='" & ID & "' limit 1;")
-                fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
@@ -2746,7 +2746,7 @@ CREATE_NOW:
 
                 SqlExecuted("DELETE FROM sales_order_items WHERE SALES_ORDER_ID = '" & ID & "'")
                 SqlExecuted("DELETE FROM sales_order WHERE ID = '" & ID & "'")
-                fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()

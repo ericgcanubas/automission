@@ -114,7 +114,7 @@ Public Class FrmPOSVoidEntry
 
 
 
-                    fTransaction_Log(ThisID, .Cells("Code").Value, 7, "Void", .Cells("customer_id").Value, "", NumIsNull(.Cells("Total").Value), gsDefault_LOCATION_ID)
+                    SetTransactionLog(ThisID, .Cells("Code").Value, 7, "Void", .Cells("customer_id").Value, "", NumIsNull(.Cells("Total").Value), gsDefault_LOCATION_ID)
                 End With
                 fRefresh()
                 gsGotVoid = True

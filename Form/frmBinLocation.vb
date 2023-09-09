@@ -1,12 +1,10 @@
 ﻿Public Class FrmBinLocation
     Public item_BS As BindingSource
-    Private Sub frmShipVia_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmBinLocation_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-
-        fRefresh()
-
+        RefreshLoad()
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshLoad()
         LoadDataGridViewBinding(dgvBinLocation, "Select ID,Code,Description from stock_bin", item_BS)
         ViewColumn(dgvBinLocation, 41)
     End Sub
@@ -17,39 +15,10 @@
         ViewColumn(dgvBinLocation, 41)
     End Sub
 
-    Private Sub frmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-    End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
-    Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub dgvShipVia_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBinLocation.CellContentClick
-
-    End Sub
-
-    Private Sub dgvShipVia_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBinLocation.CellDoubleClick
-        EditsToolStripMenuItem_Click(sender, e)
-    End Sub
-
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        fRefresh()
+        RefreshLoad()
     End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
 
 
@@ -94,7 +63,7 @@
 
     End Sub
 
-    Private Sub dgvBinLocation_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvBinLocation.RowStateChanged
+    Private Sub DgvBinLocation_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvBinLocation.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
@@ -102,21 +71,21 @@
 
     End Sub
 
-    Private Sub tsCreate_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
+    Private Sub TsCreate_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
         If fACCESS_NEW_EDIT(Me, True) = False Then
             Exit Sub
         End If
 
 
-        frmBinLocationDetails.This_BS = item_BS
-        frmBinLocationDetails.Dgv = dgvBinLocation
-        frmBinLocationDetails.ShowDialog()
-        frmBinLocationDetails.Dispose()
-        frmBinLocationDetails = Nothing
+        FrmBinLocationDetails.This_BS = item_BS
+        FrmBinLocationDetails.Dgv = dgvBinLocation
+        FrmBinLocationDetails.ShowDialog()
+        FrmBinLocationDetails.Dispose()
+        FrmBinLocationDetails = Nothing
 
     End Sub
 
-    Private Sub tsUpdate_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
+    Private Sub TsUpdate_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         Try
             If dgvBinLocation.Rows.Count = 0 Then
                 MessageBoxInfo("Data not found")
@@ -128,19 +97,19 @@
             End If
 
 
-            frmBinLocationDetails.This_BS = item_BS
-            frmBinLocationDetails.Dgv = dgvBinLocation
-            frmBinLocationDetails.ID = dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("ID").Value
-            frmBinLocationDetails.ShowDialog()
-            frmBinLocationDetails.Dispose()
-            frmBinLocationDetails = Nothing
+            FrmBinLocationDetails.This_BS = item_BS
+            FrmBinLocationDetails.Dgv = dgvBinLocation
+            FrmBinLocationDetails.ID = dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("ID").Value
+            FrmBinLocationDetails.ShowDialog()
+            FrmBinLocationDetails.Dispose()
+            FrmBinLocationDetails = Nothing
 
         Catch ex As Exception
             MessageBoxExclamation(ex.Message)
         End Try
     End Sub
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         Try
             If dgvBinLocation.Rows.Count = 0 Then
                 MessageBoxInfo("Data not found")
@@ -154,7 +123,7 @@
             If MessageBoxQuestion("Do you really want to delete " & dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("Description").Value & "?") = True Then
                 SqlExecuted("delete from stock_bin where ID = '" & dgvBinLocation.Rows(dgvBinLocation.CurrentRow.Index).Cells("ID").Value & "'")
                 DeleteNotify(Me)
-                fRefresh()
+                RefreshLoad()
             End If
 
         Catch ex As Exception
@@ -162,23 +131,13 @@
         End Try
     End Sub
 
-    Private Sub txtSearch_Click(sender As Object, e As EventArgs)
 
+
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsTxtSearch_Click(sender As Object, e As EventArgs) Handles tsTxtSearch.Click
-
-    End Sub
-
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
-    End Sub
-
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

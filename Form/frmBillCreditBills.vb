@@ -9,14 +9,14 @@ Public Class FrmBillCreditBills
         MyBase.Finalize()
     End Sub
 
-    Private Sub fComputed()
+    Private Sub Computed()
 
         Dim credit_amount As Double = NumberFormatFixed(lblCreditAmount.Text)
-        Dim remaining As Double = 0
+        Dim remaining As Double
         Dim total_amt As Double = 0
 
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-            total_amt = total_amt + NumberFormatFixed(dgvAvailable.Rows(i).Cells("Amount_applied").Value)
+            total_amt += NumberFormatFixed(dgvAvailable.Rows(i).Cells("Amount_applied").Value)
         Next
         remaining = credit_amount - total_amt
         lblRemainingCredit.Text = NumberFormatStandard(remaining)
@@ -25,11 +25,11 @@ Public Class FrmBillCreditBills
     End Sub
 
 
-    Private Sub frmBillCreditBill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.Name = "select"
-        chk.HeaderText = " "
+    Private Sub FrmBillCreditBill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .Name = "select",
+            .HeaderText = " "
+        }
 
         With dgvAvailable.Columns
             .Add("bill_id", "bill_id")
@@ -59,11 +59,11 @@ Public Class FrmBillCreditBills
 
         End With
 
-        fBillList()
-        fComputed()
+        LoadBillingList()
+        Computed()
         DatagridViewMode(dgvAvailable)
     End Sub
-    Private Sub fBillList()
+    Private Sub LoadBillingList()
         dgvAvailable.Rows.Clear()
         Dim sQuery As String = "SELECT 
   i.id AS bill_id,
@@ -103,27 +103,27 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fBillList()
+                LoadBillingList()
             Else
                 End
             End If
 
         End Try
     End Sub
-    Private Sub fSelected_click(ByVal i_index As Integer)
+    Private Sub SelectorClick(ByVal Index As Integer)
         Try
-            Dim bseleted As Boolean = dgvAvailable.Rows(i_index).Cells("select").Value
+            Dim bseleted As Boolean = dgvAvailable.Rows(Index).Cells("select").Value
             If bseleted = False Then
 
-                Dim bill_balance As Double = dgvAvailable.Rows(i_index).Cells("balance_due").Value
+                Dim bill_balance As Double = dgvAvailable.Rows(Index).Cells("balance_due").Value
                 Dim credit_balance As Double = 0
                 Dim total_amt As Double = 0
                 Dim credit_amt As Double = NumberFormatFixed(lblCreditAmount.Text)
                 For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-                    total_amt = total_amt + dgvAvailable.Rows(i).Cells("amount_applied").Value
+                    total_amt += dgvAvailable.Rows(i).Cells("amount_applied").Value
                 Next
                 credit_balance = credit_amt - total_amt
-                With dgvAvailable.Rows(i_index)
+                With dgvAvailable.Rows(Index)
                     If credit_balance > bill_balance Then
                         .Cells("select").Value = True
                         .Cells("Amount_applied").Value = NumberFormatStandard(bill_balance)
@@ -137,51 +137,22 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
                     End If
                 End With
             Else
-                With dgvAvailable.Rows(i_index)
+                With dgvAvailable.Rows(Index)
                     .Cells("select").Value = False
                     .Cells("Amount_applied").Value = NumberFormatStandard(0)
                 End With
             End If
-            fComputed()
+            Computed()
         Catch ex As Exception
         End Try
     End Sub
-    Private Sub tsCancel_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub dgvAvailable_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellContentClick
-    End Sub
-
-    Private Sub dgvAvailable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellClick
+    Private Sub DgvAvailable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellClick
         If dgvAvailable.Rows.Count = 0 Then Exit Sub
         If e.ColumnIndex = 1 Then
-            fSelected_click(e.RowIndex)
+            SelectorClick(e.RowIndex)
         End If
     End Sub
-
-    Private Sub tsApply_Click(sender As Object, e As EventArgs)
-        For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-            If dgvAvailable.Rows(i).Cells(1).Value = False Then
-                fSelected_click(i)
-            End If
-        Next
-    End Sub
-
-    Private Sub tsClear_Click(sender As Object, e As EventArgs)
-        For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-            If dgvAvailable.Rows(i).Cells(1).Value = True Then
-                fSelected_click(i)
-            End If
-        Next
-    End Sub
-
-    Private Sub tsOk_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Function fSetbill_credit_bills(ByVal bSelected As Boolean, ByVal amt_appled As Double, ByVal prbill_ID As String) As Boolean
+    Private Function SetBillCreditFromBills(ByVal bSelected As Boolean, ByVal amt_appled As Double, ByVal prbill_ID As String) As Boolean
         Dim bUpdate As Boolean = False
 
         Try
@@ -212,7 +183,7 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
             rd_check.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                bUpdate = fSetbill_credit_bills(bSelected, amt_appled, prbill_ID)
+                bUpdate = SetBillCreditFromBills(bSelected, amt_appled, prbill_ID)
             Else
                 End
             End If
@@ -222,14 +193,12 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
         Return bUpdate
     End Function
 
-    Private Sub fBillBalance_Update(ByVal gsBill As String, prORG_Amount As Double)
+    Private Sub SetBillBalanceUpdate(ByVal gsBill As String, prORG_Amount As Double)
 
         Dim total_pay As Double = GetBillSumPaymentApplied(gsBill, gsVendor_ID) + GetBillSumCreditApplied(gsBill, gsVendor_ID) + GetBillSumTaxAppliedAmount(gsBill, gsVendor_ID)
         Dim New_Balance As Double = prORG_Amount - total_pay
-
         Dim squery As String
-
-        Dim nStatus As Integer = 0
+        Dim nStatus As Integer
         If 0 >= New_Balance Then
             nStatus = 11
         Else
@@ -240,24 +209,19 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
 
     End Sub
 
-    Private Sub frmBillCreditBills_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmBillCreditBills_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
-
-    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
-
-    End Sub
-
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If dgvAvailable.Rows.Count = 0 Then
             MessageBoxWarning("Bill not found!")
             Exit Sub
         End If
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
             With dgvAvailable.Rows(i)
-                If fSetbill_credit_bills(.Cells(1).Value, NumberFormatFixed(.Cells("Amount_applied").Value), .Cells(0).Value) = True Then
-                    fBillBalance_Update(.Cells(0).Value, .Cells("Amount").Value)
+                If SetBillCreditFromBills(.Cells(1).Value, NumberFormatFixed(.Cells("Amount_applied").Value), .Cells(0).Value) = True Then
+                    SetBillBalanceUpdate(.Cells(0).Value, .Cells("Amount").Value)
                 End If
             End With
         Next
@@ -265,7 +229,7 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
         Me.Close()
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 

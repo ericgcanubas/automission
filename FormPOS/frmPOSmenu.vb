@@ -581,7 +581,7 @@ B.ID = ii.BATCH_ID
 
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
@@ -590,7 +590,7 @@ B.ID = ii.BATCH_ID
             squery = squery & " WHERE ID = '" & ID & "' limit 1;"
 
             SqlExecuted("UPDATE sales_receipt SET " & squery)
-            fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -1156,10 +1156,10 @@ NewPOS_LOG:
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(ID, Me)
+        ShowHistoryList(ID, Me)
     End Sub
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub POSmenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

@@ -147,7 +147,7 @@ Public Class FrmFundTransfer
             SqlExecuted($"INSERT INTO bill ({SQL_Field0},{SQL_Field1},{SQL_Field2},ID,RECORDED_ON) VALUES ({SQL_Value0},{SQL_Value1},{SQL_Value2},{ID},'{GetDateTimeNowSql()}') ")
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
             PrompNotify(Me.Text, SaveMsg, True)
 
         Else
@@ -155,7 +155,7 @@ Public Class FrmFundTransfer
             Dim squery As String = SqlUpdate(Me) & "," & SqlUpdate(GroupBox1) & "," & SqlUpdate(GroupBox2)
             SqlExecuted("UPDATE `fund_transfer` SET " & squery & " WHERE ID = '" & ID & "'")
             PrompNotify(Me.Text, UpdateMsg, True)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
         End If
 
         If IsTransactionSuccess(ID, "FUND_TRANSFER") = False Then
@@ -325,6 +325,6 @@ Public Class FrmFundTransfer
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 End Class

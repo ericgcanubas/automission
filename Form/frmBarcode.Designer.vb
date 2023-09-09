@@ -31,9 +31,10 @@ Partial Class FrmBarcode
         '
         'PictureBox1
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(172, 41)
+        Me.PictureBox1.Location = New System.Drawing.Point(229, 50)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(169, 63)
+        Me.PictureBox1.Size = New System.Drawing.Size(225, 78)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
@@ -41,43 +42,48 @@ Partial Class FrmBarcode
         '
         'btnAuto
         '
-        Me.btnAuto.Location = New System.Drawing.Point(2, 12)
+        Me.btnAuto.Location = New System.Drawing.Point(10, 10)
+        Me.btnAuto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAuto.Name = "btnAuto"
-        Me.btnAuto.Size = New System.Drawing.Size(169, 23)
+        Me.btnAuto.Size = New System.Drawing.Size(225, 28)
         Me.btnAuto.TabIndex = 8
         Me.btnAuto.Text = "Generate"
         Me.btnAuto.UseVisualStyleBackColor = True
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(2, 70)
+        Me.btnClose.Location = New System.Drawing.Point(10, 81)
+        Me.btnClose.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(169, 23)
+        Me.btnClose.Size = New System.Drawing.Size(225, 28)
         Me.btnClose.TabIndex = 9
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(2, 41)
+        Me.Button1.Location = New System.Drawing.Point(10, 45)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(169, 23)
+        Me.Button1.Size = New System.Drawing.Size(225, 28)
         Me.Button1.TabIndex = 10
         Me.Button1.Text = "Open Folder"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'frmBarcode
+        'FrmBarcode
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(174, 100)
+        Me.ClientSize = New System.Drawing.Size(244, 123)
         Me.ControlBox = False
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnAuto)
         Me.Controls.Add(Me.PictureBox1)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Name = "frmBarcode"
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Name = "FrmBarcode"
         Me.Text = "Barcode Generator"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

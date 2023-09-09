@@ -325,7 +325,7 @@ Public Class FrmBuildAssembly
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO build_assembly ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',15) ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
 
@@ -347,7 +347,7 @@ Public Class FrmBuildAssembly
             tChangeAccept = True
             Dim sQuery As String = SqlUpdate(Me)
             SqlExecuted("UPDATE build_assembly SET " & sQuery & " Where ID ='" & ID & "'")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
 
@@ -585,7 +585,7 @@ Public Class FrmBuildAssembly
                 ' SqlExecuted("delete from build_assembly_items where build_assembly_id = '" & ID & "'")
                 SqlExecuted("delete from build_assembly where id = '" & ID & "' limit 1;")
                 PrompNotify(Me.Text, DeleteMsg, True)
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ID = 0
                 fclear_info()
                 IsNew = True
@@ -756,7 +756,7 @@ Public Class FrmBuildAssembly
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
     Private Sub frmBuildAssembly_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 

@@ -339,7 +339,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             SqlExecuted($"INSERT INTO inventory_adjustment ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',0) ")
             gsImportActive = False
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", 0, cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", 0, cmbLOCATION_ID.SelectedValue)
         Else
 
 
@@ -355,7 +355,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
             Dim sQuery As String = SqlUpdate(Me)
             SqlExecuted("UPDATE inventory_adjustment SET " & sQuery & " Where ID = '" & ID & "'")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", 0, cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", 0, cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -648,7 +648,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
                 PrompNotify(Me.Text, DeleteMsg, True)
 
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
                 ID = 0
                 IsNew = True
                 fClear_Info()
@@ -816,7 +816,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub dgvItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvItem.RowsAdded

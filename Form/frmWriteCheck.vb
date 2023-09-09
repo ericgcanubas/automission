@@ -568,12 +568,12 @@ FROM
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO `check` ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE,PRINTED,`TYPE`) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',15,'{GetDateTimeNowSql()}',0,0) ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
             tChangeAccept = True
             GotChangeTransaction("`CHECK`", ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
             SqlExecuted("UPDATE `check` SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "' and `Type`='0' ")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -951,7 +951,7 @@ FROM
 
                 SqlExecuted("DELETE FROM `check` where type ='0' and ID = '" & ID & "' LIMIT 1;")
                 DeleteNotify(Me)
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                 ID = 0
                 IsNew = True
@@ -1146,7 +1146,7 @@ FROM
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub dgvProductItem_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles dgvProductItem.UserAddedRow

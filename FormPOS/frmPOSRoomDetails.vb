@@ -554,7 +554,7 @@ APPROVED:
             SqlExecuted($"INSERT INTO invoice ({SQL_FIELD},ID,RECORDED_ON,STATUS,STATUS_DATE,IS_FC,MANAGER_ID) VALUES ({SQL_VALUE},{ID},'{GetDateTimeNowSql()}','{2}','{GetDateTimeNowSql()}','0','{gsPOS_LOG_ID}') ")
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
             dtpCUSTOM_FIELD1.Checked = True
@@ -571,7 +571,7 @@ APPROVED:
 
             squery = squery & ",STATUS='" & nStatus & "',STATUS_DATE ='" & GetDateTimeNowSql() & "' WHERE ID = '" & ID & "'"
             SqlExecuted("UPDATE invoice SET " & squery)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -1223,7 +1223,7 @@ APPROVED:
                 gsGotChangeData = True
                 PrompNotify(Me.Text, DeleteMsg, True)
 
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
@@ -1420,12 +1420,12 @@ APPROVED:
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
 
-        fHistoryList(ID, Me)
+        ShowHistoryList(ID, Me)
 
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles tsMenu.ItemClicked

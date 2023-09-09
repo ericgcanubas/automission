@@ -201,7 +201,7 @@ Public Class FrmDeposit
             SqlExecuted($"INSERT INTO `deposit` ({SQL_Field},ID,RECORDED_ON) VALUES ({SQL_Value},{ID},{GetDateTimeNowSql()}) ")
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", "", cmbCASH_BACK_ACCOUNT_ID.SelectedValue, NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", "", cmbCASH_BACK_ACCOUNT_ID.SelectedValue, NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
             tChangeAccept = True
             GotChangeTransaction("DEPOSIT", ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
@@ -214,7 +214,7 @@ Public Class FrmDeposit
             End If
 
             SqlExecuted("UPDATE `deposit` SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "'")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", cmbCASH_BACK_ACCOUNT_ID.SelectedValue, NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", cmbCASH_BACK_ACCOUNT_ID.SelectedValue, NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -741,11 +741,11 @@ Public Class FrmDeposit
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(ID, Me)
+        ShowHistoryList(ID, Me)
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
 

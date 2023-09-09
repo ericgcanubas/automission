@@ -333,7 +333,7 @@ Partial Class FrmBillCredit
         '
         Me.cmbACCOUNTS_PAYABLE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbACCOUNTS_PAYABLE_ID.FormattingEnabled = True
-        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(80, 99)
+        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(115, 99)
         Me.cmbACCOUNTS_PAYABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_PAYABLE_ID.Name = "cmbACCOUNTS_PAYABLE_ID"
         Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(342, 24)
@@ -342,17 +342,17 @@ Partial Class FrmBillCredit
         'AccountLabel
         '
         Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(14, 103)
+        Me.AccountLabel.Location = New System.Drawing.Point(12, 102)
         Me.AccountLabel.Name = "AccountLabel"
-        Me.AccountLabel.Size = New System.Drawing.Size(62, 16)
+        Me.AccountLabel.Size = New System.Drawing.Size(99, 16)
         Me.AccountLabel.TabIndex = 15
-        Me.AccountLabel.Text = "Account"
+        Me.AccountLabel.Text = "Acct. Payable"
         '
         'cmbLOCATION_ID
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(518, 98)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(553, 98)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
         Me.cmbLOCATION_ID.Size = New System.Drawing.Size(345, 24)
@@ -361,7 +361,7 @@ Partial Class FrmBillCredit
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(451, 102)
+        Me.Label9.Location = New System.Drawing.Point(487, 103)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(63, 16)
         Me.Label9.TabIndex = 8
@@ -369,7 +369,7 @@ Partial Class FrmBillCredit
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(718, 72)
+        Me.txtCODE.Location = New System.Drawing.Point(753, 72)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(145, 23)
@@ -378,7 +378,7 @@ Partial Class FrmBillCredit
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(639, 74)
+        Me.Label8.Location = New System.Drawing.Point(676, 75)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
@@ -387,7 +387,7 @@ Partial Class FrmBillCredit
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(518, 72)
+        Me.dtpDATE.Location = New System.Drawing.Point(553, 72)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(110, 23)
@@ -396,7 +396,7 @@ Partial Class FrmBillCredit
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(471, 75)
+        Me.Label7.Location = New System.Drawing.Point(506, 75)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(43, 16)
         Me.Label7.TabIndex = 4
@@ -443,7 +443,7 @@ Partial Class FrmBillCredit
         Me.cmbVENDOR_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbVENDOR_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbVENDOR_ID.FormattingEnabled = True
-        Me.cmbVENDOR_ID.Location = New System.Drawing.Point(80, 72)
+        Me.cmbVENDOR_ID.Location = New System.Drawing.Point(115, 72)
         Me.cmbVENDOR_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbVENDOR_ID.Name = "cmbVENDOR_ID"
         Me.cmbVENDOR_ID.Size = New System.Drawing.Size(342, 24)
@@ -452,7 +452,7 @@ Partial Class FrmBillCredit
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(25, 75)
+        Me.Label10.Location = New System.Drawing.Point(59, 75)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(52, 16)
         Me.Label10.TabIndex = 0
@@ -619,7 +619,7 @@ Partial Class FrmBillCredit
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
         Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
@@ -802,7 +802,7 @@ Partial Class FrmBillCredit
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Location = New System.Drawing.Point(19, 476)
+        Me.Label13.Location = New System.Drawing.Point(19, 473)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(29, 16)
         Me.Label13.TabIndex = 131
@@ -842,7 +842,7 @@ Partial Class FrmBillCredit
         Me.Label12.TabIndex = 133
         Me.Label12.Text = "Notes"
         '
-        'frmBillCredit
+        'FrmBillCredit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -877,7 +877,7 @@ Partial Class FrmBillCredit
         Me.Controls.Add(Me.lblINPUT_TAX_ACCOUNT_ID)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmBillCredit"
+        Me.Name = "FrmBillCredit"
         Me.Text = "frmBillCredit"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

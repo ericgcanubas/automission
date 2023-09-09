@@ -402,7 +402,7 @@ ON B.ID = II.BATCH_ID
             SqlExecuted($"INSERT INTO invoice ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE,IS_FC) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',13,'{GetDateTimeNowSql()}',0) ")
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
             tChangeAccept = True
@@ -415,7 +415,7 @@ ON B.ID = II.BATCH_ID
                 nStatus = 2
             End If
             SqlExecuted("UPDATE invoice SET " & SqlUpdate(Me) & ",STATUS='" & nStatus & "',STATUS_DATE ='" & GetDateTimeNowSql() & "' WHERE ID = '" & ID & "'")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -600,6 +600,18 @@ ON B.ID = II.BATCH_ID
             lblOUTPUT_TAX_ACCOUNT_ID.Text = ""
         End Try
     End Sub
+    Private Function CheckingHasChange(ByVal Frm As Form, ByVal strQuery As String, ByVal NewDgv As DataGridView, ByVal OldDgv As DataGridView) As Boolean
+        Dim HasChange As Boolean = False
+        Dim squery As String = SqlUpdate(Frm)
+        If squery <> strQuery Then
+            HasChange = True
+        ElseIf DataGridGotChange(NewDgv, OldDgv) = True Then
+            HasChange = True
+        End If
+
+        Return HasChange
+    End Function
+
     Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If fACCESS_FIND(Me) = False Then
             Exit Sub
@@ -965,7 +977,7 @@ ON B.ID = II.BATCH_ID
 
                 PrompNotify(Me.Text, DeleteMsg, True)
 
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                 ClearInfo()
                 dgvProductItem.Rows.Clear()
@@ -1047,11 +1059,11 @@ ON B.ID = II.BATCH_ID
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(ID, Me)
+        ShowHistoryList(ID, Me)
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub CmbCUSTOMER_ID_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbCUSTOMER_ID.KeyDown
@@ -1267,4 +1279,6 @@ ON B.ID = II.BATCH_ID
             bEntryAddItem = False
         End Try
     End Sub
+
+
 End Class

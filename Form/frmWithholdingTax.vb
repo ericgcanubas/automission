@@ -415,7 +415,7 @@ Public Class FrmWithholdingTax
 
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
@@ -427,7 +427,7 @@ Public Class FrmWithholdingTax
             SqlExecuted("UPDATE `withholding_tax` SET " & SqlUpdate(Me) & " WHERE ID ='" & ID & "' ")
 
 
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
         If IsTransactionSuccess(ID, "WITHHOLDING_TAX") = False Then
@@ -603,7 +603,7 @@ Public Class FrmWithholdingTax
 
                     SqlExecuted("DELETE FROM `withholding_tax` WHERE ID ='" & ID & "' Limit 1")
                     DeleteNotify(Me)
-                    fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                    SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 Catch ex As Exception
                     MessageBoxWarning(ex.Message)
                 End Try
@@ -743,11 +743,11 @@ Public Class FrmWithholdingTax
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(ID, Me)
+        ShowHistoryList(ID, Me)
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub txtFind_TextChanged(sender As Object, e As EventArgs)

@@ -4,17 +4,7 @@ Imports System.Reflection
 Module modFormFunction
     Public MainForm As Form
 
-    Public Function CheckingHasChange(ByVal Frm As Form, ByVal strQuery As String, ByVal NewDgv As DataGridView, ByVal OldDgv As DataGridView) As Boolean
-        Dim HasChange As Boolean = False
-        Dim squery As String = SqlUpdate(Frm)
-        If squery <> strQuery Then
-            HasChange = True
-        ElseIf DataGridGotChange(NewDgv, OldDgv) = True Then
-            HasChange = True
-        End If
 
-        Return HasChange
-    End Function
     Public Function CheckBoxObject(ByVal prCheckObj As CheckBox) As Integer
         If prCheckObj.Checked = True Then
             Return 1

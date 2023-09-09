@@ -1,8 +1,6 @@
 ﻿Imports System.Data.Odbc
 Module modHistory
-
-
-    Public Sub fHistoryList(ByVal prID As String, ByVal f As Form)
+    Public Sub ShowHistoryList(ByVal prID As String, ByVal f As Form)
         Dim sQuery As String = ""
         If f.Name = "frmInvoice" Then
             'invoice
@@ -302,9 +300,9 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
 
         End If
 
-        fHistorySQL(sQuery)
+        SetHistorySQL(sQuery)
     End Sub
-    Private Sub fHistorySQL(ByVal prQuery As String)
+    Private Sub SetHistorySQL(ByVal prQuery As String)
         If prQuery = "" Then
             Exit Sub
         End If
@@ -312,7 +310,7 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
         frmHistory.ShowDialog()
         With frmHistory
             If .gsSelect = True Then
-                fSelected_History(.dgvDocument, .gsType, .gsID)
+                SetSelectedHistory(.dgvDocument, .gsType, .gsID)
             End If
         End With
 
@@ -320,17 +318,15 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
         frmHistory = Nothing
 
     End Sub
-    Private Sub fSelected_History(ByVal dgv As DataGridView, ByVal prType As String, ByVal prID As String)
+    Private Sub SetSelectedHistory(ByVal dgv As DataGridView, ByVal prType As String, ByVal prID As Integer)
         If dgv.Rows.Count = 0 Then Exit Sub
 
         Dim sType As String = prType
         Dim i As Integer = NumIsNull(GetNumberFieldValue("tblsub_menu", "Description", sType, "sub_id"))
         gsMenuSubID = i
         gsRefresh = True
-        gsDocument_Finder_ID = prID ' dgv.Rows(dgv.CurrentRow.Index).Cells(dgv.Columns.Count - 1).Value
+        gsDocument_Finder_ID = prID
 
-
-        '= New Set
         Dim rd As OdbcDataReader = SqlReader($"select * from `tblsub_menu` where sub_id = '{gsMenuSubID}' limit 1")
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
@@ -344,8 +340,8 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
             F.Tag = i
         End If
 
-        For n As Integer = 0 To frmMainMenu.MyTab.TabPages.Count - 1
-            Dim Frm As Form = frmMainMenu.MyTab.TabPages.Item(n).Form
+        For n As Integer = 0 To FrmMainMenu.MyTab.TabPages.Count - 1
+            Dim Frm As Form = FrmMainMenu.MyTab.TabPages.Item(n).Form
             If Frm.Text = F.Text Then
                 Frm.Close()
                 Exit For
@@ -354,7 +350,7 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
         gsMenuSubID = i
         gsRefresh = True
 
-        TabFormOpen(F, frmMainMenu.MyTab, Img)
+        TabFormOpen(F, FrmMainMenu.MyTab, Img)
         F.TabIndex = gsDocument_Finder_ID
         gsDocument_Finder_ID = 0
 

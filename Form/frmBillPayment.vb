@@ -6,7 +6,7 @@ Public Class FrmBillPayment
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -16,22 +16,18 @@ Public Class FrmBillPayment
         End If
         Return HasChange
     End Function
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-    Private Sub frmBillPayment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmBillPayment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         AccountLabel.Visible = gsShowAccounts
         cmbACCOUNTS_PAYABLE_ID.Visible = gsShowAccounts
         tsJournal.Visible = gsShowAccounts
         spJournal.Visible = gsShowAccounts
-
-
         tsTITLE.Text = gsSubMenuForm
-        ' fBackGroundImageStyle(Me)
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = "  "
-        chk.Name = "SELECTED"
+
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = "  ",
+            .Name = "SELECTED"
+        }
 
         With dgvBill.Columns
             .Add("ID", "ID")
@@ -63,27 +59,23 @@ Public Class FrmBillPayment
             .Add("ACCOUNTS_PAYABLE_ID", "ACCOUNTS_PAYABLE_ID")
             .Item(11).Visible = False
         End With
-        fClear_Info()
+        ClearInfo()
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
 
         End If
     End Sub
-    Private Sub fClear_Info()
-        fComboBoxRefresh()
+    Private Sub ClearInfo()
+        ComboBoxRefresh()
         ClearAndRefresh(Me)
-
         dgvBill.Rows.Clear()
-
-
         cmbLOCATION_ID.SelectedValue = 0
-
         cmbLOCATION_ID.Enabled = IsLockLocation()
         dtpDATE.Value = TransactionDefaultDate()
         cmbACCOUNTS_PAYABLE_ID.SelectedValue = gsDefault_ACCOUNTS_PAYABALE_ID
-        fGotCheckPaymentbill()
+        GotCheckPaymentbill()
     End Sub
-    Private Sub fComboBoxRefresh()
+    Private Sub ComboBoxRefresh()
         ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
         ComboBoxLoad(cmbBANK_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '6')", "ID", "BANK")
         ComboBoxLoad(cmbPAY_TO_ID, "select * from contact where type='0'", "ID", "NAME")
@@ -91,7 +83,7 @@ Public Class FrmBillPayment
 
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
 
         If Val(cmbBANK_ACCOUNT_ID.SelectedValue) = 0 Then
             MessageBoxInfo("Please select bank account")
@@ -145,11 +137,12 @@ Public Class FrmBillPayment
                 txtCODE.Text = GetNextCode("CHECK", cmbLOCATION_ID.SelectedValue)
             End If
 
-            SqlCreate(Me, SQL_Field, SQL_Value)
+
             ID = ObjectTypeMapId("CHECK")
+            SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO `check`  ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE,PRINTED,`TYPE`) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',15,'{GetDateTimeNowSql()}',0,1)  ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(numAMOUNT.Value), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(numAMOUNT.Value), cmbLOCATION_ID.SelectedValue)
 
         Else
 
@@ -163,35 +156,30 @@ Public Class FrmBillPayment
                     'Main
                     AccountJournalChangeDate(dtpDATE.Value, NumIsNull(cmbACCOUNTS_PAYABLE_ID.SelectedValue), 57, ID, gsLast_Location_ID, gsLast_Date)
                 End If
-                '=============================================================================
+
             End If
 
 
             Dim sQuery As String = SqlUpdate(Me)
             sQuery = sQuery & ",STATUS_DATE = '" & Format(DateTime.Now, "yyyy-MM-dd HH:mm:ss") & "'"
             SqlExecuted("UPDATE `check` SET " & sQuery & " WHERE ID ='" & ID & "' and `TYPE`='1' ")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(numAMOUNT.Value), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(numAMOUNT.Value), cmbLOCATION_ID.SelectedValue)
 
         End If
-
-
-
-        '===========================================
-        If gsSkipJournalEntry = False Then
-            gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, cmbPAY_TO_ID.SelectedValue, 57, ID, dtpDATE.Value, 1, NumberFormatFixed(lbsAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
-        End If
-        '================================
-
-        fPaymentSaving(dgvBill, ID, True, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbPAY_TO_ID.SelectedValue)
-
 
         If IsTransactionSuccess(ID, "`CHECK`") = False Then
             MessageBoxWarning("Please try again")
             Exit Sub
         End If
 
-        'fJournalTransaction_Bill_Payment(ID)
+
+        If gsSkipJournalEntry = False Then
+            gsJOURNAL_NO_FORM = 0
+            fAccount_Journal_SQL(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, cmbPAY_TO_ID.SelectedValue, 57, ID, dtpDATE.Value, 1, NumberFormatFixed(lbsAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
+        End If
+
+
+        fPaymentSaving(dgvBill, ID, True, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbPAY_TO_ID.SelectedValue)
         gsGotChangeDate = False
         gsGotChangeLocation1 = False
         gsGotChangeLocation2 = False
@@ -206,27 +194,25 @@ Public Class FrmBillPayment
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = "tsSaveNew" Then
-                fSetNew()
+                SetNew()
             End If
         Catch ex As Exception
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefreshInfo()
+                RefreshInfo()
             End If
         End Try
 
     End Sub
-    Private Sub fSetNew()
-        fClear_Info()
+    Private Sub SetNew()
+        ClearInfo()
         IsNew = True
         ID = 0
 
     End Sub
 
-    Private Sub fRefreshInfo()
-
-
+    Private Sub RefreshInfo()
         Dim sQuery As String = "select * from `check` where `Type` = '1' and id ='" & ID & "' limit 1"
         Try
             SqlExecutedUsingReading(Me, sQuery)
@@ -237,11 +223,11 @@ Public Class FrmBillPayment
                 cmbBANK_ACCOUNT_ID.Enabled = False
 
                 cmbACCOUNTS_PAYABLE_ID.Enabled = False
-                fGotCheckPaymentbill()
+                GotCheckPaymentbill()
             End If
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshInfo()
+                RefreshInfo()
             Else
                 End
             End If
@@ -252,15 +238,15 @@ Public Class FrmBillPayment
         End Try
 
     End Sub
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -282,10 +268,10 @@ Public Class FrmBillPayment
                 ID = f.AccessibleDescription
                 IsNew = False
 
-                fClear_Info()
+                ClearInfo()
                 If IsNew = False Then
                     dtpDATE.Checked = True
-                    fRefreshInfo()
+                    RefreshInfo()
 
                 End If
             End If
@@ -294,7 +280,7 @@ Public Class FrmBillPayment
 
 
     End Sub
-    Private Sub fPay_Bill()
+    Private Sub PaymentBill()
         Dim prPAY_ID As Integer = NumIsNull(cmbPAY_TO_ID.SelectedValue)
 
         dgvBill.Rows.Clear()
@@ -338,7 +324,7 @@ WHERE  EXISTS
                 Dim sDISCOUNT_ACCOUNT_ID As String = ""
                 Dim sACCOUNTS_PAYABLE_ID As String = ""
 
-                fGetAppliedPayment(bill_ID, ID, sLine_ID, dPayment, dDiscount, sDISCOUNT_ACCOUNT_ID, sACCOUNTS_PAYABLE_ID)
+                GetAppliedPayment(bill_ID, ID, sLine_ID, dPayment, dDiscount, sDISCOUNT_ACCOUNT_ID, sACCOUNTS_PAYABLE_ID)
 
                 If sACCOUNTS_PAYABLE_ID = "" Then
                     sACCOUNTS_PAYABLE_ID = TextIsNull(rd("ACCOUNTS_PAYABLE_ID"))
@@ -353,25 +339,24 @@ WHERE  EXISTS
 
                 'Open New Item Transaction
                 If dBalance <> 0 Then
-                    fAdditem(sLine_ID, bSelected, rd("Date"), rd("CODE"), NumIsNull(rd("AMOUNT")), TextIsNull(rd("DISCOUNT_DATE")), dBalance, dDiscount, dPayment, bill_ID, sDISCOUNT_ACCOUNT_ID, sACCOUNTS_PAYABLE_ID)
+                    AddBilling(sLine_ID, bSelected, rd("Date"), rd("CODE"), NumIsNull(rd("AMOUNT")), TextIsNull(rd("DISCOUNT_DATE")), dBalance, dDiscount, dPayment, bill_ID, sDISCOUNT_ACCOUNT_ID, sACCOUNTS_PAYABLE_ID)
                 End If
 
             End While
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fPay_Bill()
+                PaymentBill()
             Else
                 End
             End If
         End Try
-        fCheckBill()
+        CheckingBill()
 
     End Sub
-    Private Sub fGetAppliedPayment(ByVal prbill_ID As String, ByVal prPayment_ID As String, ByRef refPayment_ID_Line As String, ByRef refPayment_Applied As Double, ByRef refDiscount As Double, ByRef refDISCOUNT_ACCOUNT_ID As String, ByRef refACCOUNTS_PAYABLE_ID As String)
+    Private Sub GetAppliedPayment(ByVal prbill_ID As String, ByVal prPayment_ID As String, ByRef refPayment_ID_Line As String, ByRef refPayment_Applied As Double, ByRef refDiscount As Double, ByRef refDISCOUNT_ACCOUNT_ID As String, ByRef refACCOUNTS_PAYABLE_ID As String)
 
         Try
-
             Dim sQuery As String = "Select ID,AMOUNT_PAID,DISCOUNT,DISCOUNT_ACCOUNT_ID,ACCOUNTS_PAYABLE_ID from check_bills where check_id = '" & prPayment_ID & "' and bill_id = '" & prbill_ID & "' Limit 1"
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
@@ -390,7 +375,7 @@ WHERE  EXISTS
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fGetAppliedPayment(prbill_ID, prPayment_ID, refPayment_ID_Line, refPayment_Applied, refDiscount, refDISCOUNT_ACCOUNT_ID, refACCOUNTS_PAYABLE_ID)
+                GetAppliedPayment(prbill_ID, prPayment_ID, refPayment_ID_Line, refPayment_Applied, refDiscount, refDISCOUNT_ACCOUNT_ID, refACCOUNTS_PAYABLE_ID)
             Else
                 End
             End If
@@ -398,46 +383,40 @@ WHERE  EXISTS
         End Try
 
     End Sub
-    Private Sub fAdditem(ByVal gsID As String, ByVal prSelect As Boolean, ByVal prDate As Date, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prDisc_date As String, ByVal prBalance_due As String, ByVal prDiscount As Double, ByVal prPayment As Double, ByVal prBill_ID As String, ByVal prDISCOUNT_ACCOUNT_ID As String, ByVal prACCOUNTS_PAYABLE_ID As String)
+    Private Sub AddBilling(ByVal gsID As String, ByVal prSelect As Boolean, ByVal prDate As Date, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prDisc_date As String, ByVal prBalance_due As String, ByVal prDiscount As Double, ByVal prPayment As Double, ByVal prBill_ID As String, ByVal prDISCOUNT_ACCOUNT_ID As String, ByVal prACCOUNTS_PAYABLE_ID As String)
         dgvBill.Rows.Add(gsID, prSelect, Format(prDate, "MM/dd/yyyy"), prCode, NumberFormatStandard(prOrg_Amount), prDisc_date, NumberFormatStandard(prBalance_due), NumberFormatStandard(prDiscount), NumberFormatStandard(prPayment), prBill_ID, prDISCOUNT_ACCOUNT_ID, prACCOUNTS_PAYABLE_ID)
     End Sub
-    Private Sub fCheckBill()
-        Dim bNotSelected As Boolean = True
+    Private Sub CheckingBill()
+
 
         For i As Integer = 0 To dgvBill.Rows.Count - 1
             If dgvBill.Rows(i).Cells(1).Value = True Then
-                bNotSelected = False
                 Exit For
             End If
         Next
-
-
-
 
         Dim dPayment As Double = 0
 
         For i As Integer = 0 To dgvBill.Rows.Count - 1
             If dgvBill.Rows(i).Cells(1).Value = True Then
-                dPayment = dPayment + (NumIsNull(dgvBill.Rows(i).Cells(8).Value) + NumIsNull(dgvBill.Rows(i).Cells(7).Value))
+                dPayment += (NumIsNull(dgvBill.Rows(i).Cells(8).Value) + NumIsNull(dgvBill.Rows(i).Cells(7).Value))
             End If
         Next
 
 
         lbsAMOUNT_APPLIED.Text = Format(dPayment, "Standard")
     End Sub
-    Private Sub dgvBill_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBill.CellClick
+    Private Sub DgvBill_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBill.CellClick
         If e.ColumnIndex = 1 Then
 
             If dgvBill.Rows.Count = 0 Then
                 Exit Sub
             End If
-            ' Requiredments
+
             Dim bPay As Double
             If numAMOUNT.Value = 0 Then
                 MessageBoxExclamation("No amount Value")
                 Exit Sub
-            Else
-
             End If
 
 
@@ -465,9 +444,7 @@ WHERE  EXISTS
 
                         If dgvBill.Rows(i).Cells(1).Value = True And i <> e.RowIndex Then
                             c = +1
-                            dPayment = dPayment + (NumIsNull(dgvBill.Rows(i).Cells(8).Value) + NumIsNull(dgvBill.Rows(i).Cells(7).Value))
-
-
+                            dPayment += (NumIsNull(dgvBill.Rows(i).Cells(8).Value) + NumIsNull(dgvBill.Rows(i).Cells(7).Value))
                         End If
                     Next
 
@@ -488,14 +465,14 @@ WHERE  EXISTS
                     MessageBoxExclamation("Can`t apply greater than the total payment")
                     Exit Sub
                 End If
-                fEdititem_with_Row(e.RowIndex, .Cells(0).Value, b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells(6).Value, .Cells(7).Value, bPay, .Cells(9).Value, .Cells(10).Value, .Cells(11).Value)
+                Edititem_with_Row(e.RowIndex, .Cells(0).Value, b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells(6).Value, .Cells(7).Value, bPay, .Cells(9).Value, .Cells(10).Value, .Cells(11).Value)
             End With
 
-            fCheckBill()
+            CheckingBill()
         End If
-        fGotCheckPaymentbill()
+        GotCheckPaymentbill()
     End Sub
-    Private Sub fGotCheckPaymentbill()
+    Private Sub GotCheckPaymentbill()
         For I As Integer = 0 To dgvBill.Rows.Count - 1
             If dgvBill.Rows(I).Cells(1).Value = True Then
                 numAMOUNT.Enabled = False
@@ -506,7 +483,7 @@ WHERE  EXISTS
         numAMOUNT.Enabled = True
     End Sub
 
-    Private Sub fEdititem_with_Row(ByVal I As Integer, ByVal gsID As String, ByVal prSelect As Boolean, ByVal prDate As String, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prDisc_date As String, ByVal prBalance_due As String, ByVal prDiscount As Double, ByVal prPayment As Double, ByVal prInvoice_ID As String, ByVal prDISCOUNT_ACCOUNT_ID As String, ByVal prACCOUNTS_PAYABLE_ID As String)
+    Private Sub Edititem_with_Row(ByVal I As Integer, ByVal gsID As String, ByVal prSelect As Boolean, ByVal prDate As String, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prDisc_date As String, ByVal prBalance_due As String, ByVal prDiscount As Double, ByVal prPayment As Double, ByVal prInvoice_ID As String, ByVal prDISCOUNT_ACCOUNT_ID As String, ByVal prACCOUNTS_PAYABLE_ID As String)
 
         With dgvBill.Rows(I)
             .Cells(0).Value = gsID
@@ -524,19 +501,15 @@ WHERE  EXISTS
         End With
 
     End Sub
-    Private Sub cmbPAY_TO_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAY_TO_ID.SelectedIndexChanged
+    Private Sub CmbPAY_TO_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAY_TO_ID.SelectedIndexChanged
         Try
-            fPay_Bill()
+            PaymentBill()
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub cmbBANK_ACCOUNT_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBANK_ACCOUNT_ID.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
 
         If IsNew = False Then
 
@@ -549,10 +522,10 @@ WHERE  EXISTS
             End If
 
             If IsNew = False And ID > 0 Then ' if got change
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -585,8 +558,8 @@ WHERE  EXISTS
                 SqlExecuted("DELETE FROM `check` where ID = '" & ID & "' limit 1;")
                 PrompNotify(Me.Text, DeleteMsg, True)
 
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(numAMOUNT.Value), cmbLOCATION_ID.SelectedValue)
-                fClear_Info()
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(numAMOUNT.Value), cmbLOCATION_ID.SelectedValue)
+                ClearInfo()
                 IsNew = True
                 ID = 0
                 CursorLoadingOn(False)
@@ -597,11 +570,7 @@ WHERE  EXISTS
 
     End Sub
 
-    Private Sub frmBillPayment_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-
-    End Sub
-
-    Private Sub frmBillPayment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmBillPayment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         dgvBill.Columns("SELECTED").Width = 30
 
         ViewNotSort(dgvBill)
@@ -610,12 +579,12 @@ WHERE  EXISTS
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -664,12 +633,12 @@ WHERE  EXISTS
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -717,26 +686,23 @@ WHERE  EXISTS
 
     End Sub
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
 
-                fRefreshInfo()
+                RefreshInfo()
             End If
         End If
     End Sub
 
-    Private Sub dgvBill_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBill.CellDoubleClick
-
-
+    Private Sub DgvBill_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBill.CellDoubleClick
         If dgvBill.Rows.Count = 0 Then Exit Sub
         If MessageBoxQuestion($"Do you want to open this bill no. {dgvBill.CurrentRow.Cells("NUMBER").Value }?") = False Then Exit Sub
-
         gsMenuSubID = 18
         gsRefresh = True
         gsDocument_Finder_ID = dgvBill.Rows(e.RowIndex).Cells("BILL_ID").Value
@@ -755,8 +721,8 @@ WHERE  EXISTS
             F.Tag = i
         End If
 
-        For n As Integer = 0 To frmMainMenu.MyTab.TabPages.Count - 1
-            Dim Frm As Form = frmMainMenu.MyTab.TabPages.Item(n).Form
+        For n As Integer = 0 To FrmMainMenu.MyTab.TabPages.Count - 1
+            Dim Frm As Form = FrmMainMenu.MyTab.TabPages.Item(n).Form
             If Frm.Text = F.Text Then
                 Frm.Close()
                 Exit For
@@ -765,7 +731,7 @@ WHERE  EXISTS
         gsMenuSubID = i
         gsRefresh = True
 
-        TabFormOpen(F, frmMainMenu.MyTab, Img)
+        TabFormOpen(F, FrmMainMenu.MyTab, Img)
         F.TabIndex = gsDocument_Finder_ID
         gsDocument_Finder_ID = 0
 
@@ -773,12 +739,12 @@ WHERE  EXISTS
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -794,21 +760,21 @@ WHERE  EXISTS
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
-        fHistoryList(ID, Me)
+        ShowHistoryList(ID, Me)
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub SelectPagePrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPagePrintToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -825,10 +791,10 @@ WHERE  EXISTS
             Exit Sub
         End If
 
-        frmPrintPage.frmName = Me.Name
-        frmPrintPage.ShowDialog()
+        FrmPrintPage.frmName = Me.Name
+        FrmPrintPage.ShowDialog()
 
-        Dim v As Integer = frmPrintPage.prValue
+        Dim v As Integer = FrmPrintPage.prValue
         If v = 1 Or v = 2 Then
 
             Dim prFile_name As String = ""
@@ -867,41 +833,28 @@ WHERE  EXISTS
 
 
         End If
-        frmPrintPage.Dispose()
-        frmPrintPage = Nothing
+        FrmPrintPage.Dispose()
+        FrmPrintPage = Nothing
     End Sub
 
-    Private Sub frmBillPayment_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmBillPayment_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
         IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
-            fRefreshInfo()
-
+            RefreshInfo()
         End If
     End Sub
-
-    Private Sub GroupBox2_Enter(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
-
-        fPay_Bill()
-
-
-
+        PaymentBill()
     End Sub
-    Private Function fCheckAlreadyCheck() As Boolean
+    Private Function IsBillAlreadyCheck() As Boolean
         Dim AlreadyCheck As Boolean = False
         For I As Integer = 0 To dgvBill.Rows.Count - 1
             With dgvBill.Rows(I).Cells("SELECTED")
                 If NumIsNull(.Value) <> 0 Then
-
                     AlreadyCheck = True
-
-
                 End If
             End With
 
@@ -909,7 +862,7 @@ WHERE  EXISTS
 
         Return AlreadyCheck
     End Function
-    Private Function fCheckSaveBillPayment() As Boolean
+    Private Function IsCheckSaveBillPayment() As Boolean
         Dim not_related As Boolean = False
         Dim Selected_Location_ID As Integer = cmbLOCATION_ID.SelectedValue
         For I As Integer = 0 To dgvBill.Rows.Count - 1
@@ -925,11 +878,7 @@ WHERE  EXISTS
 
         Return not_related
     End Function
-    Private Sub DgvBill_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvBill.CellContentClick
-
-    End Sub
-
-    Private Sub tsCheckAll_Click(sender As Object, e As EventArgs) Handles tsCheckAll.Click
+    Private Sub TsCheckAll_Click(sender As Object, e As EventArgs) Handles tsCheckAll.Click
         If dgvBill.Rows.Count = 0 Then
             Exit Sub
         End If
@@ -967,12 +916,9 @@ WHERE  EXISTS
                     Dim c As Integer = 0
                     For i As Integer = 0 To dgvBill.Rows.Count - 1
                         r = +1
-
                         If dgvBill.Rows(i).Cells(1).Value = True And i <> N Then
                             c = +1
-                            dPayment = dPayment + (NumIsNull(dgvBill.Rows(i).Cells(8).Value) + NumIsNull(dgvBill.Rows(i).Cells(7).Value))
-
-
+                            dPayment += (NumIsNull(dgvBill.Rows(i).Cells(8).Value) + NumIsNull(dgvBill.Rows(i).Cells(7).Value))
                         End If
                     Next
 
@@ -995,28 +941,26 @@ WHERE  EXISTS
                     MessageBoxExclamation("Can`t apply greater than the total payment")
                     Exit Sub
                 End If
-                fEdititem_with_Row(N, .Cells(0).Value, b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells(6).Value, .Cells(7).Value, bPay, .Cells(9).Value, .Cells(10).Value, .Cells(11).Value)
+                Edititem_with_Row(N, .Cells(0).Value, b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells(6).Value, .Cells(7).Value, bPay, .Cells(9).Value, .Cells(10).Value, .Cells(11).Value)
             End With
 
-            fCheckBill()
+            CheckingBill()
 
-            fGotCheckPaymentbill()
+            GotCheckPaymentbill()
 
             '==================
         Next
     End Sub
 
-    Private Sub tsUncheckAll_Click(sender As Object, e As EventArgs) Handles tsUncheckAll.Click
+    Private Sub TsUncheckAll_Click(sender As Object, e As EventArgs) Handles tsUncheckAll.Click
         If dgvBill.Rows.Count = 0 Then
             Exit Sub
         End If
-        ' Requiredments
+
         Dim bPay As Double
         If numAMOUNT.Value = 0 Then
             MessageBoxExclamation("No amount Value")
             Exit Sub
-        Else
-
         End If
 
         For N As Integer = 0 To dgvBill.Rows.Count - 1
@@ -1047,9 +991,7 @@ WHERE  EXISTS
 
                         If dgvBill.Rows(i).Cells(1).Value = True And i <> N Then
                             c = +1
-                            dPayment = dPayment + (NumIsNull(dgvBill.Rows(i).Cells(8).Value) + NumIsNull(dgvBill.Rows(i).Cells(7).Value))
-
-
+                            dPayment += (NumIsNull(dgvBill.Rows(i).Cells(8).Value) + NumIsNull(dgvBill.Rows(i).Cells(7).Value))
                         End If
                     Next
 
@@ -1071,12 +1013,12 @@ WHERE  EXISTS
                     MessageBoxExclamation("Can`t apply greater than the total payment")
                     Exit Sub
                 End If
-                fEdititem_with_Row(N, .Cells(0).Value, b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells(6).Value, .Cells(7).Value, bPay, .Cells(9).Value, .Cells(10).Value, .Cells(11).Value)
+                Edititem_with_Row(N, .Cells(0).Value, b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells(6).Value, .Cells(7).Value, bPay, .Cells(9).Value, .Cells(10).Value, .Cells(11).Value)
             End With
 
-            fCheckBill()
+            CheckingBill()
 
-            fGotCheckPaymentbill()
+            GotCheckPaymentbill()
 
             '==================
         Next
@@ -1084,7 +1026,7 @@ WHERE  EXISTS
 
 
 
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         GetQuickFind(dgvBill, tsFindText.Text)
     End Sub
 
@@ -1095,7 +1037,7 @@ WHERE  EXISTS
         End If
         Dim i As Integer = dgvBill.CurrentRow.Index
         Dim d As DataGridViewRow = dgvBill.Rows(i)
-        With frmDiscountBill
+        With FrmDiscountBill
             .lblName.Text = cmbPAY_TO_ID.Text
             .lblDATE.Text = d.Cells(2).Value
             .lblCreditUsed.Text = ""
@@ -1118,11 +1060,11 @@ WHERE  EXISTS
                 d.Cells("DISCOUNT_ACCOUNT_ID").Value = .gsDISCOUNT_ACCOUNT_ID
                 d.Cells("DISCOUNT").Value = NumberFormatStandard(.gsDISCOUNT_AMOUNT)
                 d.Cells("DISC_DATE").Value = .dtpDISCOUNT_DATE.Value.ToShortDateString
-                fCheckBill()
+                CheckingBill()
             End If
             .Dispose()
         End With
-        frmDiscountBill = Nothing
+        FrmDiscountBill = Nothing
     End Sub
 
     Private Sub CreditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CreditToolStripMenuItem.Click
@@ -1134,7 +1076,7 @@ WHERE  EXISTS
 
         Dim i As Integer = dgvBill.CurrentRow.Index
         Dim d As DataGridViewRow = dgvBill.Rows(i)
-        With frmApplyBillCredit
+        With FrmApplyBillCredit
             .gsID = d.Cells(9).Value
             .gsVendor_ID = cmbPAY_TO_ID.SelectedValue
             .gsLocation_ID = cmbLOCATION_ID.SelectedValue
@@ -1151,7 +1093,7 @@ WHERE  EXISTS
                 If MessageBoxQuestion("Do you want apply credit?") = True Then
                     MessageBoxInfo("Not applicable")
                     Exit Sub
-                    'Dim bd As Double = fBillBalance_Update(d.Cells(9).Value, d.Cells(4).Value)
+                    'Dim bd As Double = SetBillBalanceUpdate(d.Cells(9).Value, d.Cells(4).Value)
                     'd.Cells(6).Value = NumberFormatStandard(bd + p)
 
                 End If
@@ -1159,7 +1101,7 @@ WHERE  EXISTS
             .Dispose()
 
         End With
-        frmApplyBillCredit = Nothing
+        FrmApplyBillCredit = Nothing
     End Sub
 
     Private Sub ToolStrip2_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip2.ItemClicked

@@ -231,13 +231,13 @@ Public Class FrmGeneralJournal
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO general_journal ({SQL_Field},ID,RECORDED_ON) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}') ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", 0, cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", 0, cmbLOCATION_ID.SelectedValue)
         Else
 
             tChangeAccept = True
             GotChangeTransaction("general_journal", ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
             SqlExecuted("UPDATE `general_journal` SET " & SqlUpdate(Me) & " Where `ID` = '" & ID & "'")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", 0, cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", 0, cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -432,7 +432,7 @@ Public Class FrmGeneralJournal
 
                 SqlExecuted("DELETE FROM `general_journal` WHERE ID='" & ID & "' limit 1;")
                 PrompNotify(Me.Text, DeleteMsg, True)
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
                 fClearInfo()
                 IsNew = True
                 ID = ""
@@ -576,7 +576,7 @@ Public Class FrmGeneralJournal
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click

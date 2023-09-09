@@ -269,7 +269,7 @@ Public Class FrmStockTransfer
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO stock_transfer ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',0) ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
@@ -293,7 +293,7 @@ Public Class FrmStockTransfer
             End If
 
             SqlExecuted("UPDATE stock_transfer SET " & SqlUpdate(Me) & " Where ID = '" & ID & "' ")
-            fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -556,7 +556,7 @@ Public Class FrmStockTransfer
 
                 SqlExecuted("Delete from stock_transfer WHERE ID ='" & ID & "' limit 1;")
                 DeleteNotify(Me)
-                fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fClear_Info()
                 ID = 0
                 IsNew = True
@@ -722,7 +722,7 @@ Public Class FrmStockTransfer
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        fTransactionLog(Me, ID)
+        ShowTransactionLog(Me, ID)
     End Sub
 
     Private Sub txtFind_TextChanged(sender As Object, e As EventArgs)

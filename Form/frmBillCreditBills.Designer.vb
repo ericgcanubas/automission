@@ -46,7 +46,7 @@ Partial Class FrmBillCreditBills
         '
         'lblRemainingCredit
         '
-        Me.lblRemainingCredit.BackColor = System.Drawing.Color.White
+        Me.lblRemainingCredit.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblRemainingCredit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblRemainingCredit.Location = New System.Drawing.Point(536, 78)
         Me.lblRemainingCredit.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -58,7 +58,7 @@ Partial Class FrmBillCreditBills
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(406, 82)
+        Me.Label13.Location = New System.Drawing.Point(414, 82)
         Me.Label13.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(116, 16)
@@ -67,7 +67,7 @@ Partial Class FrmBillCreditBills
         '
         'lblCODE
         '
-        Me.lblCODE.BackColor = System.Drawing.Color.White
+        Me.lblCODE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblCODE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblCODE.Location = New System.Drawing.Point(536, 50)
         Me.lblCODE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -79,7 +79,7 @@ Partial Class FrmBillCreditBills
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(426, 55)
+        Me.Label17.Location = New System.Drawing.Point(432, 55)
         Me.Label17.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(100, 16)
@@ -88,7 +88,7 @@ Partial Class FrmBillCreditBills
         '
         'lblCreditAmount
         '
-        Me.lblCreditAmount.BackColor = System.Drawing.Color.White
+        Me.lblCreditAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblCreditAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblCreditAmount.Location = New System.Drawing.Point(136, 78)
         Me.lblCreditAmount.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -99,7 +99,7 @@ Partial Class FrmBillCreditBills
         '
         'lblDATE
         '
-        Me.lblDATE.BackColor = System.Drawing.Color.White
+        Me.lblDATE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblDATE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblDATE.Location = New System.Drawing.Point(136, 50)
         Me.lblDATE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -120,7 +120,7 @@ Partial Class FrmBillCreditBills
         '
         'lblName
         '
-        Me.lblName.BackColor = System.Drawing.Color.White
+        Me.lblName.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblName.Location = New System.Drawing.Point(136, 22)
         Me.lblName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -226,7 +226,7 @@ Partial Class FrmBillCreditBills
         Me.GroupBox2.Size = New System.Drawing.Size(693, 250)
         Me.GroupBox2.TabIndex = 37
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Available Bill"
+        Me.GroupBox2.Text = "Available Bills"
         '
         'btnOK
         '
@@ -248,7 +248,7 @@ Partial Class FrmBillCreditBills
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmBillCreditBills
+        'FrmBillCreditBills
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -263,7 +263,7 @@ Partial Class FrmBillCreditBills
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmBillCreditBills"
+        Me.Name = "FrmBillCreditBills"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Apply Credit to PO"

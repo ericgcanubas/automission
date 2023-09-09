@@ -175,12 +175,12 @@ Public Class FrmPOSVoid
         If gsPOSVoidEntry = False Then
             SqlExecuted("DELETE FROM payment WHERE ID = '" & prID & "' limit 1;")
 
-            fTransaction_Log(prID, lblPAYMENT_CODE.Text, 3, "Delete", gsPOSDefaultCustomer_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
+            SetTransactionLog(prID, lblPAYMENT_CODE.Text, 3, "Delete", gsPOSDefaultCustomer_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
 
         Else
             SqlExecuted("UPDATE payment SET STATUS ='7' WHERE ID = '" & prID & "' limit 1;")
 
-            fTransaction_Log(prID, lblPAYMENT_CODE.Text, 3, "Void", gsPOSDefaultCustomer_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
+            SetTransactionLog(prID, lblPAYMENT_CODE.Text, 3, "Void", gsPOSDefaultCustomer_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
 
         End If
 
@@ -226,13 +226,13 @@ Public Class FrmPOSVoid
 
             If gsPOSVoidEntry = True Then
                 SqlExecuted("UPDATE invoice SET STATUS ='7' where `ID` ='" & Invoice_ID & "' limit 1;")
-                fTransaction_Log(Invoice_ID, INVOICE_CODE, 2, "Void", Loc_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
+                SetTransactionLog(Invoice_ID, INVOICE_CODE, 2, "Void", Loc_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
 
             Else
                 'Delete
                 SqlExecuted("DELETE from invoice_items where INVOICE_ID  = '" & Invoice_ID & "'")
                 SqlExecuted("DELETE from invoice where `ID` ='" & Invoice_ID & "' limit 1;")
-                fTransaction_Log(Invoice_ID, INVOICE_CODE, 2, "Delete", Loc_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
+                SetTransactionLog(Invoice_ID, INVOICE_CODE, 2, "Delete", Loc_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
 
             End If
 

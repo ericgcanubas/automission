@@ -89,17 +89,17 @@ Partial Class FrmBillPayment
         Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(564, 124)
         Me.cmbACCOUNTS_PAYABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_PAYABLE_ID.Name = "cmbACCOUNTS_PAYABLE_ID"
-        Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(319, 24)
+        Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(338, 24)
         Me.cmbACCOUNTS_PAYABLE_ID.TabIndex = 11
         '
         'AccountLabel
         '
         Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(496, 128)
+        Me.AccountLabel.Location = New System.Drawing.Point(462, 131)
         Me.AccountLabel.Name = "AccountLabel"
-        Me.AccountLabel.Size = New System.Drawing.Size(62, 16)
+        Me.AccountLabel.Size = New System.Drawing.Size(99, 16)
         Me.AccountLabel.TabIndex = 10
-        Me.AccountLabel.Text = "Account"
+        Me.AccountLabel.Text = "Acct. Payable"
         '
         'cmbLOCATION_ID
         '
@@ -108,13 +108,13 @@ Partial Class FrmBillPayment
         Me.cmbLOCATION_ID.Location = New System.Drawing.Point(564, 97)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(319, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(338, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(495, 101)
+        Me.Label9.Location = New System.Drawing.Point(498, 100)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(63, 16)
         Me.Label9.TabIndex = 8
@@ -122,20 +122,20 @@ Partial Class FrmBillPayment
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(754, 70)
+        Me.txtCODE.Location = New System.Drawing.Point(767, 70)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(129, 23)
+        Me.txtCODE.Size = New System.Drawing.Size(135, 23)
         Me.txtCODE.TabIndex = 7
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(709, 73)
+        Me.Label8.Location = New System.Drawing.Point(690, 73)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -216,7 +216,7 @@ Partial Class FrmBillPayment
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(30, 34)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'ToolStripSeparator1
@@ -238,14 +238,14 @@ Partial Class FrmBillPayment
         '
         Me.DiscountToolStripMenuItem.Image = Global.Automission.My.Resources.Resources.i_desc
         Me.DiscountToolStripMenuItem.Name = "DiscountToolStripMenuItem"
-        Me.DiscountToolStripMenuItem.Size = New System.Drawing.Size(137, 36)
+        Me.DiscountToolStripMenuItem.Size = New System.Drawing.Size(145, 36)
         Me.DiscountToolStripMenuItem.Text = "Discount"
         '
         'CreditToolStripMenuItem
         '
         Me.CreditToolStripMenuItem.Image = Global.Automission.My.Resources.Resources.i_credit
         Me.CreditToolStripMenuItem.Name = "CreditToolStripMenuItem"
-        Me.CreditToolStripMenuItem.Size = New System.Drawing.Size(137, 36)
+        Me.CreditToolStripMenuItem.Size = New System.Drawing.Size(145, 36)
         Me.CreditToolStripMenuItem.Text = "Credit"
         '
         'txtNOTES
@@ -290,7 +290,7 @@ Partial Class FrmBillPayment
         Me.numAMOUNT.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.numAMOUNT.Maximum = New Decimal(New Integer() {1874919423, 2328306, 0, 0})
         Me.numAMOUNT.Name = "numAMOUNT"
-        Me.numAMOUNT.Size = New System.Drawing.Size(189, 23)
+        Me.numAMOUNT.Size = New System.Drawing.Size(164, 23)
         Me.numAMOUNT.TabIndex = 9
         Me.numAMOUNT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.numAMOUNT.ThousandsSeparator = True
@@ -312,13 +312,13 @@ Partial Class FrmBillPayment
         Me.cmbPAY_TO_ID.Location = New System.Drawing.Point(94, 97)
         Me.cmbPAY_TO_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbPAY_TO_ID.Name = "cmbPAY_TO_ID"
-        Me.cmbPAY_TO_ID.Size = New System.Drawing.Size(342, 24)
+        Me.cmbPAY_TO_ID.Size = New System.Drawing.Size(363, 24)
         Me.cmbPAY_TO_ID.TabIndex = 3
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(36, 101)
+        Me.Label3.Location = New System.Drawing.Point(37, 101)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(52, 16)
         Me.Label3.TabIndex = 2
@@ -333,7 +333,7 @@ Partial Class FrmBillPayment
         Me.cmbBANK_ACCOUNT_ID.Location = New System.Drawing.Point(94, 70)
         Me.cmbBANK_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbBANK_ACCOUNT_ID.Name = "cmbBANK_ACCOUNT_ID"
-        Me.cmbBANK_ACCOUNT_ID.Size = New System.Drawing.Size(342, 24)
+        Me.cmbBANK_ACCOUNT_ID.Size = New System.Drawing.Size(363, 24)
         Me.cmbBANK_ACCOUNT_ID.TabIndex = 1
         '
         'Label2
@@ -545,7 +545,7 @@ Partial Class FrmBillPayment
         Me.TabPage1.Text = "Bills"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'frmBillPayment
+        'FrmBillPayment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -573,7 +573,7 @@ Partial Class FrmBillPayment
         Me.Controls.Add(Me.ToolStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmBillPayment"
+        Me.Name = "FrmBillPayment"
         Me.Text = "frmBillPayment"
         CType(Me.dgvBill, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip2.ResumeLayout(False)
