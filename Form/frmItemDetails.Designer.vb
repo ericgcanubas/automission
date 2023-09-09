@@ -154,7 +154,7 @@ Partial Class FrmItemDetails
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(95, 18)
+        Me.Label2.Location = New System.Drawing.Point(8, 16)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(39, 16)
@@ -166,7 +166,7 @@ Partial Class FrmItemDetails
         Me.cmbTYPE.AccessibleDescription = "0"
         Me.cmbTYPE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTYPE.FormattingEnabled = True
-        Me.cmbTYPE.Location = New System.Drawing.Point(137, 15)
+        Me.cmbTYPE.Location = New System.Drawing.Point(50, 13)
         Me.cmbTYPE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbTYPE.Name = "cmbTYPE"
         Me.cmbTYPE.Size = New System.Drawing.Size(207, 24)
@@ -176,16 +176,16 @@ Partial Class FrmItemDetails
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(72, 47)
+        Me.Label3.Location = New System.Drawing.Point(7, 45)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(60, 16)
+        Me.Label3.Size = New System.Drawing.Size(40, 16)
         Me.Label3.TabIndex = 10
-        Me.Label3.Text = "Barcode"
+        Me.Label3.Text = "Code"
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(137, 44)
+        Me.txtCODE.Location = New System.Drawing.Point(50, 42)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(207, 23)
@@ -193,15 +193,14 @@ Partial Class FrmItemDetails
         '
         'chkINACTIVE
         '
-        Me.chkINACTIVE.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkINACTIVE.AutoSize = True
         Me.chkINACTIVE.BackColor = System.Drawing.Color.Transparent
-        Me.chkINACTIVE.Location = New System.Drawing.Point(362, 16)
+        Me.chkINACTIVE.Location = New System.Drawing.Point(362, 17)
         Me.chkINACTIVE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkINACTIVE.Name = "chkINACTIVE"
         Me.chkINACTIVE.Size = New System.Drawing.Size(80, 20)
         Me.chkINACTIVE.TabIndex = 12
-        Me.chkINACTIVE.Text = "Disabled"
+        Me.chkINACTIVE.Text = "Inactive"
         Me.chkINACTIVE.UseVisualStyleBackColor = False
         '
         'chkNON_DISCOUNTED_ITEM
@@ -218,7 +217,7 @@ Partial Class FrmItemDetails
         'chkBUNDLE_SET
         '
         Me.chkBUNDLE_SET.AutoSize = True
-        Me.chkBUNDLE_SET.Location = New System.Drawing.Point(362, 48)
+        Me.chkBUNDLE_SET.Location = New System.Drawing.Point(362, 43)
         Me.chkBUNDLE_SET.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkBUNDLE_SET.Name = "chkBUNDLE_SET"
         Me.chkBUNDLE_SET.Size = New System.Drawing.Size(97, 20)
@@ -230,7 +229,7 @@ Partial Class FrmItemDetails
         'chkNON_PORFOLIO_COMPUTATION
         '
         Me.chkNON_PORFOLIO_COMPUTATION.AutoSize = True
-        Me.chkNON_PORFOLIO_COMPUTATION.Location = New System.Drawing.Point(479, 48)
+        Me.chkNON_PORFOLIO_COMPUTATION.Location = New System.Drawing.Point(479, 43)
         Me.chkNON_PORFOLIO_COMPUTATION.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkNON_PORFOLIO_COMPUTATION.Name = "chkNON_PORFOLIO_COMPUTATION"
         Me.chkNON_PORFOLIO_COMPUTATION.Size = New System.Drawing.Size(141, 20)
@@ -311,7 +310,7 @@ Partial Class FrmItemDetails
         '
         Me.cmbCOGS_ACCOUNT_ID.AccessibleDescription = "null"
         Me.cmbCOGS_ACCOUNT_ID.FormattingEnabled = True
-        Me.cmbCOGS_ACCOUNT_ID.Location = New System.Drawing.Point(119, 209)
+        Me.cmbCOGS_ACCOUNT_ID.Location = New System.Drawing.Point(119, 200)
         Me.cmbCOGS_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbCOGS_ACCOUNT_ID.Name = "cmbCOGS_ACCOUNT_ID"
         Me.cmbCOGS_ACCOUNT_ID.Size = New System.Drawing.Size(207, 24)
@@ -320,7 +319,7 @@ Partial Class FrmItemDetails
         'xlblCOGS_ACCOUNT
         '
         Me.xlblCOGS_ACCOUNT.AutoSize = True
-        Me.xlblCOGS_ACCOUNT.Location = New System.Drawing.Point(13, 213)
+        Me.xlblCOGS_ACCOUNT.Location = New System.Drawing.Point(13, 204)
         Me.xlblCOGS_ACCOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblCOGS_ACCOUNT.Name = "xlblCOGS_ACCOUNT"
         Me.xlblCOGS_ACCOUNT.Size = New System.Drawing.Size(104, 16)
@@ -433,7 +432,7 @@ Partial Class FrmItemDetails
         Me.dgvComponents.Name = "dgvComponents"
         Me.dgvComponents.ReadOnly = True
         Me.dgvComponents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvComponents.Size = New System.Drawing.Size(658, 316)
+        Me.dgvComponents.Size = New System.Drawing.Size(658, 260)
         Me.dgvComponents.TabIndex = 21
         '
         'cmbRATE_TYPE
@@ -474,7 +473,7 @@ Partial Class FrmItemDetails
         Me.dgvOrder_Preference.Name = "dgvOrder_Preference"
         Me.dgvOrder_Preference.ReadOnly = True
         Me.dgvOrder_Preference.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvOrder_Preference.Size = New System.Drawing.Size(658, 316)
+        Me.dgvOrder_Preference.Size = New System.Drawing.Size(658, 260)
         Me.dgvOrder_Preference.TabIndex = 4
         '
         'xlblASSET_ACCOUNT
@@ -534,9 +533,9 @@ Partial Class FrmItemDetails
         Me.Label32.Location = New System.Drawing.Point(223, 7)
         Me.Label32.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(68, 16)
+        Me.Label32.Size = New System.Drawing.Size(69, 16)
         Me.Label32.TabIndex = 0
-        Me.Label32.Text = "Base size"
+        Me.Label32.Text = "Unit Base"
         '
         'TabControl2
         '
@@ -550,7 +549,7 @@ Partial Class FrmItemDetails
         Me.TabControl2.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(657, 279)
+        Me.TabControl2.Size = New System.Drawing.Size(657, 308)
         Me.TabControl2.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.TabControl2.TabIndex = 2
         '
@@ -562,9 +561,9 @@ Partial Class FrmItemDetails
         Me.tpOtherSize.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.tpOtherSize.Name = "tpOtherSize"
         Me.tpOtherSize.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.tpOtherSize.Size = New System.Drawing.Size(649, 250)
+        Me.tpOtherSize.Size = New System.Drawing.Size(649, 279)
         Me.tpOtherSize.TabIndex = 0
-        Me.tpOtherSize.Text = "Other Size"
+        Me.tpOtherSize.Text = "Other Unit"
         Me.tpOtherSize.UseVisualStyleBackColor = True
         '
         'dgvReleted_Units
@@ -581,13 +580,13 @@ Partial Class FrmItemDetails
         Me.dgvReleted_Units.Name = "dgvReleted_Units"
         Me.dgvReleted_Units.ReadOnly = True
         Me.dgvReleted_Units.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvReleted_Units.Size = New System.Drawing.Size(639, 211)
+        Me.dgvReleted_Units.Size = New System.Drawing.Size(639, 240)
         Me.dgvReleted_Units.TabIndex = 0
         '
         'ToolStrip1
         '
         Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAdd1, Me.ToolStripSeparator1, Me.tsEdit1, Me.ToolStripSeparator6, Me.tsDelete1})
         Me.ToolStrip1.Location = New System.Drawing.Point(5, 4)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -636,13 +635,13 @@ Partial Class FrmItemDetails
         '
         Me.tpSizeRateLevel.Controls.Add(Me.dgvUM_Price_level)
         Me.tpSizeRateLevel.Controls.Add(Me.ToolStrip2)
-        Me.tpSizeRateLevel.Location = New System.Drawing.Point(4, 22)
+        Me.tpSizeRateLevel.Location = New System.Drawing.Point(4, 25)
         Me.tpSizeRateLevel.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.tpSizeRateLevel.Name = "tpSizeRateLevel"
         Me.tpSizeRateLevel.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.tpSizeRateLevel.Size = New System.Drawing.Size(649, 256)
+        Me.tpSizeRateLevel.Size = New System.Drawing.Size(649, 279)
         Me.tpSizeRateLevel.TabIndex = 1
-        Me.tpSizeRateLevel.Text = "Size rate levels"
+        Me.tpSizeRateLevel.Text = "Unit Price Level"
         Me.tpSizeRateLevel.UseVisualStyleBackColor = True
         '
         'dgvUM_Price_level
@@ -659,13 +658,13 @@ Partial Class FrmItemDetails
         Me.dgvUM_Price_level.Name = "dgvUM_Price_level"
         Me.dgvUM_Price_level.ReadOnly = True
         Me.dgvUM_Price_level.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvUM_Price_level.Size = New System.Drawing.Size(639, 217)
+        Me.dgvUM_Price_level.Size = New System.Drawing.Size(639, 240)
         Me.dgvUM_Price_level.TabIndex = 1
         '
         'ToolStrip2
         '
         Me.ToolStrip2.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.ToolStrip2.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAdd2, Me.ToolStripSeparator2, Me.tsEdit2, Me.ToolStripSeparator3, Me.tsDelete2})
         Me.ToolStrip2.Location = New System.Drawing.Point(5, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
@@ -717,13 +716,13 @@ Partial Class FrmItemDetails
         '
         Me.tpDefaultArea.Controls.Add(Me.dgvLocation_Default)
         Me.tpDefaultArea.Controls.Add(Me.tsDefaultBranchClick)
-        Me.tpDefaultArea.Location = New System.Drawing.Point(4, 22)
+        Me.tpDefaultArea.Location = New System.Drawing.Point(4, 25)
         Me.tpDefaultArea.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.tpDefaultArea.Name = "tpDefaultArea"
         Me.tpDefaultArea.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.tpDefaultArea.Size = New System.Drawing.Size(649, 256)
+        Me.tpDefaultArea.Size = New System.Drawing.Size(649, 279)
         Me.tpDefaultArea.TabIndex = 2
-        Me.tpDefaultArea.Text = "Default Branch"
+        Me.tpDefaultArea.Text = "Default Location"
         Me.tpDefaultArea.UseVisualStyleBackColor = True
         '
         'dgvLocation_Default
@@ -740,13 +739,13 @@ Partial Class FrmItemDetails
         Me.dgvLocation_Default.Name = "dgvLocation_Default"
         Me.dgvLocation_Default.ReadOnly = True
         Me.dgvLocation_Default.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLocation_Default.Size = New System.Drawing.Size(639, 217)
+        Me.dgvLocation_Default.Size = New System.Drawing.Size(639, 240)
         Me.dgvLocation_Default.TabIndex = 1
         '
         'tsDefaultBranchClick
         '
         Me.tsDefaultBranchClick.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tsDefaultBranchClick.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.tsDefaultBranchClick.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.tsDefaultBranchClick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsDefaultBranch, Me.ToolStripSeparator7})
         Me.tsDefaultBranchClick.Location = New System.Drawing.Point(5, 4)
         Me.tsDefaultBranchClick.Name = "tsDefaultBranchClick"
@@ -785,7 +784,7 @@ Partial Class FrmItemDetails
         Me.dgvPriceLevel.Name = "dgvPriceLevel"
         Me.dgvPriceLevel.ReadOnly = True
         Me.dgvPriceLevel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPriceLevel.Size = New System.Drawing.Size(658, 316)
+        Me.dgvPriceLevel.Size = New System.Drawing.Size(658, 260)
         Me.dgvPriceLevel.TabIndex = 2
         '
         'xlblSUB_Class
@@ -856,7 +855,7 @@ Partial Class FrmItemDetails
         Me.rtbNOTES.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.rtbNOTES.Name = "rtbNOTES"
         Me.rtbNOTES.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth
-        Me.rtbNOTES.Size = New System.Drawing.Size(262, 289)
+        Me.rtbNOTES.Size = New System.Drawing.Size(262, 325)
         Me.rtbNOTES.TabIndex = 0
         Me.rtbNOTES.Text = ""
         '
@@ -887,7 +886,7 @@ Partial Class FrmItemDetails
         'lblPIC_FILENAME
         '
         Me.lblPIC_FILENAME.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblPIC_FILENAME.Location = New System.Drawing.Point(290, 257)
+        Me.lblPIC_FILENAME.Location = New System.Drawing.Point(257, 215)
         Me.lblPIC_FILENAME.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblPIC_FILENAME.Name = "lblPIC_FILENAME"
         Me.lblPIC_FILENAME.Size = New System.Drawing.Size(77, 28)
@@ -978,7 +977,7 @@ Partial Class FrmItemDetails
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(672, 380)
+        Me.TabControl1.Size = New System.Drawing.Size(672, 324)
         Me.TabControl1.TabIndex = 49
         '
         'tpInfo
@@ -1009,9 +1008,9 @@ Partial Class FrmItemDetails
         Me.tpInfo.Location = New System.Drawing.Point(4, 25)
         Me.tpInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tpInfo.Name = "tpInfo"
-        Me.tpInfo.Size = New System.Drawing.Size(664, 351)
+        Me.tpInfo.Size = New System.Drawing.Size(664, 295)
         Me.tpInfo.TabIndex = 4
-        Me.tpInfo.Text = "Reference"
+        Me.tpInfo.Text = "Information"
         Me.tpInfo.UseVisualStyleBackColor = True
         '
         'chkIS_EXPIRED
@@ -1034,7 +1033,7 @@ Partial Class FrmItemDetails
         Me.tpComponents.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tpComponents.Name = "tpComponents"
         Me.tpComponents.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tpComponents.Size = New System.Drawing.Size(664, 351)
+        Me.tpComponents.Size = New System.Drawing.Size(664, 295)
         Me.tpComponents.TabIndex = 2
         Me.tpComponents.Text = "Item List"
         Me.tpComponents.UseVisualStyleBackColor = True
@@ -1042,7 +1041,7 @@ Partial Class FrmItemDetails
         'TSPayment
         '
         Me.TSPayment.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TSPayment.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.TSPayment.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.TSPayment.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddTrans, Me.ToolStripSeparator4, Me.EditTrans, Me.ToolStripSeparator5, Me.DeleteTrans})
         Me.TSPayment.Location = New System.Drawing.Point(3, 2)
         Me.TSPayment.Name = "TSPayment"
@@ -1095,7 +1094,7 @@ Partial Class FrmItemDetails
         Me.tpInventory.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tpInventory.Name = "tpInventory"
         Me.tpInventory.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tpInventory.Size = New System.Drawing.Size(664, 351)
+        Me.tpInventory.Size = New System.Drawing.Size(664, 295)
         Me.tpInventory.TabIndex = 0
         Me.tpInventory.Text = "Inventory"
         Me.tpInventory.UseVisualStyleBackColor = True
@@ -1103,7 +1102,7 @@ Partial Class FrmItemDetails
         'ToolStrip3
         '
         Me.ToolStrip3.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStrip3.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.ToolStrip3.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.ToolStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsInventoryClick, Me.ToolStripSeparator8})
         Me.ToolStrip3.Location = New System.Drawing.Point(3, 2)
         Me.ToolStrip3.Name = "ToolStrip3"
@@ -1143,9 +1142,9 @@ Partial Class FrmItemDetails
         Me.tpUnits.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tpUnits.Name = "tpUnits"
         Me.tpUnits.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tpUnits.Size = New System.Drawing.Size(664, 351)
+        Me.tpUnits.Size = New System.Drawing.Size(664, 295)
         Me.tpUnits.TabIndex = 1
-        Me.tpUnits.Text = "Size"
+        Me.tpUnits.Text = "Unit"
         Me.tpUnits.UseVisualStyleBackColor = True
         '
         'tpPriceLevel
@@ -1156,15 +1155,15 @@ Partial Class FrmItemDetails
         Me.tpPriceLevel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tpPriceLevel.Name = "tpPriceLevel"
         Me.tpPriceLevel.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tpPriceLevel.Size = New System.Drawing.Size(664, 351)
+        Me.tpPriceLevel.Size = New System.Drawing.Size(664, 295)
         Me.tpPriceLevel.TabIndex = 3
-        Me.tpPriceLevel.Text = "Rate Levels"
+        Me.tpPriceLevel.Text = "Price Levels"
         Me.tpPriceLevel.UseVisualStyleBackColor = True
         '
         'ToolStrip5
         '
         Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStrip5.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.ToolStrip5.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsRateLevelsClick, Me.ToolStripSeparator9})
         Me.ToolStrip5.Location = New System.Drawing.Point(3, 2)
         Me.ToolStrip5.Name = "ToolStrip5"
@@ -1200,7 +1199,7 @@ Partial Class FrmItemDetails
         Me.tpOther.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tpOther.Name = "tpOther"
         Me.tpOther.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.tpOther.Size = New System.Drawing.Size(664, 351)
+        Me.tpOther.Size = New System.Drawing.Size(664, 295)
         Me.tpOther.TabIndex = 5
         Me.tpOther.Text = "Others"
         Me.tpOther.UseVisualStyleBackColor = True
@@ -1228,7 +1227,7 @@ Partial Class FrmItemDetails
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(499, 562)
+        Me.btnSave.Location = New System.Drawing.Point(495, 499)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(86, 28)
@@ -1238,7 +1237,7 @@ Partial Class FrmItemDetails
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(592, 562)
+        Me.btnCancel.Location = New System.Drawing.Point(588, 499)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 28)
@@ -1246,11 +1245,11 @@ Partial Class FrmItemDetails
         Me.btnCancel.Text = "&Close"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmItemDetails
+        'FrmItemDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(688, 599)
+        Me.ClientSize = New System.Drawing.Size(688, 546)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.TabControl1)
@@ -1271,7 +1270,7 @@ Partial Class FrmItemDetails
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmItemDetails"
+        Me.Name = "FrmItemDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
