@@ -145,7 +145,7 @@ WHERE c.Type = '6' AND c.`OTHER_CONTACT_ID` = '" & prContact_ID & "' "
             rd.Close()
 
 
-            If Val(fSystemSettingValue("ManagerGetDealerSalesTarget")) <= n Then
+            If Val(GetSystemSettingValueByText("ManagerGetDealerSalesTarget")) <= n Then
                 b = True
                 prRebate_AMOUNT = r
             Else

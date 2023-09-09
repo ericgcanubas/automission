@@ -97,8 +97,8 @@ Public Class FrmTaxCredit
 
         dgvInvoice.Rows.Clear()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        dtpDATE.Value = fTransactionDefaultDate()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        dtpDATE.Value = TransactionDefaultDate()
         cmbACCOUNTS_RECEIVABLE_ID.SelectedValue = gsDefault_ACCOUNTS_RECEIVABLE_ID
     End Sub
 
@@ -387,7 +387,7 @@ Public Class FrmTaxCredit
             Exit Sub
         End If
 
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -399,7 +399,7 @@ Public Class FrmTaxCredit
             ID = ObjectTypeMapId("TAX_CREDIT")
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO tax_credit ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',15,'{GetDateTimeNowSql()}') ")
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
             tChangeAccept = True
@@ -529,7 +529,7 @@ Public Class FrmTaxCredit
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
@@ -601,10 +601,10 @@ Public Class FrmTaxCredit
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
@@ -640,10 +640,10 @@ Public Class FrmTaxCredit
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -755,7 +755,7 @@ Public Class FrmTaxCredit
     End Sub
 
     Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
-        fGetQuickFind(dgvInvoice, tsFindText.Text)
+        GetQuickFind(dgvInvoice, tsFindText.Text)
     End Sub
 
     Private Sub cmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged

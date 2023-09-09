@@ -170,7 +170,7 @@ FROM
     End Sub
 
     Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToolStripMenuItem.Click
-        fExport(dgvItem, "Item_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
+        ExportingExcel(dgvItem, "Item_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs)

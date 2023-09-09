@@ -92,7 +92,7 @@ WHERE c.Type = '1' ", contact_BS)
 
 
     Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        fExport(dgvCustomer, "Customer_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
+        ExportingExcel(dgvCustomer, "Customer_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
     Private Sub fSearchload()
         Try

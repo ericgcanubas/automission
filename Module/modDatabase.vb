@@ -365,17 +365,6 @@ Module modDatabase
     End Function
     Public Sub LoadDataGridView(ByVal dgv As DataGridView, ByVal xSQL As String)
         ViewStyleColor(dgv)
-        Dim iSelected As Integer = 0
-        Dim iCountBofore As Integer = dgv.Rows.Count
-        Dim iCountAfter As Integer = 0
-        'If dgv.Rows.Count <> 0 Then
-        '    Try
-        '        iSelected = dgv.CurrentRow.Index
-        '    Catch ex As Exception
-        '        iSelected = 0
-        '    End Try
-        'End If
-
         Dim sqlDataAdapter As New OdbcDataAdapter
         Dim dt As New DataTable
         Dim bSource As New BindingSource
@@ -402,16 +391,7 @@ Module modDatabase
     End Sub
     Public Sub LoadDataGridViewStandard(ByVal dgv As DataGridView, ByVal xSQL As String)
         ViewStyleColor(dgv)
-        Dim iSelected As Integer = 0
-        Dim iCountBofore As Integer = dgv.Rows.Count
-        Dim iCountAfter As Integer = 0
-        If dgv.Rows.Count <> 0 Then
-            Try
-                iSelected = dgv.CurrentRow.Index
-            Catch ex As Exception
-                iSelected = 0
-            End Try
-        End If
+
 
         Dim sqlDataAdapter As New OdbcDataAdapter
         Dim dt As New DataTable
@@ -602,7 +582,7 @@ Module modDatabase
     End Sub
     Private Sub EnterToTabDropDownUP(ByVal sender As Object, ByVal e As KeyEventArgs)
 
-        Dim cmb As ComboBox = DirectCast(sender, ComboBox)
+        '   Dim cmb As ComboBox = DirectCast(sender, ComboBox)
 
         If e.KeyCode = Keys.Enter Then
 
@@ -655,19 +635,19 @@ Module modDatabase
     End Function
 
     Public Function GetMaxField(ByVal prField As String, ByVal prTable As String) As Double
-        Dim i As Double = 0
+        Dim Inumber As Double
         Try
             Dim rd As OdbcDataReader = SqlReader($"Select  MAX(CAST({prField} AS UNSIGNED)) As T From `{prTable}`")
             If rd.Read Then
-                i = NumIsNull(rd("T")) + 1
+                Inumber = NumIsNull(rd("T")) + 1
             Else
-                i = 1
+                Inumber = 1
             End If
             rd.Close()
         Catch ex As Exception
-            i = GetMaxField(prField, prTable)
+            Inumber = GetMaxField(prField, prTable)
         End Try
-        Return i
+        Return Inumber
     End Function
     Public Function GetMaxFieldLine(ByVal prField As String, ByVal prTable As String, ByVal prCondition As String, ByVal prValue As String) As String
         Dim i As Double = 0

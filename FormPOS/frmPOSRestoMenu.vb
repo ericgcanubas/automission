@@ -108,15 +108,15 @@ Public Class FrmPOSRestoMenu
 
         gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
         gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
-        gsDefault_LOCATION_ID = fLoadLocationDefault()
-        gsStorage_Location_ID = fLoadStorageLocation()
-        gsIncRefNoByLocation = fIncRefNoByLocation()
-        gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
-        ' fDefaultAccountLoad()
+        gsDefault_LOCATION_ID = GetLoadLocationDefault()
+        gsStorage_Location_ID = GetLoadStorageLocation()
+        gsIncRefNoByLocation = GetIncRefNoByLocation()
+        gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
+        ' LoadDefaultAccount()
         Me.AccessibleName = GetStringFieldValue("tblsub_menu", "form", "frmSalesOrder", "sub_id")
-        gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
-        gsCASH_OVER_SHORT_EXPENSES = fCashOverShortExpense()
-        gsPOSDefaultCustomer_ID = fSystemSettingValue("POSDefaultCustomerId")
+        gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
+        gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
+        gsPOSDefaultCustomer_ID = GetSystemSettingValueByText("POSDefaultCustomerId")
         gsPOS_RESTAURANT_TABLE_NO = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
         gsDRAWER_ACCOUNT_ID = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
         gsDINE_IN_ID = GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "DINE_IN_ID")
@@ -837,7 +837,7 @@ UNION ALL
         fRefreshCombo()
         ClearAndRefresh(Me)
 
-        cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
+        cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
         cmbCUSTOMER_ID.SelectedValue = gsPOSDefaultCustomer_ID
         cmbSALES_REP_ID.SelectedIndex = -1
         xlblCustomer_Name.Visible = True
@@ -847,8 +847,8 @@ UNION ALL
         dtpDATE.Checked = True
         dgvProductItem.Rows.Clear()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        cmbPAYMENT_TERMS_ID.SelectedValue = fPaymentTermsDefault()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        cmbPAYMENT_TERMS_ID.SelectedValue = GetPaymentTermsDefault()
         dtpDATE.Value = gsPOS_DATE
         cmbACCOUNTS_RECEIVABLE_ID.SelectedValue = gsDefault_ACCOUNTS_RECEIVABLE_ID
 
@@ -1414,12 +1414,12 @@ FROM
             Dim nStatus As Integer = IIf(NumIsNull(lblAMOUNT.Text) <= 0, 16, 13)
 
             SqlExecuted($"INSERT INTO invoice ({SQL_Field1},{SQL_Field2},ID,RECORDED_ON,SHIP_DATE,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE,IS_FC) VALUES ({SQL_Value1},{SQL_Value2},'{ID}','{GetDateTimeNowSql()}','{DateFormatMySql(gsPOS_DATE)}','{ORDER_TYPE_ID}','{numTableSelected}','{nStatus}',{GetDateTimeNowSql()},0) ")
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
 
         Else
-            '    If fIsClosingDate(dtpDATE.Value) = False Then
+            '    If IsClosingDate(dtpDATE.Value) = False Then
             '        Exit Sub
             '    End If
 
@@ -1733,7 +1733,7 @@ FROM
             SqlExecuted($"INSERT INTO sales_order
                             (ID,RECORDED_ON,DATE_NEEDED,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE) 
                             VALUES ({ID},'{GetDateTimeNowSql()}','{DateFormatMySql(Date.Now)}','{ORDER_TYPE_ID}','numTableSelected',16,{GetDateTimeNowSql()})  ")
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
@@ -1905,7 +1905,7 @@ FROM
                 cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
 
             Else
-                cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
+                cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
             End If
         End If
 
@@ -1955,10 +1955,10 @@ FROM
 
     '        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
     '        fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-    '        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-    '        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-    '        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-    '        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+    '        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+    '        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+    '        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+    '        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
     '        fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
     '        fReportExporPDF(gscryRpt, prPrint_Title)
     '        gsToolPanelView = False
@@ -2009,10 +2009,10 @@ FROM
 
         '    gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
         '    fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        '    fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        '    fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-        '    fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-        '    fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
         '    fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
         '    fReportExporPDF(gscryRpt, prPrint_Title)
         '    gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -2187,7 +2187,7 @@ FROM
 
 
     Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsTextFind.TextChanged
-        fGetQuickFind(dgvProductItem, tsTextFind.Text)
+        GetQuickFind(dgvProductItem, tsTextFind.Text)
     End Sub
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
@@ -2235,10 +2235,10 @@ FROM
 
         '    gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
         '    fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        '    fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        '    fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-        '    fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-        '    fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
         '    fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
         '    fReportExporPDF(gscryRpt, prPrint_Title)
         '    If v = 2 Then
@@ -2627,7 +2627,7 @@ CREATE_NOW:
                 Exit Sub
             End If
 
-            'If fIsClosingDate(dtpDATE.Value) = False Then
+            'If IsClosingDate(dtpDATE.Value) = False Then
             '    Exit Sub
             'End If
 
@@ -2739,7 +2739,7 @@ CREATE_NOW:
             If fACCESS_DELETE(frmSalesOrder) = False Then
                 Exit Sub
             End If
-            'If fIsClosingDate(dtpDATE.Value) = False Then
+            'If IsClosingDate(dtpDATE.Value) = False Then
             '    Exit Sub
             'End If
             If MessageBoxQuestion(gsMessageQuestion) = True Then
@@ -2890,10 +2890,10 @@ CREATE_NOW:
             gscryRpt = New CrystalDecisions.CrystalReports.Engine.ReportDocument
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, ThisID, "id")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyTin"), "tin_number")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
 
@@ -2941,11 +2941,11 @@ CREATE_NOW:
         gscryRpt = New CrystalDecisions.CrystalReports.Engine.ReportDocument
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
         fCryParameterInsertValue(gscryRpt, Val(prID), "myid")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyTin"), "tin_number")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
         fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
         If gsPOSPrintPreview = True Then
@@ -3095,10 +3095,10 @@ CREATE_NOW:
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(id), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
 
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 

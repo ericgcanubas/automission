@@ -161,7 +161,7 @@ WHERE c.Type = '0' ", contact_BS)
     End Sub
 
     Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        fExport(dgvVendor, "Vendor_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
+        ExportingExcel(dgvVendor, "Vendor_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 
     Private Sub tsTxtSearch_Click(sender As Object, e As EventArgs)

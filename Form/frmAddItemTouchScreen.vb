@@ -1406,7 +1406,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
         If IsGroupItem(ItemType, False) = True Then
             'Check Negative 
-            Dim AllowedNI As Boolean = fAllowNegativeInventory()
+            Dim AllowedNI As Boolean = IsAllowNegativeInventory()
             If AllowedNI = False Then
 
                 Dim rd_group As OdbcDataReader = SqlReader($"SELECT i.ID as `ITEM_ID`,i.`DESCRIPTION`,ic.`Quantity`,i.`TYPE` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{cmbItem_Code.SelectedValue}' ")
@@ -1517,7 +1517,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                         If ItemType > 1 Then
                             'Do Nothing
                         Else
-                            If fAllowNegativeInventory() = False Then
+                            If IsAllowNegativeInventory() = False Then
                                 If fCHECK_ITEM_ONHAND(cmbItem_Code.SelectedValue, cmbItem_DESCRIPTION.Text, numQty.Value) = False Then
                                     Exit Sub
                                 End If
@@ -1538,7 +1538,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                             'Do Nothing
                         Else
 
-                            If fAllowNegativeInventory() = False Then
+                            If IsAllowNegativeInventory() = False Then
                                 If fCHECK_ITEM_ONHAND(cmbItem_Code.SelectedValue, cmbItem_DESCRIPTION.Text, numQty.Value) = False Then
                                     Exit Sub
                                 End If

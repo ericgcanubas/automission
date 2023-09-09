@@ -333,7 +333,7 @@ Module modJournalAccount
 
 
 
-        Dim SkipJournalEntry As Boolean = fSystemSettingValue("SkipJournalEntry")
+        Dim SkipJournalEntry As Boolean = GetSystemSettingValueByText("SkipJournalEntry")
 
         If SkipJournalEntry = True Then
             Exit Sub

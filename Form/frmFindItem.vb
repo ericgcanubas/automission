@@ -97,7 +97,7 @@ where i.inactive = '0' ", item_BS)
 
         Dim loc_value As String = gsDefault_LOCATION_ID
         tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "*", loc_value)
-        tscmbLocation.Enabled = fLockLocation()
+        tscmbLocation.Enabled = IsLockLocation()
 
         fDataLoad()
     End Sub
@@ -328,7 +328,7 @@ where i.inactive = '0' ", item_BS)
     Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToolStripMenuItem.Click
 
 
-        fExport(dgvItem, "Item_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
+        ExportingExcel(dgvItem, "Item_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 
     Private Sub tsTxtSearch_Click(sender As Object, e As EventArgs) Handles tsTxtSearch.Click

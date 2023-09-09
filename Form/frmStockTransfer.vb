@@ -53,8 +53,8 @@ Public Class FrmStockTransfer
 
         dgvStock.Rows.Clear()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        dtpDATE.Value = fTransactionDefaultDate()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        dtpDATE.Value = TransactionDefaultDate()
     End Sub
     Private Sub fRefresh_item()
         dgvStock.Rows.Clear()
@@ -250,7 +250,7 @@ Public Class FrmStockTransfer
             Exit Sub
         End If
 
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -268,7 +268,7 @@ Public Class FrmStockTransfer
             ID = ObjectTypeMapId("STOCK_TRANSFER")
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO stock_transfer ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',0) ")
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
@@ -531,7 +531,7 @@ Public Class FrmStockTransfer
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
@@ -614,10 +614,10 @@ Public Class FrmStockTransfer
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
@@ -669,10 +669,10 @@ Public Class FrmStockTransfer
             End Try
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -795,7 +795,7 @@ Public Class FrmStockTransfer
     End Sub
 
     Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
-        fGetQuickFind(dgvStock, tsFindText.Text)
+        GetQuickFind(dgvStock, tsFindText.Text)
     End Sub
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
@@ -848,10 +848,10 @@ Public Class FrmStockTransfer
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             If v = 2 Then

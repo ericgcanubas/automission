@@ -79,8 +79,8 @@
     End Sub
     Private Sub fReport()
         gscryRpt = fViewReportOneParameterNumberOnly("cryStandardStatement.rpt")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
         fCryParameterInsertValue(gscryRpt, cmbCUSTOMER_ID.SelectedValue, "customerid")
         fCryParameterInsertValue(gscryRpt, IIf(cmbLOCATION_ID.SelectedValue = "*", "%", cmbLOCATION_ID.SelectedValue), "locationid")
         fCryParameterInsertValue(gscryRpt, dtpDateStatement.Value, "myremark")

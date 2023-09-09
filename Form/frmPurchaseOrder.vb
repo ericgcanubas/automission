@@ -32,10 +32,10 @@ Public Class FrmPurchaseOrder
         dgvProductItem.Rows.Clear()
 
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        cmbPAYMENT_TERMS_ID.SelectedValue = fPaymentTermsDefault()
-        dtpDATE.Value = fTransactionDefaultDate()
-        cmbINPUT_TAX_ID.SelectedValue = fInPutTaxDefault()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        cmbPAYMENT_TERMS_ID.SelectedValue = GetPaymentTermsDefault()
+        dtpDATE.Value = TransactionDefaultDate()
+        cmbINPUT_TAX_ID.SelectedValue = GetInPutTaxDefault()
     End Sub
     Private Sub fcolumnGrid()
         Dim chk As New DataGridViewCheckBoxColumn
@@ -394,7 +394,7 @@ FROM
             Exit Sub
         End If
 
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -407,7 +407,7 @@ FROM
 
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO PURCHASE_ORDER ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',2) ")
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
             If Val(lblPR_ID.Text) <> 0 Then
@@ -511,7 +511,7 @@ FROM
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
@@ -609,10 +609,10 @@ FROM
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
             fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "prepared_by")
@@ -674,10 +674,10 @@ FROM
             End Try
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "prepared_by")
             fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "noted_by")
@@ -839,7 +839,7 @@ FROM
         End If
     End Sub
     Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
-        fGetQuickFind(dgvProductItem, tsFindText.Text)
+        GetQuickFind(dgvProductItem, tsFindText.Text)
     End Sub
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
@@ -892,10 +892,10 @@ FROM
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "prepared_by")
             fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "noted_by")

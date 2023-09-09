@@ -362,11 +362,11 @@ Public Class FrmMainMenu
 
         gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
         gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
-        gsDefault_LOCATION_ID = fLoadLocationDefault()
+        gsDefault_LOCATION_ID = GetLoadLocationDefault()
 
 
         Me.cmbSearchType.SelectedIndex = 2
-        Me.Text = gsSystemName & " v." & Application.ProductVersion & " - " & fSystemSettingValue("CompanyName")
+        Me.Text = gsSystemName & " v." & Application.ProductVersion & " - " & GetSystemSettingValueByText("CompanyName")
 
         tssConnection.Text = "Server : " & db_Connection
         tssDatabase.Text = "Database : " & db_name

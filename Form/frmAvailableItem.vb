@@ -10,14 +10,16 @@ Public Class FrmAvailableItem
     ' Public PO_TO_PR_ID As String
     Public PR_TO_LOC_ID As String
 
-    Private Sub fcolumnGrid()
-        Dim chk_selected As New DataGridViewCheckBoxColumn
-        chk_selected.HeaderText = "  "
-        chk_selected.Name = "SELECTED"
+    Private Sub ColumnGrid()
+        Dim chk_selected As New DataGridViewCheckBoxColumn With {
+            .HeaderText = "  ",
+            .Name = "SELECTED"
+        }
 
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = "Tax"
-        chk.Name = "TAX"
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = "Tax",
+            .Name = "TAX"
+        }
 
         With dgvItem.Columns
             .Clear()
@@ -28,8 +30,6 @@ Public Class FrmAvailableItem
             .Add("CODE", "CODE") '2
             .Item("CODE").Width = 110
             .Add("DESCRIPTION", "Description") '3
-            '  .Item("DESCRIPTION").Width = 200
-
             .Add("QTY", "Qty") '4        
             .Item("QTY").Width = 60
             .Item("QTY").DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight
@@ -107,7 +107,7 @@ Public Class FrmAvailableItem
 
         End With
     End Sub
-    Private Sub frefreshItem()
+    Private Sub RefreshItem()
 
         Dim gsID As String = "0"
         Dim sQuery As String = ""
@@ -270,59 +270,34 @@ FROM
                     End With
 
                 Next
-                x = x + 1
+                x += 1
 
 
             End While
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                frefreshItem()
+                RefreshItem()
             Else
                 End
             End If
         End Try
-
-
     End Sub
-    'Private Function fAvailableIsSelected(ByVal prCode As String, ByVal prItem_ID As String) As Boolean
-    '    Dim b As Boolean = False
-    '    For i As Integer = 0 To dgvSelected.Rows.Count - 1
-    '        If prCode = dgvSelected.Rows(i).Cells("NUMBER").Value And prItem_ID = dgvSelected.Rows(i).Cells("ID").Value Then
-    '            b = True
-    '        End If
-    '    Next
-
-    '    Return b
-    'End Function
-    Private Function fgetTypeValue(ByVal dt As String) As String
+    Private Function GetTypeValue(ByVal dt As String) As String
         If IsNumeric(dt) = True Then
             Return Format(dt, "Standard")
         Else
             Return dt
         End If
     End Function
-    Private Sub frmAvailableItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' fBackGroundImageStyle(Me)
-
-
+    Private Sub FrmAvailableItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ComboBoxLoad(cmbLOCATION_ID, "SELECT `id`,`name` FROM location UNION SELECT '' AS `id`,'All Location' AS `NAME` FROM location ORDER BY `ID`", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-
-
-
         gsLocation_Select_ID = cmbLOCATION_ID.SelectedValue
-
-
         firstload = False
-
-
-
-
-
     End Sub
 
-    Private Sub fPO()
+    Private Sub LoadPurchaseOrder()
         dgvItem.Rows.Clear()
         Me.Text = "Select Purchase order to Bills"
         Dim l As String = ""
@@ -357,13 +332,13 @@ p.vendor_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
             dgvDocument.Columns("Date Expected").Width = 100
             dgvDocument.Columns("Amount").DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight
             dgvDocument.Columns("Amount").Width = 150
-            frefreshItem()
+            RefreshItem()
         Catch ex As Exception
 
         End Try
 
     End Sub
-    Private Sub fSO()
+    Private Sub LoadSalesOrder()
         dgvItem.Rows.Clear()
         Me.Text = "Select  Sales Order to Invoice"
         Dim l As String = ""
@@ -401,13 +376,13 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
             dgvDocument.Columns("Amount").DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight
             dgvDocument.Columns("Amount").Width = 150
             dgvDocument.RowHeadersWidth = 30
-            frefreshItem()
+            RefreshItem()
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub fEstimate()
+    Private Sub LoadEstimate()
         dgvItem.Rows.Clear()
         Me.Text = "Select  Estimate to Sales Order"
         Dim l As String = ""
@@ -444,154 +419,47 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
             dgvDocument.Columns("Sales Rep.").Width = 300
             dgvDocument.Columns("Amount").DefaultCellStyle.Alignment = DataGridViewContentAlignment.BottomRight
             dgvDocument.Columns("Amount").Width = 150
-            frefreshItem()
+            RefreshItem()
         Catch ex As Exception
 
         End Try
     End Sub
-
-
-    Private Sub dgvItem_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellContentClick
-
-    End Sub
-
-
-    Private Sub fChangeData()
+    Private Sub ChangeData()
         Select Case gsType
             Case 0 'purchase to bill
-                fPO()
+                LoadPurchaseOrder()
             Case 1
-                fSO() 'sales order to invoice
+                LoadSalesOrder() 'sales order to invoice
             Case 2
-                fEstimate() 'estimate To sales order
+                LoadEstimate() 'estimate To sales order
         End Select
-
-
     End Sub
-
-
-    Private Sub btnOk_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    'Private Sub btnSelect_Click(sender As Object, e As EventArgs)
-
-    '    Try
-
-    '        For i As Integer = 0 To dgvItem.Rows.Count - 1
-    '            Dim dgv As DataGridViewRow = dgvItem.Rows(i)
-
-    '            If dgv.Cells(0).Value = True And dgv.Visible = True Then
-
-    '                With dgvSelected
-    '                    Dim R_number As Integer = .Rows.Count
-    '                    .Rows.Add()
-
-    '                    .Rows(R_number).Cells(0).Value = False
-    '                    .Rows(R_number).Cells(1).Value = dgvDocument.Rows(dgvDocument.CurrentRow.Index).Cells(1).Value
-
-    '                    For n As Integer = 2 To .Columns.Count - 1
-
-    '                        .Rows(R_number).Cells(n).Value = dgv.Cells(n - 1).Value
-
-    '                    Next
-
-    '                End With
-
-    '            End If
-
-    '        Next
-
-    '        For i As Integer = 0 To dgvItem.Rows.Count - 1
-    '            Dim dgv As DataGridViewRow = dgvItem.Rows(i)
-    '            If dgv.Cells(0).Value = True And dgv.Visible = True Then
-    '                dgv.Visible = False
-    '            End If
-    '        Next
-
-    '    Catch ex As Exception
-    '        MessageBoxExclamation(ex.Message)
-    '    End Try
-    'End Sub
-    Private Sub fAvailableTransferToSelected(ByVal a As DataGridViewRow)
-
-    End Sub
-
-    Private Sub btnCheckAll_Click(sender As Object, e As EventArgs)
+    Private Sub BtnCheckAll_Click(sender As Object, e As EventArgs)
         Dim d As DataGridView = dgvItem
-
         For i As Integer = 0 To d.Rows.Count - 1
             d.Rows(i).Cells(0).Value = True
         Next
 
     End Sub
 
-    Private Sub dgvItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellClick
-        'If e.ColumnIndex = 0 Then
-        '    CheckSide(dgvItem)
-        'End If
-
-    End Sub
-
-    Private Sub btnClear_Click(sender As Object, e As EventArgs)
+    Private Sub BtnClear_Click(sender As Object, e As EventArgs)
         Dim d As DataGridView = dgvItem
         For i As Integer = 0 To d.Rows.Count - 1
             d.Rows(i).Cells(0).Value = False
         Next
     End Sub
-
-    'Private Sub btnCheck_All_Click(sender As Object, e As EventArgs)
-    '    Dim d As DataGridView = dgvSelected
-    '    For i As Integer = 0 To d.Rows.Count - 1
-    '        d.Rows(i).Cells(0).Value = True
-    '    Next
-    'End Sub
-
-    Private Sub cmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
+    Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
         If firstload = False Then
-            fChangeData()
+            ChangeData()
         End If
 
     End Sub
-
-    'Private Sub btnClear_All_Click(sender As Object, e As EventArgs)
-    '    Dim d As DataGridView = dgvSelected
-    '    For i As Integer = 0 To d.Rows.Count - 1
-    '        d.Rows(i).Cells(0).Value = False
-    '    Next
-    'End Sub
-
-    'Private Sub btnBackToAvailable_Click(sender As Object, e As EventArgs)
-    '    If dgvSelected.Rows.Count = 0 Then
-    '        MessageBoxInfo("No item selected")
-    '        Exit Sub
-    '    End If
-
-    '    Try
-
-
-    '        For j As Integer = dgvSelected.RowCount - 1 To 0 Step -1
-    '            If dgvSelected(0, j).Value = True Then
-    '                fCheckingAvailable(dgvSelected(2, j).Value)
-    '                dgvSelected.Rows.RemoveAt(j)
-    '            End If
-    '        Next
-
-    '    Catch ex As Exception
-
-    '    End Try
-
-
-
-    'End Sub
-
-    Private Sub fCheckingAvailable(ByVal prItem_ID As String)
+    Private Sub CheckingAvailable(ByVal prItem_ID As Integer)
 
 
 
         For i As Integer = 0 To dgvItem.Rows.Count - 1
             Dim d As DataGridViewRow = dgvItem.Rows(i)
-
             If d.Cells("ID").Value = prItem_ID Then
                 d.Cells(0).Value = False
                 d.Visible = True
@@ -599,52 +467,21 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
         Next
 
     End Sub
-
-    Private Sub dgvSelected_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
-
-    End Sub
-
-    'Private Sub dgvSelected_CellClick(sender As Object, e As DataGridViewCellEventArgs)
-    '    If e.ColumnIndex = 0 Then
-    '        CheckSide(dgvSelected)
-    '    End If
-    'End Sub
-
-    Private Sub TabControl1_DrawItem(sender As Object, e As DrawItemEventArgs)
-        '  fTabStyle(sender, e, TabControl1)
-    End Sub
-
-    Private Sub TabPage1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) 
-
-    End Sub
-
-    Private Sub dgvDocument_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDocument.RowStateChanged
-
-    End Sub
-
-    Private Sub dgvDocument_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDocument.CellContentClick
-
-    End Sub
-
-    Private Sub frmAvailableItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fcolumnGrid()
+    Private Sub FrmAvailableItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        ColumnGrid()
         DatagridViewMode(dgvItem)
         ViewNotSort(dgvItem)
-        fChangeData()
+        ChangeData()
 
         dgvItem.Columns("SELECTED").Width = 20
-        frefreshItem()
+        RefreshItem()
     End Sub
 
-    Private Sub dgvDocument_SelectionChanged(sender As Object, e As EventArgs) Handles dgvDocument.SelectionChanged
-        frefreshItem()
+    Private Sub DgvDocument_SelectionChanged(sender As Object, e As EventArgs) Handles dgvDocument.SelectionChanged
+        RefreshItem()
     End Sub
 
-    Private Sub btnOk_Click_1(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOk_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Try
 
 
@@ -686,14 +523,14 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
             End If
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                btnOk_Click(sender, e)
+                BtnOk_Click(sender, e)
             Else
                 End
             End If
         End Try
     End Sub
 
-    Private Sub btnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 End Class

@@ -159,7 +159,7 @@ Partial Class FrmApplyBillCredit
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(38, 82)
+        Me.Label9.Location = New System.Drawing.Point(44, 80)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(57, 16)
@@ -243,7 +243,7 @@ Partial Class FrmApplyBillCredit
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(7, 108)
+        Me.Label7.Location = New System.Drawing.Point(14, 107)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(87, 16)
@@ -264,7 +264,7 @@ Partial Class FrmApplyBillCredit
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(57, 54)
+        Me.Label5.Location = New System.Drawing.Point(63, 52)
         Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 16)
@@ -285,12 +285,12 @@ Partial Class FrmApplyBillCredit
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(50, 28)
+        Me.Label2.Location = New System.Drawing.Point(49, 26)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(43, 16)
+        Me.Label2.Size = New System.Drawing.Size(52, 16)
         Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Seller"
+        Me.Label2.Text = "Vendor"
         '
         'btnOK
         '
@@ -312,7 +312,7 @@ Partial Class FrmApplyBillCredit
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmApplyBillCredit
+        'FrmApplyBillCredit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -326,7 +326,7 @@ Partial Class FrmApplyBillCredit
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmApplyBillCredit"
+        Me.Name = "FrmApplyBillCredit"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

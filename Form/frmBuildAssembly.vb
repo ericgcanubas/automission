@@ -52,8 +52,8 @@ Public Class FrmBuildAssembly
 
         dgvComponents.Rows.Clear()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        dtpDATE.Value = fTransactionDefaultDate()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        dtpDATE.Value = TransactionDefaultDate()
     End Sub
     Private Sub fRefreshInfo()
 
@@ -306,7 +306,7 @@ Public Class FrmBuildAssembly
         gsGotChangeDate = False
         gsGotChangeLocation1 = False
 
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -324,7 +324,7 @@ Public Class FrmBuildAssembly
 
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO build_assembly ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',15) ")
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
@@ -547,7 +547,7 @@ Public Class FrmBuildAssembly
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
@@ -645,10 +645,10 @@ Public Class FrmBuildAssembly
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
@@ -706,10 +706,10 @@ Public Class FrmBuildAssembly
             End Try
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -817,10 +817,10 @@ Public Class FrmBuildAssembly
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             If v = 2 Then

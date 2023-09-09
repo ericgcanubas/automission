@@ -141,7 +141,7 @@
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
         fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
         frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
@@ -178,7 +178,7 @@
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
         fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
         frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
@@ -205,11 +205,11 @@
 
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
         fCryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
 
         fCryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
 
         fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
         fReportExporPDF(gscryRpt, prPrint_Title)

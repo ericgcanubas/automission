@@ -7,7 +7,7 @@
         fPOSRefreshFormat(cmbPrinterPage, frmSalesReceipt.Name)
         frmSalesReceipt = Nothing
 
-        chkPOSPrintPreview.Checked = fSystemSettingValue_Bool("POSPrintPreview")
+        chkPOSPrintPreview.Checked = GetSystemSettingValueByBool("POSPrintPreview")
         xchkOR_REQUIRED.Checked = fGet_System_VALUE("OR_REQUIRED")
         xchkPOS_STARTING_CASH.Checked = fGet_System_VALUE_Bool("POS_STARTING_CASH")
 
@@ -31,7 +31,7 @@
         fSET_SYSTEM_VALUE("OR_REQUIRED", xchkOR_REQUIRED.Checked)
 
         fSET_SYSTEM_VALUE("POS_STARTING_CASH", xchkPOS_STARTING_CASH.Checked)
-        fSystemSettingUpdateByBool("POSPrintPreview", chkPOSPrintPreview.Checked)
+        SetSystemSettingUpdateByBool("POSPrintPreview", chkPOSPrintPreview.Checked)
 
         MessageBoxInfo("Please re-login again.")
         Me.Close()

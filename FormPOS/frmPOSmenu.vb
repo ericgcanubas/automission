@@ -199,12 +199,12 @@ Public Class FrmPOSmenu
 
         OR_REF = fPOS_OR_Required()
 
-        gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
-        gsCASH_OVER_SHORT_EXPENSES = fCashOverShortExpense()
-        gsPOSDefaultCustomer_ID = fSystemSettingValue("POSDefaultCustomerId")
+        gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
+        gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
+        gsPOSDefaultCustomer_ID = GetSystemSettingValueByText("POSDefaultCustomerId")
         gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
-        gsDefault_LOCATION_ID = fLoadLocationDefault()
-        gsIncRefNoByLocation = fIncRefNoByLocation()
+        gsDefault_LOCATION_ID = GetLoadLocationDefault()
+        gsIncRefNoByLocation = GetIncRefNoByLocation()
         gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
         gsDRAWER_ACCOUNT_ID = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
         gsPOS_TYPE_ID = fPOS_machine_type_map()
@@ -580,7 +580,7 @@ B.ID = ii.BATCH_ID
             SqlExecuted($"INSERT INTO sales_receipt ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},{GetDateTimeNowSql()},3,{GetDateTimeNowSql()})")
 
 
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
@@ -937,14 +937,14 @@ NewPOS_LOG:
                 'Cash Registry
                 ClearInfoPOS()
 
-                fDefaultAccountLoad()
+                LoadDefaultAccount()
 
                 ' fGetCashierName()
                 dtpDATE.Value = gsPOS_DATE
                 cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
                 cmbCUSTOMER_ID.SelectedValue = Val(gsPOSDefaultCustomer_ID)
-                cmbPAYMENT_METHOD_ID.SelectedValue = fPaymentMethodDefault()
+                cmbPAYMENT_METHOD_ID.SelectedValue = GetPaymentMethodDefault()
                 If OR_REF = False Then
                     txtPAYMENT_REF_NO.Text = fGET_NEXT_RECEIPT_NO()
                     PAYMENT_METHOD_ID_SelectedIndexChanged(0, EventArgs.Empty)
@@ -962,14 +962,14 @@ NewPOS_LOG:
                 'Order Entry 
                 ClearInfoPOS()
 
-                fDefaultAccountLoad()
+                LoadDefaultAccount()
 
                 'fGetCashierName()
-                dtpDATE.Value = fTransactionDefaultDate()
+                dtpDATE.Value = TransactionDefaultDate()
                 cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-                cmbPAYMENT_METHOD_ID.SelectedValue = fPaymentMethodDefault()
+                cmbPAYMENT_METHOD_ID.SelectedValue = GetPaymentMethodDefault()
                 cmbCUSTOMER_ID.SelectedValue = Val(gsPOSDefaultCustomer_ID)
-                cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
+                cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
                 lblCODE.Text = fGET_NEXT_RECEIPT_NO()
                 lblSO_MACHINE_ID.Text = gsPOS_MACHINE_ID
                 lblPOS_TIMESTAMP.Text = Format(DateTime.Now, "yyyy-MM-dd hh:mm:ss")
@@ -1000,7 +1000,7 @@ NewPOS_LOG:
                 cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
 
             Else
-                cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
+                cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
 
             End If
 
@@ -1057,11 +1057,11 @@ NewPOS_LOG:
     End Sub
     Private Sub POSReportParam()
         fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyTin"), "tin_number")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
 
     End Sub
     Private Sub PrintNow_Click(sender As Object, e As EventArgs) Handles tsPrintNow.Click
@@ -1475,7 +1475,7 @@ NewPOS_LOG:
 
             .numAMOUNT.Visible = True
             ComboBoxLoad(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
-            .gsPaymentMethod_ID = fPaymentMethodDefault()
+            .gsPaymentMethod_ID = GetPaymentMethodDefault()
             .gsPAYMENT_REF_NO = ""
             .gsCARD_NO = ""
             .gsAMOUNT = NumberFormatFixed(lblAMOUNT.Text)

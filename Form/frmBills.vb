@@ -250,7 +250,7 @@ FROM
 
 
         fBill_Vendor_Computation(dgvProductItem, dgvExpenses, cmbINPUT_TAX_ID, lblINPUT_TAX_AMOUNT, lblAMOUNT, lblINPUT_TAX_RATE, lbsTotal_Amount_Item, lbsTotal_Amount_Expense)
-        Dim dPayment_applied As Double = fBillSumPaymentApplied(ID, cmbVENDOR_ID.SelectedValue) + fBillSumCreditApplied(ID, cmbVENDOR_ID.SelectedValue) + fBillSumTaxApplied_Amount(ID, cmbVENDOR_ID.SelectedValue)
+        Dim dPayment_applied As Double = GetBillSumPaymentApplied(ID, cmbVENDOR_ID.SelectedValue) + GetBillSumCreditApplied(ID, cmbVENDOR_ID.SelectedValue) + GetBillSumTaxAppliedAmount(ID, cmbVENDOR_ID.SelectedValue)
         lblCount.Text = DataGridViewCounting(dgvProductItem)
         lblCount2.Text = DataGridViewCounting(dgvExpenses)
         lbxPaymentApplied.Text = NumberFormatStandard(dPayment_applied)
@@ -293,10 +293,10 @@ FROM
 
         cmbACCOUNTS_PAYABLE_ID.SelectedValue = gsDefault_ACCOUNTS_PAYABALE_ID
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        cmbPAYMENT_TERMS_ID.SelectedValue = fPaymentTermsDefault()
-        dtpDATE.Value = fTransactionDefaultDate()
-        cmbINPUT_TAX_ID.SelectedValue = fInPutTaxDefault()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        cmbPAYMENT_TERMS_ID.SelectedValue = GetPaymentTermsDefault()
+        dtpDATE.Value = TransactionDefaultDate()
+        cmbINPUT_TAX_ID.SelectedValue = GetInPutTaxDefault()
 
         fPR_FORM()
 
@@ -553,7 +553,7 @@ FROM
             Exit Sub
         End If
 
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -567,7 +567,7 @@ FROM
 
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO bill ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',13,'{GetDateTimeNowSql()}') ")
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
             'Check bills / payments
@@ -1000,7 +1000,7 @@ FROM
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
@@ -1299,10 +1299,10 @@ FROM
 
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
         fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
         fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
         fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
         If prPrint_Title = "Bill Item Received" Then
@@ -1351,10 +1351,10 @@ FROM
             End Try
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
             fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
@@ -1476,10 +1476,10 @@ FROM
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
             fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
@@ -1743,11 +1743,11 @@ FROM
     End Sub
 
     Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
-        fGetQuickFind(dgvProductItem, tsFindText.Text)
+        GetQuickFind(dgvProductItem, tsFindText.Text)
     End Sub
 
     Private Sub TsFindText2_TextChanged(sender As Object, e As EventArgs) Handles tsFindText2.TextChanged
-        fGetQuickFind(dgvExpenses, tsFindText2.Text)
+        GetQuickFind(dgvExpenses, tsFindText2.Text)
     End Sub
 
     Private Sub ToCreditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToCreditsToolStripMenuItem.Click

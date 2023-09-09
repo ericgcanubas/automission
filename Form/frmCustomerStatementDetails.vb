@@ -13,8 +13,8 @@ Public Class FrmCustomerStatementDetails
     End Sub
     Private Sub fReportProccess()
         gscryRpt = fViewReportOneParameterNumberOnly("cryCustomerStatementDetails.rpt")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
 
 
         Dim rd As OdbcDataReader = SqlReader("select * from contact where `TYPE` = '1' and ID='" & cmbCUSTOMER_ID.SelectedValue & "' limit 1")

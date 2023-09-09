@@ -154,7 +154,7 @@ FROM
 
 
     End Sub
-    'Private Function fgetTypeValue(ByVal dt As String) As String
+    'Private Function GetTypeValue(ByVal dt As String) As String
     '    If IsNumeric(dt) = True Then
     '        Return Format(dt, "Standard")
     '    Else
@@ -173,10 +173,10 @@ FROM
         dgvProductItem.Rows.Clear()
         'POSComputed()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        cmbPAYMENT_METHOD_ID.SelectedValue = fPaymentMethodDefault()
-        dtpDATE.Value = fTransactionDefaultDate()
-        cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        cmbPAYMENT_METHOD_ID.SelectedValue = GetPaymentMethodDefault()
+        dtpDATE.Value = TransactionDefaultDate()
+        cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
     End Sub
     Private Sub fComboxRefresh()
 
@@ -326,7 +326,7 @@ FROM
 
 
 
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -347,7 +347,7 @@ FROM
             CursorLoadingOn(True)
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO sales_receipt ({SQL_Field},ID,RECORDED_ON,STATUS_DATE) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}','{GetDateTimeNowSql()}') ")
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
@@ -543,7 +543,7 @@ FROM
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
@@ -742,11 +742,11 @@ FROM
     End Sub
     Private Sub fReportParam()
         fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyTin"), "tin_number")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
 
     End Sub
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
@@ -991,7 +991,7 @@ FROM
     End Sub
 
     Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
-        fGetQuickFind(dgvProductItem, tsFindText.Text)
+        GetQuickFind(dgvProductItem, tsFindText.Text)
     End Sub
 
 End Class

@@ -101,8 +101,8 @@ Public Class FrmWithholdingTax
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
         cmbACCOUNTS_PAYABLE_ID.SelectedValue = gsDefault_ACCOUNTS_PAYABALE_ID
 
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        dtpDATE.Value = fTransactionDefaultDate()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        dtpDATE.Value = TransactionDefaultDate()
     End Sub
 
     Private Sub cmbEWT_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEWT_ID.SelectedIndexChanged
@@ -153,7 +153,7 @@ Public Class FrmWithholdingTax
             While rd.Read
                 Dim ACCOUNTS_PAYABLE_ID As Integer = NumIsNull(rd("ACCOUNTS_PAYABLE_ID"))
                 Dim bill_ID As Integer = rd("BILL_ID")
-                Dim dTax As Double = fBillSumTaxApplied_Amount(bill_ID, prPAY_ID)
+                Dim dTax As Double = GetBillSumTaxAppliedAmount(bill_ID, prPAY_ID)
                 Dim Taxable_Amount As Double = NumIsNull(rd("TAXABLE_TOTAL"))
 
                 dTax = fGetAppliedWithholdingTax(bill_ID, ID)
@@ -397,7 +397,7 @@ Public Class FrmWithholdingTax
             MessageBoxWarning("Amount not applied. please select bills.")
             Exit Sub
         End If
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -414,7 +414,7 @@ Public Class FrmWithholdingTax
 
 
 
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
@@ -542,7 +542,7 @@ Public Class FrmWithholdingTax
 
 
 
-        Dim dTotal_Payment As Double = fBillSumPaymentApplied(prbill_Id, prVendor_ID) + fBillSumCreditApplied(prbill_Id, prVendor_ID) + fBillSumTaxApplied_Amount(prbill_Id, prVendor_ID)
+        Dim dTotal_Payment As Double = GetBillSumPaymentApplied(prbill_Id, prVendor_ID) + GetBillSumCreditApplied(prbill_Id, prVendor_ID) + GetBillSumTaxAppliedAmount(prbill_Id, prVendor_ID)
         Dim dTotal_Amount As Double = GetNumberFieldValue("BILL", "ID", prbill_Id, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer = 0
@@ -564,7 +564,7 @@ Public Class FrmWithholdingTax
             End If
 
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
@@ -677,10 +677,10 @@ Public Class FrmWithholdingTax
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
@@ -717,10 +717,10 @@ Public Class FrmWithholdingTax
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -802,7 +802,7 @@ Public Class FrmWithholdingTax
     End Sub
 
     Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
-        fGetQuickFind(dgvBill, tsFindText.Text)
+        GetQuickFind(dgvBill, tsFindText.Text)
     End Sub
 
     Private Sub cmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged

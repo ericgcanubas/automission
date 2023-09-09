@@ -241,16 +241,16 @@ NewPOS_LOG:
 
         gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
         gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
-        gsDefault_LOCATION_ID = fLoadLocationDefault()
-        gsStorage_Location_ID = fLoadStorageLocation()
-        gsIncRefNoByLocation = fIncRefNoByLocation()
-        gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
+        gsDefault_LOCATION_ID = GetLoadLocationDefault()
+        gsStorage_Location_ID = GetLoadStorageLocation()
+        gsIncRefNoByLocation = GetIncRefNoByLocation()
+        gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
 
         Me.AccessibleName = GetStringFieldValue("tblsub_menu", "form", "frmInvoice", "sub_id")
 
-        gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
-        gsCASH_OVER_SHORT_EXPENSES = fCashOverShortExpense()
-        gsPOSDefaultCustomer_ID = fSystemSettingValue("POSDefaultCustomerId")
+        gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
+        gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
+        gsPOSDefaultCustomer_ID = GetSystemSettingValueByText("POSDefaultCustomerId")
         gsPOS_RESTAURANT_TABLE_NO = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
         gsDRAWER_ACCOUNT_ID = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
 

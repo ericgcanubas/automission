@@ -1,12 +1,11 @@
 ﻿Imports System.Data.Odbc
 Module modBillPayment
-    Public Sub fUpdateBillBalance_SQL(ByVal prBill_ID As String, ByVal prVendor_ID As String)
+    Public Sub SetUpdateBillBalance(ByVal prBill_ID As String, ByVal prVendor_ID As String)
 
-        Dim dTotal_Payment As Double = fBillSumPaymentApplied(prBill_ID, prVendor_ID) + fBillSumCreditApplied(prBill_ID, prVendor_ID) + fBillSumTaxApplied_Amount(prBill_ID, prVendor_ID)
+        Dim dTotal_Payment As Double = GetBillSumPaymentApplied(prBill_ID, prVendor_ID) + GetBillSumCreditApplied(prBill_ID, prVendor_ID) + GetBillSumTaxAppliedAmount(prBill_ID, prVendor_ID)
         Dim dTotal_Amount As Double = GetNumberFieldValue("BILL", "ID", prBill_ID, "AMOUNT") 'ORIGINAL AMOUNT
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
-        Dim nStatus As Integer = 0
-
+        Dim nStatus As Integer
         If 0 >= dTotal_Balance Then
             'Paid
             nStatus = 11
@@ -18,7 +17,7 @@ Module modBillPayment
         SqlExecuted("UPDATE bill SET BALANCE_DUE ='" & NumberFormatFixed(dTotal_Balance) & "',STATUS='" & nStatus & "',STATUS_DATE ='" & Format(Date.Now, "yyyy-MM-dd hh:mm:ss") & "' WHERE Vendor_ID ='" & prVendor_ID & "' and ID ='" & prBill_ID & "' limit 1;")
 
     End Sub
-    Public Function fBillSumPaymentApplied(ByRef prBill_ID As String, ByVal prVendor_ID As String) As Double
+    Public Function GetBillSumPaymentApplied(ByRef prBill_ID As String, ByVal prVendor_ID As String) As Double
         If Trim(prVendor_ID) = "" Or Trim(prBill_ID) = "" Then
             Return 0
             Exit Function
@@ -33,7 +32,7 @@ Module modBillPayment
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = fBillSumPaymentApplied(prBill_ID, prVendor_ID)
+                dPayment = GetBillSumPaymentApplied(prBill_ID, prVendor_ID)
             Else
                 End
             End If
@@ -41,7 +40,7 @@ Module modBillPayment
         Return dPayment
     End Function
 
-    Public Function fBillSumCreditApplied(ByRef prBill_ID As String, ByVal prVendor_ID As String) As Double
+    Public Function GetBillSumCreditApplied(ByRef prBill_ID As String, ByVal prVendor_ID As String) As Double
         If Trim(prBill_ID) = "" Or Trim(prVendor_ID) = "" Then
             Return 0
             Exit Function
@@ -56,7 +55,7 @@ Module modBillPayment
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = fBillSumCreditApplied(prBill_ID, prVendor_ID)
+                dPayment = GetBillSumCreditApplied(prBill_ID, prVendor_ID)
             Else
                 End
             End If
@@ -64,7 +63,7 @@ Module modBillPayment
         Return dPayment
     End Function
 
-    Public Function fBillSumTaxApplied_Amount(ByRef prID As String, ByVal prVendor_ID As String) As Double
+    Public Function GetBillSumTaxAppliedAmount(ByRef prID As String, ByVal prVendor_ID As String) As Double
 
         If Trim(prID) = "" Or Trim(prVendor_ID) = "" Then
             Return 0
@@ -79,7 +78,7 @@ Module modBillPayment
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = fBillSumTaxApplied_Amount(prID, prVendor_ID)
+                dPayment = GetBillSumTaxAppliedAmount(prID, prVendor_ID)
             Else
                 End
             End If

@@ -14,27 +14,27 @@ Public Class FrmSettings
 
             'tab 1
             For i As Integer = 0 To TabPage1.Controls.Count - 1
-                If fGetObjectNow(prName, TabPage1, i) = True Then
+                If GetSettingObject(prName, TabPage1, i) = True Then
 
-                    fObject_Type(TabPage1, i, prValue)
+                    SetSettingObject(TabPage1, i, prValue)
                     Exit Sub
                 End If
             Next
 
             'tab 2
             For i As Integer = 0 To TabPage2.Controls.Count - 1
-                If fGetObjectNow(prName, TabPage2, i) = True Then
+                If GetSettingObject(prName, TabPage2, i) = True Then
 
-                    fObject_Type(TabPage2, i, prValue)
+                    SetSettingObject(TabPage2, i, prValue)
                     Exit Sub
                 End If
             Next
 
             'tab 3
             For i As Integer = 0 To TabPage3.Controls.Count - 1
-                If fGetObjectNow(prName, TabPage3, i) = True Then
+                If GetSettingObject(prName, TabPage3, i) = True Then
 
-                    fObject_Type(TabPage3, i, prValue)
+                    SetSettingObject(TabPage3, i, prValue)
                     Exit Sub
 
                 End If
@@ -42,9 +42,9 @@ Public Class FrmSettings
 
             'tab 4
             For i As Integer = 0 To TabPage4.Controls.Count - 1
-                If fGetObjectNow(prName, TabPage4, i) = True Then
+                If GetSettingObject(prName, TabPage4, i) = True Then
 
-                    fObject_Type(TabPage4, i, prValue)
+                    SetSettingObject(TabPage4, i, prValue)
                     Exit Sub
                 End If
             Next
@@ -52,9 +52,9 @@ Public Class FrmSettings
 
             'tab 5
             For i As Integer = 0 To TabPage5.Controls.Count - 1
-                If fGetObjectNow(prName, TabPage5, i) = True Then
+                If GetSettingObject(prName, TabPage5, i) = True Then
 
-                    fObject_Type(TabPage5, i, prValue)
+                    SetSettingObject(TabPage5, i, prValue)
                     Exit Sub
                 End If
             Next
@@ -63,9 +63,9 @@ Public Class FrmSettings
 
             'tab 6
             For i As Integer = 0 To TabPage6.Controls.Count - 1
-                If fGetObjectNow(prName, TabPage6, i) = True Then
+                If GetSettingObject(prName, TabPage6, i) = True Then
 
-                    fObject_Type(TabPage6, i, prValue)
+                    SetSettingObject(TabPage6, i, prValue)
                     Exit Sub
                 End If
             Next
@@ -73,8 +73,8 @@ Public Class FrmSettings
 
             'tab 7
             For i As Integer = 0 To TabPage7.Controls.Count - 1
-                If fGetObjectNow(prName, TabPage7, i) = True Then
-                    fObject_Type(TabPage7, i, prValue)
+                If GetSettingObject(prName, TabPage7, i) = True Then
+                    SetSettingObject(TabPage7, i, prValue)
                     Exit Sub
                 End If
             Next
@@ -82,9 +82,9 @@ Public Class FrmSettings
             'tab 8
             For i As Integer = 0 To TabPage8.Controls.Count - 1
 
-                If fGetObjectNow(prName, TabPage8, i) = True Then
+                If GetSettingObject(prName, TabPage8, i) = True Then
 
-                    fObject_Type(TabPage8, i, prValue)
+                    SetSettingObject(TabPage8, i, prValue)
                     Exit Sub
 
                 End If
@@ -93,9 +93,9 @@ Public Class FrmSettings
 
             '===============================================================================
             For i As Integer = 0 To GroupBox1.Controls.Count - 1
-                If fGetObjectNow(prName, GroupBox1, i) = True Then
+                If GetSettingObject(prName, GroupBox1, i) = True Then
 
-                    fObject_Type(GroupBox1, i, prValue)
+                    SetSettingObject(GroupBox1, i, prValue)
                     Exit Sub
 
                 End If
@@ -103,8 +103,8 @@ Public Class FrmSettings
 
 
             For i As Integer = 0 To GroupBox2.Controls.Count - 1
-                If fGetObjectNow(prName, GroupBox2, i) = True Then
-                    fObject_Type(GroupBox2, i, prValue)
+                If GetSettingObject(prName, GroupBox2, i) = True Then
+                    SetSettingObject(GroupBox2, i, prValue)
                     Exit Sub
 
                 End If
@@ -112,43 +112,43 @@ Public Class FrmSettings
 
 
             For i As Integer = 0 To GroupBox3.Controls.Count - 1
-                If fGetObjectNow(prName, GroupBox3, i) = True Then
-                    fObject_Type(GroupBox3, i, prValue)
+                If GetSettingObject(prName, GroupBox3, i) = True Then
+                    SetSettingObject(GroupBox3, i, prValue)
                     Exit Sub
                 End If
             Next
 
             For i As Integer = 0 To GroupBox4.Controls.Count - 1
-                If fGetObjectNow(prName, GroupBox4, i) = True Then
-                    fObject_Type(GroupBox4, i, prValue)
+                If GetSettingObject(prName, GroupBox4, i) = True Then
+                    SetSettingObject(GroupBox4, i, prValue)
                     Exit Sub
                 End If
             Next
 
             For i As Integer = 0 To GroupBox5.Controls.Count - 1
-                If fGetObjectNow(prName, GroupBox5, i) = True Then
-                    fObject_Type(GroupBox5, i, prValue)
+                If GetSettingObject(prName, GroupBox5, i) = True Then
+                    SetSettingObject(GroupBox5, i, prValue)
                     Exit Sub
                 End If
             Next
 
             For i As Integer = 0 To GroupBox6.Controls.Count - 1
-                If fGetObjectNow(prName, GroupBox6, i) = True Then
-                    fObject_Type(GroupBox6, i, prValue)
+                If GetSettingObject(prName, GroupBox6, i) = True Then
+                    SetSettingObject(GroupBox6, i, prValue)
                     Exit Sub
                 End If
             Next
 
             For i As Integer = 0 To GroupBox7.Controls.Count - 1
-                If fGetObjectNow(prName, GroupBox7, i) = True Then
-                    fObject_Type(GroupBox7, i, prValue)
+                If GetSettingObject(prName, GroupBox7, i) = True Then
+                    SetSettingObject(GroupBox7, i, prValue)
                     Exit Sub
                 End If
             Next
 
             For i As Integer = 0 To GroupBox8.Controls.Count - 1
-                If fGetObjectNow(prName, GroupBox8, i) = True Then
-                    fObject_Type(GroupBox8, i, prValue)
+                If GetSettingObject(prName, GroupBox8, i) = True Then
+                    SetSettingObject(GroupBox8, i, prValue)
                     Exit Sub
                 End If
             Next
@@ -238,7 +238,7 @@ Public Class FrmSettings
     End Sub
 
     Private Sub frmSettings_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        fDefaultAccountLoad()
+        LoadDefaultAccount()
     End Sub
 
     Private Sub btnPOS_Click(sender As Object, e As EventArgs)
@@ -265,7 +265,7 @@ Public Class FrmSettings
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        fSaveSystemControl(tabMenu)
+        SaveSystemControl(tabMenu)
 
     End Sub
 

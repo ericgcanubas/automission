@@ -67,8 +67,8 @@ Public Class FrmFundTransfer
         ClearAndRefresh(GroupBox1)
         ClearAndRefresh(GroupBox2)
         cmbFROM_LOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbFROM_LOCATION_ID.Enabled = fLockLocation()
-        dtpDATE.Value = fTransactionDefaultDate()
+        cmbFROM_LOCATION_ID.Enabled = IsLockLocation()
+        dtpDATE.Value = TransactionDefaultDate()
     End Sub
     Private Sub tsClose_Click(sender As Object, e As EventArgs)
         ClosedForm(Me)
@@ -118,7 +118,7 @@ Public Class FrmFundTransfer
             MessageBoxWarning("You cannot transfer between the same location")
             Exit Sub
         End If
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -146,7 +146,7 @@ Public Class FrmFundTransfer
 
             SqlExecuted($"INSERT INTO bill ({SQL_Field0},{SQL_Field1},{SQL_Field2},ID,RECORDED_ON) VALUES ({SQL_Value0},{SQL_Value1},{SQL_Value2},{ID},'{GetDateTimeNowSql()}') ")
 
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
             PrompNotify(Me.Text, SaveMsg, True)
 
@@ -249,7 +249,7 @@ Public Class FrmFundTransfer
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 

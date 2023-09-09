@@ -26,8 +26,8 @@ Public Class frmAccountJournalTransaction
                 gsReportTabName = "Journal (" & journal_no & ")"
                 gscryRpt = fViewReportOneParameterNumberOnly(gsReportFileName)
                 fCryParameterInsertValue(gscryRpt, journal_no, "journal_no")
-                fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-                fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
+                fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+                fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
             End If
             rd.Close()
         Catch ex As Exception

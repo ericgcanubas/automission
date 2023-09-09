@@ -92,7 +92,7 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
             Dim bSelected As Boolean
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
-                Dim credit_applied As Double = fBillSumCreditApplied(rd("bill_id"), gsVendor_ID)
+                Dim credit_applied As Double = GetBillSumCreditApplied(rd("bill_id"), gsVendor_ID)
                 If credit_applied = 0 Then
                     bSelected = False
                 Else
@@ -224,7 +224,7 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
 
     Private Sub fBillBalance_Update(ByVal gsBill As String, prORG_Amount As Double)
 
-        Dim total_pay As Double = fBillSumPaymentApplied(gsBill, gsVendor_ID) + fBillSumCreditApplied(gsBill, gsVendor_ID) + fBillSumTaxApplied_Amount(gsBill, gsVendor_ID)
+        Dim total_pay As Double = GetBillSumPaymentApplied(gsBill, gsVendor_ID) + GetBillSumCreditApplied(gsBill, gsVendor_ID) + GetBillSumTaxAppliedAmount(gsBill, gsVendor_ID)
         Dim New_Balance As Double = prORG_Amount - total_pay
 
         Dim squery As String

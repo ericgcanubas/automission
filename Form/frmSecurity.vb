@@ -528,10 +528,10 @@ Public Class FrmSecurity
     End Sub
 
     Private Sub txtFind_TextChanged(sender As Object, e As EventArgs) Handles txtFind.TextChanged
-        fGetQuickFind(dgvUser, txtFind.Text)
+        GetQuickFind(dgvUser, txtFind.Text)
     End Sub
 
     Private Sub txtFind2_TextChanged(sender As Object, e As EventArgs) Handles txtFind2.TextChanged
-        fGetQuickFind(dgvAccessControl, txtFind2.Text)
+        GetQuickFind(dgvAccessControl, txtFind2.Text)
     End Sub
 End Class

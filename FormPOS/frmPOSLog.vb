@@ -78,7 +78,7 @@
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
         fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
         frmReportViewer.Text = "Sales Summary by Buyers " & GetDateTimeNowSql()
@@ -115,7 +115,7 @@
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
         fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
         frmReportViewer.Text = "Sales Summary by Buyers " & GetDateTimeNowSql()
@@ -154,7 +154,7 @@
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
         fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
         frmReportViewer.Text = "Sales Invoice List " & GetDateTimeNowSql()
@@ -187,7 +187,7 @@
         fCryParameterInsertValue(gscryRpt, GetStringFieldValue("location", "id", gsDefault_LOCATION_ID, "NAME"), "myremark")
         fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
         frmReportViewer.Text = "POS Log " & GetDateTimeNowSql()

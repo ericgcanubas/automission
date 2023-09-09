@@ -96,10 +96,10 @@ Public Class FrmSplash
             If R_number = 1 Then
                 lblinitialization.Text = "Initialize ... "
                 fDoEvents()
-                gsStorage_Location_ID = fLoadStorageLocation()
-                gsIncRefNoByLocation = fIncRefNoByLocation()
-                gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
-                gsCASH_OVER_SHORT_EXPENSES = fCashOverShortExpense()
+                gsStorage_Location_ID = GetLoadStorageLocation()
+                gsIncRefNoByLocation = GetIncRefNoByLocation()
+                gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
+                gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
 
             End If
 
@@ -117,47 +117,47 @@ Public Class FrmSplash
                 lblinitialization.Text = "Initialize settings ..."
                 fDoEvents()
                 gsClose_Date_Run_Per_Unit = fGet_System_VALUE_Bool("CloseDateRunPerUnit")
-                gsSkipJournalEntry = fSystemSettingValue_Bool("SkipJournalEntry")
-                gsExpiredReference = fSystemSettingValue_Bool("ExpiredReference")
+                gsSkipJournalEntry = GetSystemSettingValueByBool("SkipJournalEntry")
+                gsExpiredReference = GetSystemSettingValueByBool("ExpiredReference")
                 If gsPOS_Mode = True Then
                     gsExpiredReference = False
                 End If
 
-                gsUseCashDenomination = fSystemSettingValue_Bool("UseCashDenomination")
+                gsUseCashDenomination = GetSystemSettingValueByBool("UseCashDenomination")
 
-                gsDisplayTransactionNo = fSystemSettingValue_Bool("DisplayTransactionNo")
-                gsDisplayTotalSales = fSystemSettingValue_Bool("DisplayTotalSales")
-                gsCashCountDisplayDiscripancy = fSystemSettingValue_Bool("CashCountDisplayDiscripancy")
+                gsDisplayTransactionNo = GetSystemSettingValueByBool("DisplayTransactionNo")
+                gsDisplayTotalSales = GetSystemSettingValueByBool("DisplayTotalSales")
+                gsCashCountDisplayDiscripancy = GetSystemSettingValueByBool("CashCountDisplayDiscripancy")
 
-                gsPOSPrintPreview = fSystemSettingValue_Bool("POSPrintPreview")
-                gsPOSPopupNotes = fSystemSettingValue_Bool("POSPopupNotes")
-                gsMultiMethod = fSystemSettingValue_Bool("POSMultiMethod")
+                gsPOSPrintPreview = GetSystemSettingValueByBool("POSPrintPreview")
+                gsPOSPopupNotes = GetSystemSettingValueByBool("POSPopupNotes")
+                gsMultiMethod = GetSystemSettingValueByBool("POSMultiMethod")
                 'POS_POPUP_NOTES
-                gsPOSPrintOS = fSystemSettingValue_Bool("PrintOS")
+                gsPOSPrintOS = GetSystemSettingValueByBool("PrintOS")
 
-                gsPOSVoidEntry = fSystemSettingValue_Bool("POSVoidEntry")
-                gsOpenCashDrawer = fSystemSettingValue_Bool("OpenCashDrawer")
+                gsPOSVoidEntry = GetSystemSettingValueByBool("POSVoidEntry")
+                gsOpenCashDrawer = GetSystemSettingValueByBool("OpenCashDrawer")
                 gsUSE_SCREEN_BUTTON = CBool(Val(fGet_System_VALUE("SCREEN_BUTTON")))
 
-                gsGmailUsername = fSystemSettingValue("GmailUsername")
-                gsGmailPassword = Decrypt(fSystemSettingValue("GmailPassword"))
-                gsGmailAddressTo = fSystemSettingValue("GmailAddressTo")
+                gsGmailUsername = GetSystemSettingValueByText("GmailUsername")
+                gsGmailPassword = Decrypt(GetSystemSettingValueByText("GmailPassword"))
+                gsGmailAddressTo = GetSystemSettingValueByText("GmailAddressTo")
 
                 gsUseImageProduct = CBool(Val(fGet_System_VALUE("UseImageProduct")))
                 gsImageSourceFolder = fGet_System_VALUE("ImageSourceFolder")
                 gsImageDestinationFolder = fGet_System_VALUE("ImageDestinationFolder")
 
-                gsDefault_Vendor_ID = fSystemSettingValue_Num("DefaultVendorID")
-                gsSideBarMenuPostionRight = fSystemSettingValue_Bool("SideBarMenuPostionRight")
-                gsShowAccounts = fSystemSettingValue_Bool("ShowAccounts")
+                gsDefault_Vendor_ID = GetSystemSettingValueByNumber("DefaultVendorID")
+                gsSideBarMenuPostionRight = GetSystemSettingValueByBool("SideBarMenuPostionRight")
+                gsShowAccounts = GetSystemSettingValueByBool("ShowAccounts")
 
-                gsDRAWER_ACCOUNT_ID = fDrawerAccount()
+                gsDRAWER_ACCOUNT_ID = GetDrawerAccount()
 
                 gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
                 gsPOS_TYPE_ID = fPOS_machine_type_map()
 
                 If gsPOS_Mode = False Then
-                    fLoadSubMenuTypeItem()
+                    LoadSubMenuTypeItem()
                 Else
 
                 End If
@@ -177,13 +177,13 @@ Public Class FrmSplash
             If R_number = 6 Then
                 lblinitialization.Text = "Initialize default value ..."
                 fDoEvents()
-                fLoadDefaultValue()
+                SystemSettingLoadDefaultValue()
             End If
 
             If R_number = 7 Then
                 lblinitialization.Text = "Initialize default accounts ..."
                 fDoEvents()
-                fDefaultAccountLoad()
+                LoadDefaultAccount()
 
             End If
 
@@ -206,9 +206,9 @@ Public Class FrmSplash
 
 
                 pbLoadingBar.Value = F_number
-                gsDateRangeDefault = fSystemSettingValue("DateRangeDefault") 'DateRangeDefault
+                gsDateRangeDefault = GetSystemSettingValueByText("DateRangeDefault") 'DateRangeDefault
                 'SelectedDateDefault
-                gsSelectedDateDefault = fSystemSettingValue("SelectedDateDefault")
+                gsSelectedDateDefault = GetSystemSettingValueByText("SelectedDateDefault")
 
                 lblinitialization.Text = "Initialize completed ..."
                 fDoEvents()
@@ -239,7 +239,7 @@ Public Class FrmSplash
         If gsClose_Date_Run_Per_Unit = True Then
             Dim DT As Date = Date.Now.Date.AddDays(-1)
 
-            fSystemSettingUpdateByString("ClosingDate", DateFormatMySql(DT))
+            SetSystemSettingUpdateByText("ClosingDate", DateFormatMySql(DT))
 
         End If
     End Sub

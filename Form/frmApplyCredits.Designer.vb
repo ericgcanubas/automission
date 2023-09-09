@@ -63,7 +63,7 @@ Partial Class FrmApplyCredits
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(426, 82)
+        Me.Label13.Location = New System.Drawing.Point(431, 82)
         Me.Label13.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(101, 16)
@@ -84,7 +84,7 @@ Partial Class FrmApplyCredits
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(426, 28)
+        Me.Label17.Location = New System.Drawing.Point(433, 27)
         Me.Label17.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(100, 16)
@@ -116,7 +116,7 @@ Partial Class FrmApplyCredits
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(54, 54)
+        Me.Label5.Location = New System.Drawing.Point(60, 54)
         Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(38, 16)
@@ -137,7 +137,7 @@ Partial Class FrmApplyCredits
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(8, 81)
+        Me.Label7.Location = New System.Drawing.Point(11, 81)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(87, 16)
@@ -147,12 +147,12 @@ Partial Class FrmApplyCredits
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(46, 26)
+        Me.Label2.Location = New System.Drawing.Point(30, 26)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(44, 16)
+        Me.Label2.Size = New System.Drawing.Size(69, 16)
         Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Buyer"
+        Me.Label2.Text = "Customer"
         '
         'GroupBox1
         '
@@ -180,7 +180,7 @@ Partial Class FrmApplyCredits
         Me.GroupBox1.Size = New System.Drawing.Size(688, 137)
         Me.GroupBox1.TabIndex = 36
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Debt Invoice"
+        Me.GroupBox1.Text = "Invoice"
         '
         'lblBalance_Due
         '
@@ -196,7 +196,7 @@ Partial Class FrmApplyCredits
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(437, 110)
+        Me.Label11.Location = New System.Drawing.Point(444, 110)
         Me.Label11.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(88, 16)
@@ -217,7 +217,7 @@ Partial Class FrmApplyCredits
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(414, 54)
+        Me.Label9.Location = New System.Drawing.Point(422, 54)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(110, 16)
@@ -238,7 +238,7 @@ Partial Class FrmApplyCredits
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(8, 108)
+        Me.Label6.Location = New System.Drawing.Point(15, 108)
         Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(83, 16)
@@ -311,7 +311,7 @@ Partial Class FrmApplyCredits
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmApplyCredits
+        'FrmApplyCredits
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -325,7 +325,7 @@ Partial Class FrmApplyCredits
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmApplyCredits"
+        Me.Name = "FrmApplyCredits"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

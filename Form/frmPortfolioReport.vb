@@ -25,7 +25,7 @@ Public Class FrmPortfolioReport
         fCryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.Text, "SALES_MANAGER_NAME")
         fCryParameterInsertValue(gscryRpt, GetStringFieldValue("contact", "ID", cmbSALES_MANAGER.SelectedValue, "CUSTOM_FIELD1"), "POSITION")
         fCryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.SelectedValue, "sales_manager_id")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("TargetPenaltyDiscount"), "discount_id_item")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("TargetPenaltyDiscount"), "discount_id_item")
         fCryParameterInsertValue(gscryRpt, dtpDate1.Value, "date1")
         fCryParameterInsertValue(gscryRpt, dtpDate2.Value, "date2")
 

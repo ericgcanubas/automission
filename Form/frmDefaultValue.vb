@@ -6,32 +6,32 @@ Public Class FrmDefaultValue
 
             'tab 1
             For i As Integer = 0 To tpAccount.Controls.Count - 1
-                If fGetObjectNow(prName, tpAccount, i) = True Then
-                    fObject_Type(tpAccount, i, prValue)
+                If GetSettingObject(prName, tpAccount, i) = True Then
+                    SetSettingObject(tpAccount, i, prValue)
                     Exit Sub
                 End If
             Next
 
             'tab 2
             For i As Integer = 0 To tpItem.Controls.Count - 1
-                If fGetObjectNow(prName, tpItem, i) = True Then
-                    fObject_Type(tpItem, i, prValue)
+                If GetSettingObject(prName, tpItem, i) = True Then
+                    SetSettingObject(tpItem, i, prValue)
                     Exit Sub
                 End If
             Next
 
             'tab 3
             For i As Integer = 0 To tpPOS.Controls.Count - 1
-                If fGetObjectNow(prName, tpPOS, i) = True Then
-                    fObject_Type(tpPOS, i, prValue)
+                If GetSettingObject(prName, tpPOS, i) = True Then
+                    SetSettingObject(tpPOS, i, prValue)
                     Exit Sub
                 End If
             Next
 
             'tab 4
             For i As Integer = 0 To tpOther.Controls.Count - 1
-                If fGetObjectNow(prName, tpOther, i) = True Then
-                    fObject_Type(tpOther, i, prValue)
+                If GetSettingObject(prName, tpOther, i) = True Then
+                    SetSettingObject(tpOther, i, prValue)
                     Exit Sub
                 End If
             Next
@@ -95,7 +95,7 @@ Public Class FrmDefaultValue
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        fSaveSystemControl(tabMenu)
+        SaveSystemControl(tabMenu)
         Me.Close()
 
     End Sub

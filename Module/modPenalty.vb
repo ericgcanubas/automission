@@ -59,7 +59,7 @@ Module modPenalty
         Return percent
     End Function
     Public Sub fUpdatePenalty()
-        Dim item_id As Integer = NumIsNull(fSystemSettingValue("TargetPenaltyDiscount"))
+        Dim item_id As Integer = NumIsNull(GetSystemSettingValueByText("TargetPenaltyDiscount"))
         Dim pPanalty_Paid As Double = 0
         '  Dim cn As New MySqlConnection(mysqlConstr)
         Try
@@ -194,7 +194,7 @@ Module modPenalty
         Try
             CursorLoadingOn(True)
 
-            Dim rd As OdbcDataReader = SqlReader("select AMOUNT from invoice_items where invoice_id = '" & prInvoice_id & "' and item_id = '" & NumIsNull(fSystemSettingValue("TargetPenaltyDiscount")) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select AMOUNT from invoice_items where invoice_id = '" & prInvoice_id & "' and item_id = '" & NumIsNull(GetSystemSettingValueByText("TargetPenaltyDiscount")) & "' limit 1")
             If rd.Read Then
                 disc = Math.Abs(NumIsNull(rd("AMOUNT")))
             End If

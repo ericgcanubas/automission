@@ -5,8 +5,8 @@
         ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
 
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        dtpDATE.Value = fTransactionDefaultDate()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        dtpDATE.Value = TransactionDefaultDate()
     End Sub
 
     Private Sub btnGoto_Click(sender As Object, e As EventArgs) Handles btnGoto.Click

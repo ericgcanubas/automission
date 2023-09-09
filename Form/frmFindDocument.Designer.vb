@@ -198,7 +198,7 @@ Partial Class FrmFindDocument
         Me.lblRow.Size = New System.Drawing.Size(15, 17)
         Me.lblRow.Text = "0"
         '
-        'frmFindDocument
+        'FrmFindDocument
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -211,7 +211,7 @@ Partial Class FrmFindDocument
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmFindDocument"
+        Me.Name = "FrmFindDocument"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

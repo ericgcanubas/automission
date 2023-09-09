@@ -214,7 +214,7 @@ Module modInventoryItem
         fCryParameterInsertValue(gscryRpt, "", "basis_label")
         fCryParameterInsertValue(gscryRpt, "", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
         frmReportViewer.Text = "Item Valuation Details " & GetDateTimeNowSql()
         If prFind <> "" Then

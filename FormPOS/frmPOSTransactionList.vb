@@ -137,7 +137,7 @@
 
         dtpDATE.Value = gsPOS_DATE
 
-        If fIsClosingDate(dtpDATE.Value, True) = False Then
+        If IsClosingDate(dtpDATE.Value, True) = False Then
             Exit Sub
         End If
 

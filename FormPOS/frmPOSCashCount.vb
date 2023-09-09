@@ -78,7 +78,7 @@ Public Class FrmPOSCashCount
     Private Sub AutoTotalFromOthers()
 
 
-        If fSystemSettingValue_Bool("autocomputeothers") = True Then
+        If GetSystemSettingValueByBool("autocomputeothers") = True Then
             numOtherPayment.Value = fgetTotalOther()
             numOtherPayment.Enabled = False
         End If

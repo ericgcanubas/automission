@@ -1,21 +1,20 @@
 ﻿Imports System.Data.Odbc
 Module modSystemSettings
 
-    Public Sub fLoadDefaultValue()
-        gsDefaultItemAssetAccountId = fSystemSettingValue_Num("DefaultItemAssetAccountId")
-        gsDefaultItemIncomeAccountId = fSystemSettingValue_Num("DefaultItemIncomeAccountId")
-        gsDefaultItemCOGSAccountId = fSystemSettingValue_Num("DefaultItemCOGSAccountId")
-        gsDefaultItemDiscountAccountId = fSystemSettingValue_Num("DefaultItemDiscountAccountId")
-        gsDefaultItemOtherChargeAccountId = fSystemSettingValue_Num("DefaultItemOtherChargeAccountId")
-        gsDefaultItemClassId = fSystemSettingValue_Num("DefaultItemClassId")
-        gsDefaultItemSubClassId = fSystemSettingValue_Num("DefaultItemSubClassId")
-        gsDefaultItemGroupId = fSystemSettingValue_Num("DefaultItemGroupId")
-        gsApproved_By = fSystemSettingValue("Approved_By")
+    Public Sub SystemSettingLoadDefaultValue()
+        gsDefaultItemAssetAccountId = GetSystemSettingValueByNumber("DefaultItemAssetAccountId")
+        gsDefaultItemIncomeAccountId = GetSystemSettingValueByNumber("DefaultItemIncomeAccountId")
+        gsDefaultItemCOGSAccountId = GetSystemSettingValueByNumber("DefaultItemCOGSAccountId")
+        gsDefaultItemDiscountAccountId = GetSystemSettingValueByNumber("DefaultItemDiscountAccountId")
+        gsDefaultItemOtherChargeAccountId = GetSystemSettingValueByNumber("DefaultItemOtherChargeAccountId")
+        gsDefaultItemClassId = GetSystemSettingValueByNumber("DefaultItemClassId")
+        gsDefaultItemSubClassId = GetSystemSettingValueByNumber("DefaultItemSubClassId")
+        gsDefaultItemGroupId = GetSystemSettingValueByNumber("DefaultItemGroupId")
+        gsApproved_By = GetSystemSettingValueByText("Approved_By")
 
     End Sub
-    Public Sub fSaveSystemControl(ByVal TabCon As TabControl)
-        ' Dim str_Query As String = ""
-        ' Dim Querycollection As String = ""
+    Public Sub SaveSystemControl(ByVal TabCon As TabControl)
+
         For Each c As Control In TabCon.Controls
             If (TypeOf c Is TabPage) Then
                 Dim t As TabPage = c
@@ -69,7 +68,7 @@ Module modSystemSettings
         ' SqlExecuted(str_Query) 'MAIN
         MessageBoxInfo("Save! Re-login")
     End Sub
-    Public Sub fObject_Type(ByVal c As Control, ByVal i As Integer, ByVal v As String)
+    Public Sub SetSettingObject(ByVal c As Control, ByVal i As Integer, ByVal v As String)
         Select Case StrLeft(c.Controls(i).Name, 3)
 
 
@@ -135,19 +134,12 @@ Module modSystemSettings
                     chk.Checked = True
                 End If
 
-
             Case Else
-
-
-
-
-
-
 
         End Select
 
     End Sub
-    Public Function fGetObjectNow(ByVal prName As String, ByVal c As Control, ByVal i As Integer) As Boolean
+    Public Function GetSettingObject(ByVal prName As String, ByVal c As Control, ByVal i As Integer) As Boolean
         Dim b As Boolean = False
         Try
             Dim s As String = Mid(c.Controls(i).Name, 4, c.Controls(i).Name.Length).ToUpper
@@ -162,106 +154,106 @@ Module modSystemSettings
         End Try
         Return b
     End Function
-    Public Sub fLoadSubMenuTypeItem()
+    Public Sub LoadSubMenuTypeItem()
         Dim rd As OdbcDataReader = SqlReader("select description,form from `tblsub_menu` where active <> '0' ")
         While rd.Read
             Dim sName As String = rd("Description")
             Select Case rd("form")
                 '// customer
-                Case "frmInvoice"
+                Case "FrmInvoice"
                     gsTextInvoice = sName
-                Case "frmReceivePayment"
+                Case "FrmReceivePayment"
                     gsTextReceivePayment = sName
-                Case "frmSalesOrder"
+                Case "FrmSalesOrder"
                     gsTextSalesOrder = sName
-                Case "frmSalesReceipt"
+                Case "FrmSalesReceipt"
                     gsTextSalesReceipt = sName
-                Case "frmEstimate"
+                Case "FrmEstimate"
                     gsTextEstimate = sName
-                Case "frmCreditMemo"
+                Case "FrmCreditMemo"
                     gsTextCreditMemo = sName
-                Case "frmTaxCredit"
+                Case "FrmTaxCredit"
                     gsTextTaxCredit = sName
                     '// vendor
-                Case "frmPurchaseOrder"
+                Case "FrmPurchaseOrder"
                     gsTextPurchaseOrder = sName
-                Case "frmPurchaseRequest"
+                Case "FrmPurchaseRequest"
                     gsTextPurchaseRequest = sName
-                Case "frmStockReceived"
+                Case "FrmStockReceived"
                     gsTextStockReceived = sName
-                Case "frmBills"
+                Case "FrmBills"
                     gsTextBills = sName
-                Case "frmBillCredit"
+                Case "FrmBillCredit"
                     gsTextBillCredit = sName
-                Case "frmBillPayment"
+                Case "FrmBillPayment"
                     gsTextBillPayment = sName
-                Case "frmWithholdingTax"
+                Case "FrmWithholdingTax"
                     gsTextWithholdingTax = sName
                     '// Inventory
-                Case "frmBuildAssembly"
+                Case "FrmBuildAssembly"
                     gsTextBuildAssembly = sName
-                Case "frmInventoryAdjustment"
+                Case "FrmInventoryAdjustment"
                     gsTextInventoryAdjustment = sName
-                Case "frmStockTransfer"
+                Case "FrmStockTransfer"
                     gsTextStockTransfer = sName
-                Case "frmGeneralJournal"
+                Case "FrmGeneralJournal"
                     gsTextGeneralJournal = sName
                     '//Banking
-                Case "frmDeposit"
+                Case "FrmDeposit"
                     gsTextDeposit = sName
-                Case "frmFundTransfer"
+                Case "FrmFundTransfer"
                     gsTextFundTransfer = sName
-                Case "frmWriteCheck"
+                Case "FrmWriteCheck"
                     gsTextWriteCheck = sName
 
             End Select
         End While
         rd.Close()
     End Sub
-    Public Function fIsClosingDate(ByVal prDate As Date, ByVal IsNew As Boolean) As Boolean
-        Dim bResult As Boolean = False
-        If prDate <= fClosingDate() Then
+    Public Function IsClosingDate(ByVal prDate As Date, ByVal IsNew As Boolean) As Boolean
+        Dim IsDone As Boolean
+        If prDate <= ClosingDate() Then
             If IsNew = True Then
-                bResult = False
+                IsDone = False
                 MessageBoxWarning("Closing date not allowed")
             Else
 
-                If CBool(fSystemSettingValue("ClosingDatePassword")) = False Then
+                If CBool(GetSystemSettingValueByText("ClosingDatePassword")) = False Then
 
-                    bResult = False
+                    IsDone = False
                 Else
                     If fAccessDeniedIsYes(gsMessageClosingDatePassword) = False Then
-                        bResult = True
+                        IsDone = True
                     Else
-                        bResult = False
+                        IsDone = False
                     End If
                 End If
             End If
         Else
-            bResult = True
+            IsDone = True
         End If
-        Return bResult
+        Return IsDone
     End Function
-    Public Function fClosingDate() As Date
+    Public Function ClosingDate() As Date
         Try
-            Return fSystemSettingValue("ClosingDate")
+            Return GetSystemSettingValueByText("ClosingDate")
         Catch ex As Exception
             MessageBoxInfo(ex.Message)
             Return Date.Today
         End Try
     End Function
-    Public Sub fDefaultAccountLoad()
-        gsDefault_ACCOUNTS_RECEIVABLE_ID = fSystemSettingValue_Num("DefaultAccountReceivableId")
-        gsDefault_ACCOUNTS_PAYABALE_ID = fSystemSettingValue_Num("DefaultAccountPayableId")
-        gsDefault_UNDEPOSITED_FUNDS_ACCOUNT_ID = fSystemSettingValue_Num("DefaultUndepositedFundAccountId")
-        gsDefault_ITEM_ACCOUNT_ID = fSystemSettingValue_Num("DefaultItemAccountId")
-        gsSTOCK_TRANSFER_ACCOUNT_ID = fSystemSettingValue_Num("StockTransferAccountId")
-        gsSTOCK_RECEIVED_ACCOUNT_ID = fSystemSettingValue_Num("StockReceivedAccountId")
-        gsINTER_LOCATION_ACCOUNT_ID = fSystemSettingValue_Num("InterLocationAccountId")
-        'gsTAX_PAYABLE_ACCOUNT_ID = fSystemSettingValue("TaxPayableAccountId")
-        'gsTAX_CREDIT_ACCOUNT_ID = fSystemSettingValue("TaxCreditAccountId")
+    Public Sub LoadDefaultAccount()
+        gsDefault_ACCOUNTS_RECEIVABLE_ID = GetSystemSettingValueByNumber("DefaultAccountReceivableId")
+        gsDefault_ACCOUNTS_PAYABALE_ID = GetSystemSettingValueByNumber("DefaultAccountPayableId")
+        gsDefault_UNDEPOSITED_FUNDS_ACCOUNT_ID = GetSystemSettingValueByNumber("DefaultUndepositedFundAccountId")
+        gsDefault_ITEM_ACCOUNT_ID = GetSystemSettingValueByNumber("DefaultItemAccountId")
+        gsSTOCK_TRANSFER_ACCOUNT_ID = GetSystemSettingValueByNumber("StockTransferAccountId")
+        gsSTOCK_RECEIVED_ACCOUNT_ID = GetSystemSettingValueByNumber("StockReceivedAccountId")
+        gsINTER_LOCATION_ACCOUNT_ID = GetSystemSettingValueByNumber("InterLocationAccountId")
+        'gsTAX_PAYABLE_ACCOUNT_ID = GetSystemSettingValueByText("TaxPayableAccountId")
+        'gsTAX_CREDIT_ACCOUNT_ID = GetSystemSettingValueByText("TaxCreditAccountId")
     End Sub
-    Public Function fSystemSettingValue(ByVal prName As String) As String
+    Public Function GetSystemSettingValueByText(ByVal prName As String) As String
 
 
         Dim sValue As String = Trim(fMSgetField("system_value", "tblsystem", "ID", prName))
@@ -278,7 +270,7 @@ Module modSystemSettings
                 rd.Close()
             Catch ex As Exception
                 If MessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = fSystemSettingValue(prName)
+                    sValue = GetSystemSettingValueByText(prName)
                 Else
                     End
                 End If
@@ -286,21 +278,20 @@ Module modSystemSettings
         End If
         Return sValue
     End Function
-    Public Function fSystemSettingValue_Bool(ByVal prName As String) As Boolean
-
-        Dim sValue As Boolean = False
+    Public Function GetSystemSettingValueByBool(ByVal prName As String) As Boolean
+        Dim bValue As Boolean
         Try
-            sValue = CBool(fMSgetField("system_value", "tblsystem", "ID", prName))
+            bValue = CBool(fMSgetField("system_value", "tblsystem", "ID", prName))
         Catch ex As Exception
-            sValue = False
+            bValue = False
         End Try
 
 
-        If sValue = False Then
+        If bValue = False Then
             Try
                 Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
                 If rd.Read Then
-                    sValue = rd("VALUE")
+                    bValue = rd("VALUE")
                 Else
                     SqlExecuted("INSERT INTO system_settings SET `VALUE`='0', `NAME` = '" & prName & "'")
                     MessageBoxInfo("New settings = " & prName)
@@ -308,19 +299,17 @@ Module modSystemSettings
                 rd.Close()
             Catch ex As Exception
                 If MessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = fSystemSettingValue_Bool(prName)
+                    bValue = GetSystemSettingValueByBool(prName)
                 Else
+                    MessageBox.Show("System Exit")
                     End
                 End If
             End Try
         End If
-        Return sValue
+        Return bValue
     End Function
 
-    Public Sub fSystemSettingUpdateByBool(ByVal prName As String, ByVal prValue As Boolean)
-
-
-
+    Public Sub SetSystemSettingUpdateByBool(ByVal prName As String, ByVal prValue As Boolean)
         Try
             Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
             If rd.Read Then
@@ -331,17 +320,16 @@ Module modSystemSettings
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fSystemSettingUpdateByBool(prName, prValue)
+                SetSystemSettingUpdateByBool(prName, prValue)
             Else
+                MessageBox.Show("System Exit")
                 End ' exit program
             End If
         End Try
 
 
     End Sub
-    Public Sub fSystemSettingUpdateByString(ByVal prName As String, ByVal prValue As String)
-
-
+    Public Sub SetSystemSettingUpdateByText(ByVal prName As String, ByVal prValue As String)
 
         Try
             Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings WHERE `NAME` = '" & prName & "' Limit 1;")
@@ -355,7 +343,7 @@ Module modSystemSettings
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fSystemSettingUpdateByString(prName, prValue)
+                SetSystemSettingUpdateByText(prName, prValue)
             Else
                 End ' exit program
             End If
@@ -363,7 +351,7 @@ Module modSystemSettings
 
 
     End Sub
-    Public Sub fSystemSettingUpdateByNumber(ByVal prName As String, ByVal prValue As Double)
+    Public Sub SetSystemSettingUpdateByNumber(ByVal prName As String, ByVal prValue As Double)
         Try
             Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1;")
             If rd.Read Then
@@ -374,7 +362,7 @@ Module modSystemSettings
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fSystemSettingUpdateByNumber(prName, prValue)
+                SetSystemSettingUpdateByNumber(prName, prValue)
             Else
                 End ' exit program
             End If
@@ -382,7 +370,7 @@ Module modSystemSettings
 
 
     End Sub
-    Public Function fSystemSettingValue_Num(ByVal prName As String) As Double
+    Public Function GetSystemSettingValueByNumber(ByVal prName As String) As Double
 
         Dim sValue As Double = NumIsNull(fMSgetField("system_value", "tblsystem", "ID", prName))
 
@@ -398,7 +386,7 @@ Module modSystemSettings
                 rd.Close()
             Catch ex As Exception
                 If MessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = fSystemSettingValue_Num(prName)
+                    sValue = GetSystemSettingValueByNumber(prName)
                 Else
                     End
                 End If
@@ -406,8 +394,8 @@ Module modSystemSettings
         End If
         Return sValue
     End Function
-    Public Function fTransactionDefaultDate() As Date
-        If Val(fSystemSettingValue("NewTransactionsDefaultDate")) = 0 Then
+    Public Function TransactionDefaultDate() As Date
+        If Val(GetSystemSettingValueByText("NewTransactionsDefaultDate")) = 0 Then
             Return Date.Now.Date
         Else
             Dim sDate As String = fMSgetField("system_value", "tblsystem", "ID", "LAST_DATE_TRANSACTION")
@@ -418,91 +406,86 @@ Module modSystemSettings
             End If
         End If
     End Function
-    Public Sub fTransactionDateSelectUpdate(ByVal dtp As Date)
+    Public Sub SetTransactionDateSelectUpdate(ByVal dtp As Date)
         fMS_execute("UPDATE tblsystem set system_value = '" & Format(dtp, "yyyy-MM-dd") & "' where ID = 'LAST_DATE_TRANSACTION' ")
     End Sub
-    Public Function fLoadLocationDefault() As Integer
-
+    Public Function GetLoadLocationDefault() As Integer
         Dim user_location_id As Integer = fUserDefaultLocation()
         If user_location_id = 0 Then
-            Return Val(fSystemSettingValue("DefaultLocationId"))
+            Return Val(GetSystemSettingValueByText("DefaultLocationId"))
         Else
             Return user_location_id
         End If
-
     End Function
 
-    Public Function fLoadStorageLocation() As Integer
-        If CBool(Val(fSystemSettingValue("NotUseStorageLocation"))) = False Then
+    Public Function GetLoadStorageLocation() As Integer
+        If CBool(Val(GetSystemSettingValueByText("NotUseStorageLocation"))) = False Then
             Return 0
         Else
-            Return Val(fSystemSettingValue("StorageLocationId"))
+            Return Val(GetSystemSettingValueByText("StorageLocationId"))
         End If
+    End Function
+    Public Function GetIncRefNoByLocation() As Boolean
+        Return CBool(GetSystemSettingValueByText("IncRefNoByLocation"))
+    End Function
 
+    Public Function GetCashOverShortExpense() As Integer
+        Return Val(GetSystemSettingValueByText("CashOverShortExpenseId"))
     End Function
-    Public Function fIncRefNoByLocation() As Boolean
-        Return CBool(fSystemSettingValue("IncRefNoByLocation"))
+    Public Function GetPettyCashAccount() As Integer
+        Return Val(GetSystemSettingValueByText("PettyCashAccountId"))
     End Function
-
-    Public Function fCashOverShortExpense() As Integer
-        Return Val(fSystemSettingValue("CashOverShortExpenseId"))
-    End Function
-    Public Function fPettyCashAccount() As Integer
-        Return Val(fSystemSettingValue("PettyCashAccountId"))
-    End Function
-    Public Function fDrawerAccount() As Integer
+    Public Function GetDrawerAccount() As Integer
         Dim I As Integer = fPOS_Drawer_Account_PER_UNIT()
         If I <> 0 Then
             Return I
         Else
-            Return Val(fSystemSettingValue("DrawerAccountId"))
+            Return Val(GetSystemSettingValueByText("DrawerAccountId"))
         End If
-
     End Function
-    Public Function fOutPutTaxDefault() As Integer
-        Return Val(fSystemSettingValue("OutputTaxId"))
+    Public Function GetOutPutTaxDefault() As Integer
+        Return Val(GetSystemSettingValueByText("OutputTaxId"))
     End Function
-    Public Function fInPutTaxDefault() As Integer
-        Return Val(fSystemSettingValue("InputTaxId"))
+    Public Function GetInPutTaxDefault() As Integer
+        Return Val(GetSystemSettingValueByText("InputTaxId"))
     End Function
-    Public Function fPaymentMethodDefault() As Integer
-        Return Val(fSystemSettingValue("DefaultPaymentMethodId"))
+    Public Function GetPaymentMethodDefault() As Integer
+        Return Val(GetSystemSettingValueByText("DefaultPaymentMethodId"))
     End Function
-    Public Function fPaymentTermsDefault() As Integer
-        Return Val(fSystemSettingValue("DefaultPaymentTermsId"))
+    Public Function GetPaymentTermsDefault() As Integer
+        Return Val(GetSystemSettingValueByText("DefaultPaymentTermsId"))
     End Function
-    Public Function fLockLocation() As Boolean
+    Public Function IsLockLocation() As Boolean
         Try
-
-
-            If CBool(fSystemSettingValue("LockLocation")) = True Then
+            If GetSystemSettingValueByBool("LockLocation") = True Then
                 Return False
             Else
                 Return True
             End If
+
         Catch ex As Exception
             Return True
         End Try
     End Function
-    Public Function fCreditLimitPolicy() As Integer
+    Public Function GetCreditLimitPolicy() As Integer
         '0 = Promp warning message only
         '1 = Enforce transaction blocking
-        Return Val(fSystemSettingValue("CreditLimitPolicy"))
+        Return Val(GetSystemSettingValueByText("CreditLimitPolicy"))
     End Function
-    Public Function fArAgingLimit() As Integer
+    Public Function GetArAgingLimit() As Integer
         '0 = None
         '1 = Current balance only
         '2 = 1 - 30 day past due
         '3 = 31 - 60 day past due
         '4 = 61 - 90 day past due
-        Return Val(fSystemSettingValue("ArAgingLimit"))
+        Return GetSystemSettingValueByNumber("ArAgingLimit")
     End Function
-    Public Function fAllowNegativeInventory() As Boolean
+    Public Function IsAllowNegativeInventory() As Boolean
 
         If gsUserDefaulLockNegativePerUser = True Then
             Return False
         Else
-            Return fSystemSettingValue("AllowZeroOnHand")
+            Return GetSystemSettingValueByBool("AllowZeroOnHand")
         End If
 
     End Function

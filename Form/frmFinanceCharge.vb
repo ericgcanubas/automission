@@ -1,9 +1,9 @@
 ﻿Public Class FrmFinanceCharge
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         ClosedForm(Me)
     End Sub
 
-    Private Sub frmFinanceCharge_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmFinanceCharge_Load(sender As Object, e As EventArgs) Handles Me.Load
         Label1.Text = gsSubMenuForm
 
     End Sub

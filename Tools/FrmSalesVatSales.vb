@@ -46,6 +46,6 @@ WHERE
     End Sub
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
-        fExport(dgvDataList, "Sales_vs_VSales_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
+        ExportingExcel(dgvDataList, "Sales_vs_VSales_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 End Class

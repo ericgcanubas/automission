@@ -65,7 +65,7 @@ FROM
         fRefreshLocation()
         Dim loc_value As String = gsDefault_LOCATION_ID
         tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "%", loc_value)
-        tscmbLocation.Enabled = fLockLocation()
+        tscmbLocation.Enabled = IsLockLocation()
         firstLoad = False
 
         RecomputeJournalToolStripMenuItem.Visible = gsAdmin_User
@@ -189,7 +189,7 @@ FROM
     End Sub
 
     Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToolStripMenuItem.Click
-        fExport(dgvLog, $"{tscmbLocation.Text} POS_LOG_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
+        ExportingExcel(dgvLog, $"{tscmbLocation.Text} POS_LOG_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 
     Private Sub dgvLog_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvLog.KeyDown

@@ -16,8 +16,8 @@
         fCryParameterInsertValue(gscryRpt, cmbCONTACT.SelectedValue, "contact_id")
         fCryParameterInsertValue(gscryRpt, cmbLOCATION_ID.SelectedValue, "location_id")
 
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
         fCryParameterInsertValue(gscryRpt, cmbLOCATION_ID.Text, "myremark")
 
     End Sub

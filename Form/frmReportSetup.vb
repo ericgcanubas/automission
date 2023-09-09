@@ -45,8 +45,8 @@ Public Class FrmReportSetup
             Dim dtp2 As DateTimePicker = Nothing
             gscryRpt = fViewReportOneParameterNumberOnly(lklFileName.Text)
 
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
             Dim stringArray(100) As String
             Dim intArray As Integer = 0
             Dim rd As OdbcDataReader = SqlReader("select r.ID,r.COMPONENT_ID,c.TYPE,c.NAME,c.SQL_STATEMENT,c.VALUE_NAME,c.DISPLAY_NAME,c.DEFAULT_VALUE,c.REPORT_PARAMETER_NAME,c.PARAMETER_ID1,c.VARIABLE_NAME1,c.PARAMETER_ID2,c.VARIABLE_NAME2,c.PARAMETER_ID3,c.VARIABLE_NAME3 from report_components as r inner join component as c on c.ID = r.COMPONENT_ID where sub_id = '" & Me.AccessibleDescription & "' order by r.LINE_NO")
@@ -448,7 +448,7 @@ Public Class FrmReportSetup
 
                         If rd("NAME") = "LOCATION" Then
                             cmb.SelectedValue = gsDefault_LOCATION_ID
-                            cmb.Enabled = fLockLocation()
+                            cmb.Enabled = IsLockLocation()
                         End If
                     Case 4
                         Dim p As Panel = fAddPanel(rd("NAME"), 400)

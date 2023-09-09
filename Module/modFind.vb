@@ -2,23 +2,16 @@
 Module modFind
 
 
-    Public Sub fGetQuickFind(ByVal dgv As DataGridView, ByVal prValue As String)
-
+    Public Sub GetQuickFind(ByVal dgv As DataGridView, ByVal prValue As String)
         For C As Integer = 0 To dgv.Columns.Count - 1
-
             If dgv.Columns(C).Visible = True Then
-
                 For R As Integer = 0 To dgv.Rows.Count - 1
                     If dgv.Item(C, R).Value.ToString.ToLower Like $"*{prValue.Trim.ToLower}*" Then
                         dgv.CurrentCell = dgv.Rows(R).Cells(C)
                         Exit Sub
-                        '  dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(1)
                     End If
                 Next
-
-
             End If
-
         Next
 
 

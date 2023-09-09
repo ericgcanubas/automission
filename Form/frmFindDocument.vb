@@ -5,7 +5,7 @@ Public Class FrmFindDocument
     Public gsGET_ID As String = ""
     Public item_BS As BindingSource
 
-    Private Function fAllDocs() As String
+    Private Function SqlAllDocs() As String
         Dim DOC_INVOICE As String = $"SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -643,26 +643,26 @@ FROM
         Dim sALl_Document_SQL As String = ""
 
 
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextInvoice) = True, IIf(sALl_Document_SQL = "", DOC_INVOICE, $" UNION {DOC_INVOICE}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextSalesOrder) = True, IIf(sALl_Document_SQL = "", DOC_SALES_ORDER, $" UNION {DOC_SALES_ORDER}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextSalesReceipt) = True, IIf(sALl_Document_SQL = "", DOC_SALES_RECEIPT, $" UNION {DOC_SALES_RECEIPT}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextReceivePayment) = True, IIf(sALl_Document_SQL = "", DOC_RECEIVED_PAYMENT, $" UNION {DOC_RECEIVED_PAYMENT}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextCreditMemo) = True, IIf(sALl_Document_SQL = "", DOC_CREDIT_MEMO, $" UNION {DOC_CREDIT_MEMO}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextTaxCredit) = True, IIf(sALl_Document_SQL = "", DOC_TAXCREDIT, $" UNION {DOC_TAXCREDIT}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextPurchaseOrder) = True, IIf(sALl_Document_SQL = "", DOC_PO, $" UNION {DOC_PO}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextPurchaseRequest) = True, IIf(sALl_Document_SQL = "", DOC_PR, $" UNION {DOC_PR}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextStockReceived) = True, IIf(sALl_Document_SQL = "", DOC_STOCK_RECEIVED, $" UNION {DOC_STOCK_RECEIVED}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextBills) = True, IIf(sALl_Document_SQL = "", DOC_BILL, $" UNION {DOC_BILL}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextBillCredit) = True, IIf(sALl_Document_SQL = "", DOC_BILL_CREDIT, $" UNION {DOC_BILL_CREDIT}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextBillPayment) = True, IIf(sALl_Document_SQL = "", DOC_BILL_PAYMENT, $" UNION {DOC_BILL_PAYMENT}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextWithholdingTax) = True, IIf(sALl_Document_SQL = "", DOC_WITH_HOLDING_TAX, $" UNION {DOC_WITH_HOLDING_TAX}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextStockTransfer) = True, IIf(sALl_Document_SQL = "", DOC_STOCK_TRANSFER, $" UNION {DOC_STOCK_TRANSFER}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextBuildAssembly) = True, IIf(sALl_Document_SQL = "", DOC_BUILD_ASSEMBLY, $" UNION {DOC_BUILD_ASSEMBLY}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextInventoryAdjustment) = True, IIf(sALl_Document_SQL = "", DOC_INVENTORY_ADJUSTMENT, $" UNION {DOC_INVENTORY_ADJUSTMENT}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextGeneralJournal) = True, IIf(sALl_Document_SQL = "", DOC_GENERAL_JOURNAL, $" UNION {DOC_GENERAL_JOURNAL}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextWriteCheck) = True, IIf(sALl_Document_SQL = "", DOC_WRITECHECK, $" UNION {DOC_WRITECHECK}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextDeposit) = True, IIf(sALl_Document_SQL = "", DOC_DEPOSIT, $" UNION {DOC_DEPOSIT}"), "")
-        sALl_Document_SQL = sALl_Document_SQL & IIf(UserSecurtySystemDOCShow(gsTextFundTransfer) = True, IIf(sALl_Document_SQL = "", DOC_FUND_TRANSFER, $" UNION {DOC_FUND_TRANSFER}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextInvoice) = True, IIf(sALl_Document_SQL = "", DOC_INVOICE, $" UNION {DOC_INVOICE}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextSalesOrder) = True, IIf(sALl_Document_SQL = "", DOC_SALES_ORDER, $" UNION {DOC_SALES_ORDER}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextSalesReceipt) = True, IIf(sALl_Document_SQL = "", DOC_SALES_RECEIPT, $" UNION {DOC_SALES_RECEIPT}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextReceivePayment) = True, IIf(sALl_Document_SQL = "", DOC_RECEIVED_PAYMENT, $" UNION {DOC_RECEIVED_PAYMENT}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextCreditMemo) = True, IIf(sALl_Document_SQL = "", DOC_CREDIT_MEMO, $" UNION {DOC_CREDIT_MEMO}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextTaxCredit) = True, IIf(sALl_Document_SQL = "", DOC_TAXCREDIT, $" UNION {DOC_TAXCREDIT}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextPurchaseOrder) = True, IIf(sALl_Document_SQL = "", DOC_PO, $" UNION {DOC_PO}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextPurchaseRequest) = True, IIf(sALl_Document_SQL = "", DOC_PR, $" UNION {DOC_PR}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextStockReceived) = True, IIf(sALl_Document_SQL = "", DOC_STOCK_RECEIVED, $" UNION {DOC_STOCK_RECEIVED}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextBills) = True, IIf(sALl_Document_SQL = "", DOC_BILL, $" UNION {DOC_BILL}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextBillCredit) = True, IIf(sALl_Document_SQL = "", DOC_BILL_CREDIT, $" UNION {DOC_BILL_CREDIT}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextBillPayment) = True, IIf(sALl_Document_SQL = "", DOC_BILL_PAYMENT, $" UNION {DOC_BILL_PAYMENT}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextWithholdingTax) = True, IIf(sALl_Document_SQL = "", DOC_WITH_HOLDING_TAX, $" UNION {DOC_WITH_HOLDING_TAX}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextStockTransfer) = True, IIf(sALl_Document_SQL = "", DOC_STOCK_TRANSFER, $" UNION {DOC_STOCK_TRANSFER}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextBuildAssembly) = True, IIf(sALl_Document_SQL = "", DOC_BUILD_ASSEMBLY, $" UNION {DOC_BUILD_ASSEMBLY}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextInventoryAdjustment) = True, IIf(sALl_Document_SQL = "", DOC_INVENTORY_ADJUSTMENT, $" UNION {DOC_INVENTORY_ADJUSTMENT}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextGeneralJournal) = True, IIf(sALl_Document_SQL = "", DOC_GENERAL_JOURNAL, $" UNION {DOC_GENERAL_JOURNAL}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextWriteCheck) = True, IIf(sALl_Document_SQL = "", DOC_WRITECHECK, $" UNION {DOC_WRITECHECK}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextDeposit) = True, IIf(sALl_Document_SQL = "", DOC_DEPOSIT, $" UNION {DOC_DEPOSIT}"), "")
+        sALl_Document_SQL &= IIf(UserSecurtySystemDOCShow(gsTextFundTransfer) = True, IIf(sALl_Document_SQL = "", DOC_FUND_TRANSFER, $" UNION {DOC_FUND_TRANSFER}"), "")
 
         Return " SELECT * from ( " & sALl_Document_SQL & ") as x order by x.`Date` desc,x.`ID` desc "
 
@@ -670,16 +670,16 @@ FROM
     End Function
 
 
-    Private Sub frmFindDocument_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmFindDocument_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
         Try
             If tscmbLocation.ComboBox.Items.Count = 0 Then
 
-                fRefreshLocation()
+                RefreshLocation()
                 Dim loc_value As String = gsDefault_LOCATION_ID
                 tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "%", loc_value)
-                tscmbLocation.Enabled = fLockLocation()
-                fRefresh()
+                tscmbLocation.Enabled = IsLockLocation()
+                RefreshMode()
                 gsSelected = False
                 firstLoad = False
                 dgvDocument.ColumnHeadersHeight = 35
@@ -689,7 +689,7 @@ FROM
         End Try
 
     End Sub
-    Private Function fRefreshCreditMemo() As String
+    Private Function RefreshCreditMemo() As String
         Dim sQuery_CreditMemo As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -741,7 +741,7 @@ FROM
  WHERE  i.Location_ID LIKE  '" & tscmbLocation.ComboBox.SelectedValue & "' order by i.ID DESC "
         Return sQuery_CreditMemo
     End Function
-    Private Function fRefreshPayment() As String
+    Private Function RefreshPayment() As String
         Dim sQuery_invoice As String = " Select
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -776,7 +776,7 @@ From
         Return sQuery_invoice
     End Function
 
-    Private Function fRefreshInvoice() As String
+    Private Function RefreshInvoice() As String
         Dim sQuery_invoice As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -835,7 +835,7 @@ FROM
         Return sQuery_invoice
 
     End Function
-    Private Function fRefreshSalesOrder() As String
+    Private Function RefreshSalesOrder() As String
         Dim sQuery_salesOrder As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -881,7 +881,7 @@ FROM
     End Function
 
 
-    Private Function fRefreshFund_Transfer() As String
+    Private Function RefreshFund_Transfer() As String
         Dim sQuery As String = "SELECT i.`ID`,
   i.`RECORDED_ON` AS `Recorded On`,
   i.`Date`,
@@ -910,7 +910,7 @@ FROM
  order by i.ID DESC  "
         Return sQuery
     End Function
-    Private Function fRefreshInventory_Adjustment() As String
+    Private Function RefreshInventory_Adjustment() As String
         Dim sQuery As String = "
 SELECT 
   i.`ID`,
@@ -943,7 +943,7 @@ FROM
       order by i.ID DESC  "
         Return sQuery
     End Function
-    Private Function fRefreshPurchase_Order() As String
+    Private Function RefreshPurchase_Order() As String
         Dim sQuery_PO As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -979,7 +979,7 @@ FROM
 
     End Function
 
-    Private Function fRefreshPurchase_Request() As String
+    Private Function RefreshPurchase_Request() As String
         Dim sQuery_PR As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -1012,7 +1012,7 @@ FROM
 
     End Function
 
-    Private Function fRefreshSalesReceipt() As String
+    Private Function RefreshSalesReceipt() As String
         Dim sQuery_Sales_receipt = " SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -1049,10 +1049,9 @@ FROM
         Return sQuery_Sales_receipt
 
     End Function
-    Private Sub fRefreshGridColumn()
+    Private Sub RefreshGridColumn()
         Select Case Me.AccessibleName
             Case "invoice"
-
                 ViewColumn(dgvDocument, 6) ' 6 = for  Invoice
             Case "payment"
 
@@ -1069,8 +1068,6 @@ FROM
             Case "purchase_order"
 
                 ViewColumn(dgvDocument, 13)
-
-
             Case "bill"
 
                 ViewColumn(dgvDocument, 14)
@@ -1123,83 +1120,83 @@ FROM
     End Sub
 
 
-    Private Sub fRefreshLocation()
+    Private Sub RefreshLocation()
         TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshMode()
         Dim SQL As String = ""
         CursorLoadingOn(True)
         Select Case Me.AccessibleName
             Case "invoice"
-                SQL = fRefreshInvoice()
+                SQL = RefreshInvoice()
 
             Case "payment"
-                SQL = fRefreshPayment()
+                SQL = RefreshPayment()
 
             Case "sales_order"
-                SQL = fRefreshSalesOrder()
+                SQL = RefreshSalesOrder()
 
             Case "sales_receipt"
-                SQL = fRefreshSalesReceipt()
+                SQL = RefreshSalesReceipt()
 
             Case "credit_memo"
-                SQL = fRefreshCreditMemo()
+                SQL = RefreshCreditMemo()
 
             Case "purchase_order"
-                SQL = fRefreshPurchase_Order()
+                SQL = RefreshPurchase_Order()
             Case "purchase_request"
-                SQL = fRefreshPurchase_Request()
+                SQL = RefreshPurchase_Request()
             Case "bill"
-                SQL = fRefresh_Bills()
+                SQL = RefreshBills()
 
             Case "bill_credit"
-                SQL = fRefresh_Bill_Credits()
+                SQL = RefreshBillCredits()
 
             Case "bill_payment"
-                SQL = fRefresh_Bill_Payment()
+                SQL = Refresh_Bill_Payment()
 
             Case "withholding_tax"
-                SQL = fRefresh_Withholding_Tax()
+                SQL = Refresh_Withholding_Tax()
 
             Case "stock_transfer"
-                SQL = fRfreshStock_Transfer()
+                SQL = RefreshStock_Transfer()
 
             Case "build_assembly"
-                SQL = fRefreshBuild_Assembly()
+                SQL = RefreshBuild_Assembly()
 
             Case "inventory_adjustment"
-                SQL = fRefreshInventory_Adjustment()
+                SQL = RefreshInventory_Adjustment()
 
             Case "general_journal"
-                SQL = fRefreshGeneral_Journal()
+                SQL = RefreshGeneral_Journal()
 
             Case "write_check"
-                SQL = fRefresh_Write_Check()
+                SQL = Refresh_Write_Check()
 
             Case "deposit"
-                SQL = fRefreshDeposit()
+                SQL = RefreshDeposit()
 
             Case "fund_transfer"
-                SQL = fRefreshFund_Transfer()
+                SQL = RefreshFund_Transfer()
 
             Case "tax_credit"
-                SQL = fRefresh_Tax_Credit()
+                SQL = Refresh_Tax_Credit()
 
             Case "estimate"
-                SQL = fRefreshEstimate()
+                SQL = RefreshEstimate()
             Case "stock_received"
-                SQL = fRfreshStock_Received()
+                SQL = RefreshStock_Received()
             Case Else
                 tsTITLE.Visible = True
                 tsItem.Visible = True
-                SQL = fAllDocs()
+                SQL = SqlAllDocs()
 
         End Select
 
         LoadDataGridViewBinding(dgvDocument, SQL, item_BS)
 
 
-        fRefreshGridColumn()
+        RefreshGridColumn()
         '=======================================================================================
         For i As Integer = 0 To dgvDocument.Columns.Count - 1
             With dgvDocument.Columns(i)
@@ -1211,57 +1208,16 @@ FROM
 
         CursorLoadingOn(False)
         dgvDocument.Columns(0).Visible = False
-        'If dgvDocument.Rows.Count = 0 Then
-        '    dgvDocument.Visible = False
-
-        'Else
-        '    dgvDocument.Visible = True
-        'End If
-        fSearchload()
+        SearchLoad()
     End Sub
 
-    Private Sub tstxtFindItem_KeyDown(sender As Object, e As KeyEventArgs)
-        If e.KeyCode = Keys.Enter Then
-            fRefresh()
-        ElseIf e.KeyCode = Keys.Down Then
-            If dgvDocument.Rows.Count <> 0 Then
-                dgvDocument.Focus()
-            End If
-        End If
-    End Sub
-
-    Private Sub dgvDocument_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
-
-    End Sub
-
-    Private Sub dgvDocument_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
-
-    End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        gsSelected = False
-        If Me.Dock = DockStyle.Fill Then
-            ClosedForm(Me)
-        Else
-            Me.Close()
-            Me.AccessibleDescription = ""
-        End If
-
-    End Sub
-
-    Private Sub frmFindDocument_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub FrmFindDocument_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If gsSelected = False Then
             Me.AccessibleDescription = "cancel"
         End If
 
     End Sub
-
-    Private Sub tstxtFindItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-
-    Private Sub fDOC_Selected()
+    Private Sub DocumentSelector()
         dgvDocument.Enabled = False
         If dgvDocument.Rows.Count <> 0 Then
 
@@ -1281,8 +1237,8 @@ FROM
                     F.Tag = i
                 End If
 
-                For n As Integer = 0 To frmMainMenu.MyTab.TabPages.Count - 1
-                    Dim Frm As Form = frmMainMenu.MyTab.TabPages.Item(n).Form
+                For n As Integer = 0 To FrmMainMenu.MyTab.TabPages.Count - 1
+                    Dim Frm As Form = FrmMainMenu.MyTab.TabPages.Item(n).Form
                     If Frm.Text = F.Text Then
                         Frm.Close()
                         Exit For
@@ -1292,7 +1248,7 @@ FROM
                 gsRefresh = True
 
 
-                TabFormOpen(F, frmMainMenu.MyTab, Img)
+                TabFormOpen(F, FrmMainMenu.MyTab, Img)
                 gsDocument_Finder_ID = dgvDocument.Rows(dgvDocument.CurrentRow.Index).Cells("ID").Value
                 F.TabIndex = gsDocument_Finder_ID
                 gsDocument_Finder_ID = 0
@@ -1312,8 +1268,8 @@ FROM
 
     End Sub
 
-    Private Sub dgvDocument_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDocument.CellDoubleClick
-        fDOC_Selected()
+    Private Sub DgvDocument_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDocument.CellDoubleClick
+        DocumentSelector()
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
@@ -1385,11 +1341,11 @@ FROM
         End Select
     End Sub
 
-    Private Sub tsbtnSearch_Click(sender As Object, e As EventArgs) Handles tsbtnSearch.Click
-        fRefresh()
+    Private Sub TSbtnSearch_Click(sender As Object, e As EventArgs) Handles tsbtnSearch.Click
+        RefreshMode()
     End Sub
 
-    Private Function fRefresh_Bills() As String
+    Private Function RefreshBills() As String
         Dim sQuery_Bills As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -1423,7 +1379,7 @@ FROM
 
         Return sQuery_Bills
     End Function
-    Private Function fRefresh_Bill_Credits() As String
+    Private Function RefreshBillCredits() As String
         Dim sQuery_Bill_credits As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -1457,7 +1413,7 @@ FROM
 
         Return sQuery_Bill_credits
     End Function
-    Private Function fRefresh_Withholding_Tax() As String
+    Private Function Refresh_Withholding_Tax() As String
         Dim sQuery As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` AS `Recorded On`,
@@ -1490,7 +1446,7 @@ FROM
  WHERE i.Location_ID LIKE  '" & tscmbLocation.ComboBox.SelectedValue & "' order by i.ID DESC "
         Return sQuery
     End Function
-    Private Function fRefresh_Bill_Payment() As String
+    Private Function Refresh_Bill_Payment() As String
         Dim sQuery_Bill_Payments As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -1523,7 +1479,7 @@ FROM
  WHERE i.`Type` = '1' and i.Location_ID LIKE  '" & tscmbLocation.ComboBox.SelectedValue & "' order by i.ID DESC  "
         Return sQuery_Bill_Payments
     End Function
-    Private Function fRefresh_Write_Check() As String
+    Private Function Refresh_Write_Check() As String
         Dim sQuery As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -1557,7 +1513,7 @@ FROM
         Return sQuery
     End Function
 
-    Private Function fRfreshStock_Transfer() As String
+    Private Function RefreshStock_Transfer() As String
         Dim sQuery As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` AS `Recorded On`,
@@ -1592,7 +1548,7 @@ order by i.ID DESC  "
         Return sQuery
     End Function
 
-    Private Function fRfreshStock_Received() As String
+    Private Function RefreshStock_Received() As String
         Dim sQuery As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` AS `Recorded On`,
@@ -1618,7 +1574,7 @@ FROM
 order by i.ID DESC  "
         Return sQuery
     End Function
-    Private Function fRefreshBuild_Assembly() As String
+    Private Function RefreshBuild_Assembly() As String
         Dim sQuery As String = "SELECT 
     i.`ID`,
   i.`RECORDED_ON` AS `Recorded On`,
@@ -1650,7 +1606,7 @@ FROM
         Return sQuery
     End Function
 
-    Private Function fRefreshGeneral_Journal() As String
+    Private Function RefreshGeneral_Journal() As String
         Dim sQuery As String = "SELECT 
     i.`ID`,
   i.`RECORDED_ON` AS `Recorded On`,
@@ -1678,7 +1634,7 @@ FROM
  order by i.ID DESC "
         Return sQuery
     End Function
-    Private Function fRefreshDeposit() As String
+    Private Function RefreshDeposit() As String
         Dim sQuery As String = "SELECT 
     i.`ID`,
   i.`RECORDED_ON` AS `Recorded On`,
@@ -1709,7 +1665,7 @@ FROM
         Return sQuery
     End Function
 
-    Private Function fRefresh_Tax_Credit() As String
+    Private Function Refresh_Tax_Credit() As String
         Dim sQuery As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` AS `Recorded On`,
@@ -1743,31 +1699,21 @@ FROM
 
         Return sQuery
     End Function
-
-    Private Sub dgvDocument_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDocument.CellContentClick
-
-    End Sub
-
-    Private Sub frmFindDocument_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmFindDocument_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         gsSelected = False
 
     End Sub
-
-    Private Sub tscmbLocation_Click(sender As Object, e As EventArgs) Handles tscmbLocation.Click
-
-    End Sub
-
     Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
-        fDOC_Selected()
+        DocumentSelector()
     End Sub
 
-    Private Sub dgvDocument_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvDocument.KeyDown
+    Private Sub DgvDocument_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvDocument.KeyDown
         If e.KeyCode = Keys.Enter Then
-            fDOC_Selected()
+            DocumentSelector()
         End If
 
     End Sub
-    Private Function fRefreshEstimate() As String
+    Private Function RefreshEstimate() As String
         Dim sQuery As String = "SELECT 
   i.`ID`,
   i.`RECORDED_ON` as `Recorded On`,
@@ -1812,7 +1758,7 @@ FROM
         Return sQuery
     End Function
 
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
 
             Dim strSearch As String = ""
@@ -1842,34 +1788,25 @@ FROM
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
-    Private Sub tscmbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbLocation.SelectedIndexChanged
+    Private Sub TScmbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbLocation.SelectedIndexChanged
         If firstLoad = False Then
-            fRefresh()
+            RefreshMode()
         End If
 
     End Sub
 
-    Private Sub dgvDocument_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDocument.RowStateChanged
+    Private Sub DgvDocument_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDocument.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
-
-    Private Sub tsTxtSearch_Click(sender As Object, e As EventArgs) Handles tsTxtSearch.Click
-
-    End Sub
-
-    Private Sub tscmbSearch_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tscmbSearch_SelectedIndexChanged(sender As Object, e As EventArgs)
-        fSearchload()
+    Private Sub TScmbSearch_SelectedIndexChanged(sender As Object, e As EventArgs)
+        SearchLoad()
     End Sub
 
     Private Sub ExportReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportReportToolStripMenuItem.Click
-        fExport(dgvDocument, $"Summary Report {DateTime.Now()}")
+        ExportingExcel(dgvDocument, $"Summary Report {DateTime.Now()}")
     End Sub
 End Class

@@ -169,7 +169,7 @@ Partial Class FrmItemDetails
         Me.cmbTYPE.Location = New System.Drawing.Point(50, 13)
         Me.cmbTYPE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbTYPE.Name = "cmbTYPE"
-        Me.cmbTYPE.Size = New System.Drawing.Size(207, 24)
+        Me.cmbTYPE.Size = New System.Drawing.Size(256, 24)
         Me.cmbTYPE.TabIndex = 0
         '
         'Label3
@@ -188,7 +188,7 @@ Partial Class FrmItemDetails
         Me.txtCODE.Location = New System.Drawing.Point(50, 42)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(207, 23)
+        Me.txtCODE.Size = New System.Drawing.Size(256, 23)
         Me.txtCODE.TabIndex = 11
         '
         'chkINACTIVE
@@ -241,7 +241,7 @@ Partial Class FrmItemDetails
         'cmbMANUFACTURER_ID
         '
         Me.cmbMANUFACTURER_ID.FormattingEnabled = True
-        Me.cmbMANUFACTURER_ID.Location = New System.Drawing.Point(119, 171)
+        Me.cmbMANUFACTURER_ID.Location = New System.Drawing.Point(148, 174)
         Me.cmbMANUFACTURER_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbMANUFACTURER_ID.Name = "cmbMANUFACTURER_ID"
         Me.cmbMANUFACTURER_ID.Size = New System.Drawing.Size(207, 24)
@@ -250,7 +250,7 @@ Partial Class FrmItemDetails
         'xlblManufacture
         '
         Me.xlblManufacture.AutoSize = True
-        Me.xlblManufacture.Location = New System.Drawing.Point(23, 176)
+        Me.xlblManufacture.Location = New System.Drawing.Point(49, 177)
         Me.xlblManufacture.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblManufacture.Name = "xlblManufacture"
         Me.xlblManufacture.Size = New System.Drawing.Size(95, 16)
@@ -261,16 +261,16 @@ Partial Class FrmItemDetails
         '
         Me.cmbGL_ACCOUNT_ID.AccessibleDescription = "null"
         Me.cmbGL_ACCOUNT_ID.FormattingEnabled = True
-        Me.cmbGL_ACCOUNT_ID.Location = New System.Drawing.Point(448, 209)
+        Me.cmbGL_ACCOUNT_ID.Location = New System.Drawing.Point(148, 258)
         Me.cmbGL_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbGL_ACCOUNT_ID.Name = "cmbGL_ACCOUNT_ID"
-        Me.cmbGL_ACCOUNT_ID.Size = New System.Drawing.Size(207, 24)
+        Me.cmbGL_ACCOUNT_ID.Size = New System.Drawing.Size(506, 24)
         Me.cmbGL_ACCOUNT_ID.TabIndex = 16
         '
         'xlblINCOME_ACCOUNT
         '
         Me.xlblINCOME_ACCOUNT.AutoSize = True
-        Me.xlblINCOME_ACCOUNT.Location = New System.Drawing.Point(333, 213)
+        Me.xlblINCOME_ACCOUNT.Location = New System.Drawing.Point(29, 261)
         Me.xlblINCOME_ACCOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblINCOME_ACCOUNT.Name = "xlblINCOME_ACCOUNT"
         Me.xlblINCOME_ACCOUNT.Size = New System.Drawing.Size(115, 16)
@@ -280,7 +280,7 @@ Partial Class FrmItemDetails
         'cmbPREFERRED_VENDOR_ID
         '
         Me.cmbPREFERRED_VENDOR_ID.FormattingEnabled = True
-        Me.cmbPREFERRED_VENDOR_ID.Location = New System.Drawing.Point(119, 143)
+        Me.cmbPREFERRED_VENDOR_ID.Location = New System.Drawing.Point(148, 146)
         Me.cmbPREFERRED_VENDOR_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPREFERRED_VENDOR_ID.Name = "cmbPREFERRED_VENDOR_ID"
         Me.cmbPREFERRED_VENDOR_ID.Size = New System.Drawing.Size(207, 24)
@@ -289,16 +289,16 @@ Partial Class FrmItemDetails
         'xlblPreferered
         '
         Me.xlblPreferered.AutoSize = True
-        Me.xlblPreferered.Location = New System.Drawing.Point(5, 146)
+        Me.xlblPreferered.Location = New System.Drawing.Point(26, 149)
         Me.xlblPreferered.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblPreferered.Name = "xlblPreferered"
-        Me.xlblPreferered.Size = New System.Drawing.Size(108, 16)
+        Me.xlblPreferered.Size = New System.Drawing.Size(117, 16)
         Me.xlblPreferered.TabIndex = 13
-        Me.xlblPreferered.Text = "Preferred Seller"
+        Me.xlblPreferered.Text = "Preferred Vendor"
         '
         'chkTAXABLE
         '
-        Me.chkTAXABLE.Location = New System.Drawing.Point(119, 48)
+        Me.chkTAXABLE.Location = New System.Drawing.Point(149, 44)
         Me.chkTAXABLE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkTAXABLE.Name = "chkTAXABLE"
         Me.chkTAXABLE.Size = New System.Drawing.Size(86, 26)
@@ -310,16 +310,16 @@ Partial Class FrmItemDetails
         '
         Me.cmbCOGS_ACCOUNT_ID.AccessibleDescription = "null"
         Me.cmbCOGS_ACCOUNT_ID.FormattingEnabled = True
-        Me.cmbCOGS_ACCOUNT_ID.Location = New System.Drawing.Point(119, 200)
+        Me.cmbCOGS_ACCOUNT_ID.Location = New System.Drawing.Point(148, 229)
         Me.cmbCOGS_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbCOGS_ACCOUNT_ID.Name = "cmbCOGS_ACCOUNT_ID"
-        Me.cmbCOGS_ACCOUNT_ID.Size = New System.Drawing.Size(207, 24)
+        Me.cmbCOGS_ACCOUNT_ID.Size = New System.Drawing.Size(506, 24)
         Me.cmbCOGS_ACCOUNT_ID.TabIndex = 11
         '
         'xlblCOGS_ACCOUNT
         '
         Me.xlblCOGS_ACCOUNT.AutoSize = True
-        Me.xlblCOGS_ACCOUNT.Location = New System.Drawing.Point(13, 204)
+        Me.xlblCOGS_ACCOUNT.Location = New System.Drawing.Point(40, 233)
         Me.xlblCOGS_ACCOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblCOGS_ACCOUNT.Name = "xlblCOGS_ACCOUNT"
         Me.xlblCOGS_ACCOUNT.Size = New System.Drawing.Size(104, 16)
@@ -352,7 +352,7 @@ Partial Class FrmItemDetails
         'xlblCOST
         '
         Me.xlblCOST.AutoSize = True
-        Me.xlblCOST.Location = New System.Drawing.Point(77, 20)
+        Me.xlblCOST.Location = New System.Drawing.Point(106, 21)
         Me.xlblCOST.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblCOST.Name = "xlblCOST"
         Me.xlblCOST.Size = New System.Drawing.Size(37, 16)
@@ -362,7 +362,7 @@ Partial Class FrmItemDetails
         'numCOST
         '
         Me.numCOST.DecimalPlaces = 2
-        Me.numCOST.Location = New System.Drawing.Point(119, 17)
+        Me.numCOST.Location = New System.Drawing.Point(148, 18)
         Me.numCOST.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.numCOST.Maximum = New Decimal(New Integer() {999999999, 0, 0, 0})
         Me.numCOST.Minimum = New Decimal(New Integer() {999999999, 0, 0, -2147483648})
@@ -375,7 +375,7 @@ Partial Class FrmItemDetails
         'xlblDescription
         '
         Me.xlblDescription.AutoSize = True
-        Me.xlblDescription.Location = New System.Drawing.Point(351, 79)
+        Me.xlblDescription.Location = New System.Drawing.Point(336, 76)
         Me.xlblDescription.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblDescription.Name = "xlblDescription"
         Me.xlblDescription.Size = New System.Drawing.Size(120, 16)
@@ -385,22 +385,22 @@ Partial Class FrmItemDetails
         'xlblPurchase_Description
         '
         Me.xlblPurchase_Description.AutoSize = True
-        Me.xlblPurchase_Description.Location = New System.Drawing.Point(10, 79)
+        Me.xlblPurchase_Description.Location = New System.Drawing.Point(10, 76)
         Me.xlblPurchase_Description.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblPurchase_Description.Name = "xlblPurchase_Description"
-        Me.xlblPurchase_Description.Size = New System.Drawing.Size(106, 16)
+        Me.xlblPurchase_Description.Size = New System.Drawing.Size(145, 16)
         Me.xlblPurchase_Description.TabIndex = 2
-        Me.xlblPurchase_Description.Text = "P.O Description"
+        Me.xlblPurchase_Description.Text = "Purchase Description"
         '
         'rtbDESCRIPTION
         '
         Me.rtbDESCRIPTION.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.rtbDESCRIPTION.DetectUrls = False
-        Me.rtbDESCRIPTION.Location = New System.Drawing.Point(354, 96)
+        Me.rtbDESCRIPTION.Location = New System.Drawing.Point(339, 96)
         Me.rtbDESCRIPTION.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.rtbDESCRIPTION.Name = "rtbDESCRIPTION"
         Me.rtbDESCRIPTION.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical
-        Me.rtbDESCRIPTION.Size = New System.Drawing.Size(323, 66)
+        Me.rtbDESCRIPTION.Size = New System.Drawing.Size(338, 63)
         Me.rtbDESCRIPTION.TabIndex = 2
         Me.rtbDESCRIPTION.Text = ""
         '
@@ -412,7 +412,7 @@ Partial Class FrmItemDetails
         Me.rtbPURCHASE_DESCRIPTION.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.rtbPURCHASE_DESCRIPTION.Name = "rtbPURCHASE_DESCRIPTION"
         Me.rtbPURCHASE_DESCRIPTION.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical
-        Me.rtbPURCHASE_DESCRIPTION.Size = New System.Drawing.Size(333, 63)
+        Me.rtbPURCHASE_DESCRIPTION.Size = New System.Drawing.Size(295, 63)
         Me.rtbPURCHASE_DESCRIPTION.TabIndex = 1
         Me.rtbPURCHASE_DESCRIPTION.Text = ""
         '
@@ -426,13 +426,13 @@ Partial Class FrmItemDetails
         Me.dgvComponents.ColumnHeadersHeight = 35
         Me.dgvComponents.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvComponents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvComponents.Location = New System.Drawing.Point(3, 33)
+        Me.dgvComponents.Location = New System.Drawing.Point(3, 39)
         Me.dgvComponents.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dgvComponents.MultiSelect = False
         Me.dgvComponents.Name = "dgvComponents"
         Me.dgvComponents.ReadOnly = True
         Me.dgvComponents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvComponents.Size = New System.Drawing.Size(658, 260)
+        Me.dgvComponents.Size = New System.Drawing.Size(658, 264)
         Me.dgvComponents.TabIndex = 21
         '
         'cmbRATE_TYPE
@@ -467,40 +467,40 @@ Partial Class FrmItemDetails
         Me.dgvOrder_Preference.ColumnHeadersHeight = 40
         Me.dgvOrder_Preference.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvOrder_Preference.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvOrder_Preference.Location = New System.Drawing.Point(3, 33)
+        Me.dgvOrder_Preference.Location = New System.Drawing.Point(3, 39)
         Me.dgvOrder_Preference.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dgvOrder_Preference.MultiSelect = False
         Me.dgvOrder_Preference.Name = "dgvOrder_Preference"
         Me.dgvOrder_Preference.ReadOnly = True
         Me.dgvOrder_Preference.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvOrder_Preference.Size = New System.Drawing.Size(658, 260)
+        Me.dgvOrder_Preference.Size = New System.Drawing.Size(658, 264)
         Me.dgvOrder_Preference.TabIndex = 4
         '
         'xlblASSET_ACCOUNT
         '
         Me.xlblASSET_ACCOUNT.AutoSize = True
-        Me.xlblASSET_ACCOUNT.Location = New System.Drawing.Point(8, 7)
+        Me.xlblASSET_ACCOUNT.Location = New System.Drawing.Point(234, 11)
         Me.xlblASSET_ACCOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblASSET_ACCOUNT.Name = "xlblASSET_ACCOUNT"
-        Me.xlblASSET_ACCOUNT.Size = New System.Drawing.Size(104, 16)
+        Me.xlblASSET_ACCOUNT.Size = New System.Drawing.Size(85, 16)
         Me.xlblASSET_ACCOUNT.TabIndex = 3
-        Me.xlblASSET_ACCOUNT.Text = "Asset Account"
+        Me.xlblASSET_ACCOUNT.Text = "Asset Acct."
         '
         'cmbASSET_ACCOUNT_ID
         '
         Me.cmbASSET_ACCOUNT_ID.AccessibleDescription = "null"
         Me.cmbASSET_ACCOUNT_ID.DropDownWidth = 300
         Me.cmbASSET_ACCOUNT_ID.FormattingEnabled = True
-        Me.cmbASSET_ACCOUNT_ID.Location = New System.Drawing.Point(8, 27)
+        Me.cmbASSET_ACCOUNT_ID.Location = New System.Drawing.Point(329, 8)
         Me.cmbASSET_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbASSET_ACCOUNT_ID.Name = "cmbASSET_ACCOUNT_ID"
-        Me.cmbASSET_ACCOUNT_ID.Size = New System.Drawing.Size(213, 24)
+        Me.cmbASSET_ACCOUNT_ID.Size = New System.Drawing.Size(326, 24)
         Me.cmbASSET_ACCOUNT_ID.TabIndex = 2
         '
         'xlblStock_TYPE
         '
         Me.xlblStock_TYPE.AutoSize = True
-        Me.xlblStock_TYPE.Location = New System.Drawing.Point(37, 108)
+        Me.xlblStock_TYPE.Location = New System.Drawing.Point(62, 108)
         Me.xlblStock_TYPE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblStock_TYPE.Name = "xlblStock_TYPE"
         Me.xlblStock_TYPE.Size = New System.Drawing.Size(82, 16)
@@ -512,7 +512,7 @@ Partial Class FrmItemDetails
         Me.cmbSTOCK_TYPE.AccessibleDescription = "0"
         Me.cmbSTOCK_TYPE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSTOCK_TYPE.FormattingEnabled = True
-        Me.cmbSTOCK_TYPE.Location = New System.Drawing.Point(119, 105)
+        Me.cmbSTOCK_TYPE.Location = New System.Drawing.Point(148, 108)
         Me.cmbSTOCK_TYPE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbSTOCK_TYPE.Name = "cmbSTOCK_TYPE"
         Me.cmbSTOCK_TYPE.Size = New System.Drawing.Size(207, 24)
@@ -521,16 +521,16 @@ Partial Class FrmItemDetails
         'cmbBASE_UNIT_ID
         '
         Me.cmbBASE_UNIT_ID.FormattingEnabled = True
-        Me.cmbBASE_UNIT_ID.Location = New System.Drawing.Point(224, 27)
+        Me.cmbBASE_UNIT_ID.Location = New System.Drawing.Point(84, 8)
         Me.cmbBASE_UNIT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbBASE_UNIT_ID.Name = "cmbBASE_UNIT_ID"
-        Me.cmbBASE_UNIT_ID.Size = New System.Drawing.Size(105, 24)
+        Me.cmbBASE_UNIT_ID.Size = New System.Drawing.Size(139, 24)
         Me.cmbBASE_UNIT_ID.TabIndex = 1
         '
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(223, 7)
+        Me.Label32.Location = New System.Drawing.Point(8, 11)
         Me.Label32.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(69, 16)
@@ -545,11 +545,11 @@ Partial Class FrmItemDetails
         Me.TabControl2.Controls.Add(Me.tpOtherSize)
         Me.TabControl2.Controls.Add(Me.tpSizeRateLevel)
         Me.TabControl2.Controls.Add(Me.tpDefaultArea)
-        Me.TabControl2.Location = New System.Drawing.Point(2, 60)
+        Me.TabControl2.Location = New System.Drawing.Point(2, 40)
         Me.TabControl2.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(657, 308)
+        Me.TabControl2.Size = New System.Drawing.Size(657, 227)
         Me.TabControl2.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
         Me.TabControl2.TabIndex = 2
         '
@@ -561,7 +561,7 @@ Partial Class FrmItemDetails
         Me.tpOtherSize.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.tpOtherSize.Name = "tpOtherSize"
         Me.tpOtherSize.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.tpOtherSize.Size = New System.Drawing.Size(649, 279)
+        Me.tpOtherSize.Size = New System.Drawing.Size(649, 189)
         Me.tpOtherSize.TabIndex = 0
         Me.tpOtherSize.Text = "Other Unit"
         Me.tpOtherSize.UseVisualStyleBackColor = True
@@ -574,13 +574,13 @@ Partial Class FrmItemDetails
         Me.dgvReleted_Units.ColumnHeadersHeight = 35
         Me.dgvReleted_Units.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvReleted_Units.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvReleted_Units.Location = New System.Drawing.Point(5, 35)
+        Me.dgvReleted_Units.Location = New System.Drawing.Point(5, 41)
         Me.dgvReleted_Units.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dgvReleted_Units.MultiSelect = False
         Me.dgvReleted_Units.Name = "dgvReleted_Units"
         Me.dgvReleted_Units.ReadOnly = True
         Me.dgvReleted_Units.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvReleted_Units.Size = New System.Drawing.Size(639, 240)
+        Me.dgvReleted_Units.Size = New System.Drawing.Size(639, 144)
         Me.dgvReleted_Units.TabIndex = 0
         '
         'ToolStrip1
@@ -590,7 +590,7 @@ Partial Class FrmItemDetails
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAdd1, Me.ToolStripSeparator1, Me.tsEdit1, Me.ToolStripSeparator6, Me.tsDelete1})
         Me.ToolStrip1.Location = New System.Drawing.Point(5, 4)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(639, 31)
+        Me.ToolStrip1.Size = New System.Drawing.Size(639, 37)
         Me.ToolStrip1.TabIndex = 31
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -600,13 +600,13 @@ Partial Class FrmItemDetails
         Me.tsAdd1.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAdd1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAdd1.Name = "tsAdd1"
-        Me.tsAdd1.Size = New System.Drawing.Size(28, 28)
+        Me.tsAdd1.Size = New System.Drawing.Size(34, 34)
         Me.tsAdd1.Text = "&Add"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 37)
         '
         'tsEdit1
         '
@@ -614,13 +614,13 @@ Partial Class FrmItemDetails
         Me.tsEdit1.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEdit1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEdit1.Name = "tsEdit1"
-        Me.tsEdit1.Size = New System.Drawing.Size(28, 28)
+        Me.tsEdit1.Size = New System.Drawing.Size(34, 34)
         Me.tsEdit1.Text = "&Edit"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(6, 37)
         '
         'tsDelete1
         '
@@ -628,7 +628,7 @@ Partial Class FrmItemDetails
         Me.tsDelete1.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsDelete1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDelete1.Name = "tsDelete1"
-        Me.tsDelete1.Size = New System.Drawing.Size(28, 28)
+        Me.tsDelete1.Size = New System.Drawing.Size(34, 34)
         Me.tsDelete1.Text = "&Delete"
         '
         'tpSizeRateLevel
@@ -639,7 +639,7 @@ Partial Class FrmItemDetails
         Me.tpSizeRateLevel.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.tpSizeRateLevel.Name = "tpSizeRateLevel"
         Me.tpSizeRateLevel.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.tpSizeRateLevel.Size = New System.Drawing.Size(649, 279)
+        Me.tpSizeRateLevel.Size = New System.Drawing.Size(649, 189)
         Me.tpSizeRateLevel.TabIndex = 1
         Me.tpSizeRateLevel.Text = "Unit Price Level"
         Me.tpSizeRateLevel.UseVisualStyleBackColor = True
@@ -652,13 +652,13 @@ Partial Class FrmItemDetails
         Me.dgvUM_Price_level.ColumnHeadersHeight = 35
         Me.dgvUM_Price_level.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvUM_Price_level.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvUM_Price_level.Location = New System.Drawing.Point(5, 35)
+        Me.dgvUM_Price_level.Location = New System.Drawing.Point(5, 41)
         Me.dgvUM_Price_level.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dgvUM_Price_level.MultiSelect = False
         Me.dgvUM_Price_level.Name = "dgvUM_Price_level"
         Me.dgvUM_Price_level.ReadOnly = True
         Me.dgvUM_Price_level.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvUM_Price_level.Size = New System.Drawing.Size(639, 240)
+        Me.dgvUM_Price_level.Size = New System.Drawing.Size(639, 144)
         Me.dgvUM_Price_level.TabIndex = 1
         '
         'ToolStrip2
@@ -668,7 +668,7 @@ Partial Class FrmItemDetails
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAdd2, Me.ToolStripSeparator2, Me.tsEdit2, Me.ToolStripSeparator3, Me.tsDelete2})
         Me.ToolStrip2.Location = New System.Drawing.Point(5, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(639, 31)
+        Me.ToolStrip2.Size = New System.Drawing.Size(639, 37)
         Me.ToolStrip2.TabIndex = 32
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -679,13 +679,13 @@ Partial Class FrmItemDetails
         Me.tsAdd2.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAdd2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAdd2.Name = "tsAdd2"
-        Me.tsAdd2.Size = New System.Drawing.Size(28, 28)
+        Me.tsAdd2.Size = New System.Drawing.Size(34, 34)
         Me.tsAdd2.Text = "&Add"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 37)
         '
         'tsEdit2
         '
@@ -694,13 +694,13 @@ Partial Class FrmItemDetails
         Me.tsEdit2.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEdit2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEdit2.Name = "tsEdit2"
-        Me.tsEdit2.Size = New System.Drawing.Size(28, 28)
+        Me.tsEdit2.Size = New System.Drawing.Size(34, 34)
         Me.tsEdit2.Text = "&Edit"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 37)
         '
         'tsDelete2
         '
@@ -709,7 +709,7 @@ Partial Class FrmItemDetails
         Me.tsDelete2.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsDelete2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDelete2.Name = "tsDelete2"
-        Me.tsDelete2.Size = New System.Drawing.Size(28, 28)
+        Me.tsDelete2.Size = New System.Drawing.Size(34, 34)
         Me.tsDelete2.Text = "&Delete"
         '
         'tpDefaultArea
@@ -720,7 +720,7 @@ Partial Class FrmItemDetails
         Me.tpDefaultArea.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.tpDefaultArea.Name = "tpDefaultArea"
         Me.tpDefaultArea.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.tpDefaultArea.Size = New System.Drawing.Size(649, 279)
+        Me.tpDefaultArea.Size = New System.Drawing.Size(649, 198)
         Me.tpDefaultArea.TabIndex = 2
         Me.tpDefaultArea.Text = "Default Location"
         Me.tpDefaultArea.UseVisualStyleBackColor = True
@@ -733,13 +733,13 @@ Partial Class FrmItemDetails
         Me.dgvLocation_Default.ColumnHeadersHeight = 35
         Me.dgvLocation_Default.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvLocation_Default.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvLocation_Default.Location = New System.Drawing.Point(5, 35)
+        Me.dgvLocation_Default.Location = New System.Drawing.Point(5, 41)
         Me.dgvLocation_Default.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dgvLocation_Default.MultiSelect = False
         Me.dgvLocation_Default.Name = "dgvLocation_Default"
         Me.dgvLocation_Default.ReadOnly = True
         Me.dgvLocation_Default.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLocation_Default.Size = New System.Drawing.Size(639, 240)
+        Me.dgvLocation_Default.Size = New System.Drawing.Size(639, 153)
         Me.dgvLocation_Default.TabIndex = 1
         '
         'tsDefaultBranchClick
@@ -749,7 +749,7 @@ Partial Class FrmItemDetails
         Me.tsDefaultBranchClick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsDefaultBranch, Me.ToolStripSeparator7})
         Me.tsDefaultBranchClick.Location = New System.Drawing.Point(5, 4)
         Me.tsDefaultBranchClick.Name = "tsDefaultBranchClick"
-        Me.tsDefaultBranchClick.Size = New System.Drawing.Size(639, 31)
+        Me.tsDefaultBranchClick.Size = New System.Drawing.Size(639, 37)
         Me.tsDefaultBranchClick.TabIndex = 34
         Me.tsDefaultBranchClick.Text = "ToolStrip4"
         '
@@ -760,13 +760,13 @@ Partial Class FrmItemDetails
         Me.tsDefaultBranch.Image = Global.Automission.My.Resources.Resources.l_config
         Me.tsDefaultBranch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDefaultBranch.Name = "tsDefaultBranch"
-        Me.tsDefaultBranch.Size = New System.Drawing.Size(28, 28)
+        Me.tsDefaultBranch.Size = New System.Drawing.Size(34, 34)
         Me.tsDefaultBranch.Text = "&Edit"
         '
         'ToolStripSeparator7
         '
         Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
-        Me.ToolStripSeparator7.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator7.Size = New System.Drawing.Size(6, 37)
         '
         'dgvPriceLevel
         '
@@ -778,13 +778,13 @@ Partial Class FrmItemDetails
         Me.dgvPriceLevel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvPriceLevel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPriceLevel.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvPriceLevel.Location = New System.Drawing.Point(3, 33)
+        Me.dgvPriceLevel.Location = New System.Drawing.Point(3, 39)
         Me.dgvPriceLevel.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dgvPriceLevel.MultiSelect = False
         Me.dgvPriceLevel.Name = "dgvPriceLevel"
         Me.dgvPriceLevel.ReadOnly = True
         Me.dgvPriceLevel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPriceLevel.Size = New System.Drawing.Size(658, 260)
+        Me.dgvPriceLevel.Size = New System.Drawing.Size(658, 264)
         Me.dgvPriceLevel.TabIndex = 2
         '
         'xlblSUB_Class
@@ -800,7 +800,7 @@ Partial Class FrmItemDetails
         'xlblGROUP
         '
         Me.xlblGROUP.AutoSize = True
-        Me.xlblGROUP.Location = New System.Drawing.Point(69, 81)
+        Me.xlblGROUP.Location = New System.Drawing.Point(99, 81)
         Me.xlblGROUP.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblGROUP.Name = "xlblGROUP"
         Me.xlblGROUP.Size = New System.Drawing.Size(45, 16)
@@ -829,7 +829,7 @@ Partial Class FrmItemDetails
         'cmbGROUP_ID
         '
         Me.cmbGROUP_ID.FormattingEnabled = True
-        Me.cmbGROUP_ID.Location = New System.Drawing.Point(119, 78)
+        Me.cmbGROUP_ID.Location = New System.Drawing.Point(148, 81)
         Me.cmbGROUP_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbGROUP_ID.Name = "cmbGROUP_ID"
         Me.cmbGROUP_ID.Size = New System.Drawing.Size(207, 24)
@@ -855,15 +855,14 @@ Partial Class FrmItemDetails
         Me.rtbNOTES.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.rtbNOTES.Name = "rtbNOTES"
         Me.rtbNOTES.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth
-        Me.rtbNOTES.Size = New System.Drawing.Size(262, 325)
+        Me.rtbNOTES.Size = New System.Drawing.Size(262, 256)
         Me.rtbNOTES.TabIndex = 0
         Me.rtbNOTES.Text = ""
         '
         'btnBrowse
         '
-        Me.btnBrowse.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnBrowse.Location = New System.Drawing.Point(246, 28)
+        Me.btnBrowse.Location = New System.Drawing.Point(276, 28)
         Me.btnBrowse.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.btnBrowse.Name = "btnBrowse"
         Me.btnBrowse.Size = New System.Drawing.Size(33, 30)
@@ -873,9 +872,8 @@ Partial Class FrmItemDetails
         '
         'btnDelete
         '
-        Me.btnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDelete.Location = New System.Drawing.Point(246, 65)
+        Me.btnDelete.Location = New System.Drawing.Point(276, 65)
         Me.btnDelete.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(33, 30)
@@ -886,7 +884,7 @@ Partial Class FrmItemDetails
         'lblPIC_FILENAME
         '
         Me.lblPIC_FILENAME.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblPIC_FILENAME.Location = New System.Drawing.Point(257, 215)
+        Me.lblPIC_FILENAME.Location = New System.Drawing.Point(287, 215)
         Me.lblPIC_FILENAME.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblPIC_FILENAME.Name = "lblPIC_FILENAME"
         Me.lblPIC_FILENAME.Size = New System.Drawing.Size(77, 28)
@@ -909,59 +907,59 @@ Partial Class FrmItemDetails
         'cmbPURCHASES_UNIT_ID
         '
         Me.cmbPURCHASES_UNIT_ID.FormattingEnabled = True
-        Me.cmbPURCHASES_UNIT_ID.Location = New System.Drawing.Point(331, 27)
+        Me.cmbPURCHASES_UNIT_ID.Location = New System.Drawing.Point(84, 272)
         Me.cmbPURCHASES_UNIT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPURCHASES_UNIT_ID.Name = "cmbPURCHASES_UNIT_ID"
-        Me.cmbPURCHASES_UNIT_ID.Size = New System.Drawing.Size(107, 24)
+        Me.cmbPURCHASES_UNIT_ID.Size = New System.Drawing.Size(139, 24)
         Me.cmbPURCHASES_UNIT_ID.TabIndex = 43
         '
         'cmbSALES_UNIT_ID
         '
         Me.cmbSALES_UNIT_ID.FormattingEnabled = True
-        Me.cmbSALES_UNIT_ID.Location = New System.Drawing.Point(441, 27)
+        Me.cmbSALES_UNIT_ID.Location = New System.Drawing.Point(300, 273)
         Me.cmbSALES_UNIT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbSALES_UNIT_ID.Name = "cmbSALES_UNIT_ID"
-        Me.cmbSALES_UNIT_ID.Size = New System.Drawing.Size(105, 24)
+        Me.cmbSALES_UNIT_ID.Size = New System.Drawing.Size(139, 24)
         Me.cmbSALES_UNIT_ID.TabIndex = 44
         '
         'cmbSHIPPING_UNIT_ID
         '
         Me.cmbSHIPPING_UNIT_ID.FormattingEnabled = True
-        Me.cmbSHIPPING_UNIT_ID.Location = New System.Drawing.Point(549, 27)
+        Me.cmbSHIPPING_UNIT_ID.Location = New System.Drawing.Point(516, 272)
         Me.cmbSHIPPING_UNIT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbSHIPPING_UNIT_ID.Name = "cmbSHIPPING_UNIT_ID"
-        Me.cmbSHIPPING_UNIT_ID.Size = New System.Drawing.Size(105, 24)
+        Me.cmbSHIPPING_UNIT_ID.Size = New System.Drawing.Size(139, 24)
         Me.cmbSHIPPING_UNIT_ID.TabIndex = 45
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(328, 7)
+        Me.Label6.Location = New System.Drawing.Point(11, 276)
         Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(58, 16)
+        Me.Label6.Size = New System.Drawing.Size(67, 16)
         Me.Label6.TabIndex = 46
-        Me.Label6.Text = "P.O size"
+        Me.Label6.Text = "Purchase"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(438, 7)
+        Me.Label7.Location = New System.Drawing.Point(252, 275)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(62, 16)
+        Me.Label7.Size = New System.Drawing.Size(42, 16)
         Me.Label7.TabIndex = 47
-        Me.Label7.Text = "SRP size"
+        Me.Label7.Text = "Sales"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(546, 7)
+        Me.Label11.Location = New System.Drawing.Point(450, 275)
         Me.Label11.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(65, 16)
+        Me.Label11.Size = New System.Drawing.Size(62, 16)
         Me.Label11.TabIndex = 48
-        Me.Label11.Text = "Ship size"
+        Me.Label11.Text = "Shipping"
         '
         'TabControl1
         '
@@ -977,11 +975,12 @@ Partial Class FrmItemDetails
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(672, 324)
+        Me.TabControl1.Size = New System.Drawing.Size(672, 334)
         Me.TabControl1.TabIndex = 49
         '
         'tpInfo
         '
+        Me.tpInfo.Controls.Add(Me.cmbGL_ACCOUNT_ID)
         Me.tpInfo.Controls.Add(Me.chkIS_EXPIRED)
         Me.tpInfo.Controls.Add(Me.xlblPreferered)
         Me.tpInfo.Controls.Add(Me.xlblCOGS_ACCOUNT)
@@ -991,7 +990,6 @@ Partial Class FrmItemDetails
         Me.tpInfo.Controls.Add(Me.xlblGROUP)
         Me.tpInfo.Controls.Add(Me.xlblINCOME_ACCOUNT)
         Me.tpInfo.Controls.Add(Me.xlblCLASS)
-        Me.tpInfo.Controls.Add(Me.cmbGL_ACCOUNT_ID)
         Me.tpInfo.Controls.Add(Me.cmbSUB_CLASS_ID)
         Me.tpInfo.Controls.Add(Me.chkTAXABLE)
         Me.tpInfo.Controls.Add(Me.cmbPREFERRED_VENDOR_ID)
@@ -1008,7 +1006,7 @@ Partial Class FrmItemDetails
         Me.tpInfo.Location = New System.Drawing.Point(4, 25)
         Me.tpInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tpInfo.Name = "tpInfo"
-        Me.tpInfo.Size = New System.Drawing.Size(664, 295)
+        Me.tpInfo.Size = New System.Drawing.Size(664, 305)
         Me.tpInfo.TabIndex = 4
         Me.tpInfo.Text = "Information"
         Me.tpInfo.UseVisualStyleBackColor = True
@@ -1016,7 +1014,7 @@ Partial Class FrmItemDetails
         'chkIS_EXPIRED
         '
         Me.chkIS_EXPIRED.AutoSize = True
-        Me.chkIS_EXPIRED.Location = New System.Drawing.Point(447, 148)
+        Me.chkIS_EXPIRED.Location = New System.Drawing.Point(447, 178)
         Me.chkIS_EXPIRED.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chkIS_EXPIRED.Name = "chkIS_EXPIRED"
         Me.chkIS_EXPIRED.Size = New System.Drawing.Size(108, 20)
@@ -1033,7 +1031,7 @@ Partial Class FrmItemDetails
         Me.tpComponents.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tpComponents.Name = "tpComponents"
         Me.tpComponents.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tpComponents.Size = New System.Drawing.Size(664, 295)
+        Me.tpComponents.Size = New System.Drawing.Size(664, 305)
         Me.tpComponents.TabIndex = 2
         Me.tpComponents.Text = "Item List"
         Me.tpComponents.UseVisualStyleBackColor = True
@@ -1045,7 +1043,7 @@ Partial Class FrmItemDetails
         Me.TSPayment.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddTrans, Me.ToolStripSeparator4, Me.EditTrans, Me.ToolStripSeparator5, Me.DeleteTrans})
         Me.TSPayment.Location = New System.Drawing.Point(3, 2)
         Me.TSPayment.Name = "TSPayment"
-        Me.TSPayment.Size = New System.Drawing.Size(658, 31)
+        Me.TSPayment.Size = New System.Drawing.Size(658, 37)
         Me.TSPayment.TabIndex = 30
         Me.TSPayment.Text = "ToolStrip1"
         '
@@ -1055,13 +1053,13 @@ Partial Class FrmItemDetails
         Me.AddTrans.Image = Global.Automission.My.Resources.Resources.l_create
         Me.AddTrans.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.AddTrans.Name = "AddTrans"
-        Me.AddTrans.Size = New System.Drawing.Size(28, 28)
+        Me.AddTrans.Size = New System.Drawing.Size(34, 34)
         Me.AddTrans.Text = "&Add"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 37)
         '
         'EditTrans
         '
@@ -1069,13 +1067,13 @@ Partial Class FrmItemDetails
         Me.EditTrans.Image = Global.Automission.My.Resources.Resources.l_update
         Me.EditTrans.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.EditTrans.Name = "EditTrans"
-        Me.EditTrans.Size = New System.Drawing.Size(28, 28)
+        Me.EditTrans.Size = New System.Drawing.Size(34, 34)
         Me.EditTrans.Text = "&Edit"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 37)
         '
         'DeleteTrans
         '
@@ -1083,7 +1081,7 @@ Partial Class FrmItemDetails
         Me.DeleteTrans.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.DeleteTrans.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.DeleteTrans.Name = "DeleteTrans"
-        Me.DeleteTrans.Size = New System.Drawing.Size(28, 28)
+        Me.DeleteTrans.Size = New System.Drawing.Size(34, 34)
         Me.DeleteTrans.Text = "&Delete"
         '
         'tpInventory
@@ -1094,7 +1092,7 @@ Partial Class FrmItemDetails
         Me.tpInventory.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tpInventory.Name = "tpInventory"
         Me.tpInventory.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tpInventory.Size = New System.Drawing.Size(664, 295)
+        Me.tpInventory.Size = New System.Drawing.Size(664, 305)
         Me.tpInventory.TabIndex = 0
         Me.tpInventory.Text = "Inventory"
         Me.tpInventory.UseVisualStyleBackColor = True
@@ -1106,7 +1104,7 @@ Partial Class FrmItemDetails
         Me.ToolStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsInventoryClick, Me.ToolStripSeparator8})
         Me.ToolStrip3.Location = New System.Drawing.Point(3, 2)
         Me.ToolStrip3.Name = "ToolStrip3"
-        Me.ToolStrip3.Size = New System.Drawing.Size(658, 31)
+        Me.ToolStrip3.Size = New System.Drawing.Size(658, 37)
         Me.ToolStrip3.TabIndex = 33
         Me.ToolStrip3.Text = "ToolStrip3"
         '
@@ -1117,13 +1115,13 @@ Partial Class FrmItemDetails
         Me.tsInventoryClick.Image = Global.Automission.My.Resources.Resources.l_config
         Me.tsInventoryClick.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsInventoryClick.Name = "tsInventoryClick"
-        Me.tsInventoryClick.Size = New System.Drawing.Size(28, 28)
+        Me.tsInventoryClick.Size = New System.Drawing.Size(34, 34)
         Me.tsInventoryClick.Text = "&Edit"
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(6, 37)
         '
         'tpUnits
         '
@@ -1142,9 +1140,9 @@ Partial Class FrmItemDetails
         Me.tpUnits.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tpUnits.Name = "tpUnits"
         Me.tpUnits.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tpUnits.Size = New System.Drawing.Size(664, 295)
+        Me.tpUnits.Size = New System.Drawing.Size(664, 305)
         Me.tpUnits.TabIndex = 1
-        Me.tpUnits.Text = "Unit"
+        Me.tpUnits.Text = "Unit Default"
         Me.tpUnits.UseVisualStyleBackColor = True
         '
         'tpPriceLevel
@@ -1155,7 +1153,7 @@ Partial Class FrmItemDetails
         Me.tpPriceLevel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.tpPriceLevel.Name = "tpPriceLevel"
         Me.tpPriceLevel.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tpPriceLevel.Size = New System.Drawing.Size(664, 295)
+        Me.tpPriceLevel.Size = New System.Drawing.Size(664, 305)
         Me.tpPriceLevel.TabIndex = 3
         Me.tpPriceLevel.Text = "Price Levels"
         Me.tpPriceLevel.UseVisualStyleBackColor = True
@@ -1167,7 +1165,7 @@ Partial Class FrmItemDetails
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsRateLevelsClick, Me.ToolStripSeparator9})
         Me.ToolStrip5.Location = New System.Drawing.Point(3, 2)
         Me.ToolStrip5.Name = "ToolStrip5"
-        Me.ToolStrip5.Size = New System.Drawing.Size(658, 31)
+        Me.ToolStrip5.Size = New System.Drawing.Size(658, 37)
         Me.ToolStrip5.TabIndex = 35
         Me.ToolStrip5.Text = "ToolStrip5"
         '
@@ -1178,13 +1176,13 @@ Partial Class FrmItemDetails
         Me.tsRateLevelsClick.Image = Global.Automission.My.Resources.Resources.l_config
         Me.tsRateLevelsClick.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRateLevelsClick.Name = "tsRateLevelsClick"
-        Me.tsRateLevelsClick.Size = New System.Drawing.Size(28, 28)
+        Me.tsRateLevelsClick.Size = New System.Drawing.Size(34, 34)
         Me.tsRateLevelsClick.Text = "&Edit"
         '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
-        Me.ToolStripSeparator9.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(6, 37)
         '
         'tpOther
         '
@@ -1199,7 +1197,7 @@ Partial Class FrmItemDetails
         Me.tpOther.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tpOther.Name = "tpOther"
         Me.tpOther.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.tpOther.Size = New System.Drawing.Size(664, 295)
+        Me.tpOther.Size = New System.Drawing.Size(664, 305)
         Me.tpOther.TabIndex = 5
         Me.tpOther.Text = "Others"
         Me.tpOther.UseVisualStyleBackColor = True
@@ -1220,14 +1218,14 @@ Partial Class FrmItemDetails
         Me.picItem.Location = New System.Drawing.Point(8, 28)
         Me.picItem.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.picItem.Name = "picItem"
-        Me.picItem.Size = New System.Drawing.Size(228, 246)
+        Me.picItem.Size = New System.Drawing.Size(228, 256)
         Me.picItem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.picItem.TabIndex = 16
         Me.picItem.TabStop = False
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(495, 499)
+        Me.btnSave.Location = New System.Drawing.Point(495, 509)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(86, 28)
@@ -1237,7 +1235,7 @@ Partial Class FrmItemDetails
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(588, 499)
+        Me.btnCancel.Location = New System.Drawing.Point(588, 509)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 28)

@@ -756,7 +756,7 @@ Public Class FrmItemDetails
             tmp_c = GetNumberFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
         Else
             Me.Text = "Create Item"
-            chkPRINT_INDIVIDUAL_ITEMS.Checked = fSystemSettingValue_Bool("InvisibleGroup")
+            chkPRINT_INDIVIDUAL_ITEMS.Checked = GetSystemSettingValueByBool("InvisibleGroup")
         End If
         'checking
         Select Case cmbTYPE.SelectedValue

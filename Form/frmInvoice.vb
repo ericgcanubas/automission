@@ -143,10 +143,10 @@ ON B.ID = II.BATCH_ID
         dgvProductItem.Rows.Clear()
         Computed()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        cmbPAYMENT_TERMS_ID.SelectedValue = fPaymentTermsDefault()
-        dtpDATE.Value = fTransactionDefaultDate()
-        cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        cmbPAYMENT_TERMS_ID.SelectedValue = GetPaymentTermsDefault()
+        dtpDATE.Value = TransactionDefaultDate()
+        cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
         cmbACCOUNTS_RECEIVABLE_ID.SelectedValue = gsDefault_ACCOUNTS_RECEIVABLE_ID
     End Sub
     Private Function CheckingfGotCreditLimit() As Boolean
@@ -169,7 +169,7 @@ ON B.ID = II.BATCH_ID
                 If bLimit = True Then
 
 
-                    Select Case fCreditLimitPolicy()
+                    Select Case GetCreditLimitPolicy()
                         Case 0
                             MessageBoxWarning("The credit limit for this customer is " & NumberFormatStandard(credit_limit) & ". The current balance is " & NumberFormatStandard(total) & ".")
                         Case 1
@@ -193,7 +193,7 @@ ON B.ID = II.BATCH_ID
     Private Function CheckingfGotAgingLimit() As Boolean
         Dim d As Date = Date.Now.Date
         Dim b As Boolean = False
-        Dim i As Integer = fArAgingLimit()
+        Dim i As Integer = GetArAgingLimit()
 
         Select Case i
 
@@ -374,7 +374,7 @@ ON B.ID = II.BATCH_ID
             Exit Sub
         End If
 
-        If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+        If IsClosingDate(dtpDATE.Value, IsNew) = False Then
             Exit Sub
         End If
 
@@ -401,7 +401,7 @@ ON B.ID = II.BATCH_ID
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO invoice ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE,IS_FC) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',13,'{GetDateTimeNowSql()}',0) ")
 
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
@@ -721,10 +721,10 @@ ON B.ID = II.BATCH_ID
 
         gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
         fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
         fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
         fReportExporPDF(gscryRpt, prPrint_Title)
         gsToolPanelView = False
@@ -787,10 +787,10 @@ ON B.ID = II.BATCH_ID
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             If v = 2 Then
@@ -854,10 +854,10 @@ ON B.ID = II.BATCH_ID
             End Try
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -871,7 +871,7 @@ ON B.ID = II.BATCH_ID
                 Exit Sub
             End If
 
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
 
@@ -1168,7 +1168,7 @@ ON B.ID = II.BATCH_ID
     End Sub
 
     Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
-        fGetQuickFind(dgvProductItem, tsFindText.Text)
+        GetQuickFind(dgvProductItem, tsFindText.Text)
     End Sub
     Private Sub ToCreditMemoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToCreditMemoToolStripMenuItem.Click
         If IsNew = True Then
@@ -1194,7 +1194,7 @@ ON B.ID = II.BATCH_ID
         End If
 
         With FrmApplyCredits
-            .gsID = ID
+            .ID = ID
             .gsCustomer_ID = cmbCUSTOMER_ID.SelectedValue
             .gsLocation_ID = cmbLOCATION_ID.SelectedValue
             .lblName.Text = cmbCUSTOMER_ID.Text

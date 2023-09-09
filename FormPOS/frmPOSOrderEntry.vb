@@ -36,12 +36,12 @@ Public Class FrmPOSOrderEntry
 
         gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
         gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
-        gsDefault_LOCATION_ID = fLoadLocationDefault()
-        gsStorage_Location_ID = fLoadStorageLocation()
-        gsIncRefNoByLocation = fIncRefNoByLocation()
-        gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
-        gsCASH_OVER_SHORT_EXPENSES = fCashOverShortExpense()
-        fDefaultAccountLoad()
+        gsDefault_LOCATION_ID = GetLoadLocationDefault()
+        gsStorage_Location_ID = GetLoadStorageLocation()
+        gsIncRefNoByLocation = GetIncRefNoByLocation()
+        gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
+        gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
+        LoadDefaultAccount()
 
         fcolumnGrid()
         fclear_Info()
@@ -89,12 +89,12 @@ Public Class FrmPOSOrderEntry
 
 
 
-        gsPETTY_CASH_ACCOUNT_ID = fPettyCashAccount()
-        gsCASH_OVER_SHORT_EXPENSES = fCashOverShortExpense()
-        gsPOSDefaultCustomer_ID = fSystemSettingValue("POSDefaultCustomerId")
+        gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
+        gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
+        gsPOSDefaultCustomer_ID = GetSystemSettingValueByText("POSDefaultCustomerId")
         gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
-        gsDefault_LOCATION_ID = fLoadLocationDefault()
-        gsIncRefNoByLocation = fIncRefNoByLocation()
+        gsDefault_LOCATION_ID = GetLoadLocationDefault()
+        gsIncRefNoByLocation = GetIncRefNoByLocation()
         gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
         gsPOS_TYPE_ID = fPOS_machine_type_map()
         Me.Text = "Point of Sales : Order Entry"
@@ -121,12 +121,12 @@ Public Class FrmPOSOrderEntry
         dgvProductItem.Rows.Clear()
 
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
-        cmbLOCATION_ID.Enabled = fLockLocation()
-        cmbPAYMENT_TERMS_ID.SelectedValue = fPaymentTermsDefault()
-        dtpDATE.Value = fTransactionDefaultDate()
+        cmbLOCATION_ID.Enabled = IsLockLocation()
+        cmbPAYMENT_TERMS_ID.SelectedValue = GetPaymentTermsDefault()
+        dtpDATE.Value = TransactionDefaultDate()
 
-        ' fDefaultAccountLoad()
-        cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
+        ' LoadDefaultAccount()
+        cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
         cmbCUSTOMER_ID.SelectedValue = Val(gsPOSDefaultCustomer_ID)
 
 
@@ -553,7 +553,7 @@ FROM
 
             SqlExecuted($"INSERT INTO sales_order ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},{GetDateTimeNowSql()},2,{GetDateTimeNowSql()})")
 
-            fTransactionDateSelectUpdate(dtpDATE.Value)
+            SetTransactionDateSelectUpdate(dtpDATE.Value)
             fTransaction_Log(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
             tChangeAccept = True
@@ -672,7 +672,7 @@ FROM
             If fACCESS_DELETE(Me) = False Then
                 Exit Sub
             End If
-            If fIsClosingDate(dtpDATE.Value, IsNew) = False Then
+            If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
             If MessageBoxQuestion(gsMessageQuestion) = True Then
@@ -735,7 +735,7 @@ FROM
                 cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
 
             Else
-                cmbOUTPUT_TAX_ID.SelectedValue = fOutPutTaxDefault()
+                cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
             End If
         End If
 
@@ -785,10 +785,10 @@ FROM
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
@@ -839,10 +839,10 @@ FROM
 
             gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
             fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, fSystemSettingValue("CompanyPhoneNo"), "company_phone")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
             fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             fReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -1018,7 +1018,7 @@ FROM
     End Sub
 
     Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
-        fGetQuickFind(dgvProductItem, tsFindText.Text)
+        GetQuickFind(dgvProductItem, tsFindText.Text)
     End Sub
 
     Private Sub btnDISCON_Click(sender As Object, e As EventArgs) Handles btnDISCON.Click

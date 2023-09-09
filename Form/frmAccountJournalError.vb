@@ -79,23 +79,23 @@ WHERE EXISTS
 GROUP BY m.`Type`,m.date,m.code,m.contact_id,a.location_id,m.notes,m.contact_name
 "
 
-    Private Sub btnReferesh_Click(sender As Object, e As EventArgs) Handles btnReferesh.Click
+    Private Sub BtnReferesh_Click(sender As Object, e As EventArgs) Handles btnReferesh.Click
         LoadDataGridViewStandard(dgvCLASS, sQuery)
         lblTotal.Text = "Total Record " & dgvCLASS.Rows.Count
     End Sub
 
-    Private Sub frmAccountJournalError_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FmAccountJournalError_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblTotal.Text = "Total Record " & dgvCLASS.Rows.Count
     End Sub
 
-    Private Sub dgvCLASS_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCLASS.CellContentClick
+    Private Sub DgvCLASS_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCLASS.CellContentClick
 
     End Sub
 
-    Private Sub dgvCLASS_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCLASS.CellDoubleClick
+    Private Sub DgvCLASS_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCLASS.CellDoubleClick
         Dim ref As String = dgvCLASS.Rows(e.RowIndex).Cells(2).Value
-        frmMainMenu.txtSearch.Text = ref
-        frmMainMenu.fQuickSearch()
+        FrmMainMenu.txtSearch.Text = ref
+        FrmMainMenu.fQuickSearch()
 
     End Sub
 End Class

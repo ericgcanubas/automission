@@ -22,7 +22,7 @@
         fRefreshLocation()
         Dim loc_value As String = gsDefault_LOCATION_ID
         tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "*", loc_value)
-        tscmbLocation.Enabled = fLockLocation()
+        tscmbLocation.Enabled = IsLockLocation()
 
 
         fStatusLoad()

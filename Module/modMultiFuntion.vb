@@ -312,7 +312,7 @@ Module modMultiFuntion
 
                         End If
 
-                        '  fUpdateBillBalance_SQL(.Cells("BILL_ID").Value, prContact_ID)
+                        '  SetUpdateBillBalance(.Cells("BILL_ID").Value, prContact_ID)
 
                     Else
                         'Invoice
@@ -378,7 +378,7 @@ Module modMultiFuntion
 
                             PayItemRun = PayItemRun + 1
 
-                            'fUpdateBillBalance_SQL(.Cells("BILL_ID").Value, prContact_ID)
+                            'SetUpdateBillBalance(.Cells("BILL_ID").Value, prContact_ID)
 
                         End If
                     Else
@@ -406,7 +406,7 @@ Module modMultiFuntion
         For N As Integer = 0 To PayItemRun - 1
             'Update Balance
             If isBill = True Then
-                fUpdateBillBalance_SQL(PayItemID(N), prContact_ID)
+                SetUpdateBillBalance(PayItemID(N), prContact_ID)
             Else
                 fUpdateInvoiceBalance(PayItemID(N), prContact_ID)
             End If

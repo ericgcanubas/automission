@@ -174,7 +174,7 @@ WHERE c.Type = '2'", contact_BS)
     End Sub
 
     Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        fExport(dgvEmployee, "Employee_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
+        ExportingExcel(dgvEmployee, "Employee_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 
     Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged

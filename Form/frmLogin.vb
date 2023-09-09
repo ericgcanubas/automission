@@ -59,7 +59,7 @@ Public Class FrmLogin
                     Exit Sub
                 End If
                 If gsPOS_TYPE = 4 Then
-                    gsMeasureHoursID = fSystemSettingValue_Num("measure_hours")
+                    gsMeasureHoursID = GetSystemSettingValueByNumber("measure_hours")
 
                     If gsMeasureHoursID = 0 Then
                         MessageBoxInfo("Please set default Measure Hours")
@@ -196,7 +196,7 @@ Public Class FrmLogin
 
 
         Try
-            Dim DT As String = fSystemSettingValue("BusinessStart")
+            Dim DT As String = GetSystemSettingValueByText("BusinessStart")
             If IsDate(DT) = True Then
                 gsBusinessDateStart = DT
             Else
