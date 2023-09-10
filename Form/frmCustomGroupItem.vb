@@ -3,7 +3,8 @@
     Dim BS_LIST As BindingSource
     Dim FIRST_Load As Boolean = True
     Dim ClickOk As Boolean = False
-    Private Sub frmCustomGroupItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    Private Sub FrmCustomGroupItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = "CUSTOM GROUP : " & GetStringFieldValue("item", "id", gsITEM_ID, "DESCRIPTION")
         Me.Refresh()
         LoadDataGridViewBinding(dgvList, $"select i.ID as `ITEM_ID`,i.CODE,i.DESCRIPTION, format(c.QUANTITY,0) as QTY, format(c.RATE/c.QUANTITY,2) as `RATE` from item_components as c inner join item as i on i.id = c.component_id where c.ITEM_ID = '{gsITEM_ID}' order by c.RATE DESC ", BS_LIST)
@@ -24,9 +25,9 @@
         ViewNotSort(dgvList)
         ViewItemDisplay(dgvSelected)
         ViewNotSort(dgvSelected)
-        ' fJustFilter()
+
     End Sub
-    Private Sub fJustFilter()
+    Private Sub Filtering()
         Try
             If FIRST_Load = False Then
                 '
@@ -42,7 +43,7 @@
 
     End Sub
 
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         dgvList.Select()
 
         If dgvList.Rows.Count <> 0 Then
@@ -53,38 +54,38 @@
         Else
             MessageBoxInfo("Data Not found")
         End If
-        fCompute()
+        Computed()
     End Sub
 
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        fJustFilter()
+    Private Sub TxtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        Filtering()
     End Sub
 
-    Private Sub chkShowRate_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowRate.CheckedChanged
+    Private Sub ChkShowRate_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowRate.CheckedChanged
         If chkShowRate.Checked = True Then
 
-            fJustFilter()
+            Filtering()
             chkNoRate.Checked = False
         Else
-            fJustFilter()
+            Filtering()
 
         End If
 
     End Sub
 
-    Private Sub chkNoRate_CheckedChanged(sender As Object, e As EventArgs) Handles chkNoRate.CheckedChanged
+    Private Sub ChkNoRate_CheckedChanged(sender As Object, e As EventArgs) Handles chkNoRate.CheckedChanged
         If chkNoRate.Checked = True Then
 
-            fJustFilter()
+            Filtering()
             chkShowRate.Checked = False
         Else
-            fJustFilter()
+            Filtering()
         End If
 
 
     End Sub
 
-    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
+    Private Sub BtnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
         dgvSelected.Select()
 
         If dgvSelected.Rows.Count <> 0 Then
@@ -95,34 +96,25 @@
         Else
             MessageBoxInfo("Data Not found")
         End If
-        fCompute()
+        Computed()
     End Sub
-    Private Sub fCompute()
+    Private Sub Computed()
         Dim D As Double = 0
         For I As Integer = 0 To dgvSelected.Rows.Count - 1
-            D = D + dgvSelected.Rows(I).Cells("RATE").Value
-
+            D += dgvSelected.Rows(I).Cells("RATE").Value
         Next
 
         lblTOTAL.Text = NumberFormatStandard(D)
     End Sub
-
-
-
-    Private Sub frmCustomGroupItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmCustomGroupItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         FIRST_Load = False
     End Sub
-
-    Private Sub dgvList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellContentClick
-
-    End Sub
-
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         dgvSelected.Rows.Clear()
         Me.Close()
     End Sub
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If dgvSelected.Rows.Count = 0 Then
             MessageBoxInfo("Item not Set")
             Exit Sub
@@ -132,9 +124,8 @@
 
     End Sub
 
-    Private Sub frmCustomGroupItem_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub FrmCustomGroupItem_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         If ClickOk = False Then
-
             dgvSelected.Rows.Clear()
         End If
     End Sub

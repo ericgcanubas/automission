@@ -66,7 +66,7 @@
         ID = 0
         IsNew = True
 
-        If fACCESS_NEW_EDIT(frmShipVia, IsNew) = False Then
+        If SecurityAccessMode(frmShipVia, IsNew) = False Then
             Me.Close()
         End If
     End Sub

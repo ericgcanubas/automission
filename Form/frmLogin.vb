@@ -1,33 +1,27 @@
 ﻿Imports System.Data.Odbc
 Public Class FrmLogin
-    Public bLogin As Boolean = False
+    Public IsLogin As Boolean = False
 
 
-    Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        frmPOSRestoMenu = Nothing
-        frmPOSmenu = Nothing
-        frmPOSOrderEntry = Nothing
-
+    Private Sub BtnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+        FrmPOSRestoMenu = Nothing
+        FrmPOSmenu = Nothing
+        FrmPOSOrderEntry = Nothing
         gsUser_ID = 0
-        '  Dim cn As New MySqlConnection(mysqlConstr)
-        Dim system_status_type As Integer = 0
+        Dim SystemStatusType As Integer
         Dim sql_query As String
         If gsPOS_Mode = False Then
             sql_query = "select * from user where name ='" & txtUsername.Text & "' and password='" & Encrypt(txtPassword.Text) & "'"
         Else
             sql_query = "select * from user where name ='" & txtUsername.Text & "' and password='" & Encrypt(txtPassword.Text) & "'"
         End If
-
-
         Try
-            ' cn.Open()
-
             Dim rd As OdbcDataReader = SqlReader(sql_query)
             If rd.Read Then
                 gsUser_ID = NumIsNull(rd("ID"))
-                system_status_type = NumIsNull(rd("STATUS"))
+                SystemStatusType = NumIsNull(rd("STATUS"))
 
-                Select Case system_status_type
+                Select Case SystemStatusType
                     Case 1
                         If gsPOS_Mode = False Then
 
@@ -94,9 +88,9 @@ Public Class FrmLogin
                 If fGet_user_access_control(gsUser_ID) = True Then
                     ' account is already access
                     SqlExecuted("update user_access_control set req_ip_address = '" & GetIPv4Address() & "' ,`status` = '2' where  user_id = '" & gsUser_ID & "' and `status` = '1' limit 1")
-                    frmMessageUserControLoading.ShowDialog()
-                    frmMessageUserControLoading.Dispose()
-                    frmMessageUserControLoading = Nothing
+                    FrmMessageUserControLoading.ShowDialog()
+                    FrmMessageUserControLoading.Dispose()
+                    FrmMessageUserControLoading = Nothing
                     rd.Close()
                     Exit Sub
                 Else
@@ -113,11 +107,11 @@ Public Class FrmLogin
                 'End If
                 fMS_execute("UPDATE tbllogin SET [username] = '" & txtUsername.Text & "', [password] = '" & pass_value & "' WHERE [ID] = '1'")
                 Me.Hide()
-                bLogin = True
+                IsLogin = True
                 Me.Close()
 
                 rd.Close()
-                frmSplash.Hide()
+                FrmSplash.Hide()
 
 
                 If gsPOS_Mode = False Then
@@ -125,23 +119,23 @@ Public Class FrmLogin
                     '  Gmail("User Login on BMS", $"Username:{gsUser_Name} {vbNewLine} DateTime:{GetDateTimeNowSql()} {vbNewLine} On BMS", $"{gsGmailAddressTo}@gmail.com")
 
                     '    frmMenu.Show()
-                    frmMainMenu.Show()
+                    FrmMainMenu.Show()
                 Else
                     ' Gmail("User Login on BMS", $"Username:{gsUser_Name} {vbNewLine} DateTime:{GetDateTimeNowSql()} {vbNewLine} On BMS-POS", $"{gsGmailAddressTo}@gmail.com")
                     Select Case gsPOS_TYPE
                         Case 0
                             fPOS_Reset()
-                            frmPOSmenu.Show()
+                            FrmPOSmenu.Show()
                         Case 1
                             fPOS_Reset()
-                            frmPOSOrderEntry.Show()
+                            FrmPOSOrderEntry.Show()
 
                         Case 2
 
                             fPOS_Reset()
-                            frmPOSRestoMenu.Show()
+                            FrmPOSRestoMenu.Show()
                         Case 3
-                            frmPOSRestoKitchenMonitoring.Show()
+                            FrmPOSRestoKitchenMonitoring.Show()
 
                         Case 4
 
@@ -167,9 +161,9 @@ Public Class FrmLogin
 
     End Sub
 
-    Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmLogin_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        bLogin = False
+        IsLogin = False
         Me.Icon = gsIcon
 
 
@@ -190,11 +184,6 @@ Public Class FrmLogin
 
         txtUsername.Text = fMSgetField("username", "tbllogin", "id", "1")
         txtPassword.Text = fMSgetField("password", "tbllogin", "id", "1")
-        'If txtPassword.Text.Length <> 0 Then
-        '    chkRemember_password.Checked = True
-        'End If
-
-
         Try
             Dim DT As String = GetSystemSettingValueByText("BusinessStart")
             If IsDate(DT) = True Then
@@ -209,7 +198,7 @@ Public Class FrmLogin
 
     End Sub
 
-    Private Sub txtUsername_KeyDown(sender As Object, e As KeyEventArgs) Handles txtUsername.KeyDown
+    Private Sub TxtUsername_KeyDown(sender As Object, e As KeyEventArgs) Handles txtUsername.KeyDown
         If e.KeyCode = Keys.Enter Then
             If txtUsername.Text.Length = 0 Then
 
@@ -225,29 +214,17 @@ Public Class FrmLogin
 
     End Sub
 
-
-    Private Sub txtPassword_TextChanged(sender As Object, e As EventArgs) Handles txtPassword.TextChanged
-
-    End Sub
-
-    Private Sub txtPassword_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPassword.KeyDown
+    Private Sub TxtPassword_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPassword.KeyDown
         If e.KeyCode = Keys.Enter Then
             If txtPassword.Text.Length = 0 Then
-
                 PrompNotify(Me.Text, "Please enter password", True)
-
                 Exit Sub
             End If
             btnLogin.PerformClick()
 
         End If
     End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub frmLogin_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+    Private Sub FrmLogin_Activated(sender As Object, e As EventArgs) Handles Me.Activated
         If txtUsername.Text.Length = 0 Then
             txtUsername.Focus()
         ElseIf txtPassword.Text.Length = 0 Then
@@ -257,41 +234,27 @@ Public Class FrmLogin
         End If
     End Sub
 
-    Private Sub frmLogin_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        'chkRemember_password.Checked = False
+    Private Sub FrmLogin_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+
         If txtUsername.Text.Length <> 0 Then
             txtPassword.Focus()
         End If
 
     End Sub
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs)
 
-    End Sub
-
-    Private Sub frmLogin_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        If bLogin = True Then
-
-        Else
-
-
-            bLogin = False
-            frmConnectionList.Visible = True
+    Private Sub FrmLogin_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If IsLogin = False Then
+            FrmConnectionList.Visible = True
         End If
     End Sub
-
-    Private Sub TxtUsername_TextChanged(sender As Object, e As EventArgs) Handles txtUsername.TextChanged
-
-    End Sub
-
-    Private Sub txtUsername_Click(sender As Object, e As EventArgs) Handles txtUsername.Click
-        fKeyBoardToTouch(txtUsername, "Enter Username")
+    Private Sub TxtUsername_Click(sender As Object, e As EventArgs) Handles txtUsername.Click
+        KeyBoardToTouch(txtUsername, "Enter Username")
 
     End Sub
 
-    Private Sub txtPassword_Click(sender As Object, e As EventArgs) Handles txtPassword.Click
+    Private Sub TxtPassword_Click(sender As Object, e As EventArgs) Handles txtPassword.Click
         gsKEY_PASS = True
-        fKeyBoardToTouch(txtPassword, "Enter Password")
-
+        KeyBoardToTouch(txtPassword, "Enter Password")
     End Sub
 End Class

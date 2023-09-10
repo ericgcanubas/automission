@@ -21,13 +21,13 @@ Public Class FrmPortfolioReport
         gsReportName = "Portfolio Report "
         gsReportTabName = "Portfolio Report "
 
-        gscryRpt = fViewReportOneParameterNumberOnly(gsReportFileName)
-        fCryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.Text, "SALES_MANAGER_NAME")
-        fCryParameterInsertValue(gscryRpt, GetStringFieldValue("contact", "ID", cmbSALES_MANAGER.SelectedValue, "CUSTOM_FIELD1"), "POSITION")
-        fCryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.SelectedValue, "sales_manager_id")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("TargetPenaltyDiscount"), "discount_id_item")
-        fCryParameterInsertValue(gscryRpt, dtpDate1.Value, "date1")
-        fCryParameterInsertValue(gscryRpt, dtpDate2.Value, "date2")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(gsReportFileName)
+        CryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.Text, "SALES_MANAGER_NAME")
+        CryParameterInsertValue(gscryRpt, GetStringFieldValue("contact", "ID", cmbSALES_MANAGER.SelectedValue, "CUSTOM_FIELD1"), "POSITION")
+        CryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.SelectedValue, "sales_manager_id")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("TargetPenaltyDiscount"), "discount_id_item")
+        CryParameterInsertValue(gscryRpt, dtpDate1.Value, "date1")
+        CryParameterInsertValue(gscryRpt, dtpDate2.Value, "date2")
 
     End Sub
 
@@ -37,7 +37,7 @@ Public Class FrmPortfolioReport
             Exit Sub
         End If
         fNowClick()
-        fPreviewReport(gsReportTabName)
+        GlobalPreviewReport(gsReportTabName)
         Me.Close()
     End Sub
 End Class

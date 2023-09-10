@@ -189,7 +189,7 @@ FROM
         ComboBoxLoad(cmbSTATUS, "SELECT ID,DESCRIPTION FROM document_status_map ", "ID", "DESCRIPTION")
     End Sub
     Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
-        If fACCESS_FIND(Me) = False Then
+        If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID > 0 Then
@@ -320,7 +320,7 @@ FROM
 
         cmbSTATUS.SelectedValue = 3
 
-        If fACCESS_NEW_EDIT(Me, IsNew) = False Then
+        If SecurityAccessMode(Me, IsNew) = False Then
             Exit Sub
         End If
 
@@ -539,7 +539,7 @@ FROM
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False And ID > 0 Then
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
 
@@ -659,7 +659,7 @@ FROM
 
         If IsNew = False Then
 
-            If fACCESS_PRINT_PREVIEW(Me) = False Then
+            If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
 
@@ -680,13 +680,13 @@ FROM
                 End If
             End Try
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fReportParam()
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
-            fPreviewReport(prPrint_Title & "Report")
+            GlobalPreviewReport(prPrint_Title & "Report")
 
         End If
     End Sub
@@ -710,7 +710,7 @@ FROM
             End If
         End If
         If IsNew = False Then
-            If fACCESS_PRINT_PREVIEW(Me) = False Then
+            If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
             Dim cn As New OleDb.OleDbConnection(fMS_Con)
@@ -730,23 +730,23 @@ FROM
                 End If
             End Try
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fReportParam()
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
 
         End If
 
     End Sub
     Private Sub fReportParam()
-        fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
+        CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
 
     End Sub
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
@@ -843,7 +843,7 @@ FROM
             If cmbCUSTOMER_ID.SelectedIndex = -1 Then
                 If StrText.Length = 0 Then Exit Sub
                 If IsNew = True Then
-                    If fACCESS_NEW_EDIT(frmCustomer, True) = False Then
+                    If SecurityAccessMode(frmCustomer, True) = False Then
                         Exit Sub
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
@@ -959,15 +959,15 @@ FROM
                 End If
             End Try
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fReportParam()
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
 
             If v = 2 Then
                 gsToolPanelView = False
-                fPreviewReport(prPrint_Title & "Report")
+                GlobalPreviewReport(prPrint_Title & "Report")
             Else
                 gscryRpt.PrintToPrinter(1, False, 0, 0)
 

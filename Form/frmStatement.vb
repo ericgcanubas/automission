@@ -78,17 +78,17 @@
         ClosedForm(Me)
     End Sub
     Private Sub fReport()
-        gscryRpt = fViewReportOneParameterNumberOnly("cryStandardStatement.rpt")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, cmbCUSTOMER_ID.SelectedValue, "customerid")
-        fCryParameterInsertValue(gscryRpt, IIf(cmbLOCATION_ID.SelectedValue = "*", "%", cmbLOCATION_ID.SelectedValue), "locationid")
-        fCryParameterInsertValue(gscryRpt, dtpDateStatement.Value, "myremark")
-        fCryParameterInsertValue(gscryRpt, dtpDateStatement.Value, "select_date")
-        fCryParameterInsertValue(gscryRpt, dtpDATE_FROM.Value, "select_date1")
-        fCryParameterInsertValue(gscryRpt, dtpDATE_TO.Value, "select_date2")
+        gscryRpt = PublicViewReportOneParameterNumberOnly("cryStandardStatement.rpt")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        CryParameterInsertValue(gscryRpt, cmbCUSTOMER_ID.SelectedValue, "customerid")
+        CryParameterInsertValue(gscryRpt, IIf(cmbLOCATION_ID.SelectedValue = "*", "%", cmbLOCATION_ID.SelectedValue), "locationid")
+        CryParameterInsertValue(gscryRpt, dtpDateStatement.Value, "myremark")
+        CryParameterInsertValue(gscryRpt, dtpDateStatement.Value, "select_date")
+        CryParameterInsertValue(gscryRpt, dtpDATE_FROM.Value, "select_date1")
+        CryParameterInsertValue(gscryRpt, dtpDATE_TO.Value, "select_date2")
 
-        fCryParameterInsertValue(gscryRpt, Format(dtpDATE_FROM.Value, "MMMM dd") & " thought " & Format(dtpDATE_TO.Value, "MMMM dd, yyyy"), "date_remark")
+        CryParameterInsertValue(gscryRpt, Format(dtpDATE_FROM.Value, "MMMM dd") & " thought " & Format(dtpDATE_TO.Value, "MMMM dd, yyyy"), "date_remark")
 
     End Sub
     Private Sub tsPreview_Click(sender As Object, e As EventArgs) Handles tsPreview.Click
@@ -98,7 +98,7 @@
         End If
         fReport()
         gsToolPanelView = False
-        fPreviewReport("Statement Report")
+        GlobalPreviewReport("Statement Report")
     End Sub
 
     Private Sub tsPrint_Click(sender As Object, e As EventArgs) Handles tsPrint.Click

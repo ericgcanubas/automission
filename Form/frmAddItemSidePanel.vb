@@ -1469,11 +1469,11 @@ down_now:
     End Sub
 
     Private Sub numQty_Click(sender As Object, e As EventArgs) Handles numQty.Click
-        fnumPadKeyToTouch(numQty, "ENTER QUANTITY")
+        NumberPadKeyToTouch(numQty, "ENTER QUANTITY")
     End Sub
 
     Private Sub numUnit_price_Click(sender As Object, e As EventArgs) Handles numUnit_price.Click
-        fnumPadKeyToTouch(numUnit_price, "CHANGE PRICE")
+        NumberPadKeyToTouch(numUnit_price, "CHANGE PRICE")
 
     End Sub
 

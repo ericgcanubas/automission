@@ -27,7 +27,7 @@
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewRecordsToolStripMenuItem.Click
 
 
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
@@ -39,7 +39,7 @@
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditsToolStripMenuItem.Click
         If dgvServiceFee.Rows.Count = 0 Then Exit Sub
-        If fACCESS_NEW_EDIT(Me, False) = False Then
+        If SecurityAccessMode(Me, False) = False Then
             Exit Sub
         End If
 
@@ -61,7 +61,7 @@
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
         If dgvServiceFee.Rows.Count = 0 Then Exit Sub
-        If fACCESS_DELETE(Me) = False Then
+        If SecurityAccessDelete(Me) = False Then
             Exit Sub
         End If
         Dim i As Integer = dgvServiceFee.CurrentRow.Index

@@ -183,7 +183,7 @@ Module modInventoryItem
 
         If UserSecurtySystemDOCShow("Item Valuation Details") = False Then
 
-            If fAccessDeniedIsYes("You are not allowed access to Item Valuation Details or perform the request function operation. For more information, contact the BMS administrator ") = True Then
+            If IsAccessDenied("You are not allowed access to Item Valuation Details or perform the request function operation. For more information, contact the BMS administrator ") = True Then
                 Exit Sub
             End If
 
@@ -192,29 +192,29 @@ Module modInventoryItem
         Dim prFile_name As String = "cryItemValuationDetails.rpt"
         Dim prPrint_Title As String = "Item Valuation"
         gsToolPanelView = False
-        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, DateFormatMySql(dtSTART), "fdate")
-        fCryParameterInsertValue(gscryRpt, GetDateNow, "tdate")
-        fCryParameterInsertValue(gscryRpt, "*", "customerid")
-        fCryParameterInsertValue(gscryRpt, prLOCATION_ID, "locationid")
-        fCryParameterInsertValue(gscryRpt, "*", "statusid")
-        fCryParameterInsertValue(gscryRpt, "*", "doctype")
-        fCryParameterInsertValue(gscryRpt, "*", "salesrepid")
-        fCryParameterInsertValue(gscryRpt, "*", "customergroupid")
-        fCryParameterInsertValue(gscryRpt, prITEM_ID, "item_code_id")
-        fCryParameterInsertValue(gscryRpt, "*", "item_sub_id")
-        fCryParameterInsertValue(gscryRpt, "*", "item_group_id")
-        fCryParameterInsertValue(gscryRpt, "", "freference")
-        fCryParameterInsertValue(gscryRpt, "", "treference")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        CryParameterInsertValue(gscryRpt, DateFormatMySql(dtSTART), "fdate")
+        CryParameterInsertValue(gscryRpt, GetDateNow, "tdate")
+        CryParameterInsertValue(gscryRpt, "*", "customerid")
+        CryParameterInsertValue(gscryRpt, prLOCATION_ID, "locationid")
+        CryParameterInsertValue(gscryRpt, "*", "statusid")
+        CryParameterInsertValue(gscryRpt, "*", "doctype")
+        CryParameterInsertValue(gscryRpt, "*", "salesrepid")
+        CryParameterInsertValue(gscryRpt, "*", "customergroupid")
+        CryParameterInsertValue(gscryRpt, prITEM_ID, "item_code_id")
+        CryParameterInsertValue(gscryRpt, "*", "item_sub_id")
+        CryParameterInsertValue(gscryRpt, "*", "item_group_id")
+        CryParameterInsertValue(gscryRpt, "", "freference")
+        CryParameterInsertValue(gscryRpt, "", "treference")
 
-        fCryParameterInsertValue(gscryRpt, "", "myremark")
-        fCryParameterInsertValue(gscryRpt, DateFormatStandard(GetDateNow), "date_remark")
-        fCryParameterInsertValue(gscryRpt, "", "amount_label")
-        fCryParameterInsertValue(gscryRpt, "false", "accrual")
-        fCryParameterInsertValue(gscryRpt, "", "basis_label")
-        fCryParameterInsertValue(gscryRpt, "", "name_by")
+        CryParameterInsertValue(gscryRpt, "", "myremark")
+        CryParameterInsertValue(gscryRpt, DateFormatStandard(GetDateNow), "date_remark")
+        CryParameterInsertValue(gscryRpt, "", "amount_label")
+        CryParameterInsertValue(gscryRpt, "false", "accrual")
+        CryParameterInsertValue(gscryRpt, "", "basis_label")
+        CryParameterInsertValue(gscryRpt, "", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
         frmReportViewer.Text = "Item Valuation Details " & GetDateTimeNowSql()
         If prFind <> "" Then

@@ -69,29 +69,29 @@
         Dim prFile_name As String = "crySalesByCustomerSummary.rpt"
         Dim prPrint_Title As String = "Sales By Customer Summary"
         gsToolPanelView = False
-        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
-        fCryParameterInsertValue(gscryRpt, "*", "customerid")
-        fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
-        fCryParameterInsertValue(gscryRpt, "*", "statusid")
-        fCryParameterInsertValue(gscryRpt, "*", "doctype")
-        fCryParameterInsertValue(gscryRpt, "*", "salesrepid")
-        fCryParameterInsertValue(gscryRpt, "*", "customergroupid")
-        fCryParameterInsertValue(gscryRpt, "*", "item_code_id")
-        fCryParameterInsertValue(gscryRpt, "*", "item_sub_id")
-        fCryParameterInsertValue(gscryRpt, "*", "item_group_id")
-        fCryParameterInsertValue(gscryRpt, "", "freference")
-        fCryParameterInsertValue(gscryRpt, "", "treference")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
+        CryParameterInsertValue(gscryRpt, "*", "customerid")
+        CryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
+        CryParameterInsertValue(gscryRpt, "*", "statusid")
+        CryParameterInsertValue(gscryRpt, "*", "doctype")
+        CryParameterInsertValue(gscryRpt, "*", "salesrepid")
+        CryParameterInsertValue(gscryRpt, "*", "customergroupid")
+        CryParameterInsertValue(gscryRpt, "*", "item_code_id")
+        CryParameterInsertValue(gscryRpt, "*", "item_sub_id")
+        CryParameterInsertValue(gscryRpt, "*", "item_group_id")
+        CryParameterInsertValue(gscryRpt, "", "freference")
+        CryParameterInsertValue(gscryRpt, "", "treference")
 
-        fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
-        fCryParameterInsertValue(gscryRpt, "", "amount_label")
-        fCryParameterInsertValue(gscryRpt, "false", "accrual")
-        fCryParameterInsertValue(gscryRpt, "", "basis_label")
-        fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
+        CryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
+        CryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
+        CryParameterInsertValue(gscryRpt, "", "amount_label")
+        CryParameterInsertValue(gscryRpt, "false", "accrual")
+        CryParameterInsertValue(gscryRpt, "", "basis_label")
+        CryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
         frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
@@ -105,30 +105,30 @@
         Dim prFile_name As String = "crySalesByItemDetailsLine.rpt"
         Dim prPrint_Title As String = "Sales By Summary"
         gsToolPanelView = False
-        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
-        fCryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
-        fCryParameterInsertValue(gscryRpt, "*", "customerid")
-        fCryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
-        fCryParameterInsertValue(gscryRpt, "*", "statusid")
-        fCryParameterInsertValue(gscryRpt, "*", "doctype")
-        fCryParameterInsertValue(gscryRpt, "*", "salesrepid")
-        fCryParameterInsertValue(gscryRpt, "*", "customergroupid")
-        fCryParameterInsertValue(gscryRpt, "*", "item_code_id")
-        fCryParameterInsertValue(gscryRpt, "*", "item_class_id")
-        fCryParameterInsertValue(gscryRpt, "*", "item_sub_id")
-        fCryParameterInsertValue(gscryRpt, "*", "item_group_id")
-        fCryParameterInsertValue(gscryRpt, "", "freference")
-        fCryParameterInsertValue(gscryRpt, "", "treference")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
+        CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
+        CryParameterInsertValue(gscryRpt, "*", "customerid")
+        CryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
+        CryParameterInsertValue(gscryRpt, "*", "statusid")
+        CryParameterInsertValue(gscryRpt, "*", "doctype")
+        CryParameterInsertValue(gscryRpt, "*", "salesrepid")
+        CryParameterInsertValue(gscryRpt, "*", "customergroupid")
+        CryParameterInsertValue(gscryRpt, "*", "item_code_id")
+        CryParameterInsertValue(gscryRpt, "*", "item_class_id")
+        CryParameterInsertValue(gscryRpt, "*", "item_sub_id")
+        CryParameterInsertValue(gscryRpt, "*", "item_group_id")
+        CryParameterInsertValue(gscryRpt, "", "freference")
+        CryParameterInsertValue(gscryRpt, "", "treference")
 
-        fCryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
-        fCryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
-        fCryParameterInsertValue(gscryRpt, "", "amount_label")
-        fCryParameterInsertValue(gscryRpt, "false", "accrual")
-        fCryParameterInsertValue(gscryRpt, "", "basis_label")
-        fCryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
+        CryParameterInsertValue(gscryRpt, "Daily Report", "myremark")
+        CryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
+        CryParameterInsertValue(gscryRpt, "", "amount_label")
+        CryParameterInsertValue(gscryRpt, "false", "accrual")
+        CryParameterInsertValue(gscryRpt, "", "basis_label")
+        CryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
         frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
@@ -152,16 +152,16 @@
         Dim prFile_name As String = "cryPOSTransLogX.rpt" ' "cryPaymentLog.rpt"
         Dim prPrint_Title As String = $"{gsResto_Sales_Print_Title} (" & gsPOS_LOG_ID & ")"
 
-        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        CryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
 
-        fCryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, lblCashierName.Text, "user_name")
-        fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-        fReportExporPDF(gscryRpt, prPrint_Title)
+        CryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        CryParameterInsertValue(gscryRpt, lblCashierName.Text, "user_name")
+        CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+        ReportExporPDF(gscryRpt, prPrint_Title)
 
         If gsAdmin_User = True Then
             gsToolPanelView = False
@@ -191,16 +191,16 @@
         Dim prFile_name As String = gsResto_Sales__File_Name ' "cryPaymentLog.rpt"
         Dim prPrint_Title As String = $"{gsResto_Sales_Print_Title} (" & gsPOS_LOG_ID & ")"
 
-        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        CryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
 
-        fCryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, lblCashierName.Text, "user_name")
-        fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-        fReportExporPDF(gscryRpt, prPrint_Title)
+        CryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        CryParameterInsertValue(gscryRpt, lblCashierName.Text, "user_name")
+        CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+        ReportExporPDF(gscryRpt, prPrint_Title)
 
         If gsAdmin_User = True Then
             gsToolPanelView = False

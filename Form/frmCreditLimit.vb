@@ -2,7 +2,7 @@
 
 
 
-    Private Sub fData()
+    Private Sub DataSet()
         If cmbCONTACT.Text = "" Then
             MessageBoxInfo("Please select contact")
             Exit Sub
@@ -12,25 +12,25 @@
         gsReportName = "Credit Limit Status "
         gsReportTabName = "Credit Limit Status Report"
 
-        gscryRpt = fViewReportOneParameterNumberOnly(gsReportFileName)
-        fCryParameterInsertValue(gscryRpt, cmbCONTACT.SelectedValue, "contact_id")
-        fCryParameterInsertValue(gscryRpt, cmbLOCATION_ID.SelectedValue, "location_id")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(gsReportFileName)
+        CryParameterInsertValue(gscryRpt, cmbCONTACT.SelectedValue, "contact_id")
+        CryParameterInsertValue(gscryRpt, cmbLOCATION_ID.SelectedValue, "location_id")
 
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, cmbLOCATION_ID.Text, "myremark")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        CryParameterInsertValue(gscryRpt, cmbLOCATION_ID.Text, "myremark")
 
     End Sub
 
-    Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
+    Private Sub BtnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
         CursorLoadingOn(True)
-        fData()
-        fPreviewReport(gsReportTabName)
+        DataSet()
+        GlobalPreviewReport(gsReportTabName)
         Me.Close()
         CursorLoadingOn(False)
     End Sub
 
-    Private Sub frmCreditLimit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmCreditLimit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbCONTACT, " select '*' as `ID`,'ALL CONTACTS' as `NAME`  UNION select ID,NAME from CONTACT where `TYPE` in ('1','5','6') ", "ID", "NAME")
         cmbCONTACT.SelectedValue = "*"
@@ -38,9 +38,9 @@
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
 
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         CursorLoadingOn(True)
-        fData()
+        DataSet()
         gscryRpt.PrintToPrinter(1, False, 0, 0)
         Me.Close()
         CursorLoadingOn(False)

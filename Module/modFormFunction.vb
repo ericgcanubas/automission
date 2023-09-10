@@ -478,7 +478,7 @@ Module modFormFunction
                         'ReportSetup
                     Else
 
-                        If fSystem_Security(gsMenuSubID) = False Then
+                        If SecuritySystemModule(gsMenuSubID) = False Then
                             Exit Sub
                         End If
                     End If

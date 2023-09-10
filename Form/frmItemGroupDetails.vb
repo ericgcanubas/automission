@@ -50,7 +50,7 @@ Public Class FrmItemGroupDetails
         ID = 0
         IsNew = True
 
-        If fACCESS_NEW_EDIT(frmItemGroup, IsNew) = False Then
+        If SecurityAccessMode(frmItemGroup, IsNew) = False Then
             Me.Close()
         End If
     End Sub

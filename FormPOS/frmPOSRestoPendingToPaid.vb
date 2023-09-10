@@ -84,7 +84,7 @@ Public Class FrmPOSRestoPendingToPaid
     End Sub
 
     Private Sub txtNOTE_Click(sender As Object, e As EventArgs) Handles txtNOTE.Click
-        fKeyBoardToTouch(txtNOTE, "Please enter Notes/Remarks")
+        KeyBoardToTouch(txtNOTE, "Please enter Notes/Remarks")
 
     End Sub
 

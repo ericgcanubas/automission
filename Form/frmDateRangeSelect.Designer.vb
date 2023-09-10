@@ -34,7 +34,7 @@ Partial Class FrmDateRangeSelect
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(19, 30)
+        Me.Label2.Location = New System.Drawing.Point(19, 23)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(39, 16)
         Me.Label2.TabIndex = 10
@@ -44,7 +44,7 @@ Partial Class FrmDateRangeSelect
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(19, 67)
+        Me.Label1.Location = New System.Drawing.Point(19, 60)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(23, 16)
         Me.Label1.TabIndex = 9
@@ -53,7 +53,7 @@ Partial Class FrmDateRangeSelect
         'dtpDT2
         '
         Me.dtpDT2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDT2.Location = New System.Drawing.Point(67, 59)
+        Me.dtpDT2.Location = New System.Drawing.Point(67, 52)
         Me.dtpDT2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtpDT2.Name = "dtpDT2"
         Me.dtpDT2.Size = New System.Drawing.Size(178, 23)
@@ -62,7 +62,7 @@ Partial Class FrmDateRangeSelect
         'dtpDT1
         '
         Me.dtpDT1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDT1.Location = New System.Drawing.Point(67, 30)
+        Me.dtpDT1.Location = New System.Drawing.Point(67, 23)
         Me.dtpDT1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtpDT1.Name = "dtpDT1"
         Me.dtpDT1.Size = New System.Drawing.Size(178, 23)
@@ -70,7 +70,7 @@ Partial Class FrmDateRangeSelect
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(67, 113)
+        Me.btnOK.Location = New System.Drawing.Point(67, 99)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(86, 28)
@@ -80,7 +80,7 @@ Partial Class FrmDateRangeSelect
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(159, 113)
+        Me.btnCancel.Location = New System.Drawing.Point(159, 99)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 28)
@@ -88,11 +88,11 @@ Partial Class FrmDateRangeSelect
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmDateRangeSelect
+        'FrmDateRangeSelect
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(267, 163)
+        Me.ClientSize = New System.Drawing.Size(267, 136)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.Label2)
@@ -103,7 +103,7 @@ Partial Class FrmDateRangeSelect
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmDateRangeSelect"
+        Me.Name = "FrmDateRangeSelect"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show

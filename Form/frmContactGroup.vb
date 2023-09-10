@@ -1,23 +1,23 @@
 ﻿Public Class FrmContactGroup
     Dim item_BS As BindingSource
-    Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
 
-        fRefreshData()
+        RefreshData()
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
-        frmContactGroupDetails.This_BS = item_BS
-        frmContactGroupDetails.dgv = dgvContactGroup
-        frmContactGroupDetails.ShowDialog()
-        frmContactGroupDetails.Dispose()
-        frmContactGroupDetails = Nothing
+        FrmContactGroupDetails.This_BS = item_BS
+        FrmContactGroupDetails.dgv = dgvContactGroup
+        FrmContactGroupDetails.ShowDialog()
+        FrmContactGroupDetails.Dispose()
+        FrmContactGroupDetails = Nothing
 
     End Sub
-    Private Sub fRefreshData()
+    Private Sub RefreshData()
 
         LoadDataGridViewBinding(dgvContactGroup, "SELECT cg.ID,cg.`Code`,cg.`Description`, cm.`DESCRIPTION` AS `Type` FROM contact_group AS cg INNER JOIN contact_type_map AS cm ON cm.`ID` = cg.`TYPE`", item_BS)
         With dgvContactGroup.Columns
@@ -33,18 +33,18 @@
             Exit Sub
         End If
         Try
-            If fACCESS_NEW_EDIT(Me, False) = False Then
+            If SecurityAccessMode(Me, False) = False Then
                 Exit Sub
             End If
             dgvContactGroup.Focus()
             Dim i As Integer = dgvContactGroup.CurrentRow.Index
             Dim dID As String = dgvContactGroup.Rows.Item(i).Cells(0).Value
-            frmContactGroupDetails.This_BS = item_BS
-            frmContactGroupDetails.dgv = dgvContactGroup
-            frmContactGroupDetails.ID = dID
-            frmContactGroupDetails.ShowDialog()
-            frmContactGroupDetails.Dispose()
-            frmContactGroupDetails = Nothing
+            FrmContactGroupDetails.This_BS = item_BS
+            FrmContactGroupDetails.dgv = dgvContactGroup
+            FrmContactGroupDetails.ID = dID
+            FrmContactGroupDetails.ShowDialog()
+            FrmContactGroupDetails.Dispose()
+            FrmContactGroupDetails = Nothing
 
         Catch ex As Exception
 
@@ -58,7 +58,7 @@
             Exit Sub
         End If
         Try
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
             dgvContactGroup.Focus()
@@ -68,7 +68,7 @@
             If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
                 SqlExecuted("Delete From contact_group where id='" & dID & "' limit 1")
                 DeleteNotify(Me)
-                fRefreshData()
+                RefreshData()
             End If
 
         Catch ex As Exception
@@ -80,18 +80,15 @@
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
         ViewSwitch(dgvContactGroup, 32)
-
         ViewColumn(dgvContactGroup, 32)
-
-
     End Sub
 
-    Private Sub dgvContactGroup_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvContactGroup.CellDoubleClick
+    Private Sub DgvContactGroup_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvContactGroup.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
 
-    Private Sub fSearchload()
+    Private Sub Searchload()
         Try
             Dim strFInd As String = ""
 
@@ -127,23 +124,18 @@
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        Searchload()
     End Sub
-
-    Private Sub dgvContactGroup_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvContactGroup.CellContentClick
-
-    End Sub
-
-    Private Sub dgvContactGroup_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvContactGroup.RowStateChanged
+    Private Sub DgvContactGroup_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvContactGroup.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        Searchload()
     End Sub
 
-    Private Sub tsReload_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefreshData()
+    Private Sub TsReload_Click(sender As Object, e As EventArgs) Handles tsReload.Click
+        RefreshData()
     End Sub
 End Class

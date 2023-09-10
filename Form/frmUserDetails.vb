@@ -170,7 +170,7 @@ ON utm.`ID` = u.`TYPE` WHERE u.ID = '{ID}' limit 1"
 
 
 
-        If fACCESS_NEW_EDIT(frmUserList, IsNew) = False Then
+        If SecurityAccessMode(frmUserList, IsNew) = False Then
             Me.Close()
         End If
 

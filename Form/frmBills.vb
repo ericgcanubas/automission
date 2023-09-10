@@ -528,7 +528,7 @@ FROM
             End If
         End If
 
-        If fACCESS_NEW_EDIT(Me, IsNew) = False Then
+        If SecurityAccessMode(Me, IsNew) = False Then
             Exit Sub
         End If
 
@@ -841,7 +841,7 @@ FROM
         Next
     End Sub
     Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
-        If fACCESS_FIND(Me) = False Then
+        If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID > 0 Then
@@ -949,7 +949,7 @@ FROM
     End Sub
     Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False Then
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
 
@@ -1110,7 +1110,7 @@ FROM
             If cmbVENDOR_ID.SelectedIndex = -1 Then
                 If StrText.Length = 0 Then Exit Sub
                 If IsNew = True Then
-                    If fACCESS_NEW_EDIT(FrmVendor, True) = False Then
+                    If SecurityAccessMode(FrmVendor, True) = False Then
                         Exit Sub
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/vendor.png")
@@ -1216,7 +1216,7 @@ FROM
             End If
         End If
         If IsNew = True Then Exit Sub
-        If fACCESS_PRINT_PREVIEW(Me) = False Then
+        If SecurityAccessPrint(Me) = False Then
             Exit Sub
         End If
         Dim prFile_name As String = ""
@@ -1236,18 +1236,18 @@ FROM
             End If
         End Try
 
-        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-        fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+        CryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
         If prPrint_Title = "Bill Item Received" Then
-            fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "checked_by")
+            CryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "checked_by")
         End If
-        fReportExporPDF(gscryRpt, prPrint_Title)
+        ReportExporPDF(gscryRpt, prPrint_Title)
         gscryRpt.PrintToPrinter(1, False, 0, 0)
     End Sub
 
@@ -1269,7 +1269,7 @@ FROM
             End If
         End If
         If IsNew = False Then
-            If fACCESS_PRINT_PREVIEW(Me) = False Then
+            If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
             Dim cn As New OleDb.OleDbConnection(fMS_Con)
@@ -1288,24 +1288,24 @@ FROM
                     cn.Close()
                 End If
             End Try
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
-            fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
+            CryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
             If prFile_name = "cryBill.rpt" Then
-                fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "checked_by")
+                CryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "checked_by")
             End If
 
 
 
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            ReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
-            fPreviewReport("Bill Report")
+            GlobalPreviewReport("Bill Report")
         End If
     End Sub
 
@@ -1384,7 +1384,7 @@ FROM
         End If
 
         If IsNew = True Then Exit Sub
-        If fACCESS_PRINT_PREVIEW(Me) = False Then
+        If SecurityAccessPrint(Me) = False Then
             Exit Sub
         End If
         FrmPrintPage.frmName = Me.Name
@@ -1410,22 +1410,22 @@ FROM
                 End If
             End Try
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
-            fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
+            CryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "received_by")
             If prFile_name = "cryBill.rpt" Then
-                fCryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "checked_by")
+                CryParameterInsertValue(gscryRpt, gsUserDescription.ToUpper, "checked_by")
             End If
 
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            ReportExporPDF(gscryRpt, prPrint_Title)
             If v = 2 Then
-                fPreviewReport(prPrint_Title)
+                GlobalPreviewReport(prPrint_Title)
             Else
                 gscryRpt.PrintToPrinter(1, False, 0, 0)
 

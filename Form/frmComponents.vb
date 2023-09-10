@@ -7,7 +7,7 @@ Public Class FrmComponents
     Public gsITEM_ID As Double
     Public IsNew As Boolean
     Public gsDGV As DataGridView
-    Private Sub frmComponents_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmComponents_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '634, 209   default size
         If Me.HelpButton = True Then
 
@@ -45,7 +45,7 @@ Public Class FrmComponents
 
     End Sub
 
-    Private Sub cmbCode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCode.SelectedIndexChanged
+    Private Sub CmbCode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCode.SelectedIndexChanged
         Try
             cmbDescription.SelectedValue = cmbCode.SelectedValue
         Catch ex As Exception
@@ -54,7 +54,7 @@ Public Class FrmComponents
 
     End Sub
 
-    Private Sub cmbDescription_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDescription.SelectedIndexChanged
+    Private Sub CmbDescription_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDescription.SelectedIndexChanged
         Try
             cmbCode.SelectedValue = cmbDescription.SelectedValue
         Catch ex As Exception
@@ -62,36 +62,27 @@ Public Class FrmComponents
         End Try
 
     End Sub
-    Private Sub cmbCode_LostFocus(sender As Object, e As EventArgs) Handles cmbCode.LostFocus
+    Private Sub CmbCode_LostFocus(sender As Object, e As EventArgs) Handles cmbCode.LostFocus
         If NumIsNull(cmbCode.SelectedValue) <> 0 Then
             BlueLight(numQty)
             numQty.Focus()
         End If
     End Sub
 
-    Private Sub cmbDescription_LostFocus(sender As Object, e As EventArgs) Handles cmbDescription.LostFocus
+    Private Sub CmbDescription_LostFocus(sender As Object, e As EventArgs) Handles cmbDescription.LostFocus
         If NumIsNull(cmbDescription.SelectedValue) <> 0 Then
             BlueLight(numQty)
             numQty.Focus()
         End If
     End Sub
-
-    Private Sub numRate_ValueChanged(sender As Object, e As EventArgs) Handles numRate.ValueChanged
-
-    End Sub
-
-    Private Sub numRate_GotFocus(sender As Object, e As EventArgs) Handles numRate.GotFocus
+    Private Sub NumRate_GotFocus(sender As Object, e As EventArgs) Handles numRate.GotFocus
         BlueLight(numRate)
     End Sub
 
-    Private Sub numQty_ValueChanged(sender As Object, e As EventArgs) Handles numQty.ValueChanged
-
-    End Sub
-
-    Private Sub numQty_GotFocus(sender As Object, e As EventArgs) Handles numQty.GotFocus
+    Private Sub NumQty_GotFocus(sender As Object, e As EventArgs) Handles numQty.GotFocus
         BlueLight(numQty)
     End Sub
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If cmbCode.Text = "" Then
             MessageBoxExclamation("Invalid item code")
             Exit Sub

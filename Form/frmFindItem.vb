@@ -170,7 +170,7 @@ where i.inactive = '0' ", item_BS)
         End If
 
         Try
-            If fACCESS_NEW_EDIT(frmItem, False) = False Then
+            If SecurityAccessMode(frmItem, False) = False Then
                 Exit Sub
             End If
 
@@ -232,7 +232,7 @@ where i.inactive = '0' ", item_BS)
             Exit Sub
         End If
         Try
-            If fACCESS_DELETE(frmItem) = False Then
+            If SecurityAccessDelete(frmItem) = False Then
                 Exit Sub
             End If
             dgvItem.Focus()
@@ -353,7 +353,7 @@ where i.inactive = '0' ", item_BS)
 
     Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.Click
 
-        If fACCESS_NEW_EDIT(frmItem, True) = False Then
+        If SecurityAccessMode(frmItem, True) = False Then
             Exit Sub
         End If
         frmItemDetails.IsNew = True

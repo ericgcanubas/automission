@@ -7,7 +7,7 @@ Public Class FrmEstimate
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -17,23 +17,23 @@ Public Class FrmEstimate
         End If
         Return HasChange
     End Function
-    Private Sub dgvProductItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvProductItem.RowStateChanged
+    Private Sub DgvProductItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvProductItem.RowStateChanged
         lblCount.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
-    Private Sub frmEstimate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmEstimate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tsTITLE.Text = gsSubMenuForm
-        fcolumnGrid()
-        fclear_Info()
+        ColumnGrid()
+        ClearInfo()
 
         If IsNew = False Then
-            fRefreshInfo()
-            fRefreshItem()
+            RefreshInfo()
+            RefreshItem()
         End If
 
     End Sub
-    Private Sub fclear_Info()
+    Private Sub ClearInfo()
 
-        fRefreshCombo()
+        RefreshCombo()
         ClearAndRefresh(Me)
 
         dtpDATE.Checked = True
@@ -45,7 +45,7 @@ Public Class FrmEstimate
         dtpDATE.Value = TransactionDefaultDate()
         cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
     End Sub
-    Private Sub fRefreshInfo()
+    Private Sub RefreshInfo()
 
 
         Try
@@ -54,13 +54,13 @@ Public Class FrmEstimate
             SqlExecutedUsingReading(Me, sQuery)
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshInfo()
+                RefreshInfo()
             Else
                 End
             End If
         End Try
     End Sub
-    Private Sub fRefreshItem()
+    Private Sub RefreshItem()
         dgvProductItem.Rows.Clear()
         bRefreshItem = True
         Dim sQuery As String = "SELECT 
@@ -125,18 +125,18 @@ FROM
                     End With
 
                 Next
-                x = x + 1
+                x += 1
             End While
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshItem()
+                RefreshItem()
             Else
                 End
             End If
         Finally
             bRefreshItem = False
-            fComputed()
+            Computed()
             tdgv = New DataGridView
             tdgv = dgvProductItem
             tQuery = SqlUpdate(Me)
@@ -147,14 +147,7 @@ FROM
 
     End Sub
 
-    'Private Function GetTypeValue(ByVal dt As String) As String
-    '    If IsNumeric(dt) = True Then
-    '        Return Format(dt, "Standard")
-    '    Else
-    '        Return dt
-    '    End If
-    'End Function
-    Private Sub fRefreshCombo()
+    Private Sub RefreshCombo()
         ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
         ComboBoxLoad(cmbCLASS_ID, "select * from class", "ID", "NAME")
         ComboBoxLoad(cmbPAYMENT_TERMS_ID, "select * from payment_terms ORDER BY ID DESC", "ID", "DESCRIPTION")
@@ -162,14 +155,16 @@ FROM
         ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
         ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
     End Sub
-    Private Sub fcolumnGrid()
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = gsCUSTOM_TAX
-        chk.Name = "TAX"
+    Private Sub ColumnGrid()
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = gsCUSTOM_TAX,
+            .Name = "TAX"
+        }
 
-        Dim closed As New DataGridViewCheckBoxColumn
-        closed.HeaderText = gsCUSTOM_CLOSED
-        closed.Name = "CLOSED"
+        Dim closed As New DataGridViewCheckBoxColumn With {
+            .HeaderText = gsCUSTOM_CLOSED,
+            .Name = "CLOSED"
+        }
 
         With dgvProductItem.Columns
             .Clear()
@@ -237,22 +232,15 @@ FROM
 
         End With
     End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
 
-    Private Sub lklNew_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-
-    End Sub
-    Private Sub fComputed()
+    Private Sub Computed()
         Dim gsSalesSubTotal As Double
         fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
 
     End Sub
 
-    Private Sub cmbOUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
-        fComputed()
+    Private Sub CmbOUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
+        Computed()
 
         Try
 
@@ -272,7 +260,7 @@ FROM
         End Try
     End Sub
 
-    Private Sub fEditItem()
+    Private Sub EditItem()
         Try
 
             If dgvProductItem.Rows.Count = 0 Then
@@ -294,7 +282,7 @@ FROM
                 Exit Sub
             End If
 
-            With frmAddItem
+            With FrmAddItem
                 If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
@@ -318,37 +306,31 @@ FROM
                     GoupItemComputed(dgvProductItem)
                 End If
             End With
-            fComputed()
-            frmAddItem.Dispose()
-            frmAddItem = Nothing
+            Computed()
+            FrmAddItem.Dispose()
+            FrmAddItem = Nothing
         Catch ex As Exception
             MessageBoxInfo(ex.Message)
         End Try
     End Sub
 
-    Private Sub lklEdit_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
 
+
+    Private Sub DgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
+        EditItem()
     End Sub
 
 
-    Private Sub dgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
-        fEditItem()
-    End Sub
-
-    Private Sub lklDelete_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-    End Sub
-
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
-        If fACCESS_FIND(Me) = False Then
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+        If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
 
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -364,12 +346,12 @@ FROM
         f.ShowDialog()
         If f.AccessibleDescription <> "" Then
             If f.AccessibleDescription <> "cancel" Then
-                fclear_Info()
+                ClearInfo()
                 ID = f.AccessibleDescription
                 IsNew = False
 
-                fRefreshInfo()
-                fRefreshItem()
+                RefreshInfo()
+                RefreshItem()
 
             End If
 
@@ -379,30 +361,23 @@ FROM
 
     End Sub
 
-    Private Sub GroupBox5_Enter(sender As Object, e As EventArgs)
-
-    End Sub
-    Private Sub dgvProductItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellClick
+    Private Sub DgvProductItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellClick
         If e.ColumnIndex = 9 Then
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
             fTax_Value(dgvProductItem)
-            fComputed()
+            Computed()
 
         ElseIf e.ColumnIndex = 21 Then
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
             fClosed_Value(dgvProductItem)
-            fComputed()
+            Computed()
         End If
     End Sub
-    Private Sub dgvProductItem_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellContentClick
-
-    End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
 
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
             MessageBoxInfo("Please Customer")
@@ -414,10 +389,10 @@ FROM
             Exit Sub
         End If
 
-        If fACCESS_NEW_EDIT(Me, IsNew) = False Then
+        If SecurityAccessMode(Me, IsNew) = False Then
             Exit Sub
         End If
-        Dim SQL_SCRIPT As String = ""
+
         If IsNew = True Then
             If Trim(txtCODE.Text) = "" Then
                 txtCODE.Text = GetNextCode("ESTIMATE", cmbLOCATION_ID.SelectedValue)
@@ -441,8 +416,8 @@ FROM
             Exit Sub
         End If
 
-        fSaveItem()
-        fItemUpdateStatus()
+        SaveItem()
+        ItemUpdateStatus()
 
         If IsNew = True Then
             PrompNotify(Me.Text, SaveMsg, True)
@@ -454,7 +429,7 @@ FROM
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = "tsSaveNew" Then
-                fSetNew()
+                SetNew()
             End If
         Catch ex As Exception
 
@@ -462,8 +437,8 @@ FROM
 
             If ID > 0 Then
                 IsNew = False
-                fRefreshInfo()
-                fRefreshItem()
+                RefreshInfo()
+                RefreshItem()
 
             End If
 
@@ -471,15 +446,15 @@ FROM
         End Try
 
     End Sub
-    Private Sub fSetNew()
-        fclear_Info()
+    Private Sub SetNew()
+        ClearInfo()
         dgvProductItem.Rows.Clear()
-        fComputed()
+        Computed()
         ID = 0
         IsNew = True
 
     End Sub
-    Private Sub fSaveItem()
+    Private Sub SaveItem()
 
         If dgvProductItem.Rows.Count = 0 Then Exit Sub
 
@@ -515,7 +490,7 @@ FROM
 
 
     End Sub
-    Private Sub fItemUpdateStatus()
+    Private Sub ItemUpdateStatus()
 Again:
         For i As Integer = 0 To dgvProductItem.Rows.Count - 1
             With dgvProductItem.Rows(i)
@@ -532,14 +507,12 @@ Again:
 
         Next
     End Sub
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
 
         If IsNew = False Then
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
-
-
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
 
@@ -547,9 +520,9 @@ Again:
                 SqlExecuted("DELETE FROM estimate WHERE ID = '" & ID & "' limit 1")
                 PrompNotify(Me.Text, DeleteMsg, True)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
-                fclear_Info()
+                ClearInfo()
                 dgvProductItem.Rows.Clear()
-                fComputed()
+                Computed()
                 ID = 0
                 IsNew = True
 
@@ -559,33 +532,24 @@ Again:
 
     End Sub
 
-    Private Sub dgvProductItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvProductItem.RowsAdded
+    Private Sub DgvProductItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvProductItem.RowsAdded
         If bRefreshItem = False Then
-            fComputed()
+            Computed()
         End If
     End Sub
-
-    Private Sub frmSalesOrder_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-
-    End Sub
-
-    Private Sub frmSalesOrder_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmEstimate_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ViewItemDisplay(dgvProductItem)
         ViewNotSort(dgvProductItem)
     End Sub
 
-    Private Sub cmbCUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
-
-    End Sub
-
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -596,34 +560,34 @@ Again:
             End If
         End If
         If IsNew = False Then
-            If fACCESS_PRINT_PREVIEW(Me) = False Then
+            If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
 
             Dim prFile_name As String = "cryEstimate.rpt"
             Dim prPrint_Title As String = tsTITLE.Text
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
-            fPreviewReport(prPrint_Title)
+            GlobalPreviewReport(prPrint_Title)
         End If
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -634,37 +598,37 @@ Again:
             End If
         End If
         If IsNew = False Then
-            If fACCESS_PRINT_PREVIEW(Me) = False Then
+            If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
             Dim prFile_name As String = "cryEstimate.rpt"
             Dim prPrint_Title As String = tsTITLE.Text
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
         End If
 
 
     End Sub
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
 
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
-                fclear_Info()
-                fRefreshInfo()
-                fRefreshItem()
+                ClearInfo()
+                RefreshInfo()
+                RefreshItem()
             End If
 
         End If
@@ -674,19 +638,13 @@ Again:
         ShowHistoryList(ID, Me)
     End Sub
 
-    Private Sub cmbPAYMENT_TERMS_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_TERMS_ID.SelectedIndexChanged
-
-    End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
         ShowTransactionLog(Me, ID)
     End Sub
 
-    Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles tsCreateSalesOrder.Click
 
-    End Sub
-
-    Private Sub cmbCUSTOMER_ID_LostFocus(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.LostFocus
+    Private Sub CmbCUSTOMER_ID_LostFocus(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.LostFocus
         CustomerTax()
     End Sub
     Private Sub CustomerTax()
@@ -714,40 +672,40 @@ Again:
     End Sub
 
 
-    Private Sub cmbCUSTOMER_ID_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbCUSTOMER_ID.KeyDown
+    Private Sub CmbCUSTOMER_ID_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbCUSTOMER_ID.KeyDown
         If e.KeyCode = Keys.Insert Then
             Dim StrText As String = Trim(cmbCUSTOMER_ID.Text)
             If cmbCUSTOMER_ID.SelectedIndex = -1 Then
                 If StrText.Length = 0 Then Exit Sub
                 If IsNew = True Then
-                    If fACCESS_NEW_EDIT(frmCustomer, True) = False Then
+                    If SecurityAccessMode(FrmCustomer, True) = False Then
                         Exit Sub
                     End If
                     Dim img As Image = Image.FromFile(Application.StartupPath & "/image/sub/customer.png")
 
-                    frmContactDetails.ContactTypeId = 1
-                    frmContactDetails.txtNAME.Text = StrText ' must auto insert
-                    frmContactDetails.txtCOMPANY_NAME.Text = StrText
-                    frmContactDetails.txtPRINT_NAME_AS.Text = StrText
-                    frmContactDetails.IsNew = True
-                    frmContactDetails.ID = 0
-                    frmContactDetails.gsDgv = Nothing
-                    frmContactDetails.this_BS = Nothing
-                    frmContactDetails.ShowDialog()
-                    If frmContactDetails.gsOK = True Then
+                    FrmContactDetails.ContactTypeId = 1
+                    FrmContactDetails.txtNAME.Text = StrText ' must auto insert
+                    FrmContactDetails.txtCOMPANY_NAME.Text = StrText
+                    FrmContactDetails.txtPRINT_NAME_AS.Text = StrText
+                    FrmContactDetails.IsNew = True
+                    FrmContactDetails.ID = 0
+                    FrmContactDetails.gsDgv = Nothing
+                    FrmContactDetails.this_BS = Nothing
+                    FrmContactDetails.ShowDialog()
+                    If FrmContactDetails.gsOK = True Then
                         ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-                        cmbCUSTOMER_ID.SelectedValue = frmContactDetails.ID
-                        cmbCUSTOMER_ID_LostFocus(sender, e)
+                        cmbCUSTOMER_ID.SelectedValue = FrmContactDetails.ID
+                        CmbCUSTOMER_ID_LostFocus(sender, e)
                     End If
-                    frmContactDetails.Dispose()
-                    frmContactDetails = Nothing
+                    FrmContactDetails.Dispose()
+                    FrmContactDetails = Nothing
                 End If
 
             End If
         End If
     End Sub
 
-    Private Sub frmEstimate_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmEstimate_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
 
         ID = gsDocument_Finder_ID
@@ -756,8 +714,8 @@ Again:
 
         End If
         If IsNew = False Then
-            fRefreshInfo()
-            fRefreshItem()
+            RefreshInfo()
+            RefreshItem()
         End If
     End Sub
 
@@ -769,7 +727,7 @@ Again:
 
 
 
-        With frmAddItem
+        With FrmAddItem
             .sFormName = Me.Name
             .dgv = dgvProductItem
             .ShowDialog()
@@ -780,13 +738,13 @@ Again:
 
             'End If
         End With
-        fComputed()
-        frmAddItem.Dispose()
-        frmAddItem = Nothing
+        Computed()
+        FrmAddItem.Dispose()
+        FrmAddItem = Nothing
     End Sub
 
     Private Sub TsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
-        fEditItem()
+        EditItem()
     End Sub
 
     Private Sub TsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
@@ -816,7 +774,7 @@ X_A:
                                 dgvProductItem.Rows.RemoveAt(n)
                                 ' fDiscount_ReComputed(dgvProductItem)
                                 GoupItemComputed(dgvProductItem)
-                                fComputed()
+                                Computed()
                                 Exit Sub
                             Else
                                 dgvProductItem.Rows.RemoveAt(n)
@@ -828,7 +786,7 @@ X_A:
                         If sTemp_ID = tmp_ID And sTemp_CODE = "" Then
                             '  fDiscount_ReComputed(dgvProductItem)
                             GoupItemComputed(dgvProductItem)
-                            fComputed()
+                            Computed()
                             Exit Sub
                         End If
                     Next
@@ -843,18 +801,14 @@ X_A:
                 End If
 
                 GoupItemComputed(dgvProductItem)
-                fComputed()
+                Computed()
             End If
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
-    Private Sub TsFindText_Click(sender As Object, e As EventArgs) Handles tsFindText.Click
-
-    End Sub
-
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         GetQuickFind(dgvProductItem, tsFindText.Text)
     End Sub
 End Class

@@ -73,7 +73,7 @@ Partial Class FrmDatabaseReset
         '
         'btnUncheckAll
         '
-        Me.btnUncheckAll.Location = New System.Drawing.Point(99, 318)
+        Me.btnUncheckAll.Location = New System.Drawing.Point(99, 316)
         Me.btnUncheckAll.Margin = New System.Windows.Forms.Padding(2)
         Me.btnUncheckAll.Name = "btnUncheckAll"
         Me.btnUncheckAll.Size = New System.Drawing.Size(93, 27)
@@ -229,7 +229,7 @@ Partial Class FrmDatabaseReset
         Me.chkUsers.Text = "Users"
         Me.chkUsers.UseVisualStyleBackColor = True
         '
-        'frmDatabaseReset
+        'FrmDatabaseReset
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -255,7 +255,7 @@ Partial Class FrmDatabaseReset
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmDatabaseReset"
+        Me.Name = "FrmDatabaseReset"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Database Reset"
         Me.ResumeLayout(False)

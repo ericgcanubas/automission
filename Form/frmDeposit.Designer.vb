@@ -102,12 +102,12 @@ Partial Class FrmDeposit
         '
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(34, 110)
+        Me.Label14.Location = New System.Drawing.Point(55, 107)
         Me.Label14.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 59
-        Me.Label14.Text = "Remarks"
+        Me.Label14.Text = "Notes"
         '
         'txtNOTES
         '
@@ -122,7 +122,7 @@ Partial Class FrmDeposit
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(23, 82)
+        Me.Label2.Location = New System.Drawing.Point(22, 82)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(79, 16)
@@ -151,21 +151,21 @@ Partial Class FrmDeposit
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(709, 79)
+        Me.txtCODE.Location = New System.Drawing.Point(728, 79)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(145, 23)
+        Me.txtCODE.Size = New System.Drawing.Size(126, 23)
         Me.txtCODE.TabIndex = 7
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(664, 82)
+        Me.Label8.Location = New System.Drawing.Point(654, 82)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -258,7 +258,7 @@ Partial Class FrmDeposit
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
         Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
@@ -274,7 +274,7 @@ Partial Class FrmDeposit
         Me.lblAMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblAMOUNT.BackColor = System.Drawing.Color.Transparent
         Me.lblAMOUNT.ForeColor = System.Drawing.Color.Blue
-        Me.lblAMOUNT.Location = New System.Drawing.Point(890, 494)
+        Me.lblAMOUNT.Location = New System.Drawing.Point(883, 488)
         Me.lblAMOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblAMOUNT.Name = "lblAMOUNT"
         Me.lblAMOUNT.Size = New System.Drawing.Size(239, 26)
@@ -288,7 +288,7 @@ Partial Class FrmDeposit
         Me.Label18.AutoSize = True
         Me.Label18.BackColor = System.Drawing.Color.Transparent
         Me.Label18.ForeColor = System.Drawing.Color.Blue
-        Me.Label18.Location = New System.Drawing.Point(1042, 478)
+        Me.Label18.Location = New System.Drawing.Point(1035, 472)
         Me.Label18.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(94, 16)
@@ -488,7 +488,7 @@ Partial Class FrmDeposit
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(8, 475)
+        Me.Label4.Location = New System.Drawing.Point(9, 475)
         Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(90, 16)
@@ -535,7 +535,7 @@ Partial Class FrmDeposit
         Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label15.Location = New System.Drawing.Point(958, 494)
+        Me.Label15.Location = New System.Drawing.Point(951, 488)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(177, 1)
         Me.Label15.TabIndex = 69
@@ -570,7 +570,7 @@ Partial Class FrmDeposit
         'ToolStrip5
         '
         Me.ToolStrip5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel12, Me.lblCount})
         Me.ToolStrip5.Location = New System.Drawing.Point(3, 212)
         Me.ToolStrip5.Name = "ToolStrip5"
@@ -590,7 +590,7 @@ Partial Class FrmDeposit
         Me.lblCount.Size = New System.Drawing.Size(14, 22)
         Me.lblCount.Text = "0"
         '
-        'frmDeposit
+        'FrmDeposit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -618,7 +618,7 @@ Partial Class FrmDeposit
         Me.Controls.Add(Me.lblAMOUNT)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.Name = "frmDeposit"
+        Me.Name = "FrmDeposit"
         Me.Text = "frmDeposit"
         CType(Me.dgvDeposit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip2.ResumeLayout(False)

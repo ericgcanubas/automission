@@ -1,5 +1,5 @@
 ﻿Public Class FrmEmailSetup
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         Dim str_Query As String = ""
         str_Query = str_Query & "UPDATE system_settings SET `VALUE` ='" & txtGmailUsername.Text & "' WHERE `NAME` = 'GmailUsername';"
         str_Query = str_Query & "UPDATE system_settings SET `VALUE` ='" & Encrypt(txtGmailPassword.Text) & "' WHERE `NAME` = 'GmailPassword';"
@@ -9,7 +9,7 @@
         MessageBoxInfo("Save = Please restart all running bms.")
     End Sub
 
-    Private Sub frmEmailSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmEmailSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtGmailUsername.Text = gsGmailUsername
         txtGmailPassword.Text = gsGmailPassword
         txtGmailAddressTo.Text = gsGmailAddressTo

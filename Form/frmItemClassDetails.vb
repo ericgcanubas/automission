@@ -46,7 +46,7 @@ Public Class FrmItemClassDetails
         ID = 0
         IsNew = True
 
-        If fACCESS_NEW_EDIT(frmItemClass, IsNew) = False Then
+        If SecurityAccessMode(frmItemClass, IsNew) = False Then
             Me.Close()
         End If
     End Sub

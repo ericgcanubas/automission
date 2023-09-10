@@ -30,7 +30,7 @@ WHERE c.Type = '0' ", contact_BS)
 
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
@@ -67,7 +67,7 @@ WHERE c.Type = '0' ", contact_BS)
             Exit Sub
         End If
         Try
-            If fACCESS_NEW_EDIT(Me, False) = False Then
+            If SecurityAccessMode(Me, False) = False Then
                 Exit Sub
             End If
 
@@ -96,7 +96,7 @@ WHERE c.Type = '0' ", contact_BS)
             Exit Sub
         End If
         Try
-            If fACCESS_NEW_EDIT(Me, False) = False Then
+            If SecurityAccessMode(Me, False) = False Then
                 Exit Sub
             End If
 

@@ -45,12 +45,12 @@ Partial Class FrmConnectionSetup
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(17, 18)
+        Me.Label1.Location = New System.Drawing.Point(24, 18)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(122, 16)
+        Me.Label1.Size = New System.Drawing.Size(115, 16)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Connection Name"
+        Me.Label1.Text = "Connection Title"
         '
         'txtConnectionName
         '
@@ -73,12 +73,12 @@ Partial Class FrmConnectionSetup
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(89, 45)
+        Me.Label2.Location = New System.Drawing.Point(71, 45)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(50, 16)
+        Me.Label2.Size = New System.Drawing.Size(68, 16)
         Me.Label2.TabIndex = 2
-        Me.Label2.Text = "Server"
+        Me.Label2.Text = "Server IP"
         '
         'txtDatabase
         '
@@ -113,7 +113,7 @@ Partial Class FrmConnectionSetup
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(68, 99)
+        Me.Label4.Location = New System.Drawing.Point(68, 101)
         Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(71, 16)
@@ -133,7 +133,7 @@ Partial Class FrmConnectionSetup
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Location = New System.Drawing.Point(70, 127)
+        Me.Label5.Location = New System.Drawing.Point(70, 126)
         Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(69, 16)
@@ -185,39 +185,45 @@ Partial Class FrmConnectionSetup
         '
         'btnSaveIT
         '
-        Me.btnSaveIT.Location = New System.Drawing.Point(144, 242)
+        Me.btnSaveIT.BackColor = System.Drawing.Color.SteelBlue
+        Me.btnSaveIT.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.btnSaveIT.Location = New System.Drawing.Point(144, 223)
         Me.btnSaveIT.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSaveIT.Name = "btnSaveIT"
         Me.btnSaveIT.Size = New System.Drawing.Size(86, 28)
         Me.btnSaveIT.TabIndex = 20
         Me.btnSaveIT.Text = "Save"
-        Me.btnSaveIT.UseVisualStyleBackColor = True
+        Me.btnSaveIT.UseVisualStyleBackColor = False
         '
         'btnCanceled
         '
-        Me.btnCanceled.Location = New System.Drawing.Point(251, 242)
+        Me.btnCanceled.BackColor = System.Drawing.Color.SteelBlue
+        Me.btnCanceled.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.btnCanceled.Location = New System.Drawing.Point(251, 223)
         Me.btnCanceled.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCanceled.Name = "btnCanceled"
         Me.btnCanceled.Size = New System.Drawing.Size(86, 28)
         Me.btnCanceled.TabIndex = 21
         Me.btnCanceled.Text = "Cancel"
-        Me.btnCanceled.UseVisualStyleBackColor = True
+        Me.btnCanceled.UseVisualStyleBackColor = False
         '
         'btnTesting
         '
-        Me.btnTesting.Location = New System.Drawing.Point(9, 242)
+        Me.btnTesting.BackColor = System.Drawing.Color.SteelBlue
+        Me.btnTesting.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.btnTesting.Location = New System.Drawing.Point(9, 223)
         Me.btnTesting.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnTesting.Name = "btnTesting"
         Me.btnTesting.Size = New System.Drawing.Size(86, 28)
         Me.btnTesting.TabIndex = 22
         Me.btnTesting.Text = "Test"
-        Me.btnTesting.UseVisualStyleBackColor = True
+        Me.btnTesting.UseVisualStyleBackColor = False
         '
-        'frmConnectionSetup
+        'FrmConnectionSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(350, 284)
+        Me.ClientSize = New System.Drawing.Size(346, 269)
         Me.ControlBox = False
         Me.Controls.Add(Me.btnTesting)
         Me.Controls.Add(Me.btnCanceled)
@@ -241,7 +247,7 @@ Partial Class FrmConnectionSetup
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmConnectionSetup"
+        Me.Name = "FrmConnectionSetup"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

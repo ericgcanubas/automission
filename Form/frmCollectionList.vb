@@ -1,6 +1,6 @@
 ﻿
 Public Class FrmCollectionList
-    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+    Private Sub BtnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
 
         Dim path As String = AppDomain.CurrentDomain.BaseDirectory
         Dim file_path As String = path & "temp_db.mdb"
@@ -35,7 +35,7 @@ Public Class FrmCollectionList
 
             While rd.Read
 
-                i = i + 1
+                i += 1
                 pgbLoading2.Value = i
 
                 db_connection_name = rd("connection_name")
@@ -47,7 +47,7 @@ Public Class FrmCollectionList
 
                 Dim mySQLCON As String = "server=" & db_server_ex & ";user id=" & db_username_ex & ";password=" & db_password_ex & ";database=" & db_name_ex & ";port=" & db_port_ex & ";"
 
-                fCollected(mySQLCON, db_connection_name)
+                Collected(mySQLCON, db_connection_name)
 
             End While
             cn.Close()
@@ -62,7 +62,7 @@ Public Class FrmCollectionList
 
         End Try
     End Sub
-    Private Sub fCollected(ByVal prSQLCon As String, ByVal prName As String)
+    Private Sub Collected(ByVal prSQLCon As String, ByVal prName As String)
         'Dim cn As New MySqlConnection(prSQLCon)
         'Dim lv As ListViewItem = lvCollect.Items.Add(prName)
         'Try
@@ -85,12 +85,12 @@ Public Class FrmCollectionList
         'End Try
     End Sub
 
-    Private Sub frmCollectionList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmCollectionList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         dtpFrom.Value = Format(Now.Month & "/1/" & Now.Year)
     End Sub
 
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
-        btnStart_Click(sender, e)
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+        BtnStart_Click(sender, e)
     End Sub
 
     Private Sub Preview_Click(sender As Object, e As EventArgs) Handles Preview.Click

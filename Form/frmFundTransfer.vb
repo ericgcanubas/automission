@@ -79,7 +79,7 @@ Public Class FrmFundTransfer
     End Sub
 
     Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
-        If fACCESS_NEW_EDIT(Me, IsNew) = False Then
+        If SecurityAccessMode(Me, IsNew) = False Then
             Exit Sub
         End If
 
@@ -200,7 +200,7 @@ Public Class FrmFundTransfer
 
     End Sub
     Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
-        If fACCESS_FIND(Me) = False Then
+        If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID <> 0 Then
@@ -245,7 +245,7 @@ Public Class FrmFundTransfer
 
     Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False Then
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
 

@@ -1,7 +1,7 @@
 ﻿Public Class FrmLocation
     Dim item_BS As BindingSource
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
@@ -41,7 +41,7 @@
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         If dgvLocation.Rows.Count = 0 Then Exit Sub
         Try
-            If fACCESS_NEW_EDIT(Me, False) = False Then
+            If SecurityAccessMode(Me, False) = False Then
                 Exit Sub
             End If
             dgvLocation.Focus()
@@ -66,7 +66,7 @@
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
 
         If dgvLocation.Rows.Count = 0 Then Exit Sub
-        If fACCESS_DELETE(Me) = False Then
+        If SecurityAccessDelete(Me) = False Then
             Exit Sub
         End If
 

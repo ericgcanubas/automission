@@ -38,12 +38,12 @@ Partial Class FrmComponents
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(33, 18)
+        Me.Label1.Location = New System.Drawing.Point(19, 18)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(60, 16)
+        Me.Label1.Size = New System.Drawing.Size(75, 16)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Barcode"
+        Me.Label1.Text = "Item Code"
         '
         'cmbCode
         '
@@ -131,7 +131,7 @@ Partial Class FrmComponents
         Me.Label2.TabIndex = 14
         Me.Label2.Text = "Description"
         '
-        'frmComponents
+        'FrmComponents
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -149,7 +149,7 @@ Partial Class FrmComponents
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmComponents"
+        Me.Name = "FrmComponents"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Components"
         CType(Me.numQty, System.ComponentModel.ISupportInitialize).EndInit()

@@ -1341,7 +1341,7 @@ FROM
             MessageBoxInfo("Please select payment terms")
             Exit Sub
         End If
-        If fACCESS_NEW_EDIT(frmInvoice, IsNew) = False Then
+        If SecurityAccessMode(frmInvoice, IsNew) = False Then
             'Acccess Denied
             Exit Sub
         End If
@@ -1704,7 +1704,7 @@ FROM
             Exit Sub
         End If
 
-        If fACCESS_NEW_EDIT(frmSalesOrder, IsNew) = False Then
+        If SecurityAccessMode(frmSalesOrder, IsNew) = False Then
             Exit Sub
         End If
 
@@ -1929,7 +1929,7 @@ FROM
     '        End If
     '    End If
     '    If IsNew = False Then
-    '        If fACCESS_PRINT_PREVIEW(Me) = False Then
+    '        If SecurityAccessPrint(Me) = False Then
     '            Exit Sub
     '        End If
     '        '   Dim prFile_name As String = "crySalesOrder.rpt"
@@ -1953,16 +1953,16 @@ FROM
 
 
 
-    '        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-    '        fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-    '        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-    '        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-    '        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-    '        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-    '        fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-    '        fReportExporPDF(gscryRpt, prPrint_Title)
+    '        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+    '        CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+    '        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+    '        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+    '        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+    '        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+    '        CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+    '        ReportExporPDF(gscryRpt, prPrint_Title)
     '        gsToolPanelView = False
-    '        fPreviewReport(prPrint_Title)
+    '        GlobalPreviewReport(prPrint_Title)
     '    End If
     'End Sub
 
@@ -1984,7 +1984,7 @@ FROM
         '    End If
         'End If
         'If IsNew = False Then
-        '    If fACCESS_PRINT_PREVIEW(Me) = False Then
+        '    If SecurityAccessPrint(Me) = False Then
         '        Exit Sub
         '    End If
         '    '   Dim prFile_name As String = "crySalesOrder.rpt"
@@ -2007,14 +2007,14 @@ FROM
         '    End Try
 
 
-        '    gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        '    fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-        '    fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-        '    fReportExporPDF(gscryRpt, prPrint_Title)
+        '    gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        '    CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+        '    CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        '    CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        '    CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        '    CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        '    CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+        '    ReportExporPDF(gscryRpt, prPrint_Title)
         '    gscryRpt.PrintToPrinter(1, False, 0, 0)
         'End If
 
@@ -2233,18 +2233,18 @@ FROM
         '        End If
         '    End Try
 
-        '    gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        '    fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-        '    fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-        '    fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-        '    fReportExporPDF(gscryRpt, prPrint_Title)
+        '    gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        '    CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+        '    CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        '    CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        '    CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        '    CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        '    CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+        '    ReportExporPDF(gscryRpt, prPrint_Title)
         '    If v = 2 Then
         '        gsToolPanelView = False
 
-        '        fPreviewReport(prPrint_Title & "Report")
+        '        GlobalPreviewReport(prPrint_Title & "Report")
         '    Else
         '        gscryRpt.PrintToPrinter(1, False, 0, 0)
 
@@ -2623,7 +2623,7 @@ CREATE_NOW:
     End Sub
     Private Sub fDeleteInvoice()
         If IsNew = False Then
-            If fACCESS_DELETE(frmInvoice) = False Then
+            If SecurityAccessDelete(frmInvoice) = False Then
                 Exit Sub
             End If
 
@@ -2736,7 +2736,7 @@ CREATE_NOW:
     End Sub
     Private Sub fDeletSalesOrder()
         If IsNew = False Then
-            If fACCESS_DELETE(frmSalesOrder) = False Then
+            If SecurityAccessDelete(frmSalesOrder) = False Then
                 Exit Sub
             End If
             'If IsClosingDate(dtpDATE.Value) = False Then
@@ -2888,13 +2888,13 @@ CREATE_NOW:
             Dim prFile_name As String = gsPayment_File_Name '' "cryPOSRestoPayment.rpt"
             Dim prPrint_Title As String = gsPayment_Print_Title '' "OFFICIAL RECEIPT"
             gscryRpt = New CrystalDecisions.CrystalReports.Engine.ReportDocument
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, ThisID, "id")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, ThisID, "id")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
 
             If gsPOSPrintPreview = True Then
@@ -2939,14 +2939,14 @@ CREATE_NOW:
         Dim prFile_name As String = gsInvoice_File_Name
         Dim prPrint_Title As String = gsInvoice_Print_Title
         gscryRpt = New CrystalDecisions.CrystalReports.Engine.ReportDocument
-        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, Val(prID), "myid")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
-        fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        CryParameterInsertValue(gscryRpt, Val(prID), "myid")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
+        CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
         If gsPOSPrintPreview = True Then
             gsToolPanelView = False
@@ -3093,16 +3093,16 @@ CREATE_NOW:
             Dim prFile_name As String = gsSalesOrder_File_Name
             Dim prPrint_Title As String = gsSalesOrder_Print_Title
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(id), "myid")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(id), "myid")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
 
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            ReportExporPDF(gscryRpt, prPrint_Title)
 
             If gsPOSPrintPreview = True Then
                 gsToolPanelView = False

@@ -43,10 +43,10 @@ Public Class FrmReportSetup
 
             Dim dtp1 As DateTimePicker = Nothing
             Dim dtp2 As DateTimePicker = Nothing
-            gscryRpt = fViewReportOneParameterNumberOnly(lklFileName.Text)
+            gscryRpt = PublicViewReportOneParameterNumberOnly(lklFileName.Text)
 
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
             Dim stringArray(100) As String
             Dim intArray As Integer = 0
             Dim rd As OdbcDataReader = SqlReader("select r.ID,r.COMPONENT_ID,c.TYPE,c.NAME,c.SQL_STATEMENT,c.VALUE_NAME,c.DISPLAY_NAME,c.DEFAULT_VALUE,c.REPORT_PARAMETER_NAME,c.PARAMETER_ID1,c.VARIABLE_NAME1,c.PARAMETER_ID2,c.VARIABLE_NAME2,c.PARAMETER_ID3,c.VARIABLE_NAME3 from report_components as r inner join component as c on c.ID = r.COMPONENT_ID where sub_id = '" & Me.AccessibleDescription & "' order by r.LINE_NO")
@@ -59,7 +59,7 @@ Public Class FrmReportSetup
                             Dim txt As TextBox = fGetObject(rd("COMPONENT_ID"))
 
                             If bIsDataSet = False Then
-                                fCryParameterInsertValue(gscryRpt, txt.Text, TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                                CryParameterInsertValue(gscryRpt, txt.Text, TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = txt.Text
                                 intArray = intArray + 1
@@ -68,7 +68,7 @@ Public Class FrmReportSetup
                         Case 2
                             Dim cmb As ComboBox = fGetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
-                                fCryParameterInsertValue(gscryRpt, fLikeValue(cmb.SelectedValue.ToString), TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                                CryParameterInsertValue(gscryRpt, fLikeValue(cmb.SelectedValue.ToString), TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = cmb.SelectedValue
                                 intArray = intArray + 1
@@ -77,7 +77,7 @@ Public Class FrmReportSetup
                             Dim cmb As ComboBox = fGetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
 
-                                fCryParameterInsertValue(gscryRpt, fLikeValue(cmb.SelectedValue.ToString), TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                                CryParameterInsertValue(gscryRpt, fLikeValue(cmb.SelectedValue.ToString), TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = cmb.SelectedValue
                                 intArray = intArray + 1
@@ -87,7 +87,7 @@ Public Class FrmReportSetup
                             If bIsDataSet = False Then
 
 
-                                fCryParameterInsertValue(gscryRpt, dt.Value, TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                                CryParameterInsertValue(gscryRpt, dt.Value, TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = dt.Value
                                 intArray = intArray + 1
@@ -100,7 +100,7 @@ Public Class FrmReportSetup
                         Case 5
                             Dim num As NumericUpDown = fGetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
-                                fCryParameterInsertValue(gscryRpt, num.Value, TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                                CryParameterInsertValue(gscryRpt, num.Value, TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = num.Value
                                 intArray = intArray + 1
@@ -108,7 +108,7 @@ Public Class FrmReportSetup
                         Case 6
                             Dim chk As CheckBox = fGetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
-                                fCryParameterInsertValue(gscryRpt, chk.Checked.ToString, TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                                CryParameterInsertValue(gscryRpt, chk.Checked.ToString, TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = chk.Checked.ToString
                                 intArray = intArray + 1
@@ -149,7 +149,7 @@ Public Class FrmReportSetup
                             End If
 
 
-                            fCryParameterInsertValue(gscryRpt, sResult, TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                            CryParameterInsertValue(gscryRpt, sResult, TextIsNull(rd("REPORT_PARAMETER_NAME")))
 
                         Case 8
 
@@ -640,7 +640,7 @@ Public Class FrmReportSetup
         Try
             fSetDefaultPrinter(cmbPRINTER.Text)
             fStartReport()
-            fPreviewReport(ToolStripLabel5.Text)
+            GlobalPreviewReport(ToolStripLabel5.Text)
 
 
 
@@ -665,7 +665,7 @@ Public Class FrmReportSetup
             fDoEvents()
             fStartReport()
             gscryRpt.PrintToPrinter(1, False, 0, 0)
-            fReportExporPDF(gscryRpt, ToolStripLabel5.Text)
+            ReportExporPDF(gscryRpt, ToolStripLabel5.Text)
             '  fSetDefaultPrinter(gsDEFAULT_PRINTER)
         Catch ex As Exception
             MessageBoxWarning(ex.Message)

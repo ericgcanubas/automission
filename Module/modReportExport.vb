@@ -4,7 +4,7 @@ Imports CrystalDecisions.Shared
 
 Module modReportExport
     Public gsExportPDFLocation As String
-    Public Sub fReportExporPDF(ByVal cryRpt As ReportDocument, ByVal prfileName As String)
+    Public Sub ReportExporPDF(ByVal cryRpt As ReportDocument, ByVal prfileName As String)
         If Trim(gsExportPDFLocation) = "" Then
             Exit Sub
         End If

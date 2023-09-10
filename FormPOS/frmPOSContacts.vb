@@ -107,6 +107,6 @@
     End Sub
 
     Private Sub txtName_Click(sender As Object, e As EventArgs) Handles txtName.Click
-        fKeyBoardToTouch(txtName, Me.Text)
+        KeyBoardToTouch(txtName, Me.Text)
     End Sub
 End Class

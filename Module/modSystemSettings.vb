@@ -222,7 +222,7 @@ Module modSystemSettings
 
                     IsDone = False
                 Else
-                    If fAccessDeniedIsYes(gsMessageClosingDatePassword) = False Then
+                    If IsAccessDenied(gsMessageClosingDatePassword) = False Then
                         IsDone = True
                     Else
                         IsDone = False

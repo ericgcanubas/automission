@@ -49,7 +49,7 @@ Partial Class FrmCollectionList
         '
         Me.dtpTo.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpTo.Location = New System.Drawing.Point(292, 30)
+        Me.dtpTo.Location = New System.Drawing.Point(228, 34)
         Me.dtpTo.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.dtpTo.Name = "dtpTo"
         Me.dtpTo.Size = New System.Drawing.Size(181, 22)
@@ -58,7 +58,7 @@ Partial Class FrmCollectionList
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(240, 41)
+        Me.Label1.Location = New System.Drawing.Point(192, 33)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(28, 19)
@@ -78,10 +78,10 @@ Partial Class FrmCollectionList
         'btnStart
         '
         Me.btnStart.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnStart.Location = New System.Drawing.Point(484, 30)
+        Me.btnStart.Location = New System.Drawing.Point(571, 27)
         Me.btnStart.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(210, 39)
+        Me.btnStart.Size = New System.Drawing.Size(123, 39)
         Me.btnStart.TabIndex = 5
         Me.btnStart.Text = "Start"
         Me.btnStart.UseVisualStyleBackColor = True
@@ -144,7 +144,7 @@ Partial Class FrmCollectionList
         Me.ColumnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.ColumnHeader2.Width = 328
         '
-        'frmCollectionList
+        'FrmCollectionList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 19.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -163,7 +163,7 @@ Partial Class FrmCollectionList
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmCollectionList"
+        Me.Name = "FrmCollectionList"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Collection List"
         Me.ResumeLayout(False)

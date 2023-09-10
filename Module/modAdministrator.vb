@@ -1,7 +1,7 @@
 ﻿Imports System.Security.Principal
 Module modAdministrator
 
-    Public Function fAdministrator() As Boolean
+    Public Function IsRunAdministrator() As Boolean
         Dim identity = WindowsIdentity.GetCurrent()
         Dim principal = New WindowsPrincipal(identity)
         Dim isElevated As Boolean = principal.IsInRole(WindowsBuiltInRole.Administrator)

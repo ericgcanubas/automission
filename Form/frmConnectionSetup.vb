@@ -3,7 +3,7 @@ Public Class FrmConnectionSetup
     Public bNew As Boolean
     Dim bTest As Boolean = False
     Public strCon_Name As String
-    Private Sub ftemp_Refresh()
+    Private Sub RefreshForm()
 
         Dim cn As New OleDb.OleDbConnection(fMS_Con)
         Try
@@ -31,24 +31,22 @@ Public Class FrmConnectionSetup
     End Sub
 
 
-    Private Sub frmConnectionSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmConnectionSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If bNew = False Then
 
-            ftemp_Refresh()
+            RefreshForm()
             txtConnectionName.ReadOnly = True
         End If
 
     End Sub
-    Private Sub btnCanceled_Click(sender As Object, e As EventArgs) Handles btnCanceled.Click
+    Private Sub BtnCanceled_Click(sender As Object, e As EventArgs) Handles btnCanceled.Click
         Me.Close()
     End Sub
 
-    Private Sub btnSaveIT_Click(sender As Object, e As EventArgs) Handles btnSaveIT.Click
+    Private Sub BtnSaveIT_Click(sender As Object, e As EventArgs) Handles btnSaveIT.Click
 
         Dim sql_query As String
         If bNew = True Then
-
-
             Dim cn As New OleDb.OleDbConnection(fMS_Con)
             Try
                 cn.Open()
@@ -74,18 +72,11 @@ Public Class FrmConnectionSetup
 
         fMS_execute(sql_query)
 
-        If bNew = True Then
-            PrompNotify(Me.Text, SaveMsg, True)
-        Else
-            PrompNotify(Me.Text, UpdateMsg, True)
-        End If
+        SaveNotify(Me, bNew)
 
         Me.Close()
     End Sub
-
-
-
-    Private Sub btnTesting_Click(sender As Object, e As EventArgs) Handles btnTesting.Click
+    Private Sub BtnTesting_Click(sender As Object, e As EventArgs) Handles btnTesting.Click
 
         If txtServer.Text.Length < 3 Then
             PrompNotify("Test Connection", "Server Character must above 3 ", False)

@@ -387,10 +387,10 @@ SET `ID` = '{gsID}',
         End If
     End Sub
     Private Sub txtCARD_NO_Click(sender As Object, e As EventArgs) Handles txtCARD_NO.Click
-        fKeyBoardToTouch(txtCARD_NO, "CARD NO.")
+        KeyBoardToTouch(txtCARD_NO, "CARD NO.")
     End Sub
     Private Sub txtNOTES_Click(sender As Object, e As EventArgs) Handles txtNOTES.Click
-        fKeyBoardToTouch(txtNOTES, "NOTES")
+        KeyBoardToTouch(txtNOTES, "NOTES")
     End Sub
 
 

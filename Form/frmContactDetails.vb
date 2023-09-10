@@ -93,18 +93,15 @@ Public Class FrmContactDetails
     End Sub
 
     Private Sub FrmContact_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-
         If gsPOS_Mode = True Or (this_BS Is Nothing And gsDgv Is Nothing) Then
             tsSaveNew.Text = "&Save"
-
         End If
 
         Select Case ContactTypeId
-            Case "0" ' Vendor
+            Case 0 ' Vendor
                 Frm = FrmVendor
                 xlblTAX.Text = "Input Tax"
-                gsTITLE = "Seller"
+                gsTITLE = "Vendor"
                 Label21.Visible = False
                 Label23.Visible = False
                 Label24.Visible = False
@@ -122,24 +119,14 @@ Public Class FrmContactDetails
 
                 xnumDISCOUNT.Visible = False
 
-                If IsNew = False Then
-                    Me.Text = "Edit Seller"
-                Else
-                    Me.Text = "New Seller"
-                End If
 
-            Case "1" 'Customer
+
+            Case 1 'Customer
                 Frm = FrmCustomer
                 xlblTAX.Text = "Output Tax"
-
-
                 dtpCUSTOM_FIELD4.Checked = True
-                gsTITLE = "Buyer"
-
-
-
-
-            Case "2" 'Employee
+                gsTITLE = "Customer"
+            Case 2 'Employee
 
 
                 Frm = FrmEmployee
@@ -157,15 +144,12 @@ Public Class FrmContactDetails
                 dtpCUSTOM_FIELD4.Visible = False
                 txtCUSTOM_FIELD5.Visible = False
 
-
-
-
-            Case "3" 'Tax Agency
+            Case 3 'Tax Agency
                 gsTITLE = "Tax Agency"
-            Case "4" 'Other Contacts
+            Case 4 'Other Contacts
                 gsTITLE = "Other Contacts"
 
-            Case "5" 'Manager
+            Case 5 'Manager
                 xlblTAX.Visible = False
                 cmbTAX_ID.Visible = False
                 Frm = FrmManager
@@ -173,7 +157,7 @@ Public Class FrmContactDetails
                 lbxDiscount.Visible = True
                 xnumDISCOUNT.Visible = True
 
-            Case "6" 'Dealer
+            Case 6 'Dealer
                 xlblTAX.Visible = False
                 cmbTAX_ID.Visible = False
                 Frm = FrmDealer
@@ -194,6 +178,7 @@ Public Class FrmContactDetails
             txtNAME.Enabled = True
 
         End If
+
         chkINACTIVE.Text = gsTITLE & " is inactive"
     End Sub
     Private Sub TxtNAME_TextChanged(sender As Object, e As EventArgs) Handles txtNAME.TextChanged
@@ -206,7 +191,7 @@ Public Class FrmContactDetails
 
     Private Sub TxtNAME_Click(sender As Object, e As EventArgs) Handles txtNAME.Click
 
-        fKeyBoardToTouch(txtNAME, xlblName.Text)
+        KeyBoardToTouch(txtNAME, xlblName.Text)
 
     End Sub
 
@@ -406,7 +391,7 @@ WHERE c.Type = '6' and c.`ID` = '" & ID & "' limit 1"
         txtNAME.Enabled = True
         Me.Refresh()
 
-        If fACCESS_NEW_EDIT(Frm, IsNew) = False Then
+        If SecurityAccessMode(Frm, IsNew) = False Then
             Me.Close()
         End If
     End Sub
@@ -419,32 +404,32 @@ WHERE c.Type = '6' and c.`ID` = '" & ID & "' limit 1"
         RefreshForm()
     End Sub
     Private Sub TxtCOMPANY_NAME_Click(sender As Object, e As EventArgs) Handles txtCOMPANY_NAME.Click
-        fKeyBoardToTouch(txtCOMPANY_NAME, xlblCompanyName.Text)
+        KeyBoardToTouch(txtCOMPANY_NAME, xlblCompanyName.Text)
     End Sub
     Private Sub TxtFIRST_NAME_Click(sender As Object, e As EventArgs) Handles txtFIRST_NAME.Click
-        fKeyBoardToTouch(txtFIRST_NAME, "Firstname")
+        KeyBoardToTouch(txtFIRST_NAME, "Firstname")
     End Sub
 
     Private Sub TxtMIDDLE_NAME_Click(sender As Object, e As EventArgs) Handles txtMIDDLE_NAME.Click
-        fKeyBoardToTouch(txtMIDDLE_NAME, "M.I")
+        KeyBoardToTouch(txtMIDDLE_NAME, "M.I")
     End Sub
     Private Sub TxtLAST_NAME_Click(sender As Object, e As EventArgs) Handles txtLAST_NAME.Click
-        fKeyBoardToTouch(txtLAST_NAME, "Lastname")
+        KeyBoardToTouch(txtLAST_NAME, "Lastname")
     End Sub
     Private Sub TxtCONTACT_PERSON_Click(sender As Object, e As EventArgs) Handles txtCONTACT_PERSON.Click
-        fKeyBoardToTouch(txtCONTACT_PERSON, xlblContactPerson.Text)
+        KeyBoardToTouch(txtCONTACT_PERSON, xlblContactPerson.Text)
     End Sub
     Private Sub TxtTELEPHONE_NO_Click(sender As Object, e As EventArgs) Handles txtTELEPHONE_NO.Click
-        fKeyBoardToTouch(txtTELEPHONE_NO, xlblTeleNumber.Text)
+        KeyBoardToTouch(txtTELEPHONE_NO, xlblTeleNumber.Text)
     End Sub
     Private Sub TxtEMAIL_Click(sender As Object, e As EventArgs) Handles txtEMAIL.Click
-        fKeyBoardToTouch(txtEMAIL, xlblEmail.Text)
+        KeyBoardToTouch(txtEMAIL, xlblEmail.Text)
     End Sub
     Private Sub TxtMOBILE_NO_Click(sender As Object, e As EventArgs) Handles txtMOBILE_NO.Click
-        fKeyBoardToTouch(txtMOBILE_NO, xlblMobile.Text)
+        KeyBoardToTouch(txtMOBILE_NO, xlblMobile.Text)
     End Sub
 
     Private Sub TxtFAX_NO_Click(sender As Object, e As EventArgs) Handles txtFAX_NO.Click
-        fKeyBoardToTouch(txtFAX_NO, xlblFaxNumber.Text)
+        KeyBoardToTouch(txtFAX_NO, xlblFaxNumber.Text)
     End Sub
 End Class

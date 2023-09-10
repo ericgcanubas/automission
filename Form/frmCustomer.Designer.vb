@@ -22,9 +22,7 @@ Partial Class FrmCustomer
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmCustomer))
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.dgvCustomer = New System.Windows.Forms.DataGridView()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -47,11 +45,6 @@ Partial Class FrmCustomer
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 500
         '
         'dgvCustomer
         '
@@ -212,7 +205,7 @@ Partial Class FrmCustomer
         Me.tsReload.Text = "Re&load"
         Me.tsReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'frmCustomer
+        'FrmCustomer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -222,7 +215,7 @@ Partial Class FrmCustomer
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.Name = "frmCustomer"
+        Me.Name = "FrmCustomer"
         Me.Text = "Customer"
         CType(Me.dgvCustomer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
@@ -233,7 +226,6 @@ Partial Class FrmCustomer
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents dgvCustomer As DataGridView
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel

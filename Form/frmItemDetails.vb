@@ -1647,7 +1647,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
         ClearAndRefresh(tpOther)
 
         GeneralRefresh()
-        If fACCESS_NEW_EDIT(FrmItem, IsNew) = False Then
+        If SecurityAccessMode(FrmItem, IsNew) = False Then
             Me.Close()
         End If
 

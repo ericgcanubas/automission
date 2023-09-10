@@ -2642,6 +2642,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmBillCredit.resx">
       <DependentUpon>FrmBillCredit.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmBillPayment.resx">
       <DependentUpon>FrmBillPayment.vb</DependentUpon>

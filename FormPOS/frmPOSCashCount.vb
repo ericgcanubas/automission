@@ -100,7 +100,7 @@ Public Class FrmPOSCashCount
     End Sub
     Private Sub numCustom_Click(sender As Object, e As EventArgs)
         Dim num As NumericUpDown = DirectCast(sender, NumericUpDown)
-        fnumPadKeyToTouch(num, num.AccessibleDescription & " Total Count ")
+        NumberPadKeyToTouch(num, num.AccessibleDescription & " Total Count ")
     End Sub
     Private Sub fCal()
         Dim T As Double = numCASH.Value + numCHECK.Value + numCreditCard.Value + numOtherPayment.Value
@@ -200,12 +200,12 @@ Public Class FrmPOSCashCount
     End Sub
 
     Private Sub txtNOTES_Click(sender As Object, e As EventArgs) Handles txtNOTES.Click
-        fKeyBoardToTouch(txtNOTES, "NOTES")
+        KeyBoardToTouch(txtNOTES, "NOTES")
     End Sub
 
     Private Sub numCASH_Click(sender As Object, e As EventArgs) Handles numCASH.Click
         If gsUseCashDenomination = False Then
-            fnumPadKeyToTouch(numCASH, "CASH")
+            NumberPadKeyToTouch(numCASH, "CASH")
         End If
 
     End Sub
@@ -215,14 +215,14 @@ Public Class FrmPOSCashCount
     End Sub
 
     Private Sub numCHECK_Click(sender As Object, e As EventArgs) Handles numCHECK.Click
-        fnumPadKeyToTouch(numCHECK, "CHECK")
+        NumberPadKeyToTouch(numCHECK, "CHECK")
     End Sub
 
     Private Sub numOtherPayment_Click(sender As Object, e As EventArgs) Handles numOtherPayment.Click
-        fnumPadKeyToTouch(numOtherPayment, "OTHER PAYMENT")
+        NumberPadKeyToTouch(numOtherPayment, "OTHER PAYMENT")
     End Sub
 
     Private Sub numCreditCard_Click(sender As Object, e As EventArgs) Handles numCreditCard.Click
-        fnumPadKeyToTouch(numCreditCard, "CREDIT CARD")
+        NumberPadKeyToTouch(numCreditCard, "CREDIT CARD")
     End Sub
 End Class

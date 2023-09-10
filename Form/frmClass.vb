@@ -1,73 +1,65 @@
 ﻿Public Class FrmClass
     Dim item_BS As BindingSource
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-    Private Sub frmClass_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+    Private Sub FrmClass_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefresh()
+        RefreshLoad()
     End Sub
 
-    Private Sub fRefresh()
+    Private Sub RefreshLoad()
         LoadDataGridViewBinding(dgvCLASS, "Select ID,`Name`, if(`Inactive`=0,'No','Yes') as `Inactive` from Class ", item_BS)
         dgvCLASS.Columns(0).Visible = False
         ViewColumn(dgvCLASS, 36)
     End Sub
-
-    Private Sub frmClass_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-        '  fSearchGet()
-    End Sub
-
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
 
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
-        frmClassDetails.This_BS = item_BS
-        frmClassDetails.Dgv = dgvCLASS
-        frmClassDetails.ShowDialog()
-        frmClassDetails.Dispose()
-        frmClassDetails = Nothing
+        FrmClassDetails.This_BS = item_BS
+        FrmClassDetails.Dgv = dgvCLASS
+        FrmClassDetails.ShowDialog()
+        FrmClassDetails.Dispose()
+        FrmClassDetails = Nothing
 
     End Sub
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         If dgvCLASS.Rows.Count = 0 Then Exit Sub
-        If fACCESS_NEW_EDIT(Me, False) = False Then
+        If SecurityAccessMode(Me, False) = False Then
             Exit Sub
         End If
-        frmClassDetails.This_BS = item_BS
-        frmClassDetails.Dgv = dgvCLASS
-        frmClassDetails.ID = dgvCLASS.Rows(dgvCLASS.CurrentRow.Index).Cells(0).Value
-        frmClassDetails.ShowDialog()
-        frmClassDetails.Dispose()
-        frmClassDetails = Nothing
+        FrmClassDetails.This_BS = item_BS
+        FrmClassDetails.Dgv = dgvCLASS
+        FrmClassDetails.ID = dgvCLASS.Rows(dgvCLASS.CurrentRow.Index).Cells(0).Value
+        FrmClassDetails.ShowDialog()
+        FrmClassDetails.Dispose()
+        FrmClassDetails = Nothing
 
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If dgvCLASS.Rows.Count = 0 Then Exit Sub
 
-        If fACCESS_DELETE(Me) = False Then
+        If SecurityAccessDelete(Me) = False Then
             Exit Sub
         End If
         If MessageBoxQuestion("Are you sure to delete this class") = True Then
             SqlExecuted("Delete FROM class WHERE ID = '" & dgvCLASS.Rows(dgvCLASS.CurrentRow.Index).Cells(0).Value & "'")
             DeleteNotify(Me)
-            fRefresh()
+            RefreshLoad()
         End If
 
 
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefresh()
+        RefreshLoad()
     End Sub
 
 
 
-    Private Sub dgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCLASS.CellDoubleClick
+    Private Sub DgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCLASS.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
@@ -77,7 +69,7 @@
         ViewColumn(dgvCLASS, 36)
     End Sub
 
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
 
             Dim strFInd As String = ""
@@ -99,15 +91,15 @@
 
         End Try
     End Sub
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
-    Private Sub dgvCLASS_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvCLASS.RowStateChanged
+    Private Sub DgvCLASS_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvCLASS.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

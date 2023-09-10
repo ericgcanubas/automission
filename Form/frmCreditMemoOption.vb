@@ -1,10 +1,10 @@
 ﻿Public Class FrmCreditMemoOption
     Public iSelect As Integer = 0
-    Private Sub frmCreditMemoOption_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmCreditMemoOption_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'fBackGroundImageStyle(Me)
     End Sub
 
-    Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
+    Private Sub BtnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
         If opt1.Checked = True Then
             iSelect = 1
         End If

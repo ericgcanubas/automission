@@ -33,8 +33,8 @@ Partial Class FrmDateRange
         'dtpDT1
         '
         Me.dtpDT1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDT1.Location = New System.Drawing.Point(112, 23)
-        Me.dtpDT1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtpDT1.Location = New System.Drawing.Point(92, 13)
+        Me.dtpDT1.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpDT1.Name = "dtpDT1"
         Me.dtpDT1.Size = New System.Drawing.Size(138, 23)
         Me.dtpDT1.TabIndex = 0
@@ -42,16 +42,16 @@ Partial Class FrmDateRange
         'dtpDT2
         '
         Me.dtpDT2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDT2.Location = New System.Drawing.Point(112, 54)
-        Me.dtpDT2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtpDT2.Location = New System.Drawing.Point(92, 44)
+        Me.dtpDT2.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpDT2.Name = "dtpDT2"
         Me.dtpDT2.Size = New System.Drawing.Size(138, 23)
         Me.dtpDT2.TabIndex = 1
         '
         'btnPreview
         '
-        Me.btnPreview.Location = New System.Drawing.Point(150, 100)
-        Me.btnPreview.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnPreview.Location = New System.Drawing.Point(130, 85)
+        Me.btnPreview.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPreview.Name = "btnPreview"
         Me.btnPreview.Size = New System.Drawing.Size(100, 30)
         Me.btnPreview.TabIndex = 2
@@ -61,38 +61,38 @@ Partial Class FrmDateRange
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(39, 54)
+        Me.Label1.Location = New System.Drawing.Point(19, 44)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(24, 16)
+        Me.Label1.Size = New System.Drawing.Size(23, 16)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "To"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(39, 23)
+        Me.Label2.Location = New System.Drawing.Point(19, 13)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(40, 16)
+        Me.Label2.Size = New System.Drawing.Size(39, 16)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "From"
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(42, 100)
-        Me.btnPrint.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnPrint.Location = New System.Drawing.Point(22, 85)
+        Me.btnPrint.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(100, 30)
         Me.btnPrint.TabIndex = 5
         Me.btnPrint.Text = "Print"
         Me.btnPrint.UseVisualStyleBackColor = True
         '
-        'frmDateRange
+        'FrmDateRange
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(262, 146)
+        Me.ClientSize = New System.Drawing.Size(240, 123)
         Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -101,10 +101,10 @@ Partial Class FrmDateRange
         Me.Controls.Add(Me.dtpDT1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmDateRange"
+        Me.Name = "FrmDateRange"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

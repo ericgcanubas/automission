@@ -87,7 +87,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblBALANCE
         '
-        Me.lblBALANCE.BackColor = System.Drawing.Color.White
+        Me.lblBALANCE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblBALANCE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblBALANCE.Location = New System.Drawing.Point(523, 114)
         Me.lblBALANCE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -108,7 +108,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblAMOUNT
         '
-        Me.lblAMOUNT.BackColor = System.Drawing.Color.White
+        Me.lblAMOUNT.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblAMOUNT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAMOUNT.Location = New System.Drawing.Point(523, 87)
         Me.lblAMOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -129,7 +129,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblDISCOUNT
         '
-        Me.lblDISCOUNT.BackColor = System.Drawing.Color.White
+        Me.lblDISCOUNT.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblDISCOUNT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblDISCOUNT.Location = New System.Drawing.Point(523, 59)
         Me.lblDISCOUNT.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -150,7 +150,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblCODE
         '
-        Me.lblCODE.BackColor = System.Drawing.Color.White
+        Me.lblCODE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblCODE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblCODE.Location = New System.Drawing.Point(523, 31)
         Me.lblCODE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -171,7 +171,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblAmount_Due
         '
-        Me.lblAmount_Due.BackColor = System.Drawing.Color.White
+        Me.lblAmount_Due.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblAmount_Due.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAmount_Due.Location = New System.Drawing.Point(165, 114)
         Me.lblAmount_Due.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -192,7 +192,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblCreditUsed
         '
-        Me.lblCreditUsed.BackColor = System.Drawing.Color.White
+        Me.lblCreditUsed.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblCreditUsed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblCreditUsed.Location = New System.Drawing.Point(165, 86)
         Me.lblCreditUsed.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -213,7 +213,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblDATE
         '
-        Me.lblDATE.BackColor = System.Drawing.Color.White
+        Me.lblDATE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblDATE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblDATE.Location = New System.Drawing.Point(165, 57)
         Me.lblDATE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -234,7 +234,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblName
         '
-        Me.lblName.BackColor = System.Drawing.Color.White
+        Me.lblName.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblName.Location = New System.Drawing.Point(165, 30)
         Me.lblName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -246,12 +246,12 @@ Partial Class FrmDiscountInvoice
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(109, 34)
+        Me.Label2.Location = New System.Drawing.Point(90, 35)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(44, 16)
+        Me.Label2.Size = New System.Drawing.Size(69, 16)
         Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Buyer"
+        Me.Label2.Text = "Customer"
         '
         'GroupBox2
         '
@@ -281,7 +281,7 @@ Partial Class FrmDiscountInvoice
         Me.cmbDiscount_Account.Location = New System.Drawing.Point(165, 92)
         Me.cmbDiscount_Account.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbDiscount_Account.Name = "cmbDiscount_Account"
-        Me.cmbDiscount_Account.Size = New System.Drawing.Size(511, 24)
+        Me.cmbDiscount_Account.Size = New System.Drawing.Size(226, 24)
         Me.cmbDiscount_Account.TabIndex = 15
         '
         'numAmount_of_Discount
@@ -317,7 +317,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblSuggested_Discount
         '
-        Me.lblSuggested_Discount.BackColor = System.Drawing.Color.White
+        Me.lblSuggested_Discount.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblSuggested_Discount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblSuggested_Discount.Location = New System.Drawing.Point(522, 33)
         Me.lblSuggested_Discount.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -338,7 +338,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblTERMS
         '
-        Me.lblTERMS.BackColor = System.Drawing.Color.White
+        Me.lblTERMS.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblTERMS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblTERMS.Location = New System.Drawing.Point(165, 62)
         Me.lblTERMS.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -359,7 +359,7 @@ Partial Class FrmDiscountInvoice
         '
         'lblDISCOUNT_DATE
         '
-        Me.lblDISCOUNT_DATE.BackColor = System.Drawing.Color.White
+        Me.lblDISCOUNT_DATE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblDISCOUNT_DATE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblDISCOUNT_DATE.Location = New System.Drawing.Point(165, 31)
         Me.lblDISCOUNT_DATE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -398,7 +398,7 @@ Partial Class FrmDiscountInvoice
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmDiscountInvoice
+        'FrmDiscountInvoice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -412,7 +412,7 @@ Partial Class FrmDiscountInvoice
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmDiscountInvoice"
+        Me.Name = "FrmDiscountInvoice"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

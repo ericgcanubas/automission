@@ -104,7 +104,7 @@ Public Class FrmPOSVoid
 
         If dgvITEM.Rows.Count <> 0 Then
 
-            If fACCESS_DELETE(frmReceivePayment) = False Then
+            If SecurityAccessDelete(frmReceivePayment) = False Then
                 Exit Sub
             End If
 
@@ -128,14 +128,14 @@ Public Class FrmPOSVoid
             Dim prPrint_Title As String = gsPayment_Print_Title '' "OFFICIAL RECEIPT"
 
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, ThisID, "id")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, ThisID, "id")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
 
             If gsPOSPrintPreview = True Then
                 gsToolPanelView = False

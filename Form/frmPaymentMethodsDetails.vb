@@ -57,7 +57,7 @@ Public Class FrmPaymentMethodsDetails
         IsNew = True
         Me.Enabled = True
 
-        If fACCESS_NEW_EDIT(frmPaymentMethods, IsNew) = False Then
+        If SecurityAccessMode(frmPaymentMethods, IsNew) = False Then
             Me.Close()
         End If
     End Sub

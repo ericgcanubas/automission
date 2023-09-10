@@ -37,7 +37,7 @@ Public Class FrmUnitofMeasureDetails
         ClearAndRefresh(Me)
         ID = 0
         IsNew = True
-        If fACCESS_NEW_EDIT(frmUnitofMeasure, IsNew) = False Then
+        If SecurityAccessMode(frmUnitofMeasure, IsNew) = False Then
             Me.Close()
         End If
     End Sub

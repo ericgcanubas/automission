@@ -52,7 +52,7 @@ Public Class FrmManufacturersDetails
         ClearAndRefresh(Me)
         ID = 0
         IsNew = True
-        If fACCESS_NEW_EDIT(frmManufacturers, IsNew) = False Then
+        If SecurityAccessMode(frmManufacturers, IsNew) = False Then
             Me.Close()
         End If
     End Sub

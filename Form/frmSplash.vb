@@ -198,7 +198,7 @@ Public Class FrmSplash
             If R_number = 9 Then
                 lblinitialization.Text = "Initialize report ..."
                 fDoEvents()
-                fViewReportOneParameterNumberOnly("crySalesReceipt.rpt") ' crystal report re connect
+                PublicViewReportOneParameterNumberOnly("crySalesReceipt.rpt") ' crystal report re connect
 
             End If
 
@@ -225,7 +225,7 @@ Public Class FrmSplash
         CursorLoadingOn(False)
 
         FrmLogin.ShowDialog()
-        If FrmLogin.bLogin = False Then
+        If FrmLogin.IsLogin = False Then
             FrmConnectionList.Visible = True
         End If
 

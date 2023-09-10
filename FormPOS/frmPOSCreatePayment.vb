@@ -524,14 +524,14 @@ SET `ID` = '{ThisID}',
     End Sub
 
     Private Sub numAMOUNT_Click(sender As Object, e As EventArgs) Handles numAMOUNT.Click
-        fnumPadKeyToTouch(numAMOUNT, xlblAMOUNT.Text)
+        NumberPadKeyToTouch(numAMOUNT, xlblAMOUNT.Text)
     End Sub
 
     Private Sub btnNumberKEY_Click(sender As Object, e As EventArgs) Handles btnNumberKEY.Click
-        fnumPadKeyToTouch(numAMOUNT, xlblAMOUNT.Text)
+        NumberPadKeyToTouch(numAMOUNT, xlblAMOUNT.Text)
     End Sub
     Private Sub txtRECEIPT_REF_NO_Click(sender As Object, e As EventArgs) Handles txtRECEIPT_REF_NO.Click
-        fKeyBoardToTouch(txtRECEIPT_REF_NO, OR_No.Text)
+        KeyBoardToTouch(txtRECEIPT_REF_NO, OR_No.Text)
     End Sub
 
     Private Sub TxtCARD_NO_TextChanged(sender As Object, e As EventArgs) Handles txtCARD_NO.TextChanged
@@ -539,7 +539,7 @@ SET `ID` = '{ThisID}',
     End Sub
 
     Private Sub txtCARD_NO_Click(sender As Object, e As EventArgs) Handles txtCARD_NO.Click
-        fKeyBoardToTouch(txtCARD_NO, CARD_NO.Text)
+        KeyBoardToTouch(txtCARD_NO, CARD_NO.Text)
     End Sub
 
     Private Sub numAMOUNT_TextChanged(sender As Object, e As EventArgs) Handles numAMOUNT.TextChanged
@@ -559,7 +559,7 @@ SET `ID` = '{ThisID}',
     End Sub
 
     Private Sub txtNOTES_Click(sender As Object, e As EventArgs) Handles txtNOTES.Click
-        fKeyBoardToTouch(txtNOTES, "NOTES")
+        KeyBoardToTouch(txtNOTES, "NOTES")
     End Sub
 
     Private Sub frmPOSCreatePayment_Shown(sender As Object, e As EventArgs) Handles Me.Shown

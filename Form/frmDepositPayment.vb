@@ -1,32 +1,30 @@
 ﻿Public Class FrmDepositPayment
     Public gsOK As Boolean = False
     Public gsLocation_ID As Integer
-    Private Sub frmDepositPayment_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-
-        fRefreshLocation()
-        fRefreshMethod()
+    Private Sub FrmDepositPayment_Load(sender As Object, e As EventArgs) Handles Me.Load
+        RefreshLocation()
+        RefreshMethod()
         Dim loc_value As String = gsDefault_LOCATION_ID
         tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "*", loc_value)
-
-
-        fRefreshList()
+        RefreshList()
         gsOK = False
     End Sub
-    Private Sub fRefreshLocation()
+    Private Sub RefreshLocation()
         TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '' AS `id`,'All Location' AS `NAME` FROM location ORDER BY `ID`", "ID", "NAME")
     End Sub
-    Private Sub fRefreshMethod()
+    Private Sub RefreshMethod()
         TSComboBoxLoad(tscmbPaymentMethod, " select '' as `ID`  , 'All Payment Methods' as DESCRIPTION  union select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
     End Sub
-    Private Sub fRefreshList()
+    Private Sub RefreshList()
         CursorLoadingOn(True)
-        Dim dt As New DataGridViewCheckBoxColumn
-        dt.HeaderText = " "
-        dt.Name = "select"
+        Dim dt As New DataGridViewCheckBoxColumn With {
+            .HeaderText = " ",
+            .Name = "select"
+        }
         dgvAvailable.Columns.Clear()
 
-        LoadDataGridView(dgvAvailable, "SELECT * FROM (SELECT '41' AS `SOT`,p.`ID` AS `SOI`, p.Date,'Payment' AS `Type`,p.`CODE` AS `Reference`,p.`PAYMENT_METHOD_ID`, (SELECT Description FROM payment_method  WHERE ID = p.`PAYMENT_METHOD_ID` LIMIT 1 ) AS `Payment Method`,p.`CUSTOMER_ID` , (SELECT `Name` FROM contact WHERE ID = p.`CUSTOMER_ID` LIMIT 1 ) AS `Received From`,p.`LOCATION_ID`,(SELECT `NAME` FROM location WHERE id = p.`LOCATION_ID` LIMIT 1) AS `Location`, p.`Amount` FROM payment AS p WHERE p.POS_LOG_ID = NULL and  p.`DEPOSITED` = '0' and  p.`PAYMENT_METHOD_ID`  like '%" & tscmbPaymentMethod.ComboBox.SelectedValue & "%' and p.`location_id` like '%" & tscmbLocation.ComboBox.SelectedValue & "%' and p.UNDEPOSITED_FUNDS_ACCOUNT_ID IS NOT NULL UNION 
+        LoadDataGridView(dgvAvailable, "SELECT * FROM (
+SELECT '41' AS `SOT`,p.`ID` AS `SOI`, p.Date,'Payment' AS `Type`,p.`CODE` AS `Reference`,p.`PAYMENT_METHOD_ID`, (SELECT Description FROM payment_method  WHERE ID = p.`PAYMENT_METHOD_ID` LIMIT 1 ) AS `Payment Method`,p.`CUSTOMER_ID` , (SELECT `Name` FROM contact WHERE ID = p.`CUSTOMER_ID` LIMIT 1 ) AS `Received From`,p.`LOCATION_ID`,(SELECT `NAME` FROM location WHERE id = p.`LOCATION_ID` LIMIT 1) AS `Location`, p.`Amount` FROM payment AS p WHERE p.POS_LOG_ID = NULL and  p.`DEPOSITED` = '0' and  p.`PAYMENT_METHOD_ID`  like '%" & tscmbPaymentMethod.ComboBox.SelectedValue & "%' and p.`location_id` like '%" & tscmbLocation.ComboBox.SelectedValue & "%' and p.UNDEPOSITED_FUNDS_ACCOUNT_ID IS NOT NULL UNION 
 SELECT '52' AS `SOT`,p.`ID` AS `SOI`, p.Date,'Sales Receipt' AS `Type`,p.`CODE` AS `Reference`,p.`PAYMENT_METHOD_ID`, (SELECT Description FROM payment_method  WHERE ID = p.`PAYMENT_METHOD_ID` LIMIT 1 ) AS `Payment Method`,p.`CUSTOMER_ID` , (SELECT `Name` FROM contact WHERE ID = p.`CUSTOMER_ID` LIMIT 1 ) AS `Received From`,p.`LOCATION_ID`,(SELECT `NAME` FROM location WHERE id = p.`LOCATION_ID` LIMIT 1) AS `Location`, p.`Amount` FROM sales_receipt AS p WHERE p.POS_LOG_ID = null and p.`DEPOSITED` = '0' and  p.`PAYMENT_METHOD_ID`  like '%" & tscmbPaymentMethod.ComboBox.SelectedValue & "%' and p.`location_id` like '%" & tscmbLocation.ComboBox.SelectedValue & "%' and p.UNDEPOSITED_FUNDS_ACCOUNT_ID IS NOT NULL UNION 
 SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `Type`,'' AS `Reference`, '' AS `PAYMENT_METHOD_ID`, '' AS `Payment Method`, '' as `CUSTOMER_ID` , '' AS `Received From`,p.`LOCATION_ID`,(SELECT `NAME` FROM location WHERE id = p.`LOCATION_ID` LIMIT 1) AS `Branch`, cc.TOTAL as `Amount` FROM pos_log AS p inner join pos_cash_count as cc on cc.id = p.cash_count_id WHERE p.`DEPOSITED` = '0' and p.`location_id` like '%" & tscmbLocation.ComboBox.SelectedValue & "%' and p.UNDEPOSITED_FUNDS_ACCOUNT_ID IS NOT NULL)  AS t WHERE t.AMOUNT <>  '0'  ORDER BY t.`Date` DESC")
 
@@ -45,9 +43,7 @@ SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `
         CursorLoadingOn(False)
     End Sub
 
-
-
-    Private Sub tsOk_Click(sender As Object, e As EventArgs) Handles tsOk.Click
+    Private Sub TsOk_Click(sender As Object, e As EventArgs) Handles tsOk.Click
         gsOK = False
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
             If dgvAvailable.Rows(i).Cells(0).Value = True Then
@@ -64,11 +60,7 @@ SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `
         Me.Close()
     End Sub
 
-    Private Sub dgvAvailable_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellContentClick
-
-    End Sub
-
-    Private Sub dgvAvailable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellClick
+    Private Sub DgvAvailable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellClick
         If e.ColumnIndex = 0 Then
 
             If dgvAvailable.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = True Then
@@ -78,62 +70,48 @@ SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `
             End If
 
         End If
-        fCal_Total()
+        CalculateTotal()
     End Sub
 
 
 
-    Private Sub tsClear_Click(sender As Object, e As EventArgs) Handles tsClear.Click
+    Private Sub TsClear_Click(sender As Object, e As EventArgs) Handles tsClear.Click
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
             dgvAvailable.Rows(i).Cells(0).Value = False
         Next
-        fCal_Total()
+        CalculateTotal()
     End Sub
-
-    Private Sub tscmbPaymentMethod_Click(sender As Object, e As EventArgs) Handles tscmbPaymentMethod.Click
-
-    End Sub
-
-    Private Sub tscmbPaymentMethod_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbPaymentMethod.SelectedIndexChanged
+    Private Sub TscmbPaymentMethod_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbPaymentMethod.SelectedIndexChanged
         Try
-            fRefreshList()
+            RefreshList()
         Catch ex As Exception
 
         End Try
 
     End Sub
 
-    Private Sub tscmbLocation_Click(sender As Object, e As EventArgs) Handles tscmbLocation.Click
-
-    End Sub
-
-    Private Sub tscmbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbLocation.SelectedIndexChanged
+    Private Sub TscmbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbLocation.SelectedIndexChanged
         Try
-            fRefreshList()
+            RefreshList()
         Catch ex As Exception
 
         End Try
 
     End Sub
-    Private Sub fCal_Total()
+    Private Sub CalculateTotal()
         Dim T As Double = 0
         For I As Integer = 0 To dgvAvailable.Rows.Count - 1
             With dgvAvailable.Rows(I)
                 If .Cells("select").Value = True Then
-                    T = T + .Cells("AMOUNT").Value
+                    T += .Cells("AMOUNT").Value
                 End If
-
             End With
-
         Next
         lblTotal.Text = NumberFormatStandard(T)
-
     End Sub
 
-    Private Sub tsCheckSelectedDate_Click(sender As Object, e As EventArgs) Handles tsCheckSelectedDate.Click
-        With frmDateRangeSelect
-
-
+    Private Sub TsCheckSelectedDate_Click(sender As Object, e As EventArgs) Handles tsCheckSelectedDate.Click
+        With FrmDateRangeSelect
             .ShowDialog()
             If .gsOK = True Then
 
@@ -149,23 +127,18 @@ SELECT '64' AS `SOT`,p.`ID` AS `SOI`, date(p.RECORDED_ON) as Date,'POS Log' AS `
                             .Cells("select").Value = False
                         End If
                     End With
-
-
-
-
                 Next
-
             End If
             .Dispose()
         End With
-        frmDateRangeSelect = Nothing
-        fCal_Total()
+        FrmDateRangeSelect = Nothing
+        CalculateTotal()
     End Sub
 
-    Private Sub tsCheck_Click(sender As Object, e As EventArgs) Handles tsCheck.Click
+    Private Sub TsCheck_Click(sender As Object, e As EventArgs) Handles tsCheck.Click
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
             dgvAvailable.Rows(i).Cells(0).Value = True
         Next
-        fCal_Total()
+        CalculateTotal()
     End Sub
 End Class

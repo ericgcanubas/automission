@@ -54,7 +54,7 @@ Partial Class FrmCreditMemoInvoice
         Me.GroupBox2.Size = New System.Drawing.Size(683, 251)
         Me.GroupBox2.TabIndex = 33
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Available Debt Invoice"
+        Me.GroupBox2.Text = "Available Invoice"
         '
         'dgvAvailable
         '
@@ -79,7 +79,7 @@ Partial Class FrmCreditMemoInvoice
         '
         Me.lblTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblTotal.BackColor = System.Drawing.Color.Transparent
-        Me.lblTotal.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotal.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotal.ForeColor = System.Drawing.Color.Blue
         Me.lblTotal.Location = New System.Drawing.Point(17, 396)
         Me.lblTotal.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
@@ -93,7 +93,7 @@ Partial Class FrmCreditMemoInvoice
         '
         Me.lblRemainingCredit.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblRemainingCredit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblRemainingCredit.Location = New System.Drawing.Point(521, 76)
+        Me.lblRemainingCredit.Location = New System.Drawing.Point(521, 75)
         Me.lblRemainingCredit.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblRemainingCredit.Name = "lblRemainingCredit"
         Me.lblRemainingCredit.Size = New System.Drawing.Size(151, 25)
@@ -103,7 +103,7 @@ Partial Class FrmCreditMemoInvoice
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(395, 82)
+        Me.Label13.Location = New System.Drawing.Point(401, 81)
         Me.Label13.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(116, 16)
@@ -114,7 +114,7 @@ Partial Class FrmCreditMemoInvoice
         '
         Me.lblCODE.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblCODE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblCODE.Location = New System.Drawing.Point(521, 49)
+        Me.lblCODE.Location = New System.Drawing.Point(521, 48)
         Me.lblCODE.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblCODE.Name = "lblCODE"
         Me.lblCODE.Size = New System.Drawing.Size(151, 25)
@@ -124,7 +124,7 @@ Partial Class FrmCreditMemoInvoice
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(416, 54)
+        Me.Label17.Location = New System.Drawing.Point(417, 54)
         Me.Label17.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(100, 16)
@@ -177,12 +177,12 @@ Partial Class FrmCreditMemoInvoice
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(64, 27)
+        Me.Label2.Location = New System.Drawing.Point(57, 26)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 16)
+        Me.Label2.Size = New System.Drawing.Size(69, 16)
         Me.Label2.TabIndex = 0
-        Me.Label2.Text = "Buyers"
+        Me.Label2.Text = "Customer"
         '
         'GroupBox1
         '
@@ -204,12 +204,12 @@ Partial Class FrmCreditMemoInvoice
         Me.GroupBox1.Size = New System.Drawing.Size(680, 116)
         Me.GroupBox1.TabIndex = 32
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Credits Notes"
+        Me.GroupBox1.Text = "Credit Memo"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(15, 82)
+        Me.Label7.Location = New System.Drawing.Point(22, 80)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(101, 16)
@@ -238,7 +238,7 @@ Partial Class FrmCreditMemoInvoice
         Me.btnCANCEL.Text = "Cancel"
         Me.btnCANCEL.UseVisualStyleBackColor = True
         '
-        'frmCreditMemoInvoice
+        'FrmCreditMemoInvoice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -252,7 +252,7 @@ Partial Class FrmCreditMemoInvoice
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmCreditMemoInvoice"
+        Me.Name = "FrmCreditMemoInvoice"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

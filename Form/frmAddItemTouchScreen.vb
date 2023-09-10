@@ -1725,13 +1725,13 @@ down_now:
     End Sub
 
     Private Sub numQty_Click(sender As Object, e As EventArgs) Handles numQty.Click
-        fnumPadKeyToTouch(numQty, xlblQTY.Text)
+        NumberPadKeyToTouch(numQty, xlblQTY.Text)
     End Sub
 
     Private Sub numUnit_price_Click(sender As Object, e As EventArgs) Handles numUnit_price.Click
 
         If numUnit_price.Enabled = True Then
-            fnumPadKeyToTouch(numUnit_price, xlblnum_price.Text)
+            NumberPadKeyToTouch(numUnit_price, xlblnum_price.Text)
         Else
 
             If MessageBoxErrorYesNo("SSSSS") = True Then
@@ -1744,11 +1744,11 @@ down_now:
     End Sub
 
     Private Sub numDiscountValue_Click(sender As Object, e As EventArgs) Handles numDiscountValue.Click
-        fnumPadKeyToTouch(numDiscountValue, $"DISCOUNT {cmbDiscount_Type.Text}")
+        NumberPadKeyToTouch(numDiscountValue, $"DISCOUNT {cmbDiscount_Type.Text}")
     End Sub
 
     Private Sub txtSearch_Click(sender As Object, e As EventArgs) Handles txtSearch.Click
-        fKeyBoardToTouch(txtSearch, "SEARCH ITEM")
+        KeyBoardToTouch(txtSearch, "SEARCH ITEM")
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles btnUTPO.Click

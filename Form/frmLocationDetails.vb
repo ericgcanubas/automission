@@ -66,7 +66,7 @@ Public Class FrmLocationDetails
         IsNew = True
         ID = 0
 
-        If fACCESS_NEW_EDIT(frmLocation, IsNew) = False Then
+        If SecurityAccessMode(frmLocation, IsNew) = False Then
             Me.Close()
         End If
 

@@ -4,7 +4,7 @@ Public Class FrmClassDetails
     Public Dgv As DataGridView
     Public ID As Integer = 0
     Dim IsNew As Boolean = True
-    Private Sub frmClassDetails_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmClassDetails_Load(sender As Object, e As EventArgs) Handles Me.Load
         If ID > 0 Then
             Try
                 SqlExecutedUsingReading(Me, "select * from class where id = '" & ID & "' Limit 1")
@@ -15,21 +15,9 @@ Public Class FrmClassDetails
         End If
 
     End Sub
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If IsNew = True Then
-            ClearAndRefresh(Me)
-        Else
-            If MessageBoxQuestion("Create new?") = True Then
-                IsNew = True
-                ID = 0
-                ClearAndRefresh(Me)
-            Else
-                SqlExecutedUsingReading(Me, "select * from class where id = '" & ID & "' Limit 1")
-            End If
-        End If
-    End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtNAME.Text) = "" Then
             MessageBoxInfo("Please enter class name")
             Exit Sub
@@ -52,13 +40,13 @@ Public Class FrmClassDetails
         ID = 0
         IsNew = True
 
-        If fACCESS_NEW_EDIT(frmClass, IsNew) = False Then
+        If SecurityAccessMode(FrmClass, IsNew) = False Then
             Me.Close()
         End If
 
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 End Class

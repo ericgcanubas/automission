@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Public Class FrmDatabaseReset
-    Private Sub frmDatabaseReset_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmDatabaseReset_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         chkTableList.Items.Clear()
         Dim rd As OdbcDataReader = SqlReader("select description from document_type_map order by id")
         While rd.Read
@@ -10,20 +10,20 @@ Public Class FrmDatabaseReset
 
     End Sub
 
-    Private Sub btnCheckAll_Click(sender As Object, e As EventArgs) Handles btnCheckAll.Click
+    Private Sub BtnCheckAll_Click(sender As Object, e As EventArgs) Handles btnCheckAll.Click
         For I As Integer = 0 To chkTableList.Items.Count - 1
             chkTableList.SetItemChecked(I, True)
 
         Next
     End Sub
 
-    Private Sub btnUncheckAll_Click(sender As Object, e As EventArgs) Handles btnUncheckAll.Click
+    Private Sub BtnUncheckAll_Click(sender As Object, e As EventArgs) Handles btnUncheckAll.Click
         For I As Integer = 0 To chkTableList.Items.Count - 1
             chkTableList.SetItemChecked(I, False)
         Next
     End Sub
 
-    Private Sub btnRESET_Click(sender As Object, e As EventArgs) Handles btnRESET.Click
+    Private Sub BtnRESET_Click(sender As Object, e As EventArgs) Handles btnRESET.Click
 
         If MessageBoxQuestion("Are you sure to reset this data?") = True Then
 

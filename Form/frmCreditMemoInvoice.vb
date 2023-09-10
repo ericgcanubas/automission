@@ -9,52 +9,40 @@ Public Class FrmCreditMemoInvoice
         MyBase.Finalize()
     End Sub
 
-    Private Sub fComputed()
+    Private Sub Computed()
 
         Dim credit_amount As Double = NumberFormatFixed(lblCreditAmount.Text)
 
         Dim total_amt As Double = 0
 
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-            total_amt = total_amt + NumberFormatFixed(dgvAvailable.Rows(i).Cells("Amount_applied").Value)
+            total_amt += NumberFormatFixed(dgvAvailable.Rows(i).Cells("Amount_applied").Value)
         Next
 
         Dim remaining As Double = credit_amount - total_amt
-
         lblRemainingCredit.Text = NumberFormatStandard(remaining)
-
         lblTotal.Text = NumberFormatStandard(total_amt)
 
     End Sub
 
 
-    Private Sub frmCreditMemoInvoice_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '  fBackGroundImageStyle(Me)
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.Name = "select"
-        chk.HeaderText = " "
+    Private Sub FrmCreditMemoInvoice_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .Name = "select",
+            .HeaderText = " "
+        }
 
         With dgvAvailable.Columns
             .Add("invoice_id", "invoice_id")
             .Item("invoice_id").Visible = False
-
             .Add(chk)
-
-
             .Add("Date", "DATE")
-
-
             .Add("Number", "REFERENCE")
-
-
             .Add("Amount", "AMOUNT")
-
             .Item("Amount").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             .Item("Amount").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
             .Item("Amount").DefaultCellStyle.Format = "N2"
-
             .Add("Balance_Due", "UNPAID AMOUNT")
-
             .Item("Balance_Due").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             .Item("Balance_Due").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
             .Item("Balance_Due").DefaultCellStyle.Format = "N2"
@@ -67,11 +55,11 @@ Public Class FrmCreditMemoInvoice
         End With
 
 
-        fInvoiceList()
-        fComputed()
+        LoadInvoiceList()
+        Computed()
         DatagridViewMode(dgvAvailable)
     End Sub
-    Private Sub fInvoiceList()
+    Private Sub LoadInvoiceList()
         dgvAvailable.Rows.Clear()
         Dim sQuery As String = "SELECT 
   i.id AS invoice_id,
@@ -129,27 +117,25 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
 
     End Sub
-    Private Sub fSelected_click(ByVal i_index As Integer)
+    Private Sub SelectedClick(ByVal Index As Integer)
         Try
-
-
-            Dim bseleted As Boolean = dgvAvailable.Rows(i_index).Cells("select").Value
+            Dim bseleted As Boolean = dgvAvailable.Rows(Index).Cells("select").Value
 
             If bseleted = False Then
 
-                Dim invoice_balance As Double = dgvAvailable.Rows(i_index).Cells("balance_due").Value
+                Dim invoice_balance As Double = dgvAvailable.Rows(Index).Cells("balance_due").Value
                 Dim credit_balance As Double = 0
                 Dim total_amt As Double = 0
                 Dim credit_amt As Double = NumberFormatFixed(lblCreditAmount.Text)
 
                 For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-                    total_amt = total_amt + dgvAvailable.Rows(i).Cells("Amount_applied").Value
+                    total_amt += dgvAvailable.Rows(i).Cells("Amount_applied").Value
                 Next
 
 
                 credit_balance = credit_amt - total_amt
 
-                With dgvAvailable.Rows(i_index)
+                With dgvAvailable.Rows(Index)
 
 
                     If credit_balance > invoice_balance Then
@@ -166,67 +152,33 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
                     End If
                 End With
             Else
-                With dgvAvailable.Rows(i_index)
+                With dgvAvailable.Rows(Index)
                     .Cells("select").Value = False
                     .Cells("Amount_applied").Value = Format(0, "Standard")
                 End With
 
             End If
 
-            fComputed()
+            Computed()
         Catch ex As Exception
 
         End Try
     End Sub
-    Private Sub tsCancel_Click(sender As Object, e As EventArgs)
 
-    End Sub
 
-    Private Sub dgvAvailable_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellContentClick
-
-    End Sub
-
-    Private Sub dgvAvailable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellClick
+    Private Sub DgvAvailable_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAvailable.CellClick
         If dgvAvailable.Rows.Count = 0 Then Exit Sub
         If e.ColumnIndex = 1 Then
-            fSelected_click(e.RowIndex)
+            SelectedClick(e.RowIndex)
         End If
 
 
 
     End Sub
-
-    Private Sub tsApply_Click(sender As Object, e As EventArgs)
-        For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-
-            If dgvAvailable.Rows(i).Cells(1).Value = False Then
-                fSelected_click(i)
-            End If
-        Next
-    End Sub
-
-    Private Sub tsClear_Click(sender As Object, e As EventArgs)
-        For i As Integer = 0 To dgvAvailable.Rows.Count - 1
-            If dgvAvailable.Rows(i).Cells(1).Value = True Then
-                fSelected_click(i)
-            End If
-        Next
-    End Sub
-
-    Private Sub tsOk_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Function fSetCredit_Memo_invoice(ByVal bSelected As Boolean, ByVal amt_appled As Double, ByVal prInvoice_id As String) As Boolean
+    Private Function SetCreditMemoInvoice(ByVal bSelected As Boolean, ByVal amt_appled As Double, ByVal prInvoice_id As String) As Boolean
         Dim bUpdate As Boolean = False
-
         Try
-
-
-
             Dim rd_check As OdbcDataReader = SqlReader("select AMOUNT_APPLIED as a from credit_memo_invoices where CREDIT_MEMO_ID ='" & gsID & "' and INVOICE_ID = '" & prInvoice_id & "' ")
-
             If rd_check.Read Then
                 If bSelected = True Then
                     'UPDATE
@@ -256,7 +208,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
             rd_check.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                bUpdate = fSetCredit_Memo_invoice(bSelected, amt_appled, prInvoice_id)
+                bUpdate = SetCreditMemoInvoice(bSelected, amt_appled, prInvoice_id)
             Else
                 End
             End If
@@ -267,14 +219,14 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
         Return bUpdate
     End Function
 
-    Private Sub fInvoiceBalance_Update(ByVal gsInvoice As String, prORG_Amount As Double)
+    Private Sub InvoiceBalanceUpdate(ByVal gsInvoice As String, prORG_Amount As Double)
 
         Dim total_pay As Double = fGetSumPaymentApplied(gsInvoice, gsCustomer_ID) + fGetSumCreditApplied(gsInvoice, gsCustomer_ID) + fInvoiceSumTaxApplied_Amount(gsInvoice, gsCustomer_ID)
         Dim New_Balance As Double = prORG_Amount - total_pay
 
         Dim squery As String
 
-        Dim nStatus As Integer = 0
+        Dim nStatus As Integer
         If 0 >= New_Balance Then
             nStatus = 11
         Else
@@ -285,16 +237,16 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
     End Sub
 
-    Private Sub frmCreditMemoInvoice_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmCreditMemoInvoice_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
 
-    Private Sub btnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCANCEL.Click
+    Private Sub BtnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCANCEL.Click
         Me.Close()
     End Sub
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
         If dgvAvailable.Rows.Count = 0 Then
             MessageBoxWarning("Invoice not found!")
@@ -305,8 +257,8 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
         For i As Integer = 0 To dgvAvailable.Rows.Count - 1
             With dgvAvailable.Rows(i)
-                If fSetCredit_Memo_invoice(.Cells(1).Value, NumberFormatFixed(.Cells("Amount_applied").Value), .Cells(0).Value) = True Then
-                    fInvoiceBalance_Update(.Cells(0).Value, .Cells("Amount").Value)
+                If SetCreditMemoInvoice(.Cells(1).Value, NumberFormatFixed(.Cells("Amount_applied").Value), .Cells(0).Value) = True Then
+                    InvoiceBalanceUpdate(.Cells(0).Value, .Cells("Amount").Value)
                 End If
 
             End With

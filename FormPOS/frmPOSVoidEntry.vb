@@ -38,14 +38,14 @@ Public Class FrmPOSVoidEntry
         End Try
         dgvSalesReceiptList.Select()
         Dim ThisID As Integer = dgvSalesReceiptList.CurrentRow.Cells(0).Value
-        gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-        fCryParameterInsertValue(gscryRpt, Val(ThisID), "myid")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-        fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
-        fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        CryParameterInsertValue(gscryRpt, Val(ThisID), "myid")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+        CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyTin"), "tin_number")
+        CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
         gsToolPanelView = False
         frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
@@ -57,7 +57,7 @@ Public Class FrmPOSVoidEntry
 
     Private Sub btnVOID_Click(sender As Object, e As EventArgs) Handles btnVOID.Click
         If dgvSalesReceiptList.Rows.Count <> 0 Then
-            If fACCESS_DELETE(frmSalesReceipt) = False Then
+            If SecurityAccessDelete(frmSalesReceipt) = False Then
 
                 Exit Sub
             End If

@@ -33,7 +33,7 @@ Partial Class FrmClassDetails
         '
         Me.chkINACTIVE.AutoSize = True
         Me.chkINACTIVE.BackColor = System.Drawing.Color.Transparent
-        Me.chkINACTIVE.Location = New System.Drawing.Point(70, 55)
+        Me.chkINACTIVE.Location = New System.Drawing.Point(74, 46)
         Me.chkINACTIVE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chkINACTIVE.Name = "chkINACTIVE"
         Me.chkINACTIVE.Size = New System.Drawing.Size(80, 20)
@@ -45,7 +45,7 @@ Partial Class FrmClassDetails
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(18, 26)
+        Me.Label3.Location = New System.Drawing.Point(22, 17)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(43, 16)
         Me.Label3.TabIndex = 54
@@ -53,7 +53,7 @@ Partial Class FrmClassDetails
         '
         'txtNAME
         '
-        Me.txtNAME.Location = New System.Drawing.Point(70, 22)
+        Me.txtNAME.Location = New System.Drawing.Point(74, 13)
         Me.txtNAME.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNAME.Name = "txtNAME"
         Me.txtNAME.Size = New System.Drawing.Size(358, 23)
@@ -61,7 +61,7 @@ Partial Class FrmClassDetails
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(247, 71)
+        Me.btnSave.Location = New System.Drawing.Point(251, 46)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(86, 28)
@@ -71,7 +71,7 @@ Partial Class FrmClassDetails
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(342, 71)
+        Me.btnCancel.Location = New System.Drawing.Point(346, 46)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 28)
@@ -79,11 +79,11 @@ Partial Class FrmClassDetails
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmClassDetails
+        'FrmClassDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(444, 109)
+        Me.ClientSize = New System.Drawing.Size(444, 89)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.chkINACTIVE)
@@ -93,7 +93,7 @@ Partial Class FrmClassDetails
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmClassDetails"
+        Me.Name = "FrmClassDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

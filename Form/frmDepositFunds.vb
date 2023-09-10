@@ -10,7 +10,7 @@
 
 
 
-    Private Sub frmDepositFunds_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmDepositFunds_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbReceivedFrom, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `PAY_TO` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "PAY_TO")
         Dim sql_statement As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
@@ -32,22 +32,14 @@
             cmbPAYMENT_METHOD_ID.SelectedValue = gsPayment_Method_ID
         End If
 
-
-
         txtCheckNo.Text = gsCheck_NO
         numAmount.Value = gsAmount
 
-
-
-
     End Sub
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
-        'If Val(cmbReceivedFrom.SelectedValue) = 0 Then
-        '    MessageBoxWarning("Please select received from ")
-        '    Exit Sub
-        'End If
+
 
         If Val(cmbAccounts.SelectedValue) = 0 Then
             MessageBoxWarning("Please select accounts")
@@ -61,14 +53,11 @@
 
         If chkAuto.Checked = False Then
             gsSave = True
-
-
             gsReceivedFrom_ID = cmbReceivedFrom.SelectedValue
             gsAccount_ID = cmbAccounts.SelectedValue
             gsPayment_Method_ID = cmbPAYMENT_METHOD_ID.SelectedValue
             gsCheck_NO = txtCheckNo.Text
             gsAmount = numAmount.Value
-
             Me.Close()
         Else
             gsSave = False

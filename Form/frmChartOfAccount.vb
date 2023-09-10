@@ -50,7 +50,7 @@ Public Class FrmChartOfAccount
             Exit Sub
         End If
 
-        If fACCESS_NEW_EDIT(Me, False) = False Then
+        If SecurityAccessMode(Me, False) = False Then
             Exit Sub
         End If
 
@@ -241,7 +241,7 @@ Public Class FrmChartOfAccount
     End Sub
 
     Private Sub TsCreate_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
         FrmAccount.BS = item_BS
@@ -263,7 +263,7 @@ Public Class FrmChartOfAccount
             Exit Sub
         End If
         Try
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
 
                 Exit Sub
             End If

@@ -270,7 +270,7 @@ Public Class FrmPriceLevelDetails
         ClearAndRefresh(Me)
         ID = 0
 
-        If fACCESS_NEW_EDIT(frmPriceLevel, IsNew) = False Then
+        If SecurityAccessMode(frmPriceLevel, IsNew) = False Then
             Me.Close()
         End If
 

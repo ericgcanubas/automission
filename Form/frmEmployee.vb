@@ -1,32 +1,32 @@
 ﻿Public Class FrmEmployee
     Public contact_BS As BindingSource
-    Private Sub fRefreshData()
+    Private Sub RefreshData()
 
         LoadDataGridViewBinding(dgvEmployee, "SELECT 
-  c.ID,
-  c.Name,
-  c.POSTAL_ADDRESS AS 'Postal Address',
-  c.CONTACT_PERSON AS 'Contact Person',
-  c.TELEPHONE_NO AS 'Telephone Number',
-  g.DESCRIPTION AS 'Group',
-  s.name AS 'Sales Rep',
-  p.DESCRIPTION AS 'Pmt. Terms',
-  c.Credit_limit AS 'Credit Limit',
-  pl.DESCRIPTION AS 'Price Level',
-  c.ACCOUNT_NO AS 'Account Number',
-  c.Taxpayer_id AS 'Taxpayer Id No.',
-  if(c.Inactive=0,'No','Yes') as `Inactive`
+c.ID,
+c.Name,
+c.POSTAL_ADDRESS AS 'Postal Address',
+c.CONTACT_PERSON AS 'Contact Person',
+c.TELEPHONE_NO AS 'Telephone Number',
+g.DESCRIPTION AS 'Group',
+s.name AS 'Sales Rep',
+p.DESCRIPTION AS 'Pmt. Terms',
+c.Credit_limit AS 'Credit Limit',
+pl.DESCRIPTION AS 'Price Level',
+c.ACCOUNT_NO AS 'Account Number',
+c.Taxpayer_id AS 'Taxpayer Id No.',
+if(c.Inactive=0,'No','Yes') as `Inactive`
 FROM
-  contact AS c 
- LEFT OUTER JOIN contact_group AS g 
-    ON g.ID = c.GROUP_ID
+contact AS c 
+LEFT OUTER JOIN contact_group AS g 
+ON g.ID = c.GROUP_ID
 LEFT  OUTER JOIN contact AS s 
-    ON c.sales_rep_id = s.ID 
-    AND s.Type = '2' 
- LEFT OUTER JOIN payment_terms AS p
-    ON p.id = c.payment_terms_id 
- LEFT OUTER JOIN price_level AS pl 
-    ON pl.id = c.price_level_id 
+ON c.sales_rep_id = s.ID 
+AND s.Type = '2' 
+LEFT OUTER JOIN payment_terms AS p
+ON p.id = c.payment_terms_id 
+LEFT OUTER JOIN price_level AS pl 
+ON pl.id = c.price_level_id 
 WHERE c.Type = '2'", contact_BS)
 
         With dgvEmployee.Columns
@@ -50,30 +50,25 @@ WHERE c.Type = '2'", contact_BS)
 
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
-        frmContactDetails.ContactTypeId = "2"
+        FrmContactDetails.ContactTypeId = "2"
 
-        frmContactDetails.IsNew = True
-        frmContactDetails.ID = 0
-        frmContactDetails.gsDgv = dgvEmployee
-        frmContactDetails.this_BS = contact_BS
+        FrmContactDetails.IsNew = True
+        FrmContactDetails.ID = 0
+        FrmContactDetails.gsDgv = dgvEmployee
+        FrmContactDetails.this_BS = contact_BS
 
-        frmContactDetails.ShowDialog()
-        frmContactDetails.Dispose()
-        frmContactDetails = Nothing
+        FrmContactDetails.ShowDialog()
+        FrmContactDetails.Dispose()
+        FrmContactDetails = Nothing
         'RefreshData()
     End Sub
-
-    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
-    Private Sub frmVendor_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmEmployee_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefreshData()
+        RefreshData()
     End Sub
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
@@ -83,22 +78,22 @@ WHERE c.Type = '2'", contact_BS)
             Exit Sub
         End If
         Try
-            If fACCESS_NEW_EDIT(Me, False) = False Then
+            If SecurityAccessMode(Me, False) = False Then
                 Exit Sub
             End If
 
             dgvEmployee.Focus()
             Dim i As Integer = dgvEmployee.CurrentRow.Index
             Dim dID As String = dgvEmployee.Rows.Item(i).Cells(0).Value
-            frmContactDetails.ContactTypeId = "2"
+            FrmContactDetails.ContactTypeId = "2"
 
-            frmContactDetails.IsNew = False
-            frmContactDetails.ID = dID
-            frmContactDetails.gsDgv = dgvEmployee
-            frmContactDetails.this_BS = contact_BS
-            frmContactDetails.ShowDialog()
-            frmContactDetails.Dispose()
-            frmContactDetails = Nothing
+            FrmContactDetails.IsNew = False
+            FrmContactDetails.ID = dID
+            FrmContactDetails.gsDgv = dgvEmployee
+            FrmContactDetails.this_BS = contact_BS
+            FrmContactDetails.ShowDialog()
+            FrmContactDetails.Dispose()
+            FrmContactDetails = Nothing
             '  RefreshData()
         Catch ex As Exception
 
@@ -112,7 +107,7 @@ WHERE c.Type = '2'", contact_BS)
             Exit Sub
         End If
         Try
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
 
@@ -123,53 +118,28 @@ WHERE c.Type = '2'", contact_BS)
             If MessageBoxQuestion("Do you really want to delete  " & dName & "?") = True Then
                 SqlExecuted("Delete From contact where id='" & dID & "' limit 1;")
                 DeleteNotify(Me)
-                fRefreshData()
+                RefreshData()
             End If
 
         Catch ex As Exception
 
         End Try
     End Sub
-
-    Private Sub tsClose_Click_1(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-    Private Sub dgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployee.CellDoubleClick
+    Private Sub DgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployee.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
-    End Sub
-
-
-
-    Private Sub dgvCustomer_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEmployee.CellContentClick
-
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs)
-
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
         ViewSwitch(dgvEmployee, 12) ' 12 = for employee
-
         ViewColumn(dgvEmployee, 12) ' 12 = for employee
 
     End Sub
-
-    Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs)
-
+    Private Sub TsbtnSearch_Click(sender As Object, e As EventArgs)
+        RefreshData()
     End Sub
-
-    Private Sub tsbtnSearch_Click(sender As Object, e As EventArgs)
-        fRefreshData()
-    End Sub
-
-    Private Sub tstxtFindItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tstxtFindItem_KeyDown(sender As Object, e As KeyEventArgs)
+    Private Sub TstxtFindItem_KeyDown(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
-            fRefreshData()
+            RefreshData()
         End If
     End Sub
 
@@ -177,68 +147,42 @@ WHERE c.Type = '2'", contact_BS)
         ExportingExcel(dgvEmployee, "Employee_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        Searchload()
     End Sub
-    Private Sub fSearchload()
+    Private Sub Searchload()
         Try
-
-
             Dim strFInd As String = ""
-
-
             For I As Integer = 0 To dgvEmployee.Columns.Count - 1
-
                 If dgvEmployee.Columns(I).Visible = True Then
                     If I < 11 And I > 0 Then
-
-
                         If strFInd = "" Then
                             strFInd = $"[{dgvEmployee.Columns(I).HeaderText}] like '%" & tsTxtSearch.Text & "%'"
                         Else
                             strFInd = strFInd & $" OR [{dgvEmployee.Columns(I).HeaderText}] like '%" & tsTxtSearch.Text & "%'"
-
                         End If
-
                     End If
                 End If
-
-
             Next
-
-
-
-
             contact_BS.Filter = strFInd
-
-
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub frmEmployee_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-        '  fSearchGet()
-    End Sub
-
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        fRefreshData()
+        RefreshData()
     End Sub
 
-    Private Sub dgvEmployee_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvEmployee.RowStateChanged
+    Private Sub DgvEmployee_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvEmployee.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub tscmbSearch_Click(sender As Object, e As EventArgs)
-
+    Private Sub TsReload_Click(sender As Object, e As EventArgs) Handles tsReload.Click
+        RefreshData()
     End Sub
 
-    Private Sub tsReload_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefreshData()
-    End Sub
-
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        Searchload()
     End Sub
 End Class

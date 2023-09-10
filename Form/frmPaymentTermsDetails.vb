@@ -218,7 +218,7 @@ Public Class FrmPaymentTermsDetails
         ID = 0
         IsNew = True
 
-        If fACCESS_NEW_EDIT(frmPaymentTerms, IsNew) = False Then
+        If SecurityAccessMode(frmPaymentTerms, IsNew) = False Then
             Me.Close()
         End If
     End Sub

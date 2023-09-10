@@ -4,8 +4,8 @@ Public Class FrmConnectionList
 
 
     Dim HiLiteBrush As New SolidBrush(Color.FromKnownColor(KnownColor.LightSkyBlue))
-
-    Private Sub fRefreshList()
+    Dim IsAdmin As Boolean = True
+    Private Sub RefreshList()
 
         Dim cn As New OleDb.OleDbConnection(fMS_Con())
 
@@ -40,32 +40,22 @@ Public Class FrmConnectionList
 
 
     End Sub
-
-    'Private Sub ftemp_connection()
-
-    '    Dim cn As New OleDb.OleDbConnection(fMS_Con)
-    '    Try
-    '        cn.Open()
-    '        cn.Close()
-    '    Catch ex As Exception
-    '        MessageBoxExclamation("Something Wrong the Temporaty Data")
-    '        If cn.State = ConnectionState.Open Then
-    '            cn.Close()
-    '        End If
-    '    End Try
-    'End Sub
-
-    Private Sub fCreate()
-        If fAdministrator() = False Then
+    Private Sub CreateConnection()
+        If IsAdmin = False Then
             Exit Sub
         End If
-        frmConnectionSetup.bNew = True
-        frmConnectionSetup.ShowDialog()
-        frmConnectionSetup.Dispose()
-        frmConnectionSetup = Nothing
-        fRefreshList()
+        FrmConnectionSetup.bNew = True
+        FrmConnectionSetup.ShowDialog()
+        FrmConnectionSetup.Dispose()
+        FrmConnectionSetup = Nothing
+        RefreshList()
     End Sub
-    Private Sub frmConnectionList_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmConnectionList_Load(sender As Object, e As EventArgs) Handles Me.Load
+        IsAdmin = IsRunAdministrator()
+
+        If IsAdmin = True Then
+            listCon.ContextMenuStrip = ContextMenuStrip1
+        End If
 
         gsSYSTEM_UPGRADE = Val(fGet_System_VALUE("SYSTEM_UPGRADE"))
 
@@ -75,24 +65,18 @@ Public Class FrmConnectionList
             fSET_SYSTEM_VALUE("SYSTEM_NAME", Application.ProductName)
             gsSystemName = fGet_System_VALUE("SYSTEM_NAME")
         End If
-
-
-
         gsThemeNo = Val(fGet_System_VALUE("MATERIAL_SKIN")) '  SkinEngine1.SkinFile = SkinPath() & "vista1.ssk"
+        RefreshList()
 
-
-        fRefreshList()
-
-        If fAdministrator() = True Then
+        If IsRunAdministrator() = True Then
             Me.Text = gsSystemName & "*"
         Else
 
             Me.Text = gsSystemName
         End If
     End Sub
-    Private Sub fEdit()
-        If fAdministrator() = False Then
-
+    Private Sub EditConnection()
+        If IsAdmin = False Then
             Exit Sub
         End If
 
@@ -107,11 +91,11 @@ Public Class FrmConnectionList
         Try
             Dim getString As String = listCon.Items(listCon.SelectedIndex).ToString
 
-            frmConnectionSetup.bNew = False
-            frmConnectionSetup.strCon_Name = getString
-            frmConnectionSetup.ShowDialog()
-            frmConnectionSetup.Dispose()
-            frmConnectionSetup = Nothing
+            FrmConnectionSetup.bNew = False
+            FrmConnectionSetup.strCon_Name = getString
+            FrmConnectionSetup.ShowDialog()
+            FrmConnectionSetup.Dispose()
+            FrmConnectionSetup = Nothing
 
         Catch ex As Exception
 
@@ -119,8 +103,8 @@ Public Class FrmConnectionList
         End Try
 
     End Sub
-    Private Sub fConnect()
-        frmSplash = Nothing
+    Private Sub Connection()
+        FrmSplash = Nothing
         If listCon.Items.Count = 0 Then
             MessageBoxInfo("Data not found!")
             Exit Sub
@@ -172,7 +156,7 @@ Public Class FrmConnectionList
                         Me.Visible = False
                         fThemeLoad()
                         PrompNotify(Me.Text, $"{getString} connected to {db_server}.", True)
-                        frmSplash.Show()
+                        FrmSplash.Show()
                     End If
                 Catch ex As Exception
                     MessageBoxWarning(ex.Message)
@@ -196,8 +180,8 @@ Public Class FrmConnectionList
         End Try
 
     End Sub
-    Private Sub fDelete()
-        If fAdministrator() = False Then
+    Private Sub DeleteConnection()
+        If IsAdmin = False Then
             '  MessageBoxWarning("Not accessible. Run as administrator required!")
             Exit Sub
         End If
@@ -207,100 +191,92 @@ Public Class FrmConnectionList
             If MessageBoxQuestion("Do you want to Remove this Connection (" & con_name & ")") = True Then
                 fMS_execute("delete from tblconnection where connection_name = '" & con_name & "'")
                 PrompNotify(Me.Text, "Connection deleted.", True)
-                fRefreshList()
+                RefreshList()
             End If
         End If
     End Sub
 
-    Private Sub listCon_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listCon.SelectedIndexChanged
-
+    Private Sub ListCon_DoubleClick(sender As Object, e As EventArgs) Handles listCon.DoubleClick
+        Connection()
     End Sub
 
-    Private Sub listCon_DoubleClick(sender As Object, e As EventArgs) Handles listCon.DoubleClick
-        fConnect()
-    End Sub
-
-    Private Sub frmConnectionList_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub FrmConnectionList_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         End
     End Sub
 
-    Private Sub listCon_DrawItem(sender As Object, e As DrawItemEventArgs) Handles listCon.DrawItem
-        Try
-            e.DrawBackground()
-            If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
-                e.Graphics.FillRectangle(HiLiteBrush, e.Bounds)
-            End If
-            If e.Index <> -1 Then
-                Using b As New SolidBrush(e.ForeColor)
-                    e.Graphics.DrawString(listCon.GetItemText(listCon.Items(e.Index)), e.Font, b, e.Bounds)
-                End Using
-            End If
-            e.DrawFocusRectangle()
-        Catch ex As Exception
+    'Private Sub ListCon_DrawItem(sender As Object, e As DrawItemEventArgs) Handles listCon.DrawItem
+    '    Try
+    '        e.DrawBackground()
+    '        If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
+    '            e.Graphics.FillRectangle(HiLiteBrush, e.Bounds)
+    '        End If
+    '        If e.Index <> -1 Then
+    '            Using b As New SolidBrush(e.ForeColor)
+    '                e.Graphics.DrawString(listCon.GetItemText(listCon.Items(e.Index)), e.Font, b, e.Bounds)
+    '            End Using
+    '        End If
+    '        e.DrawFocusRectangle()
+    '    Catch ex As Exception
 
-        End Try
+    '    End Try
 
-    End Sub
+    'End Sub
 
-    Private Sub listCon_KeyDown(sender As Object, e As KeyEventArgs) Handles listCon.KeyDown
+    Private Sub ListCon_KeyDown(sender As Object, e As KeyEventArgs) Handles listCon.KeyDown
 
         If e.KeyCode = Keys.Enter Then
-            fConnect()
+            Connection()
         ElseIf e.KeyCode = Keys.Delete Then
-            fDelete()
+            DeleteConnection()
         ElseIf e.KeyCode = Keys.Insert Then
-            fCreate()
+            CreateConnection()
         ElseIf e.Modifiers = Keys.Control AndAlso e.KeyCode = Keys.E Then
 
-            fEdit()
+            EditConnection()
 
         ElseIf e.KeyCode = Keys.F12 Then
 
 
 
 
-            If fAdministrator() = False Then
+            If IsRunAdministrator() = False Then
                 Exit Sub
             End If
-            frmTFU.ShowDialog()
-            frmTFU.Dispose()
-            frmTFU = Nothing
+            FrmTFU.ShowDialog()
+            FrmTFU.Dispose()
+            FrmTFU = Nothing
         ElseIf e.KeyCode = Keys.F11 Then
-            If fAdministrator() = False Then
+            If IsRunAdministrator() = False Then
                 Exit Sub
             End If
-            frmCollectionList.ShowDialog()
-            frmCollectionList.Dispose()
-            frmCollectionList = Nothing
+            FrmCollectionList.ShowDialog()
+            FrmCollectionList.Dispose()
+            FrmCollectionList = Nothing
+        End If
+    End Sub
+    Private Sub BtnConnect_Click(sender As Object, e As EventArgs) Handles BtnConnect.Click
+        Connection()
+    End Sub
+
+    Private Sub ListCon_MouseClick(sender As Object, e As MouseEventArgs) Handles listCon.MouseClick
+        If IsAdmin = True Then
+            If e.Button = MouseButtons.Right Then
+
+                ContextMenuStrip1.Show(e.Location)
+            End If
+
         End If
     End Sub
 
-    Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs)
-
+    Private Sub NewConnectionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewConnectionToolStripMenuItem.Click
+        CreateConnection()
     End Sub
 
-    Private Sub xTarget_Click(sender As Object, e As EventArgs)
-
+    Private Sub EditConnectionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditConnectionToolStripMenuItem.Click
+        EditConnection()
     End Sub
 
-    Private Sub xTarget_DoubleClick(sender As Object, e As EventArgs)
-
-        Dim N As Integer = Val(fGet_System_VALUE("MATERIAL_SKIN")) + 1
-
-        If N = 6 Then
-            N = 0
-
-        End If
-        fSET_SYSTEM_VALUE("MATERIAL_SKIN", N)
-        gsThemeNo = Val(fGet_System_VALUE("MATERIAL_SKIN")) '  SkinEngine1.SkinFile = SkinPath() & "vista1.ssk"
-
-    End Sub
-
-    Private Sub BunifuThinButton21_Click(sender As Object, e As EventArgs) Handles BunifuThinButton21.Click
-        fConnect()
-    End Sub
-
-    Private Sub BunifuCustomLabel1_Click(sender As Object, e As EventArgs) Handles BunifuCustomLabel1.Click
-
+    Private Sub DeleteConnectionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteConnectionToolStripMenuItem.Click
+        DeleteConnection()
     End Sub
 End Class

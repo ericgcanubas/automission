@@ -7,7 +7,7 @@ Public Class FrmDeposit
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -17,17 +17,14 @@ Public Class FrmDeposit
         End If
         Return HasChange
     End Function
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-    Private Sub frefreshcombox()
+
+    Private Sub RefreshComboBox()
         ComboBoxLoad(cmbBANK_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '6')", "ID", "BANK")
         ComboBoxLoad(cmbCASH_BACK_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '6')", "ID", "BANK")
         ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
     End Sub
-    Private Sub fClear_Info()
-        frefreshcombox()
-
+    Private Sub ClearInfo()
+        RefreshComboBox()
         ClearAndRefresh(Me)
 
         dgvDeposit.Rows.Clear()
@@ -35,26 +32,26 @@ Public Class FrmDeposit
         cmbLOCATION_ID.Enabled = IsLockLocation()
         dtpDATE.Value = TransactionDefaultDate()
     End Sub
-    Private Sub frmDeposit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmDeposit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tsJournal.Visible = gsShowAccounts
         spJournal.Visible = gsShowAccounts
 
         tsTITLE.Text = gsSubMenuForm
-        '   fBackGroundImageStyle(Me)
-        fRefreshColumn()
-        fClear_Info()
+
+        RefreshColumn()
+        ClearInfo()
 
 
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
     End Sub
 
-    Private Sub fRefreshInfo()
+    Private Sub RefreshInfo()
 
         Try
 
-            fClear_Info()
+            ClearInfo()
             bRefreshItem = True
             Dim sQuery As String = "select * from deposit where ID ='" & ID & "' Limit 1"
             SqlExecutedUsingReading(Me, sQuery)
@@ -67,20 +64,20 @@ Public Class FrmDeposit
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshInfo()
+                RefreshInfo()
             Else
                 End
             End If
         End Try
         bRefreshItem = False
-        fComputed()
+        Computed()
 
         tdgv = New DataGridView
         tdgv = dgvDeposit
         tQuery = SqlUpdate(Me)
 
     End Sub
-    Private Sub fRefreshColumn()
+    Private Sub RefreshColumn()
         With dgvDeposit.Columns
             .Clear()
             .Add("ID", "ID")
@@ -107,14 +104,14 @@ Public Class FrmDeposit
     End Sub
 
 
-    Private Sub fEditItem()
+    Private Sub EditItem()
         Try
             If dgvDeposit.Rows.Count = 0 Then
                 MessageBoxWarning("Data not found!")
                 Exit Sub
             End If
             Dim r As DataGridViewRow = dgvDeposit.Rows(dgvDeposit.CurrentRow.Index)
-            With frmDepositFunds
+            With FrmDepositFunds
                 If NumIsNull(r.Cells("SOT").Value) <> 0 Then
                     MessageBoxExclamation("Invalid to edit. this value is set on " & GetStringFieldValue("object_type_map", "ID", NumIsNull(r.Cells("SOT").Value), "NAME"))
                     Exit Sub
@@ -141,37 +138,23 @@ Public Class FrmDeposit
                 End
             End If
         End Try
-        frmDepositFunds = Nothing
-        fComputed()
+        FrmDepositFunds = Nothing
+        Computed()
     End Sub
-
-
-    Private Sub dgvDeposit_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDeposit.CellContentClick
-
+    Private Sub DgvDeposit_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDeposit.CellDoubleClick
+        EditItem()
     End Sub
-
-    Private Sub dgvDeposit_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDeposit.CellDoubleClick
-        fEditItem()
-    End Sub
-
-    Private Sub numCASH_BANK_AMOUNT_ValueChanged(sender As Object, e As EventArgs) Handles numCASH_BACK_AMOUNT.ValueChanged
-
-    End Sub
-    Private Sub fComputed()
+    Private Sub Computed()
         Dim dTotal As Double = 0
         For i As Integer = 0 To dgvDeposit.Rows.Count - 1
             Dim r As DataGridViewRow = dgvDeposit.Rows(i)
-            dTotal = dTotal + NumberFormatFixed(r.Cells("AMOUNT").Value)
+            dTotal += NumberFormatFixed(r.Cells("AMOUNT").Value)
         Next
         lblAMOUNT.Text = NumberFormatStandard(dTotal)
     End Sub
 
-    Private Sub lklDelete_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-    End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
-        If fACCESS_NEW_EDIT(Me, IsNew) = False Then
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+        If SecurityAccessMode(Me, IsNew) = False Then
             Exit Sub
         End If
 
@@ -224,7 +207,7 @@ Public Class FrmDeposit
         End If
 
         CursorLoadingOn(True)
-        fSaveItem()  ' Save 
+        SaveItem()  ' Save 
 
         '===========================================
         If gsSkipJournalEntry = False Then
@@ -248,7 +231,7 @@ Public Class FrmDeposit
 
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = "tsSaveNew" Then
-                fSetNew()
+                SetNew()
             End If
 
         Catch ex As Exception
@@ -256,21 +239,19 @@ Public Class FrmDeposit
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefreshInfo()
+                RefreshInfo()
             End If
         End Try
         CursorLoadingOn(False)
     End Sub
-    Private Sub fSetNew()
-        fClear_Info()
-        fComputed()
+    Private Sub SetNew()
+        ClearInfo()
+        Computed()
         ID = 0
         IsNew = True
 
     End Sub
-    Private Sub fSaveItem()
-
-
+    Private Sub SaveItem()
         For i As Integer = 0 To dgvDeposit.Rows.Count - 1
             Dim r As DataGridViewRow = dgvDeposit.Rows(i)
             Select Case r.Cells("CONTROL_STATUS").Value
@@ -293,14 +274,14 @@ Public Class FrmDeposit
                     Dim i_ID As Double = ObjectTypeMapId("deposit_funds")
                     SqlExecuted("INSERT INTO `deposit_funds` set ID = '" & i_ID & "',DEPOSIT_ID='" & ID & "',RECEIVED_FROM_ID=" & GotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID=" & GotNullNumber(r.Cells("ACCOUNT_ID").Value) & ",PAYMENT_METHOD_ID=" & GotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & GotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "',SOURCE_OBJECT_TYPE=" & GotNullNumber(r.Cells("SOT").Value) & ",SOURCE_OBJECT_ID=" & GotNullNumber(r.Cells("SOI").Value) & ";")
                     If (r.Cells("SOI").Value) <> 0 Then
-                        fDepostUpdate(r.Cells("SOT").Value, r.Cells("SOI").Value, True)
+                        DepostUpdate(r.Cells("SOT").Value, r.Cells("SOI").Value, True)
                     End If
                     r.Cells("ID").Value = i_ID
                     r.Cells("CONTROL_STATUS").Value = "S"
                     '===========================================
                     If gsSkipJournalEntry = False Then
                         Dim AMT As Double = Format(r.Cells("AMOUNT").Value, "FIXED")
-                        Dim E As Integer = 0
+                        Dim E As Integer
                         If AMT < 0 Then
                             E = 0
                         Else
@@ -325,7 +306,7 @@ Public Class FrmDeposit
                             AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(r.Cells("ACCOUNT_ID").Value), 82, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
                         End If
                         Dim AMT As Double = NumberFormatFixed(r.Cells("AMOUNT").Value)
-                        Dim E As Integer = 0
+                        Dim E As Integer
                         If AMT < 0 Then
                             E = 0
                         Else
@@ -340,7 +321,7 @@ Public Class FrmDeposit
                     fAccount_journal_Delete(NumIsNull(r.Cells("ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 82, r.Cells("ID").Value, dtpDATE.Value)
 
                     If (r.Cells("SOI").Value) <> 0 Then
-                        fDepostUpdate(r.Cells("SOT").Value, r.Cells("SOI").Value, False)
+                        DepostUpdate(r.Cells("SOT").Value, r.Cells("SOI").Value, False)
                     End If
             End Select
         Next
@@ -348,7 +329,7 @@ Public Class FrmDeposit
 
 
     End Sub
-    Private Sub fDepostUpdate(ByVal type_id As Integer, ByVal id As String, ByVal bStatus As Integer)
+    Private Sub DepostUpdate(ByVal type_id As Integer, ByVal id As String, ByVal bStatus As Integer)
         Dim ReturnString As String
         Select Case type_id
             Case 41
@@ -381,16 +362,16 @@ Public Class FrmDeposit
         End Select
         SqlExecuted(ReturnString)
     End Sub
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
-        If fACCESS_FIND(Me) = False Then
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+        If SecurityAccessFind(Me) = False Then
             Exit Sub
 
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -411,7 +392,7 @@ Public Class FrmDeposit
                 ID = Frm.AccessibleDescription
                 IsNew = False
 
-                fRefreshInfo()
+                RefreshInfo()
 
 
             End If
@@ -422,19 +403,15 @@ Public Class FrmDeposit
 
     End Sub
 
-    Private Sub dgvDeposit_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvDeposit.RowsAdded
+    Private Sub DgvDeposit_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvDeposit.RowsAdded
         If bRefreshItem = False Then
-            fComputed()
+            Computed()
         End If
     End Sub
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
-
-
-
-
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False Then
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
 
@@ -443,10 +420,10 @@ Public Class FrmDeposit
             End If
 
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -463,7 +440,7 @@ Public Class FrmDeposit
                     Dim TMP_SQL As String = ""
                     Dim rd As OdbcDataReader = SqlReader("SELECT *  FROM `deposit_funds`  WHERE DEPOSIT_ID='" & ID & "' and SOURCE_OBJECT_TYPE is not null and SOURCE_OBJECT_ID is not null")
                     While rd.Read
-                        fDepostUpdate(rd("SOURCE_OBJECT_TYPE"), rd("SOURCE_OBJECT_ID"), False)
+                        DepostUpdate(rd("SOURCE_OBJECT_TYPE"), rd("SOURCE_OBJECT_ID"), False)
                     End While
                     rd.Close()
                     If TMP_SQL <> "" Then
@@ -481,7 +458,7 @@ Public Class FrmDeposit
                         .Cells("CONTROL_STATUS").Value = "D"
                     End With
                 Next
-                fSaveItem()
+                SaveItem()
 
                 '===========================================
                 If gsSkipJournalEntry = False Then
@@ -492,8 +469,8 @@ Public Class FrmDeposit
                 SqlExecuted("DELETE FROM `deposit` WHERE ID='" & ID & "' limit 1;")
 
                 PrompNotify(Me.Text, DeleteMsg, True)
-                fClear_Info()
-                fComputed()
+                ClearInfo()
+                Computed()
                 ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
@@ -501,18 +478,10 @@ Public Class FrmDeposit
 
         End If
     End Sub
-
-    Private Sub frmDeposit_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-
-
-    End Sub
-
-    Private Sub frmDeposit_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmDeposit_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         With dgvDeposit.Columns
             .Item("Received_From").Width = 320
-
             .Item("ACCOUNT_NAME").Width = 350
-
             .Item("AMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
 
         End With
@@ -521,12 +490,12 @@ Public Class FrmDeposit
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -537,7 +506,7 @@ Public Class FrmDeposit
             End If
         End If
         If IsNew = False Then
-            If fACCESS_PRINT_PREVIEW(Me) = False Then
+            If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
             Dim prFile_name As String = ""
@@ -558,28 +527,28 @@ Public Class FrmDeposit
 
             End Try
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
             gsToolPanelView = False
-            fPreviewReport(prPrint_Title)
+            GlobalPreviewReport(prPrint_Title)
         End If
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
 
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -592,7 +561,7 @@ Public Class FrmDeposit
 
         If IsNew = False Then
 
-            If fACCESS_PRINT_PREVIEW(Me) = False Then
+            If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
 
@@ -612,14 +581,14 @@ Public Class FrmDeposit
                     cn.Close()
                 End If
             End Try
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
             gscryRpt.PrintToPrinter(1, False, 0, 0)
         End If
     End Sub
@@ -627,10 +596,10 @@ Public Class FrmDeposit
     Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles tsPayment.Click
         If dgvDeposit.Rows.Count <> 0 Then Exit Sub
 
-        With frmDepositPayment
-            frmDepositPayment.ShowDialog()
-            If frmDepositPayment.gsOK = True Then
-                Dim dgv As DataGridView = frmDepositPayment.dgvAvailable
+        With FrmDepositPayment
+            FrmDepositPayment.ShowDialog()
+            If FrmDepositPayment.gsOK = True Then
+                Dim dgv As DataGridView = FrmDepositPayment.dgvAvailable
                 For i As Integer = 0 To dgv.Rows.Count - 1
                     If dgv.Rows(i).Cells(0).Value = True Then
                         Dim r As DataGridViewRow = dgv.Rows(i)
@@ -689,24 +658,24 @@ Public Class FrmDeposit
                     End If
                 Next
 
-                If frmDepositPayment.gsLocation_ID <> 0 Then
-                    cmbLOCATION_ID.SelectedValue = frmDepositPayment.gsLocation_ID
+                If FrmDepositPayment.gsLocation_ID <> 0 Then
+                    cmbLOCATION_ID.SelectedValue = FrmDepositPayment.gsLocation_ID
                 End If
             End If
-            frmDepositPayment.Dispose()
+            FrmDepositPayment.Dispose()
         End With
-        frmDepositPayment = Nothing
+        FrmDepositPayment = Nothing
     End Sub
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
-                fRefreshInfo()
+                RefreshInfo()
 
             End If
 
@@ -721,7 +690,7 @@ Public Class FrmDeposit
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -747,15 +716,12 @@ Public Class FrmDeposit
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
         ShowTransactionLog(Me, ID)
     End Sub
-
-
-
-    Private Sub dgvDeposit_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDeposit.RowStateChanged
+    Private Sub DgvDeposit_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDeposit.RowStateChanged
         lblCount.Text = DataGridViewCounting(dgvDeposit)
     End Sub
 
     Private Sub TsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
-        With frmDepositFunds
+        With FrmDepositFunds
             .chkAuto.Checked = True
             .chkAuto.Visible = False
             .btnOK.Text = "Add"
@@ -765,12 +731,12 @@ Public Class FrmDeposit
             .Dispose()
         End With
 
-        frmDepositFunds = Nothing
-        fComputed()
+        FrmDepositFunds = Nothing
+        Computed()
     End Sub
 
     Private Sub TsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
-        fEditItem()
+        EditItem()
     End Sub
 
     Private Sub TsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
@@ -785,33 +751,25 @@ Public Class FrmDeposit
                 Else
                     dgvDeposit.Rows.RemoveAt(i)
                 End If
-                fComputed()
+                Computed()
             End If
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub frmDeposit_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmDeposit_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         If dgvDeposit.Columns.Count = 0 Then Exit Sub
 
         ID = gsDocument_Finder_ID
         IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
     End Sub
 
-    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
-
-    End Sub
-
-    Private Sub tsFindText_Click(sender As Object, e As EventArgs) Handles tsFindText.Click
-
-    End Sub
-
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         GetQuickFind(dgvDeposit, tsFindText.Text)
     End Sub
 
@@ -819,7 +777,7 @@ Public Class FrmDeposit
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -835,7 +793,7 @@ Public Class FrmDeposit
 
         If IsNew = True Then Exit Sub
 
-        If fACCESS_PRINT_PREVIEW(Me) = False Then
+        If SecurityAccessPrint(Me) = False Then
             Exit Sub
         End If
 
@@ -862,17 +820,17 @@ Public Class FrmDeposit
                 End If
             End Try
 
-            gscryRpt = fViewReportOneParameterNumberOnly(prFile_name)
-            fCryParameterInsertValue(gscryRpt, Val(ID), "myid")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
-            fCryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
-            fReportExporPDF(gscryRpt, prPrint_Title)
+            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            CryParameterInsertValue(gscryRpt, Val(ID), "myid")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
+            CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
+            ReportExporPDF(gscryRpt, prPrint_Title)
             If v = 2 Then
                 gsToolPanelView = False
-                fPreviewReport(prPrint_Title)
+                GlobalPreviewReport(prPrint_Title)
             Else
                 gscryRpt.PrintToPrinter(1, False, 0, 0)
 

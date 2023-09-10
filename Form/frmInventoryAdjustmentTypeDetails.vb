@@ -68,7 +68,7 @@ Public Class FrmInventoryAdjustmentTypeDetails
         ID = 0
 
 
-        If fACCESS_NEW_EDIT(frmInventoryAdjustmentType, IsNew) = False Then
+        If SecurityAccessMode(frmInventoryAdjustmentType, IsNew) = False Then
             Me.Close()
         End If
     End Sub

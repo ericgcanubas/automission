@@ -75,7 +75,7 @@ Public Class FrmAccount
         ID = 0
         Me.Text = "Create account"
 
-        If fACCESS_NEW_EDIT(frmChartOfAccount, IsNew) = False Then
+        If SecurityAccessMode(frmChartOfAccount, IsNew) = False Then
             Me.Close()
         End If
     End Sub

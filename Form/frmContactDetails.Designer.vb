@@ -59,7 +59,6 @@ Partial Class FrmContactDetails
         Me.dtpCREDIT_CARD_EXPIRY_DATE = New System.Windows.Forms.DateTimePicker()
         Me.xlblCardNUmber = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
-        Me.xlblTitle = New System.Windows.Forms.Label()
         Me.txtACCOUNT_NO = New System.Windows.Forms.TextBox()
         Me.tsSaveNew = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
@@ -92,6 +91,10 @@ Partial Class FrmContactDetails
         Me.btnSAVE = New System.Windows.Forms.Button()
         Me.btnCANCEL = New System.Windows.Forms.Button()
         Me.btnReset = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         CType(Me.xnumDISCOUNT, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numCREDIT_LIMIT, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
@@ -100,86 +103,86 @@ Partial Class FrmContactDetails
         'xlblMobile
         '
         Me.xlblMobile.BackColor = System.Drawing.Color.Transparent
-        Me.xlblMobile.Location = New System.Drawing.Point(534, 196)
+        Me.xlblMobile.Location = New System.Drawing.Point(383, 238)
         Me.xlblMobile.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblMobile.Name = "xlblMobile"
         Me.xlblMobile.Size = New System.Drawing.Size(142, 16)
         Me.xlblMobile.TabIndex = 23
         Me.xlblMobile.Text = "Mobile Number "
-        Me.xlblMobile.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblMobile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtMOBILE_NO
         '
         Me.txtMOBILE_NO.AccessibleDescription = "null"
-        Me.txtMOBILE_NO.Location = New System.Drawing.Point(678, 192)
+        Me.txtMOBILE_NO.Location = New System.Drawing.Point(381, 258)
         Me.txtMOBILE_NO.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtMOBILE_NO.Name = "txtMOBILE_NO"
-        Me.txtMOBILE_NO.Size = New System.Drawing.Size(205, 23)
+        Me.txtMOBILE_NO.Size = New System.Drawing.Size(249, 23)
         Me.txtMOBILE_NO.TabIndex = 22
         '
         'xlblEmail
         '
         Me.xlblEmail.BackColor = System.Drawing.Color.Transparent
-        Me.xlblEmail.Location = New System.Drawing.Point(13, 196)
+        Me.xlblEmail.Location = New System.Drawing.Point(15, 240)
         Me.xlblEmail.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblEmail.Name = "xlblEmail"
-        Me.xlblEmail.Size = New System.Drawing.Size(223, 16)
+        Me.xlblEmail.Size = New System.Drawing.Size(144, 16)
         Me.xlblEmail.TabIndex = 21
         Me.xlblEmail.Text = "E-mail"
-        Me.xlblEmail.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblEmail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtEMAIL
         '
         Me.txtEMAIL.AccessibleDescription = "null"
-        Me.txtEMAIL.Location = New System.Drawing.Point(239, 192)
+        Me.txtEMAIL.Location = New System.Drawing.Point(13, 258)
         Me.txtEMAIL.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtEMAIL.Name = "txtEMAIL"
-        Me.txtEMAIL.Size = New System.Drawing.Size(293, 23)
+        Me.txtEMAIL.Size = New System.Drawing.Size(174, 23)
         Me.txtEMAIL.TabIndex = 20
         '
         'xlblFaxNumber
         '
         Me.xlblFaxNumber.BackColor = System.Drawing.Color.Transparent
-        Me.xlblFaxNumber.Location = New System.Drawing.Point(13, 224)
+        Me.xlblFaxNumber.Location = New System.Drawing.Point(197, 240)
         Me.xlblFaxNumber.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblFaxNumber.Name = "xlblFaxNumber"
-        Me.xlblFaxNumber.Size = New System.Drawing.Size(223, 16)
+        Me.xlblFaxNumber.Size = New System.Drawing.Size(174, 16)
         Me.xlblFaxNumber.TabIndex = 19
         Me.xlblFaxNumber.Text = "Fax Number"
-        Me.xlblFaxNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblFaxNumber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtFAX_NO
         '
         Me.txtFAX_NO.AccessibleDescription = "null"
-        Me.txtFAX_NO.Location = New System.Drawing.Point(239, 219)
+        Me.txtFAX_NO.Location = New System.Drawing.Point(197, 258)
         Me.txtFAX_NO.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtFAX_NO.Name = "txtFAX_NO"
-        Me.txtFAX_NO.Size = New System.Drawing.Size(293, 23)
+        Me.txtFAX_NO.Size = New System.Drawing.Size(174, 23)
         Me.txtFAX_NO.TabIndex = 18
         '
         'xlblTeleNumber
         '
         Me.xlblTeleNumber.BackColor = System.Drawing.Color.Transparent
-        Me.xlblTeleNumber.Location = New System.Drawing.Point(538, 167)
+        Me.xlblTeleNumber.Location = New System.Drawing.Point(439, 51)
         Me.xlblTeleNumber.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblTeleNumber.Name = "xlblTeleNumber"
         Me.xlblTeleNumber.Size = New System.Drawing.Size(138, 16)
         Me.xlblTeleNumber.TabIndex = 17
         Me.xlblTeleNumber.Text = "Telephone Number"
-        Me.xlblTeleNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblTeleNumber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtTELEPHONE_NO
         '
         Me.txtTELEPHONE_NO.AccessibleDescription = "null"
-        Me.txtTELEPHONE_NO.Location = New System.Drawing.Point(678, 165)
+        Me.txtTELEPHONE_NO.Location = New System.Drawing.Point(442, 73)
         Me.txtTELEPHONE_NO.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtTELEPHONE_NO.Name = "txtTELEPHONE_NO"
-        Me.txtTELEPHONE_NO.Size = New System.Drawing.Size(205, 23)
+        Me.txtTELEPHONE_NO.Size = New System.Drawing.Size(188, 23)
         Me.txtTELEPHONE_NO.TabIndex = 16
         '
         'xnumDISCOUNT
         '
-        Me.xnumDISCOUNT.Location = New System.Drawing.Point(678, 393)
+        Me.xnumDISCOUNT.Location = New System.Drawing.Point(381, 501)
         Me.xnumDISCOUNT.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.xnumDISCOUNT.Name = "xnumDISCOUNT"
         Me.xnumDISCOUNT.Size = New System.Drawing.Size(75, 23)
@@ -191,23 +194,23 @@ Partial Class FrmContactDetails
         'lbxDiscount
         '
         Me.lbxDiscount.BackColor = System.Drawing.Color.Transparent
-        Me.lbxDiscount.Location = New System.Drawing.Point(541, 396)
+        Me.lbxDiscount.Location = New System.Drawing.Point(378, 480)
         Me.lbxDiscount.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lbxDiscount.Name = "lbxDiscount"
         Me.lbxDiscount.Size = New System.Drawing.Size(136, 16)
         Me.lbxDiscount.TabIndex = 24
         Me.lbxDiscount.Text = "Discount %"
-        Me.lbxDiscount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbxDiscount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lbxDiscount.Visible = False
         '
         'numCREDIT_LIMIT
         '
         Me.numCREDIT_LIMIT.DecimalPlaces = 2
-        Me.numCREDIT_LIMIT.Location = New System.Drawing.Point(678, 304)
+        Me.numCREDIT_LIMIT.Location = New System.Drawing.Point(13, 405)
         Me.numCREDIT_LIMIT.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.numCREDIT_LIMIT.Maximum = New Decimal(New Integer() {1410065407, 2, 0, 0})
         Me.numCREDIT_LIMIT.Name = "numCREDIT_LIMIT"
-        Me.numCREDIT_LIMIT.Size = New System.Drawing.Size(205, 23)
+        Me.numCREDIT_LIMIT.Size = New System.Drawing.Size(174, 23)
         Me.numCREDIT_LIMIT.TabIndex = 6
         Me.numCREDIT_LIMIT.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.numCREDIT_LIMIT.ThousandsSeparator = True
@@ -216,7 +219,7 @@ Partial Class FrmContactDetails
         '
         Me.chkAPPLY_FINANCE_CHARGE.AutoSize = True
         Me.chkAPPLY_FINANCE_CHARGE.BackColor = System.Drawing.Color.Transparent
-        Me.chkAPPLY_FINANCE_CHARGE.Location = New System.Drawing.Point(695, 480)
+        Me.chkAPPLY_FINANCE_CHARGE.Location = New System.Drawing.Point(461, 504)
         Me.chkAPPLY_FINANCE_CHARGE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkAPPLY_FINANCE_CHARGE.Name = "chkAPPLY_FINANCE_CHARGE"
         Me.chkAPPLY_FINANCE_CHARGE.Size = New System.Drawing.Size(169, 20)
@@ -227,150 +230,150 @@ Partial Class FrmContactDetails
         'Label27
         '
         Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.Location = New System.Drawing.Point(11, 366)
+        Me.Label27.Location = New System.Drawing.Point(381, 432)
         Me.Label27.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(224, 16)
         Me.Label27.TabIndex = 17
         Me.Label27.Text = "Price Level"
-        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'xlblContactPerson
         '
         Me.xlblContactPerson.BackColor = System.Drawing.Color.Transparent
-        Me.xlblContactPerson.Location = New System.Drawing.Point(10, 167)
+        Me.xlblContactPerson.Location = New System.Drawing.Point(11, 193)
         Me.xlblContactPerson.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblContactPerson.Name = "xlblContactPerson"
-        Me.xlblContactPerson.Size = New System.Drawing.Size(225, 16)
+        Me.xlblContactPerson.Size = New System.Drawing.Size(148, 16)
         Me.xlblContactPerson.TabIndex = 15
         Me.xlblContactPerson.Text = "Contact Person"
-        Me.xlblContactPerson.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblContactPerson.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'cmbPREF_PAYMENT_METHOD_ID
         '
         Me.cmbPREF_PAYMENT_METHOD_ID.FormattingEnabled = True
-        Me.cmbPREF_PAYMENT_METHOD_ID.Location = New System.Drawing.Point(239, 334)
+        Me.cmbPREF_PAYMENT_METHOD_ID.Location = New System.Drawing.Point(197, 405)
         Me.cmbPREF_PAYMENT_METHOD_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPREF_PAYMENT_METHOD_ID.Name = "cmbPREF_PAYMENT_METHOD_ID"
-        Me.cmbPREF_PAYMENT_METHOD_ID.Size = New System.Drawing.Size(293, 24)
+        Me.cmbPREF_PAYMENT_METHOD_ID.Size = New System.Drawing.Size(174, 24)
         Me.cmbPREF_PAYMENT_METHOD_ID.TabIndex = 8
         '
         'Label22
         '
         Me.Label22.BackColor = System.Drawing.Color.Transparent
-        Me.Label22.Location = New System.Drawing.Point(541, 279)
+        Me.Label22.Location = New System.Drawing.Point(194, 334)
         Me.Label22.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(136, 16)
         Me.Label22.TabIndex = 5
         Me.Label22.Text = "Payment Terms"
-        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'cmbPAYMENT_TERMS_ID
         '
         Me.cmbPAYMENT_TERMS_ID.FormattingEnabled = True
-        Me.cmbPAYMENT_TERMS_ID.Location = New System.Drawing.Point(678, 274)
+        Me.cmbPAYMENT_TERMS_ID.Location = New System.Drawing.Point(197, 355)
         Me.cmbPAYMENT_TERMS_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPAYMENT_TERMS_ID.Name = "cmbPAYMENT_TERMS_ID"
-        Me.cmbPAYMENT_TERMS_ID.Size = New System.Drawing.Size(205, 24)
+        Me.cmbPAYMENT_TERMS_ID.Size = New System.Drawing.Size(174, 24)
         Me.cmbPAYMENT_TERMS_ID.TabIndex = 4
         '
         'txtCONTACT_PERSON
         '
         Me.txtCONTACT_PERSON.AccessibleDescription = "null"
-        Me.txtCONTACT_PERSON.Location = New System.Drawing.Point(239, 165)
+        Me.txtCONTACT_PERSON.Location = New System.Drawing.Point(13, 213)
         Me.txtCONTACT_PERSON.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCONTACT_PERSON.Name = "txtCONTACT_PERSON"
-        Me.txtCONTACT_PERSON.Size = New System.Drawing.Size(293, 23)
+        Me.txtCONTACT_PERSON.Size = New System.Drawing.Size(358, 23)
         Me.txtCONTACT_PERSON.TabIndex = 14
         '
         'xlblPostalAddress
         '
         Me.xlblPostalAddress.BackColor = System.Drawing.Color.Transparent
-        Me.xlblPostalAddress.Location = New System.Drawing.Point(10, 129)
+        Me.xlblPostalAddress.Location = New System.Drawing.Point(378, 146)
         Me.xlblPostalAddress.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblPostalAddress.Name = "xlblPostalAddress"
         Me.xlblPostalAddress.Size = New System.Drawing.Size(225, 16)
         Me.xlblPostalAddress.TabIndex = 12
         Me.xlblPostalAddress.Text = "Postal Address"
-        Me.xlblPostalAddress.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblPostalAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtPRINT_NAME_AS
         '
         Me.txtPRINT_NAME_AS.AccessibleDescription = "null"
-        Me.txtPRINT_NAME_AS.Location = New System.Drawing.Point(239, 96)
+        Me.txtPRINT_NAME_AS.Location = New System.Drawing.Point(14, 166)
         Me.txtPRINT_NAME_AS.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtPRINT_NAME_AS.Name = "txtPRINT_NAME_AS"
-        Me.txtPRINT_NAME_AS.Size = New System.Drawing.Size(644, 23)
+        Me.txtPRINT_NAME_AS.Size = New System.Drawing.Size(357, 23)
         Me.txtPRINT_NAME_AS.TabIndex = 11
         '
         'xlblPrintAs
         '
         Me.xlblPrintAs.BackColor = System.Drawing.Color.Transparent
-        Me.xlblPrintAs.Location = New System.Drawing.Point(10, 101)
+        Me.xlblPrintAs.Location = New System.Drawing.Point(15, 146)
         Me.xlblPrintAs.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblPrintAs.Name = "xlblPrintAs"
-        Me.xlblPrintAs.Size = New System.Drawing.Size(225, 16)
+        Me.xlblPrintAs.Size = New System.Drawing.Size(160, 16)
         Me.xlblPrintAs.TabIndex = 10
         Me.xlblPrintAs.Text = "Print As"
-        Me.xlblPrintAs.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblPrintAs.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label21
         '
         Me.Label21.BackColor = System.Drawing.Color.Transparent
-        Me.Label21.Location = New System.Drawing.Point(11, 310)
+        Me.Label21.Location = New System.Drawing.Point(379, 382)
         Me.Label21.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(224, 16)
         Me.Label21.TabIndex = 3
         Me.Label21.Text = "Sales Rep"
-        Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtLAST_NAME
         '
         Me.txtLAST_NAME.AccessibleDescription = "null"
-        Me.txtLAST_NAME.Location = New System.Drawing.Point(629, 69)
+        Me.txtLAST_NAME.Location = New System.Drawing.Point(13, 120)
         Me.txtLAST_NAME.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtLAST_NAME.Name = "txtLAST_NAME"
-        Me.txtLAST_NAME.Size = New System.Drawing.Size(254, 23)
+        Me.txtLAST_NAME.Size = New System.Drawing.Size(174, 23)
         Me.txtLAST_NAME.TabIndex = 6
         '
         'Label23
         '
         Me.Label23.BackColor = System.Drawing.Color.Transparent
-        Me.Label23.Location = New System.Drawing.Point(541, 309)
+        Me.Label23.Location = New System.Drawing.Point(10, 384)
         Me.Label23.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(136, 16)
         Me.Label23.TabIndex = 7
         Me.Label23.Text = "Credit Limit"
-        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'cmbSALES_REP_ID
         '
         Me.cmbSALES_REP_ID.FormattingEnabled = True
-        Me.cmbSALES_REP_ID.Location = New System.Drawing.Point(239, 305)
+        Me.cmbSALES_REP_ID.Location = New System.Drawing.Point(381, 403)
         Me.cmbSALES_REP_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbSALES_REP_ID.Name = "cmbSALES_REP_ID"
-        Me.cmbSALES_REP_ID.Size = New System.Drawing.Size(293, 24)
+        Me.cmbSALES_REP_ID.Size = New System.Drawing.Size(249, 24)
         Me.cmbSALES_REP_ID.TabIndex = 2
         '
         'xlblGroup
         '
         Me.xlblGroup.BackColor = System.Drawing.Color.Transparent
-        Me.xlblGroup.Location = New System.Drawing.Point(11, 282)
+        Me.xlblGroup.Location = New System.Drawing.Point(10, 334)
         Me.xlblGroup.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblGroup.Name = "xlblGroup"
-        Me.xlblGroup.Size = New System.Drawing.Size(224, 16)
+        Me.xlblGroup.Size = New System.Drawing.Size(177, 16)
         Me.xlblGroup.TabIndex = 1
         Me.xlblGroup.Text = "Group"
-        Me.xlblGroup.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblGroup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'chkINACTIVE
         '
         Me.chkINACTIVE.AutoSize = True
         Me.chkINACTIVE.BackColor = System.Drawing.Color.Transparent
-        Me.chkINACTIVE.Location = New System.Drawing.Point(427, 480)
+        Me.chkINACTIVE.Location = New System.Drawing.Point(384, 547)
         Me.chkINACTIVE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkINACTIVE.Name = "chkINACTIVE"
         Me.chkINACTIVE.Size = New System.Drawing.Size(160, 20)
@@ -381,26 +384,26 @@ Partial Class FrmContactDetails
         'txtMIDDLE_NAME
         '
         Me.txtMIDDLE_NAME.AccessibleDescription = "null"
-        Me.txtMIDDLE_NAME.Location = New System.Drawing.Point(563, 69)
+        Me.txtMIDDLE_NAME.Location = New System.Drawing.Point(381, 120)
         Me.txtMIDDLE_NAME.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtMIDDLE_NAME.Name = "txtMIDDLE_NAME"
-        Me.txtMIDDLE_NAME.Size = New System.Drawing.Size(63, 23)
+        Me.txtMIDDLE_NAME.Size = New System.Drawing.Size(162, 23)
         Me.txtMIDDLE_NAME.TabIndex = 5
         '
         'txtCREDIT_CARD_NO
         '
-        Me.txtCREDIT_CARD_NO.Location = New System.Drawing.Point(678, 334)
+        Me.txtCREDIT_CARD_NO.Location = New System.Drawing.Point(13, 454)
         Me.txtCREDIT_CARD_NO.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCREDIT_CARD_NO.Name = "txtCREDIT_CARD_NO"
-        Me.txtCREDIT_CARD_NO.Size = New System.Drawing.Size(205, 23)
+        Me.txtCREDIT_CARD_NO.Size = New System.Drawing.Size(174, 23)
         Me.txtCREDIT_CARD_NO.TabIndex = 10
         '
         'txtFIRST_NAME
         '
-        Me.txtFIRST_NAME.Location = New System.Drawing.Point(307, 69)
+        Me.txtFIRST_NAME.Location = New System.Drawing.Point(197, 120)
         Me.txtFIRST_NAME.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtFIRST_NAME.Name = "txtFIRST_NAME"
-        Me.txtFIRST_NAME.Size = New System.Drawing.Size(254, 23)
+        Me.txtFIRST_NAME.Size = New System.Drawing.Size(174, 23)
         Me.txtFIRST_NAME.TabIndex = 4
         '
         'cboSALUTATION
@@ -408,80 +411,69 @@ Partial Class FrmContactDetails
         Me.cboSALUTATION.AccessibleDescription = "null"
         Me.cboSALUTATION.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSALUTATION.FormattingEnabled = True
-        Me.cboSALUTATION.Location = New System.Drawing.Point(239, 69)
+        Me.cboSALUTATION.Location = New System.Drawing.Point(550, 119)
         Me.cboSALUTATION.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cboSALUTATION.Name = "cboSALUTATION"
-        Me.cboSALUTATION.Size = New System.Drawing.Size(65, 24)
+        Me.cboSALUTATION.Size = New System.Drawing.Size(80, 24)
         Me.cboSALUTATION.TabIndex = 3
         '
         'cmbPRICE_LEVEL_ID
         '
         Me.cmbPRICE_LEVEL_ID.FormattingEnabled = True
-        Me.cmbPRICE_LEVEL_ID.Location = New System.Drawing.Point(239, 362)
+        Me.cmbPRICE_LEVEL_ID.Location = New System.Drawing.Point(381, 453)
         Me.cmbPRICE_LEVEL_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPRICE_LEVEL_ID.Name = "cmbPRICE_LEVEL_ID"
-        Me.cmbPRICE_LEVEL_ID.Size = New System.Drawing.Size(293, 24)
+        Me.cmbPRICE_LEVEL_ID.Size = New System.Drawing.Size(249, 24)
         Me.cmbPRICE_LEVEL_ID.TabIndex = 16
         '
         'Label26
         '
         Me.Label26.BackColor = System.Drawing.Color.Transparent
-        Me.Label26.Location = New System.Drawing.Point(541, 366)
+        Me.Label26.Location = New System.Drawing.Point(194, 435)
         Me.Label26.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(136, 16)
         Me.Label26.TabIndex = 15
         Me.Label26.Text = "Expired Date"
-        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'dtpCREDIT_CARD_EXPIRY_DATE
         '
         Me.dtpCREDIT_CARD_EXPIRY_DATE.Checked = False
         Me.dtpCREDIT_CARD_EXPIRY_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpCREDIT_CARD_EXPIRY_DATE.Location = New System.Drawing.Point(678, 363)
+        Me.dtpCREDIT_CARD_EXPIRY_DATE.Location = New System.Drawing.Point(197, 454)
         Me.dtpCREDIT_CARD_EXPIRY_DATE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dtpCREDIT_CARD_EXPIRY_DATE.Name = "dtpCREDIT_CARD_EXPIRY_DATE"
         Me.dtpCREDIT_CARD_EXPIRY_DATE.ShowCheckBox = True
-        Me.dtpCREDIT_CARD_EXPIRY_DATE.Size = New System.Drawing.Size(205, 23)
+        Me.dtpCREDIT_CARD_EXPIRY_DATE.Size = New System.Drawing.Size(174, 23)
         Me.dtpCREDIT_CARD_EXPIRY_DATE.TabIndex = 14
         '
         'xlblCardNUmber
         '
         Me.xlblCardNUmber.BackColor = System.Drawing.Color.Transparent
-        Me.xlblCardNUmber.Location = New System.Drawing.Point(541, 338)
+        Me.xlblCardNUmber.Location = New System.Drawing.Point(10, 435)
         Me.xlblCardNUmber.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblCardNUmber.Name = "xlblCardNUmber"
         Me.xlblCardNUmber.Size = New System.Drawing.Size(136, 16)
         Me.xlblCardNUmber.TabIndex = 11
         Me.xlblCardNUmber.Text = "Card Number"
-        Me.xlblCardNUmber.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblCardNUmber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label24
         '
         Me.Label24.BackColor = System.Drawing.Color.Transparent
-        Me.Label24.Location = New System.Drawing.Point(10, 338)
+        Me.Label24.Location = New System.Drawing.Point(194, 384)
         Me.Label24.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(225, 16)
+        Me.Label24.Size = New System.Drawing.Size(177, 16)
         Me.Label24.TabIndex = 9
         Me.Label24.Text = "Payment Method"
-        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'xlblTitle
-        '
-        Me.xlblTitle.BackColor = System.Drawing.Color.Transparent
-        Me.xlblTitle.Location = New System.Drawing.Point(10, 73)
-        Me.xlblTitle.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
-        Me.xlblTitle.Name = "xlblTitle"
-        Me.xlblTitle.Size = New System.Drawing.Size(225, 16)
-        Me.xlblTitle.TabIndex = 2
-        Me.xlblTitle.Text = "Suffixes/Firstname/M.I/Lastname"
-        Me.xlblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtACCOUNT_NO
         '
         Me.txtACCOUNT_NO.AccessibleDescription = "null"
-        Me.txtACCOUNT_NO.Location = New System.Drawing.Point(695, 15)
+        Me.txtACCOUNT_NO.Location = New System.Drawing.Point(442, 26)
         Me.txtACCOUNT_NO.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtACCOUNT_NO.Name = "txtACCOUNT_NO"
         Me.txtACCOUNT_NO.Size = New System.Drawing.Size(188, 23)
@@ -525,7 +517,7 @@ Partial Class FrmContactDetails
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(658, 17)
+        Me.Label3.Location = New System.Drawing.Point(439, 6)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(34, 16)
@@ -536,211 +528,211 @@ Partial Class FrmContactDetails
         '
         Me.txtNAME.AccessibleDescription = "null"
         Me.txtNAME.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.txtNAME.Location = New System.Drawing.Point(239, 15)
+        Me.txtNAME.Location = New System.Drawing.Point(13, 26)
         Me.txtNAME.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtNAME.Name = "txtNAME"
-        Me.txtNAME.Size = New System.Drawing.Size(399, 23)
+        Me.txtNAME.Size = New System.Drawing.Size(419, 23)
         Me.txtNAME.TabIndex = 23
         '
         'xlblName
         '
         Me.xlblName.BackColor = System.Drawing.Color.Transparent
-        Me.xlblName.Location = New System.Drawing.Point(11, 18)
+        Me.xlblName.Location = New System.Drawing.Point(14, 6)
         Me.xlblName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblName.Name = "xlblName"
         Me.xlblName.Size = New System.Drawing.Size(224, 16)
         Me.xlblName.TabIndex = 22
         Me.xlblName.Text = "Name"
-        Me.xlblName.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtCOMPANY_NAME
         '
         Me.txtCOMPANY_NAME.AccessibleDescription = "null"
-        Me.txtCOMPANY_NAME.Location = New System.Drawing.Point(239, 42)
+        Me.txtCOMPANY_NAME.Location = New System.Drawing.Point(13, 73)
         Me.txtCOMPANY_NAME.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCOMPANY_NAME.Name = "txtCOMPANY_NAME"
-        Me.txtCOMPANY_NAME.Size = New System.Drawing.Size(644, 23)
+        Me.txtCOMPANY_NAME.Size = New System.Drawing.Size(419, 23)
         Me.txtCOMPANY_NAME.TabIndex = 1
         '
         'xlblCompanyName
         '
         Me.xlblCompanyName.BackColor = System.Drawing.Color.Transparent
-        Me.xlblCompanyName.Location = New System.Drawing.Point(11, 46)
+        Me.xlblCompanyName.Location = New System.Drawing.Point(14, 52)
         Me.xlblCompanyName.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblCompanyName.Name = "xlblCompanyName"
         Me.xlblCompanyName.Size = New System.Drawing.Size(224, 16)
         Me.xlblCompanyName.TabIndex = 0
         Me.xlblCompanyName.Text = "Company Name"
-        Me.xlblCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'cmbTAX_ID
         '
         Me.cmbTAX_ID.FormattingEnabled = True
-        Me.cmbTAX_ID.Location = New System.Drawing.Point(678, 245)
+        Me.cmbTAX_ID.Location = New System.Drawing.Point(381, 303)
         Me.cmbTAX_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbTAX_ID.Name = "cmbTAX_ID"
-        Me.cmbTAX_ID.Size = New System.Drawing.Size(205, 24)
+        Me.cmbTAX_ID.Size = New System.Drawing.Size(249, 24)
         Me.cmbTAX_ID.TabIndex = 11
         '
         'xlblTAX
         '
         Me.xlblTAX.BackColor = System.Drawing.Color.Transparent
-        Me.xlblTAX.Location = New System.Drawing.Point(541, 249)
+        Me.xlblTAX.Location = New System.Drawing.Point(378, 285)
         Me.xlblTAX.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblTAX.Name = "xlblTAX"
         Me.xlblTAX.Size = New System.Drawing.Size(136, 16)
         Me.xlblTAX.TabIndex = 10
         Me.xlblTAX.Text = "Output Tax"
-        Me.xlblTAX.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblTAX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'xlblTaxpayer
         '
         Me.xlblTaxpayer.BackColor = System.Drawing.Color.Transparent
-        Me.xlblTaxpayer.Location = New System.Drawing.Point(10, 250)
+        Me.xlblTaxpayer.Location = New System.Drawing.Point(15, 285)
         Me.xlblTaxpayer.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblTaxpayer.Name = "xlblTaxpayer"
-        Me.xlblTaxpayer.Size = New System.Drawing.Size(225, 16)
+        Me.xlblTaxpayer.Size = New System.Drawing.Size(172, 16)
         Me.xlblTaxpayer.TabIndex = 9
         Me.xlblTaxpayer.Text = "Taxpayer ID No . (TIN)"
-        Me.xlblTaxpayer.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblTaxpayer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtTAXPAYER_ID
         '
-        Me.txtTAXPAYER_ID.Location = New System.Drawing.Point(239, 247)
+        Me.txtTAXPAYER_ID.Location = New System.Drawing.Point(13, 305)
         Me.txtTAXPAYER_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtTAXPAYER_ID.Name = "txtTAXPAYER_ID"
-        Me.txtTAXPAYER_ID.Size = New System.Drawing.Size(293, 23)
+        Me.txtTAXPAYER_ID.Size = New System.Drawing.Size(174, 23)
         Me.txtTAXPAYER_ID.TabIndex = 8
         '
         'Label1
         '
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(10, 395)
+        Me.Label1.Location = New System.Drawing.Point(378, 334)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(225, 16)
         Me.Label1.TabIndex = 31
         Me.Label1.Text = "Referrer"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'cmbREFERRAL_ID
         '
         Me.cmbREFERRAL_ID.FormattingEnabled = True
-        Me.cmbREFERRAL_ID.Location = New System.Drawing.Point(239, 391)
+        Me.cmbREFERRAL_ID.Location = New System.Drawing.Point(381, 353)
         Me.cmbREFERRAL_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbREFERRAL_ID.Name = "cmbREFERRAL_ID"
-        Me.cmbREFERRAL_ID.Size = New System.Drawing.Size(293, 24)
+        Me.cmbREFERRAL_ID.Size = New System.Drawing.Size(249, 24)
         Me.cmbREFERRAL_ID.TabIndex = 30
         '
         'cmbGROUP_ID
         '
         Me.cmbGROUP_ID.FormattingEnabled = True
-        Me.cmbGROUP_ID.Location = New System.Drawing.Point(239, 276)
+        Me.cmbGROUP_ID.Location = New System.Drawing.Point(13, 355)
         Me.cmbGROUP_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbGROUP_ID.Name = "cmbGROUP_ID"
-        Me.cmbGROUP_ID.Size = New System.Drawing.Size(293, 24)
+        Me.cmbGROUP_ID.Size = New System.Drawing.Size(174, 24)
         Me.cmbGROUP_ID.TabIndex = 0
         '
         'txtCUSTOM_FIELD5
         '
-        Me.txtCUSTOM_FIELD5.Location = New System.Drawing.Point(239, 449)
+        Me.txtCUSTOM_FIELD5.Location = New System.Drawing.Point(13, 548)
         Me.txtCUSTOM_FIELD5.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCUSTOM_FIELD5.Name = "txtCUSTOM_FIELD5"
-        Me.txtCUSTOM_FIELD5.Size = New System.Drawing.Size(644, 23)
+        Me.txtCUSTOM_FIELD5.Size = New System.Drawing.Size(174, 23)
         Me.txtCUSTOM_FIELD5.TabIndex = 9
         '
         'xlblOriented
         '
         Me.xlblOriented.BackColor = System.Drawing.Color.Transparent
-        Me.xlblOriented.Location = New System.Drawing.Point(13, 453)
+        Me.xlblOriented.Location = New System.Drawing.Point(11, 529)
         Me.xlblOriented.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblOriented.Name = "xlblOriented"
-        Me.xlblOriented.Size = New System.Drawing.Size(223, 16)
+        Me.xlblOriented.Size = New System.Drawing.Size(164, 16)
         Me.xlblOriented.TabIndex = 8
         Me.xlblOriented.Text = "Oriented By:"
-        Me.xlblOriented.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblOriented.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label29
         '
         Me.Label29.BackColor = System.Drawing.Color.Transparent
-        Me.Label29.Location = New System.Drawing.Point(10, 484)
+        Me.Label29.Location = New System.Drawing.Point(197, 528)
         Me.Label29.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(225, 16)
+        Me.Label29.Size = New System.Drawing.Size(160, 16)
         Me.Label29.TabIndex = 7
         Me.Label29.Text = "Date Sign-In"
-        Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'dtpCUSTOM_FIELD4
         '
         Me.dtpCUSTOM_FIELD4.Checked = False
         Me.dtpCUSTOM_FIELD4.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpCUSTOM_FIELD4.Location = New System.Drawing.Point(240, 479)
+        Me.dtpCUSTOM_FIELD4.Location = New System.Drawing.Point(200, 548)
         Me.dtpCUSTOM_FIELD4.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dtpCUSTOM_FIELD4.Name = "dtpCUSTOM_FIELD4"
         Me.dtpCUSTOM_FIELD4.ShowCheckBox = True
-        Me.dtpCUSTOM_FIELD4.Size = New System.Drawing.Size(148, 23)
+        Me.dtpCUSTOM_FIELD4.Size = New System.Drawing.Size(171, 23)
         Me.dtpCUSTOM_FIELD4.TabIndex = 6
         '
         'dtpCUSTOM_FIELD3
         '
         Me.dtpCUSTOM_FIELD3.Checked = False
         Me.dtpCUSTOM_FIELD3.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpCUSTOM_FIELD3.Location = New System.Drawing.Point(678, 218)
+        Me.dtpCUSTOM_FIELD3.Location = New System.Drawing.Point(197, 305)
         Me.dtpCUSTOM_FIELD3.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dtpCUSTOM_FIELD3.Name = "dtpCUSTOM_FIELD3"
         Me.dtpCUSTOM_FIELD3.ShowCheckBox = True
-        Me.dtpCUSTOM_FIELD3.Size = New System.Drawing.Size(205, 23)
+        Me.dtpCUSTOM_FIELD3.Size = New System.Drawing.Size(174, 23)
         Me.dtpCUSTOM_FIELD3.TabIndex = 5
         '
         'Label28
         '
         Me.Label28.BackColor = System.Drawing.Color.Transparent
-        Me.Label28.Location = New System.Drawing.Point(542, 222)
+        Me.Label28.Location = New System.Drawing.Point(197, 289)
         Me.Label28.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(133, 16)
         Me.Label28.TabIndex = 4
         Me.Label28.Text = "Birth Date "
-        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtCUSTOM_FIELD2
         '
-        Me.txtCUSTOM_FIELD2.Location = New System.Drawing.Point(678, 421)
+        Me.txtCUSTOM_FIELD2.Location = New System.Drawing.Point(197, 502)
         Me.txtCUSTOM_FIELD2.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCUSTOM_FIELD2.Name = "txtCUSTOM_FIELD2"
-        Me.txtCUSTOM_FIELD2.Size = New System.Drawing.Size(205, 23)
+        Me.txtCUSTOM_FIELD2.Size = New System.Drawing.Size(174, 23)
         Me.txtCUSTOM_FIELD2.TabIndex = 3
         '
         'xlblOtherNumber
         '
         Me.xlblOtherNumber.BackColor = System.Drawing.Color.Transparent
-        Me.xlblOtherNumber.Location = New System.Drawing.Point(541, 425)
+        Me.xlblOtherNumber.Location = New System.Drawing.Point(197, 482)
         Me.xlblOtherNumber.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblOtherNumber.Name = "xlblOtherNumber"
         Me.xlblOtherNumber.Size = New System.Drawing.Size(136, 16)
         Me.xlblOtherNumber.TabIndex = 2
         Me.xlblOtherNumber.Text = "Other Mobile #"
-        Me.xlblOtherNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblOtherNumber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtCUSTOM_FIELD1
         '
-        Me.txtCUSTOM_FIELD1.Location = New System.Drawing.Point(239, 421)
+        Me.txtCUSTOM_FIELD1.Location = New System.Drawing.Point(13, 501)
         Me.txtCUSTOM_FIELD1.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCUSTOM_FIELD1.Name = "txtCUSTOM_FIELD1"
-        Me.txtCUSTOM_FIELD1.Size = New System.Drawing.Size(293, 23)
+        Me.txtCUSTOM_FIELD1.Size = New System.Drawing.Size(174, 23)
         Me.txtCUSTOM_FIELD1.TabIndex = 1
         '
         'xlblLevel
         '
         Me.xlblLevel.BackColor = System.Drawing.Color.Transparent
-        Me.xlblLevel.Location = New System.Drawing.Point(10, 423)
+        Me.xlblLevel.Location = New System.Drawing.Point(10, 481)
         Me.xlblLevel.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.xlblLevel.Name = "xlblLevel"
-        Me.xlblLevel.Size = New System.Drawing.Size(225, 16)
+        Me.xlblLevel.Size = New System.Drawing.Size(165, 16)
         Me.xlblLevel.TabIndex = 0
         Me.xlblLevel.Text = "Level"
-        Me.xlblLevel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.xlblLevel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStrip1
         '
@@ -748,6 +740,7 @@ Partial Class FrmContactDetails
         Me.ToolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsSaveNew, Me.ToolStripLabel2, Me.tsDiscard, Me.tsClose})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 66)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -759,17 +752,17 @@ Partial Class FrmContactDetails
         'txtPOSTAL_ADDRESS
         '
         Me.txtPOSTAL_ADDRESS.AccessibleDescription = "null"
-        Me.txtPOSTAL_ADDRESS.Location = New System.Drawing.Point(239, 124)
+        Me.txtPOSTAL_ADDRESS.Location = New System.Drawing.Point(381, 166)
         Me.txtPOSTAL_ADDRESS.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtPOSTAL_ADDRESS.Multiline = True
         Me.txtPOSTAL_ADDRESS.Name = "txtPOSTAL_ADDRESS"
         Me.txtPOSTAL_ADDRESS.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtPOSTAL_ADDRESS.Size = New System.Drawing.Size(644, 38)
+        Me.txtPOSTAL_ADDRESS.Size = New System.Drawing.Size(249, 70)
         Me.txtPOSTAL_ADDRESS.TabIndex = 24
         '
         'btnSAVE
         '
-        Me.btnSAVE.Location = New System.Drawing.Point(704, 520)
+        Me.btnSAVE.Location = New System.Drawing.Point(442, 588)
         Me.btnSAVE.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnSAVE.Name = "btnSAVE"
         Me.btnSAVE.Size = New System.Drawing.Size(86, 28)
@@ -779,7 +772,7 @@ Partial Class FrmContactDetails
         '
         'btnCANCEL
         '
-        Me.btnCANCEL.Location = New System.Drawing.Point(797, 520)
+        Me.btnCANCEL.Location = New System.Drawing.Point(544, 588)
         Me.btnCANCEL.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnCANCEL.Name = "btnCANCEL"
         Me.btnCANCEL.Size = New System.Drawing.Size(86, 28)
@@ -789,7 +782,7 @@ Partial Class FrmContactDetails
         '
         'btnReset
         '
-        Me.btnReset.Location = New System.Drawing.Point(14, 520)
+        Me.btnReset.Location = New System.Drawing.Point(13, 588)
         Me.btnReset.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(86, 28)
@@ -797,11 +790,51 @@ Partial Class FrmContactDetails
         Me.btnReset.Text = "Reset"
         Me.btnReset.UseVisualStyleBackColor = True
         '
-        'frmContactDetails
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(14, 99)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(76, 16)
+        Me.Label2.TabIndex = 35
+        Me.Label2.Text = "Last Name"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(194, 99)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(77, 16)
+        Me.Label4.TabIndex = 36
+        Me.Label4.Text = "First Name"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(378, 99)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(89, 16)
+        Me.Label5.TabIndex = 37
+        Me.Label5.Text = "Middle Name"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(547, 99)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(74, 16)
+        Me.Label6.TabIndex = 38
+        Me.Label6.Text = "Salutation"
+        '
+        'FrmContactDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(902, 559)
+        Me.ClientSize = New System.Drawing.Size(641, 623)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.cboSALUTATION)
         Me.Controls.Add(Me.btnReset)
         Me.Controls.Add(Me.btnCANCEL)
@@ -855,7 +888,6 @@ Partial Class FrmContactDetails
         Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.txtCOMPANY_NAME)
         Me.Controls.Add(Me.cmbPAYMENT_TERMS_ID)
-        Me.Controls.Add(Me.xlblTitle)
         Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.xlblPostalAddress)
         Me.Controls.Add(Me.cmbSALES_REP_ID)
@@ -868,10 +900,11 @@ Partial Class FrmContactDetails
         Me.Controls.Add(Me.txtLAST_NAME)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmContactDetails"
+        Me.Name = "FrmContactDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -921,7 +954,6 @@ Partial Class FrmContactDetails
     Friend WithEvents dtpCREDIT_CARD_EXPIRY_DATE As DateTimePicker
     Friend WithEvents xlblCardNUmber As Label
     Friend WithEvents Label24 As Label
-    Friend WithEvents xlblTitle As Label
     Friend WithEvents txtACCOUNT_NO As TextBox
     Friend WithEvents tsSaveNew As ToolStripButton
     Friend WithEvents ToolStripLabel2 As ToolStripLabel
@@ -954,4 +986,8 @@ Partial Class FrmContactDetails
     Friend WithEvents btnSAVE As Button
     Friend WithEvents btnCANCEL As Button
     Friend WithEvents btnReset As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label6 As Label
 End Class

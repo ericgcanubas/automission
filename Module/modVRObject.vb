@@ -2,12 +2,12 @@
     Public gsUSE_SCREEN_BUTTON As Boolean
 
     Public gsKEY_PASS As Boolean
-    Public Sub fnumPadKeyToTouch(ByVal num As NumericUpDown, ByVal Title As String)
+    Public Sub NumberPadKeyToTouch(ByVal num As NumericUpDown, ByVal Title As String)
         If gsUSE_SCREEN_BUTTON = False Then
 
             Exit Sub
         End If
-        With frmPOSNumpad
+        With FrmPOSNumpad
             .lblTITLE.Text = Title
             .ShowDialog()
             If .gsEnter = True Then
@@ -15,15 +15,15 @@
             End If
             .Dispose()
         End With
-        frmPOSNumpad = Nothing
+        FrmPOSNumpad = Nothing
     End Sub
-    Public Sub fKeyBoardToTouch(ByVal txt As TextBox, ByVal Title As String)
+    Public Sub KeyBoardToTouch(ByVal txt As TextBox, ByVal Title As String)
         If gsUSE_SCREEN_BUTTON = False Then
 
             Exit Sub
         End If
 
-        With frmPOSKeyboard
+        With FrmPOSKeyboard
             .gsIsPassword = gsKEY_PASS
             .lblTITLE.Text = Title
             .ShowDialog()
@@ -32,7 +32,7 @@
             End If
             .Dispose()
         End With
-        frmPOSKeyboard = Nothing
+        FrmPOSKeyboard = Nothing
         gsKEY_PASS = False
     End Sub
 End Module

@@ -76,7 +76,7 @@
             MessageBoxInfo("data not found.")
             Exit Sub
         End If
-        If fACCESS_DELETE(Me) = False Then
+        If SecurityAccessDelete(Me) = False Then
             Exit Sub
         End If
 

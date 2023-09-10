@@ -25,7 +25,7 @@
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
@@ -44,7 +44,7 @@
                 MessageBoxInfo("Data not found")
                 Exit Sub
             End If
-            If fACCESS_NEW_EDIT(Me, False) = False Then
+            If SecurityAccessMode(Me, False) = False Then
                 Exit Sub
             End If
 
@@ -67,7 +67,7 @@
                 Exit Sub
             End If
 
-            If fACCESS_DELETE(Me) = False Then
+            If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
 

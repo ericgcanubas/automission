@@ -19,7 +19,7 @@
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
-        If fACCESS_NEW_EDIT(Me, True) = False Then
+        If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
@@ -35,7 +35,7 @@
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
         If dgvTax.Rows.Count = 0 Then Exit Sub
 
-        If fACCESS_NEW_EDIT(Me, False) = False Then
+        If SecurityAccessMode(Me, False) = False Then
             Exit Sub
         End If
 
@@ -63,7 +63,7 @@
         If dgvTax.Rows.Count = 0 Then Exit Sub
         Dim i As Integer = dgvTax.CurrentRow.Index
 
-        If fACCESS_DELETE(Me) = False Then
+        If SecurityAccessDelete(Me) = False Then
             Exit Sub
         End If
 

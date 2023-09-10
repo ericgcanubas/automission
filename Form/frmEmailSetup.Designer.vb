@@ -36,84 +36,88 @@ Partial Class FrmEmailSetup
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(8, 23)
+        Me.Label1.Location = New System.Drawing.Point(9, 28)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 13)
+        Me.Label1.Size = New System.Drawing.Size(71, 16)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Username"
         '
         'txtGmailUsername
         '
-        Me.txtGmailUsername.Location = New System.Drawing.Point(111, 23)
+        Me.txtGmailUsername.Location = New System.Drawing.Point(99, 28)
+        Me.txtGmailUsername.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtGmailUsername.Name = "txtGmailUsername"
-        Me.txtGmailUsername.Size = New System.Drawing.Size(158, 21)
+        Me.txtGmailUsername.Size = New System.Drawing.Size(180, 23)
         Me.txtGmailUsername.TabIndex = 1
         '
         'txtGmailPassword
         '
-        Me.txtGmailPassword.Location = New System.Drawing.Point(111, 49)
+        Me.txtGmailPassword.Location = New System.Drawing.Point(99, 56)
+        Me.txtGmailPassword.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtGmailPassword.Name = "txtGmailPassword"
         Me.txtGmailPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtGmailPassword.Size = New System.Drawing.Size(158, 21)
+        Me.txtGmailPassword.Size = New System.Drawing.Size(180, 23)
         Me.txtGmailPassword.TabIndex = 2
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(8, 52)
+        Me.Label2.Location = New System.Drawing.Point(9, 60)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(61, 13)
+        Me.Label2.Size = New System.Drawing.Size(69, 16)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Password"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(8, 87)
+        Me.Label3.Location = New System.Drawing.Point(10, 89)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(70, 13)
+        Me.Label3.Size = New System.Drawing.Size(80, 16)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "Address To"
         '
         'txtGmailAddressTo
         '
-        Me.txtGmailAddressTo.Location = New System.Drawing.Point(111, 84)
+        Me.txtGmailAddressTo.Location = New System.Drawing.Point(99, 85)
+        Me.txtGmailAddressTo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtGmailAddressTo.Name = "txtGmailAddressTo"
-        Me.txtGmailAddressTo.Size = New System.Drawing.Size(158, 21)
+        Me.txtGmailAddressTo.Size = New System.Drawing.Size(180, 23)
         Me.txtGmailAddressTo.TabIndex = 4
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(276, 26)
+        Me.Label4.Location = New System.Drawing.Point(287, 32)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(76, 13)
+        Me.Label4.Size = New System.Drawing.Size(85, 16)
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "@gmail.com"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(276, 87)
+        Me.Label5.Location = New System.Drawing.Point(287, 89)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(76, 13)
+        Me.Label5.Size = New System.Drawing.Size(85, 16)
         Me.Label5.TabIndex = 7
         Me.Label5.Text = "@gmail.com"
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(261, 135)
+        Me.btnOK.Location = New System.Drawing.Point(268, 128)
+        Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(91, 24)
+        Me.btnOK.Size = New System.Drawing.Size(104, 30)
         Me.btnOK.TabIndex = 8
         Me.btnOK.Text = "Save"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'frmEmailSetup
+        'FrmEmailSetup
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(367, 171)
+        Me.ClientSize = New System.Drawing.Size(390, 185)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
@@ -123,11 +127,12 @@ Partial Class FrmEmailSetup
         Me.Controls.Add(Me.txtGmailPassword)
         Me.Controls.Add(Me.txtGmailUsername)
         Me.Controls.Add(Me.Label1)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmEmailSetup"
+        Me.Name = "FrmEmailSetup"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

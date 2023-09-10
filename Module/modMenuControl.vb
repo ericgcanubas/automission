@@ -113,7 +113,7 @@ Module modMenuControl
 
             End If
             rd.Close()
-            If fSystem_Security(This_Sub_ID) = False Then
+            If SecuritySystemModule(This_Sub_ID) = False Then
                 Exit Sub
             End If
 

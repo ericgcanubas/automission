@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Public Class FrmDefaultValue
-    Private Sub fControlRotation(ByVal prName As String, ByVal prValue As String)
+    Private Sub ControlRotation(ByVal prName As String, ByVal prValue As String)
         Try
 
 
@@ -40,11 +40,11 @@ Public Class FrmDefaultValue
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
-    Private Sub frmDefaultAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmDefaultAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sQueryAccount As String = "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
 
 
-        Dim cmd As System.Data.Odbc.OdbcCommand = CommandObject(sQueryAccount)
+        Dim cmd As OdbcCommand = CommandObject(sQueryAccount)
 
         ' CommandObjectComboBoxLoad(cmd, cmbDefaultAccountReceivableId, "ID", "T")
         ComboBoxLoad(cmbPOSDefaultCustomerId, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
@@ -87,24 +87,24 @@ Public Class FrmDefaultValue
 
         Dim rd As OdbcDataReader = SqlReader("select `NAME`,`VALUE` from system_settings  ")
         While rd.Read
-            fControlRotation(rd("NAME"), rd("VALUE"))
+            ControlRotation(rd("NAME"), rd("VALUE"))
         End While
         rd.Close()
 
 
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         SaveSystemControl(tabMenu)
         Me.Close()
 
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub cmbDefaultItemClassId_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDefaultItemClassId.SelectedIndexChanged
+    Private Sub CmbDefaultItemClassId_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDefaultItemClassId.SelectedIndexChanged
         Dim CLASS_ID As Integer = 0
         Try
             CLASS_ID = cmbDefaultItemClassId.SelectedValue

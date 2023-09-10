@@ -83,13 +83,12 @@ Partial Class FrmContactGroup
         '
         Me.ToolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(86, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(107, 17)
         Me.ToolStripStatusLabel1.Text = "Record Count :"
         '
         'lblRow
         '
         Me.lblRow.BackColor = System.Drawing.Color.Transparent
-        Me.lblRow.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblRow.Name = "lblRow"
         Me.lblRow.Size = New System.Drawing.Size(15, 17)
         Me.lblRow.Text = "0"
@@ -209,7 +208,7 @@ Partial Class FrmContactGroup
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
         Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 55)
         '
-        'frmContactGroup
+        'FrmContactGroup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -219,7 +218,7 @@ Partial Class FrmContactGroup
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmContactGroup"
+        Me.Name = "FrmContactGroup"
         Me.Text = "frmContactGroup"
         CType(Me.dgvContactGroup, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)

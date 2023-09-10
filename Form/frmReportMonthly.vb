@@ -46,42 +46,42 @@ Public Class FrmReportMonthly
             Dim d As Date = New Date(Val(cmbYear.SelectedValue), cmbMonth.SelectedValue, 1)
             f = FirstDayOfMonth(d)
             t = (f.Month) & "/" & DaysInMonth(f.Year, f.Month) & "/" & (f.Year)
-            gscryRpt = fViewReportOneParameterNumberOnly(Me.AccessibleName)
+            gscryRpt = PublicViewReportOneParameterNumberOnly(Me.AccessibleName)
             Dim r As Double = fgetRunningTotal(Format(f, "yyyy-MM-dd"), Format(t, "yyyy-MM-dd"))
             Dim n As Integer = fgetnumberreleaseRT(r)
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, cmbYear.Text & " of " & cmbMonth.Text, "myremark")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ServiceFee"), "fixed_sf")
-            fCryParameterInsertValue(gscryRpt, n, "mynum")
-            fCryParameterInsertValue(gscryRpt, cmbYear.SelectedValue, "myyear")
-            fCryParameterInsertValue(gscryRpt, cmbMonth.SelectedValue, "mymonth")
-            fCryParameterInsertValue(gscryRpt, r, "running_total")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, cmbYear.Text & " of " & cmbMonth.Text, "myremark")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ServiceFee"), "fixed_sf")
+            CryParameterInsertValue(gscryRpt, n, "mynum")
+            CryParameterInsertValue(gscryRpt, cmbYear.SelectedValue, "myyear")
+            CryParameterInsertValue(gscryRpt, cmbMonth.SelectedValue, "mymonth")
+            CryParameterInsertValue(gscryRpt, r, "running_total")
 
         Else
 
             Dim d As Date = New Date(Val(cmbYear.SelectedValue), cmbMonth.SelectedValue, 1)
             f = FirstDayOfMonth(d)
             t = (f.Month) & "/" & DaysInMonth(f.Year, f.Month) & "/" & (f.Year)
-            gscryRpt = fViewReportOneParameterNumberOnly(Me.AccessibleName)
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
-            fCryParameterInsertValue(gscryRpt, cmbYear.Text & " of " & cmbMonth.Text, "myremark")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ManagerRebites"), "rebates_percent")
-            fCryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ManagerGetDealerSalesTarget"), "dealer_must_get")
-            fCryParameterInsertValue(gscryRpt, Format(f, "yyyy-MM-dd"), "d1")
-            fCryParameterInsertValue(gscryRpt, Format(t, "yyyy-MM-dd"), "d2")
+            gscryRpt = PublicViewReportOneParameterNumberOnly(Me.AccessibleName)
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
+            CryParameterInsertValue(gscryRpt, cmbYear.Text & " of " & cmbMonth.Text, "myremark")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ManagerRebites"), "rebates_percent")
+            CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ManagerGetDealerSalesTarget"), "dealer_must_get")
+            CryParameterInsertValue(gscryRpt, Format(f, "yyyy-MM-dd"), "d1")
+            CryParameterInsertValue(gscryRpt, Format(t, "yyyy-MM-dd"), "d2")
 
 
         End If
-        fReportExporPDF(gscryRpt, Me.Text)
+        ReportExporPDF(gscryRpt, Me.Text)
     End Sub
     Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
 
 
         fReportProccess()
 
-        fPreviewReport(gsReportName)
+        GlobalPreviewReport(gsReportName)
         Me.Close()
 
     End Sub

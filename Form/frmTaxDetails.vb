@@ -215,7 +215,7 @@ Public Class FrmTaxDetails
         Me.Enabled = True
         numRATE.DecimalPlaces = 0
 
-        If fACCESS_NEW_EDIT(frmTax, IsNew) = False Then
+        If SecurityAccessMode(frmTax, IsNew) = False Then
             Me.Close()
         End If
     End Sub

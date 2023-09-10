@@ -49,7 +49,7 @@ Public Class FrmBinLocationDetails
         IsNew = True
         txtCODE.Enabled = True
         Me.Text = "Create Bin"
-        If fACCESS_NEW_EDIT(FrmBinLocation, IsNew) = False Then
+        If SecurityAccessMode(FrmBinLocation, IsNew) = False Then
             Me.Close()
         End If
     End Sub
