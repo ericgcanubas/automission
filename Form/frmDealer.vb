@@ -24,7 +24,7 @@ Public Class FrmDealer
         frmContactDetails.ShowDialog()
         frmContactDetails.Dispose()
         frmContactDetails = Nothing
-        'fRefreshData()
+        'RefreshData()
     End Sub
     Private Sub fRefreshData()
 
@@ -102,7 +102,7 @@ WHERE c.Type = '6' and IFNULL(c.Sales_REP_ID,'') like '" & m & "' and ( c.`NAME`
             frmContactDetails.ShowDialog()
             frmContactDetails.Dispose()
             frmContactDetails = Nothing
-            ' fRefreshData()
+            ' RefreshData()
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try

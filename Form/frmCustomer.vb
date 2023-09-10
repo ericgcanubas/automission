@@ -16,7 +16,7 @@
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
 
-        'fRefreshData()
+        'RefreshData()
     End Sub
     Private Sub fRefreshData()
 
@@ -234,7 +234,7 @@ WHERE c.Type = '1' ", contact_BS)
             frmContactDetails.ShowDialog()
             frmContactDetails.Dispose()
             frmContactDetails = Nothing
-            ' fRefreshData()
+            ' RefreshData()
         Catch ex As Exception
 
         End Try

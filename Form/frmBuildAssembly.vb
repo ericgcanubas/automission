@@ -8,7 +8,7 @@ Public Class FrmBuildAssembly
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -18,36 +18,33 @@ Public Class FrmBuildAssembly
         End If
         Return HasChange
     End Function
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-    Private Sub fSetNew()
-        fclear_info()
-        fComputed()
+    Private Sub SetNew()
+        ClearInfo()
+        Computed()
         ID = 0
         IsNew = True
     End Sub
 
-    Private Sub dgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvComponents.KeyDown
+    Private Sub DgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvComponents.KeyDown
         If (e.KeyCode = Keys.I AndAlso e.Modifiers = Keys.Control) Then
             If dgvComponents.Rows.Count <> 0 And IsNew = False Then
                 InventoryVDetailsQuickView(dgvComponents.CurrentRow.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, gsBusinessDateStart, txtCODE.Text)
             End If
         End If
     End Sub
-    Private Sub frmBuildAssembly_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmBuildAssembly_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         spJournal.Visible = gsShowAccounts
         tsJounral.Visible = gsShowAccounts
         tsTITLE.Text = gsSubMenuForm
-        fcolumngrid()
-        fclear_info()
+        ColumnGrid()
+        ClearInfo()
 
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
     End Sub
-    Private Sub fclear_info()
-        fRefreshCombo()
+    Private Sub ClearInfo()
+        RefreshCombo()
         ClearAndRefresh(Me)
 
         dgvComponents.Rows.Clear()
@@ -55,18 +52,14 @@ Public Class FrmBuildAssembly
         cmbLOCATION_ID.Enabled = IsLockLocation()
         dtpDATE.Value = TransactionDefaultDate()
     End Sub
-    Private Sub fRefreshInfo()
-
-
+    Private Sub RefreshInfo()
         Dim sQuery As String = "select * from `build_assembly` where id = '" & ID & "' limit 1"
         Try
-
             SqlExecutedUsingReading(Me, sQuery)
-
-            fComputed()
+            Computed()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshInfo()
+                RefreshInfo()
             Else
                 End
             End If
@@ -80,11 +73,11 @@ Public Class FrmBuildAssembly
         End Try
 
     End Sub
-    Private Sub fRefreshCombo()
+    Private Sub RefreshCombo()
         ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
         ComboBoxLoad(cmbASSEMBLY_ITEM_ID, "SELECT  ID,DESCRIPTION FROM ITEM WHERE INACTIVE='0' AND TYPE ='1'", "ID", "DESCRIPTION")
     End Sub
-    Private Sub fcolumngrid()
+    Private Sub ColumnGrid()
         With dgvComponents.Columns
             .Clear()
             .Add("ITEM_ID", "ITEM_ID")
@@ -109,15 +102,11 @@ Public Class FrmBuildAssembly
 
         End With
     End Sub
-    Private Sub fUnit_List()
+    Private Sub LoadUnitList()
         Try
             ComboBoxLoad(cmbUNIT_ID, "select ID,SYMBOL from unit_of_measure where  ID = '0' limit 1 ", "ID", "SYMBOL")
-
-
             Dim in_sql As String = ""
             Basic_Unit_ID = GetStringFieldValue("ITEM", "ID", cmbASSEMBLY_ITEM_ID.SelectedValue, "BASE_UNIT_ID") 'Gate Unit Base_ID
-
-
             If Basic_Unit_ID <> "" Then
 
                 in_sql = "In ('" & Basic_Unit_ID & "'"
@@ -128,33 +117,31 @@ Public Class FrmBuildAssembly
                 End While
                 rd.Close()
 
-                in_sql = in_sql & ")"
+                in_sql &= ")"
                 ComboBoxLoad(cmbUNIT_ID, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
                 cmbUNIT_ID.SelectedValue = Basic_Unit_ID
                 lblUNIT_BASE_QUANTITY.Text = "1"
             End If
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fUnit_List()
+                LoadUnitList()
             Else
                 End
             End If
         End Try
     End Sub
-    Private Sub cmbASSEMBLY_ITEM_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbASSEMBLY_ITEM_ID.SelectedIndexChanged
+    Private Sub CmbASSEMBLY_ITEM_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbASSEMBLY_ITEM_ID.SelectedIndexChanged
         Try
-            fLoadComponents(cmbASSEMBLY_ITEM_ID.SelectedValue)
-            fComputed()
+            LoadComponents(cmbASSEMBLY_ITEM_ID.SelectedValue)
+            Computed()
         Catch ex As Exception
         End Try
     End Sub
-    Private Sub fLoadComponents(ByVal pritem_ID As String)
+    Private Sub LoadComponents(ByVal pritem_ID As String)
 
         dtpDATE.Checked = True
         dgvComponents.Rows.Clear()
         Dim sQuery As String = "Select ic.component_id as `Item_ID`,i.code,i.description,i.cost,i.rate,i.ASSET_ACCOUNT_ID from item_components as ic inner join item as i on i.id = ic.component_id  where ic.Item_ID = '" & pritem_ID & "' order by ic.ID"
-
-
         Try
 
             Dim I_ON_HAND As Double = 0
@@ -165,7 +152,7 @@ Public Class FrmBuildAssembly
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 i_AMOUNT = rd("COST")
-                fGetItemApplied(rd("ITEM_ID"), i_NEEDED, i_AMOUNT, i_ASSET_ACCOUNT_ID, i_ID)
+                GetItemApplied(rd("ITEM_ID"), i_NEEDED, i_AMOUNT, i_ASSET_ACCOUNT_ID, i_ID)
 
                 I_ON_HAND = Val(fItemInventoryReturnValue(rd("ITEM_ID"), cmbLOCATION_ID.SelectedValue, 19, i_ID, dtpDATE.Value, "ENDING_QUANTITY"))
                 If i_ASSET_ACCOUNT_ID = "" Then
@@ -183,7 +170,7 @@ Public Class FrmBuildAssembly
             End While
             rd.Close()
 
-            fUnit_List()
+            LoadUnitList()
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
@@ -193,9 +180,9 @@ Public Class FrmBuildAssembly
             End If
 
         End Try
-        fComputed()
+        Computed()
     End Sub
-    Private Sub fGetItemApplied(ByVal prItem_ID As String, ByRef prQty As Double, ByRef prAmount As Double, ByVal prASSET_ACCOUNT_ID As String, ByRef prID As Double)
+    Private Sub GetItemApplied(ByVal prItem_ID As String, ByRef prQty As Double, ByRef prAmount As Double, ByRef prASSET_ACCOUNT_ID As String, ByRef prID As Double)
 
         Try
 
@@ -224,12 +211,12 @@ Public Class FrmBuildAssembly
         End If
 
         Dim i As Integer = dgvComponents.CurrentRow.Index
-        frmInsertValue.gsValue = dgvComponents.Rows(i).Cells("QTY_NEEDED").Value
-        frmInsertValue.gsDescription = "Quantity Needed"
-        frmInsertValue.gsFORM_NAME = "Build Assembly"
-        frmInsertValue.ShowDialog()
+        FrmInsertValue.gsValue = dgvComponents.Rows(i).Cells("QTY_NEEDED").Value
+        FrmInsertValue.gsDescription = "Quantity Needed"
+        FrmInsertValue.gsFORM_NAME = "Build Assembly"
+        FrmInsertValue.ShowDialog()
 
-        If frmInsertValue.bSave = True Then
+        If FrmInsertValue.bSave = True Then
 
             Dim i_NEEDED As Double = 0
             Dim i_AMOUNT As Double = 0
@@ -237,28 +224,23 @@ Public Class FrmBuildAssembly
             Dim i_ID As Double = 0
 
 
-            Dim Qty As Double = frmInsertValue.gsValue
-            fGetItemApplied(dgvComponents.Rows(i).Cells("ITEM_ID").Value, i_NEEDED, i_AMOUNT, i_ASSET_ACCOUNT_ID, i_ID)
+            Dim Qty As Double = FrmInsertValue.gsValue
+            GetItemApplied(dgvComponents.Rows(i).Cells("ITEM_ID").Value, i_NEEDED, i_AMOUNT, i_ASSET_ACCOUNT_ID, i_ID)
             Dim END_UNIT_COST As Double = GetNumberFieldValue("item", "id", dgvComponents.Rows(i).Cells("ITEM_ID").Value, "cost")
             dgvComponents.Rows(i).Cells("QTY_NEEDED").Value = Qty
             dgvComponents.Rows(i).Cells("AMOUNT").Value = NumberFormatFixed(Qty * END_UNIT_COST)
         End If
-        frmInsertValue.Dispose()
-        frmInsertValue = Nothing
+        FrmInsertValue.Dispose()
+        FrmInsertValue = Nothing
 
-        fComputed()
-
-    End Sub
-
-    Private Sub dgvComponents_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvComponents.CellContentClick
+        Computed()
 
     End Sub
-
-    Private Sub dgvComponents_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvComponents.CellDoubleClick
+    Private Sub DgvComponents_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvComponents.CellDoubleClick
         FcHANGE_vALUE_nEEDED()
     End Sub
 
-    Private Sub cmbUNIT_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUNIT_ID.SelectedIndexChanged
+    Private Sub CmbUNIT_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUNIT_ID.SelectedIndexChanged
 
         If Basic_Unit_ID = NumIsNull(cmbUNIT_ID.SelectedValue) Then
             lblUNIT_BASE_QUANTITY.Text = "1"
@@ -277,7 +259,7 @@ Public Class FrmBuildAssembly
                 rd.Close()
             Catch ex As Exception
                 If MessageBoxErrorYesNo(ex.Message) = True Then
-                    cmbUNIT_ID_SelectedIndexChanged(sender, e)
+                    CmbUNIT_ID_SelectedIndexChanged(sender, e)
                 Else
                     End
                 End If
@@ -288,7 +270,7 @@ Public Class FrmBuildAssembly
 
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
 
         If Val(cmbASSEMBLY_ITEM_ID.SelectedValue) = 0 Then
             MessageBoxInfo("Please Select Item")
@@ -362,7 +344,7 @@ Public Class FrmBuildAssembly
             fAccount_Journal_SQL(lblASSET_ACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbASSEMBLY_ITEM_ID.SelectedValue, 70, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
         End If
         '================================
-        fSaveAppliedItem()
+        SaveAppliedItem()
         gsGotChangeDate = False
         gsGotChangeLocation1 = False
 
@@ -382,27 +364,25 @@ Public Class FrmBuildAssembly
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = "tsSaveNew" Then
-                fSetNew()
+                SetNew()
             End If
         Catch ex As Exception
 
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefreshInfo()
+                RefreshInfo()
             End If
 
 
         End Try
 
     End Sub
-    Private Sub fSaveAppliedItem()
-
-
+    Private Sub SaveAppliedItem()
         For i As Integer = 0 To dgvComponents.Rows.Count - 1
             With dgvComponents.Rows(i)
                 Dim qty As Double = .Cells("QTY_NEEDED").Value
-                If fCheck_QTY_NEED(.Cells("item_ID").Value) = True Then
+                If IsCheckQtyNeed(.Cells("item_ID").Value) = True Then
 
                     If qty = 0 Then
                         'DELETE
@@ -471,7 +451,7 @@ Public Class FrmBuildAssembly
         Next
 
     End Sub
-    Private Function fCheck_QTY_NEED(ByVal prItem_ID As String) As Boolean
+    Private Function IsCheckQtyNeed(ByVal prItem_ID As String) As Boolean
         Dim v As Boolean = False
         Try
 
@@ -486,27 +466,23 @@ Public Class FrmBuildAssembly
 
         Return v
     End Function
-    Private Sub fComputed()
+    Private Sub Computed()
         Dim dTotal As Double = 0
         For i As Integer = 0 To dgvComponents.Rows.Count - 1
-
-            dTotal = dTotal + NumIsNull(dgvComponents.Rows(i).Cells("AMOUNT").Value)
-
+            dTotal += NumIsNull(dgvComponents.Rows(i).Cells("AMOUNT").Value)
         Next
-
-
         lblAMOUNT.Text = NumberFormatFixed(dTotal)
     End Sub
 
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If fACCESS_FIND(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -528,10 +504,10 @@ Public Class FrmBuildAssembly
                 ID = f.AccessibleDescription
                 IsNew = False
                 ''
-                fclear_info()
+                ClearInfo()
                 If IsNew = False Then
 
-                    fRefreshInfo()
+                    RefreshInfo()
 
                 End If
             End If
@@ -541,7 +517,7 @@ Public Class FrmBuildAssembly
 
     End Sub
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False Then
             If fACCESS_DELETE(Me) = False Then
                 Exit Sub
@@ -553,12 +529,6 @@ Public Class FrmBuildAssembly
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
                 CursorLoadingOn(True)
-                ' fJournalTransaction_Build_Assembly_Delete(ID)
-
-                'Inventory re-Compute
-                ' fDeleteItem_INVENTORY_ITEM_RECALCULATE(dgvComponents, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                'End re-compute
-
                 For N As Integer = 0 To dgvComponents.Rows.Count - 1
                     With dgvComponents.Rows(N)
                         Dim xID As String = GetStringFieldValueByTwoCondtion("build_assembly_items", "build_assembly_id", ID, "item_Id", .Cells("item_ID").Value, "ID")
@@ -587,7 +557,7 @@ Public Class FrmBuildAssembly
                 PrompNotify(Me.Text, DeleteMsg, True)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ID = 0
-                fclear_info()
+                ClearInfo()
                 IsNew = True
                 CursorLoadingOn(False)
             End If
@@ -595,7 +565,7 @@ Public Class FrmBuildAssembly
 
         End If
     End Sub
-    Private Sub frmBuildAssembly_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmBuildAssembly_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         With dgvComponents.Columns
             .Item("CODE").Width = 150
             .Item("DESCRIPTION").Width = 400
@@ -606,12 +576,12 @@ Public Class FrmBuildAssembly
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         'PREVIEW =====================================================================
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -657,21 +627,16 @@ Public Class FrmBuildAssembly
 
 
     End Sub
-
-    Private Sub dtpDATE_ValueChanged(sender As Object, e As EventArgs) Handles dtpDATE.ValueChanged
-
-    End Sub
-
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         'PRINT ========================================================================
 
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -719,15 +684,15 @@ Public Class FrmBuildAssembly
 
 
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
-                fRefreshInfo()
+                RefreshInfo()
 
             End If
         End If
@@ -735,12 +700,12 @@ Public Class FrmBuildAssembly
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJounral.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -758,24 +723,24 @@ Public Class FrmBuildAssembly
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
         ShowTransactionLog(Me, ID)
     End Sub
-    Private Sub frmBuildAssembly_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmBuildAssembly_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
         IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
     End Sub
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
         'Select Print Page ============================================================
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub

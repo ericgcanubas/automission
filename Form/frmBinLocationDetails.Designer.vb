@@ -33,7 +33,7 @@ Partial Class FrmBinLocationDetails
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(18, 59)
+        Me.Label3.Location = New System.Drawing.Point(18, 45)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(80, 16)
         Me.Label3.TabIndex = 66
@@ -42,7 +42,7 @@ Partial Class FrmBinLocationDetails
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(18, 31)
+        Me.Label2.Location = New System.Drawing.Point(18, 17)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(40, 16)
         Me.Label2.TabIndex = 65
@@ -50,7 +50,7 @@ Partial Class FrmBinLocationDetails
         '
         'txtDESCRIPTION
         '
-        Me.txtDESCRIPTION.Location = New System.Drawing.Point(114, 55)
+        Me.txtDESCRIPTION.Location = New System.Drawing.Point(114, 41)
         Me.txtDESCRIPTION.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtDESCRIPTION.Name = "txtDESCRIPTION"
         Me.txtDESCRIPTION.Size = New System.Drawing.Size(372, 23)
@@ -58,7 +58,7 @@ Partial Class FrmBinLocationDetails
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(114, 27)
+        Me.txtCODE.Location = New System.Drawing.Point(114, 13)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(143, 23)
@@ -66,7 +66,7 @@ Partial Class FrmBinLocationDetails
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(307, 95)
+        Me.btnSave.Location = New System.Drawing.Point(307, 81)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(86, 28)
@@ -76,7 +76,7 @@ Partial Class FrmBinLocationDetails
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(400, 95)
+        Me.btnCancel.Location = New System.Drawing.Point(400, 81)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 28)
@@ -84,11 +84,11 @@ Partial Class FrmBinLocationDetails
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmBinLocationDetails
+        'FrmBinLocationDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(499, 138)
+        Me.ClientSize = New System.Drawing.Size(499, 120)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.Label3)
@@ -99,7 +99,7 @@ Partial Class FrmBinLocationDetails
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmBinLocationDetails"
+        Me.Name = "FrmBinLocationDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

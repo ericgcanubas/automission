@@ -43,7 +43,7 @@ WHERE c.Type = '0' ", contact_BS)
         frmContactDetails.ShowDialog()
         frmContactDetails.Dispose()
         frmContactDetails = Nothing
-        'fRefreshData()
+        'RefreshData()
     End Sub
 
     Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs)
@@ -83,7 +83,7 @@ WHERE c.Type = '0' ", contact_BS)
             frmContactDetails.ShowDialog()
             frmContactDetails.Dispose()
             frmContactDetails = Nothing
-            'fRefreshData()
+            'RefreshData()
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try

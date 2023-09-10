@@ -220,30 +220,30 @@ Partial Class FrmBuildAssembly
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(431, 105)
+        Me.Label9.Location = New System.Drawing.Point(422, 107)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(52, 16)
+        Me.Label9.Size = New System.Drawing.Size(63, 16)
         Me.Label9.TabIndex = 8
-        Me.Label9.Text = "Branch"
+        Me.Label9.Text = "Location"
         '
         'txtCODE
         '
         Me.txtCODE.Location = New System.Drawing.Point(718, 76)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(147, 23)
+        Me.txtCODE.Size = New System.Drawing.Size(146, 23)
         Me.txtCODE.TabIndex = 7
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(658, 80)
+        Me.Label8.Location = New System.Drawing.Point(641, 80)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(60, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Barcode"
+        Me.Label8.Text = "Reference"
         '
         'lblASSET_ACCOUNT_ID
         '
@@ -279,7 +279,7 @@ Partial Class FrmBuildAssembly
         Me.dgvComponents.MultiSelect = False
         Me.dgvComponents.Name = "dgvComponents"
         Me.dgvComponents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvComponents.Size = New System.Drawing.Size(1027, 150)
+        Me.dgvComponents.Size = New System.Drawing.Size(1027, 184)
         Me.dgvComponents.TabIndex = 0
         '
         'Label7
@@ -294,7 +294,7 @@ Partial Class FrmBuildAssembly
         '
         'numQUANTITY
         '
-        Me.numQUANTITY.Location = New System.Drawing.Point(107, 103)
+        Me.numQUANTITY.Location = New System.Drawing.Point(117, 103)
         Me.numQUANTITY.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.numQUANTITY.Maximum = New Decimal(New Integer() {9999999, 0, 0, 0})
         Me.numQUANTITY.Name = "numQUANTITY"
@@ -321,7 +321,7 @@ Partial Class FrmBuildAssembly
         Me.cmbUNIT_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbUNIT_ID.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cmbUNIT_ID.FormattingEnabled = True
-        Me.cmbUNIT_ID.Location = New System.Drawing.Point(289, 103)
+        Me.cmbUNIT_ID.Location = New System.Drawing.Point(299, 103)
         Me.cmbUNIT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbUNIT_ID.Name = "cmbUNIT_ID"
         Me.cmbUNIT_ID.Size = New System.Drawing.Size(107, 24)
@@ -330,17 +330,17 @@ Partial Class FrmBuildAssembly
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(245, 107)
+        Me.Label4.Location = New System.Drawing.Point(262, 106)
         Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(34, 16)
+        Me.Label4.Size = New System.Drawing.Size(33, 16)
         Me.Label4.TabIndex = 12
-        Me.Label4.Text = "Size"
+        Me.Label4.Text = "Unit"
         '
         'cmbASSEMBLY_ITEM_ID
         '
         Me.cmbASSEMBLY_ITEM_ID.FormattingEnabled = True
-        Me.cmbASSEMBLY_ITEM_ID.Location = New System.Drawing.Point(107, 76)
+        Me.cmbASSEMBLY_ITEM_ID.Location = New System.Drawing.Point(117, 76)
         Me.cmbASSEMBLY_ITEM_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbASSEMBLY_ITEM_ID.Name = "cmbASSEMBLY_ITEM_ID"
         Me.cmbASSEMBLY_ITEM_ID.Size = New System.Drawing.Size(289, 24)
@@ -349,17 +349,17 @@ Partial Class FrmBuildAssembly
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(33, 80)
+        Me.Label3.Location = New System.Drawing.Point(11, 79)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(68, 16)
+        Me.Label3.Size = New System.Drawing.Size(103, 16)
         Me.Label3.TabIndex = 10
-        Me.Label3.Text = "Assembly"
+        Me.Label3.Text = "Assembly Item"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(21, 107)
+        Me.Label2.Location = New System.Drawing.Point(28, 106)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(85, 16)
@@ -370,10 +370,10 @@ Partial Class FrmBuildAssembly
         '
         Me.txtNOTES.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNOTES.Location = New System.Drawing.Point(107, 361)
+        Me.txtNOTES.Location = New System.Drawing.Point(96, 391)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtNOTES.Name = "txtNOTES"
-        Me.txtNOTES.Size = New System.Drawing.Size(942, 23)
+        Me.txtNOTES.Size = New System.Drawing.Size(515, 23)
         Me.txtNOTES.TabIndex = 106
         '
         'Label14
@@ -381,12 +381,12 @@ Partial Class FrmBuildAssembly
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(32, 364)
+        Me.Label14.Location = New System.Drawing.Point(41, 394)
         Me.Label14.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 105
-        Me.Label14.Text = "Remarks"
+        Me.Label14.Text = "Notes"
         '
         'lblAMOUNT
         '
@@ -406,11 +406,11 @@ Partial Class FrmBuildAssembly
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Location = New System.Drawing.Point(14, 166)
+        Me.TabControl1.Location = New System.Drawing.Point(14, 162)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1041, 187)
+        Me.TabControl1.Size = New System.Drawing.Size(1041, 221)
         Me.TabControl1.TabIndex = 114
         '
         'TabPage1
@@ -420,7 +420,7 @@ Partial Class FrmBuildAssembly
         Me.TabPage1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TabPage1.Size = New System.Drawing.Size(1033, 158)
+        Me.TabPage1.Size = New System.Drawing.Size(1033, 192)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Components"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -428,23 +428,23 @@ Partial Class FrmBuildAssembly
         'cmbBATCH_ID
         '
         Me.cmbBATCH_ID.FormattingEnabled = True
-        Me.cmbBATCH_ID.Location = New System.Drawing.Point(489, 130)
+        Me.cmbBATCH_ID.Location = New System.Drawing.Point(117, 130)
         Me.cmbBATCH_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbBATCH_ID.Name = "cmbBATCH_ID"
-        Me.cmbBATCH_ID.Size = New System.Drawing.Size(230, 24)
+        Me.cmbBATCH_ID.Size = New System.Drawing.Size(289, 24)
         Me.cmbBATCH_ID.TabIndex = 115
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(415, 134)
+        Me.Label1.Location = New System.Drawing.Point(40, 134)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(72, 16)
         Me.Label1.TabIndex = 116
         Me.Label1.Text = "Batch No."
         '
-        'frmBuildAssembly
+        'FrmBuildAssembly
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -472,7 +472,7 @@ Partial Class FrmBuildAssembly
         Me.Controls.Add(Me.Label2)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.Name = "frmBuildAssembly"
+        Me.Name = "FrmBuildAssembly"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmBuildAssembly"
         Me.ToolStrip1.ResumeLayout(False)
