@@ -78,7 +78,7 @@
         ClosedForm(Me)
     End Sub
     Private Sub fReport()
-        gscryRpt = PublicViewReportOneParameterNumberOnly("cryStandardStatement.rpt")
+        gscryRpt = ReportDocumentOneParameterNumberOnly("cryStandardStatement.rpt")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
         CryParameterInsertValue(gscryRpt, cmbCUSTOMER_ID.SelectedValue, "customerid")

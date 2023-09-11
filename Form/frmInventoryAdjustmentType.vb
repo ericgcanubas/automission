@@ -6,29 +6,24 @@ Public Class FrmInventoryAdjustmentType
         ViewColumn(dgvInventoryAdjustmentType, 43)
 
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         LoadDataGridViewBinding(dgvInventoryAdjustmentType, "select i.ID,i.Code,i.Description, a.`Name`  as `Account` from Inventory_Adjustment_Type as i left outer join account as a on a.ID = i.account_id", item_BS)
         ViewColumn(dgvInventoryAdjustmentType, 43)
     End Sub
-    Private Sub frmInventoryAdjustmentType_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmInventoryAdjustmentType_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefresh()
-    End Sub
-
-    Private Sub frmInventoryAdjustmentType_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-
+        Refresh()
     End Sub
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
         If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
-        frmInventoryAdjustmentTypeDetails.This_BS = item_BS
-        frmInventoryAdjustmentTypeDetails.Dgv = dgvInventoryAdjustmentType
-        frmInventoryAdjustmentTypeDetails.ShowDialog()
-        frmInventoryAdjustmentTypeDetails.Dispose()
-        frmInventoryAdjustmentTypeDetails = Nothing
+        FrmInventoryAdjustmentTypeDetails.This_BS = item_BS
+        FrmInventoryAdjustmentTypeDetails.Dgv = dgvInventoryAdjustmentType
+        FrmInventoryAdjustmentTypeDetails.ShowDialog()
+        FrmInventoryAdjustmentTypeDetails.Dispose()
+        FrmInventoryAdjustmentTypeDetails = Nothing
 
     End Sub
 
@@ -38,17 +33,18 @@ Public Class FrmInventoryAdjustmentType
                 MessageBoxInfo("Data not found!")
                 Exit Sub
             End If
+
             If SecurityAccessMode(Me, False) = False Then
                 Exit Sub
             End If
 
 
-            frmInventoryAdjustmentTypeDetails.This_BS = item_BS
-            frmInventoryAdjustmentTypeDetails.Dgv = dgvInventoryAdjustmentType
-            frmInventoryAdjustmentTypeDetails.ID = dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("ID").Value
-            frmInventoryAdjustmentTypeDetails.ShowDialog()
-            frmInventoryAdjustmentTypeDetails.Dispose()
-            frmInventoryAdjustmentTypeDetails = Nothing
+            FrmInventoryAdjustmentTypeDetails.This_BS = item_BS
+            FrmInventoryAdjustmentTypeDetails.Dgv = dgvInventoryAdjustmentType
+            FrmInventoryAdjustmentTypeDetails.ID = dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("ID").Value
+            FrmInventoryAdjustmentTypeDetails.ShowDialog()
+            FrmInventoryAdjustmentTypeDetails.Dispose()
+            FrmInventoryAdjustmentTypeDetails = Nothing
 
         Catch ex As Exception
 
@@ -71,7 +67,7 @@ Public Class FrmInventoryAdjustmentType
             If MessageBoxQuestion("Do you really want to delete " & dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("Description").Value & "?") = True Then
                 SqlExecuted("Delete FROM inventory_adjustment_type where id = '" & dgvInventoryAdjustmentType.Rows(dgvInventoryAdjustmentType.CurrentRow.Index).Cells("ID").Value & "'")
                 DeleteNotify(Me)
-                fRefresh()
+                Refresh()
             End If
 
 
@@ -79,19 +75,14 @@ Public Class FrmInventoryAdjustmentType
 
         End Try
     End Sub
-
-    Private Sub dgvInventoryAdjustmentType_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventoryAdjustmentType.CellContentClick
-
-    End Sub
-
-    Private Sub dgvInventoryAdjustmentType_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventoryAdjustmentType.CellDoubleClick
+    Private Sub DgvInventoryAdjustmentType_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventoryAdjustmentType.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefresh()
+        Refresh()
     End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
             Dim strFInd As String = ""
 
@@ -127,15 +118,15 @@ Public Class FrmInventoryAdjustmentType
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
-    Private Sub dgvInventoryAdjustmentType_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvInventoryAdjustmentType.RowStateChanged
+    Private Sub DgvInventoryAdjustmentType_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvInventoryAdjustmentType.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

@@ -52,7 +52,7 @@
             Dim prFile_name As String = gsPayment_File_Name
             Dim prPrint_Title As String = gsPayment_Print_Title
             gscryRpt = New CrystalDecisions.CrystalReports.Engine.ReportDocument
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ThisID), "id")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
@@ -105,7 +105,7 @@
             fSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
             Dim prFile_name As String = gsInvoice_File_Name
             Dim prPrint_Title As String = gsInvoice_Print_Title
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ThisID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")

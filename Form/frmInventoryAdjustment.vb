@@ -16,7 +16,7 @@ Public Class FrmInventoryAdjustment
     Dim IsBackDate As Boolean = False
     Dim gsImportActive As Boolean = False
 
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -26,10 +26,7 @@ Public Class FrmInventoryAdjustment
         End If
         Return HasChange
     End Function
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-    Private Sub fColumnGrid()
+    Private Sub ColumnGrid()
         With dgvItem.Columns
             .Clear()
             .Add("ID", "ID")
@@ -77,27 +74,27 @@ Public Class FrmInventoryAdjustment
 
         End With
     End Sub
-    Private Sub dgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvItem.KeyDown
+    Private Sub DgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvItem.KeyDown
         If (e.KeyCode = Keys.I AndAlso e.Modifiers = Keys.Control) Then
             If dgvItem.Rows.Count <> 0 And IsNew = False Then
                 InventoryVDetailsQuickView(dgvItem.CurrentRow.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, gsBusinessDateStart, txtCODE.Text)
             End If
         End If
     End Sub
-    Private Sub frmInventoryAdjustment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmInventoryAdjustment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         spJournal.Visible = gsShowAccounts
         tsJournal.Visible = gsShowAccounts
 
         tsTITLE.Text = gsSubMenuForm
 
-        fColumnGrid()
-        fClear_Info()
+        ColumnGrid()
+        ClearInfo()
         If IsNew = False Then
-            fRefresh_Info()
+            RefreshInfo()
         End If
-        fcolumn_adjustment()
+        ColumnAdjustment()
     End Sub
-    Private Sub fRefresh_Info()
+    Private Sub RefreshInfo()
         Try
             dgvItem.Rows.Clear()
             Dim sQuery As String = "select * from inventory_adjustment where ID = '" & ID & "' Limit 1"
@@ -106,7 +103,7 @@ Public Class FrmInventoryAdjustment
             dtpDATE.Enabled = False
 
 
-            fcolumn_adjustment()
+            ColumnAdjustment()
             Dim rd As OdbcDataReader = SqlReader("SELECT a.id,
 a.item_ID,
 i.CODE,
@@ -140,8 +137,8 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             MessageBoxWarning(ex.Message)
 
         End Try
-        fcolumn_adjustment()
-        fItemCount()
+        ColumnAdjustment()
+        ItemCount()
 
         tdgv = New DataGridView
         tdgv = dgvItem
@@ -149,12 +146,12 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
     End Sub
 
-    Private Sub fRefreshCombox()
+    Private Sub RefreshCombox()
         ComboBoxLoad(cmbADJUSTMENT_TYPE_ID, "select ID,DESCRIPTION FROM inventory_adjustment_type ", "ID", "DESCRIPTION")
         ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
     End Sub
-    Private Sub fClear_Info()
-        fRefreshCombox()
+    Private Sub ClearInfo()
+        RefreshCombox()
         ClearAndRefresh(Me)
 
 
@@ -163,24 +160,15 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         cmbLOCATION_ID.Enabled = IsLockLocation()
         dtpDATE.Value = TransactionDefaultDate()
     End Sub
-
-    Private Sub cmbADJUSTMENT_TYPE_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbADJUSTMENT_TYPE_ID.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub lklNew_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-    End Sub
-    Private Sub fItemCount()
+    Private Sub ItemCount()
         If dgvItem.Rows.Count <> 0 Then
-
             cmbADJUSTMENT_TYPE_ID.Enabled = False
         Else
             cmbADJUSTMENT_TYPE_ID.Enabled = True
         End If
         lblCount.Text = DataGridViewCounting(dgvItem)
     End Sub
-    Private Sub fcolumn_adjustment()
+    Private Sub ColumnAdjustment()
         Dim b As Boolean = IsNew
         With dgvItem.Columns
 
@@ -224,16 +212,15 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
         End With
     End Sub
-    Private Sub fEdit_Item()
+    Private Sub EditItem()
         If IsNew = True Then
-
 
             If dgvItem.Rows.Count = 0 Then
                 Exit Sub
             End If
 
             Dim r As DataGridViewRow = dgvItem.Rows(dgvItem.CurrentRow.Index)
-            With frmAddItem
+            With FrmAddItem
                 .gsDate = dtpDATE.Value
                 .gsUseItemBatch = True
                 .gsCOST_AMOUNT_ONLY = True
@@ -255,14 +242,14 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
             End With
 
-            frmAddItem.Dispose()
-            frmAddItem = Nothing
+            FrmAddItem.Dispose()
+            FrmAddItem = Nothing
         Else
             If gsAdmin_User = True Then
 
 
 
-                With frmEditAdjustmentItem
+                With FrmEditAdjustmentItem
                     .aAdjustment_ID = ID
                     .aITEM_ID = dgvItem.CurrentRow.Cells("ITEM_ID").Value
                     .aLocation_ID = cmbLOCATION_ID.SelectedValue
@@ -272,7 +259,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
                     .Dispose()
                 End With
-                frmEditAdjustmentItem = Nothing
+                FrmEditAdjustmentItem = Nothing
 
             Else
 
@@ -280,18 +267,15 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             End If
 
         End If
-        fItemCount()
+        ItemCount()
+    End Sub
+    Private Sub DgvItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellDoubleClick
+        EditItem()
     End Sub
 
 
 
-    Private Sub dgvItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellDoubleClick
-        fEdit_Item()
-    End Sub
-
-
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If Val(cmbADJUSTMENT_TYPE_ID.SelectedValue) = 0 Then
             MessageBoxInfo("Please select payment adjustment type")
             Exit Sub
@@ -359,28 +343,22 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
         End If
 
+        If IsTransactionSuccess(ID, "INVENTORY_ADJUSTMENT") = False Then
+            MessageBoxWarning("Please Try Again")
+            Exit Sub
+        End If
 
 
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
             Dim T As Integer
-            Dim ASSET As Double = fGetTotalAssetValue(T)
+            Dim ASSET As Double = GetTotalAssetValue(T)
             fAccount_Journal_SQL(lblACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbADJUSTMENT_TYPE_ID.SelectedValue, 19, ID, dtpDATE.Value, T, ASSET, gsJOURNAL_NO_FORM)
         End If
         '===========================================
-        fSaveItem()
-
-        If IsTransactionSuccess(ID, "INVENTORY_ADJUSTMENT") = False Then
-            MessageBoxWarning("Please Try Again")
-            Exit Sub
-        End If
-
-        If IsNew = True Then
-            PrompNotify(Me.Text, SaveMsg, True)
-        Else
-            PrompNotify(Me.Text, UpdateMsg, True)
-        End If
+        SaveItem()
+        SaveNotify(Me, IsNew)
 
         gsGotChangeDate = False
         gsGotChangeLocation1 = False
@@ -388,30 +366,31 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         dtpDATE.Enabled = True
 
         IsBackDate = False
+
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = "tsSaveNew" Then
-                fSetNew()
+                SetNew()
             End If
         Catch ex As Exception
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefresh_Info()
+                RefreshInfo()
             End If
         End Try
 
 
     End Sub
-    Private Function fGetTotalAssetValue(ByRef TYPE As Integer)
+    Private Function GetTotalAssetValue(ByRef TYPE As Integer)
         Dim D As Double = 0
         Dim C As Double = 0
         For I As Integer = 0 To dgvItem.Rows.Count - 1
             With dgvItem.Rows(I)
                 If .Cells("QTY_DIFFERENCE").Value >= 0 Then
-                    D = D + .Cells("ASSET_VALUE").Value
+                    D += .Cells("ASSET_VALUE").Value
                 Else
-                    C = C + .Cells("ASSET_VALUE").Value
+                    C += .Cells("ASSET_VALUE").Value
                 End If
 
             End With
@@ -442,15 +421,14 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
         Return N
     End Function
-    Private Sub fSetNew()
-
-        fClear_Info()
+    Private Sub SetNew()
+        ClearInfo()
         ID = 0
         IsNew = True
         gsImportActive = False
-        fcolumn_adjustment()
+        ColumnAdjustment()
     End Sub
-    Private Sub fSaveItem()
+    Private Sub SaveItem()
 
 
         For i As Integer = 0 To dgvItem.Rows.Count - 1
@@ -559,15 +537,15 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
     End Sub
 
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -583,10 +561,10 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         Frm.ShowDialog()
         If Frm.AccessibleDescription <> "" Then
             If Frm.AccessibleDescription <> "cancel" Then
-                fClear_Info()
+                ClearInfo()
                 ID = Frm.AccessibleDescription
                 IsNew = False
-                fRefresh_Info()
+                RefreshInfo()
 
 
             End If
@@ -596,11 +574,11 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
     End Sub
 
-    Private Sub chxValueAdjustment_CheckedChanged(sender As Object, e As EventArgs) Handles chxValueAdjustment.CheckedChanged
-        fcolumn_adjustment()
+    Private Sub ChxValueAdjustment_CheckedChanged(sender As Object, e As EventArgs) Handles chxValueAdjustment.CheckedChanged
+        ColumnAdjustment()
     End Sub
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
 
 
         If IsNew = False Then
@@ -611,10 +589,10 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 Exit Sub
             End If
 
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -630,13 +608,12 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 For I As Integer = 0 To dgvItem.Rows.Count - 1
                     dgvItem.Rows(I).Cells("CONTROL_STATUS").Value = "D"
                 Next
-                fSaveItem()
+                SaveItem()
 
-                'Inventory re-Compute
+
                 fDeleteItem_INVENTORY_ITEM_RECALCULATE(dgvItem, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
 
-                'End re-compute
-                Dim SQL_STR As String = ""
+
                 '===========================================
                 If gsSkipJournalEntry = False Then
 
@@ -651,33 +628,25 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
                 ID = 0
                 IsNew = True
-                fClear_Info()
+                ClearInfo()
                 CursorLoadingOn(False)
             End If
         End If
     End Sub
-
-    Private Sub frmInventoryAdjustment_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-
-    End Sub
-
-    Private Sub frmInventoryAdjustment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmInventoryAdjustment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ViewItemDisplay(dgvItem)
         ViewNotSort(dgvItem)
-
-
-
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         'PREVIEW =====================================================================
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -687,6 +656,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 End If
             End If
         End If
+
         If IsNew = False Then
             If SecurityAccessPrint(Me) = False Then
                 Exit Sub
@@ -709,7 +679,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -727,12 +697,12 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         'PRINT ========================================================================
 
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -765,7 +735,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                     cn.Close()
                 End If
             End Try
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -780,12 +750,12 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -800,16 +770,16 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         End If
     End Sub
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
 
-                fRefresh_Info()
+                RefreshInfo()
             End If
 
         End If
@@ -819,21 +789,13 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         ShowTransactionLog(Me, ID)
     End Sub
 
-    Private Sub dgvItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvItem.RowsAdded
-        fItemCount()
+    Private Sub DgvItem_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvItem.RowsAdded
+        ItemCount()
     End Sub
-
-
-    Private Sub dgvItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvItem.RowStateChanged
+    Private Sub DgvItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvItem.RowStateChanged
         lblCount.Text = DataGridViewCounting(dgvItem)
     End Sub
-
-    Private Sub tsChangeDate_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Function fGetInventoryAdjustmentENDING(ByVal prITEM_ID As Integer, ByVal prLOCATION_ID As Integer, ByVal prSOURCE_REF_ID As Integer) As Double
+    Private Function GetInventoryAdjustmentENDING(ByVal prITEM_ID As Integer, ByVal prLOCATION_ID As Integer, ByVal prSOURCE_REF_ID As Integer) As Double
         Dim T_QTY As Double = 0
 
         Dim rd As OdbcDataReader = SqlReader($"SELECT i.ENDING_QUANTITY FROM item_inventory  AS i WHERE i.`ITEM_ID` = '{prITEM_ID}' AND i.`LOCATION_ID` = '{prLOCATION_ID}' AND i.SOURCE_REF_TYPE ='6' and SOURCE_REF_ID = '{prSOURCE_REF_ID}' order by i.ID desc Limit 1 ")
@@ -850,7 +812,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         If IsNew = True Then
             Exit Sub
         End If
-        If Val(ID) <> 0 Then
+        If ID <> 0 Then
 
             If dgvItem.Rows.Count <> 0 Then
 
@@ -860,24 +822,24 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 End If
 
 
-                frmSelectDate.ShowDialog()
-                If frmSelectDate.gsOK = True Then
-                    If frmSelectDate.dtpSelect.Value = dtpDATE.Value Then
+                FrmSelectDate.ShowDialog()
+                If FrmSelectDate.gsOK = True Then
 
+                    If FrmSelectDate.dtpSelect.Value = dtpDATE.Value Then
                         MessageBoxInfo($"{dtpDATE.Value} is already applied.")
                         Exit Sub
 
                     Else
                         If MessageBoxQuestion("Do you want to proceed") = True Then
                             CursorLoadingOn(True)
-                            dtpDATE.Value = frmSelectDate.dtpSelect.Value
+                            dtpDATE.Value = FrmSelectDate.dtpSelect.Value
                             SqlExecuted($"Update inventory_adjustment SET `DATE` = '{DateFormatMySql(dtpDATE.Value)}'  Where ID = '{ID}' and LOCATION_ID ='" & cmbLOCATION_ID.SelectedValue & "' limit 1")
 
                             Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM inventory_adjustment_items AS ii WHERE ii.`INVENTORY_ADJUSTMENT_ID` = '{ID}' ")
                             While rd.Read
 
                                 Dim dCurrent_Qty As Double = QtyActualOnDateLocation(rd("ITEM_ID"), dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
-                                Dim prNew_Qty As Double = fGetInventoryAdjustmentENDING(rd("ITEM_ID"), cmbLOCATION_ID.SelectedValue, rd("ID"))
+                                Dim prNew_Qty As Double = GetInventoryAdjustmentENDING(rd("ITEM_ID"), cmbLOCATION_ID.SelectedValue, rd("ID"))
                                 Dim dQty_Diff As Integer = prNew_Qty - dCurrent_Qty
 
                                 SqlExecuted($"UPDATE inventory_adjustment_items SET QTY_DIFFERENCE = '{dQty_Diff}' WHERE ID ='{rd("ID")}' LIMIT 1;")
@@ -888,26 +850,22 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
                             End While
                             'Item Inventory
-                            fSetNew()
+                            SetNew()
                             CursorLoadingOn(False)
                             MessageBoxInfo("Change date complete.")
 
 
                         End If
                     End If
-                    frmSelectDate.Dispose()
-                    frmSelectDate = Nothing
+                    FrmSelectDate.Dispose()
+                    FrmSelectDate = Nothing
                     CursorLoadingOn(False)
                 End If
             End If
 
         End If
     End Sub
-
-    Private Sub RecomputeWithNewCostToolStripMenuItem_Click(sender As Object, e As EventArgs)
-    End Sub
-
-    Private Function fgetInventoryEndningUnitCost(ByVal prITEM_ID As Integer, ByVal prOB_ID As Integer) As Double
+    Private Function GetInventoryEndningUnitCost(ByVal prITEM_ID As Integer, ByVal prOB_ID As Integer) As Double
         Dim dCOST As Double = 0
         Dim rd As OdbcDataReader = SqlReader($"SELECT ENDING_UNIT_COST from item_inventory where LOCATION_ID ='{cmbLOCATION_ID}' and SOURCE_REF_DATE ='{DateFormatMySql(dtpDATE.Value)}' and item_Id = '{prITEM_ID}' and SOURCE_REF_ID = '{prOB_ID}' and SOURCE_REF_TYPE ='6' LIMIT 1")
         If rd.Read Then
@@ -917,12 +875,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
         Return dCOST
     End Function
-
-    Private Sub GroupBox5_Enter(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub frmInventoryAdjustment_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmInventoryAdjustment_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         If gsBIR_Active = True Then
 
             cmbADJUSTMENT_TYPE_ID.SelectedValue = gsBIR_Adjustment_Type_ID
@@ -963,13 +916,13 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
         If IsNew = False Then
 
-            fRefresh_Info()
+            RefreshInfo()
         End If
     End Sub
 
     Private Sub TsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
         If IsNew = True Then
-            With frmAddItem
+            With FrmAddItem
                 .gsUseItemBatch = True
                 .dgv = dgvItem
                 .gsNew = True
@@ -988,15 +941,15 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 '    fAddItem_Row(True, .gsItem_ID, .gsUM, .gsQty, .gsBase_Qty, .gsUnit_Price, "A")
                 'End If
             End With
-            frmAddItem.Dispose()
-            frmAddItem = Nothing
+            FrmAddItem.Dispose()
+            FrmAddItem = Nothing
             tsAddItem.Select()
         End If
-        fItemCount()
+        ItemCount()
     End Sub
 
     Private Sub TsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
-        fEdit_Item()
+        EditItem()
     End Sub
 
     Private Sub TsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
@@ -1012,34 +965,28 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             End If
         Catch ex As Exception
         Finally
-            fItemCount()
+            ItemCount()
         End Try
     End Sub
 
-    Private Sub dtpDATE_ValueChanged(sender As Object, e As EventArgs) Handles dtpDATE.ValueChanged
+    Private Sub DtpDATE_ValueChanged(sender As Object, e As EventArgs) Handles dtpDATE.ValueChanged
         If dtpDATE.Value > Date.Now.Date Then
             dtpDATE.Value = Date.Now.Date
         End If
-
     End Sub
-
-    Private Sub TsFindText_Click(sender As Object, e As EventArgs) Handles tsFindText.Click
-
-    End Sub
-
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         GetQuickFind(dgvItem, tsFindText.Text)
     End Sub
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
         'Select Print Page ============================================================
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -1056,10 +1003,10 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             Exit Sub
         End If
 
-        frmPrintPage.frmName = Me.Name
-        frmPrintPage.ShowDialog()
+        FrmPrintPage.frmName = Me.Name
+        FrmPrintPage.ShowDialog()
 
-        Dim v As Integer = frmPrintPage.prValue
+        Dim v As Integer = FrmPrintPage.prValue
         If v = 1 Or v = 2 Then
 
             Dim prFile_name As String = ""
@@ -1079,7 +1026,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -1098,19 +1045,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
 
         End If
-        frmPrintPage.Dispose()
-        frmPrintPage = Nothing
-    End Sub
-
-    Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs) Handles ToolStripLabel1.Click
-
-    End Sub
-
-    Private Sub Label9_Click(sender As Object, e As EventArgs) Handles Label9.Click
-
+        FrmPrintPage.Dispose()
+        FrmPrintPage = Nothing
     End Sub
 End Class

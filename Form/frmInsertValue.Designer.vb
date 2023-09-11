@@ -25,63 +25,52 @@ Partial Class FrmInsertValue
         Me.lblDescription = New System.Windows.Forms.Label()
         Me.txtValue = New System.Windows.Forms.TextBox()
         Me.btnOK = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblDescription
         '
         Me.lblDescription.AutoSize = True
         Me.lblDescription.BackColor = System.Drawing.Color.Transparent
-        Me.lblDescription.Location = New System.Drawing.Point(11, 34)
+        Me.lblDescription.Location = New System.Drawing.Point(11, 9)
         Me.lblDescription.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblDescription.Name = "lblDescription"
-        Me.lblDescription.Size = New System.Drawing.Size(88, 16)
+        Me.lblDescription.Size = New System.Drawing.Size(173, 16)
         Me.lblDescription.TabIndex = 0
-        Me.lblDescription.Text = "XXXXXXXXX"
+        Me.lblDescription.Text = "Description TItle Value 0001"
         '
         'txtValue
         '
-        Me.txtValue.Location = New System.Drawing.Point(15, 54)
+        Me.txtValue.Location = New System.Drawing.Point(13, 30)
         Me.txtValue.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtValue.Name = "txtValue"
-        Me.txtValue.Size = New System.Drawing.Size(217, 23)
+        Me.txtValue.Size = New System.Drawing.Size(217, 22)
         Me.txtValue.TabIndex = 1
         '
         'btnOK
         '
         Me.btnOK.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOK.Location = New System.Drawing.Point(146, 117)
+        Me.btnOK.Location = New System.Drawing.Point(239, 27)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(86, 28)
+        Me.btnOK.Size = New System.Drawing.Size(67, 26)
         Me.btnOK.TabIndex = 15
         Me.btnOK.Text = "&OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'Label1
-        '
-        Me.Label1.BackColor = System.Drawing.SystemColors.Control
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Label1.Location = New System.Drawing.Point(0, 101)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(245, 58)
-        Me.Label1.TabIndex = 16
-        '
-        'frmInsertValue
+        'FrmInsertValue
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(245, 159)
+        Me.ClientSize = New System.Drawing.Size(317, 66)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.txtValue)
         Me.Controls.Add(Me.lblDescription)
-        Me.Controls.Add(Me.Label1)
-        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmInsertValue"
+        Me.Name = "FrmInsertValue"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -93,5 +82,4 @@ Partial Class FrmInsertValue
     Friend WithEvents lblDescription As Label
     Friend WithEvents txtValue As TextBox
     Friend WithEvents btnOK As Button
-    Friend WithEvents Label1 As Label
 End Class

@@ -680,7 +680,7 @@ FROM
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fReportParam()
             CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
@@ -730,7 +730,7 @@ FROM
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fReportParam()
             CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
@@ -959,7 +959,7 @@ FROM
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             fReportParam()
             CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")

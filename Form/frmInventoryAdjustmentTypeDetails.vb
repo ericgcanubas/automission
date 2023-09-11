@@ -4,10 +4,10 @@ Public Class FrmInventoryAdjustmentTypeDetails
     Dim IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
-    Private Sub frmInventoryAdjustmentTypeDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmInventoryAdjustmentTypeDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbACCOUNT_ID, "select `ID`,`NAME` from account where inactive='0'", "ID", "NAME")
-        If ID <> 0 Then
+        If ID > 0 Then
             Try
                 SqlExecutedUsingReading(Me, "select * from inventory_adjustment_type where ID = '" & ID & "' Limit 1")
                 IsNew = False
@@ -19,15 +19,9 @@ Public Class FrmInventoryAdjustmentTypeDetails
         End If
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs)
 
-    End Sub
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs)
         If IsNew = True Then
             ClearAndRefresh(Me)
         Else
@@ -42,7 +36,7 @@ Public Class FrmInventoryAdjustmentTypeDetails
         End If
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtDESCRIPTION.Text) = "" Then
             MessageBoxInfo("Please enter adjustment type description")
             Exit Sub
@@ -68,12 +62,12 @@ Public Class FrmInventoryAdjustmentTypeDetails
         ID = 0
 
 
-        If SecurityAccessMode(frmInventoryAdjustmentType, IsNew) = False Then
+        If SecurityAccessMode(FrmInventoryAdjustmentType, IsNew) = False Then
             Me.Close()
         End If
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 End Class

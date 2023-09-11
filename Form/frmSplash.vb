@@ -198,7 +198,7 @@ Public Class FrmSplash
             If R_number = 9 Then
                 lblinitialization.Text = "Initialize report ..."
                 fDoEvents()
-                PublicViewReportOneParameterNumberOnly("crySalesReceipt.rpt") ' crystal report re connect
+                ReportDocumentOneParameterNumberOnly("crySalesReceipt.rpt") ' crystal report re connect
 
             End If
 

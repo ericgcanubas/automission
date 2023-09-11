@@ -36,7 +36,7 @@ Partial Class FrmInventoryAdjustmentTypeDetails
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(45, 17)
+        Me.Label2.Location = New System.Drawing.Point(47, 17)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(40, 16)
         Me.Label2.TabIndex = 104
@@ -54,7 +54,7 @@ Partial Class FrmInventoryAdjustmentTypeDetails
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(6, 45)
+        Me.Label3.Location = New System.Drawing.Point(7, 45)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(80, 16)
         Me.Label3.TabIndex = 106
@@ -72,7 +72,7 @@ Partial Class FrmInventoryAdjustmentTypeDetails
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(22, 73)
+        Me.Label4.Location = New System.Drawing.Point(25, 73)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(62, 16)
         Me.Label4.TabIndex = 108
@@ -89,7 +89,7 @@ Partial Class FrmInventoryAdjustmentTypeDetails
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(319, 115)
+        Me.btnSave.Location = New System.Drawing.Point(318, 101)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(86, 28)
@@ -99,7 +99,7 @@ Partial Class FrmInventoryAdjustmentTypeDetails
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(411, 115)
+        Me.btnCancel.Location = New System.Drawing.Point(410, 101)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 28)
@@ -107,12 +107,11 @@ Partial Class FrmInventoryAdjustmentTypeDetails
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmInventoryAdjustmentTypeDetails
+        'FrmInventoryAdjustmentTypeDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(506, 160)
+        Me.ClientSize = New System.Drawing.Size(506, 142)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.cmbACCOUNT_ID)
@@ -125,7 +124,7 @@ Partial Class FrmInventoryAdjustmentTypeDetails
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmInventoryAdjustmentTypeDetails"
+        Me.Name = "FrmInventoryAdjustmentTypeDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

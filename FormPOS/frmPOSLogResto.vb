@@ -119,7 +119,7 @@
         Dim prFile_name As String = "crySalesByCustomerSummary.rpt"
         Dim prPrint_Title As String = "Sales By Customer Summary"
         gsToolPanelView = False
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")
@@ -155,7 +155,7 @@
         Dim prFile_name As String = "crySalesByItemSummary.rpt"
         Dim prPrint_Title As String = "Sales By Item Summary"
         gsToolPanelView = False
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")
@@ -203,7 +203,7 @@
         Dim prFile_name As String = gsResto_Sales__File_Name ' "cryPaymentLog.rpt"
         Dim prPrint_Title As String = $"{gsResto_Sales_Print_Title} (" & gsPOS_LOG_ID & ")"
 
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
 

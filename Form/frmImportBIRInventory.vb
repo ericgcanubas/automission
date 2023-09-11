@@ -15,7 +15,6 @@ Public Class FrmImportBIRInventory
     Dim row_Quantity As Integer
     Dim row_MOU As Integer
 
-
     Dim Get_code_value As String
     Dim Get_desc_value As String
     Dim Get_Unit_Cost_value As Double
@@ -24,7 +23,7 @@ Public Class FrmImportBIRInventory
 
     Dim CantRun As Boolean = True
 
-    Private Sub btnBrowseFIle_Click(sender As Object, e As EventArgs) Handles btnBrowseFIle.Click
+    Private Sub BtnBrowseFIle_Click(sender As Object, e As EventArgs) Handles btnBrowseFIle.Click
         OpenFileDialog1.Title = "Please Select Excel file"
         OpenFileDialog1.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm"
         Dim result As DialogResult = OpenFileDialog1.ShowDialog()
@@ -34,7 +33,7 @@ Public Class FrmImportBIRInventory
         End If
 
     End Sub
-    Private Sub fLoadDefault()
+    Private Sub LoadDefault()
         Dim SQL As String
         CantRun = False
         SQL = "select * from ImportBIRConfig  Where UseDefault = '-1'"
@@ -43,7 +42,7 @@ Public Class FrmImportBIRInventory
             cn.Open()
             Dim rd As OleDb.OleDbDataReader = fMSgetReader(SQL, cn)
             If rd.Read Then
-                '  NumIsNull(rd("ID"))
+
 
                 SheetName = TextIsNull(rd("SheetName"))
 
@@ -82,41 +81,37 @@ Public Class FrmImportBIRInventory
         If IsChar = True Then
             For I As Integer = 0 To StrValue.Length - 1
                 If IsNumeric(StrValue.Substring(I, 1)) = False Then
-                    ReturnValue = ReturnValue & StrValue.Substring(I, 1)
+                    ReturnValue &= StrValue.Substring(I, 1)
                 End If
             Next
         Else
             For I As Integer = 0 To StrValue.Length - 1
                 If IsNumeric(StrValue.Substring(I, 1)) = True Then
-                    ReturnValue = ReturnValue & StrValue.Substring(I, 1)
+                    ReturnValue &= StrValue.Substring(I, 1)
                 End If
             Next
         End If
         Return ReturnValue
     End Function
 
-    Private Sub FrmImportBIRInventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-
-    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+    Private Sub BtnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
 
         dgvCollectData.Rows.Clear()
 
-            If txtPath.Text = "" Then
-                MessageBoxWarning("File not found.")
-                Exit Sub
-            End If
+        If txtPath.Text = "" Then
+            MessageBoxWarning("File not found.")
+            Exit Sub
+        End If
 
 
-            fLoadDefault()
+        LoadDefault()
 
         If CantRun = True Then
             Exit Sub
         End If
 
         ' checking file
-        If System.IO.File.Exists(txtPath.Text) = False Then
+        If IO.File.Exists(txtPath.Text) = False Then
             MessageBoxWarning("The file doesn't exist")
             Exit Sub
         End If
@@ -197,9 +192,9 @@ Public Class FrmImportBIRInventory
             xlWorkBook.Close()
             xlApp.Quit()
 
-            releaseObject(xlApp)
-            releaseObject(xlWorkBook)
-            releaseObject(xlWorkSheet)
+            ReleaseObject(xlApp)
+            ReleaseObject(xlWorkBook)
+            ReleaseObject(xlWorkSheet)
             CursorLoadingOn(False)
             MessageBoxInfo("Import Complete.")
         Catch ex As Exception
@@ -209,16 +204,11 @@ Public Class FrmImportBIRInventory
                 End
             End If
         End Try
-
-
-
     End Sub
-    Private Sub fInventoryAdjustment()
 
-    End Sub
-    Private Sub releaseObject(ByVal obj As Object)
+    Private Sub ReleaseObject(ByVal obj As Object)
         Try
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
+            Runtime.InteropServices.Marshal.ReleaseComObject(obj)
             obj = Nothing
         Catch ex As Exception
             obj = Nothing
@@ -227,13 +217,13 @@ Public Class FrmImportBIRInventory
         End Try
     End Sub
 
-    Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
+    Private Sub BtnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
         FrmImportBIRInventoryConfig.ShowDialog()
         FrmImportBIRInventoryConfig.Dispose()
         FrmImportBIRInventoryConfig = Nothing
     End Sub
 
-    Private Sub btnInventoryAdjustment_Click(sender As Object, e As EventArgs) Handles btnInventoryAdjustment.Click
+    Private Sub BtnInventoryAdjustment_Click(sender As Object, e As EventArgs) Handles btnInventoryAdjustment.Click
         'Checking Item
 
         If dgvCollectData.Rows.Count = 0 Then
@@ -254,7 +244,7 @@ Public Class FrmImportBIRInventory
         End If
     End Sub
 
-    Private Sub btnChecking_Click(sender As Object, e As EventArgs) Handles btnChecking.Click
+    Private Sub BtnChecking_Click(sender As Object, e As EventArgs) Handles btnChecking.Click
 
         If dgvCollectData.Rows.Count = 0 Then
             MessageBoxInfo("Data not found.")
@@ -276,8 +266,8 @@ Public Class FrmImportBIRInventory
                 If rd.Read Then
                     'Do nothing    
                 Else
-                    Count = Count + 1
-                    StrItemSQL = StrItemSQL & fCreateItem(dgvCollectData.Rows(I))
+                    Count += 1
+                    StrItemSQL &= CreateItem(dgvCollectData.Rows(I))
                 End If
                 rd.Close()
             End With
@@ -296,11 +286,8 @@ Public Class FrmImportBIRInventory
         btnInventoryAdjustment.PerformClick()
 
     End Sub
-    Private Function fCreateItem(ByVal dgvR As DataGridViewRow) As String
-
-
+    Private Function CreateItem(ByVal dgvR As DataGridViewRow) As String
         Dim ID As Integer = ObjectTypeMapId("item")
-
         Return $"INSERT INTO `item` SET `ID`='{ID}',INACTIVE = '0',CODE = '{dgvR.Cells("CODE").Value}',TYPE = '0',BUNDLE_SET = '0',NON_PORFOLIO_COMPUTATION = '0',MANUFACTURER_ID = NULL,GL_ACCOUNT_ID = '37',PREFERRED_VENDOR_ID = NULL,TAXABLE = '1',COGS_ACCOUNT_ID = '47',RATE = NULL,COST = '{dgvR.Cells("COST").Value}',DESCRIPTION = '{dgvR.Cells("description").Value}',PURCHASE_DESCRIPTION = '{dgvR.Cells("description").Value}',ASSET_ACCOUNT_ID = '6',STOCK_TYPE = '0',BASE_UNIT_ID = '3',SHIPPING_UNIT_ID = NULL,SALES_UNIT_ID = NULL,PURCHASES_UNIT_ID = NULL,SUB_CLASS_ID = '29',GROUP_ID = '24',NOTES = '',RATE_TYPE = NULL,PAYMENT_METHOD_ID = NULL,PRINT_INDIVIDUAL_ITEMS = NULL,PICTURE = NULL,CUSTOM_FIELD1 = NULL,CUSTOM_FIELD2 = NULL,CUSTOM_FIELD3 = NULL,CUSTOM_FIELD4 = NULL,CUSTOM_FIELD5 = NULL;"
 
     End Function

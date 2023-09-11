@@ -191,7 +191,7 @@ Partial Class FrmFundTransfer
         Me.cmbTO_ACCOUNT_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbTO_ACCOUNT_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbTO_ACCOUNT_ID.FormattingEnabled = True
-        Me.cmbTO_ACCOUNT_ID.Location = New System.Drawing.Point(128, 26)
+        Me.cmbTO_ACCOUNT_ID.Location = New System.Drawing.Point(85, 26)
         Me.cmbTO_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbTO_ACCOUNT_ID.Name = "cmbTO_ACCOUNT_ID"
         Me.cmbTO_ACCOUNT_ID.Size = New System.Drawing.Size(262, 24)
@@ -214,7 +214,7 @@ Partial Class FrmFundTransfer
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(405, 156)
+        Me.GroupBox1.Size = New System.Drawing.Size(359, 156)
         Me.GroupBox1.TabIndex = 74
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Transfer To"
@@ -222,7 +222,7 @@ Partial Class FrmFundTransfer
         'numAMOUNT
         '
         Me.numAMOUNT.DecimalPlaces = 2
-        Me.numAMOUNT.Location = New System.Drawing.Point(128, 110)
+        Me.numAMOUNT.Location = New System.Drawing.Point(85, 110)
         Me.numAMOUNT.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.numAMOUNT.Maximum = New Decimal(New Integer() {276447231, 23283, 0, 0})
         Me.numAMOUNT.Name = "numAMOUNT"
@@ -234,7 +234,7 @@ Partial Class FrmFundTransfer
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(66, 112)
+        Me.Label5.Location = New System.Drawing.Point(24, 113)
         Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(57, 16)
@@ -246,7 +246,7 @@ Partial Class FrmFundTransfer
         Me.cmbTO_NAME_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbTO_NAME_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbTO_NAME_ID.FormattingEnabled = True
-        Me.cmbTO_NAME_ID.Location = New System.Drawing.Point(128, 81)
+        Me.cmbTO_NAME_ID.Location = New System.Drawing.Point(85, 81)
         Me.cmbTO_NAME_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbTO_NAME_ID.Name = "cmbTO_NAME_ID"
         Me.cmbTO_NAME_ID.Size = New System.Drawing.Size(262, 24)
@@ -255,7 +255,7 @@ Partial Class FrmFundTransfer
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(78, 84)
+        Me.Label4.Location = New System.Drawing.Point(38, 84)
         Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(43, 16)
@@ -268,7 +268,7 @@ Partial Class FrmFundTransfer
         Me.cmbTO_LOCATION_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbTO_LOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTO_LOCATION_ID.FormattingEnabled = True
-        Me.cmbTO_LOCATION_ID.Location = New System.Drawing.Point(128, 53)
+        Me.cmbTO_LOCATION_ID.Location = New System.Drawing.Point(85, 53)
         Me.cmbTO_LOCATION_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbTO_LOCATION_ID.Name = "cmbTO_LOCATION_ID"
         Me.cmbTO_LOCATION_ID.Size = New System.Drawing.Size(262, 24)
@@ -277,7 +277,7 @@ Partial Class FrmFundTransfer
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(60, 57)
+        Me.Label3.Location = New System.Drawing.Point(18, 57)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(63, 16)
@@ -287,7 +287,7 @@ Partial Class FrmFundTransfer
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(65, 30)
+        Me.Label2.Location = New System.Drawing.Point(19, 30)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(62, 16)
@@ -298,7 +298,7 @@ Partial Class FrmFundTransfer
         '
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(66, 313)
+        Me.Label14.Location = New System.Drawing.Point(23, 313)
         Me.Label14.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(45, 16)
@@ -307,11 +307,11 @@ Partial Class FrmFundTransfer
         '
         'txtNOTES
         '
-        Me.txtNOTES.Location = New System.Drawing.Point(137, 313)
+        Me.txtNOTES.Location = New System.Drawing.Point(94, 313)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtNOTES.Multiline = True
         Me.txtNOTES.Name = "txtNOTES"
-        Me.txtNOTES.Size = New System.Drawing.Size(687, 52)
+        Me.txtNOTES.Size = New System.Drawing.Size(641, 52)
         Me.txtNOTES.TabIndex = 70
         '
         'GroupBox2
@@ -324,11 +324,11 @@ Partial Class FrmFundTransfer
         Me.GroupBox2.Controls.Add(Me.cmbFROM_LOCATION_ID)
         Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.ForeColor = System.Drawing.Color.Black
-        Me.GroupBox2.Location = New System.Drawing.Point(421, 145)
+        Me.GroupBox2.Location = New System.Drawing.Point(378, 149)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.GroupBox2.Size = New System.Drawing.Size(405, 156)
+        Me.GroupBox2.Size = New System.Drawing.Size(357, 156)
         Me.GroupBox2.TabIndex = 70
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Transfer From"
@@ -338,7 +338,7 @@ Partial Class FrmFundTransfer
         Me.cmbFROM_NAME_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbFROM_NAME_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbFROM_NAME_ID.FormattingEnabled = True
-        Me.cmbFROM_NAME_ID.Location = New System.Drawing.Point(126, 82)
+        Me.cmbFROM_NAME_ID.Location = New System.Drawing.Point(80, 82)
         Me.cmbFROM_NAME_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbFROM_NAME_ID.Name = "cmbFROM_NAME_ID"
         Me.cmbFROM_NAME_ID.Size = New System.Drawing.Size(262, 24)
@@ -347,7 +347,7 @@ Partial Class FrmFundTransfer
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(75, 87)
+        Me.Label10.Location = New System.Drawing.Point(33, 86)
         Me.Label10.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(43, 16)
@@ -359,7 +359,7 @@ Partial Class FrmFundTransfer
         Me.cmbFROM_ACCOUNT_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbFROM_ACCOUNT_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbFROM_ACCOUNT_ID.FormattingEnabled = True
-        Me.cmbFROM_ACCOUNT_ID.Location = New System.Drawing.Point(126, 27)
+        Me.cmbFROM_ACCOUNT_ID.Location = New System.Drawing.Point(80, 27)
         Me.cmbFROM_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbFROM_ACCOUNT_ID.Name = "cmbFROM_ACCOUNT_ID"
         Me.cmbFROM_ACCOUNT_ID.Size = New System.Drawing.Size(262, 24)
@@ -368,7 +368,7 @@ Partial Class FrmFundTransfer
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(61, 30)
+        Me.Label6.Location = New System.Drawing.Point(15, 30)
         Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(62, 16)
@@ -379,7 +379,7 @@ Partial Class FrmFundTransfer
         '
         Me.cmbFROM_LOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbFROM_LOCATION_ID.FormattingEnabled = True
-        Me.cmbFROM_LOCATION_ID.Location = New System.Drawing.Point(126, 54)
+        Me.cmbFROM_LOCATION_ID.Location = New System.Drawing.Point(80, 54)
         Me.cmbFROM_LOCATION_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbFROM_LOCATION_ID.Name = "cmbFROM_LOCATION_ID"
         Me.cmbFROM_LOCATION_ID.Size = New System.Drawing.Size(262, 24)
@@ -388,7 +388,7 @@ Partial Class FrmFundTransfer
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(59, 57)
+        Me.Label9.Location = New System.Drawing.Point(13, 57)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(63, 16)
@@ -398,7 +398,7 @@ Partial Class FrmFundTransfer
         'cmbCLASS_ID
         '
         Me.cmbCLASS_ID.FormattingEnabled = True
-        Me.cmbCLASS_ID.Location = New System.Drawing.Point(549, 112)
+        Me.cmbCLASS_ID.Location = New System.Drawing.Point(378, 97)
         Me.cmbCLASS_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbCLASS_ID.Name = "cmbCLASS_ID"
         Me.cmbCLASS_ID.Size = New System.Drawing.Size(159, 24)
@@ -407,7 +407,7 @@ Partial Class FrmFundTransfer
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(499, 116)
+        Me.Label11.Location = New System.Drawing.Point(333, 101)
         Me.Label11.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(41, 16)
@@ -416,7 +416,7 @@ Partial Class FrmFundTransfer
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(549, 85)
+        Me.txtCODE.Location = New System.Drawing.Point(378, 70)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(159, 23)
@@ -425,17 +425,17 @@ Partial Class FrmFundTransfer
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(438, 89)
+        Me.Label8.Location = New System.Drawing.Point(302, 73)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(100, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Reference No."
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(146, 85)
+        Me.dtpDATE.Location = New System.Drawing.Point(66, 73)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(133, 23)
@@ -444,7 +444,7 @@ Partial Class FrmFundTransfer
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(98, 89)
+        Me.Label7.Location = New System.Drawing.Point(18, 77)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(38, 16)
@@ -454,7 +454,7 @@ Partial Class FrmFundTransfer
         'lblINTER_LOCATION_ACCOUNT_ID
         '
         Me.lblINTER_LOCATION_ACCOUNT_ID.AutoSize = True
-        Me.lblINTER_LOCATION_ACCOUNT_ID.Location = New System.Drawing.Point(718, 89)
+        Me.lblINTER_LOCATION_ACCOUNT_ID.Location = New System.Drawing.Point(627, 86)
         Me.lblINTER_LOCATION_ACCOUNT_ID.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblINTER_LOCATION_ACCOUNT_ID.Name = "lblINTER_LOCATION_ACCOUNT_ID"
         Me.lblINTER_LOCATION_ACCOUNT_ID.Size = New System.Drawing.Size(15, 16)
@@ -462,7 +462,7 @@ Partial Class FrmFundTransfer
         Me.lblINTER_LOCATION_ACCOUNT_ID.Text = "0"
         Me.lblINTER_LOCATION_ACCOUNT_ID.Visible = False
         '
-        'frmFundTransfer
+        'FrmFundTransfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -481,7 +481,7 @@ Partial Class FrmFundTransfer
         Me.Controls.Add(Me.Label8)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.Name = "frmFundTransfer"
+        Me.Name = "FrmFundTransfer"
         Me.Text = "frmFundTransfer"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

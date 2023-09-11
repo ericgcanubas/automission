@@ -613,7 +613,7 @@ Public Class FrmBuildAssembly
 
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -669,7 +669,7 @@ Public Class FrmBuildAssembly
                     cn.Close()
                 End If
             End Try
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -780,7 +780,7 @@ Public Class FrmBuildAssembly
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")

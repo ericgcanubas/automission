@@ -467,14 +467,14 @@ Module modQuery
 
     End Function
 
-    Public Function SqlUpdate(ByVal c As Control) As String
+    Public Function SqlUpdate(ByVal ctrls As Control) As String
         Dim err_i As Integer = 0
         Try
             Dim xQuery As String = ""
-            For i As Integer = 0 To c.Controls.Count - 1
+            For i As Integer = 0 To ctrls.Controls.Count - 1
                 err_i = i
-                Dim stvalue As String = c.Controls.Item(i).Name
-                If Trim(c.Controls.Item(i).Tag) = "" Then
+                Dim stvalue As String = ctrls.Controls.Item(i).Name
+                If Trim(ctrls.Controls.Item(i).Tag) = "" Then
                     If IsNumeric(stvalue.Substring(stvalue.Length - 1, 1)) = True Then
                         Dim lastNum As String = stvalue.Substring(stvalue.Length - 1, 1)
                         Dim temp_text As String = stvalue.Replace(lastNum, "")
@@ -488,11 +488,11 @@ Module modQuery
                     End If
                 End If
 
-                Dim obj_value As String = SetObjectValue(c, i)
+                Dim obj_value As String = SetObjectValue(ctrls, i)
 
-                If GetObjectValue(c, i) = True Then
+                If GetObjectValue(ctrls, i) = True Then
                     Dim st_field_value As String
-                    Dim ex_value As String = SetObjectValue(c, i)
+                    Dim ex_value As String = SetObjectValue(ctrls, i)
                     If ex_value = "NULL" Then
                         st_field_value = stvalue.Substring(3) & " = " & ex_value & ""
                     Else
@@ -515,18 +515,17 @@ Module modQuery
         End Try
     End Function
 
-    Public Sub SqlCreate(ByVal c As Control, ByRef RefField As String, ByRef RefValue As String)
+    Public Sub SqlCreate(ByVal ctrls As Control, ByRef RefField As String, ByRef RefValue As String)
         Dim err_i As Integer = 0
         Dim str_Field As String = ""
         Dim str_Value As String = ""
         Try
 
 
-            For i As Integer = 0 To c.Controls.Count - 1
+            For i As Integer = 0 To ctrls.Controls.Count - 1
                 err_i = i
-                Dim stvalue As String = c.Controls.Item(i).Name
-                '// CHECKING if LAST WORD IS NUMBER
-                If Trim(c.Controls.Item(i).Tag) = "" Then
+                Dim stvalue As String = ctrls.Controls.Item(i).Name
+                If Trim(ctrls.Controls.Item(i).Tag) = "" Then
                     If IsNumeric(stvalue.Substring(stvalue.Length - 1, 1)) = True Then
                         Dim lastNum As String = stvalue.Substring(stvalue.Length - 1, 1)
                         Dim temp_text As String = stvalue.Replace(lastNum, "")
@@ -540,11 +539,11 @@ Module modQuery
                     End If
                 End If
 
-                Dim obj_value As String = SetObjectValue(c, i)
+                Dim obj_value As String = SetObjectValue(ctrls, i)
 
-                If GetObjectValue(c, i) = True Then
+                If GetObjectValue(ctrls, i) = True Then
 
-                    Dim ex_value As String = SetObjectValue(c, i)
+                    Dim ex_value As String = SetObjectValue(ctrls, i)
                     If ex_value = "NULL" Then
                         str_Value &= $"{IIf(str_Field <> "", ",", "")}{ex_value}"
                         str_Field &= $"{IIf(str_Field <> "", ",", "")}{stvalue.Substring(3)}"

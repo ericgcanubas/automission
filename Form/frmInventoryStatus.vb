@@ -5,29 +5,29 @@
     Dim FirstLoad As Boolean = True
     Dim xSQL As String
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         If Me.AccessibleName = "A" Then
             Me.Close()
         Else
             ClosedForm(Me)
         End If
     End Sub
-    Private Sub fRefreshLocation()
+    Private Sub RefreshLocation()
 
         TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
 
     End Sub
-    Private Sub frmInventoryStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmInventoryStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        fRefreshLocation()
+        RefreshLocation()
         Dim loc_value As String = gsDefault_LOCATION_ID
         tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "*", loc_value)
         tscmbLocation.Enabled = IsLockLocation()
 
 
-        fStatusLoad()
+        StatusLoad()
     End Sub
-    Private Sub fStatusLoad()
+    Private Sub StatusLoad()
 
         Try
 
@@ -74,7 +74,7 @@ where i.inactive = '0' and i.type ='0') as  p WHERE p.On_Hand > -999999999999999
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fStatusLoad()
+                StatusLoad()
             Else
                 End
             End If
@@ -85,16 +85,14 @@ where i.inactive = '0' and i.type ='0') as  p WHERE p.On_Hand > -999999999999999
 
     End Sub
 
-    Private Sub dgvItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvItem.RowStateChanged
+    Private Sub DgvItem_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvItem.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub tscmbLocation_Click(sender As Object, e As EventArgs) Handles tscmbLocation.Click
 
-    End Sub
-    Private Sub tscmbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbLocation.SelectedIndexChanged
+    Private Sub TscmbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbLocation.SelectedIndexChanged
         If FirstLoad = False Then
-            fStatusLoad()
+            StatusLoad()
 
         End If
     End Sub

@@ -80,7 +80,7 @@ Partial Class FrmInventoryAdjustment
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(109, 107)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(143, 97)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
         Me.cmbLOCATION_ID.Size = New System.Drawing.Size(249, 24)
@@ -88,7 +88,7 @@ Partial Class FrmInventoryAdjustment
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(467, 107)
+        Me.txtCODE.Location = New System.Drawing.Point(501, 97)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(157, 23)
@@ -97,7 +97,7 @@ Partial Class FrmInventoryAdjustment
         'lblACCOUNT_ID
         '
         Me.lblACCOUNT_ID.AutoSize = True
-        Me.lblACCOUNT_ID.Location = New System.Drawing.Point(641, 111)
+        Me.lblACCOUNT_ID.Location = New System.Drawing.Point(675, 101)
         Me.lblACCOUNT_ID.Name = "lblACCOUNT_ID"
         Me.lblACCOUNT_ID.Size = New System.Drawing.Size(31, 16)
         Me.lblACCOUNT_ID.TabIndex = 121
@@ -126,7 +126,7 @@ Partial Class FrmInventoryAdjustment
         '
         Me.cmbADJUSTMENT_TYPE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbADJUSTMENT_TYPE_ID.FormattingEnabled = True
-        Me.cmbADJUSTMENT_TYPE_ID.Location = New System.Drawing.Point(109, 79)
+        Me.cmbADJUSTMENT_TYPE_ID.Location = New System.Drawing.Point(143, 69)
         Me.cmbADJUSTMENT_TYPE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbADJUSTMENT_TYPE_ID.Name = "cmbADJUSTMENT_TYPE_ID"
         Me.cmbADJUSTMENT_TYPE_ID.Size = New System.Drawing.Size(249, 24)
@@ -134,11 +134,11 @@ Partial Class FrmInventoryAdjustment
         '
         'Label3
         '
-        Me.Label3.Location = New System.Drawing.Point(25, 82)
+        Me.Label3.Location = New System.Drawing.Point(14, 72)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(77, 16)
+        Me.Label3.Size = New System.Drawing.Size(127, 16)
         Me.Label3.TabIndex = 10
-        Me.Label3.Text = "Type"
+        Me.Label3.Text = "Adjustment Type"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtNOTES
@@ -156,11 +156,11 @@ Partial Class FrmInventoryAdjustment
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(217, 382)
+        Me.Label14.Location = New System.Drawing.Point(240, 381)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(66, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 120
-        Me.Label14.Text = "Remarks "
+        Me.Label14.Text = "Notes"
         '
         'ToolStrip2
         '
@@ -179,14 +179,14 @@ Partial Class FrmInventoryAdjustment
         Me.tsAddItem.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAddItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAddItem.Name = "tsAddItem"
-        Me.tsAddItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsAddItem.Size = New System.Drawing.Size(34, 34)
         Me.tsAddItem.Text = "&Add"
         Me.tsAddItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel10
         '
         Me.ToolStripLabel10.Name = "ToolStripLabel10"
-        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 37)
         '
         'tsEditItem
         '
@@ -194,14 +194,14 @@ Partial Class FrmInventoryAdjustment
         Me.tsEditItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEditItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEditItem.Name = "tsEditItem"
-        Me.tsEditItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsEditItem.Size = New System.Drawing.Size(34, 34)
         Me.tsEditItem.Text = "&Edit"
         Me.tsEditItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 37)
         '
         'tsRemoveItem
         '
@@ -209,7 +209,7 @@ Partial Class FrmInventoryAdjustment
         Me.tsRemoveItem.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsRemoveItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRemoveItem.Name = "tsRemoveItem"
-        Me.tsRemoveItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsRemoveItem.Size = New System.Drawing.Size(34, 34)
         Me.tsRemoveItem.Text = "&Remove"
         Me.tsRemoveItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -217,20 +217,20 @@ Partial Class FrmInventoryAdjustment
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
         Me.tsFindText.Name = "tsFindText"
-        Me.tsFindText.Size = New System.Drawing.Size(228, 31)
+        Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
         'ToolStripLabel11
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(30, 28)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(33, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'Label9
         '
-        Me.Label9.Location = New System.Drawing.Point(24, 111)
+        Me.Label9.Location = New System.Drawing.Point(61, 101)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(80, 16)
         Me.Label9.TabIndex = 8
@@ -239,17 +239,17 @@ Partial Class FrmInventoryAdjustment
         '
         'Label8
         '
-        Me.Label8.Location = New System.Drawing.Point(363, 111)
+        Me.Label8.Location = New System.Drawing.Point(397, 101)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(101, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(467, 80)
+        Me.dtpDATE.Location = New System.Drawing.Point(501, 70)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(157, 23)
@@ -257,7 +257,7 @@ Partial Class FrmInventoryAdjustment
         '
         'Label7
         '
-        Me.Label7.Location = New System.Drawing.Point(368, 82)
+        Me.Label7.Location = New System.Drawing.Point(402, 72)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(96, 16)
         Me.Label7.TabIndex = 4
@@ -283,7 +283,7 @@ Partial Class FrmInventoryAdjustment
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSaveNew.Name = "tsSaveNew"
         Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
-        Me.tsSaveNew.Text = "Save File"
+        Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel1
@@ -297,7 +297,7 @@ Partial Class FrmInventoryAdjustment
         Me.tsDiscard.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDiscard.Name = "tsDiscard"
         Me.tsDiscard.Size = New System.Drawing.Size(60, 52)
-        Me.tsDiscard.Text = "Refresh"
+        Me.tsDiscard.Text = "&Refresh"
         Me.tsDiscard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel2
@@ -311,7 +311,7 @@ Partial Class FrmInventoryAdjustment
         Me.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsFind.Name = "tsFind"
         Me.tsFind.Size = New System.Drawing.Size(65, 52)
-        Me.tsFind.Text = "Find File"
+        Me.tsFind.Text = "&Find File"
         Me.tsFind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel3
@@ -325,7 +325,7 @@ Partial Class FrmInventoryAdjustment
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
         Me.ToolStripButton1.Size = New System.Drawing.Size(41, 52)
-        Me.ToolStripButton1.Text = "Print"
+        Me.ToolStripButton1.Text = "&Print"
         Me.ToolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripDropDownButton2
@@ -360,7 +360,7 @@ Partial Class FrmInventoryAdjustment
         Me.tsJournal.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsJournal.Name = "tsJournal"
         Me.tsJournal.Size = New System.Drawing.Size(57, 52)
-        Me.tsJournal.Text = "Journal"
+        Me.tsJournal.Text = "&Journal"
         Me.tsJournal.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel6
@@ -374,7 +374,7 @@ Partial Class FrmInventoryAdjustment
         Me.tsDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDelete.Name = "tsDelete"
         Me.tsDelete.Size = New System.Drawing.Size(80, 52)
-        Me.tsDelete.Text = "Delete File"
+        Me.tsDelete.Text = "&Delete File"
         Me.tsDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripSeparator2
@@ -388,7 +388,7 @@ Partial Class FrmInventoryAdjustment
         Me.ToolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton4.Name = "ToolStripButton4"
         Me.ToolStripButton4.Size = New System.Drawing.Size(41, 52)
-        Me.ToolStripButton4.Text = "Logs"
+        Me.ToolStripButton4.Text = "&Logs"
         Me.ToolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'tsTITLE
@@ -449,7 +449,7 @@ Partial Class FrmInventoryAdjustment
         'ToolStrip5
         '
         Me.ToolStrip5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel12, Me.lblCount})
         Me.ToolStrip5.Location = New System.Drawing.Point(3, 172)
         Me.ToolStrip5.Name = "ToolStrip5"
@@ -460,7 +460,7 @@ Partial Class FrmInventoryAdjustment
         'ToolStripLabel12
         '
         Me.ToolStripLabel12.Name = "ToolStripLabel12"
-        Me.ToolStripLabel12.Size = New System.Drawing.Size(68, 22)
+        Me.ToolStripLabel12.Size = New System.Drawing.Size(71, 22)
         Me.ToolStripLabel12.Text = "Total Entry"
         '
         'lblCount
@@ -469,7 +469,7 @@ Partial Class FrmInventoryAdjustment
         Me.lblCount.Size = New System.Drawing.Size(14, 22)
         Me.lblCount.Text = "0"
         '
-        'frmInventoryAdjustment
+        'FrmInventoryAdjustment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -490,7 +490,7 @@ Partial Class FrmInventoryAdjustment
         Me.Controls.Add(Me.lblACCOUNT_ID)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmInventoryAdjustment"
+        Me.Name = "FrmInventoryAdjustment"
         Me.Text = "frmInventoryAdjustment"
         CType(Me.dgvItem, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip2.ResumeLayout(False)

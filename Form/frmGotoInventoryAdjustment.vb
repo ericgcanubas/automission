@@ -9,9 +9,9 @@
         dtpDATE.Value = TransactionDefaultDate()
     End Sub
 
-    Private Sub btnGoto_Click(sender As Object, e As EventArgs) Handles btnGoto.Click
+    Private Sub BtnGoto_Click(sender As Object, e As EventArgs) Handles btnGoto.Click
 
-        gsMenuSubID = "25"
+        gsMenuSubID = 25
         gsRefresh = True
         MenuSet()
 

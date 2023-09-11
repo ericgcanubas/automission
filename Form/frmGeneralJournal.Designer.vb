@@ -86,10 +86,10 @@ Partial Class FrmGeneralJournal
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(302, 77)
+        Me.txtCODE.Location = New System.Drawing.Point(314, 77)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(157, 23)
+        Me.txtCODE.Size = New System.Drawing.Size(145, 23)
         Me.txtCODE.TabIndex = 7
         '
         'dgvDetails
@@ -102,12 +102,12 @@ Partial Class FrmGeneralJournal
         Me.dgvDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDetails.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvDetails.Location = New System.Drawing.Point(3, 35)
+        Me.dgvDetails.Location = New System.Drawing.Point(3, 41)
         Me.dgvDetails.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvDetails.MultiSelect = False
         Me.dgvDetails.Name = "dgvDetails"
         Me.dgvDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDetails.Size = New System.Drawing.Size(1099, 122)
+        Me.dgvDetails.Size = New System.Drawing.Size(1099, 116)
         Me.dgvDetails.TabIndex = 0
         '
         'txtNOTES
@@ -126,7 +126,7 @@ Partial Class FrmGeneralJournal
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAddItem, Me.ToolStripLabel10, Me.tsEditItem, Me.ToolStripLabel9, Me.tsRemoveItem, Me.tsFindText, Me.ToolStripLabel11})
         Me.ToolStrip2.Location = New System.Drawing.Point(3, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(1099, 31)
+        Me.ToolStrip2.Size = New System.Drawing.Size(1099, 37)
         Me.ToolStrip2.TabIndex = 148
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -136,14 +136,14 @@ Partial Class FrmGeneralJournal
         Me.tsAddItem.Image = Global.Automission.My.Resources.Resources.l_create
         Me.tsAddItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsAddItem.Name = "tsAddItem"
-        Me.tsAddItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsAddItem.Size = New System.Drawing.Size(34, 34)
         Me.tsAddItem.Text = "&Add"
         Me.tsAddItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel10
         '
         Me.ToolStripLabel10.Name = "ToolStripLabel10"
-        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel10.Size = New System.Drawing.Size(6, 37)
         '
         'tsEditItem
         '
@@ -151,14 +151,14 @@ Partial Class FrmGeneralJournal
         Me.tsEditItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsEditItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsEditItem.Name = "tsEditItem"
-        Me.tsEditItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsEditItem.Size = New System.Drawing.Size(34, 34)
         Me.tsEditItem.Text = "&Edit"
         Me.tsEditItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel9
         '
         Me.ToolStripLabel9.Name = "ToolStripLabel9"
-        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 31)
+        Me.ToolStripLabel9.Size = New System.Drawing.Size(6, 37)
         '
         'tsRemoveItem
         '
@@ -166,7 +166,7 @@ Partial Class FrmGeneralJournal
         Me.tsRemoveItem.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsRemoveItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRemoveItem.Name = "tsRemoveItem"
-        Me.tsRemoveItem.Size = New System.Drawing.Size(28, 28)
+        Me.tsRemoveItem.Size = New System.Drawing.Size(34, 34)
         Me.tsRemoveItem.Text = "&Remove"
         Me.tsRemoveItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -174,15 +174,15 @@ Partial Class FrmGeneralJournal
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
-        Me.tsFindText.Size = New System.Drawing.Size(228, 31)
+        Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
         'ToolStripLabel11
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 28)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'Label14
@@ -192,9 +192,9 @@ Partial Class FrmGeneralJournal
         Me.Label14.BackColor = System.Drawing.Color.Transparent
         Me.Label14.Location = New System.Drawing.Point(245, 364)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(56, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 118
-        Me.Label14.Text = "Notes :"
+        Me.Label14.Text = "Notes"
         '
         'Label9
         '
@@ -208,11 +208,11 @@ Partial Class FrmGeneralJournal
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(253, 81)
+        Me.Label8.Location = New System.Drawing.Point(241, 80)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -374,7 +374,7 @@ Partial Class FrmGeneralJournal
         Me.chkADJUSTING_ENTRY.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkADJUSTING_ENTRY.AutoSize = True
         Me.chkADJUSTING_ENTRY.BackColor = System.Drawing.Color.Transparent
-        Me.chkADJUSTING_ENTRY.Location = New System.Drawing.Point(27, 367)
+        Me.chkADJUSTING_ENTRY.Location = New System.Drawing.Point(27, 361)
         Me.chkADJUSTING_ENTRY.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chkADJUSTING_ENTRY.Name = "chkADJUSTING_ENTRY"
         Me.chkADJUSTING_ENTRY.Size = New System.Drawing.Size(108, 20)
@@ -452,7 +452,7 @@ Partial Class FrmGeneralJournal
         Me.lblCREDIT.Text = "0.00"
         Me.lblCREDIT.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'frmGeneralJournal
+        'FrmGeneralJournal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -464,13 +464,13 @@ Partial Class FrmGeneralJournal
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.txtCODE)
         Me.Controls.Add(Me.txtNOTES)
-        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.dtpDATE)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label14)
+        Me.Controls.Add(Me.Label8)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmGeneralJournal"
+        Me.Name = "FrmGeneralJournal"
         Me.Text = "frmGeneralJournal"
         CType(Me.dgvDetails, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip2.ResumeLayout(False)

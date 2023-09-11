@@ -192,7 +192,7 @@ Module modInventoryItem
         Dim prFile_name As String = "cryItemValuationDetails.rpt"
         Dim prPrint_Title As String = "Item Valuation"
         gsToolPanelView = False
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(dtSTART), "fdate")
         CryParameterInsertValue(gscryRpt, GetDateNow, "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")

@@ -527,7 +527,7 @@ Public Class FrmDeposit
 
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -581,7 +581,7 @@ Public Class FrmDeposit
                     cn.Close()
                 End If
             End Try
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -820,7 +820,7 @@ Public Class FrmDeposit
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")

@@ -6,7 +6,7 @@ Public Class FrmFundTransfer
 
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me) & "," & SqlUpdate(GroupBox1) & "," & SqlUpdate(GroupBox2)
         If squery <> tQuery Then
@@ -15,16 +15,16 @@ Public Class FrmFundTransfer
         Return HasChange
     End Function
 
-    Private Sub frmFundTransfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmFundTransfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tsTITLE.Text = gsSubMenuForm
 
-        fClear_Info()
+        ClearInfo()
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
 
     End Sub
-    Private Sub fRefreshInfo()
+    Private Sub RefreshInfo()
 
         Try
             Dim sQuery As String = "select * from `fund_transfer` where ID ='" & ID & "' Limit 1"
@@ -38,8 +38,9 @@ Public Class FrmFundTransfer
         tQuery = SqlUpdate(Me) & "," & SqlUpdate(GroupBox1) & "," & SqlUpdate(GroupBox2)
 
     End Sub
-    Private Sub fRefreshComboBox()
+    Private Sub RefreshComboBox()
         ComboBoxLoad(cmbTO_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '2','3','4','6','7','8','9')", "ID", "BANK")
+
         ComboBoxLoad(cmbFROM_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '2','3','4','6','7','8','9')", "ID", "BANK")
 
         ComboBoxLoad(cmbFROM_LOCATION_ID, "Select * from location", "ID", "NAME")
@@ -50,9 +51,9 @@ Public Class FrmFundTransfer
 
 
         ComboBoxLoad(cmbCLASS_ID, "Select ID,NAME from CLASS", "ID", "NAME")
-        fSetToLocation()
+        SetToLocation()
     End Sub
-    Private Sub fSetToLocation()
+    Private Sub SetToLocation()
         Try
 
             ComboBoxLoad(cmbTO_LOCATION_ID, "Select * from location where ID <> '" & cmbFROM_LOCATION_ID.SelectedValue & "' ", "ID", "NAME")
@@ -61,8 +62,8 @@ Public Class FrmFundTransfer
 
         End Try
     End Sub
-    Private Sub fClear_Info()
-        fRefreshComboBox()
+    Private Sub ClearInfo()
+        RefreshComboBox()
         ClearAndRefresh(Me)
         ClearAndRefresh(GroupBox1)
         ClearAndRefresh(GroupBox2)
@@ -70,15 +71,13 @@ Public Class FrmFundTransfer
         cmbFROM_LOCATION_ID.Enabled = IsLockLocation()
         dtpDATE.Value = TransactionDefaultDate()
     End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
+
+
+    Private Sub CmbFROM_LOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFROM_LOCATION_ID.SelectedIndexChanged
+        SetToLocation()
     End Sub
 
-    Private Sub cmbFROM_LOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFROM_LOCATION_ID.SelectedIndexChanged
-        fSetToLocation()
-    End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If SecurityAccessMode(Me, IsNew) = False Then
             Exit Sub
         End If
@@ -178,33 +177,32 @@ Public Class FrmFundTransfer
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = "tsSaveNew" Then
-                fSetNew()
+                SetNew()
             End If
         Catch ex As Exception
 
         Finally
             If ID <> 0 Then
                 IsNew = False
-                fRefreshInfo()
+                RefreshInfo()
             End If
 
         End Try
 
 
     End Sub
-    Private Sub fSetNew()
-
-        fClear_Info()
+    Private Sub SetNew()
+        ClearInfo()
         ID = 0
         IsNew = True
 
     End Sub
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID <> 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
                         tsSaveNew_Click(sender, e)
@@ -224,16 +222,16 @@ Public Class FrmFundTransfer
         Frm.ShowDialog()
         If Frm.AccessibleDescription <> "" Then
             If Frm.AccessibleDescription <> "cancel" Then
-                fClear_Info()
+                ClearInfo()
                 ID = Frm.AccessibleDescription
                 IsNew = False
 
 
 
-                fClear_Info()
+                ClearInfo()
 
 
-                fRefreshInfo()
+                RefreshInfo()
 
             End If
 
@@ -243,7 +241,7 @@ Public Class FrmFundTransfer
 
     End Sub
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False Then
             If SecurityAccessDelete(Me) = False Then
                 Exit Sub
@@ -263,8 +261,8 @@ Public Class FrmFundTransfer
                     fJournalAccountRemoveFixed_Account_ID(cmbTO_ACCOUNT_ID.SelectedValue, 93, ID, dtpDATE.Value, cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue)
                 End If
                 SqlExecuted("DELETE FROM `fund_transfer` WHERE ID ='" & ID & "'")
-                PrompNotify(Me.Text, DeleteMsg, True)
-                fClear_Info()
+                DeleteNotify(Me)
+                ClearInfo()
                 ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
@@ -272,13 +270,13 @@ Public Class FrmFundTransfer
         End If
     End Sub
 
-    Private Sub frmFundTransfer_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
+    Private Sub FrmFundTransfer_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
 
         If Me.Text = Me.Name Then Exit Sub
         ID = gsDocument_Finder_ID
         IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
     End Sub
 
@@ -286,7 +284,7 @@ Public Class FrmFundTransfer
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -305,20 +303,17 @@ Public Class FrmFundTransfer
         End If
     End Sub
 
-    Private Sub ToolStripDropDownButton2_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButton2.Click
 
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
-                fClear_Info()
-                fRefreshInfo()
+                ClearInfo()
+                RefreshInfo()
             End If
 
         End If

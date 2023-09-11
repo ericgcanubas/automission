@@ -21,7 +21,7 @@ Public Class FrmPortfolioReport
         gsReportName = "Portfolio Report "
         gsReportTabName = "Portfolio Report "
 
-        gscryRpt = PublicViewReportOneParameterNumberOnly(gsReportFileName)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(gsReportFileName)
         CryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.Text, "SALES_MANAGER_NAME")
         CryParameterInsertValue(gscryRpt, GetStringFieldValue("contact", "ID", cmbSALES_MANAGER.SelectedValue, "CUSTOM_FIELD1"), "POSITION")
         CryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.SelectedValue, "sales_manager_id")

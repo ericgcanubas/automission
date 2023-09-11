@@ -12,7 +12,7 @@ Public Class FrmCustomerStatementDetails
         Me.Close()
     End Sub
     Private Sub ReportProccess()
-        gscryRpt = PublicViewReportOneParameterNumberOnly("cryCustomerStatementDetails.rpt")
+        gscryRpt = ReportDocumentOneParameterNumberOnly("cryCustomerStatementDetails.rpt")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
 

@@ -10,7 +10,7 @@ Public Class FrmInventoryReComputed
     Dim Ending_cost As Double
     Dim DateStart As Date
 
-    Private Function fLatestAdjustment() As Boolean
+    Private Function LatestAdjustment() As Boolean
         Dim B As Boolean
         Dim rd As OdbcDataReader = SqlReader($"SELECT SOURCE_REF_DATE,QUANTITY,ENDING_QUANTITY,COST FROM item_inventory  AS i WHERE i.`ITEM_ID` = '{gsITEM_ID}' AND i.`LOCATION_ID` = '{gsLOCATION_ID}' AND i.`SOURCE_REF_ID` = '6' Limit 1 ")
         If rd.Read Then

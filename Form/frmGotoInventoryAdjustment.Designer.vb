@@ -45,7 +45,7 @@ Partial Class FrmGotoInventoryAdjustment
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpDATE.Location = New System.Drawing.Point(194, 14)
-        Me.dtpDATE.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.dtpDATE.Margin = New System.Windows.Forms.Padding(5)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(330, 29)
         Me.dtpDATE.TabIndex = 1
@@ -55,7 +55,7 @@ Partial Class FrmGotoInventoryAdjustment
         Me.cmbADJUSTMENT_TYPE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbADJUSTMENT_TYPE_ID.FormattingEnabled = True
         Me.cmbADJUSTMENT_TYPE_ID.Location = New System.Drawing.Point(194, 46)
-        Me.cmbADJUSTMENT_TYPE_ID.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.cmbADJUSTMENT_TYPE_ID.Margin = New System.Windows.Forms.Padding(5)
         Me.cmbADJUSTMENT_TYPE_ID.Name = "cmbADJUSTMENT_TYPE_ID"
         Me.cmbADJUSTMENT_TYPE_ID.Size = New System.Drawing.Size(330, 29)
         Me.cmbADJUSTMENT_TYPE_ID.TabIndex = 2
@@ -65,7 +65,7 @@ Partial Class FrmGotoInventoryAdjustment
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
         Me.cmbLOCATION_ID.Location = New System.Drawing.Point(194, 78)
-        Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(5)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
         Me.cmbLOCATION_ID.Size = New System.Drawing.Size(330, 29)
         Me.cmbLOCATION_ID.TabIndex = 3
@@ -92,8 +92,8 @@ Partial Class FrmGotoInventoryAdjustment
         '
         'btnGoto
         '
-        Me.btnGoto.Location = New System.Drawing.Point(194, 150)
-        Me.btnGoto.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.btnGoto.Location = New System.Drawing.Point(194, 132)
+        Me.btnGoto.Margin = New System.Windows.Forms.Padding(5)
         Me.btnGoto.Name = "btnGoto"
         Me.btnGoto.Size = New System.Drawing.Size(334, 37)
         Me.btnGoto.TabIndex = 6
@@ -114,7 +114,7 @@ Partial Class FrmGotoInventoryAdjustment
         Me.Controls.Add(Me.Label1)
         Me.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FrmGotoInventoryAdjustment"

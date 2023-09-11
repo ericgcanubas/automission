@@ -7,7 +7,7 @@ Public Class FrmGeneralJournal
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -17,10 +17,10 @@ Public Class FrmGeneralJournal
         End If
         Return HasChange
     End Function
-    Private Sub frmGeneralJournal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmGeneralJournal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tsTITLE.Text = gsSubMenuForm
-        fColumnGrid()
-        fClearInfo()
+        ColumnGrid()
+        ClearInfo()
 
         With dgvDetails.Columns
             .Item("ACCOUNT_NAME").Width = 250
@@ -35,14 +35,14 @@ Public Class FrmGeneralJournal
 
         ViewNotSort(dgvDetails)
         If IsNew = False Then
-            fRefresh_Details()
+            RefreshDetails()
         End If
 
     End Sub
-    Private Sub fClearInfo()
+    Private Sub ClearInfo()
         dtpDATE.Checked = True
         dtpDATE.Value = Date.Now
-        fRefreshCombox()
+        RefreshCombox()
         ClearAndRefresh(Me)
 
         dgvDetails.Rows.Clear()
@@ -50,17 +50,19 @@ Public Class FrmGeneralJournal
         cmbLOCATION_ID.Enabled = IsLockLocation()
         dtpDATE.Value = TransactionDefaultDate()
     End Sub
-    Private Sub fColumnGrid()
+    Private Sub ColumnGrid()
         With dgvDetails.Columns
             .Clear()
             .Add("ID", "ID")
             .Item("ID").Visible = False
+
             .Add("ACCOUNT_ID", "ACCOUNT_ID")
             .Item("ACCOUNT_ID").Visible = False
-            .Add("ACCOUNT_NAME", gsCUSTOM_ACCOUNT_NAME)
 
+            .Add("ACCOUNT_NAME", gsCUSTOM_ACCOUNT_NAME)
             .Add("ENTRY_TYPE", "ENTRY_TYPE")
             .Item("ENTRY_TYPE").Visible = False
+
             .Add("DEBIT", "Debit")
 
             .Add("CREDIT", "Credit")
@@ -77,18 +79,18 @@ Public Class FrmGeneralJournal
             .Item("CONTROL_STATUS").Visible = False
         End With
     End Sub
-    Private Sub fComputed_entry(ByVal dgv As DataGridView, ByVal lbld As ToolStripLabel, ByVal lblc As ToolStripLabel)
-        Dim d As Double = 0
-        Dim c As Double = 0
+    Private Sub ComputedEntry(ByVal dgv As DataGridView, ByVal lbld As ToolStripLabel, ByVal lblc As ToolStripLabel)
+        Dim debitAmt As Double = 0
+        Dim creditAmt As Double = 0
         For i As Integer = 0 To dgv.Rows.Count - 1
             If dgv.Rows(i).Visible = True Then
-                d = d + NumberFormatFixed(NumIsNull(dgv.Rows(i).Cells("DEBIT").Value))
-                c = c + NumberFormatFixed(NumIsNull(dgv.Rows(i).Cells("CREDIT").Value))
+                debitAmt += NumberFormatFixed(NumIsNull(dgv.Rows(i).Cells("DEBIT").Value))
+                creditAmt += NumberFormatFixed(NumIsNull(dgv.Rows(i).Cells("CREDIT").Value))
             End If
         Next
 
-        lbld.Text = NumberFormatStandard(d)
-        lblc.Text = NumberFormatStandard(c)
+        lbld.Text = NumberFormatStandard(debitAmt)
+        lblc.Text = NumberFormatStandard(creditAmt)
 
         'collecting
         Dim wACCT_NAME As Integer
@@ -106,7 +108,7 @@ Public Class FrmGeneralJournal
 
 
     End Sub
-    Private Sub fRefresh_Details()
+    Private Sub RefreshDetails()
         bItemRefresh = True
         Dim sQuery As String = "select * from `general_journal` where id = '" & ID & "' limit 1"
         Try
@@ -130,7 +132,7 @@ Public Class FrmGeneralJournal
             End While
 
             rd.Close()
-            fComputed_entry(dgvDetails, lblDEBIT, lblCREDIT)
+            ComputedEntry(dgvDetails, lblDEBIT, lblCREDIT)
             bItemRefresh = False
 
             tdgv = New DataGridView
@@ -138,34 +140,21 @@ Public Class FrmGeneralJournal
             tQuery = SqlUpdate(Me)
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefresh_Details()
+                RefreshDetails()
             Else
                 End
             End If
         End Try
 
     End Sub
-
-
-
-    Private Sub fRefreshCombox()
+    Private Sub RefreshCombox()
         ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
     End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
-    Private Sub lklNew_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-    End Sub
-
-
-
-    Private Sub fEntryEdit()
+    Private Sub EntryEdit()
         If dgvDetails.Rows.Count = 0 Then
             Exit Sub
         End If
-        With frmJournalEntry
+        With FrmJournalEntry
             Dim r As DataGridViewRow = dgvDetails.Rows(dgvDetails.CurrentRow.Index)
             .gsAccount_ID = r.Cells("ACCOUNT_ID").Value
             .gsDebit = NumberFormatFixed(NumIsNull(r.Cells("DEBIT").Value))
@@ -183,24 +172,20 @@ Public Class FrmGeneralJournal
             .Dispose()
 
         End With
-        frmJournalEntry = Nothing
-        fComputed_entry(dgvDetails, lblDEBIT, lblCREDIT)
+        FrmJournalEntry = Nothing
+        ComputedEntry(dgvDetails, lblDEBIT, lblCREDIT)
+    End Sub
+    Private Sub DgvDetails_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDetails.CellDoubleClick
+        EntryEdit()
     End Sub
 
-    Private Sub lklDelete_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-    End Sub
-    Private Sub dgvDetails_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDetails.CellDoubleClick
-        fEntryEdit()
-    End Sub
-
-    Private Sub dgvDetails_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvDetails.RowsAdded
+    Private Sub DgvDetails_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvDetails.RowsAdded
         If bItemRefresh = False Then
-            fComputed_entry(dgvDetails, lblDEBIT, lblCREDIT)
+            ComputedEntry(dgvDetails, lblDEBIT, lblCREDIT)
         End If
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If dgvDetails.Rows.Count = 0 Then
             MessageBoxExclamation("Details required")
             Exit Sub
@@ -252,14 +237,8 @@ Public Class FrmGeneralJournal
             Exit Sub
         End If
 
-        fSaveDetails()
-
-        If IsNew = True Then
-            PrompNotify(Me.Text, SaveMsg, True)
-        Else
-            PrompNotify(Me.Text, UpdateMsg, True)
-        End If
-
+        SaveDetails()
+        SaveNotify(Me, IsNew)
 
         gsGotChangeDate = False
         gsGotChangeLocation1 = False
@@ -267,7 +246,7 @@ Public Class FrmGeneralJournal
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = "tsSaveNew" Then
-                fSetNew()
+                SetNew()
 
 
             End If
@@ -276,20 +255,20 @@ Public Class FrmGeneralJournal
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefresh_Details()
+                RefreshDetails()
             End If
         End Try
 
 
     End Sub
-    Private Sub fSetNew()
+    Private Sub SetNew()
 
-        fClearInfo()
+        ClearInfo()
         ID = 0
         IsNew = True
 
     End Sub
-    Private Sub fSaveDetails()
+    Private Sub SaveDetails()
         gsJOURNAL_NO_FORM = 0
 
         For i As Integer = 0 To dgvDetails.Rows.Count - 1
@@ -355,15 +334,15 @@ Public Class FrmGeneralJournal
 
     End Sub
 
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -380,10 +359,10 @@ Public Class FrmGeneralJournal
         f.ShowDialog()
         If f.AccessibleDescription <> "" Then
             If f.AccessibleDescription <> "cancel" Then
-                fClearInfo()
+                ClearInfo()
                 ID = f.AccessibleDescription
                 IsNew = False
-                fRefresh_Details()
+                RefreshDetails()
 
 
             End If
@@ -394,7 +373,7 @@ Public Class FrmGeneralJournal
 
     End Sub
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False Then
             If SecurityAccessDelete(Me) = False Then
                 Exit Sub
@@ -405,10 +384,10 @@ Public Class FrmGeneralJournal
             End If
 
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -427,13 +406,13 @@ Public Class FrmGeneralJournal
                     dgvDetails.Rows(N).Cells("CONTROL_STATUS").Value = "D"
                 Next
 
-                fSaveDetails()
+                SaveDetails()
 
 
                 SqlExecuted("DELETE FROM `general_journal` WHERE ID='" & ID & "' limit 1;")
                 PrompNotify(Me.Text, DeleteMsg, True)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
-                fClearInfo()
+                ClearInfo()
                 IsNew = True
                 ID = ""
 
@@ -443,22 +422,21 @@ Public Class FrmGeneralJournal
         End If
     End Sub
 
-    Private Sub frmGeneralJournal_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-    End Sub
 
-    Private Sub frmGeneralJournal_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fComputed_entry(dgvDetails, lblDEBIT, lblCREDIT)
+
+    Private Sub FrmGeneralJournal_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        ComputedEntry(dgvDetails, lblDEBIT, lblCREDIT)
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         'PREVIEW =====================================================================
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -490,7 +468,7 @@ Public Class FrmGeneralJournal
 
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -509,12 +487,12 @@ Public Class FrmGeneralJournal
         'PRINT ========================================================================
 
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -547,7 +525,7 @@ Public Class FrmGeneralJournal
                     cn.Close()
                 End If
             End Try
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -560,16 +538,16 @@ Public Class FrmGeneralJournal
 
     End Sub
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
 
-                fRefresh_Details()
+                RefreshDetails()
             End If
 
         End If
@@ -581,12 +559,12 @@ Public Class FrmGeneralJournal
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -607,26 +585,21 @@ Public Class FrmGeneralJournal
     End Sub
 
 
-
-    Private Sub dgvDetails_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDetails.CellContentClick
-
-    End Sub
-
-    Private Sub dgvDetails_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDetails.RowStateChanged
+    Private Sub DgvDetails_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDetails.RowStateChanged
         lblCount.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub frmGeneralJournal_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmGeneralJournal_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         ID = gsDocument_Finder_ID
         IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
 
-            fRefresh_Details()
+            RefreshDetails()
         End If
     End Sub
 
-    Private Sub tsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
-        With frmJournalEntry
+    Private Sub TsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
+        With FrmJournalEntry
             .tmp_dgv = dgvDetails
             .chkAuto.Checked = True
             .ShowDialog()
@@ -637,15 +610,15 @@ Public Class FrmGeneralJournal
             .Dispose()
 
         End With
-        frmJournalEntry = Nothing
-        fComputed_entry(dgvDetails, lblDEBIT, lblCREDIT)
+        FrmJournalEntry = Nothing
+        ComputedEntry(dgvDetails, lblDEBIT, lblCREDIT)
     End Sub
 
-    Private Sub tsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
-        fEntryEdit()
+    Private Sub TsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
+        EntryEdit()
     End Sub
 
-    Private Sub tsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
+    Private Sub TsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
         Try
             If dgvDetails.Rows.Count <> 0 Then
                 Dim i As Integer = dgvDetails.CurrentRow.Index
@@ -658,35 +631,27 @@ Public Class FrmGeneralJournal
                 Else
                     dgvDetails.Rows.RemoveAt(i)
                 End If
-                fComputed_entry(dgvDetails, lblDEBIT, lblCREDIT)
+                ComputedEntry(dgvDetails, lblDEBIT, lblCREDIT)
             End If
         Catch ex As Exception
 
         End Try
-        fComputed_entry(dgvDetails, lblDEBIT, lblCREDIT)
+        ComputedEntry(dgvDetails, lblDEBIT, lblCREDIT)
     End Sub
 
-    Private Sub GroupBox5_Enter(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub TsFindText_Click(sender As Object, e As EventArgs) Handles tsFindText.Click
-
-    End Sub
-
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         GetQuickFind(dgvDetails, tsFindText.Text)
     End Sub
 
     Private Sub SelectPrintPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPrintPageToolStripMenuItem.Click
         'Select Print Page ============================================================
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -703,10 +668,10 @@ Public Class FrmGeneralJournal
             Exit Sub
         End If
 
-        frmPrintPage.frmName = Me.Name
-        frmPrintPage.ShowDialog()
+        FrmPrintPage.frmName = Me.Name
+        FrmPrintPage.ShowDialog()
 
-        Dim v As Integer = frmPrintPage.prValue
+        Dim v As Integer = FrmPrintPage.prValue
         If v = 1 Or v = 2 Then
 
             Dim prFile_name As String = ""
@@ -726,7 +691,7 @@ Public Class FrmGeneralJournal
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -741,9 +706,6 @@ Public Class FrmGeneralJournal
                 gscryRpt.PrintToPrinter(1, False, 0, 0)
 
             End If
-
-
-
         End If
         frmPrintPage.Dispose()
         frmPrintPage = Nothing

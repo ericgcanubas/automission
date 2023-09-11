@@ -56,7 +56,7 @@
         Dim prFile_name As String = "crySalesByCustomerSummary.rpt"
         Dim prPrint_Title As String = "Sales By Buyer Summary"
         gsToolPanelView = False
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")
@@ -92,7 +92,7 @@
         Dim prFile_name As String = "crySalesByItemSummary.rpt"
         Dim prPrint_Title As String = "Sales By Item Summary"
         gsToolPanelView = False
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")
@@ -132,7 +132,7 @@
         Dim prFile_name As String = "crySalesReceiptList.rpt"
         Dim prPrint_Title As String = "Sales Invoice List"
         gsToolPanelView = False
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")
@@ -168,7 +168,7 @@
         Dim prFile_name As String = "cryPOSTransactionLog.rpt"
         Dim prPrint_Title As String = "POS Transaction Log"
         gsToolPanelView = False
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")

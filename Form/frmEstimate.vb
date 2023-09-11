@@ -313,14 +313,9 @@ FROM
             MessageBoxInfo(ex.Message)
         End Try
     End Sub
-
-
-
     Private Sub DgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
         EditItem()
     End Sub
-
-
     Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If SecurityAccessFind(Me) = False Then
             Exit Sub
@@ -418,13 +413,8 @@ FROM
 
         SaveItem()
         ItemUpdateStatus()
+        SaveNotify(Me, IsNew)
 
-        If IsNew = True Then
-            PrompNotify(Me.Text, SaveMsg, True)
-
-        Else
-            PrompNotify(Me.Text, UpdateMsg, True)
-        End If
 
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
@@ -439,10 +429,7 @@ FROM
                 IsNew = False
                 RefreshInfo()
                 RefreshItem()
-
             End If
-
-
         End Try
 
     End Sub
@@ -567,7 +554,7 @@ Again:
             Dim prFile_name As String = "cryEstimate.rpt"
             Dim prPrint_Title As String = tsTITLE.Text
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -603,7 +590,7 @@ Again:
             End If
             Dim prFile_name As String = "cryEstimate.rpt"
             Dim prPrint_Title As String = tsTITLE.Text
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")

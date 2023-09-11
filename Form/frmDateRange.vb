@@ -8,7 +8,7 @@
 
     Private Sub ReportProccess()
 
-        gscryRpt = PublicViewReportOneParameterNumberOnly(gsReportFileName)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(gsReportFileName)
         CryParameterInsertValue(gscryRpt, Format(dtpDT1.Value, "yyyy-MM-dd") & " 00:00:01", "dt1")
         CryParameterInsertValue(gscryRpt, Format(dtpDT2.Value, "yyyy-MM-dd") & " 23:59:59", "dt2")
 

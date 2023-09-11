@@ -12,7 +12,7 @@
         gsReportName = "Credit Limit Status "
         gsReportTabName = "Credit Limit Status Report"
 
-        gscryRpt = PublicViewReportOneParameterNumberOnly(gsReportFileName)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(gsReportFileName)
         CryParameterInsertValue(gscryRpt, cmbCONTACT.SelectedValue, "contact_id")
         CryParameterInsertValue(gscryRpt, cmbLOCATION_ID.SelectedValue, "location_id")
 

@@ -43,7 +43,7 @@ Public Class FrmReportSetup
 
             Dim dtp1 As DateTimePicker = Nothing
             Dim dtp2 As DateTimePicker = Nothing
-            gscryRpt = PublicViewReportOneParameterNumberOnly(lklFileName.Text)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(lklFileName.Text)
 
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")

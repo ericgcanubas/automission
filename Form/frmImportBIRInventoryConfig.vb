@@ -2,10 +2,9 @@
     Public FirstLoad As Boolean = True
 
     Private Sub FrmImportBIRInventoryConfig_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Load Default
-        fLoadDefault()
+        LoadDefault()
     End Sub
-    Private Sub fLoadDefault()
+    Private Sub LoadDefault()
         Dim SQL As String
         If FirstLoad = True Then
             SQL = "select * from ImportBIRConfig  Where UseDefault = '1'"
@@ -45,7 +44,7 @@
         End Try
         FirstLoad = False
     End Sub
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
         Dim cn As New OleDb.OleDbConnection(fMS_Con())
         Try
@@ -70,10 +69,10 @@
                 cn.Close()
             End If
         End Try
-        fLoadDefault()
+        LoadDefault()
     End Sub
 
-    Private Sub xnumID_ValueChanged(sender As Object, e As EventArgs) Handles xnumID.ValueChanged
-        fLoadDefault()
+    Private Sub XnumID_ValueChanged(sender As Object, e As EventArgs) Handles xnumID.ValueChanged
+        LoadDefault()
     End Sub
 End Class

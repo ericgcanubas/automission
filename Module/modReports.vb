@@ -35,7 +35,7 @@ Module modReports
         Return IsFileIsUse
     End Function
 
-    Public Function PublicViewReportOneParameterNumberOnly(ByVal prReportName As String) As ReportDocument
+    Public Function ReportDocumentOneParameterNumberOnly(ByVal prReportName As String) As ReportDocument
         Try
 
 
@@ -57,7 +57,7 @@ Module modReports
                 cryRpt.DataSourceConnections(0).SetConnection(db_name, db_name, db_username, db_password)
 
             Catch ex As Exception
-                cryRpt = PublicViewReportOneParameterNumberOnly(prReportName)
+                cryRpt = ReportDocumentOneParameterNumberOnly(prReportName)
             End Try
 
             Return cryRpt

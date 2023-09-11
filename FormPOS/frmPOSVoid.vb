@@ -128,7 +128,7 @@ Public Class FrmPOSVoid
             Dim prPrint_Title As String = gsPayment_Print_Title '' "OFFICIAL RECEIPT"
 
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, ThisID, "id")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")

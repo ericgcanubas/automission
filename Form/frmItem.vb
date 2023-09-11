@@ -77,7 +77,7 @@ FROM
         frmItemDetails.ShowDialog()
         frmItemDetails.Dispose()
         frmItemDetails = Nothing
-        'fRefreshDataGrid()
+        'RefreshData()
     End Sub
 
     Private Sub dgvItem_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellContentClick
@@ -122,7 +122,7 @@ FROM
             MessageBoxWarning(ex.Message)
         End Try
 
-        ' fRefreshDataGrid()
+        ' RefreshData()
     End Sub
 
     Private Sub dgvItem_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellContentDoubleClick
@@ -178,7 +178,7 @@ FROM
     End Sub
 
     Private Sub tsbtnSearch_Click(sender As Object, e As EventArgs)
-        'fRefreshDataGrid()
+        'RefreshData()
 
         fSearchload()
 

@@ -1046,7 +1046,7 @@ NewPOS_LOG:
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             POSReportParam()
             CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
             ReportExporPDF(gscryRpt, prPrint_Title)
@@ -1107,7 +1107,7 @@ NewPOS_LOG:
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             POSReportParam()
             CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
@@ -1409,7 +1409,7 @@ NewPOS_LOG:
                 End If
             End Try
 
-            gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+            gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
             CryParameterInsertValue(gscryRpt, Val(ID), "myid")
             POSReportParam()
             CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")

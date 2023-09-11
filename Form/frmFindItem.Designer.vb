@@ -75,7 +75,7 @@ Partial Class FrmFindItem
         Me.tsItem.Image = CType(resources.GetObject("tsItem.Image"), System.Drawing.Image)
         Me.tsItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsItem.Name = "tsItem"
-        Me.tsItem.Size = New System.Drawing.Size(47, 49)
+        Me.tsItem.Size = New System.Drawing.Size(50, 52)
         Me.tsItem.Text = "Item"
         Me.tsItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.tsItem.Visible = False
@@ -84,37 +84,37 @@ Partial Class FrmFindItem
         '
         Me.AddToolStripMenuItem.Image = Global.Automission.My.Resources.Resources.l_create
         Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
-        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(137, 38)
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(143, 38)
         Me.AddToolStripMenuItem.Text = "Create"
         '
         'EditsToolStripMenuItem
         '
         Me.EditsToolStripMenuItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.EditsToolStripMenuItem.Name = "EditsToolStripMenuItem"
-        Me.EditsToolStripMenuItem.Size = New System.Drawing.Size(137, 38)
+        Me.EditsToolStripMenuItem.Size = New System.Drawing.Size(143, 38)
         Me.EditsToolStripMenuItem.Text = "Update"
         '
         'ExportToolStripMenuItem
         '
         Me.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem"
-        Me.ExportToolStripMenuItem.Size = New System.Drawing.Size(137, 38)
+        Me.ExportToolStripMenuItem.Size = New System.Drawing.Size(143, 38)
         Me.ExportToolStripMenuItem.Text = "Export"
         '
         'BarcodeToolStripMenuItem
         '
         Me.BarcodeToolStripMenuItem.Name = "BarcodeToolStripMenuItem"
-        Me.BarcodeToolStripMenuItem.Size = New System.Drawing.Size(137, 38)
+        Me.BarcodeToolStripMenuItem.Size = New System.Drawing.Size(143, 38)
         Me.BarcodeToolStripMenuItem.Text = "Barcode"
         '
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripLabel3
         '
         Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(79, 49)
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(91, 52)
         Me.ToolStripLabel3.Text = "Search Filter"
         '
         'tsTxtSearch
@@ -122,17 +122,17 @@ Partial Class FrmFindItem
         Me.tsTxtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tsTxtSearch.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsTxtSearch.Name = "tsTxtSearch"
-        Me.tsTxtSearch.Size = New System.Drawing.Size(200, 52)
+        Me.tsTxtSearch.Size = New System.Drawing.Size(200, 55)
         '
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripLabel4
         '
         Me.ToolStripLabel4.Name = "ToolStripLabel4"
-        Me.ToolStripLabel4.Size = New System.Drawing.Size(54, 49)
+        Me.ToolStripLabel4.Size = New System.Drawing.Size(63, 52)
         Me.ToolStripLabel4.Text = "Location"
         '
         'tscmbLocation
@@ -142,19 +142,19 @@ Partial Class FrmFindItem
         Me.tscmbLocation.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.tscmbLocation.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tscmbLocation.Name = "tscmbLocation"
-        Me.tscmbLocation.Size = New System.Drawing.Size(200, 52)
+        Me.tscmbLocation.Size = New System.Drawing.Size(200, 55)
         '
         'ToolStripLabel5
         '
         Me.ToolStripLabel5.Name = "ToolStripLabel5"
-        Me.ToolStripLabel5.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel5.Size = New System.Drawing.Size(6, 55)
         '
         'tsbtnSearch
         '
         Me.tsbtnSearch.Image = Global.Automission.My.Resources.Resources.l_reload
         Me.tsbtnSearch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbtnSearch.Name = "tsbtnSearch"
-        Me.tsbtnSearch.Size = New System.Drawing.Size(50, 49)
+        Me.tsbtnSearch.Size = New System.Drawing.Size(54, 52)
         Me.tsbtnSearch.Text = "Reload"
         Me.tsbtnSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -164,7 +164,7 @@ Partial Class FrmFindItem
         Me.tsTITLE.Font = New System.Drawing.Font("Verdana", 14.25!)
         Me.tsTITLE.Image = Global.Automission.My.Resources.Resources.back_icon_set
         Me.tsTITLE.Name = "tsTITLE"
-        Me.tsTITLE.Size = New System.Drawing.Size(104, 49)
+        Me.tsTITLE.Size = New System.Drawing.Size(104, 52)
         Me.tsTITLE.Text = "TITLE "
         Me.tsTITLE.Visible = False
         '
@@ -213,7 +213,7 @@ Partial Class FrmFindItem
         Me.lblRow.Size = New System.Drawing.Size(15, 17)
         Me.lblRow.Text = "0"
         '
-        'frmFindItem
+        'FrmFindItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -225,7 +225,7 @@ Partial Class FrmFindItem
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmFindItem"
+        Me.Name = "FrmFindItem"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

@@ -38,7 +38,7 @@ Public Class FrmPOSVoidEntry
         End Try
         dgvSalesReceiptList.Select()
         Dim ThisID As Integer = dgvSalesReceiptList.CurrentRow.Cells(0).Value
-        gscryRpt = PublicViewReportOneParameterNumberOnly(prFile_name)
+        gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, Val(ThisID), "myid")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")

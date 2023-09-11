@@ -34,56 +34,56 @@ Partial Class FrmInventoryReComputed
         '
         'pbInventory
         '
-        Me.pbInventory.Location = New System.Drawing.Point(13, 46)
-        Me.pbInventory.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.pbInventory.Location = New System.Drawing.Point(15, 32)
+        Me.pbInventory.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.pbInventory.Name = "pbInventory"
-        Me.pbInventory.Size = New System.Drawing.Size(284, 23)
+        Me.pbInventory.Size = New System.Drawing.Size(325, 25)
         Me.pbInventory.TabIndex = 1
         '
         'pbJournal
         '
-        Me.pbJournal.Location = New System.Drawing.Point(13, 104)
-        Me.pbJournal.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.pbJournal.Location = New System.Drawing.Point(15, 94)
+        Me.pbJournal.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
         Me.pbJournal.Name = "pbJournal"
-        Me.pbJournal.Size = New System.Drawing.Size(284, 23)
+        Me.pbJournal.Size = New System.Drawing.Size(325, 25)
         Me.pbJournal.TabIndex = 2
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 28)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(10, 13)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(59, 15)
+        Me.Label2.Size = New System.Drawing.Size(71, 16)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Inventory"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 88)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(10, 77)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(48, 15)
+        Me.Label3.Size = New System.Drawing.Size(53, 16)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "Journal"
         '
         'lblInventoryStatus
         '
-        Me.lblInventoryStatus.Location = New System.Drawing.Point(111, 28)
-        Me.lblInventoryStatus.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblInventoryStatus.Location = New System.Drawing.Point(127, 13)
+        Me.lblInventoryStatus.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblInventoryStatus.Name = "lblInventoryStatus"
-        Me.lblInventoryStatus.Size = New System.Drawing.Size(186, 15)
+        Me.lblInventoryStatus.Size = New System.Drawing.Size(213, 16)
         Me.lblInventoryStatus.TabIndex = 7
         Me.lblInventoryStatus.Text = "0/0"
         Me.lblInventoryStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblJournalStatus
         '
-        Me.lblJournalStatus.Location = New System.Drawing.Point(69, 88)
-        Me.lblJournalStatus.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblJournalStatus.Location = New System.Drawing.Point(79, 77)
+        Me.lblJournalStatus.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.lblJournalStatus.Name = "lblJournalStatus"
-        Me.lblJournalStatus.Size = New System.Drawing.Size(228, 15)
+        Me.lblJournalStatus.Size = New System.Drawing.Size(261, 16)
         Me.lblJournalStatus.TabIndex = 8
         Me.lblJournalStatus.Text = "0/0"
         Me.lblJournalStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -91,11 +91,11 @@ Partial Class FrmInventoryReComputed
         'Timer1
         '
         '
-        'frmInventoryReComputed
+        'FrmInventoryReComputed
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(319, 147)
+        Me.ClientSize = New System.Drawing.Size(365, 135)
         Me.ControlBox = False
         Me.Controls.Add(Me.lblJournalStatus)
         Me.Controls.Add(Me.lblInventoryStatus)
@@ -104,10 +104,10 @@ Partial Class FrmInventoryReComputed
         Me.Controls.Add(Me.pbJournal)
         Me.Controls.Add(Me.pbInventory)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        Me.Name = "frmInventoryReComputed"
+        Me.Margin = New System.Windows.Forms.Padding(5, 3, 5, 3)
+        Me.Name = "FrmInventoryReComputed"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Inventory ReComputed"
         Me.ResumeLayout(False)

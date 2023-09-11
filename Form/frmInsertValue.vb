@@ -4,11 +4,9 @@
     Public gsDescription As String
     Public bSave As Boolean
     Public gsValue As String
-
-
     'Declare the variables
 
-    Private Sub frmInsertValue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmInsertValue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fMaterialSkin(Me)
         lblDescription.Text = gsDescription
         txtValue.Text = gsValue
@@ -17,30 +15,13 @@
         bSave = False
 
     End Sub
-
-    Private Sub btnSave_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txtValue_TextChanged(sender As Object, e As EventArgs) Handles txtValue.TextChanged
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txtValue_KeyDown(sender As Object, e As KeyEventArgs) Handles txtValue.KeyDown
+    Private Sub TxtValue_KeyDown(sender As Object, e As KeyEventArgs) Handles txtValue.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnOK.Focus()
         End If
     End Sub
 
-    Private Sub txtValue_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtValue.KeyPress
+    Private Sub TxtValue_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtValue.KeyPress
         '97 - 122 = Ascii codes for simple letters
         '65 - 90  = Ascii codes for capital letters
         '48 - 57  = Ascii codes for numbers
@@ -64,7 +45,7 @@
 
     End Sub
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         bSave = True
         gsValue = txtValue.Text
         Me.Close()

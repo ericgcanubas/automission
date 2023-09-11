@@ -4,8 +4,8 @@ Module modNotify
     Public Const DeleteMsg As String = "Successfully deleted."
     Public Const UpdateMsg As String = "Successfully updated."
 
-    Public Sub SaveNotify(ByVal Frm As Form, ByVal IsNew As Boolean)
-        If IsNew = True Then
+    Public Sub SaveNotify(ByVal Frm As Form, ByVal IsNewEntry As Boolean)
+        If IsNewEntry = True Then
             PrompNotify(Frm.Text, SaveMsg, True)
         Else
             PrompNotify(Frm.Text, UpdateMsg, True)

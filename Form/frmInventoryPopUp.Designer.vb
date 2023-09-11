@@ -44,12 +44,12 @@ Partial Class FrmInventoryPopUp
         '
         'numQTY
         '
-        Me.numQTY.Location = New System.Drawing.Point(82, 14)
+        Me.numQTY.Location = New System.Drawing.Point(12, 12)
         Me.numQTY.Name = "numQTY"
         Me.numQTY.Size = New System.Drawing.Size(69, 25)
         Me.numQTY.TabIndex = 1
         '
-        'frmInventoryPopUp
+        'FrmInventoryPopUp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -61,7 +61,7 @@ Partial Class FrmInventoryPopUp
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmInventoryPopUp"
+        Me.Name = "FrmInventoryPopUp"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Inventory Pop-Up"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()

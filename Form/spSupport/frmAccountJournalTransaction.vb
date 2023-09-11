@@ -24,7 +24,7 @@ Public Class frmAccountJournalTransaction
                 gsReportFileName = prFile
                 gsReportName = prTitle & " " & type_name
                 gsReportTabName = "Journal (" & journal_no & ")"
-                gscryRpt = PublicViewReportOneParameterNumberOnly(gsReportFileName)
+                gscryRpt = ReportDocumentOneParameterNumberOnly(gsReportFileName)
                 CryParameterInsertValue(gscryRpt, journal_no, "journal_no")
                 CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
                 CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
