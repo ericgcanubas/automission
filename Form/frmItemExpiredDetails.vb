@@ -3,7 +3,7 @@
     Dim IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
-    Private Sub frmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ComboBoxLoad(cmbITEM_ID, "SELECT ID,CODE FROM ITEM WHERE `INACTIVE` ='0' ", "", "")
 
         If ID > 0 Then
@@ -16,37 +16,14 @@
         End If
 
     End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-        If IsNew = True Then
-            ClearAndRefresh(Me)
-        Else
-            If MessageBoxQuestion("Create new?") = True Then
-                IsNew = True
-                ID = 0
-                ClearAndRefresh(Me)
-            Else
-
-                SqlExecutedUsingReading(Me, "select * from item_batches where id = '" & ID & "' limit 1")
-            End If
-        End If
-    End Sub
-    Private Sub fGotBatchNo()
+    Private Sub GotBatchNo()
         txtBATCH_NO.Text = Format(Val(GetMaxFieldLine("BATCH_NO", "item_batches", "ITEM_ID", cmbITEM_ID.SelectedValue)), "0000")
     End Sub
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
 
         If txtBATCH_NO.Text = "" Then
-            fGotBatchNo()
+            GotBatchNo()
         End If
 
 
@@ -66,18 +43,18 @@
         ID = 0
         IsNew = True
 
-        If SecurityAccessMode(frmShipVia, IsNew) = False Then
+        If SecurityAccessMode(FrmShipVia, IsNew) = False Then
             Me.Close()
         End If
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub cmbITEM_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbITEM_ID.SelectedIndexChanged
+    Private Sub CmbITEM_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbITEM_ID.SelectedIndexChanged
         If IsNew = True Then
-            fGotBatchNo()
+            GotBatchNo()
         End If
 
     End Sub

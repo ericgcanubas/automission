@@ -5,10 +5,10 @@ Public Class FrmConnectionSetup
     Public strCon_Name As String
     Private Sub RefreshForm()
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
             cn.Open()
-            Dim rd As OleDb.OleDbDataReader = fMSgetReader("select * from tblconnection where connection_name = '" & strCon_Name & "'", cn)
+            Dim rd As OleDb.OleDbDataReader = DbAccessReader("select * from tblconnection where connection_name = '" & strCon_Name & "'", cn)
             If rd.Read Then
                 txtConnectionName.Text = TextIsNull(rd("connection_name"))
                 txtServer.Text = TextIsNull(rd("db_server"))
@@ -47,10 +47,10 @@ Public Class FrmConnectionSetup
 
         Dim sql_query As String
         If bNew = True Then
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim rd As OleDb.OleDbDataReader = fMSgetReader("select * from tblconnection where connection_name ='" & txtConnectionName.Text & "'", cn)
+                Dim rd As OleDb.OleDbDataReader = DbAccessReader("select * from tblconnection where connection_name ='" & txtConnectionName.Text & "'", cn)
                 If rd.Read Then
                     MessageBoxWarning("Connection name is already use!")
                     cn.Close()
@@ -70,7 +70,7 @@ Public Class FrmConnectionSetup
             sql_query = "UPDATE tblconnection set db_server = '" & txtServer.Text & "',db_name='" & txtDatabase.Text & "',db_username ='" & txtUsername.Text & "',db_password='" & Encrypt(txtPassword.Text) & "',db_port='" & txtPort.Text & "',db_datasource_name = '" & cmbPOS_TYPE.SelectedIndex & "',POS_MODE = " & chkPOS_MODE.Checked & " where connection_name = '" & txtConnectionName.Text & "'"
         End If
 
-        fMS_execute(sql_query)
+        DbAccessExecute(sql_query)
 
         SaveNotify(Me, bNew)
 

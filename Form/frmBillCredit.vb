@@ -97,7 +97,7 @@ FROM
                 dgvExpenses.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvExpenses.Columns(i)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvExpenses.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvExpenses.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
@@ -182,7 +182,7 @@ FROM
                 dgvProductItem.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(i)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
@@ -687,7 +687,7 @@ FROM
 
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
+            If btn.Name = tsSaveNew.Name Then
                 SetNew()
             End If
         Catch ex As Exception
@@ -1032,12 +1032,12 @@ FROM
             If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1085,12 +1085,12 @@ FROM
             If SecurityAccessPrint(Me) = False Then
                 Exit Sub
             End If
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1144,10 +1144,10 @@ FROM
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1200,7 +1200,7 @@ FROM
             End If
         End If
         If IsNew = False Then
-            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 59, 21, cmbVENDOR_ID.Text, txtCODE.Text, txtNOTES.Text)
+            AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 59, 21, cmbVENDOR_ID.Text, txtCODE.Text, txtNOTES.Text)
         End If
 
     End Sub

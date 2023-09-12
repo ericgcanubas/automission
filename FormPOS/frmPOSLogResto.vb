@@ -115,7 +115,7 @@
         ContextMenuStrip1.Show(Me, btnReport.Location)
     End Sub
     Private Sub fSalesSUmmaryCustomer()
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByCustomerSummary.rpt"
         Dim prPrint_Title As String = "Sales By Customer Summary"
         gsToolPanelView = False
@@ -151,7 +151,7 @@
     End Sub
 
     Private Sub fSalesByItemSummary()
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByItemSummary.rpt"
         Dim prPrint_Title As String = "Sales By Item Summary"
         gsToolPanelView = False
@@ -193,13 +193,13 @@
             Exit Sub
         End If
 
-        fMSgetFieldGetReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
+        DbAccessGetFieldReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
         If gsResto_Sales__File_Name = "" Then
             MessageBoxInfo("Report not set.")
             Exit Sub
         End If
         '   Gmail("TEST11", "TEST", "ecanubas@ewgroup.com.ph")
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = gsResto_Sales__File_Name ' "cryPaymentLog.rpt"
         Dim prPrint_Title As String = $"{gsResto_Sales_Print_Title} (" & gsPOS_LOG_ID & ")"
 
@@ -230,7 +230,7 @@
             MessageBoxInfo("No Entry available.")
             Exit Sub
         End If
-        fMSgetFieldGetReports(gsPayment_Print_Title, gsPayment_File_Name, frmReceivePayment.Name)
+        DbAccessGetFieldReports(gsPayment_Print_Title, gsPayment_File_Name, frmReceivePayment.Name)
         With FrmPOSVoid
             .ShowDialog()
             gsGotVoid = .gsGotVoid
@@ -261,9 +261,9 @@
     End Sub
     Private Sub fCallReports()
 
-        fMSgetFieldGetReports(gsSalesOrder_Print_Title, gsSalesOrder_File_Name, frmSalesOrder.Name)
-        fMSgetFieldGetReports(gsInvoice_Print_Title, gsInvoice_File_Name, frmInvoice.Name)
-        fMSgetFieldGetReports(gsPayment_Print_Title, gsPayment_File_Name, frmReceivePayment.Name)
+        DbAccessGetFieldReports(gsSalesOrder_Print_Title, gsSalesOrder_File_Name, frmSalesOrder.Name)
+        DbAccessGetFieldReports(gsInvoice_Print_Title, gsInvoice_File_Name, frmInvoice.Name)
+        DbAccessGetFieldReports(gsPayment_Print_Title, gsPayment_File_Name, frmReceivePayment.Name)
 
 
 

@@ -137,11 +137,11 @@ Partial Class FrmItemExpiredDetails
         Me.btnFind.Location = New System.Drawing.Point(377, 13)
         Me.btnFind.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnFind.Name = "btnFind"
-        Me.btnFind.Size = New System.Drawing.Size(30, 24)
+        Me.btnFind.Size = New System.Drawing.Size(26, 24)
         Me.btnFind.TabIndex = 80
         Me.btnFind.UseVisualStyleBackColor = False
         '
-        'frmItemExpiredDetails
+        'FrmItemExpiredDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -162,7 +162,7 @@ Partial Class FrmItemExpiredDetails
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmItemExpiredDetails"
+        Me.Name = "FrmItemExpiredDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.Text = "Item Expired"

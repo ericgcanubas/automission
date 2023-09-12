@@ -258,7 +258,7 @@ FROM
 
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvItem.Columns(i)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))

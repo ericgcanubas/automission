@@ -230,7 +230,7 @@ Public Class FrmDeposit
 
 
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
+            If btn.Name = tsSaveNew.Name Then
                 SetNew()
             End If
 
@@ -511,10 +511,10 @@ Public Class FrmDeposit
             End If
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -567,10 +567,10 @@ Public Class FrmDeposit
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -705,7 +705,7 @@ Public Class FrmDeposit
         End If
 
         If IsNew = False Then
-            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 81, cmbBANK_ACCOUNT_ID.SelectedValue, "", txtCODE.Text, txtNOTES.Text)
+            AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 81, cmbBANK_ACCOUNT_ID.SelectedValue, "", txtCODE.Text, txtNOTES.Text)
         End If
     End Sub
 
@@ -805,10 +805,10 @@ Public Class FrmDeposit
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")

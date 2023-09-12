@@ -3,7 +3,7 @@ Imports System.Data.Odbc
 Public Class FrmReportMonthly
     Dim f As Date
     Dim t As Date
-    Private Sub frmDepotSalesAcheivementReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmDepotSalesAcheivementReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.AccessibleName = gsReportFileName
         Me.Text = gsReportName
         YearlyComboBoxLoad(cmbYear)
@@ -11,8 +11,8 @@ Public Class FrmReportMonthly
 
 
     End Sub
-    Private Function fgetnumberreleaseRT(ByVal running_total As Double) As Integer
-        Dim i As Integer = 0
+    Private Function GetNumberReleaseRT(ByVal running_total As Double) As Integer
+        Dim i As Integer
         Dim v As Integer = 0
         Dim g As Double
         '   Dim cn As New MySqlConnection(mysqlConstr)
@@ -20,7 +20,7 @@ Public Class FrmReportMonthly
             ' cn.Open()
             Dim rd As OdbcDataReader = SqlReader("select sales_target, service_fee_pct from service_fee where  sales_target > '0'   order by sales_target")
             While rd.Read
-                i = i + 1
+                i = +1
                 If NumIsNull(rd("sales_target")) >= running_total Then
 
                     If g = 0 Then
@@ -41,14 +41,14 @@ Public Class FrmReportMonthly
     End Function
 
 
-    Private Sub fReportProccess()
+    Private Sub ReportProccess()
         If gsReportFileName = "cryInHouseDeportServiceFee.rpt" Then
-            Dim d As Date = New Date(Val(cmbYear.SelectedValue), cmbMonth.SelectedValue, 1)
+            Dim d As New Date(Val(cmbYear.SelectedValue), cmbMonth.SelectedValue, 1)
             f = FirstDayOfMonth(d)
             t = (f.Month) & "/" & DaysInMonth(f.Year, f.Month) & "/" & (f.Year)
             gscryRpt = ReportDocumentOneParameterNumberOnly(Me.AccessibleName)
             Dim r As Double = fgetRunningTotal(Format(f, "yyyy-MM-dd"), Format(t, "yyyy-MM-dd"))
-            Dim n As Integer = fgetnumberreleaseRT(r)
+            Dim n As Integer = GetNumberReleaseRT(r)
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
             CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
             CryParameterInsertValue(gscryRpt, cmbYear.Text & " of " & cmbMonth.Text, "myremark")
@@ -60,7 +60,7 @@ Public Class FrmReportMonthly
 
         Else
 
-            Dim d As Date = New Date(Val(cmbYear.SelectedValue), cmbMonth.SelectedValue, 1)
+            Dim d As New Date(Val(cmbYear.SelectedValue), cmbMonth.SelectedValue, 1)
             f = FirstDayOfMonth(d)
             t = (f.Month) & "/" & DaysInMonth(f.Year, f.Month) & "/" & (f.Year)
             gscryRpt = ReportDocumentOneParameterNumberOnly(Me.AccessibleName)
@@ -76,19 +76,19 @@ Public Class FrmReportMonthly
         End If
         ReportExporPDF(gscryRpt, Me.Text)
     End Sub
-    Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
+    Private Sub BtnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
 
 
-        fReportProccess()
+        ReportProccess()
 
         GlobalPreviewReport(gsReportName)
         Me.Close()
 
     End Sub
 
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
 
-        fReportProccess()
+        ReportProccess()
 
         gscryRpt.PrintToPrinter(1, False, 0, 0)
         Me.Close()

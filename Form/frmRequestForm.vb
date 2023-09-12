@@ -6,15 +6,9 @@ Public Class FrmRequestForm
     Public bClickOK As Boolean = False
     Public gsFirstLoad As Boolean = True
 
-    Private Sub frmRequestForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-
-
+    Private Sub FrmRequestForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadDataGridView(dgvRequest, "select r.ID, r.Date, r.Code, c.name as `Vendor`, l.name as `Location`,r.location_id,r.vendor_id from purchase_request as r inner join location as l on l.id = r.location_id inner join contact as c on c.ID = r.vendor_id  WHERE r.status ='2'  ")
-
         dgvRequest.Columns(0).Visible = False
-
-
         dgvRequest.Columns("location_id").Visible = False
         dgvRequest.Columns("vendor_id").Visible = False
         dgvRequest.Columns("Date").Width = 100
@@ -23,19 +17,21 @@ Public Class FrmRequestForm
         ' dgvRequest.Columns("Vendor").DefaultCellStyle.WrapMode = DataGridViewTriState.True
         ' dgvRequest.Columns("Location").Width = 40
 
-        fcolumnSelected()
+        ColumnSelected()
         gsFirstLoad = False
     End Sub
 
 
-    Private Sub fcolumnSelected()
-        Dim chk_selected As New DataGridViewCheckBoxColumn
-        chk_selected.HeaderText = "  "
-        chk_selected.Name = "SELECTED"
+    Private Sub ColumnSelected()
+        Dim chk_selected As New DataGridViewCheckBoxColumn With {
+            .HeaderText = "  ",
+            .Name = "SELECTED"
+        }
 
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = "TAX"
-        chk.Name = "TAX"
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = "TAX",
+            .Name = "TAX"
+        }
 
         With dgvItem.Columns
             .Clear()
@@ -112,7 +108,7 @@ Public Class FrmRequestForm
 
         End With
     End Sub
-    Private Sub frefreshItem()
+    Private Sub RefreshItem()
         Dim n As Integer = 0
 
         If dgvRequest.Rows.Count = 0 Then Exit Sub
@@ -178,7 +174,7 @@ FROM
                 For i As Integer = 0 To rd.FieldCount - 1
 
                     If i = 4 Or i = 6 Or i = 8 Then
-                        dgvItem.Rows(x).Cells(i).Value = fgetTypeValue(NumIsNull(rd(i)))
+                        dgvItem.Rows(x).Cells(i).Value = GetTypeValue(NumIsNull(rd(i)))
                     ElseIf i = 10 Then
                         Dim b As Boolean = NumIsNull(rd(i))
                         dgvItem.Rows(x).Cells(i).Value = b
@@ -194,14 +190,14 @@ FROM
                 Next
 
 
-                x = x + 1
+                x += 1
 
 
             End While
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                frefreshItem()
+                RefreshItem()
             Else
                 End
             End If
@@ -210,7 +206,7 @@ FROM
 
     End Sub
 
-    Private Sub frmRequestForm_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmRequestForm_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
 
 
@@ -236,14 +232,14 @@ FROM
 
 
         End With
-        frefreshItem()
+        RefreshItem()
     End Sub
-    Private Sub fCheckSide(ByVal d As DataGridView)
+    Private Sub CheckingSide(ByVal d As DataGridView)
         If d.Rows.Count = 0 Then Exit Sub
         Dim i As Integer = d.CurrentRow.Index
         d.Rows(i).Cells(0).Value = IIf(d.Rows(i).Cells(0).Value = True, False, True)
     End Sub
-    Private Function fgetTypeValue(ByVal dt As String) As String
+    Private Function GetTypeValue(ByVal dt As String) As String
         If IsNumeric(dt) = True Then
             Return Format(dt, "Standard")
         Else
@@ -251,17 +247,13 @@ FROM
         End If
     End Function
 
-    Private Sub dgvItem_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellContentClick
-
-    End Sub
-
-    Private Sub dgvItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellClick
+    Private Sub DgvItem_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvItem.CellClick
         If e.ColumnIndex = 0 Then
-            fCheckSide(dgvItem)
+            CheckingSide(dgvItem)
         End If
     End Sub
 
-    Private Sub btnCheckAll_Click(sender As Object, e As EventArgs) Handles btnCheckAll.Click
+    Private Sub BtnCheckAll_Click(sender As Object, e As EventArgs) Handles btnCheckAll.Click
         Dim d As DataGridView = dgvItem
 
         For i As Integer = 0 To d.Rows.Count - 1
@@ -269,7 +261,7 @@ FROM
         Next
     End Sub
 
-    Private Sub btnUncheckAll_Click(sender As Object, e As EventArgs) Handles btnUncheckAll.Click
+    Private Sub BtnUncheckAll_Click(sender As Object, e As EventArgs) Handles btnUncheckAll.Click
         Dim d As DataGridView = dgvItem
 
         For i As Integer = 0 To d.Rows.Count - 1
@@ -277,11 +269,11 @@ FROM
         Next
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+    Private Sub BtnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Try
 
 
@@ -309,14 +301,11 @@ FROM
         End Try
     End Sub
 
-    Private Sub dgvRequest_SelectionChanged(sender As Object, e As EventArgs) Handles dgvRequest.SelectionChanged
+    Private Sub DgvRequest_SelectionChanged(sender As Object, e As EventArgs) Handles dgvRequest.SelectionChanged
         If gsFirstLoad = False Then
-            frefreshItem()
+            RefreshItem()
         End If
 
     End Sub
 
-    Private Sub dgvRequest_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRequest.CellContentClick
-
-    End Sub
 End Class

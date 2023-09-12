@@ -123,7 +123,7 @@ Public Class FrmPOSVoid
     Private Sub fMustPrint(ByVal ThisID As Integer)
         If MessageBoxPointOfSalesYesNO($"Do you want to Print?") = True Then
 
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Dim prFile_name As String = gsPayment_File_Name '' "cryPOSRestoPayment.rpt"
             Dim prPrint_Title As String = gsPayment_Print_Title '' "OFFICIAL RECEIPT"
 

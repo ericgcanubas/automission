@@ -1,7 +1,7 @@
 ﻿Public Class FrmPOSLogList
     Public item_BS As BindingSource
     Dim firstLoad As Boolean = True
-    Private Sub fRefreshData()
+    Private Sub RefreshData()
 
         LoadDataGridViewBinding(dgvLog, $"SELECT 
   p.`ID`,
@@ -36,13 +36,13 @@ FROM
 
         ViewColumn(dgvLog, 46)
 
-        fCashCountVsTotal()
+        CashCountVsTotal()
         With dgvLog.Columns
             .Item(0).Visible = True
         End With
     End Sub
 
-    Private Sub fCashCountVsTotal()
+    Private Sub CashCountVsTotal()
 
         For I As Integer = 0 To dgvLog.Rows.Count - 1
             With dgvLog.Rows(I)
@@ -53,46 +53,24 @@ FROM
             End With
         Next
     End Sub
-
-
-
-    Private Sub fRefreshLocation()
+    Private Sub RefreshLocation()
         TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
     End Sub
 
-    Private Sub frmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        fRefreshLocation()
+        RefreshLocation()
         Dim loc_value As String = gsDefault_LOCATION_ID
         tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "%", loc_value)
         tscmbLocation.Enabled = IsLockLocation()
         firstLoad = False
 
         RecomputeJournalToolStripMenuItem.Visible = gsAdmin_User
-        fRefreshData()
+        RefreshData()
     End Sub
 
-
-
-
-
-    Private Sub tsClose_Click_1(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click_1(sender As Object, e As EventArgs) Handles tsClose.Click
         ClosedForm(Me)
-    End Sub
-
-
-    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-
-
-    Private Sub dgvCustomer_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLog.CellContentClick
-
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
@@ -103,16 +81,7 @@ FROM
 
     End Sub
 
-    Private Sub frmChartOfAccount_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-        'With dgvAccount.Columns
-        '    .Item("Name").Width = 400
-        '    .Item("INACTIVE").Width = 50
-        '    .Item("Line No.").Width = 60
-        'End With
-
-    End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
 
             Dim strFInd As String = ""
@@ -149,23 +118,15 @@ FROM
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
-
-
-
-    Private Sub dgvAccount_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvLog.RowStateChanged
+    Private Sub DgvAccount_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvLog.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
-
-    Private Sub tscmbLocation_Click(sender As Object, e As EventArgs) Handles tscmbLocation.Click
-
-    End Sub
-
-    Private Sub tscmbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbLocation.SelectedIndexChanged
+    Private Sub TScmbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tscmbLocation.SelectedIndexChanged
         If firstLoad = False Then
-            fRefreshData()
+            RefreshData()
         End If
     End Sub
 
@@ -185,38 +146,38 @@ FROM
     End Sub
 
     Private Sub TsbtnSearch_Click(sender As Object, e As EventArgs) Handles tsbtnSearch.Click
-        fRefreshData()
+        RefreshData()
     End Sub
 
     Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToolStripMenuItem.Click
         ExportingExcel(dgvLog, $"{tscmbLocation.Text} POS_LOG_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 
-    Private Sub dgvLog_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvLog.KeyDown
+    Private Sub DgvLog_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvLog.KeyDown
         If (e.KeyCode = Keys.F1 AndAlso e.Modifiers = Keys.Control) Then
             For I As Integer = 0 To dgvLog.Rows.Count - 1
                 With dgvLog.Rows(I)
-                    fsubStartFixed(.Cells("ID").Value, .Cells(11).Value, .Cells(10).Value)
+                    SubStartFixed(.Cells("ID").Value, .Cells(11).Value, .Cells(10).Value)
                 End With
 
             Next
             MessageBoxInfo("done")
-            fRefreshData()
+            RefreshData()
         End If
 
     End Sub
-    Private Sub fsubStartFixed(ByVal log_id As Integer, ByVal T_COUNT As Integer, ByVal T_END As Integer)
+    Private Sub SubStartFixed(ByVal log_id As Integer, ByVal T_COUNT As Integer, ByVal T_END As Integer)
         Dim S As Integer = T_END - (T_COUNT - 1)
         SqlExecuted($"UPDATE  pos_log SET STARTING_RECEIPT_NO = '{S}' WHERE ID ='{log_id}' limit 1")
     End Sub
 
-    Private Sub dgvLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLog.CellDoubleClick
+    Private Sub DgvLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLog.CellDoubleClick
         If dgvLog.Rows.Count = 0 Then
 
             Exit Sub
         End If
 
-        With frmPOSLogDetails
+        With FrmPOSLogDetails
             .gsID = dgvLog.Rows(e.RowIndex).Cells(0).Value
             .ShowDialog()
             If .AutoFixPOSLOG = True Then
@@ -232,6 +193,6 @@ FROM
             End If
             .Dispose()
         End With
-        frmPOSLogDetails = Nothing
+        FrmPOSLogDetails = Nothing
     End Sub
 End Class

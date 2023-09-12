@@ -19,13 +19,13 @@ Public Class FrmCollectionList
             Dim db_password_ex As String = ""
             Dim db_port_ex As String = ""
 
-            Dim rd1 As OleDb.OleDbDataReader = fMSgetReader("select * from tblconnection ", cn)
+            Dim rd1 As OleDb.OleDbDataReader = DbAccessReader("select * from tblconnection ", cn)
             Dim dt As New DataTable
             dt.Load(rd1)
             cn.Close()
             Dim tr As Integer = dt.Rows.Count
             cn.Open()
-            Dim rd As OleDb.OleDbDataReader = fMSgetReader("select * from tblconnection ", cn)
+            Dim rd As OleDb.OleDbDataReader = DbAccessReader("select * from tblconnection ", cn)
             pgbLoading2.Minimum = 0
             pgbLoading2.Maximum = tr
             pgbLoading2.Value = 0

@@ -163,45 +163,45 @@ Module modQuery
 
         End If
     End Sub
-    Private Function GetObjectValue(ByVal c As Control, ByVal i As Integer) As Boolean
+    Private Function GetObjectValue(ByVal ctrl As Control, ByVal paramIndex As Integer) As Boolean
         Dim b As Boolean = False
-        Select Case StrLeft(c.Controls(i).Name, 3)
+        Select Case StrLeft(ctrl.Controls(paramIndex).Name, 3)
             Case "lbl"
-                Dim lbl As Label = c.Controls(i)
+                Dim lbl As Label = ctrl.Controls(paramIndex)
                 b = True
             Case "txt"
-                Dim txt As TextBox = c.Controls(i)
+                Dim txt As TextBox = ctrl.Controls(paramIndex)
                 RemoveHandler txt.KeyDown, AddressOf EnterToTabHandle
                 AddHandler txt.KeyDown, AddressOf EnterToTabHandle
                 b = True
             Case "cmb"
-                Dim cmb As ComboBox = c.Controls(i)
+                Dim cmb As ComboBox = ctrl.Controls(paramIndex)
                 If cmb.AccessibleName = "0" Then
                     b = False
                 Else
                     b = True
                 End If
             Case "cbo"
-                Dim cbo As ComboBox = c.Controls(i)
+                Dim cbo As ComboBox = ctrl.Controls(paramIndex)
                 b = True
             Case "dtp"
-                Dim dtp As DateTimePicker = c.Controls(i)
+                Dim dtp As DateTimePicker = ctrl.Controls(paramIndex)
                 RemoveHandler dtp.KeyDown, AddressOf EnterToTabHandle
                 AddHandler dtp.KeyDown, AddressOf EnterToTabHandle
                 b = True
             Case "rtb"
-                Dim rtb As RichTextBox = c.Controls(i)
+                Dim rtb As RichTextBox = ctrl.Controls(paramIndex)
                 RemoveHandler rtb.KeyDown, AddressOf EnterToTabHandle
                 AddHandler rtb.KeyDown, AddressOf EnterToTabHandle
                 b = True
             Case "num"
-                Dim num As NumericUpDown = c.Controls(i)
+                Dim num As NumericUpDown = ctrl.Controls(paramIndex)
 
                 RemoveHandler num.KeyDown, AddressOf EnterToTabHandle
                 AddHandler num.KeyDown, AddressOf EnterToTabHandle
                 b = True
             Case "chk"
-                Dim chk As CheckBox = c.Controls(i)
+                Dim chk As CheckBox = ctrl.Controls(paramIndex)
                 RemoveHandler chk.KeyDown, AddressOf EnterToTabHandle
                 AddHandler chk.KeyDown, AddressOf EnterToTabHandle
                 b = True
@@ -211,11 +211,11 @@ Module modQuery
         Return b
     End Function
 
-    Private Function SetObjectValue(ByVal c As Control, ByVal i As Integer) As String
+    Private Function SetObjectValue(ByVal ctrl As Control, ByVal paramIndex As Integer) As String
 
-        Select Case StrLeft(c.Controls(i).Name, 3)
+        Select Case StrLeft(ctrl.Controls(paramIndex).Name, 3)
             Case "lbl"
-                Dim lbl As Label = c.Controls(i)
+                Dim lbl As Label = ctrl.Controls(paramIndex)
                 If lbl.Text = "" Then
                     Return "NULL"
                 ElseIf lbl.AccessibleDescription = "null" Then
@@ -234,7 +234,7 @@ Module modQuery
                     End If
                 End If
             Case "txt"
-                Dim txt As TextBox = c.Controls(i)
+                Dim txt As TextBox = ctrl.Controls(paramIndex)
                 If txt.AccessibleDescription = "null" And Trim(txt.Text) = "" Then
                     Return "NULL"
                 Else
@@ -242,7 +242,7 @@ Module modQuery
                 End If
 
             Case "cmb"
-                Dim cmb As ComboBox = c.Controls(i)
+                Dim cmb As ComboBox = ctrl.Controls(paramIndex)
                 Dim vx As Integer = NumIsNull(cmb.SelectedValue)
                 If vx = 0 Then
                     If cmb.DropDownStyle = ComboBoxStyle.DropDown Or cmb.AccessibleDescription = "null" Then
@@ -260,10 +260,10 @@ Module modQuery
 
 
             Case "cbo"
-                Dim cbo As ComboBox = c.Controls(i)
+                Dim cbo As ComboBox = ctrl.Controls(paramIndex)
                 Return cbo.Text
             Case "dtp"
-                Dim dtp As DateTimePicker = c.Controls(i)
+                Dim dtp As DateTimePicker = ctrl.Controls(paramIndex)
 
                 If dtp.Format = DateTimePickerFormat.Time Then
                     If dtp.Checked = True Then
@@ -281,16 +281,16 @@ Module modQuery
 
 
             Case "rtb"
-                Dim rtb As RichTextBox = c.Controls(i)
+                Dim rtb As RichTextBox = ctrl.Controls(paramIndex)
                 Return rtb.Text
             Case "num"
-                Dim num As NumericUpDown = c.Controls(i)
+                Dim num As NumericUpDown = ctrl.Controls(paramIndex)
 
                 Return num.Value
 
             Case "chk"
 
-                Dim chk As CheckBox = c.Controls(i)
+                Dim chk As CheckBox = ctrl.Controls(paramIndex)
                 If chk.Checked = True Then
                     Return "1"
                 Else
@@ -300,29 +300,30 @@ Module modQuery
                 Return ""
         End Select
     End Function
-    Private Sub ObjectTypes(ByVal c As Control, ByVal i As Integer, ByVal v As String)
-        Select Case StrLeft(c.Controls(i).Name, 3)
+    Private Sub ObjectTypes(ByVal ctrl As Control, ByVal paramIndex As Integer, ByVal paramValue As String)
+
+        Select Case StrLeft(ctrl.Controls(paramIndex).Name, 3)
             Case "lbl"
-                Dim lbl As Label = c.Controls(i)
+                Dim lbl As Label = ctrl.Controls(paramIndex)
                 If lbl.AccessibleDescription = "bool" Then
-                    If v = "True" Then
+                    If paramValue = "True" Then
                         lbl.Text = "1"
-                    ElseIf v = "False" Then
+                    ElseIf paramValue = "False" Then
                         lbl.Text = "0"
-                    ElseIf IsNumeric(v) = True Then
-                        lbl.Text = v
+                    ElseIf IsNumeric(paramValue) = True Then
+                        lbl.Text = paramValue
                     Else
                         lbl.Text = "0"
                     End If
                 Else
-                    lbl.Text = v
+                    lbl.Text = paramValue
                 End If
             Case "txt"
-                Dim txt As TextBox = c.Controls(i)
-                txt.Text = v
+                Dim txt As TextBox = ctrl.Controls(paramIndex)
+                txt.Text = paramValue
             Case "cmb"
-                Dim cmb As ComboBox = c.Controls(i)
-                If v.Length = 0 Then
+                Dim cmb As ComboBox = ctrl.Controls(paramIndex)
+                If paramValue.Length = 0 Then
                     If cmb.DropDownStyle = ComboBoxStyle.DropDownList Then
                         If cmb.Items.Count <> 0 Then
                             cmb.SelectedIndex = 0
@@ -334,9 +335,9 @@ Module modQuery
                     End If
                     cmb.Enabled = True
                 Else
-                    cmb.SelectedValue = Val(v)
+                    cmb.SelectedValue = Val(paramValue)
                     'If cmb.Name = "cmbLOCATION_ID" Or cmb.Name = "cmbTRANSFER_TO_ID" Or cmb.Name = "cmbASSEMBLY_ITEM_ID" Or cmb.Name = "cmbBANK_ACCOUNT_ID" Or cmb.Name = "cmbCUSTOMER_ID" Or cmb.Name = "cmbVENDOR_ID" Then
-                    '    If NumIsNull(v) = 0 Then
+                    '    If NumIsNull(paramValue) = 0 Then
                     '        cmb.Enabled = True
                     '    Else
                     '        cmb.Enabled = False
@@ -344,10 +345,10 @@ Module modQuery
                     'End If
                 End If
             Case "cbo"
-                Dim cbo As ComboBox = c.Controls(i)
-                cbo.Text = v
+                Dim cbo As ComboBox = ctrl.Controls(paramIndex)
+                cbo.Text = paramValue
             Case "dtp"
-                Dim dtp As DateTimePicker = c.Controls(i)
+                Dim dtp As DateTimePicker = ctrl.Controls(paramIndex)
                 If dtp.Format = DateTimePickerFormat.Time Then
 
                 Else
@@ -358,20 +359,20 @@ Module modQuery
                     dtp.Checked = True
                 End If
 
-                If IsDate(v) = True And dtp.Format <> DateTimePickerFormat.Time Then
-                    dtp.Value = v
+                If IsDate(paramValue) = True And dtp.Format <> DateTimePickerFormat.Time Then
+                    dtp.Value = paramValue
                     dtp.Checked = True
-                    If dtp.Name = "dtpDATE" And v <> "" Then
+                    If dtp.Name = "dtpDATE" And paramValue <> "" Then
                         ' dtp.Enabled = False
                     Else
                         'dtp.Enabled = True
                     End If
                 ElseIf dtp.Format = DateTimePickerFormat.Time Then
-                    If v = "" Then
+                    If paramValue = "" Then
                         dtp.Value = DateTime.Now
                         dtp.Checked = False
                     Else
-                        dtp.Value = Date.Now.Date.ToString("yyyy-MM-dd") & " " & v
+                        dtp.Value = Date.Now.Date.ToString("yyyy-MM-dd") & " " & paramValue
                         dtp.Checked = True
                     End If
 
@@ -385,23 +386,23 @@ Module modQuery
                     End If
                 End If
             Case "rtb"
-                Dim rtb As RichTextBox = c.Controls(i)
-                rtb.Text = v
+                Dim rtb As RichTextBox = ctrl.Controls(paramIndex)
+                rtb.Text = paramValue
             Case "num"
-                Dim num As NumericUpDown = c.Controls(i)
+                Dim num As NumericUpDown = ctrl.Controls(paramIndex)
                 If Val(num.AccessibleName) = 0 Then
                 Else
                     num.DecimalPlaces = 2
                 End If
-                num.Value = Val(v)
+                num.Value = Val(paramValue)
 
             Case "chk"
-                Dim chk As CheckBox = c.Controls(i)
+                Dim chk As CheckBox = ctrl.Controls(paramIndex)
                 Dim b As Boolean
-                If v = "" Then
+                If paramValue = "" Then
                     b = False
                 Else
-                    b = v
+                    b = paramValue
                 End If
                 If b = False Then
                     chk.Checked = False
@@ -411,48 +412,48 @@ Module modQuery
             Case Else
         End Select
     End Sub
-    Public Sub ClearAndRefresh(ByVal c As Control)
+    Public Sub ClearAndRefresh(ByVal ctrl As Control)
         gsClearObject = True
-        For i As Integer = 0 To c.Controls.Count - 1
-            Dim stvalue As String = c.Controls.Item(i).Name
-            If GetObjectValue(c, i) = True Then
-                ObjectTypes(c, i, "")
+        For i As Integer = 0 To ctrl.Controls.Count - 1
+            Dim stvalue As String = ctrl.Controls.Item(i).Name
+            If GetObjectValue(ctrl, i) = True Then
+                ObjectTypes(ctrl, i, "")
             End If
         Next
         gsClearObject = False
     End Sub
-    Private Sub SearchingControl(ByVal c As Control, ByVal sField As String, ByVal xValue As String)
-        For i As Integer = 0 To c.Controls.Count - 1
-            If TypeOf c.Controls(i) Is TabControl Then
-                Dim T As TabControl = c.Controls(i)
+    Private Sub SearchingControl(ByVal ctrl As Control, ByVal sField As String, ByVal xValue As String)
+        For i As Integer = 0 To ctrl.Controls.Count - 1
+            If TypeOf ctrl.Controls(i) Is TabControl Then
+                Dim T As TabControl = ctrl.Controls(i)
                 SearchingControl(T, sField, xValue)
-            ElseIf TypeOf c.Controls(i) Is TabPage Then
-                Dim T As TabPage = c.Controls(i)
+            ElseIf TypeOf ctrl.Controls(i) Is TabPage Then
+                Dim T As TabPage = ctrl.Controls(i)
                 SearchingControl(T, sField, xValue)
-            ElseIf TypeOf c.Controls(i) Is GroupBox Then
-                Dim T As GroupBox = c.Controls(i)
+            ElseIf TypeOf ctrl.Controls(i) Is GroupBox Then
+                Dim T As GroupBox = ctrl.Controls(i)
                 SearchingControl(T, sField, xValue)
 
             Else
-                Dim stvalue As String = c.Controls.Item(i).Name
+                Dim stvalue As String = ctrl.Controls.Item(i).Name
                 Dim d As String = stvalue.ToLower.Substring(3)
                 If d = sField.ToLower Then
-                    ObjectTypes(c, i, xValue)
+                    ObjectTypes(ctrl, i, xValue)
                     Exit For
                 End If
             End If
         Next
     End Sub
-    Public Sub DisplayFields(ByVal c As Control, ByVal rd As OdbcDataReader)
+    Public Sub DisplayFields(ByVal ctrl As Control, ByVal reader As OdbcDataReader)
         Try
-            If rd.Read() Then
-                For i As Integer = 0 To rd.FieldCount - 1
-                    SearchingControl(c, rd.GetName(i), rd(i).ToString)
+            If reader.Read() Then
+                For i As Integer = 0 To reader.FieldCount - 1
+                    SearchingControl(ctrl, reader.GetName(i), reader(i).ToString)
                 Next
             End If
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                DisplayFields(c, rd)
+                DisplayFields(ctrl, reader)
             Else
                 End
             End If

@@ -5,7 +5,7 @@ Public Class FrmPriceLevelDetails
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
-    Private Sub fCreateColumn()
+    Private Sub CreateColumn()
         With dgvProductItem.Columns
             .Add("ID", "ID")
             .Item("ID").Visible = False
@@ -21,14 +21,14 @@ Public Class FrmPriceLevelDetails
         End With
         DatagridViewMode(dgvProductItem)
     End Sub
-    Private Sub frmPriceLevelDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fCreateColumn()
+    Private Sub FrmPriceLevelDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CreateColumn()
         ComboBoxLoad(cmbITEM_CODE, "select ID,CODE from item where inactive ='0' ", "ID", "CODE")
         ComboBoxLoad(cmbTYPE, "Select * from price_level_type_map", "ID", "DESCRIPTION")
         ComboBoxLoad(cmbITEM_GROUP_ID, "select * from item_group", "ID", "DESCRIPTION")
     End Sub
 
-    Private Sub cmbTYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTYPE.SelectedIndexChanged
+    Private Sub CmbTYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTYPE.SelectedIndexChanged
         Try
             If cmbTYPE.SelectedValue = 0 Then
                 GroupBox1.Visible = False
@@ -52,21 +52,21 @@ Public Class FrmPriceLevelDetails
 
     End Sub
 
-    Private Sub frmPriceLevelDetails_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmPriceLevelDetails_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         With dgvProductItem.Columns
             .Item("CODE").Width = 100
             .Item("Description").Width = 300
             .Item("Unit_Price").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             .Item("Custom_Price").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         End With
-        cmbTYPE_SelectedIndexChanged(sender, e)
+        CmbTYPE_SelectedIndexChanged(sender, e)
 
         If ID > 0 Then
 
             Try
                 SqlExecutedUsingReading(Me, "select * from price_level where ID = '" & ID & "' Limit 1")
                 If cmbTYPE.SelectedValue = 1 Then
-                    fLoadItem()
+                    LoadItem()
                 End If
                 IsNew = False
 
@@ -76,7 +76,7 @@ Public Class FrmPriceLevelDetails
         End If
         ViewNotSort(dgvProductItem)
     End Sub
-    Private Sub cmbITEM_CODE_LostFocus(sender As Object, e As EventArgs) Handles cmbITEM_CODE.LostFocus
+    Private Sub CmbITEM_CODE_LostFocus(sender As Object, e As EventArgs) Handles cmbITEM_CODE.LostFocus
         Try
             lblDescription.Text = GetStringFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Description")
             lblRate.Text = Format(GetNumberFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Rate"), "Standard")
@@ -87,7 +87,7 @@ Public Class FrmPriceLevelDetails
 
 
     End Sub
-    Private Sub fLoadItem()
+    Private Sub LoadItem()
         dgvProductItem.Rows.Clear()
 
         Try
@@ -101,7 +101,7 @@ Public Class FrmPriceLevelDetails
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
-    Private Function fCheckIsAlreadyExist() As Boolean
+    Private Function ItemIsAlreadyExist() As Boolean
         Dim b As Boolean = False
 
         For i As Integer = 0 To dgvProductItem.Rows.Count - 1
@@ -115,8 +115,8 @@ Public Class FrmPriceLevelDetails
 
         Return b
     End Function
-    Private Sub fAddRows()
-        Dim b As Boolean = fCheckIsAlreadyExist()
+    Private Sub AddRowItem()
+        Dim b As Boolean = ItemIsAlreadyExist()
         If b = False Then
             dgvProductItem.Rows.Add("N", cmbITEM_CODE.SelectedValue, cmbITEM_CODE.Text, lblDescription.Text, lblRate.Text, NumberFormatStandard(numCUSTOM_PRICE.Value), "A")
         Else
@@ -139,27 +139,27 @@ Public Class FrmPriceLevelDetails
         End If
 
     End Sub
-    Private Sub fEditRows()
+    Private Sub EditRowItem()
         With dgvProductItem.Rows(dgvProductItem.CurrentRow.Index)
             .Cells("CUSTOM_PRICE").Value = NumberFormatStandard(numCUSTOM_PRICE.Value)
             .Cells("STATUS").Value = IIf(.Cells("ID").Value.ToString = "N", "A", "E")
         End With
 
     End Sub
-    Private Sub numCUSTOM_PRICE_KeyDown(sender As Object, e As KeyEventArgs) Handles numCUSTOM_PRICE.KeyDown
+    Private Sub NumCUSTOM_PRICE_KeyDown(sender As Object, e As KeyEventArgs) Handles numCUSTOM_PRICE.KeyDown
         If e.KeyCode = Keys.Enter Then
             If Val(cmbITEM_CODE.SelectedValue) = 0 Or numCUSTOM_PRICE.Value = 0 Then
                 Exit Sub
             End If
 
             If cmbITEM_CODE.Enabled = False Then
-                fEditRows()
+                EditRowItem()
                 ClearAndRefresh(GroupBox1)
                 cmbITEM_CODE.Enabled = True
                 dgvProductItem.Enabled = True
             Else
 
-                fAddRows()
+                AddRowItem()
                 ClearAndRefresh(GroupBox1)
             End If
         ElseIf e.KeyCode = Keys.Escape Then
@@ -171,12 +171,7 @@ Public Class FrmPriceLevelDetails
 
         End If
     End Sub
-
-    Private Sub dgvProductItem_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellContentClick
-
-    End Sub
-
-    Private Sub dgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvProductItem.KeyDown
+    Private Sub DgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvProductItem.KeyDown
         If e.KeyCode = Keys.Delete Then
             If dgvProductItem.Rows.Count <> 0 Then
                 If MessageBoxQuestion("Are you sure to delete this line?") = True Then
@@ -194,21 +189,19 @@ Public Class FrmPriceLevelDetails
         End If
     End Sub
 
-    Private Sub dgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
+    Private Sub DgvProductItem_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProductItem.CellDoubleClick
         If dgvProductItem.Rows.Count <> 0 Then
             Dim r As DataGridViewRow = dgvProductItem.CurrentRow
             cmbITEM_CODE.SelectedValue = r.Cells("ITEM_ID").Value
-            cmbITEM_CODE_LostFocus(sender, e)
+            CmbITEM_CODE_LostFocus(sender, e)
             numCUSTOM_PRICE.Value = NumIsNull(r.Cells("CUSTOM_PRICE").Value)
             cmbITEM_CODE.Enabled = False
             dgvProductItem.Enabled = False
         End If
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs)
 
-    End Sub
-    Private Sub fPerItemUpdate()
+    Private Sub PerItemUpdate()
 
         If cmbTYPE.SelectedValue = 1 Then
             For i As Integer = 0 To dgvProductItem.Rows.Count - 1
@@ -232,7 +225,7 @@ Public Class FrmPriceLevelDetails
         End If
 
     End Sub
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtDESCRIPTION.Text) = "" Then
             MessageBoxInfo("Please enter price level description")
             Exit Sub
@@ -263,20 +256,20 @@ Public Class FrmPriceLevelDetails
 
         End If
         SaveNotify(Me, IsNew)
-        fPerItemUpdate()
+        PerItemUpdate()
         BindingViewUpdate(Dgv, $"Select pl.ID,pl.Code,pl.Description, pltm.`Description` as `Type`,ig.Description as `Item Group`, IF(pl.`Inactive`=0,'No','Yes') as `Inactive` from price_level as pl inner join price_level_type_map as pltm on pltm.id = pl.`type` left outer join item_group as ig on ig.id = pl.item_group_id  WHERE pl.ID = '{ID}' limit 1", IsNew, This_BS)
         IsNew = True
         dgvProductItem.Rows.Clear()
         ClearAndRefresh(Me)
         ID = 0
 
-        If SecurityAccessMode(frmPriceLevel, IsNew) = False Then
+        If SecurityAccessMode(FrmPriceLevel, IsNew) = False Then
             Me.Close()
         End If
 
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 End Class

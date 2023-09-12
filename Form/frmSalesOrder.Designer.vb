@@ -101,7 +101,7 @@ Partial Class FrmSalesOrder
         Me.cmbCUSTOMER_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbCUSTOMER_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbCUSTOMER_ID.FormattingEnabled = True
-        Me.cmbCUSTOMER_ID.Location = New System.Drawing.Point(107, 82)
+        Me.cmbCUSTOMER_ID.Location = New System.Drawing.Point(122, 82)
         Me.cmbCUSTOMER_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbCUSTOMER_ID.Name = "cmbCUSTOMER_ID"
         Me.cmbCUSTOMER_ID.Size = New System.Drawing.Size(342, 24)
@@ -110,7 +110,7 @@ Partial Class FrmSalesOrder
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(34, 86)
+        Me.Label2.Location = New System.Drawing.Point(49, 86)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(69, 16)
@@ -119,7 +119,7 @@ Partial Class FrmSalesOrder
         '
         'txtPO_NUMBER
         '
-        Me.txtPO_NUMBER.Location = New System.Drawing.Point(319, 109)
+        Me.txtPO_NUMBER.Location = New System.Drawing.Point(334, 109)
         Me.txtPO_NUMBER.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtPO_NUMBER.Name = "txtPO_NUMBER"
         Me.txtPO_NUMBER.Size = New System.Drawing.Size(131, 23)
@@ -128,7 +128,7 @@ Partial Class FrmSalesOrder
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(251, 112)
+        Me.Label6.Location = New System.Drawing.Point(266, 112)
         Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(65, 16)
@@ -138,7 +138,7 @@ Partial Class FrmSalesOrder
         'dtpDATE_NEEDED
         '
         Me.dtpDATE_NEEDED.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE_NEEDED.Location = New System.Drawing.Point(107, 137)
+        Me.dtpDATE_NEEDED.Location = New System.Drawing.Point(122, 137)
         Me.dtpDATE_NEEDED.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dtpDATE_NEEDED.Name = "dtpDATE_NEEDED"
         Me.dtpDATE_NEEDED.ShowCheckBox = True
@@ -148,7 +148,7 @@ Partial Class FrmSalesOrder
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(1, 140)
+        Me.Label5.Location = New System.Drawing.Point(16, 140)
         Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(102, 16)
@@ -159,7 +159,7 @@ Partial Class FrmSalesOrder
         '
         Me.cmbPAYMENT_TERMS_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPAYMENT_TERMS_ID.FormattingEnabled = True
-        Me.cmbPAYMENT_TERMS_ID.Location = New System.Drawing.Point(107, 110)
+        Me.cmbPAYMENT_TERMS_ID.Location = New System.Drawing.Point(122, 110)
         Me.cmbPAYMENT_TERMS_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPAYMENT_TERMS_ID.Name = "cmbPAYMENT_TERMS_ID"
         Me.cmbPAYMENT_TERMS_ID.Size = New System.Drawing.Size(133, 24)
@@ -168,7 +168,7 @@ Partial Class FrmSalesOrder
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(22, 113)
+        Me.Label3.Location = New System.Drawing.Point(37, 113)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(81, 16)
@@ -287,7 +287,7 @@ Partial Class FrmSalesOrder
         '
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = "tsSaveNew"
+        Me.tsSaveNew.Name = tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -711,7 +711,7 @@ Partial Class FrmSalesOrder
         Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
-        'frmSalesOrder
+        'FrmSalesOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -751,7 +751,7 @@ Partial Class FrmSalesOrder
         Me.Controls.Add(Me.Label15)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.Name = "frmSalesOrder"
+        Me.Name = "FrmSalesOrder"
         Me.Text = "frmSalesOrder"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

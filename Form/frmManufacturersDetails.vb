@@ -5,7 +5,7 @@ Public Class FrmManufacturersDetails
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
-    Private Sub frmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmManufactuterersDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
         If ID > 0 Then
@@ -23,7 +23,7 @@ Public Class FrmManufacturersDetails
 
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtNAME.Text) = "" Then
             MessageBoxInfo("Please enter manufacturer name")
             Exit Sub
@@ -52,12 +52,12 @@ Public Class FrmManufacturersDetails
         ClearAndRefresh(Me)
         ID = 0
         IsNew = True
-        If SecurityAccessMode(frmManufacturers, IsNew) = False Then
+        If SecurityAccessMode(FrmManufacturers, IsNew) = False Then
             Me.Close()
         End If
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 End Class

@@ -4,7 +4,7 @@ Public Class FrmPaymentMethodsDetails
     Public Dgv As DataGridView
     Public ID As Integer
     Public IsNew As Boolean = True
-    Private Sub frmPaymentMethodsDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPaymentMethodsDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ClearInfoModule()
 
@@ -26,7 +26,7 @@ Public Class FrmPaymentMethodsDetails
         txtCODE.Clear()
         txtDESCRIPTION.Clear()
     End Sub
-    Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
+    Private Sub BtnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
         If Trim(txtDESCRIPTION.Text) = "" Then
             MessageBoxInfo("Please enter description")
             Exit Sub
@@ -57,7 +57,7 @@ Public Class FrmPaymentMethodsDetails
         IsNew = True
         Me.Enabled = True
 
-        If SecurityAccessMode(frmPaymentMethods, IsNew) = False Then
+        If SecurityAccessMode(FrmPaymentMethods, IsNew) = False Then
             Me.Close()
         End If
     End Sub

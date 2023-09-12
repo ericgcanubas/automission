@@ -7,7 +7,7 @@ Public Class FrmConnectionList
     Dim IsAdmin As Boolean = True
     Private Sub RefreshList()
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con())
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection())
 
         Dim temp_index As Integer = 0
         Try
@@ -17,7 +17,7 @@ Public Class FrmConnectionList
             End If
 
             listCon.Items.Clear()
-            Dim rd As OleDb.OleDbDataReader = fMSgetReader("select connection_name from tblconnection", cn)
+            Dim rd As OleDb.OleDbDataReader = DbAccessReader("select connection_name from tblconnection", cn)
             While rd.Read
                 listCon.Items.Add(rd("connection_name"))
             End While
@@ -33,7 +33,7 @@ Public Class FrmConnectionList
 
 
         Try
-            listCon.SelectedIndex = Val(fGet_System_VALUE("SELECT_CONNECTION"))
+            listCon.SelectedIndex = Val(GetDBAccessValueByText("SELECT_CONNECTION"))
         Catch ex As Exception
 
         End Try
@@ -57,15 +57,15 @@ Public Class FrmConnectionList
             listCon.ContextMenuStrip = ContextMenuStrip1
         End If
 
-        gsSYSTEM_UPGRADE = Val(fGet_System_VALUE("SYSTEM_UPGRADE"))
+        gsSYSTEM_UPGRADE = Val(GetDBAccessValueByText("SYSTEM_UPGRADE"))
 
-        gsSystemName = fGet_System_VALUE("SYSTEM_NAME")
+        gsSystemName = GetDBAccessValueByText("SYSTEM_NAME")
 
         If gsSystemName = "" Then
-            fSET_SYSTEM_VALUE("SYSTEM_NAME", Application.ProductName)
-            gsSystemName = fGet_System_VALUE("SYSTEM_NAME")
+            SetDBAccessValue("SYSTEM_NAME", Application.ProductName)
+            gsSystemName = GetDBAccessValueByText("SYSTEM_NAME")
         End If
-        gsThemeNo = Val(fGet_System_VALUE("MATERIAL_SKIN")) '  SkinEngine1.SkinFile = SkinPath() & "vista1.ssk"
+        gsThemeNo = Val(GetDBAccessValueByText("MATERIAL_SKIN")) '  SkinEngine1.SkinFile = SkinPath() & "vista1.ssk"
         RefreshList()
 
         If IsRunAdministrator() = True Then
@@ -110,12 +110,12 @@ Public Class FrmConnectionList
             Exit Sub
         End If
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
             Dim getString As String = listCon.Items(listCon.SelectedIndex).ToString
             Try
                 cn.Open()
-                Dim rd As OleDb.OleDbDataReader = fMSgetReader("select * from tblconnection where connection_name ='" & getString & "' ", cn)
+                Dim rd As OleDb.OleDbDataReader = DbAccessReader("select * from tblconnection where connection_name ='" & getString & "' ", cn)
                 If rd.Read Then
                     db_server = rd("db_server")
                     db_name = rd("db_name")
@@ -126,7 +126,7 @@ Public Class FrmConnectionList
                     gsPOS_TYPE = NumIsNull(rd("db_datasource_name"))
                     db_Connection = db_server
                     db_Connection_Name = getString
-                    fSET_SYSTEM_VALUE("SELECT_CONNECTION", listCon.SelectedIndex)
+                    SetDBAccessValue("SELECT_CONNECTION", listCon.SelectedIndex)
                 Else
                     cn.Close()
                     MessageBoxInfo("Invalid data!")
@@ -189,7 +189,7 @@ Public Class FrmConnectionList
         If listCon.Items.Count <> 0 Then
             Dim con_name As String = listCon.Items(listCon.SelectedIndex).ToString
             If MessageBoxQuestion("Do you want to Remove this Connection (" & con_name & ")") = True Then
-                fMS_execute("delete from tblconnection where connection_name = '" & con_name & "'")
+                DbAccessExecute("delete from tblconnection where connection_name = '" & con_name & "'")
                 PrompNotify(Me.Text, "Connection deleted.", True)
                 RefreshList()
             End If

@@ -7,7 +7,7 @@
     Public gsOnHandMaxLimit As Double
     Public gsStock As String
     Public gsStock_bin_id As String
-    Private Sub frmItemPreference_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmItemPreference_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbBinStock, "select ID,DESCRIPTION from stock_bin", "ID", "DESCRIPTION")
         ClearAndRefresh(Me)
@@ -20,17 +20,7 @@
         bSave = False
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         gsOrderPoint = numOrderPoint.Value
         gsOrderQty = numOrderQty.Value
         gsOrderLeadTime = numOrderLeadTime.Value

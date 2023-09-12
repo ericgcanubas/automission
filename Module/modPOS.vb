@@ -86,14 +86,14 @@ Module modPOS
     End Sub
     Public Function fPOS_MACHINE_ID() As Integer
 
-        Return Val(fGet_System_VALUE("POS_MACHINE_ID"))
+        Return Val(GetDBAccessValueByText("POS_MACHINE_ID"))
     End Function
     Public Function fPOS_Drawer_Account_PER_UNIT() As Integer
-        Return Val(fGet_System_VALUE("POS_DRAWER_ACCOUNT_ID_PER_UNIT"))
+        Return Val(GetDBAccessValueByText("POS_DRAWER_ACCOUNT_ID_PER_UNIT"))
     End Function
     Public Function fPOS_OR_Required() As Boolean
         Try
-            Return CBool(fGet_System_VALUE("OR_REQUIRED"))
+            Return CBool(GetDBAccessValueByText("OR_REQUIRED"))
         Catch ex As Exception
             Return False
         End Try
@@ -101,7 +101,7 @@ Module modPOS
     End Function
     Public Function fPOS_STARTING_CASH() As Boolean
         Try
-            Return CBool(fGet_System_VALUE("POS_STARTING_CASH"))
+            Return CBool(GetDBAccessValueByText("POS_STARTING_CASH"))
         Catch ex As Exception
             Return False
         End Try
@@ -344,6 +344,6 @@ LIMIT 1")
         Return G_TOTAL
     End Function
     Public Sub fPOSRefreshFormat(ByVal cmb As ComboBox, ByVal frmName As String)
-        fMS_ComboBox(cmb, "select [file_name],[print_title] from tblprint Where [form_name] ='" & frmName & "' order by [print_default] desc ", "file_name", "print_title")
+        DBAccessComboBoxLoad(cmb, "select [file_name],[print_title] from tblprint Where [form_name] ='" & frmName & "' order by [print_default] desc ", "file_name", "print_title")
     End Sub
 End Module

@@ -1,10 +1,10 @@
 ﻿Public Class FrmPaymentTerms
     Dim item_BS As BindingSource
-    Private Sub frmPaymentTerms_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmPaymentTerms_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefresh()
+        RefreshData()
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         LoadDataGridViewBinding(dgvPaymentTerms, "select  ID,CODE,DESCRIPTION,INACTIVE from payment_terms", item_BS)
 
         With dgvPaymentTerms.Columns
@@ -12,10 +12,6 @@
         End With
         ViewColumn(dgvPaymentTerms, "30")
     End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
         ViewSwitch(dgvPaymentTerms, 30)
 
@@ -28,12 +24,12 @@
         End If
 
 
-        frmPaymentTermsDetails.This_BS = item_BS
-        frmPaymentTermsDetails.Dgv = dgvPaymentTerms
-
-        frmPaymentTermsDetails.ShowDialog()
-        frmPaymentTermsDetails.Dispose()
-        frmPaymentTermsDetails = Nothing
+        FrmPaymentTermsDetails.This_BS = item_BS
+        FrmPaymentTermsDetails.Dgv = dgvPaymentTerms
+        FrmPaymentTermsDetails.ID = 0
+        FrmPaymentTermsDetails.ShowDialog()
+        FrmPaymentTermsDetails.Dispose()
+        FrmPaymentTermsDetails = Nothing
 
     End Sub
 
@@ -48,12 +44,12 @@
             dgvPaymentTerms.Focus()
             Dim i As Integer = dgvPaymentTerms.CurrentRow.Index
 
-            frmPaymentTermsDetails.This_BS = item_BS
-            frmPaymentTermsDetails.Dgv = dgvPaymentTerms
-            frmPaymentTermsDetails.ID = dgvPaymentTerms.Rows(i).Cells("ID").Value
-            frmPaymentTermsDetails.ShowDialog()
-            frmPaymentTermsDetails.Dispose()
-            frmPaymentTermsDetails = Nothing
+            FrmPaymentTermsDetails.This_BS = item_BS
+            FrmPaymentTermsDetails.Dgv = dgvPaymentTerms
+            FrmPaymentTermsDetails.ID = dgvPaymentTerms.Rows(i).Cells("ID").Value
+            FrmPaymentTermsDetails.ShowDialog()
+            FrmPaymentTermsDetails.Dispose()
+            FrmPaymentTermsDetails = Nothing
 
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
@@ -62,7 +58,7 @@
     End Sub
 
 
-    Private Sub dgvPaymentTerms_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPaymentTerms.CellDoubleClick
+    Private Sub DgvPaymentTerms_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPaymentTerms.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
@@ -77,14 +73,14 @@
             If MessageBoxQuestion("Are you sure to delete this payment terms") = True Then
                 SqlExecuted("DELETE FROM payment_terms WHERE ID = '" & dgvPaymentTerms.Rows(i).Cells("ID").Value & "' limit 1;")
                 DeleteNotify(Me)
-                fRefresh()
+                RefreshData()
             End If
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
             Dim strFInd As String = ""
 
@@ -120,27 +116,19 @@
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefresh()
+        RefreshData()
     End Sub
 
-    Private Sub dgvAccount_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvPaymentTerms.RowStateChanged
+    Private Sub DgvAccount_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvPaymentTerms.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub frmPaymentTerms_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-    End Sub
-
-    Private Sub dgvPaymentTerms_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPaymentTerms.CellContentClick
-
-    End Sub
-
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

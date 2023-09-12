@@ -65,7 +65,7 @@
         fSalesReportReceipt()
     End Sub
     Private Sub fSalesSUmmaryCustomer()
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByCustomerSummary.rpt"
         Dim prPrint_Title As String = "Sales By Customer Summary"
         gsToolPanelView = False
@@ -101,7 +101,7 @@
     End Sub
 
     Private Sub fSalesByItemSummary()
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByItemDetailsLine.rpt"
         Dim prPrint_Title As String = "Sales By Summary"
         gsToolPanelView = False
@@ -142,13 +142,13 @@
             Exit Sub
         End If
 
-        fMSgetFieldGetReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
+        DbAccessGetFieldReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
         If gsResto_Sales__File_Name = "" Then
             MessageBoxInfo("Report not set.")
             Exit Sub
         End If
         '   Gmail("TEST11", "TEST", "ecanubas@ewgroup.com.ph")
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "cryPOSTransLogX.rpt" ' "cryPaymentLog.rpt"
         Dim prPrint_Title As String = $"{gsResto_Sales_Print_Title} (" & gsPOS_LOG_ID & ")"
 
@@ -181,13 +181,13 @@
             Exit Sub
         End If
 
-        fMSgetFieldGetReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
+        DbAccessGetFieldReports(gsResto_Sales_Print_Title, gsResto_Sales__File_Name, "frmPOSLogResto")
         If gsResto_Sales__File_Name = "" Then
             MessageBoxInfo("Report not set.")
             Exit Sub
         End If
         '   Gmail("TEST11", "TEST", "ecanubas@ewgroup.com.ph")
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = gsResto_Sales__File_Name ' "cryPaymentLog.rpt"
         Dim prPrint_Title As String = $"{gsResto_Sales_Print_Title} (" & gsPOS_LOG_ID & ")"
 

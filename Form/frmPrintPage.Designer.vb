@@ -35,7 +35,7 @@ Partial Class FrmPrintPage
         '
         Me.cmbPrinterPage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPrinterPage.FormattingEnabled = True
-        Me.cmbPrinterPage.Location = New System.Drawing.Point(107, 25)
+        Me.cmbPrinterPage.Location = New System.Drawing.Point(107, 13)
         Me.cmbPrinterPage.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPrinterPage.Name = "cmbPrinterPage"
         Me.cmbPrinterPage.Size = New System.Drawing.Size(323, 24)
@@ -43,10 +43,10 @@ Partial Class FrmPrintPage
         '
         'btnSettings
         '
-        Me.btnSettings.Location = New System.Drawing.Point(430, 24)
+        Me.btnSettings.Location = New System.Drawing.Point(430, 12)
         Me.btnSettings.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.btnSettings.Name = "btnSettings"
-        Me.btnSettings.Size = New System.Drawing.Size(32, 28)
+        Me.btnSettings.Size = New System.Drawing.Size(32, 26)
         Me.btnSettings.TabIndex = 4
         Me.btnSettings.Text = "..."
         Me.btnSettings.UseVisualStyleBackColor = True
@@ -55,7 +55,7 @@ Partial Class FrmPrintPage
         '
         Me.cmbPRINTER.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPRINTER.FormattingEnabled = True
-        Me.cmbPRINTER.Location = New System.Drawing.Point(107, 58)
+        Me.cmbPRINTER.Location = New System.Drawing.Point(107, 42)
         Me.cmbPRINTER.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbPRINTER.Name = "cmbPRINTER"
         Me.cmbPRINTER.Size = New System.Drawing.Size(354, 24)
@@ -65,7 +65,7 @@ Partial Class FrmPrintPage
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(14, 29)
+        Me.Label1.Location = New System.Drawing.Point(8, 17)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(88, 16)
         Me.Label1.TabIndex = 6
@@ -75,7 +75,7 @@ Partial Class FrmPrintPage
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(8, 62)
+        Me.Label2.Location = New System.Drawing.Point(8, 46)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(97, 16)
         Me.Label2.TabIndex = 7
@@ -83,7 +83,7 @@ Partial Class FrmPrintPage
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(278, 103)
+        Me.btnPrint.Location = New System.Drawing.Point(277, 85)
         Me.btnPrint.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(86, 28)
@@ -93,7 +93,7 @@ Partial Class FrmPrintPage
         '
         'btnPreview
         '
-        Me.btnPreview.Location = New System.Drawing.Point(376, 103)
+        Me.btnPreview.Location = New System.Drawing.Point(375, 85)
         Me.btnPreview.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPreview.Name = "btnPreview"
         Me.btnPreview.Size = New System.Drawing.Size(86, 28)
@@ -101,11 +101,11 @@ Partial Class FrmPrintPage
         Me.btnPreview.Text = "Preview"
         Me.btnPreview.UseVisualStyleBackColor = True
         '
-        'frmPrintPage
+        'FrmPrintPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(472, 141)
+        Me.ClientSize = New System.Drawing.Size(472, 125)
         Me.Controls.Add(Me.btnPreview)
         Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.Label2)
@@ -117,7 +117,7 @@ Partial Class FrmPrintPage
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPrintPage"
+        Me.Name = "FrmPrintPage"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

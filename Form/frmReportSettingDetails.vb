@@ -4,7 +4,7 @@ Public Class FrmReportSettingDetails
     Public IsNew As Boolean = False
 
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Val(txtSUB_ID.Text) = 0 Then
             MessageBoxInfo("Please enter report id")
             Exit Sub
@@ -36,7 +36,7 @@ Public Class FrmReportSettingDetails
         cmbGROUP_LINE.SelectedValue = t
     End Sub
 
-    Private Sub frmReportSettingDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmReportSettingDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
         ComboBoxLoad(cmbGROUP_LINE, "select * from report_group ", "ID", "DESCRIPTION")

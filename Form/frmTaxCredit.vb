@@ -424,7 +424,7 @@ Public Class FrmTaxCredit
         SaveNotify(Me, IsNew)
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
+            If btn.Name = tsSaveNew.Name Then
                 fSetNew()
             End If
         Catch ex As Exception
@@ -669,7 +669,7 @@ Public Class FrmTaxCredit
             End If
         End If
         If IsNew = False Then
-            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 72, lblEWT_ACCOUNT_ID.Text, cmbCUSTOMER_ID.Text, txtCODE.Text, txtNOTES.Text)
+            AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 72, lblEWT_ACCOUNT_ID.Text, cmbCUSTOMER_ID.Text, txtCODE.Text, txtNOTES.Text)
         End If
     End Sub
 

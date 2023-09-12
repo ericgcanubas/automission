@@ -11,11 +11,11 @@
             Me.Text = "New"
         End If
     End Sub
-    Private Sub btnCancel_Click_1(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If txtDESCRIPTION.Text.Trim = "" Then
             MessageBoxInfo("Please enter description")
             Exit Sub

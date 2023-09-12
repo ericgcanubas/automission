@@ -105,7 +105,7 @@ Public Class FrmLogin
                 'If chkRemember_password.Checked = True Then
                 '    pass_value = txtPassword.Text
                 'End If
-                fMS_execute("UPDATE tbllogin SET [username] = '" & txtUsername.Text & "', [password] = '" & pass_value & "' WHERE [ID] = '1'")
+                DbAccessExecute("UPDATE tbllogin SET [username] = '" & txtUsername.Text & "', [password] = '" & pass_value & "' WHERE [ID] = '1'")
                 Me.Hide()
                 IsLogin = True
                 Me.Close()
@@ -182,8 +182,8 @@ Public Class FrmLogin
             Me.Text = "LOGIN "
         End If
 
-        txtUsername.Text = fMSgetField("username", "tbllogin", "id", "1")
-        txtPassword.Text = fMSgetField("password", "tbllogin", "id", "1")
+        txtUsername.Text = DbAccessGetFieldValue("username", "tbllogin", "id", "1")
+        txtPassword.Text = DbAccessGetFieldValue("password", "tbllogin", "id", "1")
         Try
             Dim DT As String = GetSystemSettingValueByText("BusinessStart")
             If IsDate(DT) = True Then

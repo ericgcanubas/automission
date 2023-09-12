@@ -48,7 +48,7 @@
             End If
 
             btnPRINT_RECEIPT.Enabled = False
-            fSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
+            SystemSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
             Dim prFile_name As String = gsPayment_File_Name
             Dim prPrint_Title As String = gsPayment_Print_Title
             gscryRpt = New CrystalDecisions.CrystalReports.Engine.ReportDocument
@@ -102,7 +102,7 @@
             End If
 
             btnPRINTOS.Enabled = False
-            fSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
+            SystemSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
             Dim prFile_name As String = gsInvoice_File_Name
             Dim prPrint_Title As String = gsInvoice_Print_Title
             gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)

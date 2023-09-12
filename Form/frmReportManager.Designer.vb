@@ -43,27 +43,30 @@ Partial Class FrmReportManager
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvReportComponent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvReportComponent.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvReportComponent.Location = New System.Drawing.Point(7, 86)
+        Me.dgvReportComponent.Location = New System.Drawing.Point(9, 79)
+        Me.dgvReportComponent.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvReportComponent.Name = "dgvReportComponent"
         Me.dgvReportComponent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvReportComponent.Size = New System.Drawing.Size(762, 660)
+        Me.dgvReportComponent.Size = New System.Drawing.Size(661, 448)
         Me.dgvReportComponent.TabIndex = 2
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 44)
+        Me.Label1.Location = New System.Drawing.Point(13, 24)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(74, 13)
+        Me.Label1.Size = New System.Drawing.Size(91, 16)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Report Name"
         '
         'lblNAME
         '
         Me.lblNAME.AutoSize = True
-        Me.lblNAME.Location = New System.Drawing.Point(86, 44)
+        Me.lblNAME.Location = New System.Drawing.Point(120, 24)
+        Me.lblNAME.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblNAME.Name = "lblNAME"
-        Me.lblNAME.Size = New System.Drawing.Size(73, 13)
+        Me.lblNAME.Size = New System.Drawing.Size(106, 16)
         Me.lblNAME.TabIndex = 4
         Me.lblNAME.Text = "XXXXXXXXXXX"
         '
@@ -71,10 +74,10 @@ Partial Class FrmReportManager
         '
         Me.lklDelete.AutoSize = True
         Me.lklDelete.BackColor = System.Drawing.Color.Transparent
-        Me.lklDelete.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lklDelete.Location = New System.Drawing.Point(76, 70)
+        Me.lklDelete.Location = New System.Drawing.Point(101, 59)
+        Me.lklDelete.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lklDelete.Name = "lklDelete"
-        Me.lklDelete.Size = New System.Drawing.Size(40, 13)
+        Me.lklDelete.Size = New System.Drawing.Size(49, 16)
         Me.lklDelete.TabIndex = 7
         Me.lklDelete.TabStop = True
         Me.lklDelete.Text = "Delete"
@@ -83,10 +86,10 @@ Partial Class FrmReportManager
         '
         Me.lklEdit.AutoSize = True
         Me.lklEdit.BackColor = System.Drawing.Color.Transparent
-        Me.lklEdit.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lklEdit.Location = New System.Drawing.Point(43, 70)
+        Me.lklEdit.Location = New System.Drawing.Point(57, 59)
+        Me.lklEdit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lklEdit.Name = "lklEdit"
-        Me.lklEdit.Size = New System.Drawing.Size(27, 13)
+        Me.lklEdit.Size = New System.Drawing.Size(32, 16)
         Me.lklEdit.TabIndex = 6
         Me.lklEdit.TabStop = True
         Me.lklEdit.Text = "Edit"
@@ -95,10 +98,10 @@ Partial Class FrmReportManager
         '
         Me.lklNew.AutoSize = True
         Me.lklNew.BackColor = System.Drawing.Color.Transparent
-        Me.lklNew.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lklNew.Location = New System.Drawing.Point(7, 70)
+        Me.lklNew.Location = New System.Drawing.Point(9, 59)
+        Me.lklNew.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lklNew.Name = "lklNew"
-        Me.lklNew.Size = New System.Drawing.Size(30, 13)
+        Me.lklNew.Size = New System.Drawing.Size(35, 16)
         Me.lklNew.TabIndex = 5
         Me.lklNew.TabStop = True
         Me.lklNew.Text = "New"
@@ -108,7 +111,8 @@ Partial Class FrmReportManager
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(774, 24)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(8, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(677, 24)
         Me.MenuStrip1.TabIndex = 8
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -118,11 +122,11 @@ Partial Class FrmReportManager
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(88, 20)
         Me.FileToolStripMenuItem.Text = "Components"
         '
-        'frmReportManager
+        'FrmReportManager
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(774, 754)
+        Me.ClientSize = New System.Drawing.Size(677, 537)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.lklDelete)
         Me.Controls.Add(Me.lklEdit)
@@ -130,9 +134,10 @@ Partial Class FrmReportManager
         Me.Controls.Add(Me.lblNAME)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.dgvReportComponent)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Name = "frmReportManager"
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Name = "FrmReportManager"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

@@ -5,7 +5,7 @@ Public Class FrmItemGroupDetails
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
-    Private Sub frmItemSubClassDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmItemGroupDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbITEM_TYPE, "SELECT ID,DESCRIPTION FROM ITEM_TYPE_MAP", "ID", "DESCRIPTION")
         If ID > 0 Then
@@ -17,7 +17,7 @@ Public Class FrmItemGroupDetails
             End Try
         End If
     End Sub
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtDESCRIPTION.Text) = "" Then
             MessageBoxInfo("Please enter item group description")
             Exit Sub
@@ -50,12 +50,12 @@ Public Class FrmItemGroupDetails
         ID = 0
         IsNew = True
 
-        If SecurityAccessMode(frmItemGroup, IsNew) = False Then
+        If SecurityAccessMode(FrmItemGroup, IsNew) = False Then
             Me.Close()
         End If
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 End Class

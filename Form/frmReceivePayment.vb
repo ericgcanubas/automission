@@ -7,7 +7,7 @@ Public Class FrmReceivePayment
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -18,7 +18,7 @@ Public Class FrmReceivePayment
         Return HasChange
     End Function
 
-    Private Sub frmReceivePayment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmReceivePayment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AccountLabel.Visible = gsShowAccounts
         cmbACCOUNTS_RECEIVABLE_ID.Visible = gsShowAccounts
         spJournal.Visible = gsShowAccounts
@@ -26,9 +26,10 @@ Public Class FrmReceivePayment
 
         tsTITLE.Text = gsSubMenuForm
 
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = " "
-        chk.Name = "SELECTED"
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = " ",
+            .Name = "SELECTED"
+        }
         With dgvInvoice.Columns
             .Add("ID", "ID")
             .Item(0).Visible = False
@@ -67,17 +68,17 @@ Public Class FrmReceivePayment
 
         End With
 
-        fClear_Info()
+        ClearInfo()
 
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
 
         End If
 
     End Sub
 
-    Private Sub fClear_Info()
-        fComboxRefresh()
+    Private Sub ClearInfo()
+        ComboxRefresh()
 
         Me.dgvInvoice.Rows.Clear()
         ClearAndRefresh(Me)
@@ -89,17 +90,17 @@ Public Class FrmReceivePayment
         cmbPAYMENT_METHOD_ID.SelectedValue = GetPaymentMethodDefault()
         dtpDATE.Value = TransactionDefaultDate()
     End Sub
-    Private Sub fRefreshInfo()
+    Private Sub RefreshInfo()
 
         Dim sQuery As String = "select * from payment where id ='" & ID & "'  limit 1;"
         Try
             SqlExecutedUsingReading(Me, sQuery)
-            fCheckInvoice()
+            CheckingIvoice()
             tdgv = New DataGridView
             tdgv = dgvInvoice
             tQuery = SqlUpdate(Me)
         Catch ex As Exception
-            fRefreshInfo()
+            RefreshInfo()
         Finally
 
 
@@ -109,13 +110,13 @@ Public Class FrmReceivePayment
 
 
     End Sub
-    Private Sub fComboxRefresh()
+    Private Sub ComboxRefresh()
         ComboBoxLoad(cmbCUSTOMER_ID, "select * from contact where type='1'", "ID", "NAME")
         ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
         ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
         ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
     End Sub
-    Private Sub cmbPAYMENT_METHOD_ID_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_METHOD_ID.SelectedValueChanged
+    Private Sub CmbPAYMENT_METHOD_ID_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_METHOD_ID.SelectedValueChanged
         Try
 
             Dim I As Integer = 0
@@ -210,10 +211,10 @@ Public Class FrmReceivePayment
             txtCARD_NO.Visible = False
         End Try
     End Sub
-    Private Sub fAdditem(ByVal gsID As String, ByVal prSelect As Boolean, ByVal prDate As Date, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prDisc_date As String, ByVal prDue_Date As String, ByVal prACCOUNTS_RECEIVABLE_ID As Integer, ByVal prBalance_due As String, ByVal prDiscount As Double, ByVal prPayment As Double, ByVal prInvoice_ID As String, ByVal prDISCOUNT_ACCOUNT_ID As String)
+    Private Sub AddItemInvoice(ByVal gsID As String, ByVal prSelect As Boolean, ByVal prDate As Date, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prDisc_date As String, ByVal prDue_Date As String, ByVal prACCOUNTS_RECEIVABLE_ID As Integer, ByVal prBalance_due As String, ByVal prDiscount As Double, ByVal prPayment As Double, ByVal prInvoice_ID As String, ByVal prDISCOUNT_ACCOUNT_ID As String)
         dgvInvoice.Rows.Add(gsID, prSelect, DateFormatStandard(prDate), prCode, NumberFormatStandard(prOrg_Amount), prDisc_date, prDue_Date, prACCOUNTS_RECEIVABLE_ID, NumberFormatStandard(prBalance_due), NumberFormatStandard(prDiscount), NumberFormatStandard(prBalance_due), NumberFormatStandard(prPayment), prInvoice_ID, prDISCOUNT_ACCOUNT_ID)
     End Sub
-    Private Sub fEdititem(ByVal gsID As String, ByVal prSelect As Boolean, ByVal prDate As String, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prDisc_date As String, ByVal prACCOUNTS_RECEIVABLE_ID As Integer, ByVal prBalance_due As String, ByVal prDiscount As Double, ByVal prPayment As Double, ByVal prInvoice_ID As String, ByVal prDISCOUNT_ACCOUNT_ID As String)
+    Private Sub EditItemInvoice(ByVal gsID As String, ByVal prSelect As Boolean, ByVal prDate As String, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prDisc_date As String, ByVal prACCOUNTS_RECEIVABLE_ID As Integer, ByVal prBalance_due As String, ByVal prDiscount As Double, ByVal prPayment As Double, ByVal prInvoice_ID As String, ByVal prDISCOUNT_ACCOUNT_ID As String)
         If dgvInvoice.Rows.Count <> 0 Then
             Dim i As Integer = dgvInvoice.CurrentRow.Index
             With dgvInvoice.Rows(i)
@@ -233,7 +234,7 @@ Public Class FrmReceivePayment
             End With
         End If
     End Sub
-    Private Sub fCustomer_Invoice(ByVal prCustomer_ID As String, ByVal LOCATION_ID As Integer)
+    Private Sub CustomerInvoiceLoad(ByVal prCustomer_ID As String, ByVal LOCATION_ID As Integer)
         dgvInvoice.Rows.Clear()
         dgvInvoice.Columns("SELECTED").Width = 30
         dtpDATE.Checked = True
@@ -272,7 +273,7 @@ WHERE  EXISTS
                 Dim sDISCOUNT_ACCOUNT_ID As String = ""
 
 
-                fGetAppliedPayment(invoice_ID, ID, sLine_ID, dPayment, dDiscount, sDISCOUNT_ACCOUNT_ID)
+                GetAppliedPayment(invoice_ID, ID, sLine_ID, dPayment, dDiscount, sDISCOUNT_ACCOUNT_ID)
 
                 Dim dBalance As Double = NumIsNull(rd("BALANCE_DUE")) + dPayment
 
@@ -286,18 +287,18 @@ WHERE  EXISTS
                 'Open New Item Transaction
                 If dBalance > 0 Then
 
-                    fAdditem(sLine_ID, bSelected, rd("Date"), rd("CODE"), rd("AMOUNT"), DateIsNull(rd("DISCOUNT_DATE")), DateIsNull(rd("DUE_DATE")), NumIsNull(rd("ACCOUNTS_RECEIVABLE_ID")), dBalance, dDiscount, dPayment, invoice_ID, sDISCOUNT_ACCOUNT_ID)
+                    AddItemInvoice(sLine_ID, bSelected, rd("Date"), rd("CODE"), rd("AMOUNT"), DateIsNull(rd("DISCOUNT_DATE")), DateIsNull(rd("DUE_DATE")), NumIsNull(rd("ACCOUNTS_RECEIVABLE_ID")), dBalance, dDiscount, dPayment, invoice_ID, sDISCOUNT_ACCOUNT_ID)
 
                 End If
             End While
             rd.Close()
 
-            fCheckInvoice()
+            CheckingIvoice()
 
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fCustomer_Invoice(prCustomer_ID, LOCATION_ID)
+                CustomerInvoiceLoad(prCustomer_ID, LOCATION_ID)
             Else
                 End
             End If
@@ -307,7 +308,7 @@ WHERE  EXISTS
 
 
     End Sub
-    Private Sub fGetAppliedPayment(ByVal prInvoice_ID As String, ByVal prPayment_ID As String, ByRef refPayment_ID_Line As String, ByRef refPayment_Applied As Double, ByRef refDiscount As Double, ByRef refDISCOUNT_ACCOUNT_ID As String)
+    Private Sub GetAppliedPayment(ByVal prInvoice_ID As String, ByVal prPayment_ID As String, ByRef refPayment_ID_Line As String, ByRef refPayment_Applied As Double, ByRef refDiscount As Double, ByRef refDISCOUNT_ACCOUNT_ID As String)
 
         Try
 
@@ -329,7 +330,7 @@ WHERE  EXISTS
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fGetAppliedPayment(prInvoice_ID, prPayment_ID, refPayment_ID_Line, refPayment_Applied, refDiscount, refDISCOUNT_ACCOUNT_ID)
+                GetAppliedPayment(prInvoice_ID, prPayment_ID, refPayment_ID_Line, refPayment_Applied, refDiscount, refDISCOUNT_ACCOUNT_ID)
             Else
                 End
             End If
@@ -337,20 +338,16 @@ WHERE  EXISTS
         End Try
 
     End Sub
-    Private Sub cmbCUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
+    Private Sub CmbCUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
         Try
-            fCustomer_Invoice(cmbCUSTOMER_ID.SelectedValue, cmbLOCATION_ID.SelectedValue)
+            CustomerInvoiceLoad(cmbCUSTOMER_ID.SelectedValue, cmbLOCATION_ID.SelectedValue)
         Catch ex As Exception
 
         End Try
 
     End Sub
 
-    Private Sub dgvInvoice_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellContentClick
-
-    End Sub
-
-    Private Sub dgvInvoice_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellDoubleClick
+    Private Sub DgvInvoice_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellDoubleClick
         If dgvInvoice.Rows.Count = 0 Then Exit Sub
         If MessageBoxQuestion($"Do you want to open this Invoice no. {dgvInvoice.CurrentRow.Cells("NUMBER").Value }?") = False Then Exit Sub
 
@@ -372,8 +369,8 @@ WHERE  EXISTS
             F.Tag = i
         End If
 
-        For n As Integer = 0 To frmMainMenu.MyTab.TabPages.Count - 1
-            Dim Frm As Form = frmMainMenu.MyTab.TabPages.Item(n).Form
+        For n As Integer = 0 To FrmMainMenu.MyTab.TabPages.Count - 1
+            Dim Frm As Form = FrmMainMenu.MyTab.TabPages.Item(n).Form
             If Frm.Text = F.Text Then
                 Frm.Close()
                 Exit For
@@ -382,12 +379,12 @@ WHERE  EXISTS
         gsMenuSubID = i
         gsRefresh = True
 
-        TabFormOpen(F, frmMainMenu.MyTab, Img)
+        TabFormOpen(F, FrmMainMenu.MyTab, Img)
         F.TabIndex = Val(gsDocument_Finder_ID)
         gsDocument_Finder_ID = 0
 
     End Sub
-    Private Sub fCheckInvoice()
+    Private Sub CheckingIvoice()
         Dim bNotSelected As Boolean = True
         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
             If dgvInvoice.Rows(i).Cells(1).Value = True Then
@@ -401,12 +398,12 @@ WHERE  EXISTS
         Dim dPayment As Double = 0
         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
             If dgvInvoice.Rows(i).Cells(1).Value = True Then
-                dPayment = dPayment + (NumIsNull(dgvInvoice.Rows(i).Cells("PAYMENT").Value) + NumIsNull(dgvInvoice.Rows(i).Cells("DISCOUNT").Value))
+                dPayment += (NumIsNull(dgvInvoice.Rows(i).Cells("PAYMENT").Value) + NumIsNull(dgvInvoice.Rows(i).Cells("DISCOUNT").Value))
             End If
         Next
         lblAMOUNT_APPLIED.Text = NumberFormatStandard(dPayment)
     End Sub
-    Private Sub dgvInvoice_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellClick
+    Private Sub DgvInvoice_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellClick
         Try
 
 
@@ -448,7 +445,7 @@ WHERE  EXISTS
 
                         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
                             If dgvInvoice.Rows(i).Cells(1).Value = True And i <> e.RowIndex Then
-                                dPayment = dPayment + (NumIsNull(dgvInvoice.Rows(i).Cells("PAYMENT").Value) + NumIsNull(dgvInvoice.Rows(i).Cells("DISCOUNT").Value))
+                                dPayment += (NumIsNull(dgvInvoice.Rows(i).Cells("PAYMENT").Value) + NumIsNull(dgvInvoice.Rows(i).Cells("DISCOUNT").Value))
                             End If
                         Next
                         dAmount_remain = bPay - dPayment
@@ -469,17 +466,17 @@ WHERE  EXISTS
                         Exit Sub
                     End If
 
-                    fEdititem(.Cells(0).Value, b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells("ACCOUNTS_RECEIVABLE_ID").Value, .Cells(8).Value, .Cells(9).Value, bPay, .Cells("INVOICE_ID").Value, .Cells("DISCOUNT_ACCOUNT_ID").Value)
+                    EditItemInvoice(.Cells(0).Value, b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells("ACCOUNTS_RECEIVABLE_ID").Value, .Cells(8).Value, .Cells(9).Value, bPay, .Cells("INVOICE_ID").Value, .Cells("DISCOUNT_ACCOUNT_ID").Value)
                 End With
 
-                fCheckInvoice()
+                CheckingIvoice()
             End If
         Catch ex As Exception
             MessageBoxInfo(ex.Message)
         End Try
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
 
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
             MessageBoxInfo("Please Select Customer")
@@ -502,10 +499,10 @@ WHERE  EXISTS
             Exit Sub
         End If
 
-        Dim bValue_is_checked As Boolean = False
+
         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
             If dgvInvoice.Rows(i).Cells(1).Value = True Then
-                bValue_is_checked = True
+
                 Exit For
             End If
         Next
@@ -565,8 +562,8 @@ WHERE  EXISTS
 
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
-                fSetNew()
+            If btn.Name = tsSaveNew.Name Then
+                SetNew()
             Else
 
             End If
@@ -576,34 +573,30 @@ WHERE  EXISTS
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefreshInfo()
+                RefreshInfo()
             End If
         End Try
 
 
     End Sub
-    Private Sub fSetNew()
-        fClear_Info()
+    Private Sub SetNew()
+        ClearInfo()
         IsNew = True
         ID = 0
 
     End Sub
 
-
-
-
-
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
 
         If SecurityAccessFind(Me) = False Then
             Exit Sub
 
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -624,52 +617,40 @@ WHERE  EXISTS
                 ID = f.AccessibleDescription
                 IsNew = False
                 ''
-                fClear_Info()
+                ClearInfo()
                 If IsNew = False Then
                     dtpDATE.Checked = True
-                    fRefreshInfo()
+                    RefreshInfo()
                 End If
             End If
         End If
 
     End Sub
 
-    Private Sub ToolStripDropDownButton2_Click(sender As Object, e As EventArgs) Handles ToolStripDropDownButton2.Click
-
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
 
 
 
-                fRefreshInfo()
+                RefreshInfo()
 
 
             End If
 
         End If
     End Sub
-
-    Private Sub btnDiscount_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btnCredit_Click(sender As Object, e As EventArgs)
-
-    End Sub
-    Private Function fInvoiceBalance_Update(ByVal gsInvoice As String, prORG_Amount As Double) As Double
+    Private Function GetInvoiceBalanceUpdate(ByVal gsInvoice As String, prORG_Amount As Double) As Double
 
         Dim total_pay As Double = fGetSumPaymentApplied(gsInvoice, cmbCUSTOMER_ID.SelectedValue) + fGetSumCreditApplied(gsInvoice, cmbCUSTOMER_ID.SelectedValue) + fInvoiceSumTaxApplied_Amount(gsInvoice, cmbCUSTOMER_ID.SelectedValue)
         Dim New_Balance As Double = prORG_Amount - total_pay
         Dim squery As String
-        Dim nStatus As Integer = 0
+        Dim nStatus As Integer
         If 0 >= New_Balance Then
             nStatus = 11
         Else
@@ -680,17 +661,17 @@ WHERE  EXISTS
         Return New_Balance
     End Function
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False Then
 
             If SecurityAccessDelete(Me) = False Then
                 Exit Sub
             End If
 
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -733,7 +714,7 @@ WHERE  EXISTS
                     IsNew = True
                     ID = 0
                     CursorLoadingOn(False)
-                    fClear_Info()
+                    ClearInfo()
 
                 End If
             Catch ex As Exception
@@ -744,24 +725,19 @@ WHERE  EXISTS
         End If
     End Sub
 
-    Private Sub frmReceivePayment_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-
-    End Sub
-
-    Private Sub frmReceivePayment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmReceivePayment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         dgvInvoice.Columns("SELECTED").Width = 30
-
         ViewNotSort(dgvInvoice)
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -778,10 +754,10 @@ WHERE  EXISTS
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -810,22 +786,22 @@ WHERE  EXISTS
 
     Private Sub SelectPagePrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectPagePrintToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         End If
         If IsNew = True Then Exit Sub
         If SecurityAccessPrint(Me) = False Then
             Exit Sub
         End If
-        frmPrintPage.frmName = Me.Name
-        frmPrintPage.ShowDialog()
-        Dim v As Integer = frmPrintPage.prValue
+        FrmPrintPage.frmName = Me.Name
+        FrmPrintPage.ShowDialog()
+        Dim v As Integer = FrmPrintPage.prValue
         If v = 1 Or v = 2 Then
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -851,8 +827,8 @@ WHERE  EXISTS
                 gscryRpt.PrintToPrinter(1, False, 0, 0)
             End If
         End If
-        frmPrintPage.Dispose()
-        frmPrintPage = Nothing
+        FrmPrintPage.Dispose()
+        FrmPrintPage = Nothing
 
     End Sub
 
@@ -860,7 +836,7 @@ WHERE  EXISTS
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -880,10 +856,10 @@ WHERE  EXISTS
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
 
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -911,7 +887,7 @@ WHERE  EXISTS
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -932,7 +908,7 @@ WHERE  EXISTS
                 getACCOUNT_ID = NumIsNull(rd("ACCOUNT_ID"))
             End If
             rd.Close()
-            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 41, getACCOUNT_ID, cmbCUSTOMER_ID.Text, txtCODE.Text, txtNOTES.Text)
+            AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 41, getACCOUNT_ID, cmbCUSTOMER_ID.Text, txtCODE.Text, txtNOTES.Text)
         End If
     End Sub
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
@@ -941,18 +917,18 @@ WHERE  EXISTS
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
         ShowTransactionLog(Me, ID)
     End Sub
-    Private Sub frmReceivePayment_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmReceivePayment_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
         ID = gsDocument_Finder_ID
         IsNew = IIf(ID = 0, True, False)
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
     End Sub
 
     Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
-        cmbCUSTOMER_ID_SelectedIndexChanged(sender, e)
+        CmbCUSTOMER_ID_SelectedIndexChanged(sender, e)
     End Sub
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         GetQuickFind(dgvInvoice, tsFindText.Text)
     End Sub
 
@@ -964,7 +940,7 @@ WHERE  EXISTS
 
         Dim i As Integer = dgvInvoice.CurrentRow.Index
         Dim d As DataGridViewRow = dgvInvoice.Rows(i)
-        With frmDiscountInvoice
+        With FrmDiscountInvoice
             .lblName.Text = cmbCUSTOMER_ID.Text
             .lblDATE.Text = d.Cells(2).Value
             .lblCreditUsed.Text = ""
@@ -981,11 +957,11 @@ WHERE  EXISTS
             If .gsOK = True Then
                 d.Cells("DISCOUNT_ACCOUNT_ID").Value = .gsDISCOUNT_ACCOUNT_ID
                 d.Cells("DISCOUNT").Value = NumberFormatStandard(.gsDISCOUNT_AMOUNT)
-                fCheckInvoice()
+                CheckingIvoice()
             End If
             .Dispose()
         End With
-        frmDiscountInvoice = Nothing
+        FrmDiscountInvoice = Nothing
     End Sub
 
     Private Sub CreditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CreditToolStripMenuItem.Click
@@ -996,7 +972,7 @@ WHERE  EXISTS
 
         Dim i As Integer = dgvInvoice.CurrentRow.Index
         Dim d As DataGridViewRow = dgvInvoice.Rows(i)
-        With frmApplyCredits
+        With FrmApplyCredits
             .ID = d.Cells(9).Value
             .gsCustomer_ID = cmbCUSTOMER_ID.SelectedValue
             .gsLocation_ID = cmbLOCATION_ID.SelectedValue
@@ -1012,7 +988,7 @@ WHERE  EXISTS
                 Dim p As Double = NumberFormatFixed(d.Cells(8).Value)
 
                 If MessageBoxQuestion("Do you want apply credit?") = True Then
-                    Dim bd As Double = fInvoiceBalance_Update(d.Cells(9).Value, d.Cells(4).Value)
+                    Dim bd As Double = GetInvoiceBalanceUpdate(d.Cells(9).Value, d.Cells(4).Value)
                     d.Cells(6).Value = NumberFormatStandard(bd + p)
                 End If
             End If

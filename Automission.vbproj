@@ -510,12 +510,6 @@
     <Compile Include="Form\FrmMainMenu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FrmMenuAccountSettings.Designer.vb">
-      <DependentUpon>FrmMenuAccountSettings.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FrmMenuAccountSettings.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form\FrmPOSCashDenomination.Designer.vb">
       <DependentUpon>FrmPOSCashDenomination.vb</DependentUpon>
     </Compile>
@@ -646,12 +640,6 @@
       <DependentUpon>FrmRequestForm.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FrmRequestForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FrmRoomSetup.Designer.vb">
-      <DependentUpon>FrmRoomSetup.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FrmRoomSetup.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FrmSalesTaxRecompute.Designer.vb">
@@ -2399,9 +2387,6 @@
     <EmbeddedResource Include="Form\FrmMainMenu.resx">
       <DependentUpon>FrmMainMenu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmMenuAccountSettings.resx">
-      <DependentUpon>FrmMenuAccountSettings.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmPOSCashDenomination.resx">
       <DependentUpon>FrmPOSCashDenomination.vb</DependentUpon>
     </EmbeddedResource>
@@ -2467,9 +2452,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmRequestForm.resx">
       <DependentUpon>FrmRequestForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmRoomSetup.resx">
-      <DependentUpon>FrmRoomSetup.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmSalesTaxRecompute.resx">
       <DependentUpon>FrmSalesTaxRecompute.vb</DependentUpon>

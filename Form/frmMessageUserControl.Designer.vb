@@ -35,14 +35,14 @@ Partial Class FrmMessageUserControl
         Me.lblmsg.Location = New System.Drawing.Point(-3, 1)
         Me.lblmsg.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblmsg.Name = "lblmsg"
-        Me.lblmsg.Size = New System.Drawing.Size(648, 115)
+        Me.lblmsg.Size = New System.Drawing.Size(501, 115)
         Me.lblmsg.TabIndex = 0
         Me.lblmsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'btnYes
         '
-        Me.btnYes.Location = New System.Drawing.Point(420, 125)
-        Me.btnYes.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnYes.Location = New System.Drawing.Point(275, 125)
+        Me.btnYes.Margin = New System.Windows.Forms.Padding(4)
         Me.btnYes.Name = "btnYes"
         Me.btnYes.Size = New System.Drawing.Size(100, 28)
         Me.btnYes.TabIndex = 1
@@ -51,8 +51,8 @@ Partial Class FrmMessageUserControl
         '
         'btnNo
         '
-        Me.btnNo.Location = New System.Drawing.Point(533, 125)
-        Me.btnNo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnNo.Location = New System.Drawing.Point(388, 125)
+        Me.btnNo.Margin = New System.Windows.Forms.Padding(4)
         Me.btnNo.Name = "btnNo"
         Me.btnNo.Size = New System.Drawing.Size(100, 28)
         Me.btnNo.TabIndex = 2
@@ -64,20 +64,20 @@ Partial Class FrmMessageUserControl
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
         '
-        'frmMessageUserControl
+        'FrmMessageUserControl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(649, 165)
+        Me.ClientSize = New System.Drawing.Size(499, 165)
         Me.Controls.Add(Me.btnNo)
         Me.Controls.Add(Me.btnYes)
         Me.Controls.Add(Me.lblmsg)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmMessageUserControl"
+        Me.Name = "FrmMessageUserControl"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Message User Control"

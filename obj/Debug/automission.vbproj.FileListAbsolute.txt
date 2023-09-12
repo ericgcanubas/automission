@@ -2145,7 +2145,6 @@ D:\Automission\obj\Debug\Automission.frmItemExpired.resources
 D:\Automission\obj\Debug\Automission.frmItemExpiredDetails.resources
 D:\Automission\obj\Debug\Automission.FrmItemImageSetup.resources
 D:\Automission\obj\Debug\Automission.frmMainMenu.resources
-D:\Automission\obj\Debug\Automission.frmMenuAccountSettings.resources
 D:\Automission\obj\Debug\Automission.frmPOSCashDenomination.resources
 D:\Automission\obj\Debug\Automission.frmPOSCashDenominationDetails.resources
 D:\Automission\obj\Debug\Automission.frmPOSLogDetails.resources
@@ -2168,7 +2167,6 @@ D:\Automission\obj\Debug\Automission.frmBillCreditBills.resources
 D:\Automission\obj\Debug\Automission.frmDiscountBill.resources
 D:\Automission\obj\Debug\Automission.frmRefreshMsg.resources
 D:\Automission\obj\Debug\Automission.frmRequestForm.resources
-D:\Automission\obj\Debug\Automission.FrmRoomSetup.resources
 D:\Automission\obj\Debug\Automission.FrmSalesTaxRecompute.resources
 D:\Automission\obj\Debug\Automission.frmSelectDate.resources
 D:\Automission\obj\Debug\Automission.frmSelectLocation.resources

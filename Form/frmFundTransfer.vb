@@ -176,7 +176,7 @@ Public Class FrmFundTransfer
 
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
+            If btn.Name = tsSaveNew.Name Then
                 SetNew()
             End If
         Catch ex As Exception
@@ -299,7 +299,7 @@ Public Class FrmFundTransfer
         End If
 
         If IsNew = False Then
-            fTransactionJournal(ID, dtpDATE.Value, cmbTO_LOCATION_ID.SelectedValue, 93, cmbTO_ACCOUNT_ID.SelectedValue, cmbTO_NAME_ID.Text, txtCODE.Text, txtNOTES.Text)
+            AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbTO_LOCATION_ID.SelectedValue, 93, cmbTO_ACCOUNT_ID.SelectedValue, cmbTO_NAME_ID.Text, txtCODE.Text, txtNOTES.Text)
         End If
     End Sub
 

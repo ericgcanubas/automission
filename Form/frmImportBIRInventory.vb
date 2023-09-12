@@ -37,10 +37,10 @@ Public Class FrmImportBIRInventory
         Dim SQL As String
         CantRun = False
         SQL = "select * from ImportBIRConfig  Where UseDefault = '-1'"
-        Dim cn As New OleDb.OleDbConnection(fMS_Con())
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection())
         Try
             cn.Open()
-            Dim rd As OleDb.OleDbDataReader = fMSgetReader(SQL, cn)
+            Dim rd As OleDb.OleDbDataReader = DbAccessReader(SQL, cn)
             If rd.Read Then
 
 

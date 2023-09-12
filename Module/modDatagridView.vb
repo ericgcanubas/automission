@@ -5,7 +5,7 @@ Module modDatagridView
         Dim N As Integer = 0
         For I As Integer = 0 To dgv.Rows.Count - 1
             If dgv.Rows(I).Visible = True Then
-                N = N + 1
+                N += 1
             End If
         Next
         Return N
@@ -221,7 +221,7 @@ Module modDatagridView
 
         End Select
     End Function
-    Public Function fCheckNumStandard(ByVal Txt As String) As Boolean
+    Public Function CheckNumStandard(ByVal Txt As String) As Boolean
         Select Case Txt.ToUpper
             Case "AMOUNT"
 

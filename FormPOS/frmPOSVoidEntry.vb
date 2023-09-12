@@ -20,12 +20,12 @@ Public Class FrmPOSVoidEntry
         dgvSalesReceiptList.Columns("customer_id").Visible = False
     End Sub
     Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Dim prFile_name As String = ""
         Dim prPrint_Title As String = ""
         Try
             cn.Open()
-            Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = 'frmSalesReceipt' and  [print_default] = '1' ", cn)
+            Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = 'frmSalesReceipt' and  [print_default] = '1' ", cn)
             If r.Read Then
                 prPrint_Title = r("print_title")
                 prFile_name = r("file_name")

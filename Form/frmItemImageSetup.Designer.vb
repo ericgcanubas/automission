@@ -44,24 +44,24 @@ Partial Class FrmItemImageSetup
         '
         'txtImageSourceFolder
         '
-        Me.txtImageSourceFolder.Location = New System.Drawing.Point(146, 41)
+        Me.txtImageSourceFolder.Location = New System.Drawing.Point(12, 64)
         Me.txtImageSourceFolder.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtImageSourceFolder.Name = "txtImageSourceFolder"
-        Me.txtImageSourceFolder.Size = New System.Drawing.Size(535, 23)
+        Me.txtImageSourceFolder.Size = New System.Drawing.Size(513, 23)
         Me.txtImageSourceFolder.TabIndex = 1
         '
         'txtImageDestinationFolder
         '
-        Me.txtImageDestinationFolder.Location = New System.Drawing.Point(146, 73)
+        Me.txtImageDestinationFolder.Location = New System.Drawing.Point(12, 113)
         Me.txtImageDestinationFolder.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtImageDestinationFolder.Name = "txtImageDestinationFolder"
-        Me.txtImageDestinationFolder.Size = New System.Drawing.Size(535, 23)
+        Me.txtImageDestinationFolder.Size = New System.Drawing.Size(513, 23)
         Me.txtImageDestinationFolder.TabIndex = 2
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 76)
+        Me.Label2.Location = New System.Drawing.Point(9, 93)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(126, 16)
         Me.Label2.TabIndex = 3
@@ -69,10 +69,10 @@ Partial Class FrmItemImageSetup
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(600, 124)
+        Me.btnSave.Location = New System.Drawing.Point(425, 163)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(115, 28)
+        Me.btnSave.Size = New System.Drawing.Size(100, 28)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
@@ -80,7 +80,7 @@ Partial Class FrmItemImageSetup
         'chkUseImageProduct
         '
         Me.chkUseImageProduct.AutoSize = True
-        Me.chkUseImageProduct.Location = New System.Drawing.Point(146, 15)
+        Me.chkUseImageProduct.Location = New System.Drawing.Point(12, 13)
         Me.chkUseImageProduct.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chkUseImageProduct.Name = "chkUseImageProduct"
         Me.chkUseImageProduct.Size = New System.Drawing.Size(122, 20)
@@ -90,7 +90,7 @@ Partial Class FrmItemImageSetup
         '
         'btnBrowse1
         '
-        Me.btnBrowse1.Location = New System.Drawing.Point(683, 39)
+        Me.btnBrowse1.Location = New System.Drawing.Point(531, 64)
         Me.btnBrowse1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnBrowse1.Name = "btnBrowse1"
         Me.btnBrowse1.Size = New System.Drawing.Size(33, 28)
@@ -100,7 +100,7 @@ Partial Class FrmItemImageSetup
         '
         'btnBrowse2
         '
-        Me.btnBrowse2.Location = New System.Drawing.Point(683, 71)
+        Me.btnBrowse2.Location = New System.Drawing.Point(531, 110)
         Me.btnBrowse2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnBrowse2.Name = "btnBrowse2"
         Me.btnBrowse2.Size = New System.Drawing.Size(32, 28)
@@ -112,7 +112,7 @@ Partial Class FrmItemImageSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(728, 165)
+        Me.ClientSize = New System.Drawing.Size(576, 203)
         Me.Controls.Add(Me.btnBrowse2)
         Me.Controls.Add(Me.btnBrowse1)
         Me.Controls.Add(Me.chkUseImageProduct)
@@ -122,7 +122,7 @@ Partial Class FrmItemImageSetup
         Me.Controls.Add(Me.txtImageSourceFolder)
         Me.Controls.Add(Me.Label1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False

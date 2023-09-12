@@ -1,10 +1,10 @@
 ﻿Public Class FrmManufacturers
     Public item_BS As BindingSource
-    Private Sub frmShipVia_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmManufacturer_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefresh()
+        RefreshData()
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         LoadDataGridViewBinding(dgvManufacturer, "Select ID,Code,`Name` from Manufacturer ", item_BS)
         ViewColumn(dgvManufacturer, 44)
     End Sub
@@ -15,22 +15,17 @@
         ViewColumn(dgvManufacturer, 44)
 
     End Sub
-
-    Private Sub frmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-    End Sub
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
         If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
-
-        frmManufacturersDetails.This_BS = item_BS
-        frmManufacturersDetails.Dgv = dgvManufacturer
-        frmManufacturersDetails.ShowDialog()
-        frmManufacturersDetails.Dispose()
-        frmManufacturersDetails = Nothing
-        fRefresh()
+        FrmManufacturersDetails.This_BS = item_BS
+        FrmManufacturersDetails.Dgv = dgvManufacturer
+        FrmManufacturersDetails.ShowDialog()
+        FrmManufacturersDetails.Dispose()
+        FrmManufacturersDetails = Nothing
+        RefreshData()
     End Sub
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsUpdate.Click
@@ -43,13 +38,13 @@
                 Exit Sub
             End If
             dgvManufacturer.Focus()
-            frmManufacturersDetails.This_BS = item_BS
-            frmManufacturersDetails.Dgv = dgvManufacturer
-            frmManufacturersDetails.ID = dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("ID").Value
-            frmManufacturersDetails.ShowDialog()
-            frmManufacturersDetails.Dispose()
-            frmManufacturersDetails = Nothing
-            fRefresh()
+            FrmManufacturersDetails.This_BS = item_BS
+            FrmManufacturersDetails.Dgv = dgvManufacturer
+            FrmManufacturersDetails.ID = dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("ID").Value
+            FrmManufacturersDetails.ShowDialog()
+            FrmManufacturersDetails.Dispose()
+            FrmManufacturersDetails = Nothing
+            RefreshData()
         Catch ex As Exception
             MessageBoxExclamation(ex.Message)
         End Try
@@ -70,26 +65,21 @@
             If MessageBoxQuestion("Do you really want to delete " & dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("NAME").Value & "?") = True Then
                 SqlExecuted("delete from Manufacturer where ID = '" & dgvManufacturer.Rows(dgvManufacturer.CurrentRow.Index).Cells("ID").Value & "' limit 1")
                 DeleteNotify(Me)
-                fRefresh()
+                RefreshData()
             End If
 
         Catch ex As Exception
             MessageBoxExclamation(ex.Message)
         End Try
     End Sub
-
-    Private Sub dgvShipVia_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvManufacturer.CellContentClick
-
-    End Sub
-
-    Private Sub dgvShipVia_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvManufacturer.CellDoubleClick
+    Private Sub DgvShipVia_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvManufacturer.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefresh()
+        RefreshData()
     End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
             Dim strFInd As String = ""
             For I As Integer = 0 To dgvManufacturer.Columns.Count - 1
@@ -123,15 +113,15 @@
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
-    Private Sub dgvManufacturer_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvManufacturer.RowStateChanged
+    Private Sub DgvManufacturer_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvManufacturer.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

@@ -188,7 +188,7 @@ FROM
                 For i As Integer = 0 To rd.FieldCount - 1
 
                     With dgvProductItem.Columns(i)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
@@ -242,7 +242,7 @@ FROM
                 dgvExpenses.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvExpenses.Columns(i)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvExpenses.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvExpenses.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
@@ -632,7 +632,7 @@ FROM
         gsGotChangeLocation1 = False
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
+            If btn.Name = tsSaveNew.Name Then
                 fSetNew()
             Else
 
@@ -1040,10 +1040,10 @@ FROM
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1097,10 +1097,10 @@ FROM
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1141,7 +1141,7 @@ FROM
             End If
         End If
         If IsNew = False Then
-            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 57, cmbBANK_ACCOUNT_ID.SelectedValue, cmbPAY_TO_ID.Text, txtCODE.Text, txtNOTES.Text)
+            AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 57, cmbBANK_ACCOUNT_ID.SelectedValue, cmbPAY_TO_ID.Text, txtCODE.Text, txtNOTES.Text)
         End If
     End Sub
 
@@ -1292,10 +1292,10 @@ FROM
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")

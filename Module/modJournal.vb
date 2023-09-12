@@ -1,5 +1,5 @@
 ﻿Module modJournal
-    Public Sub fTransactionJournal(ByVal prID As String, gsDate As Date, gsLoc_Id As Integer, ByVal prObject_type As Integer, ByVal prAccount_ID As Integer, ByVal prContact_NAME As String, ByVal prCode As String, ByVal prNotes As String)
+    Public Sub AccountTransactionJournalEntry(ByVal prID As String, gsDate As Date, gsLoc_Id As Integer, ByVal prObject_type As Integer, ByVal prAccount_ID As Integer, ByVal prContact_NAME As String, ByVal prCode As String, ByVal prNotes As String)
         With frmAccountJournalTransaction
 
             .ID = prID
@@ -13,7 +13,7 @@
         End With
     End Sub
 
-    Public Sub fRow_Add_Account(ByVal dgv As DataGridView, ByVal prAdd As Boolean, ByVal prAccount_ID As String, ByVal prDebit As Double, ByVal prCredit As Double, ByVal prNotes As String, ByVal prClass_ID As String)
+    Public Sub RowAddAccountJournal(ByVal dgv As DataGridView, ByVal prAdd As Boolean, ByVal prAccount_ID As String, ByVal prDebit As Double, ByVal prCredit As Double, ByVal prNotes As String, ByVal prClass_ID As String)
         Dim prAccount_Name As String = GetStringFieldValue("ACCOUNT", "ID", prAccount_ID, "NAME")
         Dim d_amount As String = ""
         Dim c_amount As String = ""

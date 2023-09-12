@@ -39,7 +39,7 @@ Partial Class FrmItemUnitRelated
         'cmbUnit
         '
         Me.cmbUnit.FormattingEnabled = True
-        Me.cmbUnit.Location = New System.Drawing.Point(82, 15)
+        Me.cmbUnit.Location = New System.Drawing.Point(111, 15)
         Me.cmbUnit.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbUnit.Name = "cmbUnit"
         Me.cmbUnit.Size = New System.Drawing.Size(179, 24)
@@ -48,7 +48,7 @@ Partial Class FrmItemUnitRelated
         'cmbSymbol
         '
         Me.cmbSymbol.FormattingEnabled = True
-        Me.cmbSymbol.Location = New System.Drawing.Point(264, 15)
+        Me.cmbSymbol.Location = New System.Drawing.Point(293, 15)
         Me.cmbSymbol.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbSymbol.Name = "cmbSymbol"
         Me.cmbSymbol.Size = New System.Drawing.Size(101, 24)
@@ -56,7 +56,7 @@ Partial Class FrmItemUnitRelated
         '
         'numQty
         '
-        Me.numQty.Location = New System.Drawing.Point(82, 42)
+        Me.numQty.Location = New System.Drawing.Point(111, 41)
         Me.numQty.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.numQty.Maximum = New Decimal(New Integer() {999999, 0, 0, 0})
         Me.numQty.Name = "numQty"
@@ -67,7 +67,7 @@ Partial Class FrmItemUnitRelated
         'numRate
         '
         Me.numRate.DecimalPlaces = 2
-        Me.numRate.Location = New System.Drawing.Point(82, 69)
+        Me.numRate.Location = New System.Drawing.Point(111, 68)
         Me.numRate.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.numRate.Maximum = New Decimal(New Integer() {999999, 0, 0, 0})
         Me.numRate.Name = "numRate"
@@ -77,7 +77,7 @@ Partial Class FrmItemUnitRelated
         '
         'txtBarcode
         '
-        Me.txtBarcode.Location = New System.Drawing.Point(82, 96)
+        Me.txtBarcode.Location = New System.Drawing.Point(111, 94)
         Me.txtBarcode.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtBarcode.Name = "txtBarcode"
         Me.txtBarcode.Size = New System.Drawing.Size(283, 23)
@@ -87,18 +87,18 @@ Partial Class FrmItemUnitRelated
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(14, 18)
+        Me.Label1.Location = New System.Drawing.Point(16, 16)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 16)
+        Me.Label1.Size = New System.Drawing.Size(93, 16)
         Me.Label1.TabIndex = 5
-        Me.Label1.Text = "Unit Size"
+        Me.Label1.Text = "Unit Measure"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(16, 44)
+        Me.Label3.Location = New System.Drawing.Point(16, 41)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(64, 16)
@@ -109,7 +109,7 @@ Partial Class FrmItemUnitRelated
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(40, 71)
+        Me.Label4.Location = New System.Drawing.Point(16, 68)
         Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(37, 16)
@@ -120,7 +120,7 @@ Partial Class FrmItemUnitRelated
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Location = New System.Drawing.Point(16, 100)
+        Me.Label5.Location = New System.Drawing.Point(16, 95)
         Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(60, 16)
@@ -130,7 +130,7 @@ Partial Class FrmItemUnitRelated
         'btnOK
         '
         Me.btnOK.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOK.Location = New System.Drawing.Point(279, 141)
+        Me.btnOK.Location = New System.Drawing.Point(311, 136)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(86, 28)
@@ -138,11 +138,11 @@ Partial Class FrmItemUnitRelated
         Me.btnOK.Text = "&OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'frmItemUnitRelated
+        'FrmItemUnitRelated
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(374, 186)
+        Me.ClientSize = New System.Drawing.Size(413, 179)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
@@ -158,7 +158,7 @@ Partial Class FrmItemUnitRelated
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmItemUnitRelated"
+        Me.Name = "FrmItemUnitRelated"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

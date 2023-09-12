@@ -848,7 +848,7 @@ Module modFormFunction
             Next
             sQuery = sQuery & " where [ID] = " & gsID
 
-            fMS_execute(sQuery)
+            DbAccessExecute(sQuery)
 
             frmCheckList.Dispose()
             frmCheckList = Nothing
@@ -860,7 +860,7 @@ Module modFormFunction
 
         dgv.Columns(0).Visible = False
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
             CursorLoadingOn(True)
             cn.Open()
@@ -873,7 +873,7 @@ Module modFormFunction
                 Next
 
             Else
-                fMS_execute("insert into tblcolumn (ID) values (" & gsID & ") ")
+                DbAccessExecute("insert into tblcolumn (ID) values (" & gsID & ") ")
                 MessageBoxInfo("New Row Added")
             End If
             cn.Close()

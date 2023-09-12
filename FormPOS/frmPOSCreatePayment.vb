@@ -50,7 +50,7 @@ Public Class FrmPOSCreatePayment
         ComboBoxLoad(cmbPAYMENT_METHOD_ID, "SELECT ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
         cmbPAYMENT_METHOD_ID.SelectedIndex = 0
         gsOK = False
-        'Create Column
+        'Create ColumnView
         With dgvAVAILABLE.Columns
             .Clear()
             .Add("ID", "ID")

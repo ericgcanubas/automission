@@ -39,16 +39,15 @@ Partial Class FrmPRAvailable
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.BackColor = System.Drawing.Color.White
         Me.GroupBox1.Controls.Add(Me.dgvDocument)
-        Me.GroupBox1.Location = New System.Drawing.Point(14, 32)
+        Me.GroupBox1.Location = New System.Drawing.Point(16, 39)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox1.Size = New System.Drawing.Size(589, 180)
+        Me.GroupBox1.Size = New System.Drawing.Size(673, 222)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Bill"
+        Me.GroupBox1.Text = "Bills"
         '
         'dgvDocument
         '
@@ -59,22 +58,21 @@ Partial Class FrmPRAvailable
         Me.dgvDocument.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedHeaders
         Me.dgvDocument.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvDocument.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvDocument.Location = New System.Drawing.Point(3, 16)
+        Me.dgvDocument.Location = New System.Drawing.Point(3, 18)
         Me.dgvDocument.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dgvDocument.MultiSelect = False
         Me.dgvDocument.Name = "dgvDocument"
         Me.dgvDocument.ReadOnly = True
         Me.dgvDocument.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDocument.Size = New System.Drawing.Size(583, 162)
+        Me.dgvDocument.Size = New System.Drawing.Size(667, 202)
         Me.dgvDocument.TabIndex = 18
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(16, 10)
+        Me.Label1.Location = New System.Drawing.Point(18, 12)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(54, 13)
+        Me.Label1.Size = New System.Drawing.Size(63, 16)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Location"
         '
@@ -82,10 +80,10 @@ Partial Class FrmPRAvailable
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(76, 7)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(87, 9)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(198, 21)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(226, 24)
         Me.cmbLOCATION_ID.TabIndex = 0
         '
         'dgvStock
@@ -100,51 +98,51 @@ Partial Class FrmPRAvailable
         Me.dgvStock.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.dgvStock.ColumnHeadersHeight = 35
         Me.dgvStock.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvStock.Location = New System.Drawing.Point(14, 228)
+        Me.dgvStock.Location = New System.Drawing.Point(16, 281)
         Me.dgvStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dgvStock.MultiSelect = False
         Me.dgvStock.Name = "dgvStock"
         Me.dgvStock.ReadOnly = True
         Me.dgvStock.RowHeadersVisible = False
         Me.dgvStock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvStock.Size = New System.Drawing.Size(585, 174)
+        Me.dgvStock.Size = New System.Drawing.Size(669, 214)
         Me.dgvStock.TabIndex = 1
         '
         'btnCheckAll
         '
-        Me.btnCheckAll.Location = New System.Drawing.Point(14, 505)
+        Me.btnCheckAll.Location = New System.Drawing.Point(16, 622)
         Me.btnCheckAll.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnCheckAll.Name = "btnCheckAll"
-        Me.btnCheckAll.Size = New System.Drawing.Size(75, 22)
+        Me.btnCheckAll.Size = New System.Drawing.Size(86, 27)
         Me.btnCheckAll.TabIndex = 3
         Me.btnCheckAll.Text = "Check All"
         Me.btnCheckAll.UseVisualStyleBackColor = True
         '
         'btnUncheckAll
         '
-        Me.btnUncheckAll.Location = New System.Drawing.Point(95, 505)
+        Me.btnUncheckAll.Location = New System.Drawing.Point(109, 622)
         Me.btnUncheckAll.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnUncheckAll.Name = "btnUncheckAll"
-        Me.btnUncheckAll.Size = New System.Drawing.Size(85, 22)
+        Me.btnUncheckAll.Size = New System.Drawing.Size(97, 27)
         Me.btnUncheckAll.TabIndex = 4
         Me.btnUncheckAll.Text = "Uncheck All"
         Me.btnUncheckAll.UseVisualStyleBackColor = True
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(534, 411)
+        Me.btnOK.Location = New System.Drawing.Point(610, 506)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(66, 19)
+        Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 5
         Me.btnOK.Text = "OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'frmPRAvailable
+        'FrmPRAvailable
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(607, 436)
+        Me.ClientSize = New System.Drawing.Size(694, 537)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnUncheckAll)
         Me.Controls.Add(Me.btnCheckAll)
@@ -152,11 +150,11 @@ Partial Class FrmPRAvailable
         Me.Controls.Add(Me.cmbLOCATION_ID)
         Me.Controls.Add(Me.dgvStock)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPRAvailable"
+        Me.Name = "FrmPRAvailable"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

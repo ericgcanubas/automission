@@ -2,26 +2,27 @@
 Public Class FrmPRAvailable
     Public gsFirest As Boolean = True
     Public dgv As DataGridView
-    Private Sub frmPRAvailable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPRAvailable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        fCol()
+        ColumnView()
         ComboBoxLoad(cmbLOCATION_ID, "SELECT ID,NAME FROM LOCATION WHERE INACTIVE='0'", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
 
     End Sub
 
-    Private Sub fBILL_LOAD()
+    Private Sub BillingLoad()
 
         LoadDataGridView(dgvDocument, $"SELECT b.`ID`,b.`Date` ,b.CODE ,c.`Name` AS Vendor,l.NAME AS `From Location` FROM BILL AS b INNER JOIN CONTACT AS c ON c.ID = b.VENDOR_ID INNER JOIN LOCATION AS L ON l.ID = b.LOCATION_ID WHERE b.RECEIVED_LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' and NOT EXISTS(SELECT *  FROM stock_received_items as s inner join bill_items as i on i.id = s.bill_item_id  WHERE i.bill_id = b.ID )")
         dgvDocument.Columns(0).Visible = False
 
-        fLoadRequest()
+        LoadRequest()
     End Sub
-    Private Sub fCol()
-        Dim chk_selected As New DataGridViewCheckBoxColumn
-        chk_selected.HeaderText = "  "
-        chk_selected.Name = "SELECTED"
+    Private Sub ColumnView()
+        Dim chk_selected As New DataGridViewCheckBoxColumn With {
+            .HeaderText = "  ",
+            .Name = "SELECTED"
+        }
 
         With dgvStock.Columns
             .Clear()
@@ -55,7 +56,7 @@ Public Class FrmPRAvailable
 
     End Sub
 
-    Private Sub fLoadRequest()
+    Private Sub LoadRequest()
 
         dgvStock.Rows.Clear()
 
@@ -78,7 +79,7 @@ Public Class FrmPRAvailable
 
 
 
-    Private Sub frmPRAvailable_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmPRAvailable_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         With dgvStock.Columns
             .Item(0).Width = 30
             .Item("DESCRIPTION").Width = 500
@@ -86,20 +87,20 @@ Public Class FrmPRAvailable
 
         End With
 
-        fBILL_LOAD()
+        BillingLoad()
 
         gsFirest = False
 
     End Sub
 
-    Private Sub cmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
+    Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
         If gsFirest = True Then Exit Sub
-        fBILL_LOAD()
+        BillingLoad()
     End Sub
 
 
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If dgvStock.Rows.Count = 0 Then
             MessageBoxInfo("Item not found.")
             Exit Sub
@@ -109,7 +110,7 @@ Public Class FrmPRAvailable
         For I As Integer = 0 To dgvStock.Rows.Count - 1
             With dgvStock.Rows(I)
                 If .Cells(0).Value = True Then
-                    T = T + 1
+                    T += 1
                 End If
             End With
         Next
@@ -131,34 +132,19 @@ Public Class FrmPRAvailable
         Me.Close()
 
     End Sub
-
-    Private Sub dgvBILL_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
-
+    Private Sub DgvDocument_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDocument.CellClick
+        LoadRequest()
     End Sub
 
-    Private Sub dgvBILL_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvDocument.RowStateChanged
 
-    End Sub
 
-    Private Sub dgvDocument_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDocument.CellContentClick
-
-    End Sub
-
-    Private Sub dgvDocument_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDocument.CellClick
-        fLoadRequest()
-    End Sub
-
-    Private Sub dgvStock_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStock.CellContentClick
-
-    End Sub
-
-    Private Sub dgvStock_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStock.CellClick
+    Private Sub DgvStock_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStock.CellClick
         If e.ColumnIndex = 0 Then
             CheckSide(dgvStock)
         End If
     End Sub
 
-    Private Sub btnCheckAll_Click(sender As Object, e As EventArgs) Handles btnCheckAll.Click
+    Private Sub BtnCheckAll_Click(sender As Object, e As EventArgs) Handles btnCheckAll.Click
 
         Dim d As DataGridView = dgvStock
         If d.Rows.Count = 0 Then Exit Sub
@@ -168,7 +154,7 @@ Public Class FrmPRAvailable
         Next
     End Sub
 
-    Private Sub btnUncheckAll_Click(sender As Object, e As EventArgs) Handles btnUncheckAll.Click
+    Private Sub BtnUncheckAll_Click(sender As Object, e As EventArgs) Handles btnUncheckAll.Click
 
         Dim d As DataGridView = dgvStock
         If d.Rows.Count = 0 Then Exit Sub

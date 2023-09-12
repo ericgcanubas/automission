@@ -1,22 +1,22 @@
 ﻿
 Public Class FrmPortfolioReport
-    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+    Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         If Trim(cmbSALES_MANAGER.Text) = "" Then
             MessageBoxInfo("Please select sales manager")
             Exit Sub
         End If
-        fNowClick()
+        NowClick()
         gscryRpt.PrintToPrinter(1, False, 0, 0)
         Me.Close()
     End Sub
 
-    Private Sub frmPortfolioReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPortfolioReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbSALES_MANAGER, " SELECT '%' as ID, '' as `NAME` UNION SELECT ID,`NAME` FROM contact WHERE `type`='2'", "ID", "NAME")
         dtpDate1.Value = Format(Now.Date.Year & "-01-01")
 
     End Sub
-    Private Sub fNowClick()
+    Private Sub NowClick()
         gsReportFileName = "cryPortfolio.rpt"
         gsReportName = "Portfolio Report "
         gsReportTabName = "Portfolio Report "
@@ -31,12 +31,12 @@ Public Class FrmPortfolioReport
 
     End Sub
 
-    Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
+    Private Sub BtnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
         If Trim(cmbSALES_MANAGER.Text) = "" Then
             MessageBoxInfo("Please select sales manager")
             Exit Sub
         End If
-        fNowClick()
+        NowClick()
         GlobalPreviewReport(gsReportTabName)
         Me.Close()
     End Sub

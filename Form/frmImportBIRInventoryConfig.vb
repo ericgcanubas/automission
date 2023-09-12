@@ -13,10 +13,10 @@
 
         End If
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con())
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection())
         Try
             cn.Open()
-            Dim rd As OleDb.OleDbDataReader = fMSgetReader(SQL, cn)
+            Dim rd As OleDb.OleDbDataReader = DbAccessReader(SQL, cn)
             If rd.Read Then
                 xnumID.Value = NumIsNull(rd("ID"))
                 txtSheetName.Text = TextIsNull(rd("SheetName"))
@@ -46,19 +46,19 @@
     End Sub
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con())
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection())
         Try
             cn.Open()
-            Dim rd As OleDb.OleDbDataReader = fMSgetReader($"select * from ImportBIRConfig  Where ID = {xnumID.Value} ", cn)
+            Dim rd As OleDb.OleDbDataReader = DbAccessReader($"select * from ImportBIRConfig  Where ID = {xnumID.Value} ", cn)
             If rd.Read Then
                 cn.Close()
-                fMS_execute($"UPDATE ImportBIRConfig SET SheetName='{txtSheetName.Text}',ProductCode='{txtProductCode.Text}',ProductDescription='{txtProductDescription.Text}',UnitCost='{txtUnitCost.Text}',Quantity='{txtQuantity.Text}',MOU='{txtMOU.Text}',UseDefault='{Val(chkUseDefault.Checked)}' Where ID ={xnumID.Value}")
+                DbAccessExecute($"UPDATE ImportBIRConfig SET SheetName='{txtSheetName.Text}',ProductCode='{txtProductCode.Text}',ProductDescription='{txtProductDescription.Text}',UnitCost='{txtUnitCost.Text}',Quantity='{txtQuantity.Text}',MOU='{txtMOU.Text}',UseDefault='{Val(chkUseDefault.Checked)}' Where ID ={xnumID.Value}")
                 MessageBoxInfo("Successfully Update")
             Else
                 cn.Close()
 
                 If MessageBoxQuestion("New import setting do you want to save?") = True Then
-                    fMS_execute($"INSERT INTO ImportBIRConfig  (SheetName,ProductCode,ProductDescription,UnitCost,Quantity,MOU,UseDefault) values('{txtSheetName.Text}','{txtProductCode.Text}','{txtProductDescription.Text}','{txtUnitCost.Text}','{txtQuantity.Text}','{txtMOU.Text}','{Val(chkUseDefault.Checked)}') ")
+                    DbAccessExecute($"INSERT INTO ImportBIRConfig  (SheetName,ProductCode,ProductDescription,UnitCost,Quantity,MOU,UseDefault) values('{txtSheetName.Text}','{txtProductCode.Text}','{txtProductDescription.Text}','{txtUnitCost.Text}','{txtQuantity.Text}','{txtMOU.Text}','{Val(chkUseDefault.Checked)}') ")
                     MessageBoxInfo("Successfully Added")
                 End If
             End If

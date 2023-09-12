@@ -52,7 +52,7 @@
 
     End Sub
     Private Sub fSalesSummaryCustomer()
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByCustomerSummary.rpt"
         Dim prPrint_Title As String = "Sales By Buyer Summary"
         gsToolPanelView = False
@@ -88,7 +88,7 @@
     End Sub
 
     Private Sub fSalesByItemSummary()
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByItemSummary.rpt"
         Dim prPrint_Title As String = "Sales By Item Summary"
         gsToolPanelView = False
@@ -128,7 +128,7 @@
 
     End Sub
     Private Sub fSalesReceiptList()
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesReceiptList.rpt"
         Dim prPrint_Title As String = "Sales Invoice List"
         gsToolPanelView = False
@@ -164,7 +164,7 @@
 
     End Sub
     Private Sub fDailyPOSlog()
-        fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "cryPOSTransactionLog.rpt"
         Dim prPrint_Title As String = "POS Transaction Log"
         gsToolPanelView = False

@@ -116,7 +116,7 @@ Public Class FrmSplash
                 'PC Default
                 lblinitialization.Text = "Initialize settings ..."
                 fDoEvents()
-                gsClose_Date_Run_Per_Unit = fGet_System_VALUE_Bool("CloseDateRunPerUnit")
+                gsClose_Date_Run_Per_Unit = GetDBAccessValueByBool("CloseDateRunPerUnit")
                 gsSkipJournalEntry = GetSystemSettingValueByBool("SkipJournalEntry")
                 gsExpiredReference = GetSystemSettingValueByBool("ExpiredReference")
                 If gsPOS_Mode = True Then
@@ -137,15 +137,15 @@ Public Class FrmSplash
 
                 gsPOSVoidEntry = GetSystemSettingValueByBool("POSVoidEntry")
                 gsOpenCashDrawer = GetSystemSettingValueByBool("OpenCashDrawer")
-                gsUSE_SCREEN_BUTTON = CBool(Val(fGet_System_VALUE("SCREEN_BUTTON")))
+                gsUSE_SCREEN_BUTTON = CBool(Val(GetDBAccessValueByText("SCREEN_BUTTON")))
 
                 gsGmailUsername = GetSystemSettingValueByText("GmailUsername")
                 gsGmailPassword = Decrypt(GetSystemSettingValueByText("GmailPassword"))
                 gsGmailAddressTo = GetSystemSettingValueByText("GmailAddressTo")
 
-                gsUseImageProduct = CBool(Val(fGet_System_VALUE("UseImageProduct")))
-                gsImageSourceFolder = fGet_System_VALUE("ImageSourceFolder")
-                gsImageDestinationFolder = fGet_System_VALUE("ImageDestinationFolder")
+                gsUseImageProduct = CBool(Val(GetDBAccessValueByText("UseImageProduct")))
+                gsImageSourceFolder = GetDBAccessValueByText("ImageSourceFolder")
+                gsImageDestinationFolder = GetDBAccessValueByText("ImageDestinationFolder")
 
                 gsDefault_Vendor_ID = GetSystemSettingValueByNumber("DefaultVendorID")
                 gsSideBarMenuPostionRight = GetSystemSettingValueByBool("SideBarMenuPostionRight")
@@ -167,9 +167,9 @@ Public Class FrmSplash
             If R_number = 5 Then
                 lblinitialization.Text = "Initialize utility ..."
                 fDoEvents()
-                gsExportPDFLocation = fGet_System_VALUE("ExportPDFLocation")
-                gsDataForwarderPath = fGet_System_VALUE("DataForwarderPath")
-                gsDataForwarderIsActive = fGet_System_VALUE_Bool("DataForwarderIsActive")
+                gsExportPDFLocation = GetDBAccessValueByText("ExportPDFLocation")
+                gsDataForwarderPath = GetDBAccessValueByText("DataForwarderPath")
+                gsDataForwarderIsActive = GetDBAccessValueByBool("DataForwarderIsActive")
                 LoadUtility()
 
             End If

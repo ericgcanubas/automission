@@ -29,8 +29,8 @@ Partial Class FrmRefreshMsg
         '
         'btnCreateNew
         '
-        Me.btnCreateNew.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnCreateNew.Location = New System.Drawing.Point(11, 85)
+        Me.btnCreateNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCreateNew.Location = New System.Drawing.Point(13, 13)
         Me.btnCreateNew.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCreateNew.Name = "btnCreateNew"
         Me.btnCreateNew.Size = New System.Drawing.Size(99, 37)
@@ -40,8 +40,8 @@ Partial Class FrmRefreshMsg
         '
         'btnReload
         '
-        Me.btnReload.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnReload.Location = New System.Drawing.Point(118, 85)
+        Me.btnReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnReload.Location = New System.Drawing.Point(120, 13)
         Me.btnReload.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnReload.Name = "btnReload"
         Me.btnReload.Size = New System.Drawing.Size(99, 37)
@@ -51,8 +51,8 @@ Partial Class FrmRefreshMsg
         '
         'btnCancel
         '
-        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnCancel.Location = New System.Drawing.Point(224, 85)
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCancel.Location = New System.Drawing.Point(226, 13)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(99, 37)
@@ -60,12 +60,11 @@ Partial Class FrmRefreshMsg
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = False
         '
-        'frmRefreshMsg
+        'FrmRefreshMsg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(337, 137)
+        Me.ClientSize = New System.Drawing.Size(337, 64)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnReload)
         Me.Controls.Add(Me.btnCreateNew)
@@ -73,7 +72,7 @@ Partial Class FrmRefreshMsg
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmRefreshMsg"
+        Me.Name = "FrmRefreshMsg"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

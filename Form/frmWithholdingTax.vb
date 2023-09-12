@@ -450,7 +450,7 @@ Public Class FrmWithholdingTax
 
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
+            If btn.Name = tsSaveNew.Name Then
                 fSetNew()
             End If
         Catch ex As Exception
@@ -646,7 +646,7 @@ Public Class FrmWithholdingTax
         End If
 
         If IsNew = False Then
-            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 67, lblEWT_ACCOUNT_ID.Text, cmbWITHHELD_FROM_ID.Text, txtCODE.Text, txtNOTES.Text)
+            AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 67, lblEWT_ACCOUNT_ID.Text, cmbWITHHELD_FROM_ID.Text, txtCODE.Text, txtNOTES.Text)
         End If
     End Sub
 

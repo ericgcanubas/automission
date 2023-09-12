@@ -7,8 +7,8 @@ Public Class FrmReportSetup
     Dim Report_Type As String
     Dim bIsDataSet As Boolean
 
-    Private Sub frmReportSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fLoadPrinter(cmbPRINTER)
+    Private Sub FrmReportSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SystemLoadPrinter(cmbPRINTER)
         cmbPRINTER.Text = gsDEFAULT_PRINTER
         If Trim(cmbPRINTER.Text) = "" Then
             cmbPRINTER.SelectedText = gsPOS_WINDOWS_PRINTER
@@ -18,10 +18,10 @@ Public Class FrmReportSetup
         Me.AccessibleDescription = gsREPORT_ID ' AS SUB ID
         ToolStripLabel5.Text = gsReportTabName
 
-        fLoadComponent()
+        LoadComponent()
         bIsDataSet = GetNumberFieldValue("tblsub_menu", "sub_id", Me.AccessibleDescription, "modal")
     End Sub
-    Private Function fLikeValue(ByVal prValue As String) As String
+    Private Function LikeValueByString(ByVal prValue As String) As String
         If prValue = "*" Then
             Return "*"
 
@@ -38,7 +38,7 @@ Public Class FrmReportSetup
 
         End If
     End Function
-    Private Sub fStartReport()
+    Private Sub StartReport()
         Try
 
             Dim dtp1 As DateTimePicker = Nothing
@@ -56,41 +56,41 @@ Public Class FrmReportSetup
                     Select Case Val(rd("TYPE"))
                         Case 1
 
-                            Dim txt As TextBox = fGetObject(rd("COMPONENT_ID"))
+                            Dim txt As TextBox = GetObject(rd("COMPONENT_ID"))
 
                             If bIsDataSet = False Then
                                 CryParameterInsertValue(gscryRpt, txt.Text, TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = txt.Text
-                                intArray = intArray + 1
+                                intArray += 1
                             End If
 
                         Case 2
-                            Dim cmb As ComboBox = fGetObject(rd("COMPONENT_ID"))
+                            Dim cmb As ComboBox = GetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
-                                CryParameterInsertValue(gscryRpt, fLikeValue(cmb.SelectedValue.ToString), TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                                CryParameterInsertValue(gscryRpt, LikeValueByString(cmb.SelectedValue.ToString), TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = cmb.SelectedValue
-                                intArray = intArray + 1
+                                intArray += 1
                             End If
                         Case 3
-                            Dim cmb As ComboBox = fGetObject(rd("COMPONENT_ID"))
+                            Dim cmb As ComboBox = GetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
 
-                                CryParameterInsertValue(gscryRpt, fLikeValue(cmb.SelectedValue.ToString), TextIsNull(rd("REPORT_PARAMETER_NAME")))
+                                CryParameterInsertValue(gscryRpt, LikeValueByString(cmb.SelectedValue.ToString), TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = cmb.SelectedValue
-                                intArray = intArray + 1
+                                intArray += 1
                             End If
                         Case 4
-                            Dim dt As DateTimePicker = fGetObject(rd("COMPONENT_ID"))
+                            Dim dt As DateTimePicker = GetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
 
 
                                 CryParameterInsertValue(gscryRpt, dt.Value, TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = dt.Value
-                                intArray = intArray + 1
+                                intArray += 1
                             End If
                             If dtp1 Is Nothing Then
                                 dtp1 = dt
@@ -98,20 +98,20 @@ Public Class FrmReportSetup
                                 dtp2 = dt
                             End If
                         Case 5
-                            Dim num As NumericUpDown = fGetObject(rd("COMPONENT_ID"))
+                            Dim num As NumericUpDown = GetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
                                 CryParameterInsertValue(gscryRpt, num.Value, TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = num.Value
-                                intArray = intArray + 1
+                                intArray += 1
                             End If
                         Case 6
-                            Dim chk As CheckBox = fGetObject(rd("COMPONENT_ID"))
+                            Dim chk As CheckBox = GetObject(rd("COMPONENT_ID"))
                             If bIsDataSet = False Then
                                 CryParameterInsertValue(gscryRpt, chk.Checked.ToString, TextIsNull(rd("REPORT_PARAMETER_NAME")))
                             Else
                                 stringArray(intArray) = chk.Checked.ToString
-                                intArray = intArray + 1
+                                intArray += 1
                             End If
                         Case 7
                             Dim sResult As String = ""
@@ -119,7 +119,7 @@ Public Class FrmReportSetup
                             Dim bBool As Boolean = rd("DEFAULT_VALUE")
                             If TextIsNull(rd("PARAMETER_ID1")) <> "" Then
                                 Dim i As Integer = GetNumberFieldValue("component", "ID", rd("PARAMETER_ID1"), "Type")
-                                strField = fhidden(rd("PARAMETER_ID1"), i, bBool)
+                                strField = HiddenByText(rd("PARAMETER_ID1"), i, bBool)
                                 If i = 6 Then
                                     If bBool = False Then
 
@@ -138,13 +138,13 @@ Public Class FrmReportSetup
 
                             If TextIsNull(rd("PARAMETER_ID2")) <> "" Then
 
-                                strField = strField & " - " & fhidden(rd("PARAMETER_ID2"), GetNumberFieldValue("component", "ID", rd("PARAMETER_ID2"), "Type"), bBool)
+                                strField = strField & " - " & HiddenByText(rd("PARAMETER_ID2"), GetNumberFieldValue("component", "ID", rd("PARAMETER_ID2"), "Type"), bBool)
                                 sResult = strField
                             End If
 
                             If TextIsNull(rd("PARAMETER_ID3")) <> "" Then
 
-                                strField = fhidden(rd("PARAMETER_ID3"), GetNumberFieldValue("component", "ID", rd("PARAMETER_ID3"), "Type"), bBool)
+                                strField = HiddenByText(rd("PARAMETER_ID3"), GetNumberFieldValue("component", "ID", rd("PARAMETER_ID3"), "Type"), bBool)
 
                             End If
 
@@ -169,17 +169,17 @@ Public Class FrmReportSetup
             'End If
 
             If dtp1 IsNot Nothing And dtp2 IsNot Nothing Then
-                'dtp1.Value = fGet_System_VALUE("dtpDATE_FROM")
-                'dtp2.Value = fGet_System_VALUE("dtpDATE_TO")
+                'dtp1.Value = GetDBAccessValueByText("dtpDATE_FROM")
+                'dtp2.Value = GetDBAccessValueByText("dtpDATE_TO")
 
-                fSET_SYSTEM_VALUE("dtpDATE_FROM", dtp1.Value)
-                fSET_SYSTEM_VALUE("dtpDATE_TO", dtp2.Value)
+                SetDBAccessValue("dtpDATE_FROM", dtp1.Value)
+                SetDBAccessValue("dtpDATE_TO", dtp2.Value)
             End If
         Catch ex As Exception
             MessageBoxExclamation(ex.Message)
         End Try
     End Sub
-    Private Function fhidden(ByVal prName As String, ByVal prType As Integer, ByVal bValue As Boolean) As String
+    Private Function HiddenByText(ByVal prName As String, ByVal prType As Integer, ByVal bValue As Boolean) As String
         Try
 
 
@@ -187,7 +187,7 @@ Public Class FrmReportSetup
                 Case 1
                     Return ""
                 Case 2
-                    Dim cmb As ComboBox = fGetObject(prName)
+                    Dim cmb As ComboBox = GetObject(prName)
                     If bValue = True Then
                         Return cmb.SelectedValue
                     Else
@@ -195,30 +195,30 @@ Public Class FrmReportSetup
                     End If
 
                 Case 3
-                    Dim cmb As ComboBox = fGetObject(prName)
+                    Dim cmb As ComboBox = GetObject(prName)
                     If bValue = True Then
                         Return cmb.SelectedValue
                     Else
                         Return cmb.Text
                     End If
                 Case 4
-                    Dim dt As DateTimePicker = fGetObject(prName)
+                    Dim dt As DateTimePicker = GetObject(prName)
                     If bValue = True Then
                         Return Format(dt.Value, "MM/dd/yyyy")
                     Else
                         Return Format(dt.Value, "MM/dd/yyyy")
                     End If
                 Case 5
-                    Dim nn As NumericUpDown = fGetObject(prName)
+                    Dim nn As NumericUpDown = GetObject(prName)
                     If bValue = True Then
                         Return nn.Value
                     End If
                 Case 6
-                    Dim chk As CheckBox = fGetObject(prName)
+                    Dim chk As CheckBox = GetObject(prName)
                     If bValue = True Then
                         Return chk.Checked
                     Else
-                        Dim lbl As Label = fGetObject("lbl" & chk.Name)
+                        Dim lbl As Label = GetObject("lbl" & chk.Name)
                         Return lbl.Text
                     End If
                 Case 7
@@ -238,16 +238,16 @@ Public Class FrmReportSetup
         End Try
         Return ""
     End Function
-    Private Sub fDropDown(ByVal cmb As ComboBox)
+    Private Sub DropDownComboBox(ByVal cmb As ComboBox)
 
         Dim sOP As String = "{AND_OR}"
         Dim rd As OdbcDataReader = SqlReader("SELECT * FROM COMPONENT WHERE ID = '" & cmb.Name & "' Limit 1")
         If rd.Read Then
 
             Dim sQUERY As String = rd("SQL_STATEMENT").ToString.Replace("`", "'")
-            Dim prValue As String = ""
+            Dim prValue As String
             If NumIsNull(rd("PARAMETER_ID1")) <> 0 And TextIsNull(rd("VARIABLE_NAME1")) <> "" Then
-                prValue = fSearchComponent(FlowLayoutPanel1, TextIsNull(rd("PARAMETER_ID1")))
+                prValue = SearchComponent(FlowLayoutPanel1, TextIsNull(rd("PARAMETER_ID1")))
                 If prValue = "" Then
                     prValue = "*"
                 End If
@@ -258,7 +258,7 @@ Public Class FrmReportSetup
 
             If NumIsNull(rd("PARAMETER_ID2")) <> 0 And TextIsNull(rd("VARIABLE_NAME2")) <> "" Then
 
-                prValue = fSearchComponent(FlowLayoutPanel1, TextIsNull(rd("PARAMETER_ID2")))
+                prValue = SearchComponent(FlowLayoutPanel1, TextIsNull(rd("PARAMETER_ID2")))
                 If prValue = "" Then
                     prValue = "*"
                 End If
@@ -267,7 +267,7 @@ Public Class FrmReportSetup
             End If
 
             If NumIsNull(rd("PARAMETER_ID3")) <> 0 And TextIsNull(rd("VARIABLE_NAME3")) <> "" Then
-                prValue = fSearchComponent(FlowLayoutPanel1, TextIsNull(rd("PARAMETER_ID3")))
+                prValue = SearchComponent(FlowLayoutPanel1, TextIsNull(rd("PARAMETER_ID3")))
                 If prValue = "" Then
                     prValue = "*"
                 End If
@@ -286,17 +286,17 @@ Public Class FrmReportSetup
 
         End If
     End Sub
-    Private Function fSearchComponent(ByVal control As Control, ByVal prID As String) As String
+    Private Function SearchComponent(ByVal control As Control, ByVal prID As String) As String
         Dim value As String = ""
         For i As Integer = 0 To control.Controls.Count - 1
             Dim c As Control = control.Controls(i)
             If c.Name = prID Then
-                value = fGetValue(c)
+                value = GetValueByText(c)
                 Exit For
             Else
                 If StrLeft(c.Name, 3) = "pnl" Then
                     Dim pnl As Panel = c
-                    value = fSearchComponent(pnl, prID)
+                    value = SearchComponent(pnl, prID)
                     If value <> "" Then
                         Exit For
                     End If
@@ -308,7 +308,7 @@ Public Class FrmReportSetup
         Return value
     End Function
 
-    Private Function fSearchComponent_Control(ByVal ctrl As Control, ByVal prID As String) As Control
+    Private Function SearchComponent_Control(ByVal ctrl As Control, ByVal prID As String) As Control
         Dim value As Control = Nothing
         For i As Integer = 0 To ctrl.Controls.Count - 1
             Dim c As Control = ctrl.Controls(i)
@@ -318,7 +318,7 @@ Public Class FrmReportSetup
             Else
                 If StrLeft(c.Name, 3) = "pnl" Then
                     Dim pnl As Panel = c
-                    value = fSearchComponent_Control(pnl, prID)
+                    value = SearchComponent_Control(pnl, prID)
                     If value IsNot Nothing Then
                         Exit For
                     End If
@@ -328,7 +328,7 @@ Public Class FrmReportSetup
         Next
         Return value
     End Function
-    Public Function fGetValue(ByVal c As Control) As String
+    Public Function GetValueByText(ByVal c As Control) As String
         Select Case Val(c.AccessibleDescription)
             Case 1
                 Return c.Text
@@ -354,27 +354,22 @@ Public Class FrmReportSetup
 
     End Function
 
-    'Private Sub fDropDownChange(sender As Object, e As EventArgs)
-    '    Dim cmb As ComboBox = DirectCast(sender, ComboBox)
-    '    If cmb IsNot Nothing Then
-    '        Dim cbo As ComboBox = 
-    '    End If
-    'End Sub
-    Private Function fAddPanel(ByVal prName As String, ByVal prWidth As Integer) As Panel
-        Dim p As Panel = New Panel
-        p.Name = "pnl" & prName
-        p.Width = prWidth
-        p.Height = 23
+
+    Private Function AddingPanel(ByVal prName As String, ByVal prWidth As Integer) As Panel
+        Dim p As New Panel With {
+            .Name = "pnl" & prName,
+            .Width = prWidth,
+            .Height = 23
+        }
         FlowLayoutPanel1.Controls.Add(p)
         Return p
     End Function
 
 
-    Private Sub frmReportSetup_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
+    Private Sub FrmReportSetup_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         lklFileName.Text = gsReportFileName
     End Sub
-    Private Sub fLoadComponent()
+    Private Sub LoadComponent()
         Dim dtRange As ComboBox = Nothing
         Try
 
@@ -388,62 +383,66 @@ Public Class FrmReportSetup
                 Select Case NumIsNull(rd("TYPE"))
                     Case 1
 
-                        Dim p As Panel = fAddPanel(rd("NAME"), 400)
+                        Dim p As Panel = AddingPanel(rd("NAME"), 400)
                         p.Top = iTop
-                        Dim l As New Label
-                        l.Name = "lbl" & rd("COMPONENT_ID")
-                        l.Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        Dim l As New Label With {
+                            .Name = "lbl" & rd("COMPONENT_ID"),
+                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        }
                         p.Controls.Add(l)
 
                         'TEXT
-                        Dim txt As New TextBox
-                        txt.Name = rd("COMPONENT_ID")
-                        txt.AccessibleDescription = TextIsNull(rd("SQL_STATEMENT"))
-                        txt.AccessibleName = TextIsNull(rd("DISPLAY_NAME"))
-                        txt.Tag = TextIsNull(rd("DISPLAY_NAME"))
-                        txt.Left = 100
-                        AddHandler txt.TextChanged, AddressOf fText_Change
+                        Dim txt As New TextBox With {
+                            .Name = rd("COMPONENT_ID"),
+                            .AccessibleDescription = TextIsNull(rd("SQL_STATEMENT")),
+                            .AccessibleName = TextIsNull(rd("DISPLAY_NAME")),
+                            .Tag = TextIsNull(rd("DISPLAY_NAME")),
+                            .Left = 100
+                        }
+                        AddHandler txt.TextChanged, AddressOf Text_Change
                         p.Controls.Add(txt)
 
                     Case 2
-                        Dim p As Panel = fAddPanel(rd("NAME"), 400)
+                        Dim p As Panel = AddingPanel(rd("NAME"), 400)
                         p.Top = iTop
-                        Dim l As New Label
-                        l.Name = "lbl" & rd("COMPONENT_ID")
-                        l.Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        Dim l As New Label With {
+                            .Name = "lbl" & rd("COMPONENT_ID"),
+                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        }
                         p.Controls.Add(l)
                         'DROPDOWN STANDARD
-                        Dim cmb As New ComboBox
-                        cmb.Name = rd("COMPONENT_ID")
+                        Dim cmb As New ComboBox With {
+                            .Name = rd("COMPONENT_ID"),
+                            .AccessibleDescription = NumIsNull(rd("TYPE")),
+                            .AccessibleName = TextIsNull(rd("REPORT_PARAMETER_NAME")),
+                            .Left = 100,
+                            .Width = 300
+                        }
 
-                        cmb.AccessibleDescription = NumIsNull(rd("TYPE"))
-                        cmb.AccessibleName = TextIsNull(rd("REPORT_PARAMETER_NAME"))
-                        cmb.Left = 100
-                        cmb.Width = 300
-
-                        fDropDown(cmb)
-                        AddHandler cmb.SelectedIndexChanged, AddressOf fChangeDropDown_Change
+                        DropDownComboBox(cmb)
+                        AddHandler cmb.SelectedIndexChanged, AddressOf ChangeDropDown_Change
                         p.Controls.Add(cmb)
 
                     Case 3
-                        Dim p As Panel = fAddPanel(rd("NAME"), 400)
+                        Dim p As Panel = AddingPanel(rd("NAME"), 400)
                         p.Top = iTop
-                        Dim l As New Label
-                        l.Name = "lbl" & rd("COMPONENT_ID")
-                        l.Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        Dim l As New Label With {
+                            .Name = "lbl" & rd("COMPONENT_ID"),
+                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        }
                         p.Controls.Add(l)
                         'DROPDOWN FIXED
-                        Dim cmb As New ComboBox
-                        cmb.Name = rd("COMPONENT_ID")
+                        Dim cmb As New ComboBox With {
+                            .Name = rd("COMPONENT_ID"),
+                            .AccessibleDescription = NumIsNull(rd("TYPE")),
+                            .AccessibleName = TextIsNull(rd("REPORT_PARAMETER_NAME")),
+                            .DropDownStyle = ComboBoxStyle.DropDownList,
+                            .Left = 100,
+                            .Width = 300
+                        }
 
-                        cmb.AccessibleDescription = NumIsNull(rd("TYPE"))
-                        cmb.AccessibleName = TextIsNull(rd("REPORT_PARAMETER_NAME"))
-                        cmb.DropDownStyle = ComboBoxStyle.DropDownList
-                        cmb.Left = 100
-                        cmb.Width = 300
-
-                        fDropDown(cmb)
-                        AddHandler cmb.SelectedIndexChanged, AddressOf fChangeDropDown_Change
+                        DropDownComboBox(cmb)
+                        AddHandler cmb.SelectedIndexChanged, AddressOf ChangeDropDown_Change
                         p.Controls.Add(cmb)
 
                         If rd("NAME") = "LOCATION" Then
@@ -451,20 +450,22 @@ Public Class FrmReportSetup
                             cmb.Enabled = IsLockLocation()
                         End If
                     Case 4
-                        Dim p As Panel = fAddPanel(rd("NAME"), 400)
+                        Dim p As Panel = AddingPanel(rd("NAME"), 400)
                         p.Top = iTop
-                        Dim l As New Label
-                        l.Name = "lbl" & rd("COMPONENT_ID")
-                        l.Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        Dim l As New Label With {
+                            .Name = "lbl" & rd("COMPONENT_ID"),
+                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        }
 
                         p.Controls.Add(l)
                         'DATE
-                        Dim dt As New DateTimePicker
-                        dt.Name = rd("COMPONENT_ID")
-                        dt.AccessibleDescription = NumIsNull(rd("TYPE"))
-                        dt.AccessibleName = TextIsNull(rd("REPORT_PARAMETER_NAME"))
-                        dt.Left = 100
-                        dt.Format = DateTimePickerFormat.Short
+                        Dim dt As New DateTimePicker With {
+                            .Name = rd("COMPONENT_ID"),
+                            .AccessibleDescription = NumIsNull(rd("TYPE")),
+                            .AccessibleName = TextIsNull(rd("REPORT_PARAMETER_NAME")),
+                            .Left = 100,
+                            .Format = DateTimePickerFormat.Short
+                        }
                         p.Controls.Add(dt)
 
                         If dtp1 Is Nothing Then
@@ -484,21 +485,23 @@ Public Class FrmReportSetup
                     Case 5
                     'NUMBER
                     Case 6
-                        Dim p As Panel = fAddPanel(rd("NAME"), 400)
+                        Dim p As Panel = AddingPanel(rd("NAME"), 400)
                         p.Top = iTop
-                        Dim l As New Label
-                        l.Name = "lbl" & rd("COMPONENT_ID")
-                        l.Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
-                        l.AccessibleDescription = TextIsNull(rd("VALUE_NAME"))
-                        l.AccessibleName = TextIsNull(rd("DISPLAY_NAME"))
+                        Dim l As New Label With {
+                            .Name = "lbl" & rd("COMPONENT_ID"),
+                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower)),
+                            .AccessibleDescription = TextIsNull(rd("VALUE_NAME")),
+                            .AccessibleName = TextIsNull(rd("DISPLAY_NAME"))
+                        }
                         p.Controls.Add(l)
                         'CHECKBOX
-                        Dim chk As New CheckBox
-                        chk.Name = rd("COMPONENT_ID")
-                        chk.AccessibleDescription = NumIsNull(rd("TYPE"))
-                        chk.AccessibleName = TextIsNull(rd("REPORT_PARAMETER_NAME"))
-                        chk.Left = 100
-                        AddHandler chk.CheckedChanged, AddressOf fChecKBox_Change
+                        Dim chk As New CheckBox With {
+                            .Name = rd("COMPONENT_ID"),
+                            .AccessibleDescription = NumIsNull(rd("TYPE")),
+                            .AccessibleName = TextIsNull(rd("REPORT_PARAMETER_NAME")),
+                            .Left = 100
+                        }
+                        AddHandler chk.CheckedChanged, AddressOf ChecKBox_Change
                         p.Controls.Add(chk)
                         If IsDBNull(rd("DEFAULT_VALUE")) = False Then
                             If CBool(rd("DEFAULT_VALUE")) = True Then
@@ -511,27 +514,28 @@ Public Class FrmReportSetup
                         'HIDDEN PARAMETER
 
                     Case 8
-                        Dim p As Panel = fAddPanel(rd("NAME") & rd("ID"), 400)
+                        Dim p As Panel = AddingPanel(rd("NAME") & rd("ID"), 400)
                         p.Top = iTop
                        ' BLANK PANEL
                     Case 9
-                        Dim p As Panel = fAddPanel(rd("NAME"), 400)
+                        Dim p As Panel = AddingPanel(rd("NAME"), 400)
                         p.Top = iTop
-                        Dim l As New Label
-                        l.Name = "lbl" & rd("COMPONENT_ID")
-                        l.Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        Dim l As New Label With {
+                            .Name = "lbl" & rd("COMPONENT_ID"),
+                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                        }
                         p.Controls.Add(l)
                         Dim cmb As ComboBox
                         cmb = fDataRangeLoad(rd("COMPONENT_ID"))
                         cmb.Left = 100
                         cmb.Width = 300
-                        AddHandler cmb.SelectedIndexChanged, AddressOf fDateRange_Change
+                        AddHandler cmb.SelectedIndexChanged, AddressOf DateRange_Change
                         p.Controls.Add(cmb)
                         dtRange = cmb
 
 
                 End Select
-                iTop = iTop + 30
+                iTop += 30
             End While
             If dtRange IsNot Nothing Then
 
@@ -540,23 +544,23 @@ Public Class FrmReportSetup
             End If
 
             'If dtp1 IsNot Nothing And dtp2 IsNot Nothing Then
-            '    dtp1.Value = fGet_System_VALUE("dtpDATE_FROM")
-            '    dtp2.Value = fGet_System_VALUE("dtpDATE_TO")
+            '    dtp1.Value = GetDBAccessValueByText("dtpDATE_FROM")
+            '    dtp2.Value = GetDBAccessValueByText("dtpDATE_TO")
             'End If
         Catch ex As Exception
             MessageBoxExclamation(ex.Message)
         End Try
     End Sub
-    Private Sub fChangeDropDown_Change(sender As Object, e As EventArgs)
+    Private Sub ChangeDropDown_Change(sender As Object, e As EventArgs)
 
         Dim cmb As ComboBox = DirectCast(sender, ComboBox)
         Dim rd As OdbcDataReader = SqlReader("select c.ID from report_components as r inner join component as c on c.ID = r.component_ID where r.SUB_ID = '" & Me.AccessibleDescription & "' and (c.PARAMETER_ID1 ='" & cmb.Name & "' or c.PARAMETER_ID2 ='" & cmb.Name & "' or PARAMETER_ID3 ='" & cmb.Name & "')")
         While rd.Read
-            Dim c As Control = fSearchComponent_Control(FlowLayoutPanel1, rd("ID"))
+            Dim c As Control = SearchComponent_Control(FlowLayoutPanel1, rd("ID"))
             Try
                 If c IsNot Nothing Then
                     Dim cbo As ComboBox = c
-                    fDropDown(cbo)
+                    DropDownComboBox(cbo)
                 End If
             Catch ex As Exception
                 MessageBoxExclamation(ex.Message)
@@ -566,7 +570,7 @@ Public Class FrmReportSetup
 
         End While
     End Sub
-    Private Function fGET_STATEMENT_VALUE(ByVal sql As String, ByVal prDisplay As String, ByVal myValue As String) As String
+    Private Function GetStatementValue(ByVal sql As String, ByVal prDisplay As String, ByVal myValue As String) As String
         Dim sQuery As String = sql.Replace("`", "'")
         sQuery = sQuery.Replace(prDisplay, myValue)
         Dim rd As OdbcDataReader = SqlReader(sQuery)
@@ -576,14 +580,12 @@ Public Class FrmReportSetup
         End If
         Return strValue
     End Function
-    Private Function fGetObject(ByVal prName As String) As Control
-        Return fSearchComponent_Control(FlowLayoutPanel1, prName)
-
+    Private Function GetObject(ByVal prName As String) As Control
+        Return SearchComponent_Control(FlowLayoutPanel1, prName)
     End Function
-
-    Private Sub fChecKBox_Change(sender As Object, e As EventArgs)
+    Private Sub ChecKBox_Change(sender As Object, e As EventArgs)
         Dim chk As CheckBox = DirectCast(sender, CheckBox)
-        Dim lbl As Label = fGetObject("lbl" & chk.Name)
+        Dim lbl As Label = GetObject("lbl" & chk.Name)
         If chk.Checked = True Then
 
             lbl.Text = fTitleCase(lbl.AccessibleDescription)
@@ -591,12 +593,12 @@ Public Class FrmReportSetup
             lbl.Text = fTitleCase(lbl.AccessibleName)
         End If
     End Sub
-    Private Sub fText_Change(sender As Object, e As EventArgs)
+    Private Sub Text_Change(sender As Object, e As EventArgs)
 
         Dim txt As TextBox = DirectCast(sender, TextBox)
         Dim rd As OdbcDataReader = SqlReader("select c.ID from report_components as r inner join component as c on c.ID = r.component_ID where r.SUB_ID = '" & Me.AccessibleDescription & "' and (c.PARAMETER_ID1 ='" & txt.Name & "' or c.PARAMETER_ID2 ='" & txt.Name & "' or PARAMETER_ID3 ='" & txt.Name & "')")
         While rd.Read
-            Dim c As Control = fSearchComponent_Control(FlowLayoutPanel1, rd("ID"))
+            Dim c As Control = SearchComponent_Control(FlowLayoutPanel1, rd("ID"))
 
             Try
                 If c IsNot Nothing Then
@@ -604,11 +606,11 @@ Public Class FrmReportSetup
                     Select Case cbo.AccessibleDescription
                         Case 1
                         Case 2
-                            '  fDropDown(cbo)
-                            cbo.SelectedValue = fGET_STATEMENT_VALUE(txt.AccessibleDescription, txt.AccessibleName, txt.Text)
+                            '  DropDownComboBox(cbo)
+                            cbo.SelectedValue = GetStatementValue(txt.AccessibleDescription, txt.AccessibleName, txt.Text)
                         Case 3
-                            ' fDropDown(cbo)
-                            cbo.SelectedValue = fGET_STATEMENT_VALUE(txt.AccessibleDescription, txt.AccessibleName, txt.Text)
+                            ' DropDownComboBox(cbo)
+                            cbo.SelectedValue = GetStatementValue(txt.AccessibleDescription, txt.AccessibleName, txt.Text)
                     End Select
 
 
@@ -625,7 +627,7 @@ Public Class FrmReportSetup
 
     End Sub
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
 
         ClosedForm(Me)
     End Sub
@@ -638,8 +640,8 @@ Public Class FrmReportSetup
 
         CursorLoadingOn(True)
         Try
-            fSetDefaultPrinter(cmbPRINTER.Text)
-            fStartReport()
+            SystemSetDefaultPrinter(cmbPRINTER.Text)
+            StartReport()
             GlobalPreviewReport(ToolStripLabel5.Text)
 
 
@@ -650,7 +652,7 @@ Public Class FrmReportSetup
         End Try
 
         CursorLoadingOn(False)
-        'fSetDefaultPrinter(gsDEFAULT_PRINTER)
+        'SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
     End Sub
 
 
@@ -661,50 +663,47 @@ Public Class FrmReportSetup
         End If
         CursorLoadingOn(True)
         Try
-            fSetDefaultPrinter(cmbPRINTER.Text)
+            SystemSetDefaultPrinter(cmbPRINTER.Text)
             fDoEvents()
-            fStartReport()
+            StartReport()
             gscryRpt.PrintToPrinter(1, False, 0, 0)
             ReportExporPDF(gscryRpt, ToolStripLabel5.Text)
-            '  fSetDefaultPrinter(gsDEFAULT_PRINTER)
+            '  SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
         CursorLoadingOn(False)
     End Sub
-    Private Sub fDateRange_Change(sender As Object, e As EventArgs)
+    Private Sub DateRange_Change(sender As Object, e As EventArgs)
         Dim cmb As ComboBox = DirectCast(sender, ComboBox)
         Dim rd As OdbcDataReader = SqlReader("select c.ID from report_components as r inner join component as c on c.ID = r.component_ID where r.SUB_ID = '" & Me.AccessibleDescription & "' and (c.PARAMETER_ID1 ='" & cmb.Name & "' or c.PARAMETER_ID2 ='" & cmb.Name & "' or PARAMETER_ID3 ='" & cmb.Name & "')")
         Dim dt1 As DateTimePicker = Nothing
         Dim dt2 As DateTimePicker = Nothing
         While rd.Read
             If dt1 Is Nothing Then
-                dt1 = fGetObject(rd("ID"))
+                dt1 = GetObject(rd("ID"))
             ElseIf dt2 Is Nothing Then
-                dt2 = fGetObject(rd("ID"))
+                dt2 = GetObject(rd("ID"))
             End If
         End While
         fSelectDateRange(cmb.Text, dt1, dt2)
 
     End Sub
-    Private Sub cmbDateRange_SelectedIndexChanged(sender As Object, e As EventArgs)
 
-    End Sub
-
-    Private Sub lklFileName_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklFileName.LinkClicked
+    Private Sub LklFileName_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklFileName.LinkClicked
         If gsAdmin_User = 0 Then
             Exit Sub
         End If
-        With frmReportManager
+        With FrmReportManager
             .gsSUB_ID = Me.AccessibleDescription
             .lblNAME.Text = ToolStripLabel5.Text
             .ShowDialog()
             .Dispose()
         End With
-        frmReportManager = Nothing
+        FrmReportManager = Nothing
         FlowLayoutPanel1.Visible = False
         FlowLayoutPanel1.Controls.Clear()
-        fLoadComponent()
+        LoadComponent()
         FlowLayoutPanel1.Visible = True
 
 

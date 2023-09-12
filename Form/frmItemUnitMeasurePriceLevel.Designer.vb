@@ -43,12 +43,12 @@ Partial Class FrmItemUnitMeasurePriceLevel
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(25, 17)
+        Me.Label1.Location = New System.Drawing.Point(14, 16)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(76, 16)
+        Me.Label1.Size = New System.Drawing.Size(78, 16)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Rate Level"
+        Me.Label1.Text = "Price Level"
         '
         'numCustomprice
         '
@@ -65,17 +65,16 @@ Partial Class FrmItemUnitMeasurePriceLevel
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(10, 46)
+        Me.Label2.Location = New System.Drawing.Point(8, 47)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(91, 16)
+        Me.Label2.Size = New System.Drawing.Size(93, 16)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Custom Rate"
+        Me.Label2.Text = "Custom Price"
         '
         'btnOK
         '
-        Me.btnOK.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOK.Location = New System.Drawing.Point(304, 87)
+        Me.btnOK.Location = New System.Drawing.Point(304, 62)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(119, 28)
@@ -83,11 +82,11 @@ Partial Class FrmItemUnitMeasurePriceLevel
         Me.btnOK.Text = "&Ok"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'frmItemUnitMeasurePriceLevel
+        'FrmItemUnitMeasurePriceLevel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(437, 132)
+        Me.ClientSize = New System.Drawing.Size(437, 100)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.numCustomprice)
@@ -97,7 +96,7 @@ Partial Class FrmItemUnitMeasurePriceLevel
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmItemUnitMeasurePriceLevel"
+        Me.Name = "FrmItemUnitMeasurePriceLevel"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

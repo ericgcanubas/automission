@@ -59,12 +59,12 @@ Public Class FrmPOSRestoMenu
     End Function
     Private Sub POS_Rest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        gsPOS_DEFAULT_PRINTER = fGet_System_VALUE("POS_DEFAULT_PRINTER")
-        SmallBox = CBool(Val(fGet_System_VALUE("USE_SMALL_BOX")))
-        CUSTOM_DINE_IN_NO = Val(fGet_System_VALUE("CUSTOM_DINE_IN_NO"))
-        Msg_Print_Payment = CBool(Val(fGet_System_VALUE("MSG_PRINT_PAYMENT")))
-        PRINT_INVOICE_AFTER_PRINT_PAYMENT = CBool(Val(fGet_System_VALUE("PRINT_INVOICE_AFTER_PRINT_PAYMENT")))
-        PRINT_OS_AFTER_SAVE_INVOICE = CBool(Val(fGet_System_VALUE("PRINT_OS_AFTER_SAVE_INVOICE")))
+        gsPOS_DEFAULT_PRINTER = GetDBAccessValueByText("POS_DEFAULT_PRINTER")
+        SmallBox = CBool(Val(GetDBAccessValueByText("USE_SMALL_BOX")))
+        CUSTOM_DINE_IN_NO = Val(GetDBAccessValueByText("CUSTOM_DINE_IN_NO"))
+        Msg_Print_Payment = CBool(Val(GetDBAccessValueByText("MSG_PRINT_PAYMENT")))
+        PRINT_INVOICE_AFTER_PRINT_PAYMENT = CBool(Val(GetDBAccessValueByText("PRINT_INVOICE_AFTER_PRINT_PAYMENT")))
+        PRINT_OS_AFTER_SAVE_INVOICE = CBool(Val(GetDBAccessValueByText("PRINT_OS_AFTER_SAVE_INVOICE")))
 
         gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
         gsPOS_SERVED_ONLY = fGET_SERVED_ONLY()
@@ -1009,7 +1009,7 @@ FROM
                 dgvProductItem.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(i)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
@@ -1602,7 +1602,7 @@ FROM
                 For i As Integer = 0 To rd.FieldCount - 1
 
                     With dgvProductItem.Columns(i)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
@@ -1936,10 +1936,10 @@ FROM
     '        ' Dim prPrint_Title As String = "Sales Order"
     '        Dim prFile_name As String = ""
     '        Dim prPrint_Title As String = ""
-    '        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+    '        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
     '        Try
     '            cn.Open()
-    '            Dim R_number As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+    '            Dim R_number As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
     '            If R_number.Read Then
     '                prPrint_Title = R_number("print_title")
     '                prFile_name = R_number("file_name")
@@ -1991,10 +1991,10 @@ FROM
         '    '  Dim prPrint_Title As String = "Sales Order"
         '    Dim prFile_name As String = ""
         '    Dim prPrint_Title As String = ""
-        '    Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        '    Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         '    Try
         '        cn.Open()
-        '        Dim R_number As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+        '        Dim R_number As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
         '        If R_number.Read Then
         '            prPrint_Title = R_number("print_title")
         '            prFile_name = R_number("file_name")
@@ -2218,10 +2218,10 @@ FROM
 
         '    Dim prFile_name As String = ""
         '    Dim prPrint_Title As String = ""
-        '    Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        '    Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         '    Try
         '        cn.Open()
-        '        Dim R_number As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+        '        Dim R_number As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
         '        If R_number.Read Then
         '            prPrint_Title = R_number("print_title")
         '            prFile_name = R_number("file_name")
@@ -2880,7 +2880,7 @@ CREATE_NOW:
     End Sub
     Private Sub fPaymentReceipt(ByVal ThisID As Integer)
 
-        fSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
 
         Try
 
@@ -2935,7 +2935,7 @@ CREATE_NOW:
     End Sub
     Private Sub fPP_billPrint(ByVal prID As Integer)
 
-        fSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
+        SystemSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
         Dim prFile_name As String = gsInvoice_File_Name
         Dim prPrint_Title As String = gsInvoice_Print_Title
         gscryRpt = New CrystalDecisions.CrystalReports.Engine.ReportDocument

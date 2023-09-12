@@ -622,7 +622,7 @@ Partial Class FrmPOSRoomDetails
         '
         Me.tsSaveNew.Image = CType(resources.GetObject("tsSaveNew.Image"), System.Drawing.Image)
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = "tsSaveNew"
+        Me.tsSaveNew.Name = tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(96, 66)
         Me.tsSaveNew.Text = "Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText

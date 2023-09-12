@@ -140,7 +140,7 @@ Partial Class FrmPurchaseOrder
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(5, 130)
+        Me.Label3.Location = New System.Drawing.Point(8, 130)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 16)
         Me.Label3.TabIndex = 0
@@ -294,7 +294,7 @@ Partial Class FrmPurchaseOrder
         '
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = "tsSaveNew"
+        Me.tsSaveNew.Name = tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -699,7 +699,7 @@ Partial Class FrmPurchaseOrder
         Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
-        'frmPurchaseOrder
+        'FrmPurchaseOrder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -739,7 +739,7 @@ Partial Class FrmPurchaseOrder
         Me.Controls.Add(Me.lblAMOUNT)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmPurchaseOrder"
+        Me.Name = "FrmPurchaseOrder"
         Me.Text = "Purchase Order"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

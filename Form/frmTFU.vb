@@ -4,8 +4,8 @@ Public Class FrmTFU
     Public gsText As String
 
     Private Sub frmTFU_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fMS_ComboBox(cmbConnectionSelected, "select connection_name as `B`,connection_name as `A` from tblconnection", "B", "A")
-        fMS_ComboBox(cmbConnectionAnalyst, "select connection_name as `B`,connection_name as `A` from tblconnection", "B", "A")
+        DBAccessComboBoxLoad(cmbConnectionSelected, "select connection_name as `B`,connection_name as `A` from tblconnection", "B", "A")
+        DBAccessComboBoxLoad(cmbConnectionAnalyst, "select connection_name as `B`,connection_name as `A` from tblconnection", "B", "A")
     End Sub
 
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
@@ -147,7 +147,7 @@ Public Class FrmTFU
         Dim db_port_ex As String = ""
 
         cn.Open()
-        Dim rd As OleDb.OleDbDataReader = fMSgetReader("select * from tblconnection where connection_name ='" & getString & "' ", cn)
+        Dim rd As OleDb.OleDbDataReader = DbAccessReader("select * from tblconnection where connection_name ='" & getString & "' ", cn)
         If rd.Read Then
             db_server_ex = rd("db_server")
             db_name_ex = rd("db_name")

@@ -5,7 +5,7 @@ Public Class FrmItemClassDetails
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
-    Private Sub frmItemClassDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmItemClassDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         If ID > 0 Then
 
@@ -18,7 +18,7 @@ Public Class FrmItemClassDetails
         End If
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
         If Trim(txtDESCRIPTION.Text) = "" Then
             MessageBoxInfo("Please enter Item class description")
@@ -46,12 +46,12 @@ Public Class FrmItemClassDetails
         ID = 0
         IsNew = True
 
-        If SecurityAccessMode(frmItemClass, IsNew) = False Then
+        If SecurityAccessMode(FrmItemClass, IsNew) = False Then
             Me.Close()
         End If
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         Me.Close()
     End Sub
 End Class

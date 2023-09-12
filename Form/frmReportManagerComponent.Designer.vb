@@ -35,70 +35,77 @@ Partial Class FrmReportManagerComponent
         '
         Me.cmbCOMPONENT_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCOMPONENT_ID.FormattingEnabled = True
-        Me.cmbCOMPONENT_ID.Location = New System.Drawing.Point(14, 25)
+        Me.cmbCOMPONENT_ID.Location = New System.Drawing.Point(19, 31)
+        Me.cmbCOMPONENT_ID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbCOMPONENT_ID.Name = "cmbCOMPONENT_ID"
-        Me.cmbCOMPONENT_ID.Size = New System.Drawing.Size(242, 21)
+        Me.cmbCOMPONENT_ID.Size = New System.Drawing.Size(321, 24)
         Me.cmbCOMPONENT_ID.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(11, 9)
+        Me.Label1.Location = New System.Drawing.Point(15, 11)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(100, 13)
+        Me.Label1.Size = New System.Drawing.Size(122, 16)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Component Name"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(11, 52)
+        Me.Label2.Location = New System.Drawing.Point(15, 64)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(70, 13)
+        Me.Label2.Size = New System.Drawing.Size(85, 16)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Position No."
         '
         'numLINE_NO
         '
-        Me.numLINE_NO.Location = New System.Drawing.Point(14, 68)
+        Me.numLINE_NO.Location = New System.Drawing.Point(19, 84)
+        Me.numLINE_NO.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.numLINE_NO.Name = "numLINE_NO"
-        Me.numLINE_NO.Size = New System.Drawing.Size(57, 22)
+        Me.numLINE_NO.Size = New System.Drawing.Size(76, 23)
         Me.numLINE_NO.TabIndex = 3
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(110, 65)
+        Me.btnSave.Location = New System.Drawing.Point(147, 80)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(70, 25)
+        Me.btnSave.Size = New System.Drawing.Size(93, 31)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(186, 65)
+        Me.btnCancel.Location = New System.Drawing.Point(248, 80)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(70, 25)
+        Me.btnCancel.Size = New System.Drawing.Size(93, 31)
         Me.btnCancel.TabIndex = 5
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmReportManagerComponent
+        'FrmReportManagerComponent
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(268, 100)
+        Me.ClientSize = New System.Drawing.Size(357, 123)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.numLINE_NO)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cmbCOMPONENT_ID)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmReportManagerComponent"
+        Me.Name = "FrmReportManagerComponent"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

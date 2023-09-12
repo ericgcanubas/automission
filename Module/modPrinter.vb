@@ -1,7 +1,8 @@
 ﻿Imports System.Drawing.Printing
 Module modPrinter
-    Dim strInstalledPrinters As String
-    Public Sub fLoadPrinter(ByVal cmb As ComboBox)
+
+    Public Sub SystemLoadPrinter(ByVal cmb As ComboBox)
+        Dim strInstalledPrinters As String
         cmb.DropDownStyle = ComboBoxStyle.DropDownList
         If PrinterSettings.InstalledPrinters.Count = 0 Then
             MsgBox("No printer installed")
@@ -16,18 +17,18 @@ Module modPrinter
 
 
     End Sub
-    Private Sub fPOSRefreshPrinter(ByVal cmb As ComboBox)
-        fLoadPrinter(cmb)
+    Private Sub SystemPOSRefreshPrinter(ByVal cmb As ComboBox)
+        SystemLoadPrinter(cmb)
     End Sub
-    Public Sub fSetDefaultPrinter(ByVal SelectPrinter As String)
-        Exit Sub
+    Public Sub SystemSetDefaultPrinter(ByVal SelectPrinter As String)
+
         Dim Selected_Printer As String = SelectPrinter
 
         If Selected_Printer = "" Then
             Selected_Printer = gsPOS_WINDOWS_PRINTER
         End If
 
-        If SetDefaulPrinter(Selected_Printer) = True Then
+        If SetDefaultPrinter(Selected_Printer) = True Then
 
             'Do nothing is default
         Else
@@ -36,7 +37,7 @@ Module modPrinter
 
     End Sub
     'Function to set a printer as default
-    Function SetDefaulPrinter(ByVal strPrinterName As String) As Boolean
+    Private Function SetDefaultPrinter(ByVal strPrinterName As String) As Boolean
         Dim strCurrPrinter As String
         Dim WsNetwork As Object
         Dim prntDoc As New PrintDocument

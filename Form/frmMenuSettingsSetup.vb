@@ -3,7 +3,7 @@ Public Class FrmMenuSettingsSetup
     Public ID As Integer = 0
     Public gsMenuType As Boolean = True
     Public IsNew As Boolean = True
-    Private Sub frmMenuSettingsSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmMenuSettingsSetup_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
         If gsMenuType = True Then
@@ -13,9 +13,9 @@ Public Class FrmMenuSettingsSetup
             Me.Width = GroupBox1.Width + 30
             Me.Height = GroupBox1.Height + 50
             If ID <> 0 Then
-                '   Dim cn As New MySqlConnection(mysqlConstr)
+                '
                 Try
-                    'cn.Open()
+
                     Dim rd As OdbcDataReader = SqlReader("Select * from tblmenu where menu_id = '" & ID & "' Limit 1")
                     If rd.Read Then
                         numID1.Value = NumIsNull(rd("MENU_ID"))
@@ -27,12 +27,8 @@ Public Class FrmMenuSettingsSetup
                     End If
                     rd.Close()
                 Catch ex As Exception
-
                     MessageBoxWarning(ex.Message)
                 End Try
-
-
-
             End If
         Else
             'Sub Menu
@@ -42,9 +38,9 @@ Public Class FrmMenuSettingsSetup
             Me.Height = GroupBox2.Height + 50
             chkActive.Checked = True
             If ID <> 0 Then
-                '  Dim cn As New MySqlConnection(mysqlConstr)
+
                 Try
-                    ' cn.Open()
+
                     Dim rd As OdbcDataReader = SqlReader("Select * from tblsub_menu where sub_id = '" & ID & "' Limit 1")
                     If rd.Read Then
                         numID2.Value = NumIsNull(rd("SUB_ID"))
@@ -68,15 +64,15 @@ Public Class FrmMenuSettingsSetup
 
     End Sub
 
-    Private Sub btnCancel1_Click(sender As Object, e As EventArgs) Handles btnCancel1.Click
+    Private Sub BtnCancel1_Click(sender As Object, e As EventArgs) Handles btnCancel1.Click
         Me.Close()
     End Sub
 
-    Private Sub btnCancel2_Click(sender As Object, e As EventArgs) Handles btnCancel2.Click
+    Private Sub BtnCancel2_Click(sender As Object, e As EventArgs) Handles btnCancel2.Click
         Me.Close()
     End Sub
 
-    Private Sub btnSave1_Click(sender As Object, e As EventArgs) Handles btnSave1.Click
+    Private Sub BtnSave1_Click(sender As Object, e As EventArgs) Handles btnSave1.Click
         If Trim(txtDescription1.Text) = "" Then
             MessageBoxInfo("Please enter menu description")
             Exit Sub
@@ -102,7 +98,7 @@ Public Class FrmMenuSettingsSetup
         Me.Close()
     End Sub
 
-    Private Sub btnSave2_Click(sender As Object, e As EventArgs) Handles btnSave2.Click
+    Private Sub BtnSave2_Click(sender As Object, e As EventArgs) Handles btnSave2.Click
         If Trim(txtDescription2.Text) = "" Then
             MessageBoxInfo("Please enter menu description")
             Exit Sub
@@ -132,27 +128,18 @@ Public Class FrmMenuSettingsSetup
         Me.Close()
     End Sub
 
-    Private Sub numID1_ValueChanged(sender As Object, e As EventArgs) Handles numID1.ValueChanged
-
-    End Sub
-
-    Private Sub numID1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles numID1.MouseDoubleClick
+    Private Sub NumID1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles numID1.MouseDoubleClick
         If numID1.Enabled = True Then
             numID1.Value = Val(GetMaxField("menu_ID", "tblmenu"))
         End If
     End Sub
-
-    Private Sub numID2_ValueChanged(sender As Object, e As EventArgs) Handles numID2.ValueChanged
-
-    End Sub
-
-    Private Sub numID2_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles numID2.MouseDoubleClick
+    Private Sub NumID2_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles numID2.MouseDoubleClick
         If numID2.Enabled = True Then
             numID2.Value = Val(GetMaxField("sub_ID", "tblsub_menu"))
         End If
     End Sub
 
-    Private Sub chkModal_CheckedChanged(sender As Object, e As EventArgs) Handles chkModal.CheckedChanged
+    Private Sub ChkModal_CheckedChanged(sender As Object, e As EventArgs) Handles chkModal.CheckedChanged
         If chkModal.Enabled = True Then
             cmbImage2.Enabled = False
         Else

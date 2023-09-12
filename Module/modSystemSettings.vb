@@ -256,7 +256,7 @@ Module modSystemSettings
     Public Function GetSystemSettingValueByText(ByVal prName As String) As String
 
 
-        Dim sValue As String = Trim(fMSgetField("system_value", "tblsystem", "ID", prName))
+        Dim sValue As String = Trim(DbAccessGetFieldValue("system_value", "tblsystem", "ID", prName))
 
         If sValue = "" Then
             Try
@@ -281,7 +281,7 @@ Module modSystemSettings
     Public Function GetSystemSettingValueByBool(ByVal prName As String) As Boolean
         Dim bValue As Boolean
         Try
-            bValue = CBool(fMSgetField("system_value", "tblsystem", "ID", prName))
+            bValue = CBool(DbAccessGetFieldValue("system_value", "tblsystem", "ID", prName))
         Catch ex As Exception
             bValue = False
         End Try
@@ -372,7 +372,7 @@ Module modSystemSettings
     End Sub
     Public Function GetSystemSettingValueByNumber(ByVal prName As String) As Double
 
-        Dim sValue As Double = NumIsNull(fMSgetField("system_value", "tblsystem", "ID", prName))
+        Dim sValue As Double = NumIsNull(DbAccessGetFieldValue("system_value", "tblsystem", "ID", prName))
 
         If sValue = 0 Then
             Try
@@ -398,7 +398,7 @@ Module modSystemSettings
         If Val(GetSystemSettingValueByText("NewTransactionsDefaultDate")) = 0 Then
             Return Date.Now.Date
         Else
-            Dim sDate As String = fMSgetField("system_value", "tblsystem", "ID", "LAST_DATE_TRANSACTION")
+            Dim sDate As String = DbAccessGetFieldValue("system_value", "tblsystem", "ID", "LAST_DATE_TRANSACTION")
             If IsDate(sDate) = True Then
                 Return sDate
             Else
@@ -407,7 +407,7 @@ Module modSystemSettings
         End If
     End Function
     Public Sub SetTransactionDateSelectUpdate(ByVal dtp As Date)
-        fMS_execute("UPDATE tblsystem set system_value = '" & Format(dtp, "yyyy-MM-dd") & "' where ID = 'LAST_DATE_TRANSACTION' ")
+        DbAccessExecute("UPDATE tblsystem set system_value = '" & Format(dtp, "yyyy-MM-dd") & "' where ID = 'LAST_DATE_TRANSACTION' ")
     End Sub
     Public Function GetLoadLocationDefault() As Integer
         Dim user_location_id As Integer = fUserDefaultLocation()

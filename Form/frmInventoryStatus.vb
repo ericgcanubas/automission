@@ -20,8 +20,8 @@
     Private Sub FrmInventoryStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         RefreshLocation()
-        Dim loc_value As String = gsDefault_LOCATION_ID
-        tscmbLocation.ComboBox.SelectedValue = IIf(loc_value = "0", "*", loc_value)
+        Dim loc_value As Integer = gsDefault_LOCATION_ID
+        tscmbLocation.ComboBox.SelectedValue = IIf(loc_value <= 0, "*", loc_value)
         tscmbLocation.Enabled = IsLockLocation()
 
 

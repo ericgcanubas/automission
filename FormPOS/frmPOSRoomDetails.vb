@@ -124,7 +124,7 @@ ON B.ID = II.BATCH_ID
                 dgvProductItem.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(i)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
@@ -607,7 +607,7 @@ APPROVED:
         gsGotChangeData = True
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
+            If btn.Name = tsSaveNew.Name Then
 
 
 
@@ -968,12 +968,12 @@ APPROVED:
         End If
 
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Dim prFile_name As String = ""
         Dim prPrint_Title As String = ""
         Try
             cn.Open()
-            Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+            Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
             If r.Read Then
                 prPrint_Title = r("print_title")
                 prFile_name = r("file_name")
@@ -1036,10 +1036,10 @@ APPROVED:
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1104,10 +1104,10 @@ APPROVED:
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1415,7 +1415,7 @@ APPROVED:
         If IsNew = True Then
             Exit Sub
         End If
-        fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 23, 4, cmbCUSTOMER_ID.Text, txtCODE.Text, txtNOTES.Text)
+        AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 23, 4, cmbCUSTOMER_ID.Text, txtCODE.Text, txtNOTES.Text)
     End Sub
 
     Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click

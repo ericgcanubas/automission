@@ -2,13 +2,13 @@
 Imports Microsoft.Office.Core
 Module modMSAccess
 
-    Public Sub fMS_ComboBox(ByVal cmb As ComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
+    Public Sub DBAccessComboBoxLoad(ByVal cmb As ComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
             cn.Open()
             Dim cmd As New OleDb.OleDbCommand(sqlQuery, cn)
-            Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(cmd)
+            Dim da As New OleDb.OleDbDataAdapter(cmd)
             Dim dt As New DataTable("1")
 
             da.Fill(dt)
@@ -36,15 +36,15 @@ Module modMSAccess
 
         End Try
     End Sub
-    Public Function fMS_Con() As String
+    Public Function DbAccessStringConnection() As String
         Dim path As String = AppDomain.CurrentDomain.BaseDirectory
         Dim file_path As String = path & "temp_db"
         Return "Provider=Microsoft.Jet.OLEDB.4.0;Data source=" & file_path & ";Jet OLEDB:Database Password=admin123;"
     End Function
 
-    Public Sub fMS_execute(ByVal xQuery As String)
+    Public Sub DbAccessExecute(ByVal xQuery As String)
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
             cn.Open()
             Dim cmd As New OleDb.OleDbCommand(xQuery, cn)
@@ -61,10 +61,10 @@ Module modMSAccess
 
     End Sub
 
-    Public Function fMSgetField(ByVal xReturn_Filed As String, ByVal xTable As String, ByVal xCondition As String, ByVal zValue As String) As String
+    Public Function DbAccessGetFieldValue(ByVal xReturn_Filed As String, ByVal xTable As String, ByVal xCondition As String, ByVal zValue As String) As String
         Dim xValue As String = ""
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
             cn.Open()
             Dim cmd As New OleDb.OleDbCommand("select [" & xReturn_Filed & "] as t from " & xTable & " where [" & xCondition & "] = '" & zValue & "'", cn)
@@ -82,10 +82,10 @@ Module modMSAccess
         Return xValue
     End Function
 
-    Public Sub fMSgetFieldGetReports(ByRef prPrint_Title As String, ByRef prFile_name As String, ByVal prForm As String)
+    Public Sub DbAccessGetFieldReports(ByRef prPrint_Title As String, ByRef prFile_name As String, ByVal prForm As String)
 
 
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
             cn.Open()
             Dim cmd As New OleDb.OleDbCommand($"select [file_name],[print_title] from tblprint Where [form_name] ='{prForm}' and [print_default] = '1' ", cn)
@@ -107,7 +107,7 @@ Module modMSAccess
 
     End Sub
 
-    Public Function fMSgetReader(ByVal xQuery As String, ByVal cn As OleDb.OleDbConnection) As OleDb.OleDbDataReader
+    Public Function DbAccessReader(ByVal xQuery As String, ByVal cn As OleDb.OleDbConnection) As OleDb.OleDbDataReader
         Try
             Dim cmd As New OleDb.OleDbCommand(xQuery, cn)
             Return cmd.ExecuteReader

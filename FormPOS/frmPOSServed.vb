@@ -9,7 +9,7 @@ Public Class FrmPOSServed
         xlblCustomer_Name.Text = GetStringFieldValue("CONTACT", "id", gsCUSTOMER_ID, "NAME")
         gsOK = False
 
-        'Create Column
+        'Create ColumnView
         With dgvAVAILABLE.Columns
             .Clear()
             .Add("ID", "ID")

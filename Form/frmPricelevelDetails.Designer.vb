@@ -134,18 +134,18 @@ Partial Class FrmPriceLevelDetails
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(662, 15)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(104, 16)
+        Me.Label10.Size = New System.Drawing.Size(93, 16)
         Me.Label10.TabIndex = 13
-        Me.Label10.Text = "Customer Rate"
+        Me.Label10.Text = "Custom Price"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(554, 15)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(37, 16)
+        Me.Label9.Size = New System.Drawing.Size(39, 16)
         Me.Label9.TabIndex = 12
-        Me.Label9.Text = "Rate"
+        Me.Label9.Text = "Price"
         '
         'Label8
         '
@@ -161,9 +161,9 @@ Partial Class FrmPriceLevelDetails
         Me.Label7.AutoSize = True
         Me.Label7.Location = New System.Drawing.Point(8, 15)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(60, 16)
+        Me.Label7.Size = New System.Drawing.Size(75, 16)
         Me.Label7.TabIndex = 10
-        Me.Label7.Text = "Barcode"
+        Me.Label7.Text = "Item Code"
         '
         'lblRate
         '
@@ -294,7 +294,7 @@ Partial Class FrmPriceLevelDetails
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmPriceLevelDetails
+        'FrmPriceLevelDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -317,7 +317,7 @@ Partial Class FrmPriceLevelDetails
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPriceLevelDetails"
+        Me.Name = "FrmPriceLevelDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

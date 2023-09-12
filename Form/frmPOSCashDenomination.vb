@@ -2,7 +2,7 @@
     Public item_BS As BindingSource
     Public gsFindID As Double
 
-    Private Sub fRefreshData()
+    Private Sub RefreshData()
         Dim SQL As String = "select cd.`ID`,cd.`CODE`,cd.`DESCRIPTION`,cd.NOMINAL_VALUE as `NOMINAL VALUE`,ct.DESCRIPTION as `TYPE`, if( cd.`INACTIVE`=0,'No','Yes') as `INACTIVE` from pos_cash_denomination  as cd inner join pos_cash_type_map as ct on ct.id = cd.type "
 
         LoadDataGridViewBinding(dgvList, SQL, item_BS)
@@ -14,7 +14,7 @@
         ViewColumn(dgvList, 47)
 
     End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
             Dim Search_It As String = ""
             For I As Integer = 0 To dgvList.Columns.Count - 1
@@ -32,43 +32,38 @@
     End Sub
 
     Private Sub TsTxtSearch_Click(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+        SearchLoad()
     End Sub
 
-    Private Sub DgvList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellContentClick
-
-    End Sub
-
-    Private Sub dgvList_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvList.RowStateChanged
+    Private Sub DgvList_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvList.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefreshData()
+        RefreshData()
     End Sub
 
-    Private Sub frmPOSCashDenomination_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmPOSCashDenomination_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefreshData()
+        RefreshData()
     End Sub
 
     Private Sub Tscolumn_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
         ViewSwitch(dgvList, 47) ' 2 = for vendor
-
         ViewColumn(dgvList, 46) ' 2 = for vendor
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
-        With frmPOSCashDenominationDetails
+        With FrmPOSCashDenominationDetails
             .ID = 0
             .ShowDialog()
             If .gsOK = True Then
-                fRefreshData()
+                RefreshData()
             End If
             .Dispose()
 
         End With
-        frmPOSCashDenominationDetails = Nothing
+        FrmPOSCashDenominationDetails = Nothing
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
@@ -87,7 +82,7 @@
                 Dim ID As Integer = dgvList.CurrentRow.Cells(0).Value
                 SqlExecuted($"delete from pos_cash_denomination where id = '{ID}' limit 1;")
                 DeleteNotify(Me)
-                fRefreshData()
+                RefreshData()
             Catch ex As Exception
                 MessageBoxExclamation(ex.Message)
             End Try
@@ -103,12 +98,12 @@
             Exit Sub
         End If
 
-        With frmPOSCashDenominationDetails
+        With FrmPOSCashDenominationDetails
             dgvList.Select()
             .ID = dgvList.CurrentRow.Cells(0).Value
             .ShowDialog()
             If .gsOK = True Then
-                fRefreshData()
+                RefreshData()
             End If
             .Dispose()
 

@@ -45,7 +45,7 @@ Partial Class FrmItemPreference
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(80, 12)
+        Me.Label1.Location = New System.Drawing.Point(14, 12)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(63, 16)
@@ -67,7 +67,7 @@ Partial Class FrmItemPreference
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(61, 38)
+        Me.Label2.Location = New System.Drawing.Point(14, 38)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(81, 16)
@@ -98,7 +98,7 @@ Partial Class FrmItemPreference
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(70, 65)
+        Me.Label3.Location = New System.Drawing.Point(14, 65)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(72, 16)
@@ -119,7 +119,7 @@ Partial Class FrmItemPreference
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(28, 92)
+        Me.Label4.Location = New System.Drawing.Point(14, 92)
         Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(114, 16)
@@ -153,14 +153,14 @@ Partial Class FrmItemPreference
         Me.cmbBinStock.Location = New System.Drawing.Point(146, 144)
         Me.cmbBinStock.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbBinStock.Name = "cmbBinStock"
-        Me.cmbBinStock.Size = New System.Drawing.Size(244, 24)
+        Me.cmbBinStock.Size = New System.Drawing.Size(343, 24)
         Me.cmbBinStock.TabIndex = 10
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.Location = New System.Drawing.Point(74, 148)
+        Me.Label6.Location = New System.Drawing.Point(14, 148)
         Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(69, 16)
@@ -170,7 +170,7 @@ Partial Class FrmItemPreference
         'btnOK
         '
         Me.btnOK.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnOK.Location = New System.Drawing.Point(403, 142)
+        Me.btnOK.Location = New System.Drawing.Point(406, 207)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(86, 28)
@@ -178,11 +178,11 @@ Partial Class FrmItemPreference
         Me.btnOK.Text = "&OK"
         Me.btnOK.UseVisualStyleBackColor = True
         '
-        'frmItemPreference
+        'FrmItemPreference
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(504, 182)
+        Me.ClientSize = New System.Drawing.Size(504, 246)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.cmbBinStock)
@@ -200,7 +200,7 @@ Partial Class FrmItemPreference
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmItemPreference"
+        Me.Name = "FrmItemPreference"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

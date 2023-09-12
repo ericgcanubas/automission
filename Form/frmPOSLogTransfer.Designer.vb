@@ -37,33 +37,36 @@ Partial Class FrmPOSLogTransfer
         Me.dgvPOSLog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedHeaders
         Me.dgvPOSLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvPOSLog.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvPOSLog.Location = New System.Drawing.Point(12, 12)
+        Me.dgvPOSLog.Location = New System.Drawing.Point(16, 15)
+        Me.dgvPOSLog.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvPOSLog.MultiSelect = False
         Me.dgvPOSLog.Name = "dgvPOSLog"
         Me.dgvPOSLog.ReadOnly = True
         Me.dgvPOSLog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvPOSLog.Size = New System.Drawing.Size(699, 344)
+        Me.dgvPOSLog.Size = New System.Drawing.Size(932, 423)
         Me.dgvPOSLog.TabIndex = 0
         '
         'btnTransfer
         '
         Me.btnTransfer.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTransfer.Location = New System.Drawing.Point(593, 362)
+        Me.btnTransfer.Location = New System.Drawing.Point(791, 446)
+        Me.btnTransfer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnTransfer.Name = "btnTransfer"
-        Me.btnTransfer.Size = New System.Drawing.Size(118, 28)
+        Me.btnTransfer.Size = New System.Drawing.Size(157, 34)
         Me.btnTransfer.TabIndex = 1
         Me.btnTransfer.Text = "Transfer Now.."
         Me.btnTransfer.UseVisualStyleBackColor = True
         '
         'FrmPOSLogTransfer
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(723, 392)
+        Me.ClientSize = New System.Drawing.Size(964, 482)
         Me.Controls.Add(Me.btnTransfer)
         Me.Controls.Add(Me.dgvPOSLog)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FrmPOSLogTransfer"

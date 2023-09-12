@@ -52,70 +52,79 @@ Partial Class FrmReportComponentItems
         '
         Me.cmbTYPE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTYPE.FormattingEnabled = True
-        Me.cmbTYPE.Location = New System.Drawing.Point(148, 12)
+        Me.cmbTYPE.Location = New System.Drawing.Point(197, 15)
+        Me.cmbTYPE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbTYPE.Name = "cmbTYPE"
-        Me.cmbTYPE.Size = New System.Drawing.Size(312, 21)
+        Me.cmbTYPE.Size = New System.Drawing.Size(415, 24)
         Me.cmbTYPE.TabIndex = 0
         '
         'txtNAME
         '
-        Me.txtNAME.Location = New System.Drawing.Point(148, 39)
+        Me.txtNAME.Location = New System.Drawing.Point(197, 48)
+        Me.txtNAME.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtNAME.Name = "txtNAME"
-        Me.txtNAME.Size = New System.Drawing.Size(312, 22)
+        Me.txtNAME.Size = New System.Drawing.Size(415, 23)
         Me.txtNAME.TabIndex = 1
         '
         'rtbSQL_STATEMENT
         '
-        Me.rtbSQL_STATEMENT.Location = New System.Drawing.Point(148, 67)
+        Me.rtbSQL_STATEMENT.Location = New System.Drawing.Point(197, 82)
+        Me.rtbSQL_STATEMENT.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rtbSQL_STATEMENT.Name = "rtbSQL_STATEMENT"
-        Me.rtbSQL_STATEMENT.Size = New System.Drawing.Size(312, 96)
+        Me.rtbSQL_STATEMENT.Size = New System.Drawing.Size(415, 117)
         Me.rtbSQL_STATEMENT.TabIndex = 2
         Me.rtbSQL_STATEMENT.Text = ""
         '
         'txtVALUE_NAME
         '
-        Me.txtVALUE_NAME.Location = New System.Drawing.Point(148, 169)
+        Me.txtVALUE_NAME.Location = New System.Drawing.Point(197, 208)
+        Me.txtVALUE_NAME.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtVALUE_NAME.Name = "txtVALUE_NAME"
-        Me.txtVALUE_NAME.Size = New System.Drawing.Size(190, 22)
+        Me.txtVALUE_NAME.Size = New System.Drawing.Size(252, 23)
         Me.txtVALUE_NAME.TabIndex = 3
         '
         'txtDISPLAY_NAME
         '
-        Me.txtDISPLAY_NAME.Location = New System.Drawing.Point(148, 195)
+        Me.txtDISPLAY_NAME.Location = New System.Drawing.Point(197, 240)
+        Me.txtDISPLAY_NAME.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDISPLAY_NAME.Name = "txtDISPLAY_NAME"
-        Me.txtDISPLAY_NAME.Size = New System.Drawing.Size(312, 22)
+        Me.txtDISPLAY_NAME.Size = New System.Drawing.Size(415, 23)
         Me.txtDISPLAY_NAME.TabIndex = 4
         '
         'cmbPARAMETER_ID1
         '
         Me.cmbPARAMETER_ID1.FormattingEnabled = True
-        Me.cmbPARAMETER_ID1.Location = New System.Drawing.Point(148, 249)
+        Me.cmbPARAMETER_ID1.Location = New System.Drawing.Point(197, 306)
+        Me.cmbPARAMETER_ID1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPARAMETER_ID1.Name = "cmbPARAMETER_ID1"
-        Me.cmbPARAMETER_ID1.Size = New System.Drawing.Size(190, 21)
+        Me.cmbPARAMETER_ID1.Size = New System.Drawing.Size(252, 24)
         Me.cmbPARAMETER_ID1.TabIndex = 5
         Me.cmbPARAMETER_ID1.Tag = "0"
         '
         'txtREPORT_PARAMETER_NAME
         '
-        Me.txtREPORT_PARAMETER_NAME.Location = New System.Drawing.Point(148, 221)
+        Me.txtREPORT_PARAMETER_NAME.Location = New System.Drawing.Point(197, 272)
+        Me.txtREPORT_PARAMETER_NAME.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtREPORT_PARAMETER_NAME.Name = "txtREPORT_PARAMETER_NAME"
-        Me.txtREPORT_PARAMETER_NAME.Size = New System.Drawing.Size(312, 22)
+        Me.txtREPORT_PARAMETER_NAME.Size = New System.Drawing.Size(415, 23)
         Me.txtREPORT_PARAMETER_NAME.TabIndex = 6
         '
         'btnSAVE
         '
-        Me.btnSAVE.Location = New System.Drawing.Point(303, 343)
+        Me.btnSAVE.Location = New System.Drawing.Point(404, 422)
+        Me.btnSAVE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSAVE.Name = "btnSAVE"
-        Me.btnSAVE.Size = New System.Drawing.Size(75, 28)
+        Me.btnSAVE.Size = New System.Drawing.Size(100, 34)
         Me.btnSAVE.TabIndex = 7
         Me.btnSAVE.Text = "Save"
         Me.btnSAVE.UseVisualStyleBackColor = True
         '
         'btnCANCEL
         '
-        Me.btnCANCEL.Location = New System.Drawing.Point(384, 343)
+        Me.btnCANCEL.Location = New System.Drawing.Point(512, 422)
+        Me.btnCANCEL.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCANCEL.Name = "btnCANCEL"
-        Me.btnCANCEL.Size = New System.Drawing.Size(75, 28)
+        Me.btnCANCEL.Size = New System.Drawing.Size(100, 34)
         Me.btnCANCEL.TabIndex = 8
         Me.btnCANCEL.Text = "Cancel"
         Me.btnCANCEL.UseVisualStyleBackColor = True
@@ -123,138 +132,153 @@ Partial Class FrmReportComponentItems
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 15)
+        Me.Label1.Location = New System.Drawing.Point(16, 18)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(30, 13)
+        Me.Label1.Size = New System.Drawing.Size(39, 16)
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "Type"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 42)
+        Me.Label2.Location = New System.Drawing.Point(16, 52)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(36, 13)
+        Me.Label2.Size = New System.Drawing.Size(43, 16)
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Name"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 89)
+        Me.Label3.Location = New System.Drawing.Point(13, 110)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(92, 13)
+        Me.Label3.Size = New System.Drawing.Size(124, 16)
         Me.Label3.TabIndex = 11
         Me.Label3.Text = "Select Statement"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(13, 172)
+        Me.Label4.Location = New System.Drawing.Point(17, 212)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(89, 13)
+        Me.Label4.Size = New System.Drawing.Size(108, 16)
         Me.Label4.TabIndex = 12
         Me.Label4.Text = "Value && Default"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(13, 198)
+        Me.Label5.Location = New System.Drawing.Point(17, 244)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(44, 13)
+        Me.Label5.Size = New System.Drawing.Size(53, 16)
         Me.Label5.TabIndex = 13
         Me.Label5.Text = "Display"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 252)
+        Me.Label6.Location = New System.Drawing.Point(16, 310)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(127, 13)
+        Me.Label6.Size = New System.Drawing.Size(162, 16)
         Me.Label6.TabIndex = 14
         Me.Label6.Text = "1. Parameter && Variable"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(13, 224)
+        Me.Label7.Location = New System.Drawing.Point(17, 276)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(96, 13)
+        Me.Label7.Size = New System.Drawing.Size(122, 16)
         Me.Label7.TabIndex = 15
         Me.Label7.Text = "Report Parameter"
         '
         'txtDEFAULT_VALUE
         '
-        Me.txtDEFAULT_VALUE.Location = New System.Drawing.Point(344, 169)
+        Me.txtDEFAULT_VALUE.Location = New System.Drawing.Point(459, 208)
+        Me.txtDEFAULT_VALUE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtDEFAULT_VALUE.Name = "txtDEFAULT_VALUE"
-        Me.txtDEFAULT_VALUE.Size = New System.Drawing.Size(115, 22)
+        Me.txtDEFAULT_VALUE.Size = New System.Drawing.Size(152, 23)
         Me.txtDEFAULT_VALUE.TabIndex = 16
         '
         'txtVARIABLE_NAME1
         '
-        Me.txtVARIABLE_NAME1.Location = New System.Drawing.Point(344, 249)
+        Me.txtVARIABLE_NAME1.Location = New System.Drawing.Point(459, 306)
+        Me.txtVARIABLE_NAME1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtVARIABLE_NAME1.Name = "txtVARIABLE_NAME1"
-        Me.txtVARIABLE_NAME1.Size = New System.Drawing.Size(115, 22)
+        Me.txtVARIABLE_NAME1.Size = New System.Drawing.Size(152, 23)
         Me.txtVARIABLE_NAME1.TabIndex = 17
         Me.txtVARIABLE_NAME1.Tag = "0"
         '
         'txtVARIABLE_NAME2
         '
-        Me.txtVARIABLE_NAME2.Location = New System.Drawing.Point(344, 277)
+        Me.txtVARIABLE_NAME2.Location = New System.Drawing.Point(459, 341)
+        Me.txtVARIABLE_NAME2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtVARIABLE_NAME2.Name = "txtVARIABLE_NAME2"
-        Me.txtVARIABLE_NAME2.Size = New System.Drawing.Size(115, 22)
+        Me.txtVARIABLE_NAME2.Size = New System.Drawing.Size(152, 23)
         Me.txtVARIABLE_NAME2.TabIndex = 19
         Me.txtVARIABLE_NAME2.Tag = "0"
         '
         'cmbPARAMETER_ID2
         '
         Me.cmbPARAMETER_ID2.FormattingEnabled = True
-        Me.cmbPARAMETER_ID2.Location = New System.Drawing.Point(148, 277)
+        Me.cmbPARAMETER_ID2.Location = New System.Drawing.Point(197, 341)
+        Me.cmbPARAMETER_ID2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPARAMETER_ID2.Name = "cmbPARAMETER_ID2"
-        Me.cmbPARAMETER_ID2.Size = New System.Drawing.Size(190, 21)
+        Me.cmbPARAMETER_ID2.Size = New System.Drawing.Size(252, 24)
         Me.cmbPARAMETER_ID2.TabIndex = 18
         Me.cmbPARAMETER_ID2.Tag = "0"
         '
         'txtVARIABLE_NAME3
         '
-        Me.txtVARIABLE_NAME3.Location = New System.Drawing.Point(344, 305)
+        Me.txtVARIABLE_NAME3.Location = New System.Drawing.Point(459, 375)
+        Me.txtVARIABLE_NAME3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtVARIABLE_NAME3.Name = "txtVARIABLE_NAME3"
-        Me.txtVARIABLE_NAME3.Size = New System.Drawing.Size(115, 22)
+        Me.txtVARIABLE_NAME3.Size = New System.Drawing.Size(152, 23)
         Me.txtVARIABLE_NAME3.TabIndex = 21
         Me.txtVARIABLE_NAME3.Tag = "0"
         '
         'cmbPARAMETER_ID3
         '
         Me.cmbPARAMETER_ID3.FormattingEnabled = True
-        Me.cmbPARAMETER_ID3.Location = New System.Drawing.Point(148, 305)
+        Me.cmbPARAMETER_ID3.Location = New System.Drawing.Point(197, 375)
+        Me.cmbPARAMETER_ID3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbPARAMETER_ID3.Name = "cmbPARAMETER_ID3"
-        Me.cmbPARAMETER_ID3.Size = New System.Drawing.Size(190, 21)
+        Me.cmbPARAMETER_ID3.Size = New System.Drawing.Size(252, 24)
         Me.cmbPARAMETER_ID3.TabIndex = 20
         Me.cmbPARAMETER_ID3.Tag = "0"
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 280)
+        Me.Label8.Location = New System.Drawing.Point(16, 345)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(127, 13)
+        Me.Label8.Size = New System.Drawing.Size(162, 16)
         Me.Label8.TabIndex = 22
         Me.Label8.Text = "2. Parameter && Variable"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(12, 308)
+        Me.Label9.Location = New System.Drawing.Point(16, 379)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(127, 13)
+        Me.Label9.Size = New System.Drawing.Size(162, 16)
         Me.Label9.TabIndex = 23
         Me.Label9.Text = "3. Parameter && Variable"
         '
-        'frmReportComponentItems
+        'FrmReportComponentItems
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(471, 376)
+        Me.ClientSize = New System.Drawing.Size(628, 470)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.txtVARIABLE_NAME3)
@@ -279,11 +303,12 @@ Partial Class FrmReportComponentItems
         Me.Controls.Add(Me.rtbSQL_STATEMENT)
         Me.Controls.Add(Me.txtNAME)
         Me.Controls.Add(Me.cmbTYPE)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmReportComponentItems"
+        Me.Name = "FrmReportComponentItems"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

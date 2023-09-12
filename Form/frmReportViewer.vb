@@ -3,7 +3,7 @@
 Public Class FrmReportViewer
     Dim rpt As New CrystalDecisions.CrystalReports.Engine.ReportDocument
     Public gsSearchRedBox As String
-    Private Sub frmReportViewer_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmReportViewer_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Dim formats As Integer
         formats = (CrystalDecisions.Shared.ViewerExportFormats.PdfFormat Or CrystalDecisions.Shared.ViewerExportFormats.XLSXFormat Or CrystalDecisions.Shared.ViewerExportFormats.ExcelFormat Or CrystalDecisions.Shared.ViewerExportFormats.WordFormat)
@@ -25,7 +25,7 @@ Public Class FrmReportViewer
 
     End Sub
 
-    Private Sub frmReportViewer_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmReportViewer_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         Try
 
@@ -34,7 +34,7 @@ Public Class FrmReportViewer
             CrystalReportViewer1.ReportSource = rpt
             CrystalReportViewer1.Refresh()
             CrystalReportViewer1.Zoom(100)
-            fHide_Tab(CrystalReportViewer1)
+            Hide_Tab(CrystalReportViewer1)
             If gsSearchRedBox <> "" Then
                 CrystalReportViewer1.SearchForText(gsSearchRedBox)
             End If
@@ -46,7 +46,7 @@ Public Class FrmReportViewer
 
 
     End Sub
-    Private Sub fHide_Tab(ByVal cr As CrystalReportViewer)
+    Private Sub Hide_Tab(ByVal cr As CrystalReportViewer)
         For Each control As Control In cr.Controls
             If (TypeOf control Is PageView) Then
                 Dim tab As Windows.Forms.TabControl = CType(CType(control, PageView).Controls(0), Windows.Forms.TabControl)
@@ -80,11 +80,12 @@ Public Class FrmReportViewer
         For Each ctrl As Control In CrystalReportViewer1.Controls
             If TypeOf ctrl Is ToolStrip Then
                 If Me.WindowState = FormWindowState.Normal Then
-                    Dim btnNew As New ToolStripButton
-                    btnNew.Text = "&Quick Print"
-                    btnNew.BackColor = Color.Transparent
-                    btnNew.Name = "mybutton"
-                    btnNew.Alignment = ToolStripItemAlignment.Left
+                    Dim btnNew As New ToolStripButton With {
+                        .Text = "&Quick Print",
+                        .BackColor = Color.Transparent,
+                        .Name = "mybutton",
+                        .Alignment = ToolStripItemAlignment.Left
+                    }
                     CType(ctrl, ToolStrip).Items.Add(btnNew)
                     AddHandler btnNew.Click, AddressOf DoWork
                     '    ctrl.BackgroundImage = gsImageBackground
@@ -97,19 +98,10 @@ Public Class FrmReportViewer
             End If
         Next
     End Sub
-
-    Private Sub frmReportViewer_Click(sender As Object, e As EventArgs) Handles Me.Click
-
+    Private Sub FrmReportViewer_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        MasterKeyPrint(sender, e)
     End Sub
-
-    Private Sub CrystalReportViewer1_Paint(sender As Object, e As PaintEventArgs) Handles CrystalReportViewer1.Paint
-
-    End Sub
-
-    Private Sub frmReportViewer_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        fMasterKeyPrint(sender, e)
-    End Sub
-    Private Sub fMasterKeyPrint(sender As Object, e As KeyEventArgs)
+    Private Sub MasterKeyPrint(sender As Object, e As KeyEventArgs)
 
         If e.KeyCode = Keys.P AndAlso e.Modifiers = Keys.Control Then
 
@@ -121,6 +113,6 @@ Public Class FrmReportViewer
     End Sub
 
     Private Sub CrystalReportViewer1_KeyDown(sender As Object, e As KeyEventArgs) Handles CrystalReportViewer1.KeyDown
-        fMasterKeyPrint(sender, e)
+        MasterKeyPrint(sender, e)
     End Sub
 End Class

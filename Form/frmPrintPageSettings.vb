@@ -8,33 +8,33 @@
 
 
     End Sub
-    Private Sub btnNewReport_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+    Private Sub BtnNewReport_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         gsClickOK = True
         txtFILE_NAME.Clear()
         txtPRINT_TITLE.Clear()
 
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs)
         gsClickOK = False
         Me.Close()
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         gsClickOK = True
-        Dim cn As New OleDb.OleDbConnection(fMS_Con)
+        Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
             cn.Open()
             Dim cmd As New OleDb.OleDbCommand($"select *  from tblprint where [File_NAME] = '{txtFILE_NAME.Text}' and [form_name] = '{ThisForm}' ", cn)
             Dim rd As OleDb.OleDbDataReader = cmd.ExecuteReader
             If rd.Read Then
 
-                fMS_execute($"UPDATE tblprint SET [print_title] = '{txtPRINT_TITLE.Text}'  WHERE [FILE_NAME] = '{txtFILE_NAME.Text}' and [FORM_NAME] = '{ThisForm}'")
+                DbAccessExecute($"UPDATE tblprint SET [print_title] = '{txtPRINT_TITLE.Text}'  WHERE [FILE_NAME] = '{txtFILE_NAME.Text}' and [FORM_NAME] = '{ThisForm}'")
                 PrompNotify(Me.Text, UpdateMsg, True)
                 Me.Close()
             Else
                 If MessageBoxQuestion("New Print Page. Do you want to create as new print page") = True Then
-                    fMS_execute($"INSERT INTO [tblprint]  ([print_title],[FILE_NAME],[FORM_NAME],[print_default]) VALUES ('{txtPRINT_TITLE.Text}','{txtFILE_NAME.Text}','{ThisForm}','0')")
+                    DbAccessExecute($"INSERT INTO [tblprint]  ([print_title],[FILE_NAME],[FORM_NAME],[print_default]) VALUES ('{txtPRINT_TITLE.Text}','{txtFILE_NAME.Text}','{ThisForm}','0')")
                     PrompNotify(Me.Text, SaveMsg, True)
                     Me.Close()
                 End If

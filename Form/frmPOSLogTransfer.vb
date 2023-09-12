@@ -35,7 +35,7 @@ FROM
 
     End Sub
 
-    Private Sub btnTransfer_Click(sender As Object, e As EventArgs) Handles btnTransfer.Click
+    Private Sub BtnTransfer_Click(sender As Object, e As EventArgs) Handles btnTransfer.Click
 
         If dgvPOSLog.Rows.Count <> 0 Then
             Dim TransferPOSLogID As Integer = dgvPOSLog.CurrentRow.Cells(0).Value

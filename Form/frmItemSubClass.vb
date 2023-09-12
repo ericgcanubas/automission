@@ -1,10 +1,10 @@
 ﻿Public Class FrmItemSubClass
     Public item_BS As BindingSource
-    Private Sub frmItemSubClass_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmItemSubClass_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefresh()
+        RefreshData()
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         LoadDataGridViewBinding(dgvSubClass, "select  isc.ID, isc.Code,isc.Description, ic.Description as `Class` from item_sub_class as isc  inner join item_class as ic on ic.id = isc.class_id ", item_BS)
         ViewColumn(dgvSubClass, 38)
     End Sub
@@ -17,20 +17,16 @@
         ViewColumn(dgvSubClass, 38)
     End Sub
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
         If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
-        frmItemSubClassDetails.BS = item_BS
-        frmItemSubClassDetails.View = dgvSubClass
-        frmItemSubClassDetails.ShowDialog()
-        frmItemSubClassDetails.Dispose()
-        frmItemSubClassDetails = Nothing
+        FrmItemSubClassDetails.BS = item_BS
+        FrmItemSubClassDetails.View = dgvSubClass
+        FrmItemSubClassDetails.ShowDialog()
+        FrmItemSubClassDetails.Dispose()
+        FrmItemSubClassDetails = Nothing
 
     End Sub
 
@@ -44,19 +40,19 @@
                 Exit Sub
             End If
 
-            frmItemSubClassDetails.BS = item_BS
-            frmItemSubClassDetails.View = dgvSubClass
-            frmItemSubClassDetails.ID = dgvSubClass.Rows(dgvSubClass.CurrentRow.Index).Cells("ID").Value
-            frmItemSubClassDetails.ShowDialog()
-            frmItemSubClassDetails.Dispose()
-            frmItemSubClassDetails = Nothing
+            FrmItemSubClassDetails.BS = item_BS
+            FrmItemSubClassDetails.View = dgvSubClass
+            FrmItemSubClassDetails.ID = dgvSubClass.Rows(dgvSubClass.CurrentRow.Index).Cells("ID").Value
+            FrmItemSubClassDetails.ShowDialog()
+            FrmItemSubClassDetails.Dispose()
+            FrmItemSubClassDetails = Nothing
 
         Catch ex As Exception
             MessageBoxExclamation(ex.Message)
         End Try
 
     End Sub
-    Private Sub dgvSubClass_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSubClass.CellDoubleClick
+    Private Sub DgvSubClass_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSubClass.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
@@ -75,7 +71,7 @@
             If MessageBoxQuestion("Are you sure to delete this item sub-class?") = True Then
                 SqlExecuted("DELETE FROM item_sub_class where id = '" & dgvSubClass.Rows(dgvSubClass.CurrentRow.Index).Cells("ID").Value & "' limit 1")
                 DeleteNotify(Me)
-                fRefresh()
+                RefreshData()
             End If
         Catch ex As Exception
             MessageBoxExclamation(ex.Message)
@@ -83,29 +79,19 @@
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefresh()
+        RefreshData()
     End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
-
-
-
-
             Dim strFInd As String = ""
-
-
             For I As Integer = 0 To dgvSubClass.Columns.Count - 1
 
                 If dgvSubClass.Columns(I).Visible = True Then
-
-
                     If dgvSubClass.Columns(I).HeaderText.ToUpper = "INACTIVE" Then
                         Exit For
                     End If
 
                     If I < 11 And I > 0 Then
-
-
                         If strFInd = "" Then
                             strFInd = $"[{dgvSubClass.Columns(I).HeaderText}] like '%" & tsTxtSearch.Text & "%'"
                         Else
@@ -126,23 +112,13 @@
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
-
-    Private Sub dgvSubClass_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSubClass.CellContentClick
-
-    End Sub
-
-    Private Sub dgvSubClass_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvSubClass.RowStateChanged
+    Private Sub DgvSubClass_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvSubClass.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
-
-    Private Sub ToolStripDropDownButton1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

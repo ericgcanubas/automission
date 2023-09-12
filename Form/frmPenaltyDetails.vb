@@ -1,17 +1,17 @@
 ﻿Imports System.Data.Odbc
 Public Class FrmPenaltyDetails
     Public gsID As String = ""
-    Private Sub frmPenaltyDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPenaltyDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Dim penalty_rate As Double = 0
+        Dim penalty_rate As Double
         Dim penalty_amount As Double = 0
-        Dim balance_due As Double = 0
+        Dim balance_due As Double
         Try
             'cn.Open()
             Dim rd As OdbcDataReader = SqlReader("select * from invoice where id = '" & gsID & "' and penalty_type_id <> '0'")
             If rd.Read Then
                 lblName.Text = GetStringFieldValue("CONTACT", "ID", rd("customer_id"), "NAME")
-                Dim d As Integer = DateDiff(DateInterval.Day, fgetLastPaymentDate(gsID, rd("DUE_DATE")), Date.Now.Date)
+                Dim d As Integer = DateDiff(DateInterval.Day, GetLastPaymentDate(gsID, rd("DUE_DATE")), Date.Now.Date)
                 penalty_rate = NumIsNull(rd("penalty_rate"))
                 balance_due = NumIsNull(rd("balance_due"))
                 lblBALANCE_DUE.Text = Format(balance_due, "Standard")
@@ -38,7 +38,7 @@ Public Class FrmPenaltyDetails
         End Try
 
     End Sub
-    Private Function fgetLastPaymentDate(ByVal invoice_id As String, ByVal prDue_date As Date) As Date
+    Private Function GetLastPaymentDate(ByVal invoice_id As String, ByVal prDue_date As Date) As Date
         Dim d As Date = prDue_date
         Try
             Dim rd As OdbcDataReader = SqlReader("select p.date as `D`  from  payment as p  inner join payment_invoices  as pv where pv.invoice_id = '" & gsID & "' and pv.penalty_paid > 0 order by p.Date desc Limit 1")
@@ -52,7 +52,7 @@ Public Class FrmPenaltyDetails
         End Try
         Return d
     End Function
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         Me.Close()
     End Sub
 End Class

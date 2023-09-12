@@ -42,42 +42,47 @@ Partial Class FrmReferenceSettings
         '
         Me.xmbMenu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.xmbMenu.FormattingEnabled = True
-        Me.xmbMenu.Location = New System.Drawing.Point(101, 16)
+        Me.xmbMenu.Location = New System.Drawing.Point(135, 20)
+        Me.xmbMenu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.xmbMenu.Name = "xmbMenu"
-        Me.xmbMenu.Size = New System.Drawing.Size(120, 21)
+        Me.xmbMenu.Size = New System.Drawing.Size(159, 24)
         Me.xmbMenu.TabIndex = 0
         '
         'numNEXT_CODE
         '
         Me.numNEXT_CODE.AccessibleName = "0"
-        Me.numNEXT_CODE.Location = New System.Drawing.Point(101, 43)
+        Me.numNEXT_CODE.Location = New System.Drawing.Point(135, 49)
+        Me.numNEXT_CODE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.numNEXT_CODE.Maximum = New Decimal(New Integer() {1410065407, 2, 0, 0})
         Me.numNEXT_CODE.Name = "numNEXT_CODE"
-        Me.numNEXT_CODE.Size = New System.Drawing.Size(120, 22)
+        Me.numNEXT_CODE.Size = New System.Drawing.Size(160, 23)
         Me.numNEXT_CODE.TabIndex = 1
         '
         'numDIGIT_CODE
         '
         Me.numDIGIT_CODE.AccessibleName = "0"
-        Me.numDIGIT_CODE.Location = New System.Drawing.Point(101, 71)
+        Me.numDIGIT_CODE.Location = New System.Drawing.Point(135, 77)
+        Me.numDIGIT_CODE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.numDIGIT_CODE.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.numDIGIT_CODE.Name = "numDIGIT_CODE"
-        Me.numDIGIT_CODE.Size = New System.Drawing.Size(120, 22)
+        Me.numDIGIT_CODE.Size = New System.Drawing.Size(160, 23)
         Me.numDIGIT_CODE.TabIndex = 2
         '
         'txtSYMBOL_CODE
         '
-        Me.txtSYMBOL_CODE.Location = New System.Drawing.Point(101, 99)
+        Me.txtSYMBOL_CODE.Location = New System.Drawing.Point(135, 103)
+        Me.txtSYMBOL_CODE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtSYMBOL_CODE.Name = "txtSYMBOL_CODE"
-        Me.txtSYMBOL_CODE.Size = New System.Drawing.Size(100, 22)
+        Me.txtSYMBOL_CODE.Size = New System.Drawing.Size(160, 23)
         Me.txtSYMBOL_CODE.TabIndex = 3
         '
         'chkUSE_YEAR
         '
         Me.chkUSE_YEAR.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chkUSE_YEAR.Location = New System.Drawing.Point(15, 127)
+        Me.chkUSE_YEAR.Location = New System.Drawing.Point(13, 131)
+        Me.chkUSE_YEAR.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.chkUSE_YEAR.Name = "chkUSE_YEAR"
-        Me.chkUSE_YEAR.Size = New System.Drawing.Size(101, 17)
+        Me.chkUSE_YEAR.Size = New System.Drawing.Size(135, 21)
         Me.chkUSE_YEAR.TabIndex = 4
         Me.chkUSE_YEAR.Text = "Use Year"
         Me.chkUSE_YEAR.UseVisualStyleBackColor = True
@@ -85,44 +90,49 @@ Partial Class FrmReferenceSettings
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 19)
+        Me.Label1.Location = New System.Drawing.Point(16, 23)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(69, 13)
+        Me.Label1.Size = New System.Drawing.Size(83, 16)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "Menu Name"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 45)
+        Me.Label2.Location = New System.Drawing.Point(16, 51)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(60, 13)
+        Me.Label2.Size = New System.Drawing.Size(75, 16)
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Next Code"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 73)
+        Me.Label3.Location = New System.Drawing.Point(16, 80)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(35, 13)
+        Me.Label3.Size = New System.Drawing.Size(41, 16)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Digit "
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 102)
+        Me.Label4.Location = New System.Drawing.Point(16, 107)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(44, 13)
+        Me.Label4.Size = New System.Drawing.Size(54, 16)
         Me.Label4.TabIndex = 8
         Me.Label4.Text = "Symbol"
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(101, 189)
+        Me.btnSave.Location = New System.Drawing.Point(190, 205)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(120, 23)
+        Me.btnSave.Size = New System.Drawing.Size(105, 28)
         Me.btnSave.TabIndex = 9
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
@@ -130,26 +140,28 @@ Partial Class FrmReferenceSettings
         'theOutPut
         '
         Me.theOutPut.AutoSize = True
-        Me.theOutPut.Location = New System.Drawing.Point(12, 161)
+        Me.theOutPut.Location = New System.Drawing.Point(16, 170)
+        Me.theOutPut.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.theOutPut.Name = "theOutPut"
-        Me.theOutPut.Size = New System.Drawing.Size(45, 13)
+        Me.theOutPut.Size = New System.Drawing.Size(53, 16)
         Me.theOutPut.TabIndex = 10
         Me.theOutPut.Text = "Output"
         '
         'TheResult
         '
         Me.TheResult.AutoSize = True
-        Me.TheResult.Location = New System.Drawing.Point(98, 161)
+        Me.TheResult.Location = New System.Drawing.Point(131, 170)
+        Me.TheResult.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.TheResult.Name = "TheResult"
-        Me.TheResult.Size = New System.Drawing.Size(56, 13)
+        Me.TheResult.Size = New System.Drawing.Size(77, 16)
         Me.TheResult.TabIndex = 11
         Me.TheResult.Text = "#######"
         '
-        'frmReferenceSettings
+        'FrmReferenceSettings
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(250, 224)
+        Me.ClientSize = New System.Drawing.Size(333, 246)
         Me.Controls.Add(Me.TheResult)
         Me.Controls.Add(Me.theOutPut)
         Me.Controls.Add(Me.btnSave)
@@ -162,11 +174,12 @@ Partial Class FrmReferenceSettings
         Me.Controls.Add(Me.numDIGIT_CODE)
         Me.Controls.Add(Me.numNEXT_CODE)
         Me.Controls.Add(Me.xmbMenu)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmReferenceSettings"
+        Me.Name = "FrmReferenceSettings"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

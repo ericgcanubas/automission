@@ -206,7 +206,7 @@ Partial Class FrmItemClass
         Me.tsReload.Text = "Re&load"
         Me.tsReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'frmItemClass
+        'FrmItemClass
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -216,7 +216,7 @@ Partial Class FrmItemClass
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmItemClass"
+        Me.Name = "FrmItemClass"
         Me.Text = "frmItemClass"
         CType(Me.dgvItemClass, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)

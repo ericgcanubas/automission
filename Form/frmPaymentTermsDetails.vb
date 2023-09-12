@@ -4,7 +4,7 @@ Public Class FrmPaymentTermsDetails
     Public IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
-    Private Sub fComboSemiAnnual(ByVal cmb As ComboBox)
+    Private Sub ComboSemiAnnual(ByVal cmb As ComboBox)
         cmb.Items.Clear()
         cmb.Items.Add("Jan / Jul")
         cmb.Items.Add("Feb / Aug")
@@ -15,7 +15,7 @@ Public Class FrmPaymentTermsDetails
 
         cmb.SelectedIndex = 0
     End Sub
-    Private Sub fComboSemiMonth(ByVal cmb As ComboBox)
+    Private Sub ComboSemiMonth(ByVal cmb As ComboBox)
         cmb.Items.Clear()
         cmb.Items.Add("1 / 16 th")
         cmb.Items.Add("2 / 17 th")
@@ -34,7 +34,7 @@ Public Class FrmPaymentTermsDetails
         cmb.Items.Add("15 / 30 th")
         cmb.SelectedIndex = 0
     End Sub
-    Private Sub fComboMonth(ByVal cmb As ComboBox)
+    Private Sub ComboMonth(ByVal cmb As ComboBox)
         cmb.Items.Clear()
         cmb.Items.Add("Jan")
         cmb.Items.Add("Feb")
@@ -49,7 +49,7 @@ Public Class FrmPaymentTermsDetails
         cmb.Items.Add("Dec")
         cmb.SelectedIndex = 0
     End Sub
-    Private Sub fComboWeekDay(ByVal cmb As ComboBox)
+    Private Sub ComboWeekDay(ByVal cmb As ComboBox)
         cmb.Items.Clear()
         cmb.Items.Add("Mon")
         cmb.Items.Add("Tue")
@@ -61,17 +61,15 @@ Public Class FrmPaymentTermsDetails
         cmb.SelectedIndex = 0
 
     End Sub
-    Private Sub fComboDay(ByVal cmb As ComboBox)
+    Private Sub ComboDay(ByVal cmb As ComboBox)
         cmb.Items.Clear()
 
         For i As Integer = 1 To 30
-
-            cmb.Items.Add(fday(i))
-
+            cmb.Items.Add(DayText(i))
         Next
         cmb.SelectedIndex = 0
     End Sub
-    Private Function fday(ByVal i As Integer) As String
+    Private Function DayText(ByVal i As Integer) As String
         Select Case i
             Case 1
                 Return "1 st"
@@ -84,18 +82,18 @@ Public Class FrmPaymentTermsDetails
         End Select
     End Function
 
-    Private Sub frmPaymentTermsDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPaymentTermsDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbTYPE, "SELECT * FROM PAYMENT_TERMS_TYPE_MAP", "ID", "DESCRIPTION")
-        cmbTYPE_SelectedIndexChanged(sender, e)
+        CmbTYPE_SelectedIndexChanged(sender, e)
         If ID > 0 Then
-            fRefresh()
+            RefreshData()
             IsNew = False
 
         End If
 
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
 
         Try
 
@@ -119,11 +117,10 @@ Public Class FrmPaymentTermsDetails
             End If
             rd.Close()
         Catch ex As Exception
-
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
-    Private Sub cmbTYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTYPE.SelectedIndexChanged
+    Private Sub CmbTYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTYPE.SelectedIndexChanged
         Try
             Label7.Enabled = True
             Label11.Enabled = True
@@ -145,37 +142,37 @@ Public Class FrmPaymentTermsDetails
                     cmbDATE_MONTH_PARAM.Items.Clear()
                     cmbDATE_DAY_PARAM.Visible = True
                     cmbDATE_DAY_PARAM.Items.Clear()
-                    fComboWeekDay(cmbDATE_DAY_PARAM)
+                    ComboWeekDay(cmbDATE_DAY_PARAM)
                     lbxDayLabel.Text = "week(s)."
                 Case 2
                     cmbDATE_MONTH_PARAM.Visible = False
                     cmbDATE_MONTH_PARAM.Items.Clear()
                     cmbDATE_DAY_PARAM.Visible = True
                     cmbDATE_DAY_PARAM.Items.Clear()
-                    fComboSemiMonth(cmbDATE_DAY_PARAM)
+                    ComboSemiMonth(cmbDATE_DAY_PARAM)
                     lbxDayLabel.Text = "semi-month(s)."
                 Case 3
                     cmbDATE_MONTH_PARAM.Visible = False
                     cmbDATE_MONTH_PARAM.Items.Clear()
                     cmbDATE_DAY_PARAM.Visible = True
                     cmbDATE_DAY_PARAM.Items.Clear()
-                    fComboDay(cmbDATE_DAY_PARAM)
+                    ComboDay(cmbDATE_DAY_PARAM)
                     lbxDayLabel.Text = "month(s)."
                 Case 4
                     cmbDATE_MONTH_PARAM.Visible = True
-                    fComboDay(cmbDATE_MONTH_PARAM)
+                    ComboDay(cmbDATE_MONTH_PARAM)
                     cmbDATE_DAY_PARAM.Visible = True
                     cmbDATE_DAY_PARAM.Items.Clear()
-                    fComboSemiAnnual(cmbDATE_DAY_PARAM)
+                    ComboSemiAnnual(cmbDATE_DAY_PARAM)
                     lbxDayLabel.Text = "semi-annual."
 
 
                 Case 5
                     cmbDATE_MONTH_PARAM.Visible = True
-                    fComboDay(cmbDATE_MONTH_PARAM)
+                    ComboDay(cmbDATE_MONTH_PARAM)
                     cmbDATE_DAY_PARAM.Visible = True
                     cmbDATE_DAY_PARAM.Items.Clear()
-                    fComboMonth(cmbDATE_DAY_PARAM)
+                    ComboMonth(cmbDATE_DAY_PARAM)
                     lbxDayLabel.Text = "year(s)."
 
             End Select
@@ -183,12 +180,12 @@ Public Class FrmPaymentTermsDetails
 
         End Try
     End Sub
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
 
     End Sub
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If txtCODE.Text = "" Then
             MessageBoxWarning("Code is required!")
             Exit Sub
@@ -218,7 +215,7 @@ Public Class FrmPaymentTermsDetails
         ID = 0
         IsNew = True
 
-        If SecurityAccessMode(frmPaymentTerms, IsNew) = False Then
+        If SecurityAccessMode(FrmPaymentTerms, IsNew) = False Then
             Me.Close()
         End If
     End Sub

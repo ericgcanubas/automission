@@ -167,7 +167,7 @@ Public Class FrmGeneralJournal
             .ShowDialog()
 
             If .gsSave = True Then
-                fRow_Add_Account(dgvDetails, False, .gsAccount_ID, .gsDebit, .gsCredit, .gsNotes, .gsClass_ID)
+                RowAddAccountJournal(dgvDetails, False, .gsAccount_ID, .gsDebit, .gsCredit, .gsNotes, .gsClass_ID)
             End If
             .Dispose()
 
@@ -245,7 +245,7 @@ Public Class FrmGeneralJournal
 
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
-            If btn.Name = "tsSaveNew" Then
+            If btn.Name = tsSaveNew.Name Then
                 SetNew()
 
 
@@ -452,10 +452,10 @@ Public Class FrmGeneralJournal
             End If
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -511,10 +511,10 @@ Public Class FrmGeneralJournal
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -580,7 +580,7 @@ Public Class FrmGeneralJournal
 
 
 
-        fTransactionJournal(dgvDetails.Rows(dgvDetails.CurrentRow.Index).Cells("ID").Value, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 84, dgvDetails.Rows(dgvDetails.CurrentRow.Index).Cells("account_id").Value, "", txtCODE.Text, txtNOTES.Text)
+        AccountTransactionJournalEntry(dgvDetails.Rows(dgvDetails.CurrentRow.Index).Cells("ID").Value, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 84, dgvDetails.Rows(dgvDetails.CurrentRow.Index).Cells("account_id").Value, "", txtCODE.Text, txtNOTES.Text)
 
     End Sub
 
@@ -605,7 +605,7 @@ Public Class FrmGeneralJournal
             .ShowDialog()
 
             If .gsSave = True Then
-                fRow_Add_Account(dgvDetails, True, .gsAccount_ID, .gsDebit, .gsCredit, .gsNotes, .gsClass_ID)
+                RowAddAccountJournal(dgvDetails, True, .gsAccount_ID, .gsDebit, .gsCredit, .gsNotes, .gsClass_ID)
             End If
             .Dispose()
 
@@ -676,10 +676,10 @@ Public Class FrmGeneralJournal
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")

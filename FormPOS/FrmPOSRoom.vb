@@ -227,13 +227,13 @@ NewPOS_LOG:
         fTimeColumn()
         fLoadGroup()
 
-        gsPOS_DEFAULT_PRINTER = fGet_System_VALUE("POS_DEFAULT_PRINTER")
+        gsPOS_DEFAULT_PRINTER = GetDBAccessValueByText("POS_DEFAULT_PRINTER")
 
-        'SmallBox = CBool(Val(fGet_System_VALUE("USE_SMALL_BOX")))
-        'CUSTOM_DINE_IN_NO = Val(fGet_System_VALUE("CUSTOM_DINE_IN_NO"))
-        'Msg_Print_Payment = CBool(Val(fGet_System_VALUE("MSG_PRINT_PAYMENT")))
-        'PRINT_INVOICE_AFTER_PRINT_PAYMENT = CBool(Val(fGet_System_VALUE("PRINT_INVOICE_AFTER_PRINT_PAYMENT")))
-        'PRINT_OS_AFTER_SAVE_INVOICE = CBool(Val(fGet_System_VALUE("PRINT_OS_AFTER_SAVE_INVOICE")))
+        'SmallBox = CBool(Val(GetDBAccessValueByText("USE_SMALL_BOX")))
+        'CUSTOM_DINE_IN_NO = Val(GetDBAccessValueByText("CUSTOM_DINE_IN_NO"))
+        'Msg_Print_Payment = CBool(Val(GetDBAccessValueByText("MSG_PRINT_PAYMENT")))
+        'PRINT_INVOICE_AFTER_PRINT_PAYMENT = CBool(Val(GetDBAccessValueByText("PRINT_INVOICE_AFTER_PRINT_PAYMENT")))
+        'PRINT_OS_AFTER_SAVE_INVOICE = CBool(Val(GetDBAccessValueByText("PRINT_OS_AFTER_SAVE_INVOICE")))
 
         gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
         gsPOS_SERVED_ONLY = fGET_SERVED_ONLY()

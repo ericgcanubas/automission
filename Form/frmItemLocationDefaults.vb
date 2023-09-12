@@ -4,7 +4,7 @@
     Public sales_id As Integer = 0
     Public ship_id As Integer = 0
     Public dLocation As String = ""
-    Private Sub frmItemLocationDefaults_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmItemLocationDefaults_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fMaterialSkin(Me)
         Dim sQuery As String = " SELECT '0' AS `ID`, '' AS `NAME` UNION SELECT ID,`NAME` FROM unit_of_measure WHERE inactive ='0'"
         lblLocation.Text = dLocation
@@ -19,16 +19,7 @@
 
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         purchase_id = NumIsNull(cmbPurchases.SelectedValue)
         sales_id = NumIsNull(cmbSales.SelectedValue)
         ship_id = NumIsNull(cmbShipping.SelectedValue)

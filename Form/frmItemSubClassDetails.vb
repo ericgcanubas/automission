@@ -4,7 +4,7 @@ Public Class FrmItemSubClassDetails
     Dim IsNew As Boolean = True
     Public BS As BindingSource
     Public View As DataGridView
-    Private Sub frmItemSubClassDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmItemSubClassDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ComboBoxLoad(cmbCLASS_ID, "SELECT ID,DESCRIPTION FROM ITEM_CLASS", "ID", "DESCRIPTION")
         If ID > 0 Then
 
@@ -18,11 +18,12 @@ Public Class FrmItemSubClassDetails
 
         End If
     End Sub
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+
         If Trim(txtDESCRIPTION.Text) = "" Then
             MessageBoxInfo("Please enter item sub-class description")
             Exit Sub
@@ -43,8 +44,8 @@ Public Class FrmItemSubClassDetails
         Else
             ID = ObjectTypeMapId("item_sub_class")
 
-            SqlCreate(Me, SQL_FIELD, SQL_VALUE)
-            SqlExecuted($"INSERT INTO item_sub_class ({SQL_FIELD},ID) VALUES ({SQL_VALUE},{ID})")
+            SqlCreate(Me, SQL_Field, SQL_Value)
+            SqlExecuted($"INSERT INTO item_sub_class ({SQL_Field},ID) VALUES ({SQL_Value},{ID})")
         End If
 
         SaveNotify(Me, IsNew)
@@ -54,7 +55,7 @@ Public Class FrmItemSubClassDetails
         IsNew = True
 
 
-        If SecurityAccessMode(frmItemSubClass, IsNew) = False Then
+        If SecurityAccessMode(FrmItemSubClass, IsNew) = False Then
             Me.Close()
         End If
     End Sub

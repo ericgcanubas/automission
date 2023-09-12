@@ -32,7 +32,7 @@ Partial Class FrmItemClassDetails
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(102, 13)
+        Me.txtCODE.Location = New System.Drawing.Point(96, 13)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(164, 23)
@@ -40,7 +40,7 @@ Partial Class FrmItemClassDetails
         '
         'txtDESCRIPTION
         '
-        Me.txtDESCRIPTION.Location = New System.Drawing.Point(102, 44)
+        Me.txtDESCRIPTION.Location = New System.Drawing.Point(96, 44)
         Me.txtDESCRIPTION.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtDESCRIPTION.Name = "txtDESCRIPTION"
         Me.txtDESCRIPTION.Size = New System.Drawing.Size(393, 23)
@@ -50,7 +50,7 @@ Partial Class FrmItemClassDetails
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Location = New System.Drawing.Point(52, 16)
+        Me.Label2.Location = New System.Drawing.Point(46, 16)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(40, 16)
         Me.Label2.TabIndex = 53
@@ -60,7 +60,7 @@ Partial Class FrmItemClassDetails
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(14, 48)
+        Me.Label3.Location = New System.Drawing.Point(10, 47)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(80, 16)
         Me.Label3.TabIndex = 54
@@ -68,7 +68,7 @@ Partial Class FrmItemClassDetails
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(316, 85)
+        Me.btnSave.Location = New System.Drawing.Point(310, 75)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(86, 28)
@@ -78,7 +78,7 @@ Partial Class FrmItemClassDetails
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(409, 85)
+        Me.btnClose.Location = New System.Drawing.Point(403, 75)
         Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(86, 28)
@@ -86,11 +86,11 @@ Partial Class FrmItemClassDetails
         Me.btnClose.Text = "&Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
-        'frmItemClassDetails
+        'FrmItemClassDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(507, 130)
+        Me.ClientSize = New System.Drawing.Size(501, 111)
         Me.Controls.Add(Me.btnClose)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.Label3)
@@ -101,7 +101,7 @@ Partial Class FrmItemClassDetails
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmItemClassDetails"
+        Me.Name = "FrmItemClassDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

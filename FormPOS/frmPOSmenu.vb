@@ -134,8 +134,8 @@ Public Class FrmPOSmenu
 
     Private Sub SalesReceipt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        gsPOS_DEFAULT_PRINTER = fGet_System_VALUE("POS_DEFAULT_PRINTER")
-        gsDEFAULT_PRINTER = fGet_System_VALUE("DEFAULT_PRINTER")
+        gsPOS_DEFAULT_PRINTER = GetDBAccessValueByText("POS_DEFAULT_PRINTER")
+        gsDEFAULT_PRINTER = GetDBAccessValueByText("DEFAULT_PRINTER")
 
 
         lblCODE.Text = ""
@@ -295,7 +295,7 @@ B.ID = ii.BATCH_ID
                 dgvProductItem.Rows.Add()
                 For RowNum As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(RowNum)
-                        If fCheckNumStandard(.Name) = True Then
+                        If CheckNumStandard(.Name) = True Then
                             dgvProductItem.Rows(XRow).Cells(RowNum).Value = NumberFormatStandard(NumIsNull(rd(RowNum)))
                         ElseIf CheckNumNoDecimal(.Name) = True Then
                             dgvProductItem.Rows(XRow).Cells(RowNum).Value = NumberFormatNoDecimal(NumIsNull(rd(RowNum)))
@@ -1029,12 +1029,12 @@ NewPOS_LOG:
 
         If IsNew = False Then
 
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = '" & Me.Name & "' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1087,14 +1087,14 @@ NewPOS_LOG:
 
         If bSaveAccept = True Then
 
-            fSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
+            SystemSetDefaultPrinter(gsPOS_DEFAULT_PRINTER)
 
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = 'frmSalesReceipt' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = 'frmSalesReceipt' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")
@@ -1137,7 +1137,7 @@ NewPOS_LOG:
             End If
         End If
         If IsNew = False Then
-            fTransactionJournal(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 52, 5, cmbCUSTOMER_ID.Text, lblCODE.Text, txtNOTES.Text)
+            AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 52, 5, cmbCUSTOMER_ID.Text, lblCODE.Text, txtNOTES.Text)
         End If
     End Sub
     Private Sub Discard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
@@ -1394,10 +1394,10 @@ NewPOS_LOG:
 
             Dim prFile_name As String = ""
             Dim prPrint_Title As String = ""
-            Dim cn As New OleDb.OleDbConnection(fMS_Con)
+            Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
             Try
                 cn.Open()
-                Dim r As OleDb.OleDbDataReader = fMSgetReader("select [file_name],[print_title] from tblprint  where [form_name] = 'frmSalesReceipt' and  [print_default] = '1' ", cn)
+                Dim r As OleDb.OleDbDataReader = DbAccessReader("select [file_name],[print_title] from tblprint  where [form_name] = 'frmSalesReceipt' and  [print_default] = '1' ", cn)
                 If r.Read Then
                     prPrint_Title = r("print_title")
                     prFile_name = r("file_name")

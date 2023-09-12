@@ -65,7 +65,7 @@ Partial Class FrmReportSetup
         '
         Me.ToolStrip1.AutoSize = False
         Me.ToolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(60, 70)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsClose, Me.tsPrint, Me.ToolStripLabel2, Me.ToolStripSeparator1, Me.ToolStripLabel1, Me.ToolStripButton2, Me.ToolStripLabel3, Me.ToolStripSeparator2, Me.ToolStripLabel4, Me.ToolStripLabel5})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
@@ -81,7 +81,7 @@ Partial Class FrmReportSetup
         Me.tsClose.Image = CType(resources.GetObject("tsClose.Image"), System.Drawing.Image)
         Me.tsClose.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsClose.Name = "tsClose"
-        Me.tsClose.Size = New System.Drawing.Size(43, 81)
+        Me.tsClose.Size = New System.Drawing.Size(46, 81)
         Me.tsClose.Text = "Close"
         '
         'tsPrint
@@ -96,7 +96,7 @@ Partial Class FrmReportSetup
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(15, 81)
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(17, 81)
         Me.ToolStripLabel2.Text = "  "
         '
         'ToolStripSeparator1
@@ -107,7 +107,7 @@ Partial Class FrmReportSetup
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(15, 81)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(17, 81)
         Me.ToolStripLabel1.Text = "  "
         '
         'ToolStripButton2
@@ -122,7 +122,7 @@ Partial Class FrmReportSetup
         'ToolStripLabel3
         '
         Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(15, 81)
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(17, 81)
         Me.ToolStripLabel3.Text = "  "
         '
         'ToolStripSeparator2
@@ -133,7 +133,7 @@ Partial Class FrmReportSetup
         'ToolStripLabel4
         '
         Me.ToolStripLabel4.Name = "ToolStripLabel4"
-        Me.ToolStripLabel4.Size = New System.Drawing.Size(91, 81)
+        Me.ToolStripLabel4.Size = New System.Drawing.Size(112, 81)
         Me.ToolStripLabel4.Text = "                     "
         '
         'ToolStripLabel5
@@ -171,7 +171,7 @@ Partial Class FrmReportSetup
         Me.cmbPRINTER.Size = New System.Drawing.Size(393, 24)
         Me.cmbPRINTER.TabIndex = 13
         '
-        'frmReportSetup
+        'FrmReportSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -184,7 +184,7 @@ Partial Class FrmReportSetup
         Me.Controls.Add(Me.Label17)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmReportSetup"
+        Me.Name = "FrmReportSetup"
         Me.Tag = ""
         Me.Text = "Report Setup"
         Me.ToolStrip1.ResumeLayout(False)

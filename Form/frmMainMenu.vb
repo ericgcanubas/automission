@@ -344,7 +344,7 @@ Public Class FrmMainMenu
         Me.trvApplication.ImageList = gsImgList
         fLoadApplication()
 
-        gsDEFAULT_PRINTER = fGet_System_VALUE("DEFAULT_PRINTER")
+        gsDEFAULT_PRINTER = GetDBAccessValueByText("DEFAULT_PRINTER")
         '  fMaterialSkin(Me)
         Me.Icon = gsIcon
         QuickAccess()

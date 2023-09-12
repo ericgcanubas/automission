@@ -1,7 +1,7 @@
 ﻿
 Public Class FrmReportComponentItems
     Public ID As Integer
-    Private Sub frmReportComponentItems_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmReportComponentItems_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbTYPE, "SELECT * FROM COMPONENT_TYPE ", "ID", "DESCRIPTION")
         ComboBoxLoad(cmbPARAMETER_ID1, "select ID,`NAME` FROM COMPONENT ", "ID", "NAME")
@@ -11,11 +11,11 @@ Public Class FrmReportComponentItems
 
     End Sub
 
-    Private Sub btnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCANCEL.Click
+    Private Sub BtnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCANCEL.Click
         Me.Close()
     End Sub
 
-    Private Sub btnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
+    Private Sub BtnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
         If txtNAME.Text = "" Then
             MessageBoxWarning("Please enter name")
             Exit Sub

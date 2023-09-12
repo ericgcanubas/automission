@@ -1,16 +1,12 @@
 ﻿Public Class FrmPaymentMethods
     Public item_BS As BindingSource
-    Private Sub frmPaymentTerms_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmPaymentTerms_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefresh()
+        RefreshData()
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         LoadDataGridViewBinding(dgvPaymentMethods, "SELECT pm.`ID`,pm.`Code`,pm.`Description`,p.`DESCRIPTION` AS `Payment Type`, CONCAT(a.`NAME` , ' / ' ,a.`TYPE`) AS `G/L Account` FROM payment_method AS pm LEFT OUTER JOIN  payment_type_map AS p ON p.`ID` = pm.`PAYMENT_TYPE` LEFT OUTER JOIN account AS a ON a.`ID` = pm.`GL_ACCOUNT_ID`", item_BS)
         ViewColumn(dgvPaymentMethods, 33)
-    End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
@@ -23,11 +19,11 @@
             Exit Sub
         End If
 
-        frmPaymentMethodsDetails.This_BS = item_BS
-        frmPaymentMethodsDetails.Dgv = dgvPaymentMethods
-        frmPaymentMethodsDetails.ShowDialog()
-        frmPaymentMethodsDetails.Dispose()
-        frmPaymentMethodsDetails = Nothing
+        FrmPaymentMethodsDetails.This_BS = item_BS
+        FrmPaymentMethodsDetails.Dgv = dgvPaymentMethods
+        FrmPaymentMethodsDetails.ShowDialog()
+        FrmPaymentMethodsDetails.Dispose()
+        FrmPaymentMethodsDetails = Nothing
 
     End Sub
 
@@ -42,13 +38,13 @@
             Dim i As Integer = dgvPaymentMethods.CurrentRow.Index
 
 
-            frmPaymentMethodsDetails.This_BS = item_BS
+            FrmPaymentMethodsDetails.This_BS = item_BS
 
-            frmPaymentMethodsDetails.Dgv = dgvPaymentMethods
-            frmPaymentMethodsDetails.ID = dgvPaymentMethods.Rows(i).Cells("ID").Value
-            frmPaymentMethodsDetails.ShowDialog()
-            frmPaymentMethodsDetails.Dispose()
-            frmPaymentMethodsDetails = Nothing
+            FrmPaymentMethodsDetails.Dgv = dgvPaymentMethods
+            FrmPaymentMethodsDetails.ID = dgvPaymentMethods.Rows(i).Cells("ID").Value
+            FrmPaymentMethodsDetails.ShowDialog()
+            FrmPaymentMethodsDetails.Dispose()
+            FrmPaymentMethodsDetails = Nothing
 
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
@@ -56,7 +52,7 @@
 
     End Sub
 
-    Private Sub dgvPaymentTerms_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPaymentMethods.CellDoubleClick
+    Private Sub DgvPaymentTerms_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPaymentMethods.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
@@ -73,7 +69,7 @@
             If MessageBoxQuestion("Are you sure to delete this payment method") = True Then
                 SqlExecuted("DELETE FROM payment_method WHERE ID = '" & dgvPaymentMethods.Rows(i).Cells("ID").Value & "' limit 1;")
                 DeleteNotify(Me)
-                fRefresh()
+                RefreshData()
             End If
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
@@ -83,7 +79,7 @@
 
     End Sub
 
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
             Dim strFInd As String = ""
 
@@ -117,19 +113,19 @@
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefresh()
+        RefreshData()
     End Sub
 
-    Private Sub dgvAccount_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvPaymentMethods.RowStateChanged
+    Private Sub DgvAccount_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvPaymentMethods.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

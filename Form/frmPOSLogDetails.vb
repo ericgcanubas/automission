@@ -10,18 +10,18 @@ Public Class FrmPOSLogDetails
 
     Public AutoFixPOSLOG As Boolean
 
-    Private Sub frmPOSLogDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPOSLogDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AutoFixPOSLOG = False
         If gsAdmin_User = False Then
             btnRemoveCashCount.Visible = False
             btnUpdateCashCount.Visible = False
         End If
-        fPOS_LOG_LOAD()
-        fPOS_STARTING_C()
-        fPOS_CASH_C()
-        fTransactionLIST()
+        PosLogLoad()
+        PosStartingCal()
+        PosCashCal()
+        TransactionList()
     End Sub
-    Private Sub fPOS_LOG_LOAD()
+    Private Sub PosLogLoad()
         POS_STARTING_CASH_ID = 0
         POS_CASH_COUNT_ID = 0
 
@@ -69,7 +69,7 @@ Public Class FrmPOSLogDetails
 
     End Sub
 
-    Private Sub fPOS_STARTING_C()
+    Private Sub PosStartingCal()
 
         If POS_STARTING_CASH_ID <> 0 Then
             Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM `pos_starting_cash` where id ='{POS_STARTING_CASH_ID}' LIMIT 1")
@@ -82,7 +82,7 @@ Public Class FrmPOSLogDetails
         End If
     End Sub
 
-    Private Sub fPOS_CASH_C()
+    Private Sub PosCashCal()
         If POS_CASH_COUNT_ID <> 0 Then
 
             Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM `pos_cash_count` where id ='{POS_CASH_COUNT_ID}' LIMIT 1")
@@ -101,14 +101,14 @@ Public Class FrmPOSLogDetails
 
         End If
 
-        fCASH_DENOMINATION()
+        CashDenomination()
     End Sub
-    Private Sub fCASH_DENOMINATION()
+    Private Sub CashDenomination()
 
         LoadDataGridView(dgvCASH_DENOMINATION, $"SELECT cl.`ID`,cd.`DESCRIPTION` AS `DENOMINATION`,cl.`NOMINAL_VALUE` AS `NOMINAL VALUE`,cl.`COUNT`,cl.`AMOUNT` FROM pos_cash_count_lines AS cl  INNER JOIN pos_cash_denomination AS  cd ON cd.`ID` = cl.`DENOMINATION_ID` WHERE cl.`CASH_COUNT_ID` ='{POS_CASH_COUNT_ID}' ")
         dgvCASH_DENOMINATION.Columns(0).Visible = False
     End Sub
-    Private Sub fTransactionLIST()
+    Private Sub TransactionList()
         LoadDataGridView(dgvTransaction, $"SELECT * FROM(
 (SELECT s.`RECORDED_ON` AS `Recorded On`,s.`CODE` AS `Reference`, s.`Date`, c.`NAME` AS `Customer`,pm.`DESCRIPTION` AS `Payment Method`, s.`PAYMENT_REF_NO` AS `Ref No.`,s.`Amount` FROM sales_receipt AS s LEFT OUTER JOIN payment_method AS pm ON pm.`ID` = s.`PAYMENT_METHOD_ID` INNER JOIN contact AS c ON c.`ID` = s.`CUSTOMER_ID` WHERE s.STATUS <> '7' AND s.`POS_LOG_ID` = '{gsID}')
 UNION ALL
@@ -118,11 +118,9 @@ UNION ALL
         dgvTransaction.Columns("Amount").DefaultCellStyle.Format = "N2"
         dgvTransaction.Columns("Amount").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
     End Sub
-    Private Sub fCal()
+    Private Sub Calulated()
         Dim T As Double = numCASH.Value + numCHECK.Value + numCREDIT_CARD.Value + numOTHER_PAYMENT.Value
         lblTOTAL.Text = NumberFormatFixed(T)
-
-
     End Sub
     Private Sub BtnUpdateCashCount_Click(sender As Object, e As EventArgs) Handles btnUpdateCashCount.Click
         gsPOS_DATE = DateFormatMySql(xlblRecorded_on3.Text)
@@ -133,22 +131,22 @@ UNION ALL
     End Sub
 
     Private Sub NumCASH_ValueChanged(sender As Object, e As EventArgs) Handles numCASH.ValueChanged
-        fCal()
+        Calulated()
     End Sub
 
     Private Sub NumCHECK_ValueChanged(sender As Object, e As EventArgs) Handles numCHECK.ValueChanged
-        fCal()
+        Calulated()
     End Sub
 
     Private Sub NumCREDIT_CARD_ValueChanged(sender As Object, e As EventArgs) Handles numCREDIT_CARD.ValueChanged
-        fCal()
+        Calulated()
     End Sub
 
     Private Sub NumOTHER_PAYMENT_ValueChanged(sender As Object, e As EventArgs) Handles numOTHER_PAYMENT.ValueChanged
-        fCal()
+        Calulated()
     End Sub
 
-    Private Sub btnRemoveCashCount_Click(sender As Object, e As EventArgs) Handles btnRemoveCashCount.Click
+    Private Sub BtnRemoveCashCount_Click(sender As Object, e As EventArgs) Handles btnRemoveCashCount.Click
 
         If MessageBoxQuestion("Do you want to remove this cash count?") = True Then
             gsPOS_DATE = DateFormatMySql(xlblRecorded_on3.Text)
@@ -157,15 +155,15 @@ UNION ALL
             SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID = null WHERE POS_LOG_ID='{gsID}' ")
             SqlExecuted($"DELETE FROM pos_cash_count WHERE ID ='{POS_CASH_COUNT_ID}'")
             MessageBoxInfo("successful")
-            fPOS_LOG_LOAD()
-            fPOS_STARTING_C()
-            fPOS_CASH_C()
-            fTransactionLIST()
+            PosLogLoad()
+            PosStartingCal()
+            PosCashCal()
+            TransactionList()
         End If
 
     End Sub
 
-    Private Sub btnTransferNow_Click(sender As Object, e As EventArgs) Handles btnTransferNow.Click
+    Private Sub BtnTransferNow_Click(sender As Object, e As EventArgs) Handles btnTransferNow.Click
         If gsAdmin_User = False Then
             MessageBoxInfo("Administrator type is require")
             Exit Sub
