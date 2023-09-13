@@ -357,14 +357,11 @@ FROM
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
-
-
         SaveItem()
         SaveNotify(Me, IsNew)
         ItemUpdateStatus()
 
         Try
-
 
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = tsSaveNew.Name Then

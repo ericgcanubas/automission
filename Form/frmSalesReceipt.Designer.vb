@@ -121,7 +121,7 @@ Partial Class FrmSalesReceipt
         Me.dgvProductItem.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         Me.dgvProductItem.RowHeadersVisible = False
         Me.dgvProductItem.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvProductItem.Size = New System.Drawing.Size(1120, 147)
+        Me.dgvProductItem.Size = New System.Drawing.Size(1120, 151)
         Me.dgvProductItem.TabIndex = 0
         '
         'lblOUTPUT_TAX_VAT_METHOD
@@ -139,7 +139,7 @@ Partial Class FrmSalesReceipt
         Me.lblAMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblAMOUNT.BackColor = System.Drawing.Color.Transparent
         Me.lblAMOUNT.ForeColor = System.Drawing.Color.Blue
-        Me.lblAMOUNT.Location = New System.Drawing.Point(951, 466)
+        Me.lblAMOUNT.Location = New System.Drawing.Point(951, 448)
         Me.lblAMOUNT.Name = "lblAMOUNT"
         Me.lblAMOUNT.Size = New System.Drawing.Size(190, 21)
         Me.lblAMOUNT.TabIndex = 57
@@ -151,7 +151,7 @@ Partial Class FrmSalesReceipt
         Me.lblOUTPUT_TAX_AMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblOUTPUT_TAX_AMOUNT.BackColor = System.Drawing.Color.Transparent
         Me.lblOUTPUT_TAX_AMOUNT.ForeColor = System.Drawing.Color.Blue
-        Me.lblOUTPUT_TAX_AMOUNT.Location = New System.Drawing.Point(746, 466)
+        Me.lblOUTPUT_TAX_AMOUNT.Location = New System.Drawing.Point(746, 448)
         Me.lblOUTPUT_TAX_AMOUNT.Name = "lblOUTPUT_TAX_AMOUNT"
         Me.lblOUTPUT_TAX_AMOUNT.Size = New System.Drawing.Size(195, 21)
         Me.lblOUTPUT_TAX_AMOUNT.TabIndex = 56
@@ -227,7 +227,7 @@ Partial Class FrmSalesReceipt
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.Transparent
         Me.Label17.ForeColor = System.Drawing.Color.Blue
-        Me.Label17.Location = New System.Drawing.Point(1099, 448)
+        Me.Label17.Location = New System.Drawing.Point(1099, 430)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(45, 16)
         Me.Label17.TabIndex = 55
@@ -238,11 +238,11 @@ Partial Class FrmSalesReceipt
         '
         Me.txtNOTES.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNOTES.Location = New System.Drawing.Point(330, 418)
+        Me.txtNOTES.Location = New System.Drawing.Point(57, 452)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNOTES.Name = "txtNOTES"
         Me.txtNOTES.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtNOTES.Size = New System.Drawing.Size(812, 23)
+        Me.txtNOTES.Size = New System.Drawing.Size(640, 23)
         Me.txtNOTES.TabIndex = 52
         '
         'Label16
@@ -251,7 +251,7 @@ Partial Class FrmSalesReceipt
         Me.Label16.AutoSize = True
         Me.Label16.BackColor = System.Drawing.Color.Transparent
         Me.Label16.ForeColor = System.Drawing.Color.Blue
-        Me.Label16.Location = New System.Drawing.Point(859, 445)
+        Me.Label16.Location = New System.Drawing.Point(859, 427)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(80, 16)
         Me.Label16.TabIndex = 54
@@ -264,7 +264,7 @@ Partial Class FrmSalesReceipt
         Me.cmbOUTPUT_TAX_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbOUTPUT_TAX_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbOUTPUT_TAX_ID.FormattingEnabled = True
-        Me.cmbOUTPUT_TAX_ID.Location = New System.Drawing.Point(57, 420)
+        Me.cmbOUTPUT_TAX_ID.Location = New System.Drawing.Point(57, 424)
         Me.cmbOUTPUT_TAX_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbOUTPUT_TAX_ID.Name = "cmbOUTPUT_TAX_ID"
         Me.cmbOUTPUT_TAX_ID.Size = New System.Drawing.Size(187, 24)
@@ -275,18 +275,18 @@ Partial Class FrmSalesReceipt
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(261, 422)
+        Me.Label14.Location = New System.Drawing.Point(7, 455)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 51
-        Me.Label14.Text = "Remarks"
+        Me.Label14.Text = "Notes"
         '
         'Label15
         '
         Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label15.BackColor = System.Drawing.Color.Transparent
         Me.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label15.Location = New System.Drawing.Point(738, 464)
+        Me.Label15.Location = New System.Drawing.Point(738, 446)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(401, 1)
         Me.Label15.TabIndex = 53
@@ -458,7 +458,7 @@ Partial Class FrmSalesReceipt
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Location = New System.Drawing.Point(22, 423)
+        Me.Label13.Location = New System.Drawing.Point(22, 427)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(29, 16)
         Me.Label13.TabIndex = 49
@@ -481,7 +481,7 @@ Partial Class FrmSalesReceipt
         '
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = tsSaveNew.Name
+        Me.tsSaveNew.Name = Me.tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -730,7 +730,7 @@ Partial Class FrmSalesReceipt
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1134, 246)
+        Me.TabControl1.Size = New System.Drawing.Size(1134, 250)
         Me.TabControl1.TabIndex = 87
         '
         'TabPage1
@@ -742,7 +742,7 @@ Partial Class FrmSalesReceipt
         Me.TabPage1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TabPage1.Size = New System.Drawing.Size(1126, 217)
+        Me.TabPage1.Size = New System.Drawing.Size(1126, 221)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Item Entry"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -752,7 +752,7 @@ Partial Class FrmSalesReceipt
         Me.ToolStrip5.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel12, Me.lblCount})
-        Me.ToolStrip5.Location = New System.Drawing.Point(3, 188)
+        Me.ToolStrip5.Location = New System.Drawing.Point(3, 192)
         Me.ToolStrip5.Name = "ToolStrip5"
         Me.ToolStrip5.Size = New System.Drawing.Size(1120, 25)
         Me.ToolStrip5.TabIndex = 155
@@ -770,7 +770,7 @@ Partial Class FrmSalesReceipt
         Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
-        'frmSalesReceipt
+        'FrmSalesReceipt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -817,7 +817,7 @@ Partial Class FrmSalesReceipt
         Me.Controls.Add(Me.Label13)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmSalesReceipt"
+        Me.Name = "FrmSalesReceipt"
         Me.Text = "frmSalesReceipt"
         CType(Me.dgvProductItem, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip2.ResumeLayout(False)
