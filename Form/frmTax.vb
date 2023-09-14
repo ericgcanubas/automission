@@ -1,18 +1,14 @@
 ﻿Public Class FrmTax
     Dim item_BS As BindingSource
-    Private Sub frmPaymentTerms_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmPaymentTerms_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefresh()
+        RefreshData()
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         LoadDataGridViewBinding(dgvTax, "SELECT tx.`ID`,tx.`Name`,t.`DESCRIPTION` AS `Tax Type`, IF(IFNULL(tx.`Rate`,'') = '','', CONCAT(FORMAT(tx.`Rate`,0),'%')) AS `Rate`,l.`NAME` AS `Liability Account`,a.`NAME` AS `Asset Account`, tx.`Inactive` FROM tax AS tx  INNER JOIN tax_type_map AS t ON t.`ID` = tx.`TAX_TYPE` LEFT OUTER JOIN account AS l ON l.`ID` = tx.`TAX_ACCOUNT_ID`	 LEFT OUTER JOIN account AS a ON a.`ID` = tx.`ASSET_ACCOUNT_ID`", item_BS)
         ViewColumn(dgvTax, 34)
         fTax_Rate_Load()
     End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
         ViewSwitch(dgvTax, 34)
         ViewColumn(dgvTax, 34)
@@ -24,11 +20,11 @@
         End If
 
 
-        frmTaxDetails.This_BS = item_BS
-        frmTaxDetails.Dgv = dgvTax
-        frmTaxDetails.ShowDialog()
-        frmTaxDetails.Dispose()
-        frmTaxDetails = Nothing
+        FrmTaxDetails.This_BS = item_BS
+        FrmTaxDetails.Dgv = dgvTax
+        FrmTaxDetails.ShowDialog()
+        FrmTaxDetails.Dispose()
+        FrmTaxDetails = Nothing
 
     End Sub
 
@@ -42,20 +38,15 @@
         Dim i As Integer = dgvTax.CurrentRow.Index
 
 
-        frmTaxDetails.This_BS = item_BS
-        frmTaxDetails.Dgv = dgvTax
-        frmTaxDetails.ID = dgvTax.Rows(i).Cells("ID").Value
-        frmTaxDetails.ShowDialog()
-        frmTaxDetails.Dispose()
-        frmTaxDetails = Nothing
+        FrmTaxDetails.This_BS = item_BS
+        FrmTaxDetails.Dgv = dgvTax
+        FrmTaxDetails.ID = dgvTax.Rows(i).Cells("ID").Value
+        FrmTaxDetails.ShowDialog()
+        FrmTaxDetails.Dispose()
+        FrmTaxDetails = Nothing
 
     End Sub
-
-    Private Sub dgvPaymentTerms_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTax.CellContentClick
-
-    End Sub
-
-    Private Sub dgvPaymentTerms_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTax.CellDoubleClick
+    Private Sub DgvPaymentTerms_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvTax.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
@@ -70,19 +61,13 @@
         If MessageBoxQuestion("Are you sure to delete this Tax?") = True Then
             SqlExecuted("DELETE FROM tax WHERE ID = '" & dgvTax.Rows(i).Cells("ID").Value & "' Limit 1")
             DeleteNotify(Me)
-            fRefresh()
+            RefreshData()
         End If
 
     End Sub
-
-    Private Sub ToolStripDropDownButton1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
             Dim strFInd As String = ""
-
-
             For I As Integer = 0 To dgvTax.Columns.Count - 1
 
                 If dgvTax.Columns(I).Visible = True Then
@@ -111,32 +96,18 @@
 
         End Try
     End Sub
-    'Private Sub fSearchGet()
-    '    For I As Integer = 0 To dgvTax.Columns.Count - 1
-    '        tscmbSearch.ComboBox.Items.Add(dgvTax.Columns(I).HeaderText)
-    '    Next
-    '    tscmbSearch.ComboBox.SelectedIndex = 1
-    'End Sub
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefresh()
+        RefreshData()
     End Sub
 
-    Private Sub dgvAccount_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvTax.RowStateChanged
+    Private Sub DgvAccount_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvTax.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
-    Private Sub frmTax_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-    End Sub
-
-    Private Sub tsTxtSearch_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

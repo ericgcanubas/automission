@@ -6,9 +6,9 @@ Public Class FrmTaxDetails
     Public This_BS As BindingSource
     Public Dgv As DataGridView
 
-    Private Sub frmTaxDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmTaxDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        fClear_Info()
+        ClearInfo()
         If ID > 0 Then
             Try
                 SqlExecutedUsingReading(Me, "select  * from tax where id = '" & ID & "' limit 1")
@@ -22,11 +22,11 @@ Public Class FrmTaxDetails
 
 
     End Sub
-    Private Sub fClear_Info()
+    Private Sub ClearInfo()
         ComboBoxLoad(cmbTAX_TYPE, "select ID,DESCRIPTION  from tax_type_map ", "ID", "DESCRIPTION")
         ClearAndRefresh(Me)
     End Sub
-    Private Sub fTax_Type(ByVal i As Integer)
+    Private Sub TaxType(ByVal i As Integer)
         '9, 142 / 143, 140
         '9, 166 / 143, 163
         '9, 188 / 143, 186
@@ -152,47 +152,19 @@ Public Class FrmTaxDetails
                 'ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
                 'ComboBoxLoad(cmbASSET_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
 
-
-
-
         End Select
 
     End Sub
 
-    Private Sub cmbTAX_TYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTAX_TYPE.SelectedIndexChanged
+    Private Sub CmbTAX_TYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTAX_TYPE.SelectedIndexChanged
         Try
-            fTax_Type(cmbTAX_TYPE.SelectedValue)
+            TaxType(cmbTAX_TYPE.SelectedValue)
         Catch ex As Exception
-            fTax_Type(0)
+            TaxType(0)
         End Try
     End Sub
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        Me.Close()
-    End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs)
-
-        If IsNew = True Then
-            ClearAndRefresh(Me)
-        Else
-
-            If MessageBoxQuestion("Create new?") = True Then
-                IsNew = True
-                ID = 0
-                ClearAndRefresh(Me)
-            Else
-
-                SqlExecutedUsingReading(Me, "select  * from tax where id = '" & ID & "' limit 1")
-            End If
-        End If
-    End Sub
-
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtNAME.Text) = "" Then
             MessageBoxInfo("Please enter name")
             Exit Sub
@@ -205,22 +177,22 @@ Public Class FrmTaxDetails
             ID = ObjectTypeMapId("TAX")
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO tax ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
-
         End If
+
         SaveNotify(Me, IsNew)
         BindingViewUpdate(Dgv, $"SELECT tx.`ID`,tx.`Name`,t.`DESCRIPTION` AS `Tax Type`, IF(IFNULL(tx.`Rate`,'') = '','', CONCAT(FORMAT(tx.`Rate`,0),'%')) AS `Rate`,l.`NAME` AS `Liability Account`,a.`NAME` AS `Asset Account`, tx.`Inactive` FROM tax AS tx  INNER JOIN tax_type_map AS t ON t.`ID` = tx.`TAX_TYPE` LEFT OUTER JOIN account AS l ON l.`ID` = tx.`TAX_ACCOUNT_ID`	 LEFT OUTER JOIN account AS a ON a.`ID` = tx.`ASSET_ACCOUNT_ID` WHERE tx.`ID` = '{ID}' Limit 1", IsNew, This_BS)
-        fClear_Info()
+        ClearInfo()
         ID = 0
         IsNew = True
         Me.Enabled = True
         numRATE.DecimalPlaces = 0
 
-        If SecurityAccessMode(frmTax, IsNew) = False Then
+        If SecurityAccessMode(FrmTax, IsNew) = False Then
             Me.Close()
         End If
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 End Class

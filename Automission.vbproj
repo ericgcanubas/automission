@@ -1558,12 +1558,6 @@
     <Compile Include="Form\FrmSalesReceipt.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FrmSecurity.Designer.vb">
-      <DependentUpon>FrmSecurity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FrmSecurity.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form\FrmServiceFee.Designer.vb">
       <DependentUpon>FrmServiceFee.vb</DependentUpon>
     </Compile>
@@ -2898,9 +2892,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmSalesReceipt.resx">
       <DependentUpon>FrmSalesReceipt.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmSecurity.resx">
-      <DependentUpon>FrmSecurity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmServiceFee.resx">
       <DependentUpon>FrmServiceFee.vb</DependentUpon>

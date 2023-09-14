@@ -1,30 +1,30 @@
 ﻿
 Public Class FrmSubDiscount
-    Private Sub frmSubDiscount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fRefresh()
+    Private Sub FrmSubDiscount_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        RefreshData()
 
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         LoadDataGridView(dgvSub, "select ID,CODE,DESCRIPTION from sub_discount ")
         dgvSub.Columns(0).Visible = False
 
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewRecordsToolStripMenuItem.Click
-        frmSubDiscountDetails.IsNew = True
-        frmSubDiscountDetails.ShowDialog()
-        frmSubDiscountDetails = Nothing
-        fRefresh()
+        FrmSubDiscountDetails.IsNew = True
+        FrmSubDiscountDetails.ShowDialog()
+        FrmSubDiscountDetails = Nothing
+        RefreshData()
 
     End Sub
 
     Private Sub EditsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditsToolStripMenuItem.Click
         If dgvSub.Rows.Count <> 0 Then
-            frmSubDiscountDetails.ID = dgvSub.Rows(dgvSub.CurrentRow.Index).Cells(0).Value
-            frmSubDiscountDetails.IsNew = False
-            frmSubDiscountDetails.ShowDialog()
-            frmSubDiscountDetails = Nothing
-            fRefresh()
+            FrmSubDiscountDetails.ID = dgvSub.Rows(dgvSub.CurrentRow.Index).Cells(0).Value
+            FrmSubDiscountDetails.IsNew = False
+            FrmSubDiscountDetails.ShowDialog()
+            FrmSubDiscountDetails = Nothing
+            RefreshData()
         End If
     End Sub
 
@@ -34,16 +34,12 @@ Public Class FrmSubDiscount
             If MessageBoxQuestion("Are you sure delete " & dgvSub.Rows(dgvSub.CurrentRow.Index).Cells(2).Value) = True Then
                 SqlExecuted("delete from sub_discount_details where  sub_discount_id='" & id & "'")
                 SqlExecuted("delete from sub_discount where id='" & id & "'")
-                fRefresh()
+                RefreshData()
             End If
         End If
     End Sub
 
-    Private Sub dgvSub_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSub.CellContentClick
-
-    End Sub
-
-    Private Sub dgvSub_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSub.CellDoubleClick
+    Private Sub DgvSub_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSub.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 End Class

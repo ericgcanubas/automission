@@ -1,5 +1,5 @@
 ﻿Public Class FrmSystemDefault
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
         gsDEFAULT_PRINTER = cmbPrinter.Text
         SetDBAccessValue("DEFAULT_PRINTER", gsDEFAULT_PRINTER) 'DEFAULT
@@ -31,13 +31,13 @@
 
     End Sub
 
-    Private Sub btnBrowser_Click(sender As Object, e As EventArgs) Handles btnBrowser.Click
+    Private Sub BtnBrowser_Click(sender As Object, e As EventArgs) Handles btnBrowser.Click
         If FolderBrowserDialog1.ShowDialog() = DialogResult.OK Then
             txsExportPDFLocation.Text = FolderBrowserDialog1.SelectedPath
         End If
     End Sub
 
-    Private Sub frmSystemDefault_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmSystemDefault_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ComboBoxLoad(xcmbDrawerAccountId, "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME", "ID", "T")
         SystemLoadPrinter(cmbPrinter)
         cmbPrinter.Text = gsDEFAULT_PRINTER
@@ -71,22 +71,14 @@
         txtDataForwarderPath.Text = gsDataForwarderPath
     End Sub
 
-    Private Sub btnPOS_Click(sender As Object, e As EventArgs) Handles btnPOS.Click
-        frmPOSSetting.ShowDialog()
-        frmPOSSetting.Dispose()
-        frmPOSSetting = Nothing
+    Private Sub BtnPOS_Click(sender As Object, e As EventArgs) Handles btnPOS.Click
+        FrmPOSSetting.ShowDialog()
+        FrmPOSSetting.Dispose()
+        FrmPOSSetting = Nothing
     End Sub
-
-    Private Sub grpExport_Enter(sender As Object, e As EventArgs) Handles grpExport.Enter
-
-    End Sub
-
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub Label3_Click(sender As Object, e As EventArgs)
-
-    End Sub
 
 End Class

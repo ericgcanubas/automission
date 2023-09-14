@@ -3,18 +3,18 @@ Public Class FrmTFU
 
     Public gsText As String
 
-    Private Sub frmTFU_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmTFU_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DBAccessComboBoxLoad(cmbConnectionSelected, "select connection_name as `B`,connection_name as `A` from tblconnection", "B", "A")
         DBAccessComboBoxLoad(cmbConnectionAnalyst, "select connection_name as `B`,connection_name as `A` from tblconnection", "B", "A")
     End Sub
 
-    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+    Private Sub BtnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
         ListBox1.Items.Clear()
         Dim dbname1 As String = ""
         Dim dbname2 As String = ""
 
-        Dim mysqlConSelect As String = fGetConnectionString(cmbConnectionSelected.Text, dbname1)
-        Dim mysqlConAnalyst As String = fGetConnectionString(cmbConnectionAnalyst.Text, dbname2)
+        Dim mysqlConSelect As String = GetConnectionString(cmbConnectionSelected.Text, dbname1)
+        Dim mysqlConAnalyst As String = GetConnectionString(cmbConnectionAnalyst.Text, dbname2)
 
 
         Dim cn_selected As New OdbcConnection(mysqlConSelect)
@@ -43,8 +43,8 @@ Public Class FrmTFU
 
                     ProgressBar1.Maximum = t
                     While rd1.Read
-                        r = r + 1
-                        If fCheckingTable(rd1("table_name"), mysqlConSelect, mysqlConAnalyst) = False Then
+                        r += 1
+                        If CheckingTable(rd1("table_name"), mysqlConSelect, mysqlConAnalyst) = False Then
                             ListBox1.Items.Add("Error " & rd1("table_name"))
                             ListBox1.SelectedIndex = ListBox1.Items.Count - 1
                             Exit While
@@ -81,14 +81,14 @@ Public Class FrmTFU
 
 
     End Sub
-    Private Function fCheckingTable(ByVal prTable_name As String, ByVal constr_select As String, ByVal constr_analsyt As String) As Boolean
+    Private Function CheckingTable(ByVal prTable_name As String, ByVal constr_select As String, ByVal constr_analsyt As String) As Boolean
         Dim bGood As Boolean = True
         Dim cn_s As New OdbcConnection(constr_select)
         Try
             cn_s.Open()
             Dim rd As OdbcDataReader = SqlReader("SHOW COLUMNS FROM  `" & prTable_name & "`")
             While rd.Read
-                If fAnalyst_Column(rd, constr_analsyt, prTable_name, rd("FIELD")) = False Then
+                If Analyst_Column(rd, constr_analsyt, prTable_name, rd("FIELD")) = False Then
                     bGood = False
                     Exit While
                 End If
@@ -104,9 +104,9 @@ Public Class FrmTFU
 
         Return bGood
     End Function
-    Private Function fAnalyst_Column(ByVal rd_select As OdbcDataReader, ByVal prCon_A As String, ByVal prTable_name As String, ByVal prField_name As String) As Boolean
+    Private Function Analyst_Column(ByVal rd_select As OdbcDataReader, ByVal prCon_A As String, ByVal prTable_name As String, ByVal prField_name As String) As Boolean
 
-        Dim b As Boolean = False
+        Dim b As Boolean
         Dim cn_a As New OdbcConnection(prCon_A)
         Try
             cn_a.Open()
@@ -134,7 +134,7 @@ Public Class FrmTFU
         End Try
         Return b
     End Function
-    Private Function fGetConnectionString(ByVal getString As String, ByRef pr_Db As String) As String
+    Private Function GetConnectionString(ByVal getString As String, ByRef pr_Db As String) As String
 
         Dim path As String = AppDomain.CurrentDomain.BaseDirectory
         Dim file_path As String = path & "temp_db.mdb"

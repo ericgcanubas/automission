@@ -3,7 +3,7 @@ Public Class FrmSubDiscountDetails
     Public ID As Integer
     Public IsNew As Boolean = True
 
-    Private Sub frmSubDiscountDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmSubDiscountDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         With dgvSub.Columns
             .Add("ID", "ID")
             .Item(0).Visible = False
@@ -15,10 +15,10 @@ Public Class FrmSubDiscountDetails
         DatagridViewMode(dgvSub)
 
         If IsNew = False Then
-            fRefreshDetials()
+            RefreshDetials()
         End If
     End Sub
-    Private Sub fRefreshDetials()
+    Private Sub RefreshDetials()
         dgvSub.Rows.Clear()
 
         Try
@@ -33,19 +33,14 @@ Public Class FrmSubDiscountDetails
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshDetials()
+                RefreshDetials()
             Else
                 End
             End If
 
         End Try
     End Sub
-
-    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
-
-    End Sub
-
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If txtCODE.Text = "" Then
             MessageBoxInfo("Please enter code")
             Exit Sub
@@ -82,45 +77,27 @@ Public Class FrmSubDiscountDetails
 
                     End If
                 End With
-
             Next
-
-
             Me.Close()
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         Me.Close()
     End Sub
-
-    Private Sub numAMOUNT_FROM_ValueChanged(sender As Object, e As EventArgs) Handles numAMOUNT_FROM.ValueChanged
-
-    End Sub
-
-    Private Sub numAMOUNT_FROM_KeyDown(sender As Object, e As KeyEventArgs) Handles numAMOUNT_FROM.KeyDown
+    Private Sub NumAMOUNT_FROM_KeyDown(sender As Object, e As KeyEventArgs) Handles numAMOUNT_FROM.KeyDown
         If e.KeyCode = Keys.Enter Then
             SendKeys.Send("{TAB}")
         End If
     End Sub
-
-    Private Sub numTO_AMOUNT_ValueChanged(sender As Object, e As EventArgs) Handles numTO_AMOUNT.ValueChanged
-
-    End Sub
-
-    Private Sub numTO_AMOUNT_KeyDown(sender As Object, e As KeyEventArgs) Handles numTO_AMOUNT.KeyDown
+    Private Sub NumTO_AMOUNT_KeyDown(sender As Object, e As KeyEventArgs) Handles numTO_AMOUNT.KeyDown
         If e.KeyCode = Keys.Enter Then
             SendKeys.Send("{TAB}")
         End If
     End Sub
-
-    Private Sub numPercent_ValueChanged(sender As Object, e As EventArgs) Handles numPercent.ValueChanged
-
-    End Sub
-
-    Private Sub numPercent_KeyDown(sender As Object, e As KeyEventArgs) Handles numPercent.KeyDown
+    Private Sub NumPercent_KeyDown(sender As Object, e As KeyEventArgs) Handles numPercent.KeyDown
         If e.KeyCode = Keys.Enter Then
             If numAMOUNT_FROM.Value = 0 And numTO_AMOUNT.Value = 0 Then
                 MessageBoxInfo("Volume not set")
@@ -147,13 +124,8 @@ Public Class FrmSubDiscountDetails
         End If
     End Sub
 
-    Private Sub dgvSub_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSub.CellContentClick
-
-    End Sub
-
-    Private Sub dgvSub_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSub.CellDoubleClick
+    Private Sub DgvSub_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSub.CellDoubleClick
         If dgvSub.Rows.Count <> 0 Then
-
             numAMOUNT_FROM.Value = dgvSub.Rows(e.RowIndex).Cells(1).Value
             numTO_AMOUNT.Value = dgvSub.Rows(e.RowIndex).Cells(2).Value
             numPercent.Value = dgvSub.Rows(e.RowIndex).Cells(3).Value
@@ -162,7 +134,7 @@ Public Class FrmSubDiscountDetails
         End If
     End Sub
 
-    Private Sub dgvSub_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSub.KeyDown
+    Private Sub DgvSub_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSub.KeyDown
         If e.KeyCode = Keys.Delete Then
             If dgvSub.Rows.Count <> 0 Then
                 Dim i As Integer = dgvSub.CurrentRow.Index
@@ -171,11 +143,6 @@ Public Class FrmSubDiscountDetails
                 Else
                     dgvSub.Rows(i).Visible = False
                 End If
-
-
-
-
-
             End If
         End If
 

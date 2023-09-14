@@ -68,7 +68,7 @@ Partial Class FrmShipViaDetails
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(290, 97)
+        Me.btnSave.Location = New System.Drawing.Point(290, 75)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(86, 30)
@@ -78,7 +78,7 @@ Partial Class FrmShipViaDetails
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(391, 97)
+        Me.btnCancel.Location = New System.Drawing.Point(391, 75)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(86, 30)
@@ -86,11 +86,11 @@ Partial Class FrmShipViaDetails
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'frmShipViaDetails
+        'FrmShipViaDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(489, 137)
+        Me.ClientSize = New System.Drawing.Size(489, 117)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.Label3)
@@ -101,7 +101,7 @@ Partial Class FrmShipViaDetails
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmShipViaDetails"
+        Me.Name = "FrmShipViaDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

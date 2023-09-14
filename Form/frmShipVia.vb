@@ -1,9 +1,9 @@
 ﻿Public Class FrmShipVia
     Dim item_BS As BindingSource
-    Private Sub frmShipVia_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmShipVia_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         LoadDataGridViewBinding(dgvShipVia, "Select ID,Code,Description from Ship_via", item_BS)
         ViewColumn(dgvShipVia, 40)
     End Sub
@@ -14,25 +14,19 @@
         ViewColumn(dgvShipVia, 40)
     End Sub
 
-    Private Sub frmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fRefresh()
-
+    Private Sub FrmShipVia_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        RefreshData()
     End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
         If SecurityAccessMode(Me, True) = False Then
             Exit Sub
         End If
 
-        frmShipViaDetails.This_BS = item_BS
-        frmShipViaDetails.Dgv = dgvShipVia
-        frmShipViaDetails.ShowDialog()
-        frmShipViaDetails.Dispose()
-        frmShipViaDetails = Nothing
+        FrmShipViaDetails.This_BS = item_BS
+        FrmShipViaDetails.Dgv = dgvShipVia
+        FrmShipViaDetails.ShowDialog()
+        FrmShipViaDetails.Dispose()
+        FrmShipViaDetails = Nothing
 
     End Sub
 
@@ -47,12 +41,12 @@
                 Exit Sub
             End If
 
-            frmShipViaDetails.This_BS = item_BS
-            frmShipViaDetails.Dgv = dgvShipVia
-            frmShipViaDetails.ID = dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("ID").Value
-            frmShipViaDetails.ShowDialog()
-            frmShipViaDetails.Dispose()
-            frmShipViaDetails = Nothing
+            FrmShipViaDetails.This_BS = item_BS
+            FrmShipViaDetails.Dgv = dgvShipVia
+            FrmShipViaDetails.ID = dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("ID").Value
+            FrmShipViaDetails.ShowDialog()
+            FrmShipViaDetails.Dispose()
+            FrmShipViaDetails = Nothing
 
         Catch ex As Exception
             MessageBoxExclamation(ex.Message)
@@ -73,7 +67,7 @@
             If MessageBoxQuestion("Do you really want to delete " & dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("Description").Value & "?") = True Then
                 SqlExecuted("delete from ship_via where ID = '" & dgvShipVia.Rows(dgvShipVia.CurrentRow.Index).Cells("ID").Value & "'")
                 DeleteNotify(Me)
-                fRefresh()
+                RefreshData()
             End If
 
         Catch ex As Exception
@@ -81,26 +75,19 @@
         End Try
     End Sub
 
-    Private Sub dgvShipVia_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvShipVia.CellContentClick
 
-    End Sub
 
-    Private Sub dgvShipVia_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvShipVia.CellDoubleClick
+    Private Sub DgvShipVia_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvShipVia.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefresh()
+        RefreshData()
     End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
             Dim strFInd As String = ""
-
-
             For I As Integer = 0 To dgvShipVia.Columns.Count - 1
-
                 If dgvShipVia.Columns(I).Visible = True Then
-
-
                     If dgvShipVia.Columns(I).HeaderText.ToUpper = "INACTIVE" Then
                         Exit For
                     End If
@@ -128,15 +115,15 @@
         End Try
     End Sub
 
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
 
-    Private Sub dgvShipVia_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvShipVia.RowStateChanged
+    Private Sub DgvShipVia_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvShipVia.RowStateChanged
         lblRow.Text = DirectCast(sender, DataGridView).Rows.Count
     End Sub
 
-    Private Sub tsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 End Class

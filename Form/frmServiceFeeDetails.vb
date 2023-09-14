@@ -2,21 +2,21 @@
 Public Class FrmServiceFeeDetails
     Public ID As Integer
     Public IsNew As Boolean = True
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         Me.Close()
     End Sub
 
-    Private Sub frmServiceFeeDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmServiceFeeDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         YearlyComboBoxLoad(cmbYEAR_SF)
         MonthlyComboBoxLoad(cmbMONTH_SF)
         If ID > 0 Then
-            fRefresh()
+            RefreshData()
             IsNew = False
         End If
 
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
 
         Try
 
@@ -25,7 +25,7 @@ Public Class FrmServiceFeeDetails
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefresh()
+                RefreshData()
             Else
                 End
             End If
@@ -33,7 +33,7 @@ Public Class FrmServiceFeeDetails
         End Try
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         If txtDESCRIPTION.Text = "" Then
             MessageBoxWarning("Description is required!")
             Exit Sub
@@ -60,7 +60,7 @@ Public Class FrmServiceFeeDetails
         cmbYEAR_SF.SelectedValue = Now.Date.Year
     End Sub
 
-    Private Sub numSERVICE_FEE_PCT_ValueChanged(sender As Object, e As EventArgs) Handles numSERVICE_FEE_PCT.ValueChanged
+    Private Sub NumSERVICE_FEE_PCT_ValueChanged(sender As Object, e As EventArgs) Handles numSERVICE_FEE_PCT.ValueChanged
         numSERVICE_FEE_PCT.DecimalPlaces = 0
     End Sub
 End Class

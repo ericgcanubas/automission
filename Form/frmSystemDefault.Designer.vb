@@ -109,7 +109,6 @@ Partial Class FrmSystemDefault
         'chkDataForwarderIsActive
         '
         Me.chkDataForwarderIsActive.AutoSize = True
-        Me.chkDataForwarderIsActive.BackColor = System.Drawing.Color.White
         Me.chkDataForwarderIsActive.Location = New System.Drawing.Point(8, 95)
         Me.chkDataForwarderIsActive.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chkDataForwarderIsActive.Name = "chkDataForwarderIsActive"
@@ -362,7 +361,7 @@ Partial Class FrmSystemDefault
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = False
         '
-        'frmSystemDefault
+        'FrmSystemDefault
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -394,7 +393,7 @@ Partial Class FrmSystemDefault
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmSystemDefault"
+        Me.Name = "FrmSystemDefault"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

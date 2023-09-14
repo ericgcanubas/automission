@@ -8,7 +8,7 @@ Public Class FrmSalesTaxRecompute
 
     End Sub
 
-    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+    Private Sub BtnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
         Dim SQL As String
         If cmbITEM_ID.SelectedIndex = -1 Then
             MessageBoxInfo("Please select item")
@@ -32,14 +32,11 @@ Public Class FrmSalesTaxRecompute
             pbListofTransaction.Maximum = Count
             lblSTATUS.Text = $"0/{Count}"
             While r.Read
-
-                Dim Out_put_Value As Double = 0
-                Dim Item_amt_Value As Double = 0
                 'Change SalesReceipt Item ================ GET ITEM
-                Item_amt_Value = fUpdateSalesReceiptItem(NumIsNull(r("ID")), NumIsNull(r("AMOUNT")), NumIsNull(rd("TAXABLE")), NumIsNull(r("OUTPUT_TAX_ID")))
+                Dim Item_amt_Value As Double = Item_amt_Value = UpdateSalesReceiptItem(NumIsNull(r("ID")), NumIsNull(r("AMOUNT")), NumIsNull(rd("TAXABLE")), NumIsNull(r("OUTPUT_TAX_ID")))
                 'Change SalesReceipt ====================== GET TAX
 
-                Out_put_Value = UpdateSalesReceiptOnly(r("SALES_RECEIPT_ID"))
+                Dim Out_put_Value As Double = UpdateSalesReceiptOnly(r("SALES_RECEIPT_ID"))
                 'Change Journal ===========================
                 'Two Piece
 
@@ -50,9 +47,9 @@ Public Class FrmSalesTaxRecompute
 
                 'Change POS_LOG
 
-                fPOS_LOG_TAX_UPDATE(r("POS_LOG_ID"))
+                PosLogTaxUpdate(r("POS_LOG_ID"))
 
-                Run = Run + 1
+                Run += 1
                 pbListofTransaction.Value = Run
                 lblSTATUS.Text = $"{Run}/{Count}"
                 fDoEvents()
@@ -63,33 +60,29 @@ Public Class FrmSalesTaxRecompute
             MessageBoxInfo("Item not found.")
         End If
     End Sub
-    Private Sub fPOS_LOG_TAX_UPDATE(ByVal POS_LOG_ID As Integer)
+    Private Sub PosLogTaxUpdate(ByVal POS_LOG_ID As Integer)
 
         Dim SQL As String = $"SELECT SUM(s.`TAXABLE_AMOUNT`) AS `TAXABLE_AMOUNT`,SUM(s.`TAX_AMOUNT`) AS `TAX_AMOUNT`,SUM(IF(s.`TAXABLE` = 0,s.AMOUNT,0)) AS NON_TAXABLE_AMOUNT FROM sales_receipt_items AS s INNER JOIN item AS i ON i.`ID` = s.`ITEM_ID` INNER JOIN sales_receipt AS r ON r.`ID` = s.`SALES_RECEIPT_ID` WHERE  i.`TYPE` <> '6' AND r.`POS_LOG_ID` = '{POS_LOG_ID}'"
-
         Dim rd As OdbcDataReader = SqlReader(SQL)
         If rd.Read Then
             SqlExecuted($"UPDATE pos_log SET TAXABLE_AMOUNT ='{ NumIsNull(rd("TAXABLE_AMOUNT"))}',OUTPUT_TAX_AMOUNT='{ NumIsNull(rd("TAX_AMOUNT"))}',NONTAXABLE_AMOUNT='{ NumIsNull(rd("NON_TAXABLE_AMOUNT"))}'   WHERE ID = '{POS_LOG_ID}' limit 1; ")
         End If
         rd.Close()
     End Sub
-    Private Function fUpdateSalesReceiptItem(ByVal ID As Integer, ByVal AMT As Double, ByVal prTaxable As Boolean, ByVal Tax_Type As Integer) As Double
+    Private Function UpdateSalesReceiptItem(ByVal ID As Integer, ByVal AMT As Double, ByVal prTaxable As Boolean, ByVal Tax_Type As Integer) As Double
         Dim Taxable_Amount As Double = 0
         Dim Tax_Amount As Double = 0
 
-        Dim Return_value As Double = 0
+        Dim Return_value As Double
         If prTaxable = True Then
-            Dim dVat As Double = 0
-            'add tax
-            '  dVat = GetNumberFieldValue("TAX", "ID", TextIsNull(prTax_Type.SelectedValue), "RATE")
-            dVat = fTax_Rate_Find(NumIsNull(Tax_Type))
+            Dim dVat As Double = fTax_Rate_Find(NumIsNull(Tax_Type))
             Tax_Amount = (dVat / 100) * AMT
             Taxable_Amount = Tax_Amount + AMT
             If Tax_Type = 12 Then
-                'inclusive only
+                'Inclusive only
                 Dim t As Double = (100 / 112)
                 Tax_Amount = t * Tax_Amount
-                AMT = AMT - Tax_Amount
+                AMT -= Tax_Amount
                 Taxable_Amount = AMT
                 Return_value = AMT
             ElseIf Tax_Type = 13 Then
@@ -105,7 +98,7 @@ Public Class FrmSalesTaxRecompute
 
         SqlExecuted($"UPDATE sales_receipt_items set TAXABLE='{Val(prTaxable)}',TAXABLE_AMOUNT ='{ NumberFormatFixed(Taxable_Amount)}', TAX_AMOUNT = '{NumberFormatFixed(Tax_Amount)}'  WHERE id = '{ID}' limit 1;")
 
-        Return AMT
+        Return Return_value
     End Function
 
     Private Function UpdateSalesReceiptOnly(ByVal ID As Integer) As Double

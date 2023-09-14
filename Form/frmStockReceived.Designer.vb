@@ -209,7 +209,7 @@ Partial Class FrmStockReceived
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(34, 106)
+        Me.Label3.Location = New System.Drawing.Point(40, 107)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(84, 16)
@@ -251,7 +251,7 @@ Partial Class FrmStockReceived
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(24, 79)
+        Me.Label9.Location = New System.Drawing.Point(24, 80)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(100, 16)
@@ -312,50 +312,50 @@ Partial Class FrmStockReceived
         '
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = tsSaveNew.Name
-        Me.tsSaveNew.Size = New System.Drawing.Size(63, 49)
+        Me.tsSaveNew.Name = Me.tsSaveNew.Name
+        Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(6, 55)
         '
         'tsDiscard
         '
         Me.tsDiscard.Image = Global.Automission.My.Resources.Resources.m_refresh
         Me.tsDiscard.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDiscard.Name = "tsDiscard"
-        Me.tsDiscard.Size = New System.Drawing.Size(55, 49)
+        Me.tsDiscard.Size = New System.Drawing.Size(60, 52)
         Me.tsDiscard.Text = "Refresh"
         Me.tsDiscard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(6, 55)
         '
         'tsFind
         '
         Me.tsFind.Image = Global.Automission.My.Resources.Resources.m_search
         Me.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsFind.Name = "tsFind"
-        Me.tsFind.Size = New System.Drawing.Size(57, 49)
+        Me.tsFind.Size = New System.Drawing.Size(65, 52)
         Me.tsFind.Text = "Find File"
         Me.tsFind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel3
         '
         Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripButton1
         '
         Me.ToolStripButton1.Image = Global.Automission.My.Resources.Resources.m_printing
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(37, 49)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(41, 52)
         Me.ToolStripButton1.Text = "Print"
         Me.ToolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -371,40 +371,40 @@ Partial Class FrmStockReceived
         'PreviewToolStripMenuItem
         '
         Me.PreviewToolStripMenuItem.Name = "PreviewToolStripMenuItem"
-        Me.PreviewToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.PreviewToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.PreviewToolStripMenuItem.Text = "Preview"
         '
         'SelectPrintPageToolStripMenuItem
         '
         Me.SelectPrintPageToolStripMenuItem.Name = "SelectPrintPageToolStripMenuItem"
-        Me.SelectPrintPageToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.SelectPrintPageToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.SelectPrintPageToolStripMenuItem.Text = "Select Print Page"
         '
         'ToolStripLabel4
         '
         Me.ToolStripLabel4.Name = "ToolStripLabel4"
-        Me.ToolStripLabel4.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel4.Size = New System.Drawing.Size(6, 55)
         '
         'tsPRequest
         '
         Me.tsPRequest.Image = CType(resources.GetObject("tsPRequest.Image"), System.Drawing.Image)
         Me.tsPRequest.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsPRequest.Name = "tsPRequest"
-        Me.tsPRequest.Size = New System.Drawing.Size(36, 49)
+        Me.tsPRequest.Size = New System.Drawing.Size(36, 52)
         Me.tsPRequest.Text = "Bills"
         Me.tsPRequest.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripLabel5
         '
         Me.ToolStripLabel5.Name = "ToolStripLabel5"
-        Me.ToolStripLabel5.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel5.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripButton3
         '
         Me.ToolStripButton3.Image = Global.Automission.My.Resources.Resources.m_journal_doc
         Me.ToolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton3.Name = "ToolStripButton3"
-        Me.ToolStripButton3.Size = New System.Drawing.Size(52, 49)
+        Me.ToolStripButton3.Size = New System.Drawing.Size(57, 52)
         Me.ToolStripButton3.Text = "Journal"
         Me.ToolStripButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -412,14 +412,14 @@ Partial Class FrmStockReceived
         '
         Me.ToolStripLabel8.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ToolStripLabel8.Name = "ToolStripLabel8"
-        Me.ToolStripLabel8.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel8.Size = New System.Drawing.Size(6, 55)
         '
         'tsDelete
         '
         Me.tsDelete.Image = Global.Automission.My.Resources.Resources.m_delete
         Me.tsDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDelete.Name = "tsDelete"
-        Me.tsDelete.Size = New System.Drawing.Size(48, 49)
+        Me.tsDelete.Size = New System.Drawing.Size(53, 52)
         Me.tsDelete.Text = "Delete"
         Me.tsDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -427,14 +427,14 @@ Partial Class FrmStockReceived
         '
         Me.ToolStripLabel7.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ToolStripLabel7.Name = "ToolStripLabel7"
-        Me.ToolStripLabel7.Size = New System.Drawing.Size(6, 52)
+        Me.ToolStripLabel7.Size = New System.Drawing.Size(6, 55)
         '
         'ToolStripButton4
         '
         Me.ToolStripButton4.Image = Global.Automission.My.Resources.Resources.m_logs
         Me.ToolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton4.Name = "ToolStripButton4"
-        Me.ToolStripButton4.Size = New System.Drawing.Size(37, 49)
+        Me.ToolStripButton4.Size = New System.Drawing.Size(41, 52)
         Me.ToolStripButton4.Text = "Logs"
         Me.ToolStripButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
@@ -444,7 +444,7 @@ Partial Class FrmStockReceived
         Me.tsTITLE.Font = New System.Drawing.Font("Verdana", 14.25!)
         Me.tsTITLE.Image = Global.Automission.My.Resources.Resources.back_icon_set
         Me.tsTITLE.Name = "tsTITLE"
-        Me.tsTITLE.Size = New System.Drawing.Size(104, 49)
+        Me.tsTITLE.Size = New System.Drawing.Size(104, 52)
         Me.tsTITLE.Text = "TITLE "
         '
         'lblAMOUNT
@@ -517,16 +517,16 @@ Partial Class FrmStockReceived
         'ToolStripLabel12
         '
         Me.ToolStripLabel12.Name = "ToolStripLabel12"
-        Me.ToolStripLabel12.Size = New System.Drawing.Size(68, 22)
+        Me.ToolStripLabel12.Size = New System.Drawing.Size(80, 22)
         Me.ToolStripLabel12.Text = "Total Entry"
         '
         'lblCount
         '
         Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(14, 22)
+        Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
-        'frmStockReceived
+        'FrmStockReceived
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -550,7 +550,7 @@ Partial Class FrmStockReceived
         Me.Controls.Add(Me.Label14)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.Name = "frmStockReceived"
+        Me.Name = "FrmStockReceived"
         Me.Text = "frmStockReceived"
         Me.ToolStrip2.ResumeLayout(False)
         Me.ToolStrip2.PerformLayout()

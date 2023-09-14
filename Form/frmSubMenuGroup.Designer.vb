@@ -46,10 +46,11 @@ Partial Class FrmSubMenuGroup
         Me.dgvMenu.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders
         Me.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMenu.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvMenu.Location = New System.Drawing.Point(9, 24)
+        Me.dgvMenu.Location = New System.Drawing.Point(12, 30)
+        Me.dgvMenu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvMenu.Name = "dgvMenu"
         Me.dgvMenu.ReadOnly = True
-        Me.dgvMenu.Size = New System.Drawing.Size(296, 150)
+        Me.dgvMenu.Size = New System.Drawing.Size(395, 185)
         Me.dgvMenu.TabIndex = 9
         '
         'dgvSubMenu
@@ -60,10 +61,11 @@ Partial Class FrmSubMenuGroup
         Me.dgvSubMenu.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders
         Me.dgvSubMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSubMenu.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvSubMenu.Location = New System.Drawing.Point(9, 193)
+        Me.dgvSubMenu.Location = New System.Drawing.Point(12, 238)
+        Me.dgvSubMenu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvSubMenu.Name = "dgvSubMenu"
         Me.dgvSubMenu.ReadOnly = True
-        Me.dgvSubMenu.Size = New System.Drawing.Size(296, 235)
+        Me.dgvSubMenu.Size = New System.Drawing.Size(395, 289)
         Me.dgvSubMenu.TabIndex = 8
         '
         'dgvSUB_MENU_GROUP
@@ -74,10 +76,11 @@ Partial Class FrmSubMenuGroup
         Me.dgvSUB_MENU_GROUP.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders
         Me.dgvSUB_MENU_GROUP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSUB_MENU_GROUP.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvSUB_MENU_GROUP.Location = New System.Drawing.Point(348, 24)
+        Me.dgvSUB_MENU_GROUP.Location = New System.Drawing.Point(464, 30)
+        Me.dgvSUB_MENU_GROUP.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvSUB_MENU_GROUP.Name = "dgvSUB_MENU_GROUP"
         Me.dgvSUB_MENU_GROUP.ReadOnly = True
-        Me.dgvSUB_MENU_GROUP.Size = New System.Drawing.Size(298, 150)
+        Me.dgvSUB_MENU_GROUP.Size = New System.Drawing.Size(397, 185)
         Me.dgvSUB_MENU_GROUP.TabIndex = 11
         '
         'dgvSUB_MENU_GROUP_DETAILS
@@ -88,10 +91,11 @@ Partial Class FrmSubMenuGroup
         Me.dgvSUB_MENU_GROUP_DETAILS.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders
         Me.dgvSUB_MENU_GROUP_DETAILS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvSUB_MENU_GROUP_DETAILS.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvSUB_MENU_GROUP_DETAILS.Location = New System.Drawing.Point(348, 193)
+        Me.dgvSUB_MENU_GROUP_DETAILS.Location = New System.Drawing.Point(464, 238)
+        Me.dgvSUB_MENU_GROUP_DETAILS.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvSUB_MENU_GROUP_DETAILS.Name = "dgvSUB_MENU_GROUP_DETAILS"
         Me.dgvSUB_MENU_GROUP_DETAILS.ReadOnly = True
-        Me.dgvSUB_MENU_GROUP_DETAILS.Size = New System.Drawing.Size(298, 235)
+        Me.dgvSUB_MENU_GROUP_DETAILS.Size = New System.Drawing.Size(397, 289)
         Me.dgvSUB_MENU_GROUP_DETAILS.TabIndex = 10
         '
         'btnAdd
@@ -99,9 +103,10 @@ Partial Class FrmSubMenuGroup
         Me.btnAdd.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAdd.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAdd.Location = New System.Drawing.Point(311, 266)
+        Me.btnAdd.Location = New System.Drawing.Point(415, 327)
+        Me.btnAdd.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAdd.Name = "btnAdd"
-        Me.btnAdd.Size = New System.Drawing.Size(31, 27)
+        Me.btnAdd.Size = New System.Drawing.Size(41, 33)
         Me.btnAdd.TabIndex = 12
         Me.btnAdd.Text = ">"
         Me.btnAdd.UseVisualStyleBackColor = False
@@ -111,9 +116,10 @@ Partial Class FrmSubMenuGroup
         Me.btnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDelete.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDelete.Location = New System.Drawing.Point(311, 299)
+        Me.btnDelete.Location = New System.Drawing.Point(415, 368)
+        Me.btnDelete.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(31, 27)
+        Me.btnDelete.Size = New System.Drawing.Size(41, 33)
         Me.btnDelete.TabIndex = 13
         Me.btnDelete.Text = "<"
         Me.btnDelete.UseVisualStyleBackColor = False
@@ -121,44 +127,48 @@ Partial Class FrmSubMenuGroup
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 8)
+        Me.Label1.Location = New System.Drawing.Point(16, 10)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 13)
+        Me.Label1.Size = New System.Drawing.Size(42, 16)
         Me.Label1.TabIndex = 14
         Me.Label1.Text = "Menu"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 177)
+        Me.Label2.Location = New System.Drawing.Point(16, 218)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(53, 13)
+        Me.Label2.Size = New System.Drawing.Size(72, 16)
         Me.Label2.TabIndex = 15
         Me.Label2.Text = "Sub Menu"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(345, 8)
+        Me.Label3.Location = New System.Drawing.Point(460, 10)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(84, 13)
+        Me.Label3.Size = New System.Drawing.Size(115, 16)
         Me.Label3.TabIndex = 16
         Me.Label3.Text = "Sub Menu Group"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(345, 177)
+        Me.Label4.Location = New System.Drawing.Point(460, 218)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(120, 13)
+        Me.Label4.Size = New System.Drawing.Size(164, 16)
         Me.Label4.TabIndex = 17
         Me.Label4.Text = "Sub Menu Group Details"
         '
-        'frmSubMenuGroup
+        'FrmSubMenuGroup
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(651, 429)
+        Me.ClientSize = New System.Drawing.Size(868, 528)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
@@ -169,9 +179,10 @@ Partial Class FrmSubMenuGroup
         Me.Controls.Add(Me.dgvSUB_MENU_GROUP_DETAILS)
         Me.Controls.Add(Me.dgvMenu)
         Me.Controls.Add(Me.dgvSubMenu)
-        Me.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Name = "frmSubMenuGroup"
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Name = "FrmSubMenuGroup"
         Me.Text = "Sub Menu Group"
         CType(Me.dgvMenu, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvSubMenu, System.ComponentModel.ISupportInitialize).EndInit()

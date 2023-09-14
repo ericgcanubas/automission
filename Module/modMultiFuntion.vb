@@ -394,7 +394,7 @@ Module modMultiFuntion
                             PayItemID(PayItemRun) = .Cells("INVOICE_ID").Value
                             PayItemRun = PayItemRun + 1
 
-                            ' fUpdateInvoiceBalance(.Cells("INVOICE_ID").Value, prContact_ID)
+                            ' UpdateInvoiceBalance(.Cells("INVOICE_ID").Value, prContact_ID)
 
                         End If
                     End If

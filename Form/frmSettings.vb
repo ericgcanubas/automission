@@ -1,14 +1,6 @@
 ﻿Imports System.Data.Odbc
 Public Class FrmSettings
-
-
-
-
-
-
-
-
-    Private Sub fControlRotation(ByVal prName As String, ByVal prValue As String)
+    Private Sub ControlRotation(ByVal prName As String, ByVal prValue As String)
         Try
 
 
@@ -157,18 +149,18 @@ Public Class FrmSettings
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
-    Private Sub fRefreshSystemSettings()
+    Private Sub RefreshSystemSettings()
         Try
 
             Dim rd As OdbcDataReader = SqlReader("select `NAME`,`VALUE` from system_settings  ")
             While rd.Read
-                fControlRotation(rd("NAME"), rd("VALUE"))
+                ControlRotation(rd("NAME"), rd("VALUE"))
             End While
             rd.Close()
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshSystemSettings()
+                RefreshSystemSettings()
             Else
                 End
             End If
@@ -177,14 +169,13 @@ Public Class FrmSettings
 
     End Sub
 
-    Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If gsSYSTEM_UPGRADE <> 1 Then
             TabPage3.Visible = False
         End If
 
-        'fBackGroundImageStyle(Me)
-        fRefreshComboBox()
-        fRefreshSystemSettings()
+        RefreshComboBox()
+        RefreshSystemSettings()
         numServiceFee.DecimalPlaces = 0
         numManagerRebites.DecimalPlaces = 0
         numManagerGetDealerSalesTarget.DecimalPlaces = 0
@@ -192,7 +183,7 @@ Public Class FrmSettings
 
 
     End Sub
-    Private Sub fRefreshComboBox()
+    Private Sub RefreshComboBox()
 
         ComboBoxLoad(cmbDefaultVendorID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('0') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
         '   Dim sQueryAccount As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
@@ -221,7 +212,7 @@ Public Class FrmSettings
         ComboBoxLoad(cmbOutputTaxId, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
         ComboBoxLoad(cmbInputTaxId, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
     End Sub
-    Private Sub cmbDefaultPenaltyType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDefaultPenaltyType.SelectedIndexChanged
+    Private Sub CmbDefaultPenaltyType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDefaultPenaltyType.SelectedIndexChanged
         If cmbDefaultPenaltyType.SelectedValue IsNot Nothing Then
 
             If NumIsNull(cmbDefaultPenaltyType.SelectedValue) = 3 Then
@@ -233,23 +224,15 @@ Public Class FrmSettings
         End If
     End Sub
 
-    Private Sub btnBrowser_Click(sender As Object, e As EventArgs)
 
-    End Sub
-
-    Private Sub frmSettings_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub FrmSettings_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         LoadDefaultAccount()
     End Sub
+    Private Sub BtnEmailSetup_Click(sender As Object, e As EventArgs) Handles btnEmailSetup.Click
 
-    Private Sub btnPOS_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btnEmailSetup_Click(sender As Object, e As EventArgs) Handles btnEmailSetup.Click
-
-        frmEmailSetup.ShowDialog()
-        frmEmailSetup.Dispose()
-        frmEmailSetup = Nothing
+        FrmEmailSetup.ShowDialog()
+        FrmEmailSetup.Dispose()
+        FrmEmailSetup = Nothing
 
     End Sub
 
@@ -259,30 +242,25 @@ Public Class FrmSettings
         FrmItemImageSetup = Nothing
 
     End Sub
-
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         SaveSystemControl(tabMenu)
 
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        fRefreshSystemSettings()
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+        RefreshSystemSettings()
     End Sub
 
-    Private Sub btnSystemDefault_Click(sender As Object, e As EventArgs) Handles btnSystemDefault.Click
-        frmSystemDefault.ShowDialog()
-        frmSystemDefault.Dispose()
-        frmSystemDefault = Nothing
+    Private Sub BtnSystemDefault_Click(sender As Object, e As EventArgs) Handles btnSystemDefault.Click
+        FrmSystemDefault.ShowDialog()
+        FrmSystemDefault.Dispose()
+        FrmSystemDefault = Nothing
 
     End Sub
 
-    Private Sub btnDefaultValue_Click(sender As Object, e As EventArgs) Handles btnDefaultValue.Click
-        frmDefaultValue.ShowDialog()
-        frmDefaultValue.Dispose()
-        frmDefaultValue = Nothing
+    Private Sub BtnDefaultValue_Click(sender As Object, e As EventArgs) Handles btnDefaultValue.Click
+        FrmDefaultValue.ShowDialog()
+        FrmDefaultValue.Dispose()
+        FrmDefaultValue = Nothing
     End Sub
 End Class

@@ -2278,7 +2278,6 @@ D:\Automission\obj\Debug\Automission.frmReportSetup.resources
 D:\Automission\obj\Debug\Automission.frmReportViewer.resources
 D:\Automission\obj\Debug\Automission.frmSalesOrder.resources
 D:\Automission\obj\Debug\Automission.frmSalesReceipt.resources
-D:\Automission\obj\Debug\Automission.frmSecurity.resources
 D:\Automission\obj\Debug\Automission.frmServiceFee.resources
 D:\Automission\obj\Debug\Automission.frmServiceFeeDetails.resources
 D:\Automission\obj\Debug\Automission.frmSettings.resources

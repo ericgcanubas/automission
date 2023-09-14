@@ -6,7 +6,7 @@ Public Class FrmTaxCredit
     Dim tdgv As DataGridView
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -16,7 +16,7 @@ Public Class FrmTaxCredit
         End If
         Return HasChange
     End Function
-    Private Sub frmWithHoldingTax_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmTaxCredit_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         spJournal.Visible = gsShowAccounts
         tsJournal.Visible = gsShowAccounts
         AccountLabel.Visible = gsShowAccounts
@@ -24,9 +24,10 @@ Public Class FrmTaxCredit
 
         tsTITLE.Text = gsSubMenuForm
         ComboBoxLoad(cmbEWT_ID, "select * from tax where tax_type='2' order by ID", "ID", "NAME")
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = "  "
-        chk.Name = "SELECTED"
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = "  ",
+            .Name = "SELECTED"
+        }
         With dgvInvoice.Columns
             .Add("INVOICE_ID", "INVOICE_ID")
             .Item("INVOICE_ID").Visible = False
@@ -68,33 +69,24 @@ Public Class FrmTaxCredit
             .Item("ACCOUNTS_RECEIVABLE_ID").Visible = False
 
         End With
-        fClear_Info()
+        ClearInfo()
         cmbEWT_ID_SelectedIndexChanged(sender, e)
 
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
     End Sub
-
-    Private Sub fColumnRefresh()
-
-
-    End Sub
-    Private Sub fComboBoxRefresh()
+    Private Sub ComboBoxRefresh()
         ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
         ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
 
         ComboBoxLoad(cmbCUSTOMER_ID, "select ID,NAME from contact where type='1'", "ID", "NAME")
 
     End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-    Private Sub fClear_Info()
-        fComboBoxRefresh()
+
+    Private Sub ClearInfo()
+        ComboBoxRefresh()
         ClearAndRefresh(Me)
-
-
         dgvInvoice.Rows.Clear()
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
         cmbLOCATION_ID.Enabled = IsLockLocation()
@@ -102,7 +94,7 @@ Public Class FrmTaxCredit
         cmbACCOUNTS_RECEIVABLE_ID.SelectedValue = gsDefault_ACCOUNTS_RECEIVABLE_ID
     End Sub
 
-    Private Sub cmbEWT_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEWT_ID.SelectedIndexChanged
+    Private Sub CmbEWT_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbEWT_ID.SelectedIndexChanged
 
 
         Try
@@ -122,25 +114,25 @@ Public Class FrmTaxCredit
             lblEWT_RATE.Text = ""
             lblEWT_ACCOUNT_ID.Text = ""
         End Try
-        fCheckBill()
+        CheckingBill()
 
     End Sub
 
-    Private Sub cmbWITHHELD_FROM_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
+    Private Sub CmbWITHHELD_FROM_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
         Try
-            fCustomer_Invoice(cmbCUSTOMER_ID.SelectedValue)
-            fCheckBill()
+            CustomerInvoice(cmbCUSTOMER_ID.SelectedValue)
+            CheckingBill()
         Catch ex As Exception
 
         End Try
 
     End Sub
-    Private Sub fAdditem(ByVal prID As String, ByVal prSelect As Boolean, ByVal prDate As Date, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prTaxable_Amount As Double, ByVal prBalance_due As Double, ByVal prTax_Paid As Double, ByVal prACCOUNTS_RECEIVABLE_ID As Integer)
+    Private Sub Additem(ByVal prID As String, ByVal prSelect As Boolean, ByVal prDate As Date, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prTaxable_Amount As Double, ByVal prBalance_due As Double, ByVal prTax_Paid As Double, ByVal prACCOUNTS_RECEIVABLE_ID As Integer)
         dgvInvoice.Rows.Add(prID, prSelect, Format(prDate, "MM/dd/yyyy"), prCode, NumberFormatStandard(prOrg_Amount), NumberFormatStandard(prTaxable_Amount), NumberFormatStandard(prBalance_due), NumberFormatStandard(prTax_Paid), prACCOUNTS_RECEIVABLE_ID)
     End Sub
-    Private Sub fCustomer_Invoice(ByVal prPAY_ID As String)
+    Private Sub CustomerInvoice(ByVal prPAY_ID As String)
         dgvInvoice.Rows.Clear()
-        ' Dim cn As New MySqlConnection(mysqlConstr)
+
         dtpDATE.Checked = True
         Try
 
@@ -152,7 +144,7 @@ Public Class FrmTaxCredit
                 Dim dTax As Double = fInvoiceSumTaxApplied_Amount(INVOICE_ID, prPAY_ID)
                 Dim Taxable_Amount As Double = NumIsNull(rd("TAXABLE_AMOUNT"))
 
-                dTax = fGetAppliedCreditTax(INVOICE_ID, ID)
+                dTax = GetAppliedCreditTax(INVOICE_ID, ID)
 
                 Dim dBalance As Double = NumIsNull(rd("BALANCE_DUE")) + dTax
 
@@ -162,15 +154,15 @@ Public Class FrmTaxCredit
                 End If
                 'Open New Item Transaction
                 If dBalance <> 0 Then
-                    fAdditem(INVOICE_ID, bSelected, rd("Date"), rd("CODE"), NumIsNull(rd("AMOUNT")), Taxable_Amount, dBalance, dTax, NumIsNull(rd("ACCOUNTS_RECEIVABLE_ID")))
+                    Additem(INVOICE_ID, bSelected, rd("Date"), rd("CODE"), NumIsNull(rd("AMOUNT")), Taxable_Amount, dBalance, dTax, NumIsNull(rd("ACCOUNTS_RECEIVABLE_ID")))
                 End If
             End While
             rd.Close()
 
-            fCheckBill()
+            CheckingBill()
 
         Catch ex As Exception
-            fCustomer_Invoice(prPAY_ID)
+            CustomerInvoice(prPAY_ID)
 
         End Try
 
@@ -178,26 +170,24 @@ Public Class FrmTaxCredit
 
 
     End Sub
-    Private Sub fCheckBill()
-        Dim bNotSelected As Boolean = True
+    Private Sub CheckingBill()
+
 
         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
             If dgvInvoice.Rows(i).Cells(1).Value = True Then
-                bNotSelected = False
+
                 Exit For
             End If
         Next
 
         cmbCUSTOMER_ID.Enabled = IsNew
 
-
-
         Dim dPayment As Double = 0
 
         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
             If dgvInvoice.Rows(i).Cells(1).Value = True Then
-                fAutoCompute(i)
-                dPayment = dPayment + NumberFormatFixed(dgvInvoice.Rows(i).Cells(7).Value)
+                AutoCompute(i)
+                dPayment += NumberFormatFixed(dgvInvoice.Rows(i).Cells(7).Value)
             End If
         Next
 
@@ -206,23 +196,19 @@ Public Class FrmTaxCredit
 
     End Sub
 
-    Private Sub fRefreshInfo()
-
-
+    Private Sub RefreshInfo()
         Dim sQuery As String = "select * from `TAX_CREDIT` where id ='" & ID & "' "
         Try
 
             SqlExecutedUsingReading(Me, sQuery)
-
-
-            fCheckBill()
+            CheckingBill()
 
             tdgv = New DataGridView
             tdgv = dgvInvoice
             tQuery = SqlUpdate(Me)
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshInfo()
+                RefreshInfo()
             Else
                 End
             End If
@@ -230,7 +216,7 @@ Public Class FrmTaxCredit
 
 
     End Sub
-    Private Function fGetAppliedCreditTax(ByVal prInvoice_ID As String, ByVal prTAX_CREDIT_ID As String) As Double
+    Private Function GetAppliedCreditTax(ByVal prInvoice_ID As String, ByVal prTAX_CREDIT_ID As String) As Double
         Dim v As Double = 0
         Try
             Dim sQuery As String = "Select AMOUNT_WITHHELD AS A from `TAX_CREDIT_invoices` where TAX_CREDIT_ID = '" & prTAX_CREDIT_ID & "' and Invoice_id = '" & prInvoice_ID & "' Limit 1"
@@ -241,7 +227,7 @@ Public Class FrmTaxCredit
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                v = fGetAppliedCreditTax(prInvoice_ID, prTAX_CREDIT_ID)
+                v = GetAppliedCreditTax(prInvoice_ID, prTAX_CREDIT_ID)
             Else
                 End
             End If
@@ -249,15 +235,15 @@ Public Class FrmTaxCredit
         Return v
     End Function
 
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -280,10 +266,10 @@ Public Class FrmTaxCredit
                 ID = f.AccessibleDescription
                 IsNew = False
                 ''
-                fClear_Info()
+                ClearInfo()
                 If IsNew = False Then
 
-                    fRefreshInfo()
+                    RefreshInfo()
 
                 End If
             End If
@@ -294,30 +280,27 @@ Public Class FrmTaxCredit
     End Sub
 
 
-    Private Sub dgvBill_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellClick
+    Private Sub DgvInvoice_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellClick
         If e.ColumnIndex = 1 Then
-
             If dgvInvoice.Rows.Count = 0 Then
                 Exit Sub
             End If
 
             With dgvInvoice.Rows(e.RowIndex)
-
                 Dim b As Boolean = .Cells(1).Value
-
                 If b = True Then
                     b = False
                 Else
                     b = True
                 End If
 
-                fEdititem(b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells(6).Value, 0)
+                Edititem(b, .Cells(2).Value, .Cells(3).Value, .Cells(4).Value, .Cells(5).Value, .Cells(6).Value, 0)
             End With
 
-            fCheckBill()
+            CheckingBill()
         End If
     End Sub
-    Private Sub fEdititem(ByVal prSelect As Boolean, ByVal prDate As String, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prTaxable_Amount As Double, ByVal prBalance_due As String, ByVal prPayment As Double)
+    Private Sub Edititem(ByVal prSelect As Boolean, ByVal prDate As String, ByVal prCode As String, ByVal prOrg_Amount As Double, ByVal prTaxable_Amount As Double, ByVal prBalance_due As String, ByVal prPayment As Double)
         If dgvInvoice.Rows.Count <> 0 Then
             Dim i As Integer = dgvInvoice.CurrentRow.Index
             With dgvInvoice.Rows(i)
@@ -334,14 +317,11 @@ Public Class FrmTaxCredit
         End If
     End Sub
 
-    Private Sub fAutoCompute(ByVal i As Integer)
+    Private Sub AutoCompute(ByVal i As Integer)
         If dgvInvoice.Rows.Count <> 0 Then
 
             With dgvInvoice.Rows(i)
-
-
                 Dim t_amiount As Double = NumberFormatFixed(.Cells(5).Value) * NumberFormatFixed((Val(lblEWT_RATE.Text) / 100))
-
                 Dim t_balance As Double = NumberFormatFixed(.Cells(6).Value)
                 If t_balance < t_amiount Then
 
@@ -356,7 +336,7 @@ Public Class FrmTaxCredit
         End If
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
 
 
         If Val(cmbCUSTOMER_ID.SelectedValue) = 0 Then
@@ -419,45 +399,44 @@ Public Class FrmTaxCredit
         End If
         '================================
 
-        fSaveItem()
+        SaveItem()
 
         SaveNotify(Me, IsNew)
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = tsSaveNew.Name Then
-                fSetNew()
+                SetNew()
             End If
         Catch ex As Exception
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefreshInfo()
+                RefreshInfo()
 
             End If
         End Try
 
     End Sub
-    Private Sub fSetNew()
-        fClear_Info()
+    Private Sub SetNew()
+        ClearInfo()
         IsNew = True
         ID = 0
-        fCheckBill()
+        CheckingBill()
 
     End Sub
-    Private Sub fSaveItem()
+    Private Sub SaveItem()
         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
-
             With dgvInvoice.Rows(i)
                 If .Cells(1).Value = True Then
                     Dim GET_ID As Integer = 0
-                    If fChecK_TAX_CREDIT(.Cells(0).Value, ID, GET_ID) = True Then
+                    If ChecK_TAX_CREDIT(.Cells(0).Value, ID, GET_ID) = True Then
 
                         SqlExecuted("UPDATE `tax_credit_invoices` SET AMOUNT_WITHHELD = " & GotNullNumber(.Cells(7).Value) & ",ACCOUNTS_RECEIVABLE_ID='" & .Cells("ACCOUNTS_RECEIVABLE_ID").Value & "' WHERE ID ='" & GET_ID & "'  TAX_CREDIT_ID='" & ID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
-                        fUpdateInvoiceBalance(.Cells(0).Value, cmbCUSTOMER_ID.SelectedValue)
+                        UpdateInvoiceBalance(.Cells(0).Value, cmbCUSTOMER_ID.SelectedValue)
                     Else
                         GET_ID = ObjectTypeMapId("TAX_CREDIT_invoices")
                         SqlExecuted("INSERT INTO `tax_credit_invoices` SET ID='" & GET_ID & "',TAX_CREDIT_ID='" & ID & "',INVOICE_ID='" & .Cells("INVOICE_ID").Value & "', AMOUNT_WITHHELD = " & GotNullNumber(.Cells(7).Value) & ",ACCOUNTS_RECEIVABLE_ID='" & .Cells("ACCOUNTS_RECEIVABLE_ID").Value & "'")
-                        fUpdateInvoiceBalance(.Cells(0).Value, cmbCUSTOMER_ID.SelectedValue)
+                        UpdateInvoiceBalance(.Cells(0).Value, cmbCUSTOMER_ID.SelectedValue)
                     End If
 
                     '==============================================
@@ -467,14 +446,14 @@ Public Class FrmTaxCredit
                     '===============================================
                 Else
                     Dim GET_ID As Integer = 0
-                    If fChecK_TAX_CREDIT(.Cells("INVOICE_ID").Value, ID, GET_ID) = True Then
+                    If ChecK_TAX_CREDIT(.Cells("INVOICE_ID").Value, ID, GET_ID) = True Then
 
                         If gsSkipJournalEntry = False Then
                             fJournalAccountRemoveFixed_Account_ID(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, 73, GET_ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value)
                         End If
 
                         SqlExecuted("DELETE  FROM `tax_credit_invoices` WHERE ID = '" & GET_ID & "' and TAX_CREDIT_ID = '" & ID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
-                        fUpdateInvoiceBalance(.Cells("INVOICE_ID").Value, cmbCUSTOMER_ID.SelectedValue)
+                        UpdateInvoiceBalance(.Cells("INVOICE_ID").Value, cmbCUSTOMER_ID.SelectedValue)
                     End If
                 End If
 
@@ -482,7 +461,7 @@ Public Class FrmTaxCredit
         Next
 
     End Sub
-    Private Function fChecK_TAX_CREDIT(ByVal prinvoice_ID As String, ByVal prTAX_CREDIT_ID As String, ByRef GET_ID As Integer) As Boolean
+    Private Function ChecK_TAX_CREDIT(ByVal prinvoice_ID As String, ByVal prTAX_CREDIT_ID As String, ByRef GET_ID As Integer) As Boolean
         Dim gsUpdate As Boolean = False
 
         Try
@@ -496,20 +475,19 @@ Public Class FrmTaxCredit
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                gsUpdate = fChecK_TAX_CREDIT(prinvoice_ID, prTAX_CREDIT_ID, GET_ID)
+                gsUpdate = ChecK_TAX_CREDIT(prinvoice_ID, prTAX_CREDIT_ID, GET_ID)
             Else
                 End
             End If
         End Try
         Return gsUpdate
     End Function
-    Private Sub fUpdateInvoiceBalance(ByVal prInvoice_Id As String, ByVal prCustomer_ID As String)
-        'ok kol
+    Private Sub UpdateInvoiceBalance(ByVal prInvoice_Id As String, ByVal prCustomer_ID As String)
 
         Dim dTotal_Payment As Double = fGetSumPaymentApplied(prInvoice_Id, prCustomer_ID) + fGetSumCreditApplied(prInvoice_Id, prCustomer_ID) + fInvoiceSumTaxApplied_Amount(prInvoice_Id, prCustomer_ID)
         Dim dTotal_Amount As Double = GetNumberFieldValue("INVOICE", "ID", prInvoice_Id, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
-        Dim nStatus As Integer = 0
+        Dim nStatus As Integer
 
         If 0 >= dTotal_Balance Then
             'Paid
@@ -522,7 +500,7 @@ Public Class FrmTaxCredit
         SqlExecuted("UPDATE invoice SET BALANCE_DUE ='" & NumberFormatFixed(dTotal_Balance) & "',STATUS='" & nStatus & "',STATUS_DATE ='" & Format(Date.Now, "yyyy-MM-dd hh:mm:ss") & "' WHERE Customer_ID ='" & prCustomer_ID & "' and ID ='" & prInvoice_Id & "' ")
     End Sub
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
         If IsNew = False Then
 
             If SecurityAccessDelete(Me) = False Then
@@ -539,13 +517,13 @@ Public Class FrmTaxCredit
                 For i As Integer = 0 To dgvInvoice.Rows.Count - 1
                     With dgvInvoice.Rows(i)
                         Dim GET_ID As Integer = 0
-                        If fChecK_TAX_CREDIT(.Cells(0).Value, ID, GET_ID) = True Then
+                        If ChecK_TAX_CREDIT(.Cells(0).Value, ID, GET_ID) = True Then
                             If gsSkipJournalEntry = False Then
                                 fJournalAccountRemoveFixed_Account_ID(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, 73, GET_ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value)
                             End If
 
                             SqlExecuted("DELETE  FROM `tax_credit_invoices` WHERE ID='" & GET_ID & "' and TAX_CREDIT_ID = '" & ID & "' and INVOICE_ID ='" & .Cells(0).Value & "'")
-                            fUpdateInvoiceBalance(.Cells(0).Value, cmbCUSTOMER_ID.SelectedValue)
+                            UpdateInvoiceBalance(.Cells(0).Value, cmbCUSTOMER_ID.SelectedValue)
                         End If
                     End With
                 Next
@@ -555,7 +533,7 @@ Public Class FrmTaxCredit
                 SqlExecuted("DELETE FROM `tax_credit` WHERE ID = '" & ID & "' limit 1;")
                 DeleteNotify(Me)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
-                fClear_Info()
+                ClearInfo()
                 IsNew = True
                 ID = 0
                 CursorLoadingOn(False)
@@ -566,23 +544,19 @@ Public Class FrmTaxCredit
 
     End Sub
 
-    Private Sub frmTaxCredit_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
-
-    End Sub
-
-    Private Sub frmTaxCredit_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmTaxCredit_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         dgvInvoice.Columns("SELECTED").Width = 30
         ViewNotSort(dgvInvoice)
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -615,12 +589,12 @@ Public Class FrmTaxCredit
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -653,12 +627,12 @@ Public Class FrmTaxCredit
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
         If IsNew = True Then
-            tsSaveNew_Click(sender, e)
+            TsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
-                    tsSaveNew_Click(sender, e)
+                    TsSaveNew_Click(sender, e)
                     If tChangeAccept = False Then
                         MessageBoxInfo("Cancel")
                         Exit Sub
@@ -673,16 +647,16 @@ Public Class FrmTaxCredit
         End If
     End Sub
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
 
-                fRefreshInfo()
+                RefreshInfo()
             End If
 
         End If
@@ -695,24 +669,16 @@ Public Class FrmTaxCredit
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
         ShowTransactionLog(Me, ID)
     End Sub
-
-
-
-    Private Sub frmTaxCredit_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
+    Private Sub FrmTaxCredit_TabIndexChanged(sender As Object, e As EventArgs) Handles Me.TabIndexChanged
 
         ID = gsDocument_Finder_ID
         IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
-            fRefreshInfo()
+            RefreshInfo()
         End If
     End Sub
-
-    Private Sub dgvInvoice_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellContentClick
-
-    End Sub
-
-    Private Sub dgvInvoice_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellDoubleClick
+    Private Sub DgvInvoice_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInvoice.CellDoubleClick
 
         If dgvInvoice.Rows.Count = 0 Then Exit Sub
         If MessageBoxQuestion($"Do you want to open this Invoice no. {dgvInvoice.CurrentRow.Cells("NUMBER").Value }?") = False Then Exit Sub
@@ -735,8 +701,8 @@ Public Class FrmTaxCredit
             F.Tag = i
         End If
 
-        For n As Integer = 0 To frmMainMenu.MyTab.TabPages.Count - 1
-            Dim Frm As Form = frmMainMenu.MyTab.TabPages.Item(n).Form
+        For n As Integer = 0 To FrmMainMenu.MyTab.TabPages.Count - 1
+            Dim Frm As Form = FrmMainMenu.MyTab.TabPages.Item(n).Form
             If Frm.Text = F.Text Then
                 Frm.Close()
                 Exit For
@@ -745,31 +711,18 @@ Public Class FrmTaxCredit
         gsMenuSubID = i
         gsRefresh = True
 
-        TabFormOpen(F, frmMainMenu.MyTab, Img)
+        TabFormOpen(F, FrmMainMenu.MyTab, Img)
         F.TabIndex = gsDocument_Finder_ID
         gsDocument_Finder_ID = 0
     End Sub
-
-    Private Sub TsFindText_Click(sender As Object, e As EventArgs) Handles tsFindText.Click
-
-    End Sub
-
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         GetQuickFind(dgvInvoice, tsFindText.Text)
     End Sub
 
-    Private Sub cmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
+    Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
         If cmbLOCATION_ID.Items.Count <> 0 Then
-            cmbWITHHELD_FROM_ID_SelectedIndexChanged(sender, e)
+            CmbWITHHELD_FROM_ID_SelectedIndexChanged(sender, e)
         End If
-
-    End Sub
-
-    Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
 
     End Sub
 End Class

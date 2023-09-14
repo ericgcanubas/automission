@@ -4,7 +4,7 @@ Public Class FrmUnitofMeasureDetails
     Dim IsNew As Boolean = True
     Public This_BS As BindingSource
     Public Dgv As DataGridView
-    Private Sub frmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If ID > 0 Then
             Try
                 SqlExecutedUsingReading(Me, "select * from unit_of_measure where id = '" & ID & "' Limit 1")
@@ -15,7 +15,7 @@ Public Class FrmUnitofMeasureDetails
         End If
 
     End Sub
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Trim(txtNAME.Text) = "" Then
             MessageBoxInfo("Please enter unit of measure name")
             Exit Sub
@@ -37,12 +37,12 @@ Public Class FrmUnitofMeasureDetails
         ClearAndRefresh(Me)
         ID = 0
         IsNew = True
-        If SecurityAccessMode(frmUnitofMeasure, IsNew) = False Then
+        If SecurityAccessMode(FrmUnitofMeasure, IsNew) = False Then
             Me.Close()
         End If
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 End Class

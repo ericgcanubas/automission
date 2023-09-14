@@ -10,7 +10,7 @@ Public Class FrmStockReceived
     Dim tQuery As String
     Dim tChangeAccept As Boolean = False
 
-    Private Function fCheckHasChange() As Boolean
+    Private Function CheckHasChange() As Boolean
         Dim HasChange As Boolean = False
         Dim squery As String = SqlUpdate(Me)
         If squery <> tQuery Then
@@ -20,27 +20,27 @@ Public Class FrmStockReceived
         End If
         Return HasChange
     End Function
-    Private Sub dgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvStock.KeyDown
+    Private Sub DgvProductItem_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvStock.KeyDown
         If (e.KeyCode = Keys.I AndAlso e.Modifiers = Keys.Control) Then
             If dgvStock.Rows.Count <> 0 And IsNew = False Then
                 InventoryVDetailsQuickView(dgvStock.CurrentRow.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, gsBusinessDateStart, txtCODE.Text)
             End If
         End If
     End Sub
-    Private Sub frmStockTransfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmStockTransfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tsTITLE.Text = gsSubMenuForm
 
-        fcolumngrid()
-        fClear_Info()
+        ColumnGrid()
+        ClearInfo()
 
         If IsNew = False Then
-            fRefresh_info()
-            fRefresh_item()
-            fComputed()
+            RefreshInfo()
+            RefreshItem()
+            Computed()
         End If
         bRefreshItem = True
     End Sub
-    Private Sub fInventorySetUpdate()
+    Private Sub InventorySetUpdate()
         For I As Integer = 0 To dgvStock.Rows.Count - 1
             With dgvStock.Rows(I)
                 fUpdateItemInventory_AccountJournalCost(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ID").Value, 28, 97)
@@ -48,26 +48,23 @@ Public Class FrmStockReceived
         Next
     End Sub
 
-    Private Sub fClear_Info()
-        fRefreshComboBox()
+    Private Sub ClearInfo()
+        RefreshComboBox()
         ClearAndRefresh(Me)
 
         dgvStock.Rows.Clear()
-
         cmbLOCATION_ID.SelectedValue = gsStorage_Location_ID
         cmbLOCATION_ID.Enabled = IsLockLocation()
 
         cmbTRANSFER_TO_ID.SelectedValue = gsDefault_LOCATION_ID
         cmbTRANSFER_TO_ID.Enabled = IsLockLocation()
-
         dtpDATE.Value = TransactionDefaultDate()
     End Sub
-    Private Sub fRefresh_item()
+    Private Sub RefreshItem()
         dgvStock.Rows.Clear()
 
         Try
             Dim sQuery As String = "SELECT s.`ID`,s.`ITEM_ID`,i.`CODE`, i.`DESCRIPTION`,s.`QUANTITY`,u.`NAME`,s.`UNIT_ID`,s.`UNIT_BASE_QUANTITY`,s.`UNIT_COST`,s.`UNIT_PRICE`,s.`AMOUNT`,s.`RETAIL_VALUE`,s.`ASSET_ACCOUNT_ID`,'S' AS `CONTROL_STATUS`  FROM STOCK_RECEIVED_items AS s INNER JOIN item AS i ON i.`ID` = s.`ITEM_ID` LEFT OUTER JOIN unit_of_measure AS u ON u.`ID` = s.`UNIT_ID` WHERE s.STOCK_RECEIVED_ID = '" & ID & "'"
-
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             Dim x As Integer = 0
 
@@ -93,21 +90,21 @@ Public Class FrmStockReceived
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefresh_item()
+                RefreshItem()
             Else
                 End
             End If
         End Try
         bRefreshItem = False
 
-        fComputed()
+        Computed()
         tdgv = New DataGridView
         tdgv = dgvStock
         tQuery = SqlUpdate(Me)
 
         bRefreshItem = True
     End Sub
-    Private Function fgetTypeValue(ByVal dt As String) As String
+    Private Function GetTypeValue(ByVal dt As String) As String
         If IsNumeric(dt) = True Then
             Return Format(dt, "Standard")
         Else
@@ -116,7 +113,7 @@ Public Class FrmStockReceived
     End Function
 
 
-    Private Sub fcolumngrid()
+    Private Sub ColumnGrid()
         With dgvStock.Columns
             .Clear()
             .Add("ID", "ID")
@@ -162,7 +159,7 @@ Public Class FrmStockReceived
         End With
     End Sub
 
-    Private Sub fRefresh_info()
+    Private Sub RefreshInfo()
 
         Try
             Dim squery As String = "Select * from STOCK_RECEIVED where id = '" & ID & "' limit 1"
@@ -173,14 +170,14 @@ Public Class FrmStockReceived
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefresh_info()
+                RefreshInfo()
             Else
                 End
             End If
         End Try
 
     End Sub
-    Private Sub fRefreshComboBox()
+    Private Sub RefreshComboBox()
 
         ComboBoxLoad(cmbPREPARED_BY_ID, "select * from contact where type='2'", "ID", "NAME")
 
@@ -189,11 +186,7 @@ Public Class FrmStockReceived
         ComboBoxLoad(cmbTRANSFER_TO_ID, "select * from location where ID <> '" & cmbLOCATION_ID.SelectedValue & "' AND Inactive ='0' order by NAME ", "ID", "NAME")
 
     End Sub
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
-    Private Sub cmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
+    Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
         Try
             ComboBoxLoad(cmbTRANSFER_TO_ID, "select * from location where ID <> '" & cmbLOCATION_ID.SelectedValue & "' AND Inactive ='0' ", "ID", "NAME")
 
@@ -202,20 +195,12 @@ Public Class FrmStockReceived
         End Try
 
     End Sub
-
-    Private Sub lklNew_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-    End Sub
-
-    Private Sub lklEdit_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-
-    End Sub
-    Private Sub fEditItem()
+    Private Sub EditItem()
         If dgvStock.Rows.Count = 0 Then
             Exit Sub
         End If
         Dim d As DataGridViewRow = dgvStock.Rows(dgvStock.CurrentRow.Index)
-        With frmAddItem
+        With FrmAddItem
             .xlblDISCOUNT.Visible = False
             .numDiscountValue.Visible = False
             .cmbDiscount_Type.Visible = False
@@ -232,33 +217,27 @@ Public Class FrmStockReceived
             End If
             .Dispose()
         End With
-        frmAddItem = Nothing
-        fComputed()
+        FrmAddItem = Nothing
+        Computed()
     End Sub
 
-    Private Sub dgvStock_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStock.CellContentClick
 
+    Private Sub DgvStock_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStock.CellDoubleClick
+        EditItem()
     End Sub
-
-    Private Sub dgvStock_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStock.CellDoubleClick
-        fEditItem()
-    End Sub
-    Private Sub fComputed()
+    Private Sub Computed()
         Dim total_cost As Double = 0
         Dim total_retail As Double = 0
         For i As Integer = 0 To dgvStock.Rows.Count - 1
-            ' total_cost = total_cost + Format(dgvStock.Rows(i).Cells("AMOUNT").Value, "FIXED")
-            total_retail = total_retail + NumberFormatFixed(NumIsNull(dgvStock.Rows(i).Cells("RETAIL_VALUE").Value))
-            total_cost = total_cost + NumberFormatFixed(NumIsNull(dgvStock.Rows(i).Cells("AMOUNT").Value))
+            total_retail += NumberFormatFixed(NumIsNull(dgvStock.Rows(i).Cells("RETAIL_VALUE").Value))
+            total_cost += NumberFormatFixed(NumIsNull(dgvStock.Rows(i).Cells("AMOUNT").Value))
         Next
 
         lblAMOUNT.Text = NumberFormatFixed(total_cost)
         lblRETAIL_VALUE.Text = NumberFormatFixed(total_retail)
-
-
     End Sub
 
-    Private Sub tsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
+    Private Sub TsSaveNew_Click(sender As Object, e As EventArgs) Handles tsSaveNew.Click
         gsGotChangeDate = False
         gsGotChangeLocation1 = False
         gsGotChangeLocation2 = False
@@ -341,7 +320,7 @@ Public Class FrmStockReceived
 
 
 
-            fSaveItem()
+            SaveItem()
             SaveNotify(Me, IsNew)
 
         End If
@@ -351,29 +330,29 @@ Public Class FrmStockReceived
         Try
             Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
             If btn.Name = tsSaveNew.Name Then
-                fSetNew()
+                SetNew()
             Else
             End If
         Catch ex As Exception
         Finally
             If ID > 0 Then
                 IsNew = False
-                fRefresh_info()
-                fRefresh_item()
+                RefreshInfo()
+                RefreshItem()
             End If
         End Try
 
 
     End Sub
 
-    Private Sub fSetNew()
-        fClear_Info()
+    Private Sub SetNew()
+        ClearInfo()
         ID = 0
         IsNew = True
 
     End Sub
 
-    Private Sub fSaveItem()
+    Private Sub SaveItem()
         '97 = obj
         '28 = src
 
@@ -493,15 +472,15 @@ Public Class FrmStockReceived
 
 
     End Sub
-    Private Sub tsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
+    Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If SecurityAccessFind(Me) = False Then
             Exit Sub
         Else
             If IsNew = False And ID > 0 Then
-                If fCheckHasChange() = True Then
+                If CheckHasChange() = True Then
                     If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                         tChangeAccept = False
-                        tsSaveNew_Click(sender, e)
+                        TsSaveNew_Click(sender, e)
                         If tChangeAccept = False Then
                             MessageBoxInfo("Cancel")
                             Exit Sub
@@ -518,11 +497,11 @@ Public Class FrmStockReceived
         f.ShowDialog()
         If f.AccessibleDescription <> "" Then
             If f.AccessibleDescription <> "cancel" Then
-                fClear_Info()
+                ClearInfo()
                 ID = f.AccessibleDescription
                 IsNew = False
-                fRefresh_info()
-                fRefresh_item()
+                RefreshInfo()
+                RefreshItem()
 
             End If
 
@@ -534,7 +513,7 @@ Public Class FrmStockReceived
 
 
 
-    Private Sub tsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
+    Private Sub TsDelete_Click(sender As Object, e As EventArgs) Handles tsDelete.Click
 
         If IsNew = False Then
             If SecurityAccessDelete(Me) = False Then
@@ -547,14 +526,14 @@ Public Class FrmStockReceived
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
                 CursorLoadingOn(True)
-                fRefresh_info()
-                fRefresh_item()
+                RefreshInfo()
+                RefreshItem()
                 CursorLoadingOn(True)
                 For N As Integer = 0 To dgvStock.Rows.Count - 1
                     dgvStock.Rows(N).Cells("CONTROL_STATUS").Value = "D"
                 Next
 
-                fSaveItem()
+                SaveItem()
 
                 '===========================================
                 If gsSkipJournalEntry = False Then
@@ -571,7 +550,7 @@ Public Class FrmStockReceived
                 SqlExecuted("DELETE from stock_received WHERE ID ='" & ID & "' limit 1;")
                 DeleteNotify(Me)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
-                fClear_Info()
+                ClearInfo()
                 ID = 0
                 IsNew = True
                 CursorLoadingOn(False)
@@ -579,18 +558,18 @@ Public Class FrmStockReceived
         End If
     End Sub
 
-    Private Sub frmStockTransfer_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
+    Private Sub FrmStockTransfer_TextChanged(sender As Object, e As EventArgs) Handles Me.TextChanged
         If Me.Text = Me.Name Then Exit Sub
         ID = gsDocument_Finder_ID
         IsNew = IIf(ID = 0, True, False)
 
         If IsNew = False Then
-            fRefresh_info()
-            fRefresh_item()
+            RefreshInfo()
+            RefreshItem()
         End If
     End Sub
 
-    Private Sub frmStockTransfer_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmStockTransfer_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         ViewItemDisplay(dgvStock)
         ViewNotSort(dgvStock)
@@ -601,7 +580,7 @@ Public Class FrmStockReceived
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -655,7 +634,7 @@ Public Class FrmStockReceived
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -707,7 +686,7 @@ Public Class FrmStockReceived
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -728,17 +707,17 @@ Public Class FrmStockReceived
 
     End Sub
 
-    Private Sub tsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
+    Private Sub TsDiscard_Click(sender As Object, e As EventArgs) Handles tsDiscard.Click
         If IsNew = True Then
-            fSetNew()
+            SetNew()
         Else
             Dim R As Integer = fRefreshMessage()
             If R = 1 Then
-                fSetNew()
+                SetNew()
             ElseIf R = 2 Then
-                fClear_Info()
-                fRefresh_info()
-                fRefresh_item()
+                ClearInfo()
+                RefreshInfo()
+                RefreshItem()
             End If
 
         End If
@@ -747,38 +726,33 @@ Public Class FrmStockReceived
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
         ShowTransactionLog(Me, ID)
     End Sub
-
-    Private Sub txtFind_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub dgvStock_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvStock.RowStateChanged
+    Private Sub DgvStock_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvStock.RowStateChanged
         lblCount.Text = DirectCast(sender, DataGridView).Rows.Count
 
     End Sub
-    Private Sub tsPRequest_Click(sender As Object, e As EventArgs) Handles tsPRequest.Click
+    Private Sub TsPRequest_Click(sender As Object, e As EventArgs) Handles tsPRequest.Click
 
         If dgvStock.Rows.Count <> 0 Then
             MessageBoxInfo("Item must empty.")
             Exit Sub
         End If
 
-        frmPRAvailable.dgv = dgvStock
-        frmPRAvailable.ShowDialog()
-        frmPRAvailable.Dispose()
-        frmPRAvailable = Nothing
+        FrmPRAvailable.dgv = dgvStock
+        FrmPRAvailable.ShowDialog()
+        FrmPRAvailable.Dispose()
+        FrmPRAvailable = Nothing
 
     End Sub
 
-    Private Sub dgvStock_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvStock.RowsAdded
+    Private Sub DgvStock_RowsAdded(sender As Object, e As DataGridViewRowsAddedEventArgs) Handles dgvStock.RowsAdded
         If bRefreshItem = True Then
-            fComputed()
+            Computed()
         End If
 
     End Sub
 
-    Private Sub tsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
-        With frmAddItem
+    Private Sub TsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
+        With FrmAddItem
             .gsCOST_AMOUNT_ONLY = True
             .dgv = dgvStock
             .sFormName = Me.Name
@@ -791,15 +765,15 @@ Public Class FrmStockReceived
             .Dispose()
 
         End With
-        frmAddItem = Nothing
-        fComputed()
+        FrmAddItem = Nothing
+        Computed()
     End Sub
 
-    Private Sub tsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
-        fEditItem()
+    Private Sub TsEditItem_Click(sender As Object, e As EventArgs) Handles tsEditItem.Click
+        EditItem()
     End Sub
 
-    Private Sub tsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
+    Private Sub TsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
         Try
             If dgvStock.Rows.Count <> 0 Then
                 Dim i As Integer = dgvStock.CurrentRow.Index
@@ -811,18 +785,15 @@ Public Class FrmStockReceived
                     dgvStock.Rows.RemoveAt(i)
                 End If
 
-                fComputed()
+                Computed()
             End If
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub tsFindText_Click(sender As Object, e As EventArgs) Handles tsFindText.Click
 
-    End Sub
-
-    Private Sub tsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
+    Private Sub TsFindText_TextChanged(sender As Object, e As EventArgs) Handles tsFindText.TextChanged
         GetQuickFind(dgvStock, tsFindText.Text)
     End Sub
 
@@ -831,7 +802,7 @@ Public Class FrmStockReceived
         If IsNew = True Then
             tsSaveNew_Click(sender, e)
         Else
-            If fCheckHasChange() = True Then
+            If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then
                     tChangeAccept = False
                     tsSaveNew_Click(sender, e)
@@ -851,10 +822,10 @@ Public Class FrmStockReceived
             Exit Sub
         End If
 
-        frmPrintPage.frmName = Me.Name
-        frmPrintPage.ShowDialog()
+        FrmPrintPage.frmName = Me.Name
+        FrmPrintPage.ShowDialog()
 
-        Dim v As Integer = frmPrintPage.prValue
+        Dim v As Integer = FrmPrintPage.prValue
         If v = 1 Or v = 2 Then
 
             Dim prFile_name As String = ""
@@ -892,7 +863,7 @@ Public Class FrmStockReceived
 
 
         End If
-        frmPrintPage.Dispose()
-        frmPrintPage = Nothing
+        FrmPrintPage.Dispose()
+        FrmPrintPage = Nothing
     End Sub
 End Class

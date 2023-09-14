@@ -1,12 +1,10 @@
 ﻿Public Class FrmStatement
-    Private Sub frmStatement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '  fBackGroundImageStyle(Me)
-        fDataRangeLoad()
-
+    Private Sub FrmStatement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        DataRangeLoad()
         ComboBoxLoad(cmbCUSTOMER_ID, "select * from contact where type='1'", "ID", "NAME")
-        fRefreshLocation()
+        RefreshLocation()
     End Sub
-    Private Sub fDataRangeLoad()
+    Private Sub DataRangeLoad()
         With cmbDateRange.Items
             .Add("Today")
             .Add("Yesterday")
@@ -22,7 +20,7 @@
         End With
         cmbDateRange.SelectedIndex = 4
     End Sub
-    Private Sub fSelectDateRange(ByVal prValue As String)
+    Private Sub SelectDateRange(ByVal prValue As String)
         Dim f As Date = Date.Now.Date
         Dim t As Date = Date.Now.Date
         Select Case prValue
@@ -63,21 +61,21 @@
         dtpDATE_TO.Value = t
     End Sub
 
-    Private Sub fRefreshLocation()
+    Private Sub RefreshLocation()
 
         ComboBoxLoad(cmbLOCATION_ID, "SELECT  '*' AS `id`,'All Location' as `name`  UNION SELECT  `id`,`name` FROM location ", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
     End Sub
 
-    Private Sub cmbDateRange_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDateRange.SelectedIndexChanged
-        fSelectDateRange(cmbDateRange.Text)
+    Private Sub CmbDateRange_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDateRange.SelectedIndexChanged
+        SelectDateRange(cmbDateRange.Text)
     End Sub
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         ClosedForm(Me)
     End Sub
-    Private Sub fReport()
+    Private Sub ReportProcess()
         gscryRpt = ReportDocumentOneParameterNumberOnly("cryStandardStatement.rpt")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay2"), "name_by")
@@ -87,31 +85,25 @@
         CryParameterInsertValue(gscryRpt, dtpDateStatement.Value, "select_date")
         CryParameterInsertValue(gscryRpt, dtpDATE_FROM.Value, "select_date1")
         CryParameterInsertValue(gscryRpt, dtpDATE_TO.Value, "select_date2")
-
         CryParameterInsertValue(gscryRpt, Format(dtpDATE_FROM.Value, "MMMM dd") & " thought " & Format(dtpDATE_TO.Value, "MMMM dd, yyyy"), "date_remark")
 
     End Sub
-    Private Sub tsPreview_Click(sender As Object, e As EventArgs) Handles tsPreview.Click
+    Private Sub TsPreview_Click(sender As Object, e As EventArgs) Handles tsPreview.Click
         If cmbCUSTOMER_ID.SelectedValue Is Nothing Then
             MessageBoxInfo("Please select customer")
             Exit Sub
         End If
-        fReport()
+        ReportProcess()
         gsToolPanelView = False
         GlobalPreviewReport("Statement Report")
     End Sub
 
-    Private Sub tsPrint_Click(sender As Object, e As EventArgs) Handles tsPrint.Click
+    Private Sub TsPrint_Click(sender As Object, e As EventArgs) Handles tsPrint.Click
         If cmbCUSTOMER_ID.SelectedValue Is Nothing Then
             MessageBoxInfo("Please select customer")
             Exit Sub
         End If
-        fReport()
+        ReportProcess()
         gscryRpt.PrintToPrinter(1, False, 0, 0)
-
-    End Sub
-
-    Private Sub gpbReport_Enter(sender As Object, e As EventArgs) Handles gpbReport.Enter
-
     End Sub
 End Class
