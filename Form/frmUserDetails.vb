@@ -4,7 +4,7 @@ Public Class FrmUserDetails
     Public IsNew As Boolean
     Public gsDgv As DataGridView
     Public gsBS As BindingSource
-    Private Sub frmUserDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmUserDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ComboBoxLoad(cmbSTATUS, "select * from user_status_map", "ID", "DESCRIPTION")
         ComboBoxLoad(cmbCONTACT_ID, "select * from contact where type ='2' and inactive ='0'", "ID", "NAME")
@@ -57,7 +57,7 @@ ON utm.`ID` = u.`TYPE` WHERE u.ID = '{ID}' limit 1"
         Me.Close()
     End Sub
 
-    Private Sub btnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
+    Private Sub BtnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
         If Trim(txtName.Text) = "" Then
             MessageBoxWarning("Please enter name")
             Me.txtName.Focus()
@@ -100,9 +100,9 @@ ON utm.`ID` = u.`TYPE` WHERE u.ID = '{ID}' limit 1"
                 Exit Sub
             End Try
 
-            Dim bPassword_nvm_expire As Integer = 0
+
             If dtpEXPIRATION_DATE.Checked = False Then
-                bPassword_nvm_expire = 1
+
 
             Else
 
@@ -137,13 +137,13 @@ ON utm.`ID` = u.`TYPE` WHERE u.ID = '{ID}' limit 1"
                 _pass_change = ",PWD_CREATED_ON='" & Format(Date.Now, "yyyy-MM-dd hh:mm:ss") & "',password='" & Encrypt(txsPassword.Text) & "'"
             End If
 
-            Dim bPassword_nvm_expire As Integer = 0
-            If dtpEXPIRATION_DATE.Checked = False Then
-                bPassword_nvm_expire = 1
+            'Dim bPassword_nvm_expire As Integer
+            'If dtpEXPIRATION_DATE.Checked = False Then
+            '    bPassword_nvm_expire = 1
 
-            Else
-                bPassword_nvm_expire = 0
-            End If
+            'Else
+            '    bPassword_nvm_expire = 0
+            'End If
 
             SqlExecuted("UPDATE `user` SET " & SqlUpdate(Me) & " " & _pass_change & " WHERE ID = '" & ID & "'")
         End If
@@ -170,7 +170,7 @@ ON utm.`ID` = u.`TYPE` WHERE u.ID = '{ID}' limit 1"
 
 
 
-        If SecurityAccessMode(frmUserList, IsNew) = False Then
+        If SecurityAccessMode(FrmUserList, IsNew) = False Then
             Me.Close()
         End If
 

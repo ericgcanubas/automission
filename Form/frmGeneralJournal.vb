@@ -410,7 +410,7 @@ Public Class FrmGeneralJournal
 
 
                 SqlExecuted("DELETE FROM `general_journal` WHERE ID='" & ID & "' limit 1;")
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
                 ClearInfo()
                 IsNew = True

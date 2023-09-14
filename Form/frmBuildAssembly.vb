@@ -554,7 +554,7 @@ Public Class FrmBuildAssembly
 
                 ' SqlExecuted("delete from build_assembly_items where build_assembly_id = '" & ID & "'")
                 SqlExecuted("delete from build_assembly where id = '" & ID & "' limit 1;")
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ID = 0
                 ClearInfo()

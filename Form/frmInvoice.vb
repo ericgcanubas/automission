@@ -975,7 +975,7 @@ ON B.ID = II.BATCH_ID
 
                 SqlExecuted("delete from invoice where id ='" & ID & "' limit 1;")
 
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
 
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 

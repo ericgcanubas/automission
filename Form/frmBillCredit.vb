@@ -979,7 +979,7 @@ FROM
                     SqlExecuted("delete from bill_credit_items where bill_CREDIT_ID ='" & ID & "'")
                     SqlExecuted("delete from bill_credit_expenses where bill_CREDIT_ID ='" & ID & "'")
                     SqlExecuted("delete from bill_credit where ID ='" & ID & "' limit 1;")
-                    PrompNotify(Me.Text, DeleteMsg, True)
+                    DeleteNotify(Me)
                     SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                     ClearInfo()

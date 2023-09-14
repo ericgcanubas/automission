@@ -13,7 +13,6 @@ Module modNotify
     End Sub
     Public Sub DeleteNotify(ByVal Frm As Form)
         PrompNotify(Frm.Text, DeleteMsg, True)
-
     End Sub
     Public Sub PrompNotify(ByVal prTitle As String, ByVal prConText As String, ByVal IsInfo As Boolean)
         Dim N As New PopupNotifier With {

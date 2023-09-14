@@ -708,7 +708,7 @@ WHERE  EXISTS
 
                     SqlExecuted("DELETE FROM `payment` where ID = '" & ID & "' limit 1;")
 
-                    PrompNotify(Me.Text, DeleteMsg, True)
+                       DeleteNotify(Me)
                     SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(numAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                     IsNew = True

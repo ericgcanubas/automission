@@ -556,7 +556,7 @@ WHERE  EXISTS
                 '================================
 
                 SqlExecuted("DELETE FROM `check` where ID = '" & ID & "' limit 1;")
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
 
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPAY_TO_ID.SelectedValue, "", NumIsNull(numAMOUNT.Value), cmbLOCATION_ID.SelectedValue)
                 ClearInfo()

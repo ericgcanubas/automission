@@ -527,7 +527,7 @@ FROM
                 SqlExecuted("DELETE FROM purchase_order_items WHERE PO_ID = '" & ID & "'")
                 SqlExecuted("DELETE FROM purchase_order WHERE ID = '" & ID & "' limit 1")
 
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
 
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ClearInfo()

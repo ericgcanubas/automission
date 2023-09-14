@@ -623,7 +623,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 '===========================================
                 SqlExecuted("DELETE FROM inventory_adjustment where ID = '" & ID & "' limit 1;")
 
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
 
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", 0, cmbLOCATION_ID.SelectedValue)
                 ID = 0

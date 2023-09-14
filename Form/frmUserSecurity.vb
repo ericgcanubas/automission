@@ -53,15 +53,13 @@ Public Class FrmUserSecurity
             tnC.Checked = False
             tnC.ToolTipText = ""
 
-            I = I + 1
+            I += 1
             If tnC.Nodes.Count > 0 Then
                 For Each n As TreeNode In tnC.Nodes
 
                     n.Checked = False
                     n.ToolTipText = ""
-
-                    I = I + 1
-
+                    I += 1
                 Next
             End If
 
@@ -78,17 +76,17 @@ Public Class FrmUserSecurity
             End If
         Next
     End Sub
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
-    Private Function fCheckBoxColumn(ByVal prName As String) As DataGridViewCheckBoxColumn
-
-        Dim dt As New DataGridViewCheckBoxColumn
-        dt.Name = prName
-        dt.HeaderText = prName.Replace("_", " ")
+    Private Function CheckBoxColumn(ByVal prName As String) As DataGridViewCheckBoxColumn
+        Dim dt As New DataGridViewCheckBoxColumn With {
+            .Name = prName,
+            .HeaderText = prName.Replace("_", " ")
+        }
         Return dt
     End Function
-    Private Sub fColumn()
+    Private Sub ColumnGrid()
 
         DatagridViewMode(dgvAccessControl)
         With dgvAccessControl.Columns
@@ -97,15 +95,15 @@ Public Class FrmUserSecurity
             .Item("SUB_ID").Visible = False
             .Add("Menu", "Menu")
             .Item("Menu").Width = 200
-            .Add(fCheckBoxColumn("New"))
+            .Add(CheckBoxColumn("New"))
             .Item("New").Width = 70
-            .Add(fCheckBoxColumn("Edit"))
+            .Add(CheckBoxColumn("Edit"))
             .Item("Edit").Width = 70
-            .Add(fCheckBoxColumn("Delete"))
+            .Add(CheckBoxColumn("Delete"))
             .Item("Delete").Width = 70
-            .Add(fCheckBoxColumn("Find"))
+            .Add(CheckBoxColumn("Find"))
             .Item("Find").Width = 70
-            .Add(fCheckBoxColumn("Print_Preview"))
+            .Add(CheckBoxColumn("Print_Preview"))
             .Item("Print_Preview").Width = 70
             .Add("STATUS", "STATUS")
             .Item("STATUS").Visible = False
@@ -115,7 +113,7 @@ Public Class FrmUserSecurity
 
     End Sub
 
-    Private Sub fRefreshList()
+    Private Sub RefreshList()
         Try
             trvMENU.Nodes.Clear()
             Dim i As Integer = 0
@@ -133,7 +131,7 @@ Public Class FrmUserSecurity
                 End While
                 rd_sub.Close()
 
-                i = i + 1
+                i += 1
 
             End While
             trvMENU.EndUpdate()
@@ -142,7 +140,7 @@ Public Class FrmUserSecurity
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fRefreshList()
+                RefreshList()
             Else
                 End
             End If
@@ -152,7 +150,7 @@ Public Class FrmUserSecurity
     End Sub
 
 
-    Private Sub frefreshAccessControl()
+    Private Sub RefreshAccessControl()
         'dgvUser.Focus()
         dgvAccessControl.Rows.Clear()
         Dim user_id As Integer = gsSelect_User_ID
@@ -166,14 +164,14 @@ Public Class FrmUserSecurity
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                frefreshAccessControl()
+                RefreshAccessControl()
             Else
                 End
             End If
         End Try
 
     End Sub
-    Private Sub fAutoAccessChange(ByVal prSUB_ID As Integer, ByVal bBool As Boolean)
+    Private Sub AutoAccessChange(ByVal prSUB_ID As Integer, ByVal bBool As Boolean)
 
         For i As Integer = 0 To dgvAccessControl.Rows.Count - 1
             Dim dt As DataGridViewRow = dgvAccessControl.Rows(i)
@@ -197,7 +195,7 @@ Public Class FrmUserSecurity
         Next
 
     End Sub
-    Private Sub trvMENU_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles trvMENU.AfterCheck
+    Private Sub TrvMENU_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles trvMENU.AfterCheck
         If bSelectCheck = True Then Exit Sub
         If bSelected = True Then Exit Sub
 
@@ -216,9 +214,9 @@ Public Class FrmUserSecurity
 
         If Pnode.Checked = True Then
             While PPnode IsNot Nothing
-                RemoveHandler PPnode.TreeView.AfterCheck, AddressOf trvMENU_AfterCheck
+                RemoveHandler PPnode.TreeView.AfterCheck, AddressOf TrvMENU_AfterCheck
                 PPnode.Checked = True
-                AddHandler PPnode.TreeView.AfterCheck, AddressOf trvMENU_AfterCheck
+                AddHandler PPnode.TreeView.AfterCheck, AddressOf TrvMENU_AfterCheck
                 PPnode = PPnode.Parent
             End While
         Else
@@ -231,12 +229,12 @@ Public Class FrmUserSecurity
 
             If chkAUTO.Checked = True Then
                 If e.Node.ImageIndex < 0 And e.Node.Checked = True Then
-                    fAutoAccessChange(e.Node.Name, True)
+                    AutoAccessChange(e.Node.Name, True)
                 ElseIf e.Node.ImageIndex < 0 And e.Node.Checked = False Then
-                    fAutoAccessChange(e.Node.Name, False)
+                    AutoAccessChange(e.Node.Name, False)
 
                 Else
-                    fAutoAccessChange(e.Node.Name, e.Node.Checked)
+                    AutoAccessChange(e.Node.Name, e.Node.Checked)
                 End If
             End If
 
@@ -260,14 +258,14 @@ Public Class FrmUserSecurity
                 Exit Sub
             End If
         Next
-        RemoveHandler PPnode.TreeView.AfterCheck, AddressOf trvMENU_AfterCheck
+        RemoveHandler PPnode.TreeView.AfterCheck, AddressOf TrvMENU_AfterCheck
         PPnode.Checked = False
-        AddHandler PPnode.TreeView.AfterCheck, AddressOf trvMENU_AfterCheck
+        AddHandler PPnode.TreeView.AfterCheck, AddressOf TrvMENU_AfterCheck
         'check the grandpa
         UncheckParent(PPnode.Parent)
 
     End Sub
-    Private Sub fSaveIt()
+    Private Sub SaveIt()
 
         Try
             Dim I As Integer = 0
@@ -278,20 +276,20 @@ Public Class FrmUserSecurity
 
                     Else
                         'INSERT
-                        Dim SQL_ As String = fAddSystemSecurity(tnC.Text, User_ID)
+                        Dim SQL_ As String = AddSystemSecurity(tnC.Text, User_ID)
                         SqlExecuted(SQL_)
                     End If
 
                 Else
                     If tnC.ToolTipText = "S" Then
                         'DELETE
-                        Dim SQL_ As String = fDeleteSystemSecurity(tnC.Text, User_ID)
+                        Dim SQL_ As String = DeleteSystemSecurity(tnC.Text, User_ID)
                         SqlExecuted(SQL_)
                     End If
                 End If
 
 
-                I = I + 1
+                I += 1
                 If tnC.Nodes.Count > 0 Then
                     For Each n As TreeNode In tnC.Nodes
                         If n.Checked = True Then
@@ -299,30 +297,30 @@ Public Class FrmUserSecurity
 
                             Else
                                 'INSERT
-                                Dim SQL_ As String = fAddSystemSecurity(n.Text, User_ID)
+                                Dim SQL_ As String = AddSystemSecurity(n.Text, User_ID)
                                 SqlExecuted(SQL_)
                             End If
 
                         Else
                             If n.ToolTipText = "S" Then
                                 'DELETE
-                                Dim SQL_ As String = fDeleteSystemSecurity(n.Text, User_ID)
+                                Dim SQL_ As String = DeleteSystemSecurity(n.Text, User_ID)
                                 SqlExecuted(SQL_)
                             End If
                         End If
 
-                        I = I + 1
+                        I += 1
 
                     Next
                 End If
 
             Next
 
-            fUpdateDataAccessControl()
+            UpdateDataAccessControl()
             CheckInfo(User_ID)
 
-            fRefreshList()
-            frefreshAccessControl()
+            RefreshList()
+            RefreshAccessControl()
 
 
             PrompNotify(Me.Text, SaveMsg, True)
@@ -331,7 +329,7 @@ Public Class FrmUserSecurity
             MessageBoxInfo(ex.Message)
         End Try
     End Sub
-    Private Sub fUpdateDataAccessControl()
+    Private Sub UpdateDataAccessControl()
         'Saving
         Dim User_ID As String = gsSelect_User_ID
         Dim sQuery As String = ""
@@ -348,7 +346,7 @@ Public Class FrmUserSecurity
         Next
 
     End Sub
-    Private Function fCheckingAccessControl(ByVal prSub_ID As String, ByVal prUser_ID As String) As Boolean
+    Private Function CheckingAccessControl(ByVal prSub_ID As String, ByVal prUser_ID As String) As Boolean
         Dim b As Boolean = False
         Dim rd As OdbcDataReader = SqlReader("select * from user_security_access where sub_id ='" & prSub_ID & "' and user_id ='" & prUser_ID & "' limit 1")
         If rd.Read Then
@@ -357,18 +355,13 @@ Public Class FrmUserSecurity
         rd.Close()
         Return b
     End Function
-    Private Function fAddSystemSecurity(ByVal prName As String, ByVal prUser_Id As String) As String
+    Private Function AddSystemSecurity(ByVal prName As String, ByVal prUser_Id As String) As String
         Return $"INSERT INTO `system_security` SET `NAME` = '{prName}', `USER_ID` = '{prUser_Id}'; "
     End Function
-    Private Function fDeleteSystemSecurity(ByVal prName As String, ByVal prUser_Id As String) As String
+    Private Function DeleteSystemSecurity(ByVal prName As String, ByVal prUser_Id As String) As String
         Return $"DELETE FROM `system_security` WHERE `NAME` = '{prName}' and `USER_ID` = '{prUser_Id}'; "
     End Function
-
-
-
-
-
-    Private Sub dgvAccessControl_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAccessControl.CellClick
+    Private Sub DgvAccessControl_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAccessControl.CellClick
         If e.RowIndex < 0 Or e.ColumnIndex < 0 Then Exit Sub
 
         If e.ColumnIndex > 1 And e.ColumnIndex < 7 Then
@@ -434,7 +427,7 @@ Public Class FrmUserSecurity
             RecursiveSearch(TN, TextToFind)
         Next
     End Sub
-    Private Sub chkAUTO_CheckedChanged(sender As Object, e As EventArgs) Handles chkAUTO.CheckedChanged
+    Private Sub ChkAUTO_CheckedChanged(sender As Object, e As EventArgs) Handles chkAUTO.CheckedChanged
         chkNew.Enabled = chkAUTO.Checked
         chkEdit.Enabled = chkAUTO.Checked
         chkDelete.Enabled = chkAUTO.Checked
@@ -443,25 +436,23 @@ Public Class FrmUserSecurity
 
     End Sub
 
-    Private Sub frmUserSecurity_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmUserSecurity_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ViewNotSort(dgvAccessControl)
     End Sub
-    Private Sub txtFind2_TextChanged(sender As Object, e As EventArgs) Handles txtFind2.TextChanged
+    Private Sub TxtFind2_TextChanged(sender As Object, e As EventArgs) Handles txtFind2.TextChanged
         GetQuickFind(dgvAccessControl, txtFind2.Text)
     End Sub
 
-    Private Sub frmUserSecurity_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fColumn()
-        fRefreshList()
+    Private Sub FrmUserSecurity_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ColumnGrid()
+        RefreshList()
         xxxUserID.Text = gsSelect_UserName
         CheckInfo(gsSelect_User_ID)
-        frefreshAccessControl()
+        RefreshAccessControl()
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        fSaveIt()
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        SaveIt()
     End Sub
-    Private Sub trvMENU_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles trvMENU.AfterSelect
 
-    End Sub
 End Class

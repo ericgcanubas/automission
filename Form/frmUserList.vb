@@ -3,12 +3,12 @@ Public Class FrmUserList
 
     Dim Item_BS As BindingSource
 
-    Private Sub frmUserList_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmUserList_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        fRefreshDataGrid()
+        RefreshDataGrid()
     End Sub
 
-    Private Sub fRefreshDataGrid()
+    Private Sub RefreshDataGrid()
 
         LoadDataGridViewBinding(dgvUser, "SELECT 
   u.`ID`,
@@ -55,11 +55,6 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
 
         ViewColumn(dgvUser, 11)
     End Sub
-
-    Private Sub tsClose_Click(sender As Object, e As EventArgs)
-        ClosedForm(Me)
-    End Sub
-
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click
         ViewSwitch(dgvUser, 11)
         ViewColumn(dgvUser, 11)
@@ -67,7 +62,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
 
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsReload.Click
-        fRefreshDataGrid()
+        RefreshDataGrid()
     End Sub
 
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
@@ -75,7 +70,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
             Exit Sub
         End If
 
-        With frmUserDetails
+        With FrmUserDetails
 
             .gsDgv = dgvUser
             .gsBS = Item_BS
@@ -83,7 +78,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
             .ShowDialog()
             .Dispose()
         End With
-        frmUserDetails = Nothing
+        FrmUserDetails = Nothing
 
     End Sub
 
@@ -101,24 +96,19 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
             Dim i As Integer = dgvUser.CurrentRow.Index
             Dim dID As String = dgvUser.Rows.Item(i).Cells(0).Value
 
-            frmUserDetails.IsNew = False
-            frmUserDetails.ID = dID
-            frmUserDetails.gsDgv = dgvUser
-            frmUserDetails.gsBS = Item_BS
-            frmUserDetails.ShowDialog()
-            frmUserDetails.Dispose()
-            frmUserDetails = Nothing
+            FrmUserDetails.IsNew = False
+            FrmUserDetails.ID = dID
+            FrmUserDetails.gsDgv = dgvUser
+            FrmUserDetails.gsBS = Item_BS
+            FrmUserDetails.ShowDialog()
+            FrmUserDetails.Dispose()
+            FrmUserDetails = Nothing
 
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
-
-    Private Sub dgvUser_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUser.CellContentClick
-
-    End Sub
-
-    Private Sub dgvUser_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUser.CellDoubleClick
+    Private Sub DgvUser_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUser.CellDoubleClick
         EditsToolStripMenuItem_Click(sender, e)
     End Sub
 
@@ -127,9 +117,9 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
             MessageBoxWarning("Data not found")
             Exit Sub
         End If
+
         Try
             If SecurityAccessDelete(Me) = False Then
-
                 Exit Sub
             End If
             dgvUser.Focus()
@@ -144,20 +134,14 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
                 SqlExecuted($"delete from system_security where user_id ='{dID}' ")
                 SqlExecuted("Delete From user where id='" & dID & "' limit 1")
                 DeleteNotify(Me)
-                fRefreshDataGrid()
+                RefreshDataGrid()
             End If
 
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
-
-    Private Sub UserDefaultToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-
-
-    End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
 
             Dim strFInd As String = ""
@@ -191,27 +175,19 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
         End Try
 
     End Sub
-    Private Sub frmUserList_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmUserList_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ViewNotSort(dgvUser)
     End Sub
 
-    Private Sub tsTxtSearch_Click(sender As Object, e As EventArgs)
 
+
+    Private Sub TsbtnSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
+        SearchLoad()
     End Sub
 
-    Private Sub tsbtnSearch_Click(sender As Object, e As EventArgs) Handles tsSearch.Click
-        fSearchload()
+    Private Sub TsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
+        SearchLoad()
     End Sub
-
-    Private Sub tsTxtSearch_TextChanged(sender As Object, e As EventArgs) Handles tsTxtSearch.TextChanged
-        fSearchload()
-    End Sub
-
-    Private Sub UserSecurityToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
     Private Sub UpdateAccessToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateAccessToolStripMenuItem.Click
         If dgvUser.Rows.Count = 0 Then
             MessageBoxInfo("User not selected")

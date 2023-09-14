@@ -153,7 +153,7 @@ Partial Class FrmWriteCheck
         '
         Me.cmbACCOUNTS_PAYABLE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbACCOUNTS_PAYABLE_ID.FormattingEnabled = True
-        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(534, 129)
+        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(534, 128)
         Me.cmbACCOUNTS_PAYABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_PAYABLE_ID.Name = "cmbACCOUNTS_PAYABLE_ID"
         Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(259, 24)
@@ -162,7 +162,7 @@ Partial Class FrmWriteCheck
         'AccountLabel
         '
         Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(461, 132)
+        Me.AccountLabel.Location = New System.Drawing.Point(461, 131)
         Me.AccountLabel.Name = "AccountLabel"
         Me.AccountLabel.Size = New System.Drawing.Size(69, 16)
         Me.AccountLabel.TabIndex = 15
@@ -175,7 +175,7 @@ Partial Class FrmWriteCheck
         Me.cmbLOCATION_ID.Location = New System.Drawing.Point(534, 101)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(259, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(351, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
@@ -239,7 +239,7 @@ Partial Class FrmWriteCheck
         '
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = tsSaveNew.Name
+        Me.tsSaveNew.Name = Me.tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -496,7 +496,7 @@ Partial Class FrmWriteCheck
         '
         Me.tsFindText.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsFindText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsFindText.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsFindText.Name = "tsFindText"
         Me.tsFindText.Size = New System.Drawing.Size(228, 37)
         '
@@ -686,11 +686,11 @@ Partial Class FrmWriteCheck
         '
         Me.txtNOTES.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNOTES.Location = New System.Drawing.Point(321, 410)
+        Me.txtNOTES.Location = New System.Drawing.Point(63, 449)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNOTES.Name = "txtNOTES"
         Me.txtNOTES.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtNOTES.Size = New System.Drawing.Size(700, 23)
+        Me.txtNOTES.Size = New System.Drawing.Size(650, 23)
         Me.txtNOTES.TabIndex = 105
         '
         'Label16
@@ -710,7 +710,7 @@ Partial Class FrmWriteCheck
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.BackColor = System.Drawing.Color.Transparent
-        Me.Label13.Location = New System.Drawing.Point(11, 414)
+        Me.Label13.Location = New System.Drawing.Point(25, 420)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(29, 16)
         Me.Label13.TabIndex = 102
@@ -735,7 +735,7 @@ Partial Class FrmWriteCheck
         Me.cmbINPUT_TAX_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbINPUT_TAX_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbINPUT_TAX_ID.FormattingEnabled = True
-        Me.cmbINPUT_TAX_ID.Location = New System.Drawing.Point(49, 410)
+        Me.cmbINPUT_TAX_ID.Location = New System.Drawing.Point(63, 417)
         Me.cmbINPUT_TAX_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbINPUT_TAX_ID.Name = "cmbINPUT_TAX_ID"
         Me.cmbINPUT_TAX_ID.Size = New System.Drawing.Size(179, 24)
@@ -746,11 +746,11 @@ Partial Class FrmWriteCheck
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(248, 414)
+        Me.Label14.Location = New System.Drawing.Point(12, 452)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 104
-        Me.Label14.Text = "Remarks"
+        Me.Label14.Text = "Notes"
         '
         'Label19
         '
@@ -776,7 +776,7 @@ Partial Class FrmWriteCheck
         Me.lblAMOUNT.Text = "0.00"
         Me.lblAMOUNT.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'frmWriteCheck
+        'FrmWriteCheck
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -809,7 +809,7 @@ Partial Class FrmWriteCheck
         Me.Controls.Add(Me.ToolStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmWriteCheck"
+        Me.Name = "FrmWriteCheck"
         Me.Text = "frmWriteCheck"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

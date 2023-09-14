@@ -1063,7 +1063,7 @@ FROM
 
                 SqlExecuted("Delete from `bill` where ID = '" & ID & "' limit 1;")
 
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
 
                 If MessageBoxQuestion("Without clear details?") = True Then
                     cmbLOCATION_ID.Enabled = True

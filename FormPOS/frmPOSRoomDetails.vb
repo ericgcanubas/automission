@@ -1221,7 +1221,7 @@ APPROVED:
                 End If
                 SqlExecuted("delete from invoice where id ='" & ID & "' limit 1;")
                 gsGotChangeData = True
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
 
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 

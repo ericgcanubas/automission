@@ -468,7 +468,7 @@ Public Class FrmDeposit
                 '================================
                 SqlExecuted("DELETE FROM `deposit` WHERE ID='" & ID & "' limit 1;")
 
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
                 ClearInfo()
                 Computed()
                 ID = 0

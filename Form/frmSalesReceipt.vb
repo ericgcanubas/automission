@@ -568,7 +568,7 @@ FROM
                 End If
 
                 SqlExecuted("DELETE FROM sales_receipt WHERE ID ='" & ID & "' limit 1; ")
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ID = 0
                 IsNew = True

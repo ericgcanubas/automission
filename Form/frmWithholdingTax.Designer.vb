@@ -98,20 +98,20 @@ Partial Class FrmWithholdingTax
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(755, 79)
+        Me.txtCODE.Location = New System.Drawing.Point(788, 79)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(169, 23)
+        Me.txtCODE.Size = New System.Drawing.Size(136, 23)
         Me.txtCODE.TabIndex = 7
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(709, 82)
+        Me.Label8.Location = New System.Drawing.Point(711, 82)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -145,13 +145,13 @@ Partial Class FrmWithholdingTax
         Me.dgvBill.MultiSelect = False
         Me.dgvBill.Name = "dgvBill"
         Me.dgvBill.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvBill.Size = New System.Drawing.Size(1029, 307)
+        Me.dgvBill.Size = New System.Drawing.Size(1029, 305)
         Me.dgvBill.TabIndex = 0
         '
         'ToolStrip2
         '
         Me.ToolStrip2.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.ToolStrip2.ImageScalingSize = New System.Drawing.Size(30, 30)
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsFindText, Me.ToolStripLabel11})
         Me.ToolStrip2.Location = New System.Drawing.Point(3, 4)
         Me.ToolStrip2.Name = "ToolStrip2"
@@ -178,11 +178,11 @@ Partial Class FrmWithholdingTax
         '
         Me.txtNOTES.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNOTES.Location = New System.Drawing.Point(112, 514)
+        Me.txtNOTES.Location = New System.Drawing.Point(112, 536)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNOTES.Multiline = True
         Me.txtNOTES.Name = "txtNOTES"
-        Me.txtNOTES.Size = New System.Drawing.Size(604, 47)
+        Me.txtNOTES.Size = New System.Drawing.Size(604, 34)
         Me.txtNOTES.TabIndex = 55
         '
         'Label14
@@ -190,7 +190,7 @@ Partial Class FrmWithholdingTax
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(64, 517)
+        Me.Label14.Location = New System.Drawing.Point(54, 539)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(45, 16)
         Me.Label14.TabIndex = 54
@@ -201,7 +201,7 @@ Partial Class FrmWithholdingTax
         Me.lblAMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblAMOUNT.BackColor = System.Drawing.Color.Transparent
         Me.lblAMOUNT.ForeColor = System.Drawing.Color.Blue
-        Me.lblAMOUNT.Location = New System.Drawing.Point(781, 532)
+        Me.lblAMOUNT.Location = New System.Drawing.Point(781, 548)
         Me.lblAMOUNT.Name = "lblAMOUNT"
         Me.lblAMOUNT.Size = New System.Drawing.Size(272, 26)
         Me.lblAMOUNT.TabIndex = 52
@@ -214,7 +214,7 @@ Partial Class FrmWithholdingTax
         Me.Label18.AutoSize = True
         Me.Label18.BackColor = System.Drawing.Color.Transparent
         Me.Label18.ForeColor = System.Drawing.Color.Blue
-        Me.Label18.Location = New System.Drawing.Point(1013, 512)
+        Me.Label18.Location = New System.Drawing.Point(1013, 528)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(40, 16)
         Me.Label18.TabIndex = 51
@@ -237,7 +237,7 @@ Partial Class FrmWithholdingTax
         '
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = tsSaveNew.Name
+        Me.tsSaveNew.Name = Me.tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -463,7 +463,7 @@ Partial Class FrmWithholdingTax
         '
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label11.Location = New System.Drawing.Point(781, 530)
+        Me.Label11.Location = New System.Drawing.Point(781, 546)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(273, 1)
         Me.Label11.TabIndex = 59
@@ -493,11 +493,11 @@ Partial Class FrmWithholdingTax
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Location = New System.Drawing.Point(14, 138)
+        Me.TabControl1.Location = New System.Drawing.Point(14, 157)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1043, 369)
+        Me.TabControl1.Size = New System.Drawing.Size(1043, 367)
         Me.TabControl1.TabIndex = 62
         '
         'TabPage1
@@ -508,12 +508,12 @@ Partial Class FrmWithholdingTax
         Me.TabPage1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TabPage1.Size = New System.Drawing.Size(1035, 340)
+        Me.TabPage1.Size = New System.Drawing.Size(1035, 338)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "P.O List"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'frmWithholdingTax
+        'FrmWithholdingTax
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -544,7 +544,7 @@ Partial Class FrmWithholdingTax
         Me.Controls.Add(Me.TabControl1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmWithholdingTax"
+        Me.Name = "FrmWithholdingTax"
         Me.Text = "frmWithHoldingTax"
         CType(Me.dgvBill, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip2.ResumeLayout(False)

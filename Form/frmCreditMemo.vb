@@ -747,7 +747,7 @@ ON B.ID = II.BATCH_ID
 
 
                 SqlExecuted("DELETE FROM credit_memo WHERE ID = '" & ID & "' limit 1;")
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
 
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ClearInfo()

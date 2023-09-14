@@ -612,7 +612,7 @@ FROM
             If MessageBoxQuestion(gsMessageQuestion) = True Then
                 SqlExecuted("DELETE FROM purchase_request_items WHERE PR_ID = '" & ID & "'")
                 SqlExecuted("DELETE FROM purchase_request WHERE ID = '" & ID & "' limit 1;")
-                PrompNotify(Me.Text, DeleteMsg, True)
+                   DeleteNotify(Me)
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
