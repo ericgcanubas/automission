@@ -52,7 +52,7 @@ Public Class FrmSalesTaxRecompute
                 Run += 1
                 pbListofTransaction.Value = Run
                 lblSTATUS.Text = $"{Run}/{Count}"
-                fDoEvents()
+                GS_DoEvents()
             End While
 
         Else

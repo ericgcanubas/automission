@@ -278,7 +278,7 @@ FROM
             With FrmAddItem
 
                 If .gsSave = True Then
-                    fRow_Data_Item_Purchase_Order(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, NumIsNull(dgvProductItem.CurrentRow.Cells("PR_ID").Value))
+                    GS_RowDataItemPurchaseOrder(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, NumIsNull(dgvProductItem.CurrentRow.Cells("PR_ID").Value))
                     '  fDiscount_ReComputed(dgvProductItem)
                 End If
             End With
@@ -296,7 +296,7 @@ FROM
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             Computed()
         End If
     End Sub
@@ -307,7 +307,7 @@ FROM
     End Sub
 
     Private Sub Computed()
-        fPurchase_Vendor_Computation(dgvProductItem, cmbINPUT_TAX_ID, lblINPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblINPUT_TAX_RATE)
+        GS_PurchaseVendorComputation(dgvProductItem, cmbINPUT_TAX_ID, lblINPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblINPUT_TAX_RATE)
         lblCount.Text = DataGridViewCounting(dgvProductItem)
     End Sub
 
@@ -406,7 +406,7 @@ FROM
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
-        If IsTransactionSuccess(ID, "PURCHASE_ORDER") = False Then
+        If GF_IsTransactionSuccess(ID, "PURCHASE_ORDER") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If

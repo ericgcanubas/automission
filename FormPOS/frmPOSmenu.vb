@@ -409,7 +409,7 @@ B.ID = ii.BATCH_ID
     End Function
     Private Sub POSComputed()
         Dim gsSalesSubTotal As Double
-        fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
+        GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
         xxxlblSUB_TOTAL.Text = NumberFormatStandard(gsSalesSubTotal)
 
     End Sub
@@ -599,11 +599,11 @@ B.ID = ii.BATCH_ID
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
 
-            fAccount_Journal_SQL(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
             If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, ID, CDate(dtpDATE.Value), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                fAccount_Journal_SQL(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
 
         End If
@@ -619,7 +619,7 @@ B.ID = ii.BATCH_ID
         End If
         PosTender(ID)
         SaveSalesReceiptItem(ID, dgvProductItem, cmbOUTPUT_TAX_ID, cmbLOCATION_ID, dtpDATE)
-        If IsTransactionSuccess(ID, "SALES_RECEIPT") = False Then
+        If GF_IsTransactionSuccess(ID, "SALES_RECEIPT") = False Then
             MessageBoxWarning("Please try again")
             Exit Sub
         End If
@@ -764,7 +764,7 @@ B.ID = ii.BATCH_ID
                 .ShowDialog()
 
                 If .gsSave = True Then
-                    fRow_Data_Item_Sales_Receipt(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, .gsPRICE_LEVEL_ID, False, GROUP_LINE_ID, .gsBATCH_ID)
+                    GS_RowDataItemSalesReceipt(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, .gsPRICE_LEVEL_ID, False, GROUP_LINE_ID, .gsBATCH_ID)
 
                 End If
             End With
@@ -782,7 +782,7 @@ B.ID = ii.BATCH_ID
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             POSComputed()
         End If
     End Sub
@@ -1621,7 +1621,7 @@ NewPOS_LOG:
     Private Sub DeleteItem_Click(sender As Object, e As EventArgs) Handles tsDeleteItem.Click
         If dgvProductItem.Rows.Count <> 0 Then
             dgvProductItem.Select()
-            fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
+            GS_RemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
             POSComputed()
         End If
     End Sub

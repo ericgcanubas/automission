@@ -363,7 +363,7 @@ Module modJournalAccount
             SqlExecuted("INSERT INTO account_journal  SET ID = '" & xID & "', PREVIOUS_ID =" & GotNullNumber(PREVIOUS_ID) & ",SEQUENCE_NO = '" & SEQUENCE_NO & "',JOURNAL_NO = '" & JOURNAL_NO & "',
             ACCOUNT_ID = '" & ACCOUNT_ID & "',LOCATION_ID = '" & LOCATION_ID & "',SUBSIDIARY_ID='" & SUBSIDIARY_ID & "',
             SEQUENCE_GROUP = '" & SEQUENCE_GROUP & "',OBJECT_TYPE = '" & OBJECT_TYPE & "',OBJECT_ID = '" & OBJECT_ID & "',
-            OBJECT_DATE = '" & OBJECT_DATE & "',ENTRY_TYPE = '" & ENTRY_TYPE & "',AMOUNT = '" & AMOUNT & "',ENDING_BALANCE ='" & dBALANCE & "',EXTENDED_OPTIONS = " & GotNullText(EXTENDED_OPTIONS.Replace("INVENTORY", "")))
+            OBJECT_DATE = '" & OBJECT_DATE & "',ENTRY_TYPE = '" & ENTRY_TYPE & "',AMOUNT = '" & AMOUNT & "',ENDING_BALANCE ='" & dBALANCE & "',EXTENDED_OPTIONS = " & GF_GotNullText(EXTENDED_OPTIONS.Replace("INVENTORY", "")))
 
             fFixed_Ending_Balance(OBJECT_DATE, PREVIOUS_ID, ACCOUNT_ID, LOCATION_ID)
 
@@ -374,7 +374,7 @@ Module modJournalAccount
                 SqlExecuted("UPDATE account_journal  SET PREVIOUS_ID =" & GotNullNumber(PREVIOUS_ID) & ",SEQUENCE_NO = '" & SEQUENCE_NO & "',JOURNAL_NO = '" & JOURNAL_NO & "',
                 ACCOUNT_ID = '" & ACCOUNT_ID & "',LOCATION_ID = '" & LOCATION_ID & "',SUBSIDIARY_ID='" & SUBSIDIARY_ID & "',
                 SEQUENCE_GROUP = '" & SEQUENCE_GROUP & "',OBJECT_TYPE = '" & OBJECT_TYPE & "',OBJECT_ID = '" & OBJECT_ID & "',
-                OBJECT_DATE = '" & OBJECT_DATE & "',ENTRY_TYPE = '" & ENTRY_TYPE & "',AMOUNT = '" & AMOUNT & "',ENDING_BALANCE ='" & dBALANCE & "',EXTENDED_OPTIONS = " & GotNullText(EXTENDED_OPTIONS.Replace("INVENTORY", "")) & " WHERE ID = '" & ID & "' limit 1")
+                OBJECT_DATE = '" & OBJECT_DATE & "',ENTRY_TYPE = '" & ENTRY_TYPE & "',AMOUNT = '" & AMOUNT & "',ENDING_BALANCE ='" & dBALANCE & "',EXTENDED_OPTIONS = " & GF_GotNullText(EXTENDED_OPTIONS.Replace("INVENTORY", "")) & " WHERE ID = '" & ID & "' limit 1")
                 'AUTO COMPUTED ENDING BALANCE
                 fReConfigAccountJournal_ENDING_BALANCE(ACCOUNT_ID, LOCATION_ID, SUBSIDIARY_ID, SEQUENCE_NO, SEQUENCE_GROUP, ID)
 

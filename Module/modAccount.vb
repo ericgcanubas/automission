@@ -3,7 +3,7 @@ Module modAccount
 
 
 
-    Public Sub fLoadAccountTag()
+    Public Sub FilterLoadAccountTag()
         Try
             For i As Integer = 0 To 9999
                 gsACCOUNT_TAG_ID(i) = ""

@@ -145,7 +145,7 @@ SET `ID` = '{gsID}',
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(gsDRAWER_ACCOUNT_ID, gsDefault_LOCATION_ID, gsCustomer_ID, 41, gsID, gsPOS_DATE, 0, NumberFormatFixed(lblAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(gsDRAWER_ACCOUNT_ID, gsDefault_LOCATION_ID, gsCustomer_ID, 41, gsID, gsPOS_DATE, 0, NumberFormatFixed(lblAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
         End If
         '================================
         'ITEM
@@ -168,7 +168,7 @@ SET `ID` = '{gsID}',
 
         '======================================================
         If gsSkipJournalEntry = False Then
-            fAccount_Journal_SQL(gsDefault_ACCOUNTS_RECEIVABLE_ID, gsDefault_LOCATION_ID, gsInvoice_ID, 42, ThisID, gsPOS_DATE, 1, ThisAMOUNT, gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(gsDefault_ACCOUNTS_RECEIVABLE_ID, gsDefault_LOCATION_ID, gsInvoice_ID, 42, ThisID, gsPOS_DATE, 1, ThisAMOUNT, gsJOURNAL_NO_FORM)
         End If
 
         '=====================================================

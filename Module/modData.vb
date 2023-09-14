@@ -1,6 +1,6 @@
 ﻿
 Module modData
-    Public Sub fDoEvents()
+    Public Sub GS_DoEvents()
         Try
             Application.DoEvents()
         Catch ex As Exception
@@ -8,7 +8,7 @@ Module modData
         End Try
 
     End Sub
-    Public Sub fSleep(ByVal i As Integer)
+    Public Sub GF_Sleep(ByVal i As Integer)
         Threading.Thread.Sleep(i)
     End Sub
 

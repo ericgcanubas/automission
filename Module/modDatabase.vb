@@ -3,7 +3,7 @@ Imports System.Data.Odbc
 
 Module modDatabase
     Public gsErrorMessage As String = $" { vbNewLine } { vbNewLine } Yes = Continue. { vbNewLine } No = Exit Program."
-    Public Function IsTransactionSuccess(ByVal prID As String, ByVal prTable As String) As Boolean
+    Public Function GF_IsTransactionSuccess(ByVal prID As String, ByVal prTable As String) As Boolean
         Dim ReturnValue As Boolean = False
         Try
             Dim rd As OdbcDataReader = SqlReader("Select ID FROM " & prTable & " Where ID ='" & prID & "' Limit 1")
@@ -17,7 +17,7 @@ Module modDatabase
         Return ReturnValue
     End Function
 
-    Public Function CheckingCodeReference(ByVal prCODE As String, ByVal prTable As String) As String
+    Public Function GF_CheckingCodeReference(ByVal prCODE As String, ByVal prTable As String) As String
         Dim bAlreadyUSed As Boolean = False
         Try
             Dim rd As OdbcDataReader = SqlReader("select ID from " & prTable & " where `CODE` = '" & prCODE & "' Limit 1")
@@ -31,13 +31,13 @@ Module modDatabase
         If bAlreadyUSed = True Then
             Dim I As Double = Val(prCODE) + 1
             Dim zCODE As String = I.ToString("0000")
-            Return CheckingCodeReference(zCODE, prTable)
+            Return GF_CheckingCodeReference(zCODE, prTable)
         Else
             Return prCODE
         End If
 
     End Function
-    Public Function GetSummary(ByVal sql As String) As Double ' One Field Only
+    Public Function GF_GetSummary(ByVal sql As String) As Double ' One Field Only
         Dim n As Double
         Try
             Dim rd As OdbcDataReader = SqlReader(sql)
@@ -47,12 +47,12 @@ Module modDatabase
             rd.Close()
         Catch ex As Exception
 
-            n = GetSummary(sql)
+            n = GF_GetSummary(sql)
         End Try
         Return n
 
     End Function
-    Public Function GotNullText(ByVal v As String) As String
+    Public Function GF_GotNullText(ByVal v As String) As String
         Try
             If Trim(v) = "" Then
                 Return "NULL"
@@ -171,7 +171,7 @@ Module modDatabase
 
 
         If NumRange > 8 Then
-            fSleep(1000)
+            GF_Sleep(1000)
         End If
 
         ForwardedFilesSave(fPath, SQL)
@@ -523,7 +523,7 @@ Module modDatabase
     End Sub
     Public Sub ComboBoxLoad(ByVal cmb As ComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
         Try
-            fDoEvents()
+            GS_DoEvents()
             Dim StrSql As String = sqlQuery
             Dim cmd As New OdbcCommand(StrSql, cnn)
             Dim da As New OdbcDataAdapter(cmd)
@@ -667,7 +667,7 @@ Module modDatabase
 
         If bActive = True Then
             Cursor.Current = Cursors.WaitCursor
-            '  fDoEvents()
+            '  GS_DoEvents()
         Else
             Cursor.Current = Cursors.Default
         End If

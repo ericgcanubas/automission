@@ -94,9 +94,9 @@ Public Class FrmPOSVoidEntry
                     If gsSkipJournalEntry = False Then
 
 
-                        fAccount_journal_Delete(Val(UNDEPOSITED_FUNDS_ACCOUNT_ID), gsDefault_LOCATION_ID, 52, ThisID, ThisDate)
+                        GS_AccountJournalDelete(Val(UNDEPOSITED_FUNDS_ACCOUNT_ID), gsDefault_LOCATION_ID, 52, ThisID, ThisDate)
                         If NumIsNull(OUTPUT_TAX_ACCOUNT_ID) <> 0 Then
-                            fAccount_journal_Delete(Val(OUTPUT_TAX_ACCOUNT_ID), gsDefault_LOCATION_ID, 52, ThisID, ThisDate)
+                            GS_AccountJournalDelete(Val(OUTPUT_TAX_ACCOUNT_ID), gsDefault_LOCATION_ID, 52, ThisID, ThisDate)
                         End If
 
                     End If
@@ -126,19 +126,19 @@ Public Class FrmPOSVoidEntry
     Private Sub fRemoveMoreReference(ByVal ItemType As Integer, ByVal SALES_RECEIPT_ITEM_ID As Integer, ByVal DT As Date, ByVal ITEM_ID As Integer, ByVal LOCATION_ID As Integer, ByVal INCOME_ACCOUNT_ID As Integer, ByVal ASSET_ACCOUNT_ID As Integer, ByVal COGS_ACCOUNT_ID As Integer)
 
         If ItemType = 0 Or ItemType = 1 Then
-            fItemInventoryRemove_SQL(13, SALES_RECEIPT_ITEM_ID, DT, ITEM_ID, LOCATION_ID)
+            GS_ItemInventoryRemove(13, SALES_RECEIPT_ITEM_ID, DT, ITEM_ID, LOCATION_ID)
         End If
 
         If gsSkipJournalEntry = False Then
             'INCOME ACCOUNT ID
-            fAccount_journal_Delete(INCOME_ACCOUNT_ID, LOCATION_ID, 53, SALES_RECEIPT_ITEM_ID, DT)
+            GS_AccountJournalDelete(INCOME_ACCOUNT_ID, LOCATION_ID, 53, SALES_RECEIPT_ITEM_ID, DT)
             If ItemType = 0 Or ItemType = 1 Then
                 'ITEM INVENTORY/ ASSEMBLY
                 'COST ONLY
                 'ASSET_ACCOUNT_ID
-                fAccount_journal_Delete(ASSET_ACCOUNT_ID, LOCATION_ID, 53, SALES_RECEIPT_ITEM_ID, DT)
+                GS_AccountJournalDelete(ASSET_ACCOUNT_ID, LOCATION_ID, 53, SALES_RECEIPT_ITEM_ID, DT)
                 'COGS_ACCOUNT_ID
-                fAccount_journal_Delete(COGS_ACCOUNT_ID, LOCATION_ID, 53, SALES_RECEIPT_ITEM_ID, DT)
+                GS_AccountJournalDelete(COGS_ACCOUNT_ID, LOCATION_ID, 53, SALES_RECEIPT_ITEM_ID, DT)
             End If
         End If
 

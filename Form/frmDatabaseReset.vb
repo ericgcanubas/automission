@@ -30,16 +30,16 @@ Public Class FrmDatabaseReset
 
             For I As Integer = 0 To chkTableList.Items.Count - 1
                 If chkTableList.GetItemChecked(I) = True Then
-                    fDoEvents()
+                    GS_DoEvents()
                     Dim DOC_ID As Integer = GetNumberFieldValue("DOCUMENT_TYPE_MAP", "DESCRIPTION", chkTableList.Items(I), "ID")
 
                     Dim rd_object As OdbcDataReader = SqlReader($"select * from object_type_map where DOCUMENT_TYPE ='{DOC_ID}' order by ID Desc  ")
                     While rd_object.Read
                         'JOURNAL
-                        fDoEvents()
+                        GS_DoEvents()
                         SqlExecuted($"DELETE FROM account_journal WHERE OBJECT_TYPE ='{rd_object("ID")}'")
                         'MAIN
-                        fDoEvents()
+                        GS_DoEvents()
                         SqlExecuted($"DELETE FROM `{rd_object("TABLE_NAME").ToString.ToLower()}` ")
 
                         If rd_object("TABLE_NAME") = "PAYMENT_INVOICES" Then
@@ -50,14 +50,14 @@ Public Class FrmDatabaseReset
 
 
                         'CODE
-                        fDoEvents()
+                        GS_DoEvents()
                         SqlExecuted($"UPDATE location_reference SET NEXT_CODE = '1' Where TABLE_NAME ='{rd_object("TABLE_NAME")}'")
                         'ID
-                        fDoEvents()
+                        GS_DoEvents()
                         SqlExecuted($"UPDATE object_type_map SET NEXT_ID = '1',NEXT_CODE='1' Where ID ='{rd_object("ID")}'")
                     End While
                     'INVENTORY
-                    fDoEvents()
+                    GS_DoEvents()
 
                     SqlExecuted($"DELETE FROM item_inventory WHERE SOURCE_REF_TYPE ='{DOC_ID}'")
 

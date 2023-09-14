@@ -1525,9 +1525,9 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
                         Case "n"
                             .Cells("ID").Value = ObjectTypeMapId("ITEM_UNITS")
-                            SqlExecuted($"INSERT INTO item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ NumIsNull(.Cells("QTY").Value)}',RATE='{NumIsNull(.Cells("RATE").Value)}',BARCODE={GotNullText(.Cells("BARCODE").Value)},ITEM_ID='{ID}',ID='{ .Cells("ID").Value}';")
+                            SqlExecuted($"INSERT INTO item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ NumIsNull(.Cells("QTY").Value)}',RATE='{NumIsNull(.Cells("RATE").Value)}',BARCODE={GF_GotNullText(.Cells("BARCODE").Value)},ITEM_ID='{ID}',ID='{ .Cells("ID").Value}';")
                         Case "e"
-                            SqlExecuted($"UPDATE item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ NumIsNull(.Cells("QTY").Value)}',RATE='{NumIsNull(.Cells("RATE").Value)}',BARCODE={ GotNullText(.Cells("BARCODE").Value)} WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' limit 1;")
+                            SqlExecuted($"UPDATE item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ NumIsNull(.Cells("QTY").Value)}',RATE='{NumIsNull(.Cells("RATE").Value)}',BARCODE={ GF_GotNullText(.Cells("BARCODE").Value)} WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' limit 1;")
                         Case "d"
                             SqlExecuted($"DELETE FROM item_units  WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' limit 1;")
                     End Select
@@ -1632,7 +1632,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
         picItem.Image = Nothing
 
-        fItemPerUpdate(dgv, ID, IsNew, this_BS, bMain)
+        GS_ItemPerUpdate(dgv, ID, IsNew, this_BS, bMain)
 
         If IsNew = True Then
             PrompNotify(Me.Text, SaveMsg, True)
@@ -1651,7 +1651,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
             Me.Close()
         End If
 
-        fDoEvents()
+        GS_DoEvents()
 
         cmbTYPE.SelectedIndex = LAST_TYPE_INDEX
         CursorLoadingOn(False)

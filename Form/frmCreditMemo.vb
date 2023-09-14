@@ -267,7 +267,7 @@ ON B.ID = II.BATCH_ID
 
         Dim dPayment_applied As Double = fGetCreditApplied_Amount(ID, cmbCUSTOMER_ID.SelectedValue)
         Dim gsSalesSubTotal As Double
-        fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
+        GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
         lblAMOUNT_APPLIED.Text = NumberFormatStandard(dPayment_applied)
         lbxUNAPPLIED_AMOUNT.Text = NumberFormatStandard(Val(NumberFormatFixed(lblAMOUNT.Text)) - dPayment_applied)
         lblCount.Text = DataGridViewCounting(dgvProductItem)
@@ -412,7 +412,7 @@ ON B.ID = II.BATCH_ID
             FrmAddItem.ShowDialog()
             With FrmAddItem
                 If .gsSave = True Then
-                    fRow_Data_Item_Credit_Memo(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, .gsPRICE_LEVEL_ID, 0, False, .gsBATCH_ID)
+                    GS_RowDataItemCreditMemo(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, .gsPRICE_LEVEL_ID, 0, False, .gsBATCH_ID)
                 End If
             End With
             Computed()
@@ -427,7 +427,7 @@ ON B.ID = II.BATCH_ID
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             Computed()
         End If
     End Sub
@@ -486,12 +486,12 @@ ON B.ID = II.BATCH_ID
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
 
-            fAccount_Journal_SQL(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 12, ID, dtpDATE.Value, 1, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 12, ID, dtpDATE.Value, 1, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
 
             If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 12, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                fAccount_Journal_SQL(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 12, ID, dtpDATE.Value, 0, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 12, ID, dtpDATE.Value, 0, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
 
         End If
@@ -500,7 +500,7 @@ ON B.ID = II.BATCH_ID
 
         SaveItem()  ' Save item
 
-        If IsTransactionSuccess(ID, "CREDIT_MEMO") = False Then
+        If GF_IsTransactionSuccess(ID, "CREDIT_MEMO") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -573,24 +573,24 @@ ON B.ID = II.BATCH_ID
                         'UPDATE TAX ONLY
                         fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         SqlExecuted("UPDATE credit_memo_items SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE CREDIT_MEMO_ID ='" & ID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & " limit 1;")
-                        fINVENTORY_JOURNAL_PROCESS(dgvProductItem, i, False, 14, 12, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                        GS_InventoryJournalProcess(dgvProductItem, i, False, 14, 12, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
 
                     Case "A"
                         fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         Dim i_ID As Double = ObjectTypeMapId("CREDIT_MEMO_ITEMS")
                         SqlExecuted("INSERT INTO credit_memo_items SET   BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ",PRINT_IN_FORMS ='" & NumIsNull(.Cells("PRINT_IN_FORMS").Value) & "',LINE_NO='" & i & "',ID='" & i_ID & "',QUANTITY ='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",CREDIT_MEMO_ID ='" & ID & "',GROUP_LINE_ID = " & GotNullNumber(.Cells("GROUP_LINE_ID").Value) & ";")
                         .Cells("ID").Value = i_ID
-                        fINVENTORY_JOURNAL_PROCESS(dgvProductItem, i, False, 14, 12, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                        GS_InventoryJournalProcess(dgvProductItem, i, False, 14, 12, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
 
                     Case "E"
                         fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         SqlExecuted("UPDATE credit_memo_items SET   BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ",LINE_NO='" & i & "',QUANTITY='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & " WHERE CREDIT_MEMO_ID ='" & ID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & " limit 1;")
-                        fINVENTORY_JOURNAL_PROCESS(dgvProductItem, i, False, 14, 12, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                        GS_InventoryJournalProcess(dgvProductItem, i, False, 14, 12, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
 
                     Case "D"
 
                         SqlExecuted("DELETE FROM credit_memo_items WHERE CREDIT_MEMO_ID ='" & ID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "' limit 1;")
-                        fINVENTORY_JOURNAL_PROCESS(dgvProductItem, i, False, 14, 12, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                        GS_InventoryJournalProcess(dgvProductItem, i, False, 14, 12, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
 
                 End Select
             End With
@@ -736,10 +736,10 @@ ON B.ID = II.BATCH_ID
                 If gsSkipJournalEntry = False Then
                     gsJOURNAL_NO_FORM = 0
 
-                    fAccount_journal_Delete(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, 12, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, 12, ID, dtpDATE.Value)
 
                     If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) <> 0 Then
-                        fAccount_journal_Delete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 12, ID, dtpDATE.Value)
+                        GS_AccountJournalDelete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 12, ID, dtpDATE.Value)
                     End If
 
                 End If
@@ -1050,7 +1050,7 @@ ON B.ID = II.BATCH_ID
     Private Sub TsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
         If dgvProductItem.Rows.Count <> 0 Then
             dgvProductItem.Select()
-            fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
+            GS_RemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
             Computed()
         End If
     End Sub

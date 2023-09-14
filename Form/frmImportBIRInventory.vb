@@ -271,7 +271,7 @@ Public Class FrmImportBIRInventory
                 End If
                 rd.Close()
             End With
-            fDoEvents()
+            GS_DoEvents()
         Next
 
         If StrItemSQL <> "" Then

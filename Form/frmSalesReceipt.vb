@@ -230,7 +230,7 @@ FROM
     Private Sub Computed()
 
         Dim gsSalesSubTotal As Double = 0
-        fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
+        GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
 
     End Sub
 
@@ -351,7 +351,7 @@ FROM
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
-        If IsTransactionSuccess(ID, "SALES_RECEIPT") = False Then
+        If GF_IsTransactionSuccess(ID, "SALES_RECEIPT") = False Then
             CursorLoadingOn(False)
             MessageBoxWarning("Please try again")
             Exit Sub
@@ -360,11 +360,11 @@ FROM
         '======================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
             If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                fAccount_Journal_SQL(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, dtpDATE.Value, 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, dtpDATE.Value, 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
         End If
         '================================
@@ -421,7 +421,7 @@ FROM
         If dgvProductItem.Rows.Count <> 0 Then
             dgvProductItem.Select()
             Try
-                fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
+                GS_RemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
             Catch ex As Exception
 
             End Try
@@ -487,7 +487,7 @@ FROM
             FrmAddItem.ShowDialog()
             With FrmAddItem
                 If .gsSave = True Then
-                    fRow_Data_Item_Sales_Receipt(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, .gsPRICE_LEVEL_ID, False, gsGROUP_ID, .gsBATCH_ID)
+                    GS_RowDataItemSalesReceipt(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, .gsPRICE_LEVEL_ID, False, gsGROUP_ID, .gsBATCH_ID)
                 End If
             End With
             Computed()
@@ -506,7 +506,7 @@ FROM
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             Computed()
         End If
     End Sub
@@ -560,9 +560,9 @@ FROM
                 '======================================
                 If gsSkipJournalEntry = False Then
 
-                    fAccount_journal_Delete(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 52, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 52, ID, dtpDATE.Value)
                     If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) <> 0 Then
-                        fAccount_journal_Delete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 52, ID, dtpDATE.Value)
+                        GS_AccountJournalDelete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 52, ID, dtpDATE.Value)
                     End If
 
                 End If

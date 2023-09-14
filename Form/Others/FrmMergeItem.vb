@@ -82,7 +82,7 @@ Public Class FrmMergeItem
         If rd.Read Then
             'UPDATE COST,RATE ONLY
             n_fExecutedOnly($"UPDATE item SET COST ='{Cost}',RATE ='{Rate}' where Id = '{rd("id")}' limit 1;")
-            fDoEvents()
+            GS_DoEvents()
         Else
             'INSERT 
 

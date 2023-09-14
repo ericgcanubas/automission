@@ -343,7 +343,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
         End If
 
-        If IsTransactionSuccess(ID, "INVENTORY_ADJUSTMENT") = False Then
+        If GF_IsTransactionSuccess(ID, "INVENTORY_ADJUSTMENT") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -354,7 +354,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             gsJOURNAL_NO_FORM = 0
             Dim T As Integer
             Dim ASSET As Double = GetTotalAssetValue(T)
-            fAccount_Journal_SQL(lblACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbADJUSTMENT_TYPE_ID.SelectedValue, 19, ID, dtpDATE.Value, T, ASSET, gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(lblACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbADJUSTMENT_TYPE_ID.SelectedValue, 19, ID, dtpDATE.Value, T, ASSET, gsJOURNAL_NO_FORM)
         End If
         '===========================================
         SaveItem()
@@ -471,7 +471,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                         fItem_Inventory_SQL(r.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("QTY_DIFFERENCE").Value, NumIsNull(r.Cells("NEW_VALUE").Value), 6, i_ID, dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
                         '===========================================
                         If gsSkipJournalEntry = False Then
-                            fAccount_Journal_SQL(r.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("ITEM_ID").Value, 20, r.Cells("ID").Value, dtpDATE.Value, IIf(r.Cells("QTY_DIFFERENCE").Value >= 0, 0, 1), r.Cells("ASSET_VALUE").Value, gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(r.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("ITEM_ID").Value, 20, r.Cells("ID").Value, dtpDATE.Value, IIf(r.Cells("QTY_DIFFERENCE").Value >= 0, 0, 1), r.Cells("ASSET_VALUE").Value, gsJOURNAL_NO_FORM)
                         End If
                       '===========================================
 
@@ -500,7 +500,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                             fItem_Inventory_SQL(r.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("QTY_DIFFERENCE").Value, NumIsNull(r.Cells("NEW_VALUE").Value), 6, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
                             '=========================================== 
                             If gsSkipJournalEntry = False Then
-                                fAccount_Journal_SQL(r.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("ITEM_ID").Value, 20, r.Cells("ID").Value, dtpDATE.Value, IIf(r.Cells("QTY_DIFFERENCE").Value >= 0, 0, 1), r.Cells("ASSET_VALUE").Value, gsJOURNAL_NO_FORM)
+                                GS_AccountJournalExecute(r.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("ITEM_ID").Value, 20, r.Cells("ID").Value, dtpDATE.Value, IIf(r.Cells("QTY_DIFFERENCE").Value >= 0, 0, 1), r.Cells("ASSET_VALUE").Value, gsJOURNAL_NO_FORM)
                             End If
                             '===========================================
                         End If
@@ -509,9 +509,9 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
                     Case "D"
                         SqlExecuted("DELETE FROM inventory_adjustment_items WHERE ID ='" & r.Cells(0).Value & "' and ITEM_ID ='" & r.Cells("ITEM_ID").Value & "' and INVENTORY_ADJUSTMENT_ID ='" & ID & "' limit 1;")
-                        fItemInventoryRemove_SQL(6, NumIsNull(r.Cells("ID").Value), dtpDATE.Value, NumIsNull(r.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
+                        GS_ItemInventoryRemove(6, NumIsNull(r.Cells("ID").Value), dtpDATE.Value, NumIsNull(r.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
                         If gsSkipJournalEntry = False Then
-                            fAccount_journal_Delete(NumIsNull(r.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 20, r.Cells("ID").Value, dtpDATE.Value)
+                            GS_AccountJournalDelete(NumIsNull(r.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 20, r.Cells("ID").Value, dtpDATE.Value)
                         End If
                 End Select
             End With
@@ -617,7 +617,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 '===========================================
                 If gsSkipJournalEntry = False Then
 
-                    fAccount_journal_Delete(NumIsNull(lblACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 19, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(NumIsNull(lblACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 19, ID, dtpDATE.Value)
 
                 End If
                 '===========================================
@@ -896,7 +896,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 With gsBIR_dgvImportBIRItemList.Rows(i)
                     Dim rd As OdbcDataReader = SqlReader($"select * from item where `code`='{ TextIsNull(.Cells("code").Value)}' limit 1")
                     If rd.Read Then
-                        '  fAddItem_Inventory_Row(dgvItem, True, NumIsNull(rd("ID")), NumIsNull(rd("BASE_UNIT_ID")), NumIsNull(.Cells("qty").Value), 1, NumIsNull(rd("COST")), "A", cmbLOCATION_ID.SelectedValue, dtpDATE.Value,)
+                        '  GS_AddItemInventoryRow(dgvItem, True, NumIsNull(rd("ID")), NumIsNull(rd("BASE_UNIT_ID")), NumIsNull(.Cells("qty").Value), 1, NumIsNull(rd("COST")), "A", cmbLOCATION_ID.SelectedValue, dtpDATE.Value,)
                     End If
                     rd.Close()
 

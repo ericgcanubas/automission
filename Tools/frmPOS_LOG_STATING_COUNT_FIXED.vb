@@ -10,7 +10,7 @@ Public Class frmPOS_LOG_STATING_COUNT_FIXED
 
     Private Sub btnRUN_Click(sender As Object, e As EventArgs) Handles btnRUN.Click
 UP_NOW:
-        ' fDoEvents()
+        ' GS_DoEvents()
         'CursorLoadingOn(True)
         Dim dt As Date = dtpDATE.Value
         Dim dn As Date = Date.Now

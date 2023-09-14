@@ -12,7 +12,7 @@ Public Class FrmItemInventoryCostUpdate
         If chkUseSelectItem.Checked = True Then
             Dim rd As OdbcDataReader = SqlReader($"select ID,COST,COGS_ACCOUNT_ID,ASSET_ACCOUNT_ID from item Where inactive = '0' and type ='0' and ID = '{cmbITEM.SelectedValue}'  limit 1;")
             If rd.Read Then
-                fDoEvents()
+                GS_DoEvents()
                 fInventoryRead(rd("ID"), NumIsNull(rd("COST")), NumIsNull(rd("COGS_ACCOUNT_ID")), NumIsNull(rd("ASSET_ACCOUNT_ID")))
                 MessageBoxInfo("Update Complete.")
 
@@ -35,7 +35,7 @@ Public Class FrmItemInventoryCostUpdate
                 PBItemList.Maximum = TotalRow
                 PBItemList.Value = PBItemList.Value + 1
                 lblItemList.Text = "Item List :" & PBItemList.Value & "/" & PBItemList.Maximum
-                fDoEvents()
+                GS_DoEvents()
                 fInventoryRead(rd("ID"), NumIsNull(rd("COST")), NumIsNull(rd("COGS_ACCOUNT_ID")), NumIsNull(rd("ASSET_ACCOUNT_ID")))
             End While
             MessageBoxInfo("Update Complete.")
@@ -62,7 +62,7 @@ Public Class FrmItemInventoryCostUpdate
             PBInventory.Maximum = TotalRow
             PBInventory.Value = PBInventory.Value + 1
             lblInventory.Text = "Inventory :" & PBInventory.Value & "/" & PBInventory.Maximum
-            fDoEvents()
+            GS_DoEvents()
             h_COST = NumIsNull(rd("ENDING_UNIT_COST"))
             If chkBaseOnItemCost.Checked = False Then
                 If COST = h_COST Then
@@ -107,9 +107,9 @@ Public Class FrmItemInventoryCostUpdate
             End If
             Dim Qty As Integer = rd("QUANTITY")
             fJournal(COGS_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
-            fDoEvents()
+            GS_DoEvents()
             fJournal(ASSET_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
-            fDoEvents()
+            GS_DoEvents()
             SqlExecuted($"UPDATE item_inventory SET  COST={GotNullNumber(IIf(Qty < 0, 0, d_COST))},ENDING_UNIT_COST = '{d_COST}',ENDING_COST='{ NumIsNull(rd("ENDING_QUANTITY")) * d_COST}' where id = '{rd("ID")}' limit 1;")
 
         End While

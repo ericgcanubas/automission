@@ -93,7 +93,7 @@
         gsClass_ID = cmbClass.SelectedValue
         If gsNew = True Then
             If gsSave = True Then
-                fAddRow_Data_Expenses(gsDGV, True, gsAccount_ID, gsAmount, gsTax, gsParticular, gsClass_ID, "A")
+                GS_AddRowDataExpenses(gsDGV, True, gsAccount_ID, gsAmount, gsTax, gsParticular, gsClass_ID, "A")
                 ClearAndRefresh(Me)
             End If
         Else

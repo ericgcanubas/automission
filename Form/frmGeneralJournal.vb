@@ -232,7 +232,7 @@ Public Class FrmGeneralJournal
 
 
 
-        If IsTransactionSuccess(ID, "GENERAL_JOURNAL") = False Then
+        If GF_IsTransactionSuccess(ID, "GENERAL_JOURNAL") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -288,24 +288,24 @@ Public Class FrmGeneralJournal
 
                     If gsGotChangeLocation1 = False And gsGotChangeDate = False Then
                         If gsSkipJournalEntry = False Then
-                            fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                         End If
                     End If
 
                 Case "A"
                     Dim i_ID As Double = ObjectTypeMapId("general_journal_details")
-                    SqlExecuted("INSERT INTO `general_journal_details` SET ID='" & i_ID & "',GENERAL_JOURNAL_ID='" & ID & "',LINE_NO='" & i & "',ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',DEBIT=" & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("DEBIT").Value))) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("AMOUNT").Value))) & ",NOTES=" & GotNullText(TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GotNullText(r.Cells("CLASS_ID").Value) & ";")
+                    SqlExecuted("INSERT INTO `general_journal_details` SET ID='" & i_ID & "',GENERAL_JOURNAL_ID='" & ID & "',LINE_NO='" & i & "',ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',DEBIT=" & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("DEBIT").Value))) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("AMOUNT").Value))) & ",NOTES=" & GF_GotNullText(TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GF_GotNullText(r.Cells("CLASS_ID").Value) & ";")
                     r.Cells("ID").Value = i_ID
 
                     '===========================================
                     If gsSkipJournalEntry = False Then
-                        fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                     End If
                     '===========================================
                     r.Cells("CONTROL_STATUS").Value = "S"
                 Case "E"
 
-                    SqlExecuted("UPDATE `general_journal_details` Set LINE_NO='" & i & "', `ACCOUNT_ID`='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',`DEBIT`=" & GotNullNumber(Format(NumIsNull(r.Cells("DEBIT").Value), "FIXED")) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("AMOUNT").Value))) & ",`NOTES`=" & GotNullText(TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GotNullText(r.Cells("CLASS_ID").Value) & " WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
+                    SqlExecuted("UPDATE `general_journal_details` Set LINE_NO='" & i & "', `ACCOUNT_ID`='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',`DEBIT`=" & GotNullNumber(Format(NumIsNull(r.Cells("DEBIT").Value), "FIXED")) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("AMOUNT").Value))) & ",`NOTES`=" & GF_GotNullText(TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GF_GotNullText(r.Cells("CLASS_ID").Value) & " WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
                     If gsGotChangeDate = True Then
                         'Main
                         AccountJournalChangeDate(dtpDATE.Value, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
@@ -317,14 +317,14 @@ Public Class FrmGeneralJournal
                     End If
                     '===========================================
                     If gsSkipJournalEntry = False Then
-                        fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                     End If
                     '==========================================
                     r.Cells("CONTROL_STATUS").Value = "S"
                 Case "D"
                     SqlExecuted("DELETE FROM general_journal_details WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
                     If gsSkipJournalEntry = False Then
-                        fAccount_journal_Delete(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 84, r.Cells("ID").Value, dtpDATE.Value)
+                        GS_AccountJournalDelete(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 84, r.Cells("ID").Value, dtpDATE.Value)
                     End If
 
             End Select

@@ -51,7 +51,7 @@ Public Class FrmConnectionList
         RefreshList()
     End Sub
     Private Sub FrmConnectionList_Load(sender As Object, e As EventArgs) Handles Me.Load
-        IsAdmin = IsRunAdministrator()
+        IsAdmin = GF_IsRunAdministrator()
 
         If IsAdmin = True Then
             listCon.ContextMenuStrip = ContextMenuStrip1
@@ -68,7 +68,7 @@ Public Class FrmConnectionList
         gsThemeNo = Val(GetDBAccessValueByText("MATERIAL_SKIN")) '  SkinEngine1.SkinFile = SkinPath() & "vista1.ssk"
         RefreshList()
 
-        If IsRunAdministrator() = True Then
+        If GF_IsRunAdministrator() = True Then
             Me.Text = gsSystemName & "*"
         Else
 
@@ -239,14 +239,14 @@ Public Class FrmConnectionList
 
 
 
-            If IsRunAdministrator() = False Then
+            If GF_IsRunAdministrator() = False Then
                 Exit Sub
             End If
             FrmTFU.ShowDialog()
             FrmTFU.Dispose()
             FrmTFU = Nothing
         ElseIf e.KeyCode = Keys.F11 Then
-            If IsRunAdministrator() = False Then
+            If GF_IsRunAdministrator() = False Then
                 Exit Sub
             End If
             FrmCollectionList.ShowDialog()

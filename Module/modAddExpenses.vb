@@ -1,5 +1,5 @@
 ﻿Module modAddExpenses
-    Public Sub fAddRow_Data_Expenses(ByVal gsDGV As DataGridView, ByVal pradd As Boolean, ByVal prAccount_ID As String, ByVal prAmount As Double, ByVal prTax As Boolean, ByVal prParticular As String, ByVal prClass_ID As String, ByVal prControl_Status As String)
+    Public Sub GS_AddRowDataExpenses(ByVal gsDGV As DataGridView, ByVal pradd As Boolean, ByVal prAccount_ID As String, ByVal prAmount As Double, ByVal prTax As Boolean, ByVal prParticular As String, ByVal prClass_ID As String, ByVal prControl_Status As String)
         Dim sAccount_Name As String = GetStringFieldValue("account", "ID", prAccount_ID, "NAME")
         Dim sclass_name As String = GetStringFieldValue("class", "ID", prClass_ID, "NAME")
         Dim taxable_amount As Double = 0

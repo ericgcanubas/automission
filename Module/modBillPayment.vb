@@ -1,8 +1,8 @@
 ﻿Imports System.Data.Odbc
 Module modBillPayment
-    Public Sub SetUpdateBillBalance(ByVal prBill_ID As String, ByVal prVendor_ID As String)
+    Public Sub GS_SetUpdateBillBalance(ByVal prBill_ID As String, ByVal prVendor_ID As String)
 
-        Dim dTotal_Payment As Double = GetBillSumPaymentApplied(prBill_ID, prVendor_ID) + GetBillSumCreditApplied(prBill_ID, prVendor_ID) + GetBillSumTaxAppliedAmount(prBill_ID, prVendor_ID)
+        Dim dTotal_Payment As Double = GF_GetBillSumPaymentApplied(prBill_ID, prVendor_ID) + GF_GetBillSumCreditApplied(prBill_ID, prVendor_ID) + GF_GetBillSumTaxAppliedAmount(prBill_ID, prVendor_ID)
         Dim dTotal_Amount As Double = GetNumberFieldValue("BILL", "ID", prBill_ID, "AMOUNT") 'ORIGINAL AMOUNT
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer
@@ -17,7 +17,7 @@ Module modBillPayment
         SqlExecuted("UPDATE bill SET BALANCE_DUE ='" & NumberFormatFixed(dTotal_Balance) & "',STATUS='" & nStatus & "',STATUS_DATE ='" & Format(Date.Now, "yyyy-MM-dd hh:mm:ss") & "' WHERE Vendor_ID ='" & prVendor_ID & "' and ID ='" & prBill_ID & "' limit 1;")
 
     End Sub
-    Public Function GetBillSumPaymentApplied(ByRef prBill_ID As String, ByVal prVendor_ID As String) As Double
+    Public Function GF_GetBillSumPaymentApplied(ByRef prBill_ID As String, ByVal prVendor_ID As String) As Double
         If Trim(prVendor_ID) = "" Or Trim(prBill_ID) = "" Then
             Return 0
             Exit Function
@@ -32,7 +32,7 @@ Module modBillPayment
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = GetBillSumPaymentApplied(prBill_ID, prVendor_ID)
+                dPayment = GF_GetBillSumPaymentApplied(prBill_ID, prVendor_ID)
             Else
                 End
             End If
@@ -40,7 +40,7 @@ Module modBillPayment
         Return dPayment
     End Function
 
-    Public Function GetBillSumCreditApplied(ByRef prBill_ID As String, ByVal prVendor_ID As String) As Double
+    Public Function GF_GetBillSumCreditApplied(ByRef prBill_ID As String, ByVal prVendor_ID As String) As Double
         If Trim(prBill_ID) = "" Or Trim(prVendor_ID) = "" Then
             Return 0
             Exit Function
@@ -55,7 +55,7 @@ Module modBillPayment
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = GetBillSumCreditApplied(prBill_ID, prVendor_ID)
+                dPayment = GF_GetBillSumCreditApplied(prBill_ID, prVendor_ID)
             Else
                 End
             End If
@@ -63,7 +63,7 @@ Module modBillPayment
         Return dPayment
     End Function
 
-    Public Function GetBillSumTaxAppliedAmount(ByRef prID As String, ByVal prVendor_ID As String) As Double
+    Public Function GF_GetBillSumTaxAppliedAmount(ByRef prID As String, ByVal prVendor_ID As String) As Double
 
         If Trim(prID) = "" Or Trim(prVendor_ID) = "" Then
             Return 0
@@ -78,7 +78,7 @@ Module modBillPayment
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = GetBillSumTaxAppliedAmount(prID, prVendor_ID)
+                dPayment = GF_GetBillSumTaxAppliedAmount(prID, prVendor_ID)
             Else
                 End
             End If

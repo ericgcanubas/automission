@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Module modCreditLimit
-    Public Sub fGotCreditLimitLineStatus(ByVal prLoc_ID As String, ByVal prCustomer_ID As String, ByRef prCL As Double, ByRef prBALANCE_DUE As Double)
+    Public Sub GS_GotCreditLimitLineStatus(ByVal prLoc_ID As String, ByVal prCustomer_ID As String, ByRef prCL As Double, ByRef prBALANCE_DUE As Double)
         Dim sQuery As String = "SELECT   c.ACCOUNT_NO,'" & prLoc_ID & "'  AS `loc_id` ,IFNULL( c.`CREDIT_LIMIT`,0) AS `CL`,(
   (SELECT 
    IFNULL(SUM(i.`AMOUNT`),0)

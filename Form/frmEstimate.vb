@@ -235,7 +235,7 @@ FROM
 
     Private Sub Computed()
         Dim gsSalesSubTotal As Double
-        fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
+        GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
 
     End Sub
 
@@ -301,7 +301,7 @@ FROM
                 .ShowDialog()
 
                 If .gsSave = True Then
-                    fRow_Data_Item_Estimate(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, .gsPRICE_LEVEL_ID)
+                    GS_RowDataItemEstimate(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, .gsPRICE_LEVEL_ID)
                     ' fDiscount_ReComputed(dgvProductItem)
                     GoupItemComputed(dgvProductItem)
                 End If
@@ -361,14 +361,14 @@ FROM
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             Computed()
 
         ElseIf e.ColumnIndex = 21 Then
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fClosed_Value(dgvProductItem)
+            GS_ClosedValue(dgvProductItem)
             Computed()
         End If
     End Sub
@@ -406,7 +406,7 @@ FROM
         End If
 
 
-        If IsTransactionSuccess(ID, "estimate") = False Then
+        If GF_IsTransactionSuccess(ID, "estimate") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -720,7 +720,7 @@ Again:
             .ShowDialog()
             'If .gsSave = True Then
 
-            '    fRow_Data_Item_Estimate(dgvProductItem, True, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "A", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount)
+            '    GS_RowDataItemEstimate(dgvProductItem, True, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "A", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount)
 
 
             'End If

@@ -181,7 +181,7 @@ ON B.ID = II.BATCH_ID
 
             Dim credit_limit As Double = 0
             Dim total_invoice As Double = 0
-            fGotCreditLimitLineStatus(cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, credit_limit, total_invoice)
+            GS_GotCreditLimitLineStatus(cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, credit_limit, total_invoice)
             Dim total_new_invoice As Double = NumberFormatFixed(lblAMOUNT.Text)
             Dim total As Double = total_invoice + total_new_invoice
             Dim bLimit As Boolean = False
@@ -397,7 +397,7 @@ ON B.ID = II.BATCH_ID
 
                 cmbSHIP_VIA_ID.SelectedValue = gsCHECK_IN
                 Dim rate As Double = GetNumberFieldValue("item", "id", gsRoomID, "rate")
-                fRow_Data_Item_Invoice(dgvProductItem, True, gsRoomID, 1, rate, "", 0, rate, False, 0, "A", 1, 0, rate, "", 0, 0, False, 0)
+                GS_RowDataItemInvoice(dgvProductItem, True, gsRoomID, 1, rate, "", 0, rate, False, 0, "A", 1, 0, rate, "", 0, 0, False, 0)
 
 
             Else
@@ -581,19 +581,19 @@ APPROVED:
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
 
-            fAccount_Journal_SQL(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
 
             If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 23, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                fAccount_Journal_SQL(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
 
         End If
         '================================ 
         SaveInvoiceItem(ID, dgvProductItem, cmbOUTPUT_TAX_ID, cmbLOCATION_ID, dtpDATE)
 
-        If IsTransactionSuccess(ID, "INVOICE") = False Then
+        If GF_IsTransactionSuccess(ID, "INVOICE") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -730,7 +730,7 @@ APPROVED:
                 frmAddItem.ShowDialog()
 
                 If .gsSave = True Then
-                    fRow_Data_Item_Invoice(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, dgvProductItem.Rows.Item(I).Cells("REF_LINE_ID").Value, .gsPRICE_LEVEL_ID, gsGROUP_ID, False, .gsBATCH_ID)
+                    GS_RowDataItemInvoice(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, dgvProductItem.Rows.Item(I).Cells("REF_LINE_ID").Value, .gsPRICE_LEVEL_ID, gsGROUP_ID, False, .gsBATCH_ID)
                 End If
 
 
@@ -768,7 +768,7 @@ APPROVED:
     Public Sub fComputed()
         fRoomFinder()
         Dim gsSalesSubTotal As Double
-        fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
+        GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
         Dim dPayment_applied As Double = fGetSumPaymentApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fGetSumCreditApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fInvoiceSumTaxApplied_Amount(ID, cmbCUSTOMER_ID.SelectedValue)
 
 
@@ -883,7 +883,7 @@ APPROVED:
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             fComputed()
         End If
     End Sub
@@ -1213,9 +1213,9 @@ APPROVED:
                 If gsSkipJournalEntry = False Then
                     gsJOURNAL_NO_FORM = 0
 
-                    fAccount_journal_Delete(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
                     If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) <> 0 Then
-                        fAccount_journal_Delete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
+                        GS_AccountJournalDelete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
                     End If
 
                 End If
@@ -1534,7 +1534,7 @@ APPROVED:
                         Exit Sub
                     End If
                 End If
-                fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
+                GS_RemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
                 fCountItem()
                 fComputed()
             End If

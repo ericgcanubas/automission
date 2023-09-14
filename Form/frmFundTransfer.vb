@@ -157,7 +157,7 @@ Public Class FrmFundTransfer
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
         End If
 
-        If IsTransactionSuccess(ID, "FUND_TRANSFER") = False Then
+        If GF_IsTransactionSuccess(ID, "FUND_TRANSFER") = False Then
             MessageBoxWarning("Please try again")
             Exit Sub
         End If
@@ -165,11 +165,11 @@ Public Class FrmFundTransfer
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(cmbTO_ACCOUNT_ID.SelectedValue, cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue, 93, ID, dtpDATE.Value, 0, numAMOUNT.Value, gsJOURNAL_NO_FORM)
-            fAccount_Journal_SQL(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue, 93, ID, dtpDATE.Value, 1, numAMOUNT.Value, gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(cmbTO_ACCOUNT_ID.SelectedValue, cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue, 93, ID, dtpDATE.Value, 0, numAMOUNT.Value, gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue, 93, ID, dtpDATE.Value, 1, numAMOUNT.Value, gsJOURNAL_NO_FORM)
 
-            fAccount_Journal_SQL(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue, 93, ID, dtpDATE.Value, 0, numAMOUNT.Value, gsJOURNAL_NO_FORM)
-            fAccount_Journal_SQL(cmbFROM_ACCOUNT_ID.SelectedValue, cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue, 93, ID, dtpDATE.Value, 1, numAMOUNT.Value, gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue, 93, ID, dtpDATE.Value, 0, numAMOUNT.Value, gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(cmbFROM_ACCOUNT_ID.SelectedValue, cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue, 93, ID, dtpDATE.Value, 1, numAMOUNT.Value, gsJOURNAL_NO_FORM)
 
         End If
         '================================

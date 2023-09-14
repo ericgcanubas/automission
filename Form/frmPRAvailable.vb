@@ -124,7 +124,7 @@ Public Class FrmPRAvailable
                 If .Cells(0).Value = True Then
 
 
-                    fRow_Data_StockReceived(dgv, True, .Cells("ITEM_ID").Value, .Cells("QTY").Value, .Cells("UNIT_BASE_QUANTITY").Value, .Cells("UNIT_ID").Value, .Cells("UNIT_COST").Value, .Cells("UNIT_PRICE").Value, "A", .Cells("ID").Value)
+                    GS_RowDataStockReceived(dgv, True, .Cells("ITEM_ID").Value, .Cells("QTY").Value, .Cells("UNIT_BASE_QUANTITY").Value, .Cells("UNIT_ID").Value, .Cells("UNIT_COST").Value, .Cells("UNIT_PRICE").Value, "A", .Cells("ID").Value)
                 End If
             End With
         Next

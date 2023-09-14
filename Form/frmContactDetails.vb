@@ -379,7 +379,7 @@ WHERE c.Type = '6' and c.`ID` = '" & ID & "' limit 1"
 
 
 
-        fContactUpdate(gsDgv, IsNew, this_BS, sql_Refresh)
+        GS_ContactUpdate(gsDgv, IsNew, this_BS, sql_Refresh)
         IsNew = True
         ID = 0
         RefreshCombo()

@@ -63,8 +63,8 @@ Module modDepot
         Dim sqlx As String = "SELECT SUM(pv.`AMOUNT_APPLIED`)  FROM payment_invoices AS pv INNER JOIN  payment AS p ON p.`ID` = pv.`PAYMENT_ID` inner join invoice as i on pv.INVOICE_ID = i.ID WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "'"
         Dim sqls As String = "SELECT SUM(i.`AMOUNT`)   FROM sales_receipt AS i  WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "'"
 
-        Dim n As Double = GetSummary(sqlx)
-        n = n + GetSummary(sqls)
+        Dim n As Double = GF_GetSummary(sqlx)
+        n = n + GF_GetSummary(sqls)
 
         Return n
         CursorLoadingOn(False)
@@ -74,8 +74,8 @@ Module modDepot
         Dim sqlx As String = "SELECT SUM(pv.`AMOUNT_APPLIED`)  FROM payment_invoices AS pv INNER JOIN  payment AS p ON p.`ID` = pv.`PAYMENT_ID` inner join invoice as i on pv.INVOICE_ID = i.ID WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "' and  i.MANAGER_ID = '" & prContact_ID & "'"
         Dim sqls As String = "SELECT SUM(i.`AMOUNT`)   FROM sales_receipt AS i  WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "' and  i.MANAGER_ID = '" & prContact_ID & "'"
 
-        Dim n As Double = GetSummary(sqlx)
-        n = n + GetSummary(sqls)
+        Dim n As Double = GF_GetSummary(sqlx)
+        n = n + GF_GetSummary(sqls)
 
         Return n
 
@@ -86,8 +86,8 @@ Module modDepot
         Dim sqlx As String = "SELECT SUM(pv.`AMOUNT_APPLIED`)  FROM payment_invoices AS pv INNER JOIN  payment AS p ON p.`ID` = pv.`PAYMENT_ID` inner join invoice as i on pv.INVOICE_ID = i.ID WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "' and  i.DEALER_ID = '" & prContact_ID & "'"
         Dim sqls As String = "SELECT SUM(i.`AMOUNT`)   FROM sales_receipt AS i  WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "' and  i.DEALER_ID = '" & prContact_ID & "'"
 
-        Dim n As Double = GetSummary(sqlx)
-        n = n + GetSummary(sqls)
+        Dim n As Double = GF_GetSummary(sqlx)
+        n = n + GF_GetSummary(sqls)
 
         Return n
 

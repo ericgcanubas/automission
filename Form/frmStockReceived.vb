@@ -213,7 +213,7 @@ Public Class FrmStockReceived
             .ShowDialog()
 
             If .gsSave = True Then
-                fRow_Data_StockReceived(dgvStock, False, .gsItem_ID, .gsQty, .gsBase_Qty, .gsUM, .gsUnit_Price, .gsAmount, "E", dgvStock.CurrentRow.Cells("BILL_ITEM_ID").Value)
+                GS_RowDataStockReceived(dgvStock, False, .gsItem_ID, .gsQty, .gsBase_Qty, .gsUM, .gsUnit_Price, .gsAmount, "E", dgvStock.CurrentRow.Cells("BILL_ITEM_ID").Value)
             End If
             .Dispose()
         End With
@@ -298,7 +298,7 @@ Public Class FrmStockReceived
         End If
 
 
-        If IsTransactionSuccess(ID, "STOCK_RECEIVED") = False Then
+        If GF_IsTransactionSuccess(ID, "STOCK_RECEIVED") = False Then
             MessageBoxWarning("Please try again")
             Exit Sub
         Else
@@ -310,9 +310,9 @@ Public Class FrmStockReceived
                 gsJOURNAL_NO_FORM = 0
 
                 'LOCATION
-                fAccount_Journal_SQL(lblACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbTRANSFER_TO_ID.SelectedValue, 96, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(lblACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbTRANSFER_TO_ID.SelectedValue, 96, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
                 'Transfer to
-                fAccount_Journal_SQL(lblACCOUNT_ID.Text, cmbTRANSFER_TO_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 96, ID, dtpDATE.Value, 1, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(lblACCOUNT_ID.Text, cmbTRANSFER_TO_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 96, ID, dtpDATE.Value, 1, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
 
             End If
             '===========================================
@@ -409,9 +409,9 @@ Public Class FrmStockReceived
 
                         If gsSkipJournalEntry = False Then
                             'Location
-                            fAccount_Journal_SQL(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 1, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 1, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                             'Transfer to
-                            fAccount_Journal_SQL(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                         End If
 
                     Case "E"
@@ -419,9 +419,9 @@ Public Class FrmStockReceived
 
                         If gsSkipJournalEntry = False Then
                             'Location
-                            fAccount_Journal_SQL(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 1, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 1, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                             'Transfer to
-                            fAccount_Journal_SQL(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                         End If
 
                         fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("QUANTITY").Value) * -1, NumIsNull(.Cells("UNIT_COST").Value), 7, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
@@ -432,13 +432,13 @@ Public Class FrmStockReceived
 
                         If gsSkipJournalEntry = False Then
                             'Location
-                            fAccount_journal_Delete(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value)
+                            GS_AccountJournalDelete(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value)
                             'Transfer to
-                            fAccount_journal_Delete(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value)
+                            GS_AccountJournalDelete(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value)
                         End If
 
-                        fItemInventoryRemove_SQL(28, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue)
-                        fItemInventoryRemove_SQL(28, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
+                        GS_ItemInventoryRemove(28, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue)
+                        GS_ItemInventoryRemove(28, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
 
                 End Select
             End With
@@ -538,9 +538,9 @@ Public Class FrmStockReceived
                 '===========================================
                 If gsSkipJournalEntry = False Then
                     'LOCATION
-                    fAccount_journal_Delete(NumIsNull(lblACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 96, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(NumIsNull(lblACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 96, ID, dtpDATE.Value)
                     'Transfer to
-                    fAccount_journal_Delete(NumIsNull(lblACCOUNT_ID.Text), cmbTRANSFER_TO_ID.SelectedValue, 96, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(NumIsNull(lblACCOUNT_ID.Text), cmbTRANSFER_TO_ID.SelectedValue, 96, ID, dtpDATE.Value)
 
                 End If
                 '===========================================

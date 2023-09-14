@@ -541,7 +541,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
 
 
 
-        fDoEvents()
+        GS_DoEvents()
         fDiscount_Effect()
 
         cmbItem_Code.Enabled = False
@@ -1309,7 +1309,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 cmbItem_Code.SelectedValue = dgvSearch.CurrentRow.Cells(0).Value
                 cmbItem_DESCRIPTION.SelectedValue = dgvSearch.CurrentRow.Cells(0).Value
                 fItemSelected(cmbItem_Code, cmbItem_DESCRIPTION)
-                fDoEvents()
+                GS_DoEvents()
 
                 dgvSearch.Visible = True
 
@@ -1456,7 +1456,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             'ItemComputation()
             'If frmInventoryAdjustment.Name = sFormName Then
             '    If IsNew = True Then
-            '        fAddItem_Inventory_Row(dgv, IsNew, gsItem_ID, gsUM, gsQty, gsBase_Qty, gsUnit_Price, "A", gsLOCATION_ID, gsDate)
+            '        GS_AddItemInventoryRow(dgv, IsNew, gsItem_ID, gsUM, gsQty, gsBase_Qty, gsUnit_Price, "A", gsLOCATION_ID, gsDate)
             '        dgv.Focus()
             '        dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(ColumnViews(dgv)) 'Last Row HighLight
             '        ClearAllFromForm()
@@ -1507,11 +1507,11 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 Select Case sFormName
                     'Case frmStockTransfer.Name
 
-                    '    ' fRow_Data_StockTransfer(dgv, True, gsItem_ID, gsQty, gsBase_Qty, gsUM, gsUnit_Price, gsAmount, "A")
+                    '    ' GS_RowDataStockTransfer(dgv, True, gsItem_ID, gsQty, gsBase_Qty, gsUM, gsUnit_Price, gsAmount, "A")
                     '    GoTo down_now
 
                     'Case frmStockReceived.Name
-                    '    fRow_Data_StockReceived(dgv, True, gsItem_ID, gsQty, gsBase_Qty, gsUM, gsUnit_Price, gsAmount, "A", 0)
+                    '    GS_RowDataStockReceived(dgv, True, gsItem_ID, gsQty, gsBase_Qty, gsUM, gsUnit_Price, gsAmount, "A", 0)
                     '    GoTo down_now
                     Case frmInvoice.Name.ToString
                         If ItemType > 1 Then
@@ -1524,14 +1524,14 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                             End If
                         End If
 
-                        fRow_Data_Item_Invoice(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, "", gsPRICE_LEVEL_ID, 0, False, gsBATCH_ID)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        GS_RowDataItemInvoice(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, "", gsPRICE_LEVEL_ID, 0, False, gsBATCH_ID)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmCreditMemo.Name.ToString
-                        fRow_Data_Item_Credit_Memo(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID, 0, False, gsBATCH_ID)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        GS_RowDataItemCreditMemo(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID, 0, False, gsBATCH_ID)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmSalesOrder.Name.ToString
-                        fRow_Data_Item_Sales_Order(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, "", gsPRICE_LEVEL_ID, False, 0)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        GS_RowDataItemSalesOrder(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, "", gsPRICE_LEVEL_ID, False, 0)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmSalesReceipt.Name.ToString
 
                         If ItemType > 1 Then
@@ -1545,21 +1545,21 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                             End If
 
                         End If
-                        fRow_Data_Item_Sales_Receipt(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID, False, 0, gsBATCH_ID)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        GS_RowDataItemSalesReceipt(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID, False, 0, gsBATCH_ID)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmEstimate.Name.ToString
-                        fRow_Data_Item_Estimate(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        GS_RowDataItemEstimate(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                         'Case frmBills.Name.ToString
-                        '    fRow_Data_Item_Bill(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsSelection_ID, "")
+                        '    GS_RowDataItemBills(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsSelection_ID, "")
                         'Case frmBillCredit.Name.ToString
-                        '    fRow_Data_Item_Bill_Credit(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsSelection_ID)
+                        '    GS_RowDataItemBillCredit(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsSelection_ID)
                         'Case frmPurchaseOrder.Name.ToString
-                        '    fRow_Data_Item_Purchase_Order(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, 0)
+                        '    GS_RowDataItemPurchaseOrder(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, 0)
                         'Case frmPurchaseRequest.Name.ToString
-                        '    fRow_Data_Item_Purchase_Request(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount)
+                        '    GS_RowDataItemPurchaseRequest(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount)
                         'Case frmWriteCheck.Name.ToString
-                        '    fRow_Data_Item_Write_Check(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsSelection_ID)
+                        '    GS_RowDataItemWriteCheck(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsSelection_ID)
 
                 End Select
 down_now:
@@ -1582,53 +1582,53 @@ down_now:
                 Select Case sFormName
                     Case frmInvoice.Name
                         'SUB TOTAL
-                        '  fRow_Data_Item_Invoice(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID, 0)
-                        gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
-                        fRow_Data_Item_Invoice(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, 0, False, 0)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        '  GS_RowDataItemInvoice(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID, 0)
+                        gsAmount = GS_DiscountOtherCharge(T, ItemType, gsRate_Type, gsUnit_Price)
+                        GS_RowDataItemInvoice(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, 0, False, 0)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmCreditMemo.Name
                         'SUB TOTAL
-                        ' fRow_Data_Item_Credit_Memo(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID, 0)
-                        gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
-                        fRow_Data_Item_Credit_Memo(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, 0, False, 0)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        ' GS_RowDataItemCreditMemo(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID, 0)
+                        gsAmount = GS_DiscountOtherCharge(T, ItemType, gsRate_Type, gsUnit_Price)
+                        GS_RowDataItemCreditMemo(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, 0, False, 0)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmSalesOrder.Name
                         'SUB TOTAL
-                        ' fRow_Data_Item_Sales_Order(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID)
-                        gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
-                        fRow_Data_Item_Sales_Order(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, False, 0)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        ' GS_RowDataItemSalesOrder(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID)
+                        gsAmount = GS_DiscountOtherCharge(T, ItemType, gsRate_Type, gsUnit_Price)
+                        GS_RowDataItemSalesOrder(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, False, 0)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case frmSalesReceipt.Name
                         'SUB TOTAL
-                        ' fRow_Data_Item_Sales_Receipt(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID)
-                        gsAmount = fDISCOUNT_OTHERCHARGE(T, ItemType, gsRate_Type, gsUnit_Price)
+                        ' GS_RowDataItemSalesReceipt(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID)
+                        gsAmount = GS_DiscountOtherCharge(T, ItemType, gsRate_Type, gsUnit_Price)
 
-                        fRow_Data_Item_Sales_Receipt(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, False, 0, 0)
-                        fSales_Customer_Computation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
+                        GS_RowDataItemSalesReceipt(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, False, 0, 0)
+                        GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
 
                         'Case frmBills.Name
                         '    'SUB TOTAL
-                        '    ' fRow_Data_Item_Bill(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", "")
-                        '    fDISCOUNT_OTHERCHARGE(T)
-                        '    fRow_Data_Item_Bill(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", "")
+                        '    ' GS_RowDataItemBills(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", "")
+                        '    GS_DiscountOtherCharge(T)
+                        '    GS_RowDataItemBills(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", "")
 
                         'Case frmBillCredit.Name
                         '    'SUB TOTAL
-                        '    '  fRow_Data_Item_Bill_Credit(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "")
-                        '    fDISCOUNT_OTHERCHARGE(T)
-                        '    fRow_Data_Item_Bill_Credit(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "")
+                        '    '  GS_RowDataItemBillCredit(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "")
+                        '    GS_DiscountOtherCharge(T)
+                        '    GS_RowDataItemBillCredit(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "")
 
                         'Case frmPurchaseOrder.Name
                         '    'SUB TOTAL
-                        '    'fRow_Data_Item_Purchase_Order(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, 0)
-                        '    fDISCOUNT_OTHERCHARGE(T)
-                        '    fRow_Data_Item_Purchase_Order(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, 0)
+                        '    'GS_RowDataItemPurchaseOrder(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, 0)
+                        '    GS_DiscountOtherCharge(T)
+                        '    GS_RowDataItemPurchaseOrder(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, 0)
 
                         'Case frmWriteCheck.Name
                         '    'SUB TOTAL
-                        '    ' fRow_Data_Item_Write_Check(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "")
-                        '    fDISCOUNT_OTHERCHARGE(T)
-                        '    fRow_Data_Item_Write_Check(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "")
+                        '    ' GS_RowDataItemWriteCheck(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "")
+                        '    GS_DiscountOtherCharge(T)
+                        '    GS_RowDataItemWriteCheck(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "")
 
                 End Select
                 dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(ColumnViews(dgv)) 'Last Row HighLight

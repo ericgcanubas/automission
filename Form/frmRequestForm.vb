@@ -282,7 +282,7 @@ FROM
                 For i As Integer = 0 To dgvItem.Rows.Count - 1
                     Dim d As DataGridViewRow = dgvItem.Rows(i)
 
-                    fRow_Data_Item_Purchase_Order(gsDGV, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), d.Cells("ID").Value)
+                    GS_RowDataItemPurchaseOrder(gsDGV, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), d.Cells("ID").Value)
 
                 Next
                 gslocation_select_Id = dgvRequest.CurrentRow.Cells("location_id").Value

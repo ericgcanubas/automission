@@ -240,7 +240,7 @@
 
         If gsGotVoid = True Then
 
-            fDoEvents()
+            GS_DoEvents()
             btnExit.PerformClick()
 
         End If

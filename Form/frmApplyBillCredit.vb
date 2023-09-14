@@ -36,9 +36,9 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
 
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
-                Dim other_applied As Double = fGetCreditOtherBill(rd("bill_credit_id"), gsID)
+                Dim other_applied As Double = GF_GetCreditOtherBill(rd("bill_credit_id"), gsID)
                 Dim credit_amount As Double = NumIsNull(rd("amount")) - other_applied
-                Dim credit_applied As Double = fGetCreditApplied_Bill(rd("bill_credit_id"), gsVendor_ID, gsID)
+                Dim credit_applied As Double = GF_GetCreditAppliedBills(rd("bill_credit_id"), gsVendor_ID, gsID)
                 Dim credit_balance As Double = 0
                 If credit_applied = 0 Then
                     bSelected = False
@@ -101,7 +101,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
 
         RefreshCredit()
         lblDISCOUNT_USED.Text = NumberFormatStandard(fGetSumPaymentApplied(gsID, gsVendor_ID))
-        lblAmount_Due.Text = NumberFormatStandard(gsBalance + GetBillSumCreditApplied(gsID, gsVendor_ID))
+        lblAmount_Due.Text = NumberFormatStandard(gsBalance + GF_GetBillSumCreditApplied(gsID, gsVendor_ID))
         FormComputed()
         DatagridViewMode(dgvAvailable)
     End Sub
@@ -160,7 +160,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
 
     Private Sub Bill_Credit_Update_Applied(ByVal prBill_Credit_ID As String, prORG_Amount As Double)
 
-        Dim total_pay As Double = fGetCreditApplied_Bill(prBill_Credit_ID, gsVendor_ID, gsID) + fGetCreditOtherBill(prBill_Credit_ID, gsID) + GetBillSumTaxAppliedAmount(gsID, gsVendor_ID) + GetBillSumPaymentApplied(gsID, gsVendor_ID)
+        Dim total_pay As Double = GF_GetCreditAppliedBills(prBill_Credit_ID, gsVendor_ID, gsID) + GF_GetCreditOtherBill(prBill_Credit_ID, gsID) + GF_GetBillSumTaxAppliedAmount(gsID, gsVendor_ID) + GF_GetBillSumPaymentApplied(gsID, gsVendor_ID)
 
         Dim New_Balance As Double = prORG_Amount - total_pay
 
@@ -255,7 +255,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
                 End If
             End With
         Next
-        SetUpdateBillBalance(gsID, gsVendor_ID)
+        GS_SetUpdateBillBalance(gsID, gsVendor_ID)
         gsOk = True
         Me.Close()
 

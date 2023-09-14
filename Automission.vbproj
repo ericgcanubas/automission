@@ -694,7 +694,6 @@
     <Compile Include="Module\modBillCredit.vb" />
     <Compile Include="Module\modBillPayment.vb" />
     <Compile Include="Module\modBillTax.vb" />
-    <Compile Include="Module\modBingSource.vb" />
     <Compile Include="Module\modColor.vb" />
     <Compile Include="Module\modCreditLimit.vb" />
     <Compile Include="Module\modCustomVariable.vb" />

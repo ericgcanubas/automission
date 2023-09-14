@@ -458,7 +458,7 @@ Public Class FrmMainMenu
                 frmSelectLocation.ShowDialog()
                 If frmSelectLocation.gsOK = True Then
                     Dim L As Integer = frmSelectLocation.cmbLOCATION_ID.SelectedValue
-                    fDoEvents()
+                    GS_DoEvents()
                     Dim rd As OdbcDataReader = SqlReader("Select ID from `ITEM` WHERE `TYPE` ='0' and INACTIVE ='0'")
                     While rd.Read
                         ReCalculateInventory(rd("ID"), L, frmSelectDate.dtpSelect.Value)

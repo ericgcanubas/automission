@@ -150,7 +150,7 @@ Public Class FrmWithholdingTax
             While rd.Read
                 Dim ACCOUNTS_PAYABLE_ID As Integer = NumIsNull(rd("ACCOUNTS_PAYABLE_ID"))
                 Dim bill_ID As Integer = rd("BILL_ID")
-                Dim dTax As Double = GetBillSumTaxAppliedAmount(bill_ID, prPAY_ID)
+                Dim dTax As Double = GF_GetBillSumTaxAppliedAmount(bill_ID, prPAY_ID)
                 Dim Taxable_Amount As Double = NumIsNull(rd("TAXABLE_TOTAL"))
 
                 dTax = GetAppliedWithholdingTax(bill_ID, ID)
@@ -414,7 +414,7 @@ Public Class FrmWithholdingTax
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
-        If IsTransactionSuccess(ID, "WITHHOLDING_TAX") = False Then
+        If GF_IsTransactionSuccess(ID, "WITHHOLDING_TAX") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -424,7 +424,7 @@ Public Class FrmWithholdingTax
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
 
-            fAccount_Journal_SQL(Val(lblEWT_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbWITHHELD_FROM_ID.SelectedValue, 67, ID, dtpDATE.Value, 1, NumberFormatFixed(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(lblEWT_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbWITHHELD_FROM_ID.SelectedValue, 67, ID, dtpDATE.Value, 1, NumberFormatFixed(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
 
         End If
         '================================
@@ -476,7 +476,7 @@ Public Class FrmWithholdingTax
                     End If
                     '==============================================
                     If gsSkipJournalEntry = False Then
-                        fAccount_Journal_SQL(.Cells("ACCOUNTS_PAYABLE_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("BILL_ID").Value, 68, GET_ID, dtpDATE.Value, 0, NumIsNull(.Cells("AMT_WITHHOLDAMT").Value), gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(.Cells("ACCOUNTS_PAYABLE_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("BILL_ID").Value, 68, GET_ID, dtpDATE.Value, 0, NumIsNull(.Cells("AMT_WITHHOLDAMT").Value), gsJOURNAL_NO_FORM)
                     End If
                     '===============================================
                 Else
@@ -523,7 +523,7 @@ Public Class FrmWithholdingTax
         Return gsUpdate
     End Function
     Private Sub UpdateBillBalance(ByVal prbill_Id As String, ByVal prVendor_ID As String)
-        Dim dTotal_Payment As Double = GetBillSumPaymentApplied(prbill_Id, prVendor_ID) + GetBillSumCreditApplied(prbill_Id, prVendor_ID) + GetBillSumTaxAppliedAmount(prbill_Id, prVendor_ID)
+        Dim dTotal_Payment As Double = GF_GetBillSumPaymentApplied(prbill_Id, prVendor_ID) + GF_GetBillSumCreditApplied(prbill_Id, prVendor_ID) + GF_GetBillSumTaxAppliedAmount(prbill_Id, prVendor_ID)
         Dim dTotal_Amount As Double = GetNumberFieldValue("BILL", "ID", prbill_Id, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer
@@ -578,7 +578,7 @@ Public Class FrmWithholdingTax
                     SaveItem()
 
                     If gsSkipJournalEntry = False Then
-                        fAccount_journal_Delete(Val(lblEWT_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 67, ID, dtpDATE.Value)
+                        GS_AccountJournalDelete(Val(lblEWT_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 67, ID, dtpDATE.Value)
                     End If
 
                     SqlExecuted("DELETE FROM `withholding_tax` WHERE ID ='" & ID & "' Limit 1")

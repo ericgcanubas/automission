@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Module modAutoTransactionUpdate
-    Public Sub fAutoUpdateTransaction(ByVal prCustomer_ID As String, ByVal prSales_Rep_ID As String, ByVal prDealer_ID As String)
+    Public Sub GS_AutoUpdateTransaction(ByVal prCustomer_ID As String, ByVal prSales_Rep_ID As String, ByVal prDealer_ID As String)
 
         Dim sQuery As String = "SELECT (select count(*) from invoice where customer_id = '" & prCustomer_ID & "' ) as INVOICE_COUNT , (select count(*) from credit_memo where customer_id = '" & prCustomer_ID & "') AS CREDIT_MEMO_COUNT ,(select count(*) from SALES_RECEIPT where customer_id = '" & prCustomer_ID & "') as SALES_RECEIPT_COUNT "
         Dim bInvoice As Boolean = False
@@ -55,7 +55,7 @@ Module modAutoTransactionUpdate
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fAutoUpdateTransaction(prCustomer_ID, prSales_Rep_ID, prDealer_ID)
+                GS_AutoUpdateTransaction(prCustomer_ID, prSales_Rep_ID, prDealer_ID)
             Else
                 End
             End If

@@ -173,20 +173,20 @@ Module modPenalty
 
     Public Function fGetPenaltyPaidSumByID(ByVal prInvoice_ID As String, ByVal prPayment_ID As String) As Double
 
-        Return GetSummary("select sum(PENALTY_PAID) as p from payment_invoices where invoice_id = '" & prInvoice_ID & "' and payment_ID < '" & prPayment_ID & "'")
+        Return GF_GetSummary("select sum(PENALTY_PAID) as p from payment_invoices where invoice_id = '" & prInvoice_ID & "' and payment_ID < '" & prPayment_ID & "'")
 
     End Function
     Public Function fGetPenaltyPaidSum(ByVal prInvoice_ID As String) As Double
 
-        Return GetSummary("select sum(PENALTY_PAID) as p from payment_invoices where invoice_id = '" & prInvoice_ID & "'")
+        Return GF_GetSummary("select sum(PENALTY_PAID) as p from payment_invoices where invoice_id = '" & prInvoice_ID & "'")
     End Function
     Public Function fGetPenaltyPaidSum_DateRequired(ByVal prInvoice_ID As String, ByVal prDate As Date) As Double
 
-        Return GetSummary("select sum(pv.PENALTY_PAID) as p from payment_invoices as pv inner join payment as p on p.id = pv.payment_id  where pv.invoice_id = '" & prInvoice_ID & "'  and p.`Date` <= '" & Format(prDate, "yyyy-MM-dd") & "'")
+        Return GF_GetSummary("select sum(pv.PENALTY_PAID) as p from payment_invoices as pv inner join payment as p on p.id = pv.payment_id  where pv.invoice_id = '" & prInvoice_ID & "'  and p.`Date` <= '" & Format(prDate, "yyyy-MM-dd") & "'")
     End Function
     Public Function fGetPenaltyPaidSum_TargetBase(ByVal prInvoice_ID As String, ByVal prDate As Date, ByVal prPayment_ID As String) As Double
 
-        Return Math.Abs(GetSummary("select sum(pv.PENALTY_PAID) as p from payment_invoices as pv inner join payment as p on p.id = pv.payment_id  where pv.invoice_id = '" & prInvoice_ID & "'  and p.`Date` <= '" & Format(prDate, "yyyy-MM-dd") & "' and p.ID <>  '" & prPayment_ID & "' "))
+        Return Math.Abs(GF_GetSummary("select sum(pv.PENALTY_PAID) as p from payment_invoices as pv inner join payment as p on p.id = pv.payment_id  where pv.invoice_id = '" & prInvoice_ID & "'  and p.`Date` <= '" & Format(prDate, "yyyy-MM-dd") & "' and p.ID <>  '" & prPayment_ID & "' "))
     End Function
     Public Function fgetDiscount_Invoice_item(ByVal prInvoice_id As Integer) As Double
         Dim disc As Double = 0

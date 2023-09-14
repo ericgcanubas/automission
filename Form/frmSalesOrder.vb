@@ -181,7 +181,7 @@ FROM
     End Function
     Private Sub Computed()
         Dim gsSalesSubTotal As Double
-        fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
+        GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
 
     End Sub
 
@@ -246,7 +246,7 @@ FROM
                 .ShowDialog()
 
                 If .gsSave = True Then
-                    fRow_Data_Item_Sales_Order(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, "", .gsPRICE_LEVEL_ID, False, 0)
+                    GS_RowDataItemSalesOrder(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, "", .gsPRICE_LEVEL_ID, False, 0)
                 End If
             End With
             Computed()
@@ -305,7 +305,7 @@ FROM
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             Computed()
         End If
     End Sub
@@ -346,7 +346,7 @@ FROM
             SetTransactionDateSelectUpdate(dtpDATE.Value)
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
-            If IsTransactionSuccess(ID, "sales_order") = False Then
+            If GF_IsTransactionSuccess(ID, "sales_order") = False Then
                 MessageBoxWarning("Please try again")
                 Exit Sub
             End If
@@ -554,7 +554,7 @@ Again:
                         .gsType = 2
                         bRefreshItem = True
                         .ShowDialog()
-                        fDoEvents()
+                        GS_DoEvents()
                         cmbCUSTOMER_ID.SelectedValue = .gsCONTACT_ID
                         .Dispose()
                         Computed() ' i forgot
@@ -803,7 +803,7 @@ Again:
 
         If dgvProductItem.Rows.Count <> 0 Then
             dgvProductItem.Select()
-            fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
+            GS_RemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
             Computed()
         End If
 

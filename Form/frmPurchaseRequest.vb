@@ -290,7 +290,7 @@ FROM
 
                 If .gsSave = True Then
                     '
-                    fRow_Data_Item_Purchase_Request(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount)
+                    GS_RowDataItemPurchaseRequest(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount)
                     'fDiscount_ReComputed(dgvProductItem)
                 End If
             End With
@@ -310,7 +310,7 @@ FROM
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             fComputed()
         End If
     End Sub
@@ -514,7 +514,7 @@ FROM
 
         End If
 
-        If IsTransactionSuccess(ID, "PURCHASE_REQUEST") = False Then
+        If GF_IsTransactionSuccess(ID, "PURCHASE_REQUEST") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If

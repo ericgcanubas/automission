@@ -258,7 +258,7 @@ Public Class FrmPOSCreatePayment
 
             If N <= numAMOUNT.Value Then
                 btnAddAll.PerformClick()
-                fDoEvents()
+                GS_DoEvents()
             End If
         End If
 
@@ -309,7 +309,7 @@ SET `ID` = '{gsID}',
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(gsDRAWER_ACCOUNT_ID, gsDefault_LOCATION_ID, gsCUSTOMER_ID, 41, gsID, gsPOS_DATE, 0, NumberFormatFixed(lblAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(gsDRAWER_ACCOUNT_ID, gsDefault_LOCATION_ID, gsCUSTOMER_ID, 41, gsID, gsPOS_DATE, 0, NumberFormatFixed(lblAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
 
         End If
 
@@ -330,7 +330,7 @@ SET `ID` = '{ThisID}',
             fUpdateInvoiceBalance(NumIsNull(dgvSELECTED.Rows(I).Cells("ID").Value), gsCUSTOMER_ID)
             '======================================================
             If gsSkipJournalEntry = False Then
-                fAccount_Journal_SQL(gsDefault_ACCOUNTS_RECEIVABLE_ID, gsDefault_LOCATION_ID, NumIsNull(dgvSELECTED.Rows(I).Cells("ID").Value), 42, ThisID, gsPOS_DATE, 1, NumIsNull(dgvSELECTED.Rows(I).Cells("AMOUNT_APPLIED").Value), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(gsDefault_ACCOUNTS_RECEIVABLE_ID, gsDefault_LOCATION_ID, NumIsNull(dgvSELECTED.Rows(I).Cells("ID").Value), 42, ThisID, gsPOS_DATE, 1, NumIsNull(dgvSELECTED.Rows(I).Cells("AMOUNT_APPLIED").Value), gsJOURNAL_NO_FORM)
             End If
             '=====================================================
         Next

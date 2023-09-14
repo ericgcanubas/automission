@@ -355,7 +355,7 @@ FROM
     End Function
     Private Sub fComputed()
         Dim gsSalesSubTotal As Double
-        fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
+        GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
 
     End Sub
 
@@ -445,7 +445,7 @@ FROM
 
 
                 If .gsSave = True Then
-                    fRow_Data_Item_Sales_Order(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, "", .gsPRICE_LEVEL_ID, False, 0)
+                    GS_RowDataItemSalesOrder(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, "", .gsPRICE_LEVEL_ID, False, 0)
 
                 End If
             End With
@@ -514,7 +514,7 @@ FROM
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             fComputed()
         End If
     End Sub
@@ -562,7 +562,7 @@ FROM
             SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
-        If IsTransactionSuccess(ID, "sales_order") = False Then
+        If GF_IsTransactionSuccess(ID, "sales_order") = False Then
             MessageBoxWarning("Please try again")
             Exit Sub
         Else
@@ -983,7 +983,7 @@ FROM
     Private Sub tsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
         If dgvProductItem.Rows.Count <> 0 Then
             dgvProductItem.Select()
-            fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
+            GS_RemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
             fComputed()
         End If
     End Sub

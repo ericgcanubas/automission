@@ -201,7 +201,7 @@ Public Class FrmDeposit
 
         End If
 
-        If IsTransactionSuccess(ID, "DEPOSIT") = False Then
+        If GF_IsTransactionSuccess(ID, "DEPOSIT") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -212,7 +212,7 @@ Public Class FrmDeposit
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 0, 81, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 0, 81, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
         End If
         '================================
 
@@ -272,7 +272,7 @@ Public Class FrmDeposit
 
                 Case "A"
                     Dim i_ID As Double = ObjectTypeMapId("deposit_funds")
-                    SqlExecuted("INSERT INTO `deposit_funds` set ID = '" & i_ID & "',DEPOSIT_ID='" & ID & "',RECEIVED_FROM_ID=" & GotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID=" & GotNullNumber(r.Cells("ACCOUNT_ID").Value) & ",PAYMENT_METHOD_ID=" & GotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & GotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "',SOURCE_OBJECT_TYPE=" & GotNullNumber(r.Cells("SOT").Value) & ",SOURCE_OBJECT_ID=" & GotNullNumber(r.Cells("SOI").Value) & ";")
+                    SqlExecuted("INSERT INTO `deposit_funds` set ID = '" & i_ID & "',DEPOSIT_ID='" & ID & "',RECEIVED_FROM_ID=" & GF_GotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID=" & GotNullNumber(r.Cells("ACCOUNT_ID").Value) & ",PAYMENT_METHOD_ID=" & GF_GotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & GF_GotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "',SOURCE_OBJECT_TYPE=" & GotNullNumber(r.Cells("SOT").Value) & ",SOURCE_OBJECT_ID=" & GotNullNumber(r.Cells("SOI").Value) & ";")
                     If (r.Cells("SOI").Value) <> 0 Then
                         DepostUpdate(r.Cells("SOT").Value, r.Cells("SOI").Value, True)
                     End If
@@ -287,12 +287,12 @@ Public Class FrmDeposit
                         Else
                             E = 1
                         End If
-                        fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 82, r.Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 82, r.Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
                     End If
 
                      '================================
                 Case "E"
-                    SqlExecuted("UPDATE `deposit_funds` set RECEIVED_FROM_ID=" & GotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',PAYMENT_METHOD_ID=" & GotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & GotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "' WHERE ID='" & r.Cells("ID").Value & "' and DEPOSIT_ID='" & ID & "' limit 1;")
+                    SqlExecuted("UPDATE `deposit_funds` set RECEIVED_FROM_ID=" & GF_GotNullText(r.Cells("RECEIVED_FROM_ID").Value) & ",ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',PAYMENT_METHOD_ID=" & GF_GotNullText(r.Cells("PAYMENT_METHOD_ID").Value) & ",CHECK_NO=" & GF_GotNullText(r.Cells("CHECK_NO").Value) & ",AMOUNT='" & Format(r.Cells("AMOUNT").Value, "FIXED") & "' WHERE ID='" & r.Cells("ID").Value & "' and DEPOSIT_ID='" & ID & "' limit 1;")
                     r.Cells("CONTROL_STATUS").Value = "S"
                     '===========================================
                     If gsSkipJournalEntry = False Then
@@ -312,13 +312,13 @@ Public Class FrmDeposit
                         Else
                             E = 1
                         End If
-                        fAccount_Journal_SQL(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 82, r.Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 82, r.Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
                     End If
                      '================================
                 Case "D"
                     SqlExecuted("DELETE FROM `deposit_funds`  WHERE ID ='" & r.Cells("ID").Value & "' and DEPOSIT_ID='" & ID & "' limit 1;")
 
-                    fAccount_journal_Delete(NumIsNull(r.Cells("ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 82, r.Cells("ID").Value, dtpDATE.Value)
+                    GS_AccountJournalDelete(NumIsNull(r.Cells("ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 82, r.Cells("ID").Value, dtpDATE.Value)
 
                     If (r.Cells("SOI").Value) <> 0 Then
                         DepostUpdate(r.Cells("SOT").Value, r.Cells("SOI").Value, False)
@@ -463,7 +463,7 @@ Public Class FrmDeposit
                 '===========================================
                 If gsSkipJournalEntry = False Then
                     gsJOURNAL_NO_FORM = 0
-                    fAccount_journal_Delete(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 81, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 81, ID, dtpDATE.Value)
                 End If
                 '================================
                 SqlExecuted("DELETE FROM `deposit` WHERE ID='" & ID & "' limit 1;")

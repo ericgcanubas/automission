@@ -167,7 +167,7 @@ Public Class FrmBillPayment
 
         End If
 
-        If IsTransactionSuccess(ID, "`CHECK`") = False Then
+        If GF_IsTransactionSuccess(ID, "`CHECK`") = False Then
             MessageBoxWarning("Please try again")
             Exit Sub
         End If
@@ -175,7 +175,7 @@ Public Class FrmBillPayment
 
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, cmbPAY_TO_ID.SelectedValue, 57, ID, dtpDATE.Value, 1, NumberFormatFixed(lbsAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, cmbPAY_TO_ID.SelectedValue, 57, ID, dtpDATE.Value, 1, NumberFormatFixed(lbsAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
         End If
 
 
@@ -551,7 +551,7 @@ WHERE  EXISTS
                 '===========================================
                 If gsSkipJournalEntry = False Then
                     gsJOURNAL_NO_FORM = 0
-                    fAccount_journal_Delete(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 57, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(cmbBANK_ACCOUNT_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 57, ID, dtpDATE.Value)
                 End If
                 '================================
 

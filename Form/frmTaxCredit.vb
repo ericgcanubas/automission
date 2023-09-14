@@ -387,7 +387,7 @@ Public Class FrmTaxCredit
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
-        If IsTransactionSuccess(ID, "TAX_CREDIT") = False Then
+        If GF_IsTransactionSuccess(ID, "TAX_CREDIT") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -395,7 +395,7 @@ Public Class FrmTaxCredit
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(Val(lblEWT_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 72, ID, dtpDATE.Value, 0, NumberFormatFixed(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(lblEWT_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 72, ID, dtpDATE.Value, 0, NumberFormatFixed(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
         End If
         '================================
 
@@ -441,7 +441,7 @@ Public Class FrmTaxCredit
 
                     '==============================================
                     If gsSkipJournalEntry = False Then
-                        fAccount_Journal_SQL(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value, 73, GET_ID, dtpDATE.Value, 1, NumIsNull(.Cells("AMT_WITHHOLDAMT").Value), gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value, 73, GET_ID, dtpDATE.Value, 1, NumIsNull(.Cells("AMT_WITHHOLDAMT").Value), gsJOURNAL_NO_FORM)
                     End If
                     '===============================================
                 Else

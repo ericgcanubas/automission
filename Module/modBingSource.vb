@@ -1,9 +1,0 @@
-﻿
-
-
-Module modBingSource
-
-
-
-
-End Module

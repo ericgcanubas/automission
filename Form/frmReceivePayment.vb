@@ -541,13 +541,13 @@ WHERE  EXISTS
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 41, ID, dtpDATE.Value, 0, NumberFormatFixed(lblAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 41, ID, dtpDATE.Value, 0, NumberFormatFixed(lblAMOUNT_APPLIED.Text), gsJOURNAL_NO_FORM)
         End If
         '================================
 
         fPaymentSaving(dgvInvoice, ID, False, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbCUSTOMER_ID.SelectedValue)
 
-        If IsTransactionSuccess(ID, "PAYMENT") = False Then
+        If GF_IsTransactionSuccess(ID, "PAYMENT") = False Then
             MessageBoxWarning("Please try again")
             Exit Sub
         End If
@@ -702,7 +702,7 @@ WHERE  EXISTS
                     '===========================================
                     If gsSkipJournalEntry = False Then
                         gsJOURNAL_NO_FORM = 0
-                        fAccount_journal_Delete(NumIsNull(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 41, ID, dtpDATE.Value)
+                        GS_AccountJournalDelete(NumIsNull(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 41, ID, dtpDATE.Value)
                     End If
                     '================================
 

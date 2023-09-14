@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Module modBillTax
 
-    Public Function fGetTexApplied_Bill(ByRef prWithholding_Tax_ID As String, ByVal prVendor_ID As String, ByVal prBill_ID As String) As Double
+    Public Function GF_GetTexApplied_Bill(ByRef prWithholding_Tax_ID As String, ByVal prVendor_ID As String, ByVal prBill_ID As String) As Double
 
         If Trim(prWithholding_Tax_ID) = "" Or Trim(prVendor_ID) = "" Then
             Return 0
@@ -17,7 +17,7 @@ Module modBillTax
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fGetTexApplied_Bill(prWithholding_Tax_ID, prVendor_ID, prBill_ID)
+                GF_GetTexApplied_Bill(prWithholding_Tax_ID, prVendor_ID, prBill_ID)
             Else
                 End
             End If
@@ -25,7 +25,7 @@ Module modBillTax
         Return dPayment
 
     End Function
-    Public Function fGetTaxOtherBill(ByRef prWithholding_Tax_ID As String, ByVal prBill_id As String) As Double
+    Public Function GF_GetTaxOtherBill(ByRef prWithholding_Tax_ID As String, ByVal prBill_id As String) As Double
         Dim dAmount As Double = 0
 
         Try
@@ -37,7 +37,7 @@ Module modBillTax
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dAmount = fGetTaxOtherBill(prWithholding_Tax_ID, prBill_id)
+                dAmount = GF_GetTaxOtherBill(prWithholding_Tax_ID, prBill_id)
             Else
                 End
             End If

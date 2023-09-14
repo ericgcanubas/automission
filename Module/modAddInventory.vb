@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Module modAddInventory
-    Public Sub fAddItem_Inventory_Row(ByVal dgvItem As DataGridView, ByVal prAdd As Boolean, ByVal prItem_ID As String, ByVal prUNIT_ID As String, ByVal InQty As Integer, ByVal prUNIT_BASE_QUANTITY As Integer, ByVal prNew_Value As Double, ByVal prControl_Status As String, ByVal prLocation_ID As Integer, ByVal prDate As Date, ByVal prBATCH_ID As Integer)
+    Public Sub GS_AddItemInventoryRow(ByVal dgvItem As DataGridView, ByVal prAdd As Boolean, ByVal prItem_ID As String, ByVal prUNIT_ID As String, ByVal InQty As Integer, ByVal prUNIT_BASE_QUANTITY As Integer, ByVal prNew_Value As Double, ByVal prControl_Status As String, ByVal prLocation_ID As Integer, ByVal prDate As Date, ByVal prBATCH_ID As Integer)
 
         Dim Unit_Name As String = GetStringFieldValue("unit_of_measure", "ID", prUNIT_ID, "NAME")
         Dim Batch_NO As String = GetStringFieldValue("item_batches", "id", prBATCH_ID, "BATCH_NO")

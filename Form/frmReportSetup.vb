@@ -278,7 +278,7 @@ Public Class FrmReportSetup
             '{AND_OR}  OR = "*" AND  <> "*"
 
             ComboBoxLoad(cmb, sQUERY, rd("VALUE_NAME"), rd("DISPLAY_NAME"))
-            fDoEvents()
+            GS_DoEvents()
             ' cmb.SelectedIndex = -1
             cmb.SelectedValue = TextIsNull(rd("DEFAULT_VALUE"))
 
@@ -664,7 +664,7 @@ Public Class FrmReportSetup
         CursorLoadingOn(True)
         Try
             SystemSetDefaultPrinter(cmbPRINTER.Text)
-            fDoEvents()
+            GS_DoEvents()
             StartReport()
             gscryRpt.PrintToPrinter(1, False, 0, 0)
             ReportExporPDF(gscryRpt, ToolStripLabel5.Text)

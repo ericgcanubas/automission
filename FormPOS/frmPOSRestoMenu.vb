@@ -712,7 +712,7 @@ UNION ALL
                             fRefreshTable()
 
                         Else
-                            fDoEvents()
+                            GS_DoEvents()
                             If MessageBoxPointOfSalesYesNO("Print Order slip?") = True Then
                                 fPP_billPrint(GET_ID)
                             End If
@@ -1119,7 +1119,7 @@ FROM
     Private Sub fComputed()
         Try
             Dim gsSalesSubTotal As Double = 0
-            fSales_Customer_Computation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
+            GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
             Dim dPayment_applied As Double = fGetSumPaymentApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fGetSumCreditApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fInvoiceSumTaxApplied_Amount(ID, cmbCUSTOMER_ID.SelectedValue)
             lbxPaymentApplied.Text = NumberFormatStandard(dPayment_applied)
             Dim dBalance As Double = NumIsNull(NumberFormatFixed(NumIsNull(lblAMOUNT.Text))) - dPayment_applied
@@ -1233,7 +1233,7 @@ FROM
                 frmAddItem.ShowDialog()
 
                 If .gsSave = True Then
-                    fRow_Data_Item_Invoice(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, dgvProductItem.Rows.Item(I).Cells("REF_LINE_ID").Value, .gsPRICE_LEVEL_ID, 0, False, .gsBATCH_ID)
+                    GS_RowDataItemInvoice(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, dgvProductItem.Rows.Item(I).Cells("REF_LINE_ID").Value, .gsPRICE_LEVEL_ID, 0, False, .gsBATCH_ID)
 
                 End If
             End With
@@ -1299,7 +1299,7 @@ FROM
                 .Location = New Point(405, H_PC)
                 .ShowDialog()
                 If .gsSave = True Then
-                    fRow_Data_Item_Sales_Order(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, "", .gsPRICE_LEVEL_ID, False, 0)
+                    GS_RowDataItemSalesOrder(dgvProductItem, False, .gsItem_ID, .gsQty, .gsUnit_Price, .cmbDiscount_Type.Text, .gsDiscount_Rate, .gsAmount, .gsTax, .cmbUM.SelectedValue, "E", .gsBase_Qty, .gsDiscount_Type, .gsOriginal_Amount, "", .gsPRICE_LEVEL_ID, False, 0)
 
                 End If
             End With
@@ -1319,7 +1319,7 @@ FROM
             If e.RowIndex = -1 Then
                 Exit Sub
             End If
-            fTax_Value(dgvProductItem)
+            GS_TaxValue(dgvProductItem)
             fComputed()
         End If
     End Sub
@@ -1443,18 +1443,18 @@ FROM
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            fAccount_Journal_SQL(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
             If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 23, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                fAccount_Journal_SQL(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
 
         End If
         '================================
         SaveInvoiceItem(ID, dgvProductItem, cmbOUTPUT_TAX_ID, cmbLOCATION_ID, dtpDATE)
 
-        If IsTransactionSuccess(ID, "INVOICE") = False Then
+        If GF_IsTransactionSuccess(ID, "INVOICE") = False Then
             MessageBoxWarning("Please Try Again")
             Exit Sub
         End If
@@ -1747,7 +1747,7 @@ FROM
             SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
-        If IsTransactionSuccess(ID, "sales_order") = False Then
+        If GF_IsTransactionSuccess(ID, "sales_order") = False Then
             MessageBoxWarning("Please try again")
             Exit Sub
         Else
@@ -2179,7 +2179,7 @@ FROM
     Private Sub tsRemoveItem_Click(sender As Object, e As EventArgs) Handles tsRemoveItem.Click
         If dgvProductItem.Rows.Count <> 0 Then
             dgvProductItem.Select()
-            fRemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
+            GS_RemoveItems(dgvProductItem, dgvProductItem.CurrentRow.Index)
             fComputed()
         End If
     End Sub
@@ -2449,7 +2449,7 @@ CREATE_NOW:
                 For I As Integer = 0 To dgv_top.Rows.Count - 1
                     Dim rd As OdbcDataReader = SqlReader($"select s.*,d.description as desc_name from SALES_ORDER_ITEMS as S left outer join discount_type as d on d.id =  s.DISCOUNT_TYPE  where S.SALES_ORDER_ID='{dgv_top.Rows(I).Cells(0).Value}' and S.GROUP_LINE_ID is null order by S.LINE_NO")
                     While rd.Read
-                        fRow_Data_Item_Invoice(dgvProductItem, True, NumIsNull(rd("ITEM_ID")), NumIsNull(rd("QUANTITY")), NumIsNull(rd("RATE")), TextIsNull(rd("desc_name")), NumIsNull(rd("DISCOUNT_TYPE")), NumIsNull(rd("AMOUNT")), CBool(NumIsNull(rd("TAXABLE"))), NumIsNull(rd("UNIT_ID")), "A", NumIsNull(rd("UNIT_BASE_QUANTITY")), TextIsNull(rd("DISCOUNT_TYPE")), NumIsNull(rd("ORG_AMOUNT")), NumIsNull(rd("ID")), TextIsNull(rd("PRICE_LEVEL_ID")), 0, CBool(NumIsNull(rd("PRINT_IN_FORMS"))), 0)
+                        GS_RowDataItemInvoice(dgvProductItem, True, NumIsNull(rd("ITEM_ID")), NumIsNull(rd("QUANTITY")), NumIsNull(rd("RATE")), TextIsNull(rd("desc_name")), NumIsNull(rd("DISCOUNT_TYPE")), NumIsNull(rd("AMOUNT")), CBool(NumIsNull(rd("TAXABLE"))), NumIsNull(rd("UNIT_ID")), "A", NumIsNull(rd("UNIT_BASE_QUANTITY")), TextIsNull(rd("DISCOUNT_TYPE")), NumIsNull(rd("ORG_AMOUNT")), NumIsNull(rd("ID")), TextIsNull(rd("PRICE_LEVEL_ID")), 0, CBool(NumIsNull(rd("PRINT_IN_FORMS"))), 0)
                     End While
                     rd.Close()
                 Next
@@ -2707,9 +2707,9 @@ CREATE_NOW:
                 '===========================================
                 If gsSkipJournalEntry = False Then
 
-                    fAccount_journal_Delete(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
                     If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) <> 0 Then
-                        fAccount_journal_Delete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
+                        GS_AccountJournalDelete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
                     End If
 
                 End If
@@ -2839,12 +2839,12 @@ CREATE_NOW:
 
         If isPaymentClick = True Then
 
-            fDoEvents()
+            GS_DoEvents()
             If gsPOSPrintOS = True Then
 
                 If rbDINE_IN.Checked = False Then
                     fPrintBill()
-                    fDoEvents()
+                    GS_DoEvents()
 
                     If PRINT_INVOICE_AFTER_PRINT_PAYMENT = True Then
                         fPrintBill()
@@ -2868,7 +2868,7 @@ CREATE_NOW:
         End If
 
         If isPaymentClick = True Then
-            fDoEvents()
+            GS_DoEvents()
             IsNew = True
             ID = 0
             fclear_Info()

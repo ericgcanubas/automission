@@ -215,9 +215,9 @@ Public Class FrmPOSVoid
                 gsJOURNAL_NO_FORM = 0
                 Dim Account_ID As Integer = GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "ACCOUNTS_RECEIVABLE_ID")
                 Dim Tax_Acct_ID As Integer = GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "OUTPUT_TAX_ACCOUNT_ID")
-                fAccount_journal_Delete(Account_ID, Loc_ID, 23, Invoice_ID, DT)
+                GS_AccountJournalDelete(Account_ID, Loc_ID, 23, Invoice_ID, DT)
                 If Tax_Acct_ID <> 0 Then
-                    fAccount_journal_Delete(Tax_Acct_ID, Loc_ID, 23, Invoice_ID, DT)
+                    GS_AccountJournalDelete(Tax_Acct_ID, Loc_ID, 23, Invoice_ID, DT)
                 End If
 
             End If
@@ -254,16 +254,16 @@ Public Class FrmPOSVoid
 
         While rd.Read
             If rd("type") = 0 Or rd("type") = 1 Then
-                fItemInventoryRemove_SQL(10, rd("id"), DT, rd("ITEM_ID"), Loc_ID)
+                GS_ItemInventoryRemove(10, rd("id"), DT, rd("ITEM_ID"), Loc_ID)
             End If
 
             If gsSkipJournalEntry = False Then
-                fAccount_journal_Delete(NumIsNull(rd("INCOME_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
+                GS_AccountJournalDelete(NumIsNull(rd("INCOME_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
 
                 If rd("type") = 0 Or rd("type") = 1 Then
                     'ITEM INVENTORY/ ASSEMBLY
-                    fAccount_journal_Delete(NumIsNull(rd("ASSET_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
-                    fAccount_journal_Delete(NumIsNull(rd("COGS_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
+                    GS_AccountJournalDelete(NumIsNull(rd("ASSET_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
+                    GS_AccountJournalDelete(NumIsNull(rd("COGS_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
                 End If
             End If
         End While

@@ -88,14 +88,14 @@ Public Class FrmSplash
         lblinitialization.Visible = True
         For R_number = 0 To F_number
             pbLoadingBar.Value = R_number
-            fDoEvents()
+            GS_DoEvents()
             CursorLoadingOn(True)
-            ' fSleep(50)
+            ' GF_Sleep(50)
 
 
             If R_number = 1 Then
                 lblinitialization.Text = "Initialize ... "
-                fDoEvents()
+                GS_DoEvents()
                 gsStorage_Location_ID = GetLoadStorageLocation()
                 gsIncRefNoByLocation = GetIncRefNoByLocation()
                 gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
@@ -115,7 +115,7 @@ Public Class FrmSplash
             If R_number = 4 Then
                 'PC Default
                 lblinitialization.Text = "Initialize settings ..."
-                fDoEvents()
+                GS_DoEvents()
                 gsClose_Date_Run_Per_Unit = GetDBAccessValueByBool("CloseDateRunPerUnit")
                 gsSkipJournalEntry = GetSystemSettingValueByBool("SkipJournalEntry")
                 gsExpiredReference = GetSystemSettingValueByBool("ExpiredReference")
@@ -166,7 +166,7 @@ Public Class FrmSplash
 
             If R_number = 5 Then
                 lblinitialization.Text = "Initialize utility ..."
-                fDoEvents()
+                GS_DoEvents()
                 gsExportPDFLocation = GetDBAccessValueByText("ExportPDFLocation")
                 gsDataForwarderPath = GetDBAccessValueByText("DataForwarderPath")
                 gsDataForwarderIsActive = GetDBAccessValueByBool("DataForwarderIsActive")
@@ -176,20 +176,20 @@ Public Class FrmSplash
 
             If R_number = 6 Then
                 lblinitialization.Text = "Initialize default value ..."
-                fDoEvents()
+                GS_DoEvents()
                 SystemSettingLoadDefaultValue()
             End If
 
             If R_number = 7 Then
                 lblinitialization.Text = "Initialize default accounts ..."
-                fDoEvents()
+                GS_DoEvents()
                 LoadDefaultAccount()
 
             End If
 
             If R_number = 8 Then
                 lblinitialization.Text = "Initialize securty ..."
-                fDoEvents()
+                GS_DoEvents()
                 fTax_Rate_Load()
 
             End If
@@ -197,7 +197,7 @@ Public Class FrmSplash
 
             If R_number = 9 Then
                 lblinitialization.Text = "Initialize report ..."
-                fDoEvents()
+                GS_DoEvents()
                 ReportDocumentOneParameterNumberOnly("crySalesReceipt.rpt") ' crystal report re connect
 
             End If
@@ -211,7 +211,7 @@ Public Class FrmSplash
                 gsSelectedDateDefault = GetSystemSettingValueByText("SelectedDateDefault")
 
                 lblinitialization.Text = "Initialize completed ..."
-                fDoEvents()
+                GS_DoEvents()
 
                 Timer2.Start()
             End If
