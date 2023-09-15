@@ -3,18 +3,12 @@
         'PRINT_OS_AFTER_SAVE_INVOICE
         SystemLoadPrinter(cmbPRINTER)
         cmbPRINTER.Text = gsPOS_DEFAULT_PRINTER
-
         GS_PosRefreshFormat(cmbPrinterPage, frmSalesOrder.Name)
-        frmSalesOrder = Nothing
-
+        FrmSalesOrder = Nothing
         GS_PosRefreshFormat(cmbPrinterPage2, frmInvoice.Name)
-        frmInvoice = Nothing
-
-
+        FrmInvoice = Nothing
         GS_PosRefreshFormat(cmbPrinterPage3, frmReceivePayment.Name)
-        frmReceivePayment = Nothing
-
-
+        FrmReceivePayment = Nothing
         GS_PosRefreshFormat(cmbPrinterPage4, "frmPOSLogResto")
 
 
@@ -22,30 +16,29 @@
         numCUSTOM_DINE_IN_NO.Value = Val(GetDBAccessValueByText("CUSTOM_DINE_IN_NO"))
 
         chkMsgPrintPayment.Checked = CBool(Val(GetDBAccessValueByText("MSG_PRINT_PAYMENT")))
-        'PRINT_INVOICE_AFTER_PRINT_PAYMENT
         chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Checked = CBool(Val(GetDBAccessValueByText("PRINT_INVOICE_AFTER_PRINT_PAYMENT")))
 
         chkPRINT_OS_AFTER_SAVE_INVOICE.Checked = CBool(Val(GetDBAccessValueByText("PRINT_OS_AFTER_SAVE_INVOICE")))
 
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         '========================================
-        DbAccessExecute("update tblprint set [print_default] = '0' where [form_name] = '" & frmSalesOrder.Name & "'  and  [print_default] = '1'  ")
-        DbAccessExecute("update tblprint set [print_default] = '1' where [file_name] = '" & cmbPrinterPage.SelectedValue & "' and [print_title] = '" & cmbPrinterPage.Text & "' and [form_name] = '" & frmSalesOrder.Name & "' ")
+        DbAccessExecute("update tblprint set [print_default] = '0' where [form_name] = '" & FrmSalesOrder.Name & "'  and  [print_default] = '1'  ")
+        DbAccessExecute("update tblprint set [print_default] = '1' where [file_name] = '" & cmbPrinterPage.SelectedValue & "' and [print_title] = '" & cmbPrinterPage.Text & "' and [form_name] = '" & FrmSalesOrder.Name & "' ")
 
         '========================================
-        DbAccessExecute("update tblprint set [print_default] = '0' where [form_name] = '" & frmInvoice.Name & "'  and  [print_default] = '1'  ")
-        DbAccessExecute("update tblprint set [print_default] = '1' where [file_name] = '" & cmbPrinterPage2.SelectedValue & "' and [print_title] = '" & cmbPrinterPage2.Text & "' and [form_name] = '" & frmInvoice.Name & "' ")
+        DbAccessExecute("update tblprint set [print_default] = '0' where [form_name] = '" & FrmInvoice.Name & "'  and  [print_default] = '1'  ")
+        DbAccessExecute("update tblprint set [print_default] = '1' where [file_name] = '" & cmbPrinterPage2.SelectedValue & "' and [print_title] = '" & cmbPrinterPage2.Text & "' and [form_name] = '" & FrmInvoice.Name & "' ")
 
 
         '=======================================
-        DbAccessExecute("update tblprint set [print_default] = '0' where [form_name] = '" & frmReceivePayment.Name & "'  and  [print_default] = '1'  ")
-        DbAccessExecute("update tblprint set [print_default] = '1' where [file_name] = '" & cmbPrinterPage3.SelectedValue & "' and [print_title] = '" & cmbPrinterPage3.Text & "' and [form_name] = '" & frmReceivePayment.Name & "' ")
+        DbAccessExecute("update tblprint set [print_default] = '0' where [form_name] = '" & FrmReceivePayment.Name & "'  and  [print_default] = '1'  ")
+        DbAccessExecute("update tblprint set [print_default] = '1' where [file_name] = '" & cmbPrinterPage3.SelectedValue & "' and [print_title] = '" & cmbPrinterPage3.Text & "' and [form_name] = '" & FrmReceivePayment.Name & "' ")
         '========================================
 
         '=======================================
@@ -67,7 +60,7 @@
 
     End Sub
 
-    Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
+    Private Sub BtnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
         Try
             FrmPrintPageSettings.txtPRINT_TITLE.Text = cmbPrinterPage.Text
             FrmPrintPageSettings.txtFILE_NAME.Text = cmbPrinterPage.SelectedValue
@@ -75,37 +68,37 @@
 
         End Try
 
-        FrmPrintPageSettings.ThisForm = frmSalesOrder.Name
+        FrmPrintPageSettings.ThisForm = FrmSalesOrder.Name
         FrmPrintPageSettings.ShowDialog()
         Dim ClickOK As Boolean = FrmPrintPageSettings.gsClickOK
         FrmPrintPageSettings.Dispose()
         FrmPrintPageSettings = Nothing
         If ClickOK = True Then
-            GS_PosRefreshFormat(cmbPrinterPage, frmSalesOrder.Name)
+            GS_PosRefreshFormat(cmbPrinterPage, FrmSalesOrder.Name)
         End If
-        frmSalesOrder = Nothing
+        FrmSalesOrder = Nothing
 
     End Sub
 
 
-    Private Sub btnSettings2_Click(sender As Object, e As EventArgs) Handles btnSettings2.Click
+    Private Sub BtnSettings2_Click(sender As Object, e As EventArgs) Handles btnSettings2.Click
         Try
             FrmPrintPageSettings.txtPRINT_TITLE.Text = cmbPrinterPage2.Text
             FrmPrintPageSettings.txtFILE_NAME.Text = cmbPrinterPage2.SelectedValue
         Catch ex As Exception
         End Try
-        FrmPrintPageSettings.ThisForm = frmInvoice.Name
+        FrmPrintPageSettings.ThisForm = FrmInvoice.Name
         FrmPrintPageSettings.ShowDialog()
         Dim ClickOK As Boolean = FrmPrintPageSettings.gsClickOK
         FrmPrintPageSettings.Dispose()
         FrmPrintPageSettings = Nothing
         If ClickOK = True Then
-            GS_PosRefreshFormat(cmbPrinterPage2, frmInvoice.Name)
+            GS_PosRefreshFormat(cmbPrinterPage2, FrmInvoice.Name)
         End If
-        frmInvoice = Nothing
+        FrmInvoice = Nothing
     End Sub
 
-    Private Sub btnSettings3_Click(sender As Object, e As EventArgs) Handles btnSettings3.Click
+    Private Sub BtnSettings3_Click(sender As Object, e As EventArgs) Handles btnSettings3.Click
         Try
             FrmPrintPageSettings.txtPRINT_TITLE.Text = cmbPrinterPage3.Text
             FrmPrintPageSettings.txtFILE_NAME.Text = cmbPrinterPage3.SelectedValue
@@ -113,18 +106,18 @@
 
         End Try
 
-        FrmPrintPageSettings.ThisForm = frmReceivePayment.Name
+        FrmPrintPageSettings.ThisForm = FrmReceivePayment.Name
         FrmPrintPageSettings.ShowDialog()
         Dim ClickOK As Boolean = FrmPrintPageSettings.gsClickOK
         FrmPrintPageSettings.Dispose()
         FrmPrintPageSettings = Nothing
         If ClickOK = True Then
-            GS_PosRefreshFormat(cmbPrinterPage3, frmReceivePayment.Name)
+            GS_PosRefreshFormat(cmbPrinterPage3, FrmReceivePayment.Name)
         End If
-        frmReceivePayment = Nothing
+        FrmReceivePayment = Nothing
     End Sub
 
-    Private Sub btnSettings4_Click(sender As Object, e As EventArgs) Handles btnSettings4.Click
+    Private Sub BtnSettings4_Click(sender As Object, e As EventArgs) Handles btnSettings4.Click
         Try
             FrmPrintPageSettings.txtPRINT_TITLE.Text = cmbPrinterPage4.Text
             FrmPrintPageSettings.txtFILE_NAME.Text = cmbPrinterPage4.SelectedValue
@@ -143,11 +136,5 @@
 
     End Sub
 
-    Private Sub cmbPrinterPage_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPrinterPage.SelectedIndexChanged
 
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
 End Class

@@ -145,7 +145,7 @@ Partial Class FrmPOSRestoPendingToPaid
         Me.btnCUSTOMER.Text = "..."
         Me.btnCUSTOMER.UseVisualStyleBackColor = False
         '
-        'frmPOSRestoPendingToPaid
+        'FrmPOSRestoPendingToPaid
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 23.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -165,7 +165,7 @@ Partial Class FrmPOSRestoPendingToPaid
         Me.Margin = New System.Windows.Forms.Padding(6)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSRestoPendingToPaid"
+        Me.Name = "FrmPOSRestoPendingToPaid"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

@@ -1,9 +1,9 @@
 ﻿Imports System.Data.Odbc
 Public Class FrmPOSSetting
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
 
         ClearAndRefresh(Me)
 
@@ -11,9 +11,7 @@ Public Class FrmPOSSetting
 
         ' Dim squery As String = fFieldCollector(Me)
     End Sub
-    Private Sub frmPOSSetting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        '  fBackGroundImageStyle(Me)
-
+    Private Sub FrmPOSSetting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sQueryAccount As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
         GS_ComboBoxLoad(cmbACCOUNT_ID, sQueryAccount, "ID", "T")
         GS_ComboBoxLoad(cmbTYPE, "select  ID,DESCRIPTION from pos_machine_type_map where INACTIVE = '0'", "ID", "DESCRIPTION")
@@ -29,11 +27,11 @@ Public Class FrmPOSSetting
         xnumID.Value = GF_GetPosMachineId()
     End Sub
 
-    Private Sub xnumID_ValueChanged(sender As Object, e As EventArgs) Handles xnumID.ValueChanged
-        fRefresh()
+    Private Sub XnumID_ValueChanged(sender As Object, e As EventArgs) Handles xnumID.ValueChanged
+        RefreshData()
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 
 
         Dim rd As OdbcDataReader = SqlReader("select * from pos_machine where ID = '" & xnumID.Value & "'")

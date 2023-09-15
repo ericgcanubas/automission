@@ -615,9 +615,9 @@ Partial Class FrmPOSmenu
         Me.xlblTOTAL.ForeColor = System.Drawing.Color.Lime
         Me.xlblTOTAL.Location = New System.Drawing.Point(441, 453)
         Me.xlblTOTAL.Name = "xlblTOTAL"
-        Me.xlblTOTAL.Size = New System.Drawing.Size(357, 65)
+        Me.xlblTOTAL.Size = New System.Drawing.Size(350, 65)
         Me.xlblTOTAL.TabIndex = 98
-        Me.xlblTOTAL.Text = "GRAND TOTAL"
+        Me.xlblTOTAL.Text = "TOTAL SALES :"
         Me.xlblTOTAL.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'xlblCustomer_Name
@@ -645,7 +645,7 @@ Partial Class FrmPOSmenu
         Me.xxxxSUB_TOTAL.Name = "xxxxSUB_TOTAL"
         Me.xxxxSUB_TOTAL.Size = New System.Drawing.Size(840, 35)
         Me.xxxxSUB_TOTAL.TabIndex = 6
-        Me.xxxxSUB_TOTAL.Text = " SUB TOTAL"
+        Me.xxxxSUB_TOTAL.Text = " SUB TOTAL :"
         Me.xxxxSUB_TOTAL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblCASHIER_ID
@@ -682,7 +682,7 @@ Partial Class FrmPOSmenu
         Me.xlblTax.Name = "xlblTax"
         Me.xlblTax.Size = New System.Drawing.Size(840, 42)
         Me.xlblTax.TabIndex = 99
-        Me.xlblTax.Text = " TAX LABEL"
+        Me.xlblTax.Text = " TAX LABEL :"
         Me.xlblTax.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'BunifuGradientPanel6
@@ -1199,6 +1199,7 @@ Partial Class FrmPOSmenu
         Me.Controls.Add(Me.xxxxSUB_TOTAL)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "FrmPOSmenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Point Of Sales"

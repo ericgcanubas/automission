@@ -194,7 +194,7 @@ Partial Class FrmPOSServed
         Me.xlblCustomer_Name.Text = "JUAN DELA CRUZ"
         Me.xlblCustomer_Name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'frmPOSServed
+        'FrmPOSServed
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -216,7 +216,7 @@ Partial Class FrmPOSServed
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSServed"
+        Me.Name = "FrmPOSServed"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

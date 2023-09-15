@@ -78,7 +78,7 @@
         btnPRINT_RECEIPT.Enabled = True
     End Sub
 
-    Private Sub frmPOSTableDetails_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmPOSTableDetails_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         dgvPAYMENT.Columns(1).Width = 300
         dgvPAYMENT.Columns("AMOUNT").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         dgvPAYMENT.Columns("AMOUNT").DefaultCellStyle.Format = "N2"

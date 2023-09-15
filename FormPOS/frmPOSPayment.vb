@@ -9,14 +9,9 @@
     Public gsNOTES As String
     'Dim PayDefaultMethod As Integer = 0
     Public gsRemove As Boolean = False
-    Private Sub cmbPAYMENT_METHOD_ID_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_METHOD_ID.SelectedValueChanged
-
+    Private Sub CmbPAYMENT_METHOD_ID_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_METHOD_ID.SelectedValueChanged
         Dim card_no As Boolean = False
-
         Try
-
-
-
             Dim I As Integer = 0
             If cmbPAYMENT_METHOD_ID.Items.Count <> 0 Then
                 I = Val(cmbPAYMENT_METHOD_ID.SelectedValue)
@@ -76,41 +71,37 @@
         Dim X As Integer = 12 ' LEFT
         Dim Y As Integer = 74 ' TOP
         For I As Integer = 0 To cmbPAYMENT_METHOD_ID.Items.Count - 1
-            C = C + 1
+            C += 1
             cmbPAYMENT_METHOD_ID.SelectedIndex = I
 
-            Dim rdButton As New RadioButton
-            rdButton.Name = $"{cmbPAYMENT_METHOD_ID.SelectedValue}"
-            rdButton.Text = cmbPAYMENT_METHOD_ID.Text
-            rdButton.BackColor = SystemColors.Control
+            Dim rdButton As New RadioButton With {
+                .Name = $"{cmbPAYMENT_METHOD_ID.SelectedValue}",
+                .Text = cmbPAYMENT_METHOD_ID.Text,
+                .BackColor = SystemColors.Control,
+                .AutoSize = False,
+                .TextAlign = ContentAlignment.MiddleCenter,
+                .CheckAlign = ContentAlignment.TopCenter,
+                .Size = New Size(110, 73),
+                .Appearance = Appearance.Normal,
+                .FlatStyle = FlatStyle.Popup,
+                .Location = New Point(X * I, Y),
+                .Checked = False
+            }
 
-            rdButton.AutoSize = False
-            rdButton.TextAlign = ContentAlignment.MiddleCenter
-            rdButton.CheckAlign = ContentAlignment.TopCenter
-            rdButton.Size = New Size(110, 73)
-            rdButton.Appearance = Appearance.Normal
-            rdButton.FlatStyle = FlatStyle.Popup
-            rdButton.Location = New Point(X * I, Y)
-            rdButton.Checked = False
-
-            AddHandler rdButton.CheckedChanged, AddressOf fClickMethod
+            AddHandler rdButton.CheckedChanged, AddressOf ClickMethod
 
             FlowLayoutPanel1.Controls.Add(rdButton)
 
         Next
-
-
-
-
     End Sub
-    Private Sub fClickMethod(sender As Object, e As EventArgs)
+    Private Sub ClickMethod(sender As Object, e As EventArgs)
         Dim R As RadioButton = DirectCast(sender, RadioButton)
         cmbPAYMENT_METHOD_ID.SelectedValue = R.Name
         numAMOUNT.Select()
 
         BlueLight(numAMOUNT)
     End Sub
-    Private Sub frmPOSPayment_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmPOSPayment_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         fLabel_Digital_M(xxxTOTAL)
         fLabel_Digital_M(xxxxCHANGE)
@@ -120,29 +111,24 @@
         gsOk = False
 
     End Sub
-    Private Sub fCompute()
+    Private Sub Computed()
         Dim Change_Total As Double = gsTransTotal - numAMOUNT.Value
 
         If Change_Total < 0 Then
-            Change_Total = Change_Total * -1
+            Change_Total *= -1
         Else
             Change_Total = 0
         End If
         xxxxCHANGE.Text = NumberFormatStandard(Change_Total)
     End Sub
-    Private Sub txtPAYMENT_REF_NO_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPAYMENT_REF_NO.KeyDown
-        fMaster_Keydown(sender, e)
+    Private Sub TxtPAYMENT_REF_NO_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPAYMENT_REF_NO.KeyDown
+        MasterKeydown(sender, e)
+    End Sub
+    Private Sub TxtCARD_NO_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCARD_NO.KeyDown
+        MasterKeydown(sender, e)
     End Sub
 
-    Private Sub txtCARD_NO_TextChanged(sender As Object, e As EventArgs) Handles txtCARD_NO.TextChanged
-
-    End Sub
-
-    Private Sub txtCARD_NO_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCARD_NO.KeyDown
-        fMaster_Keydown(sender, e)
-    End Sub
-
-    Private Sub frmPOSPayment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmPOSPayment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
 
 
@@ -160,27 +146,14 @@
         numAMOUNT.Value = 0
         BlueLight(numAMOUNT)
     End Sub
-
-
-    Private Sub BtnOK_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-
-
-    Private Sub LbslREF_No_Click(sender As Object, e As EventArgs) Handles lbslREF_No.Click
-
-    End Sub
-
     Private Sub NumAMOUNT_ValueChanged(sender As Object, e As EventArgs) Handles numAMOUNT.ValueChanged
-        fCompute()
+        Computed()
     End Sub
 
-    Private Sub numAMOUNT_KeyDown(sender As Object, e As KeyEventArgs) Handles numAMOUNT.KeyDown
-        fMaster_Keydown(sender, e)
+    Private Sub NumAMOUNT_KeyDown(sender As Object, e As KeyEventArgs) Handles numAMOUNT.KeyDown
+        MasterKeydown(sender, e)
     End Sub
-    Private Sub fMaster_Keydown(sender As Object, e As KeyEventArgs)
+    Private Sub MasterKeydown(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
 
             If rtbNOTES.Focused = True Then
@@ -224,42 +197,19 @@
 
     End Sub
 
-
-
-    Private Sub numAMOUNT_GotFocus(sender As Object, e As EventArgs) Handles numAMOUNT.GotFocus
-
+    Private Sub RtbNOTES_KeyDown(sender As Object, e As KeyEventArgs) Handles rtbNOTES.KeyDown
+        MasterKeydown(sender, e)
     End Sub
-
-    Private Sub LbslCARD_NO_Click(sender As Object, e As EventArgs) Handles lbslCARD_NO.Click
-
-    End Sub
-
-    Private Sub RtbNOTES_TextChanged(sender As Object, e As EventArgs) Handles rtbNOTES.TextChanged
-
-    End Sub
-
-    Private Sub rtbNOTES_KeyDown(sender As Object, e As KeyEventArgs) Handles rtbNOTES.KeyDown
-        fMaster_Keydown(sender, e)
-    End Sub
-
-    Private Sub FlowLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles FlowLayoutPanel1.Paint
-
-    End Sub
-
     Private Sub FlowLayoutPanel1_KeyDown(sender As Object, e As KeyEventArgs) Handles FlowLayoutPanel1.KeyDown
-        fMaster_Keydown(sender, e)
+        MasterKeydown(sender, e)
     End Sub
 
-    Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
-
-    End Sub
-
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         gsOk = False
         Me.Close()
     End Sub
 
-    Private Sub btnOK_Click_1(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click_1(sender As Object, e As EventArgs) Handles btnOK.Click
         If gsAMOUNT > numAMOUNT.Value Then
             PrompNotify("POS Payment", "Invalid tender amount", False)
             numAMOUNT.Select()
@@ -285,24 +235,12 @@
         Me.Close()
     End Sub
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
-    Private Sub numAMOUNT_TextChanged(sender As Object, e As EventArgs) Handles numAMOUNT.TextChanged
-
-    End Sub
-
-    Private Sub btnDelete_Click_1(sender As Object, e As EventArgs) Handles btnDelete.Click
+    Private Sub BtnDelete_Click_1(sender As Object, e As EventArgs) Handles btnDelete.Click
         gsRemove = True
         Me.Close()
     End Sub
 
-    Private Sub frmPOSPayment_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        fMaster_Keydown(sender, e)
-    End Sub
-
-    Private Sub BunifuSeparator1_Load(sender As Object, e As EventArgs) Handles BunifuSeparator1.Load
-
+    Private Sub FrmPOSPayment_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        MasterKeydown(sender, e)
     End Sub
 End Class

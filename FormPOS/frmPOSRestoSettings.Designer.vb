@@ -52,16 +52,16 @@ Partial Class FrmPOSRestoSettings
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(57, 17)
+        Me.Label1.Location = New System.Drawing.Point(102, 30)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(72, 16)
+        Me.Label1.Size = New System.Drawing.Size(71, 16)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Order Slip"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(78, 42)
+        Me.Label2.Location = New System.Drawing.Point(123, 55)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(0, 16)
         Me.Label2.TabIndex = 2
@@ -70,9 +70,9 @@ Partial Class FrmPOSRestoSettings
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Location = New System.Drawing.Point(76, 45)
+        Me.Label3.Location = New System.Drawing.Point(121, 58)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(53, 16)
+        Me.Label3.Size = New System.Drawing.Size(52, 16)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Bill Slip"
         '
@@ -80,15 +80,15 @@ Partial Class FrmPOSRestoSettings
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(61, 75)
+        Me.Label4.Location = New System.Drawing.Point(106, 88)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(65, 16)
+        Me.Label4.Size = New System.Drawing.Size(64, 16)
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "Payment"
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(268, 332)
+        Me.btnSave.Location = New System.Drawing.Point(313, 361)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(113, 25)
         Me.btnSave.TabIndex = 12
@@ -97,7 +97,7 @@ Partial Class FrmPOSRestoSettings
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(387, 332)
+        Me.btnCancel.Location = New System.Drawing.Point(432, 361)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(113, 25)
         Me.btnCancel.TabIndex = 13
@@ -106,7 +106,7 @@ Partial Class FrmPOSRestoSettings
         '
         'btnSettings
         '
-        Me.btnSettings.Location = New System.Drawing.Point(468, 12)
+        Me.btnSettings.Location = New System.Drawing.Point(513, 25)
         Me.btnSettings.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSettings.Name = "btnSettings"
         Me.btnSettings.Size = New System.Drawing.Size(32, 26)
@@ -118,7 +118,7 @@ Partial Class FrmPOSRestoSettings
         '
         Me.cmbPrinterPage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPrinterPage.FormattingEnabled = True
-        Me.cmbPrinterPage.Location = New System.Drawing.Point(144, 13)
+        Me.cmbPrinterPage.Location = New System.Drawing.Point(189, 26)
         Me.cmbPrinterPage.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPrinterPage.Name = "cmbPrinterPage"
         Me.cmbPrinterPage.Size = New System.Drawing.Size(323, 24)
@@ -126,7 +126,7 @@ Partial Class FrmPOSRestoSettings
         '
         'btnSettings2
         '
-        Me.btnSettings2.Location = New System.Drawing.Point(468, 41)
+        Me.btnSettings2.Location = New System.Drawing.Point(513, 54)
         Me.btnSettings2.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSettings2.Name = "btnSettings2"
         Me.btnSettings2.Size = New System.Drawing.Size(32, 26)
@@ -138,7 +138,7 @@ Partial Class FrmPOSRestoSettings
         '
         Me.cmbPrinterPage2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPrinterPage2.FormattingEnabled = True
-        Me.cmbPrinterPage2.Location = New System.Drawing.Point(144, 42)
+        Me.cmbPrinterPage2.Location = New System.Drawing.Point(189, 55)
         Me.cmbPrinterPage2.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPrinterPage2.Name = "cmbPrinterPage2"
         Me.cmbPrinterPage2.Size = New System.Drawing.Size(323, 24)
@@ -146,7 +146,7 @@ Partial Class FrmPOSRestoSettings
         '
         'btnSettings3
         '
-        Me.btnSettings3.Location = New System.Drawing.Point(468, 70)
+        Me.btnSettings3.Location = New System.Drawing.Point(513, 83)
         Me.btnSettings3.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSettings3.Name = "btnSettings3"
         Me.btnSettings3.Size = New System.Drawing.Size(32, 26)
@@ -158,7 +158,7 @@ Partial Class FrmPOSRestoSettings
         '
         Me.cmbPrinterPage3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPrinterPage3.FormattingEnabled = True
-        Me.cmbPrinterPage3.Location = New System.Drawing.Point(144, 71)
+        Me.cmbPrinterPage3.Location = New System.Drawing.Point(189, 84)
         Me.cmbPrinterPage3.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPrinterPage3.Name = "cmbPrinterPage3"
         Me.cmbPrinterPage3.Size = New System.Drawing.Size(323, 24)
@@ -168,16 +168,16 @@ Partial Class FrmPOSRestoSettings
         '
         Me.chkSmallBoxMonitoring.AutoSize = True
         Me.chkSmallBoxMonitoring.BackColor = System.Drawing.Color.Transparent
-        Me.chkSmallBoxMonitoring.Location = New System.Drawing.Point(144, 142)
+        Me.chkSmallBoxMonitoring.Location = New System.Drawing.Point(189, 155)
         Me.chkSmallBoxMonitoring.Name = "chkSmallBoxMonitoring"
-        Me.chkSmallBoxMonitoring.Size = New System.Drawing.Size(214, 20)
+        Me.chkSmallBoxMonitoring.Size = New System.Drawing.Size(213, 20)
         Me.chkSmallBoxMonitoring.TabIndex = 20
         Me.chkSmallBoxMonitoring.Text = "Use Small Box for Monitoring"
         Me.chkSmallBoxMonitoring.UseVisualStyleBackColor = False
         '
         'numCUSTOM_DINE_IN_NO
         '
-        Me.numCUSTOM_DINE_IN_NO.Location = New System.Drawing.Point(144, 303)
+        Me.numCUSTOM_DINE_IN_NO.Location = New System.Drawing.Point(189, 316)
         Me.numCUSTOM_DINE_IN_NO.Name = "numCUSTOM_DINE_IN_NO"
         Me.numCUSTOM_DINE_IN_NO.Size = New System.Drawing.Size(66, 23)
         Me.numCUSTOM_DINE_IN_NO.TabIndex = 21
@@ -187,9 +187,9 @@ Partial Class FrmPOSRestoSettings
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Location = New System.Drawing.Point(22, 305)
+        Me.Label5.Location = New System.Drawing.Point(67, 318)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(104, 16)
+        Me.Label5.Size = New System.Drawing.Size(103, 16)
         Me.Label5.TabIndex = 22
         Me.Label5.Text = "DINE-IN  Table"
         '
@@ -197,16 +197,16 @@ Partial Class FrmPOSRestoSettings
         '
         Me.chkMsgPrintPayment.AutoSize = True
         Me.chkMsgPrintPayment.BackColor = System.Drawing.Color.Transparent
-        Me.chkMsgPrintPayment.Location = New System.Drawing.Point(144, 168)
+        Me.chkMsgPrintPayment.Location = New System.Drawing.Point(189, 181)
         Me.chkMsgPrintPayment.Name = "chkMsgPrintPayment"
-        Me.chkMsgPrintPayment.Size = New System.Drawing.Size(242, 20)
+        Me.chkMsgPrintPayment.Size = New System.Drawing.Size(241, 20)
         Me.chkMsgPrintPayment.TabIndex = 23
         Me.chkMsgPrintPayment.Text = "Pop-Message for Print Payment?"
         Me.chkMsgPrintPayment.UseVisualStyleBackColor = False
         '
         'btnSettings4
         '
-        Me.btnSettings4.Location = New System.Drawing.Point(468, 99)
+        Me.btnSettings4.Location = New System.Drawing.Point(513, 112)
         Me.btnSettings4.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSettings4.Name = "btnSettings4"
         Me.btnSettings4.Size = New System.Drawing.Size(32, 26)
@@ -218,7 +218,7 @@ Partial Class FrmPOSRestoSettings
         '
         Me.cmbPrinterPage4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPrinterPage4.FormattingEnabled = True
-        Me.cmbPrinterPage4.Location = New System.Drawing.Point(144, 100)
+        Me.cmbPrinterPage4.Location = New System.Drawing.Point(189, 113)
         Me.cmbPrinterPage4.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPrinterPage4.Name = "cmbPrinterPage4"
         Me.cmbPrinterPage4.Size = New System.Drawing.Size(323, 24)
@@ -228,9 +228,9 @@ Partial Class FrmPOSRestoSettings
         '
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.Location = New System.Drawing.Point(38, 103)
+        Me.Label6.Location = New System.Drawing.Point(83, 116)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(91, 16)
+        Me.Label6.Size = New System.Drawing.Size(90, 16)
         Me.Label6.TabIndex = 24
         Me.Label6.Text = "Sales Report"
         '
@@ -238,9 +238,9 @@ Partial Class FrmPOSRestoSettings
         '
         Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.AutoSize = True
         Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.BackColor = System.Drawing.Color.Transparent
-        Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Location = New System.Drawing.Point(144, 194)
+        Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Location = New System.Drawing.Point(189, 207)
         Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Name = "chkPRINT_INVOICE_AFTER_PRINT_PAYMENT"
-        Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Size = New System.Drawing.Size(244, 20)
+        Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Size = New System.Drawing.Size(243, 20)
         Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.TabIndex = 27
         Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Text = "Print Invoice after print payment"
         Me.chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.UseVisualStyleBackColor = False
@@ -249,9 +249,9 @@ Partial Class FrmPOSRestoSettings
         '
         Me.chkPRINT_OS_AFTER_SAVE_INVOICE.AutoSize = True
         Me.chkPRINT_OS_AFTER_SAVE_INVOICE.BackColor = System.Drawing.Color.Transparent
-        Me.chkPRINT_OS_AFTER_SAVE_INVOICE.Location = New System.Drawing.Point(144, 220)
+        Me.chkPRINT_OS_AFTER_SAVE_INVOICE.Location = New System.Drawing.Point(189, 233)
         Me.chkPRINT_OS_AFTER_SAVE_INVOICE.Name = "chkPRINT_OS_AFTER_SAVE_INVOICE"
-        Me.chkPRINT_OS_AFTER_SAVE_INVOICE.Size = New System.Drawing.Size(226, 20)
+        Me.chkPRINT_OS_AFTER_SAVE_INVOICE.Size = New System.Drawing.Size(225, 20)
         Me.chkPRINT_OS_AFTER_SAVE_INVOICE.TabIndex = 28
         Me.chkPRINT_OS_AFTER_SAVE_INVOICE.Text = "Print Invoice After Save Entry"
         Me.chkPRINT_OS_AFTER_SAVE_INVOICE.UseVisualStyleBackColor = False
@@ -260,19 +260,19 @@ Partial Class FrmPOSRestoSettings
         '
         Me.cmbPRINTER.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPRINTER.FormattingEnabled = True
-        Me.cmbPRINTER.Location = New System.Drawing.Point(144, 272)
+        Me.cmbPRINTER.Location = New System.Drawing.Point(189, 285)
         Me.cmbPRINTER.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPRINTER.Name = "cmbPRINTER"
-        Me.cmbPRINTER.Size = New System.Drawing.Size(323, 24)
+        Me.cmbPRINTER.Size = New System.Drawing.Size(356, 24)
         Me.cmbPRINTER.TabIndex = 30
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
-        Me.Label7.Location = New System.Drawing.Point(2, 275)
+        Me.Label7.Location = New System.Drawing.Point(47, 288)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(135, 16)
+        Me.Label7.Size = New System.Drawing.Size(134, 16)
         Me.Label7.TabIndex = 29
         Me.Label7.Text = "POS Default Printer"
         '
@@ -280,7 +280,7 @@ Partial Class FrmPOSRestoSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(510, 369)
+        Me.ClientSize = New System.Drawing.Size(570, 398)
         Me.Controls.Add(Me.cmbPRINTER)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.chkPRINT_OS_AFTER_SAVE_INVOICE)

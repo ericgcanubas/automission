@@ -135,7 +135,6 @@ Partial Class FrmPOSPayment
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.White
         Me.Label3.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(5, 2)
         Me.Label3.Name = "Label3"
@@ -216,10 +215,10 @@ Partial Class FrmPOSPayment
         'btnOK
         '
         Me.btnOK.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnOK.Location = New System.Drawing.Point(252, 446)
+        Me.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnOK.Location = New System.Drawing.Point(252, 449)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(98, 41)
+        Me.btnOK.Size = New System.Drawing.Size(98, 55)
         Me.btnOK.TabIndex = 106
         Me.btnOK.Text = "&Save"
         Me.btnOK.UseVisualStyleBackColor = False
@@ -227,10 +226,10 @@ Partial Class FrmPOSPayment
         'btnCancel
         '
         Me.btnCancel.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnCancel.Location = New System.Drawing.Point(378, 446)
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCancel.Location = New System.Drawing.Point(378, 449)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(98, 41)
+        Me.btnCancel.Size = New System.Drawing.Size(98, 55)
         Me.btnCancel.TabIndex = 107
         Me.btnCancel.Text = "&Cancel"
         Me.btnCancel.UseVisualStyleBackColor = False
@@ -238,21 +237,20 @@ Partial Class FrmPOSPayment
         'btnDelete
         '
         Me.btnDelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnDelete.Location = New System.Drawing.Point(12, 446)
+        Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDelete.Location = New System.Drawing.Point(12, 449)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(98, 41)
+        Me.btnDelete.Size = New System.Drawing.Size(98, 55)
         Me.btnDelete.TabIndex = 108
         Me.btnDelete.Text = "&Remove"
         Me.btnDelete.UseVisualStyleBackColor = False
         Me.btnDelete.Visible = False
         '
-        'frmPOSPayment
+        'FrmPOSPayment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(481, 496)
+        Me.ClientSize = New System.Drawing.Size(481, 513)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)
@@ -275,7 +273,7 @@ Partial Class FrmPOSPayment
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSPayment"
+        Me.Name = "FrmPOSPayment"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

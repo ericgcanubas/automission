@@ -4,11 +4,11 @@ Public Class FrmPOSVoidEntry
 
 
     Private Sub FrmPOSVoidEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fRefresh()
+        RefreshData()
 
         gsGotVoid = False
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         If gsPOSVoidEntry = True Then
             btnVOID.Text = "Void"
         Else
@@ -19,7 +19,7 @@ Public Class FrmPOSVoidEntry
         dgvSalesReceiptList.Columns(0).Visible = False
         dgvSalesReceiptList.Columns("customer_id").Visible = False
     End Sub
-    Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
+    Private Sub BtnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
         Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Dim prFile_name As String = ""
         Dim prPrint_Title As String = ""
@@ -48,16 +48,16 @@ Public Class FrmPOSVoidEntry
         CryParameterInsertValue(gscryRpt, prPrint_Title, "invoice_type_name")
 
         gsToolPanelView = False
-        frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
-        frmReportViewer.Text = "POS Log " & GetDateTimeNowSql()
-        frmReportViewer.WindowState = FormWindowState.Maximized
-        frmReportViewer.ShowDialog()
-        frmReportViewer.Dispose()
+        FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+        FrmReportViewer.Text = "POS Log " & GetDateTimeNowSql()
+        FrmReportViewer.WindowState = FormWindowState.Maximized
+        FrmReportViewer.ShowDialog()
+        FrmReportViewer.Dispose()
     End Sub
 
-    Private Sub btnVOID_Click(sender As Object, e As EventArgs) Handles btnVOID.Click
+    Private Sub BtnVOID_Click(sender As Object, e As EventArgs) Handles btnVOID.Click
         If dgvSalesReceiptList.Rows.Count <> 0 Then
-            If SecurityAccessDelete(frmSalesReceipt) = False Then
+            If SecurityAccessDelete(FrmSalesReceipt) = False Then
 
                 Exit Sub
             End If
@@ -85,7 +85,7 @@ Public Class FrmPOSVoidEntry
                     rd.Close()
                     Dim rd_item As OdbcDataReader = SqlReader($"select s.id,s.item_id,i.type,i.GL_ACCOUNT_ID,i.COGS_ACCOUNT_ID,i.ASSET_ACCOUNT_ID from sales_receipt_items as s inner join item as i on i.id = s.item_id where sales_receipt_id = '{ThisID}' limit 1;")
                     While rd_item.Read
-                        fRemoveMoreReference(rd_item("type"), rd_item("id"), ThisDate, rd_item("item_id"), gsDefault_LOCATION_ID, GF_NumIsNull(rd_item("GL_ACCOUNT_ID")), GF_NumIsNull(rd_item("ASSET_ACCOUNT_ID")), GF_NumIsNull(rd_item("COGS_ACCOUNT_ID")))
+                        RemoveMoreReference(rd_item("type"), rd_item("id"), ThisDate, rd_item("item_id"), gsDefault_LOCATION_ID, GF_NumIsNull(rd_item("GL_ACCOUNT_ID")), GF_NumIsNull(rd_item("ASSET_ACCOUNT_ID")), GF_NumIsNull(rd_item("COGS_ACCOUNT_ID")))
                         ReCalculateInventory(GF_NumIsNull(rd_item("ITEM_ID")), gsDefault_LOCATION_ID, ThisDate.AddDays(-1))
 
                     End While
@@ -116,14 +116,14 @@ Public Class FrmPOSVoidEntry
 
                     SetTransactionLog(ThisID, .Cells("Code").Value, 7, "Void", .Cells("customer_id").Value, "", GF_NumIsNull(.Cells("Total").Value), gsDefault_LOCATION_ID)
                 End With
-                fRefresh()
+                RefreshData()
                 gsGotVoid = True
             End If
         End If
 
 
     End Sub
-    Private Sub fRemoveMoreReference(ByVal ItemType As Integer, ByVal SALES_RECEIPT_ITEM_ID As Integer, ByVal DT As Date, ByVal ITEM_ID As Integer, ByVal LOCATION_ID As Integer, ByVal INCOME_ACCOUNT_ID As Integer, ByVal ASSET_ACCOUNT_ID As Integer, ByVal COGS_ACCOUNT_ID As Integer)
+    Private Sub RemoveMoreReference(ByVal ItemType As Integer, ByVal SALES_RECEIPT_ITEM_ID As Integer, ByVal DT As Date, ByVal ITEM_ID As Integer, ByVal LOCATION_ID As Integer, ByVal INCOME_ACCOUNT_ID As Integer, ByVal ASSET_ACCOUNT_ID As Integer, ByVal COGS_ACCOUNT_ID As Integer)
 
         If ItemType = 0 Or ItemType = 1 Then
             GS_ItemInventoryRemove(13, SALES_RECEIPT_ITEM_ID, DT, ITEM_ID, LOCATION_ID)
@@ -143,11 +143,9 @@ Public Class FrmPOSVoidEntry
         End If
 
     End Sub
-    Private Sub btnCLOSE_Click(sender As Object, e As EventArgs) Handles btnCLOSE.Click
+    Private Sub BtnCLOSE_Click(sender As Object, e As EventArgs) Handles btnCLOSE.Click
         Me.Close()
     End Sub
 
-    Private Sub dgvSalesReceiptList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSalesReceiptList.CellContentClick
 
-    End Sub
 End Class

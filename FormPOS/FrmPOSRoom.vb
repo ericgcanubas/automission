@@ -12,25 +12,22 @@ Public Class FrmPOSRoom
 
     Dim INVOICE_CHECK_IN As String = $" IFNULL((SELECT concat(n.Date ,' ', n.CUSTOM_FIELD1) as `CHECK_IN`  FROM  invoice AS n  INNER JOIN invoice_items AS ni ON  ni.invoice_id = n.id WHERE ni.item_id = i.`ID`  AND n.CUSTOM_FIELD3 is null  LIMIT 1),'') "
     Dim INVOICE_CHECK_OUT As String = $" IFNULL((SELECT concat(n.DISCOUNT_DATE ,' ', n.CUSTOM_FIELD2) as `CHECK_OUT`  FROM  invoice AS n  INNER JOIN invoice_items AS ni ON  ni.invoice_id = n.id WHERE ni.item_id = i.`ID`  AND n.CUSTOM_FIELD3 is null  LIMIT 1),'2000-12-01 12:00:00') "
-
-
-
     Dim INVOICE_ITEM_QTY As String = $" IFNULL((SELECT sum(t.QUANTITY) FROM  invoice AS n  INNER JOIN invoice_items AS ni ON  ni.invoice_id = n.id inner join invoice_items as t on t.invoice_id = n.id   WHERE t.UNIT_ID ='{gsMeasureHoursID}' and ni.item_id = i.`ID`  AND n.ship_via_id = '{gsCheckInType}'),0) "
     Dim INVOICE_BALANCE As String = $"IFNULL((SELECT  n.BALANCE_DUE  FROM  invoice AS n  INNER JOIN invoice_items AS ni ON  ni.invoice_id = n.id WHERE ni.item_id = i.`ID`  AND n.ship_via_id = '{gsCheckInType}' LIMIT 1),'0')"
 
     Public gsCloseCall As Boolean = False
-    Private Sub fTimeTrick()
+    Private Sub TimeTrick()
 
         dgvList.Rows.Clear()
         Dim SQL As String = $"Select i.id, i.description,{INVOICE_ID_SQL} AS `invoice_id`, {INVOICE_CHECK_IN} as `CHECK_IN`, {INVOICE_CHECK_OUT}  as `CHECK_OUT`, {INVOICE_ITEM_QTY} as `HOURS`, {INVOICE_BALANCE} as `BALANCE` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' and  {INVOICE_NULL_SQL} is not null   ORDER BY i.description"
         Dim rd As OdbcDataReader = SqlReader(SQL)
         While rd.Read
-            fTimeCreate(rd("id"), rd("description"), rd("invoice_id"), CDate(rd("CHECK_IN")), CDate(rd("CHECK_OUT")), rd("HOURS"), rd("BALANCE"))
+            TimeCreate(rd("id"), rd("description"), rd("invoice_id"), CDate(rd("CHECK_IN")), CDate(rd("CHECK_OUT")), rd("HOURS"), rd("BALANCE"))
         End While
         rd.Close()
 
     End Sub
-    Private Sub fLoadRoomAll()
+    Private Sub LoadRoomAll()
         gsSelectAllRoom = True
         gsSelectAvailableRoom = False
         gsSelectNotAvailableRoom = False
@@ -38,11 +35,11 @@ Public Class FrmPOSRoom
         Dim SQL_DB As String = $"Select i.id, i.description, {INVOICE_ID_SQL} As `invoice_id`, {INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.id"
         Dim rd As OdbcDataReader = SqlReader(SQL_DB)
         While rd.Read
-            fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
+            CreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
         End While
         rd.Close()
     End Sub
-    Private Sub fTimeColumn()
+    Private Sub TimeColumn()
 
         With dgvList.Columns
 
@@ -72,7 +69,7 @@ Public Class FrmPOSRoom
 
 
     End Sub
-    Private Sub fTimeCreate(ByVal prId As Integer, ByVal prRoom As String, ByVal prInvoice_ID As String, ByVal prIN As DateTime, ByVal prOUT As DateTime, ByVal Hrs As Integer, ByVal BALANCE As Double)
+    Private Sub TimeCreate(ByVal prId As Integer, ByVal prRoom As String, ByVal prInvoice_ID As String, ByVal prIN As DateTime, ByVal prOUT As DateTime, ByVal Hrs As Integer, ByVal BALANCE As Double)
 
         If prOUT = "2000-12-01 12:00:00" Then
 
@@ -85,20 +82,22 @@ Public Class FrmPOSRoom
 
 
     End Sub
-    Private Sub fLoadGroup()
+    Private Sub LoadGroup()
         Dim rd As OdbcDataReader = SqlReader($"SELECT g.`ID`,g.`DESCRIPTION` FROM item_group AS g INNER JOIN item AS i ON i.`GROUP_ID` = g.`ID` AND g.`ITEM_TYPE` = i.`TYPE` WHERE  i.`TYPE` ='{gsCheckInType}' GROUP BY g.`DESCRIPTION` order by g.ID")
         While rd.Read
-            Dim tsbtn As New ToolStripButton
-            tsbtn.Name = $"tsbtn{rd("id")}"
-            tsbtn.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText
-            tsbtn.TextImageRelation = TextImageRelation.ImageAboveText
-            tsbtn.Image = My.Resources.ladder
-            tsbtn.Tag = rd("id")
-            tsbtn.Text = rd("DESCRIPTION")
-            AddHandler tsbtn.Click, AddressOf tsGroupBtn_Click
+            Dim tsbtn As New ToolStripButton With {
+                .Name = $"tsbtn{rd("id")}",
+                .DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                .TextImageRelation = TextImageRelation.ImageAboveText,
+                .Image = My.Resources.ladder,
+                .Tag = rd("id"),
+                .Text = rd("DESCRIPTION")
+            }
+            AddHandler tsbtn.Click, AddressOf TsGroupBtn_Click
             tsPanel.Items.Add(tsbtn)
-            Dim tsline As New ToolStripSeparator
-            tsline.Name = $"tsLine{rd("id")}"
+            Dim tsline As New ToolStripSeparator With {
+                .Name = $"tsLine{rd("id")}"
+            }
             tsPanel.Items.Add(tsline)
         End While
         rd.Close()
@@ -109,7 +108,7 @@ Public Class FrmPOSRoom
 
 
     End Sub
-    Private Sub tsGroupBtn_Click(sender As Object, e As EventArgs)
+    Private Sub TsGroupBtn_Click(sender As Object, e As EventArgs)
         Dim ts As ToolStripButton = DirectCast(sender, ToolStripButton)
 
         gsSelectAllRoom = False
@@ -118,20 +117,14 @@ Public Class FrmPOSRoom
         flpBox.Controls.Clear()
         Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' and i.GROUP_ID ='{  GF_NumIsNull(ts.Tag)}' AND i.inactive ='0' ORDER BY i.id")
         While rd.Read
-            fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
+            CreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
         End While
         rd.Close()
 
     End Sub
 
-    Private Sub fGET_POS_CREATE()
+    Private Sub GetPosCreate()
 
-
-
-
-
-        Dim bStartNew As Boolean = False
-        'POS LOG   DATE(recorded_On) ='{DateFormatMySql(gsPOS_DATE)}'
         Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID, RECORDED_ON,CASHIER_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and LOCATION_ID = '{gsDefault_LOCATION_ID}' and `CASH_COUNT_ID` is null ORDER BY ID DESC Limit 1;")
         If rd.Read Then
             If gsCashier_ID <> GF_NumIsNull(rd("CASHIER_ID")) Then
@@ -139,17 +132,6 @@ Public Class FrmPOSRoom
                 gsCloseCall = True
                 Exit Sub
             End If
-
-            'If GF_NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
-            '    FrmPOSLogSwitch.ShowDialog()
-            '    bStartNew = FrmPOSLogSwitch.gsStartNew
-            '    FrmPOSLogSwitch.Dispose()
-            '    FrmPOSLogSwitch = Nothing
-            'End If
-
-            'If bStartNew = True Then
-            '    GoTo NewPOS_LOG
-            'End If
 
             gsPOS_DATE = CDate(rd("RECORDED_ON"))
             gsSTARTING_RECEIPT_NO = GF_NumIsNull(rd("STARTING_RECEIPT_NO"))
@@ -168,10 +150,10 @@ NewPOS_LOG:
                 Dim sAMount As Double = 0
                 gsSTARTING_CASH_ID = 0
                 If GF_PosStartingCash() = True Then
-                    frmPOSStartingCash.ShowDialog()
-                    sAMount = frmPOSStartingCash.gsStartAmount
-                    frmPOSStartingCash.Dispose()
-                    frmPOSStartingCash = Nothing
+                    FrmPOSStartingCash.ShowDialog()
+                    sAMount = FrmPOSStartingCash.gsStartAmount
+                    FrmPOSStartingCash.Dispose()
+                    FrmPOSStartingCash = Nothing
                 End If
 
                 gsSTARTING_CASH_ID = ObjectTypeMapId("POS_STARTING_CASH")
@@ -224,8 +206,8 @@ NewPOS_LOG:
         End If
 
         tsUsername.Text = gsUser_Name
-        fTimeColumn()
-        fLoadGroup()
+        TimeColumn()
+        LoadGroup()
 
         gsPOS_DEFAULT_PRINTER = GetDBAccessValueByText("POS_DEFAULT_PRINTER")
 
@@ -254,43 +236,45 @@ NewPOS_LOG:
         gsPOS_RESTAURANT_TABLE_NO = GF_GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
         gsDRAWER_ACCOUNT_ID = GF_GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
 
-        fLoadRoomAll()
-        fLoadOtherMenu()
+        LoadRoomAll()
+        LoadOtherMenu()
 
-        fTimeTrick()
+        TimeTrick()
         Timer1.Start()
         gsPOS_LOG_ID = 0
         gsPOS_DATE = Date.Now
-        fGET_POS_CREATE()
+        GetPosCreate()
 
 
     End Sub
-    Private Sub fLoadOtherMenu()
-
-        Dim AddSalesWalkIn As New ToolStripButton
-        AddSalesWalkIn.Name = $"tsAddSales"
-        AddSalesWalkIn.Text = "Walk-In Entry"
-        AddSalesWalkIn.Image = My.Resources.m_payment
-        AddSalesWalkIn.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText
-        AddSalesWalkIn.TextImageRelation = TextImageRelation.ImageAboveText
+    Private Sub LoadOtherMenu()
+        Dim AddSalesWalkIn As New ToolStripButton With {
+            .Name = $"tsAddSales",
+            .Text = "Walk-In Entry",
+            .Image = My.Resources.m_payment,
+            .DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+            .TextImageRelation = TextImageRelation.ImageAboveText
+        }
         AddHandler AddSalesWalkIn.Click, AddressOf Report_Click
         tsPanel.Items.Add(AddSalesWalkIn)
 
-        Dim RoomEntryList As New ToolStripButton
-        RoomEntryList.Name = $"tsList"
-        RoomEntryList.Text = "Room Entry List"
-        RoomEntryList.Image = My.Resources.to_do_list_icon
-        RoomEntryList.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText
-        RoomEntryList.TextImageRelation = TextImageRelation.ImageAboveText
+        Dim RoomEntryList As New ToolStripButton With {
+            .Name = $"tsList",
+            .Text = "Room Entry List",
+            .Image = My.Resources.to_do_list_icon,
+            .DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+            .TextImageRelation = TextImageRelation.ImageAboveText
+        }
         AddHandler RoomEntryList.Click, AddressOf Entry_List_Click
         tsPanel.Items.Add(RoomEntryList)
 
-        Dim PaymentList As New ToolStripButton
-        PaymentList.Name = $"tsPayList"
-        PaymentList.Text = "Payment List"
-        PaymentList.Image = My.Resources.receive_payment
-        PaymentList.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText
-        PaymentList.TextImageRelation = TextImageRelation.ImageAboveText
+        Dim PaymentList As New ToolStripButton With {
+            .Name = $"tsPayList",
+            .Text = "Payment List",
+            .Image = My.Resources.receive_payment,
+            .DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+            .TextImageRelation = TextImageRelation.ImageAboveText
+        }
         AddHandler PaymentList.Click, AddressOf Payment_List_Click
         tsPanel.Items.Add(PaymentList)
 
@@ -302,7 +286,7 @@ NewPOS_LOG:
         FrmPOSRoomPaymentList.Dispose()
         FrmPOSRoomPaymentList = Nothing
         If gsGotChangeData = True Then
-            fPreviewRefresh()
+            PreviewRefresh()
         End If
 
 
@@ -313,21 +297,21 @@ NewPOS_LOG:
         FrmPOSRoomEntryList.Dispose()
         FrmPOSRoomEntryList = Nothing
 
-        fPreviewRefresh()
+        PreviewRefresh()
 
     End Sub
     Private Sub Report_Click(sender As Object, e As EventArgs)
-        frmPOSRoomDetails.ID = 0
-        frmPOSRoomDetails.IsNew = True
-        frmPOSRoomDetails.Text = "Walk-In Cusomter"
-        frmPOSRoomDetails.gsWalkInCustomer = True
-        frmPOSRoomDetails.ShowDialog()
-        frmPOSRoomDetails.Dispose()
-        frmPOSRoomDetails = Nothing
+        FrmPOSRoomDetails.ID = 0
+        FrmPOSRoomDetails.IsNew = True
+        FrmPOSRoomDetails.Text = "Walk-In Cusomter"
+        FrmPOSRoomDetails.gsWalkInCustomer = True
+        FrmPOSRoomDetails.ShowDialog()
+        FrmPOSRoomDetails.Dispose()
+        FrmPOSRoomDetails = Nothing
     End Sub
 
 
-    Private Sub fLoadRoomAvailable()
+    Private Sub LoadRoomAvailable()
         gsSelectAllRoom = False
         gsSelectAvailableRoom = True
         gsSelectNotAvailableRoom = False
@@ -335,13 +319,13 @@ NewPOS_LOG:
         Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description,{INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.description")
         While rd.Read
             If GF_TextIsNull(rd("Invoice_id")) = "0" Then
-                fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
+                CreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
             End If
 
         End While
         rd.Close()
     End Sub
-    Private Sub fLoadRoomNotAvailable()
+    Private Sub LoadRoomNotAvailable()
         gsSelectAllRoom = False
         gsSelectAvailableRoom = False
         gsSelectNotAvailableRoom = True
@@ -349,23 +333,24 @@ NewPOS_LOG:
         Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`, {INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.description")
         While rd.Read
             If GF_TextIsNull(rd("Invoice_id")) <> "0" Then
-                fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
+                CreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
             End If
         End While
         rd.Close()
     End Sub
-    Private Sub fCreateRoom(ByVal prId As Integer, ByVal prDescription As String, ByVal Invoice_ID As String, ByVal CHK_OUT As DateTime)
-        Dim btn As New Button
-        btn.Name = btnRoom.Text & prId
-        btn.AccessibleName = prId
-        btn.Text = prDescription
-        btn.Size = btnRoom.Size
-        btn.Font = btnRoom.Font
-        btn.FlatStyle = btnRoom.FlatStyle
-        btn.Image = My.Resources.room_tag
-        btn.ImageAlign = ContentAlignment.TopCenter
-        btn.TextAlign = ContentAlignment.BottomCenter '
-        btn.Tag = Invoice_ID
+    Private Sub CreateRoom(ByVal prId As Integer, ByVal prDescription As String, ByVal Invoice_ID As String, ByVal CHK_OUT As DateTime)
+        Dim btn As New Button With {
+            .Name = btnRoom.Text & prId,
+            .AccessibleName = prId,
+            .Text = prDescription,
+            .Size = btnRoom.Size,
+            .Font = btnRoom.Font,
+            .FlatStyle = btnRoom.FlatStyle,
+            .Image = My.Resources.room_tag,
+            .ImageAlign = ContentAlignment.TopCenter,
+            .TextAlign = ContentAlignment.BottomCenter, '
+            .Tag = Invoice_ID
+        }
         If CHK_OUT = "2000-12-01 12:00:00" Then
 
 
@@ -377,11 +362,11 @@ NewPOS_LOG:
                 btn.ForeColor = Color.White
 
             End If
-            AddHandler btn.Click, AddressOf btnRoom_Click
+            AddHandler btn.Click, AddressOf BtnRoom_Click
 
         Else
 
-            AddHandler btn.Click, AddressOf btnSetAsAvailable_Click
+            AddHandler btn.Click, AddressOf BtnSetAsAvailable_Click
 
             btn.BackColor = Color.Blue
             btn.ForeColor = Color.White
@@ -394,51 +379,49 @@ NewPOS_LOG:
 
 
     End Sub
-    Private Sub btnSetAsAvailable_Click(sender As Object, e As EventArgs)
+    Private Sub BtnSetAsAvailable_Click(sender As Object, e As EventArgs)
         If MessageBoxPointOfSalesYesNO("Do you want to set as Available?") = True Then
             Dim btn As Button = DirectCast(sender, Button)
             SqlExecuted($"UPDATE invoice SET `CUSTOM_FIELD3` = '{GetDateTimeNowSql()}',`DEALER_ID`='{gsPOS_LOG_ID}'  WHERE `ID`= '{Val(btn.Tag)}' limit 1; ")
-            fPreviewRefresh()
+            PreviewRefresh()
         End If
     End Sub
-    Private Sub btnRoom_Click(sender As Object, e As EventArgs)
+    Private Sub BtnRoom_Click(sender As Object, e As EventArgs)
 
         Dim btn As Button = DirectCast(sender, Button)
         gsDocument_Finder_ID = Val(btn.Tag)
-        frmPOSRoomDetails.Text = btn.Text
-        frmPOSRoomDetails.gsRoomID = Val(btn.AccessibleName)
-        frmPOSRoomDetails.gsCHECK_IN = gsCheckInType
-        frmPOSRoomDetails.ShowDialog()
+        FrmPOSRoomDetails.Text = btn.Text
+        FrmPOSRoomDetails.gsRoomID = Val(btn.AccessibleName)
+        FrmPOSRoomDetails.gsCHECK_IN = gsCheckInType
+        FrmPOSRoomDetails.ShowDialog()
 
 
-        frmPOSRoomDetails.Dispose()
-        frmPOSRoomDetails = Nothing
+        FrmPOSRoomDetails.Dispose()
+        FrmPOSRoomDetails = Nothing
         If gsGotChangeData = True Then
-            fPreviewRefresh()
+            PreviewRefresh()
         End If
 
 
     End Sub
 
 
-    Private Sub fPreviewRefresh()
+    Private Sub PreviewRefresh()
         If gsSelectAllRoom = True Then
-            fLoadRoomAll()
+            LoadRoomAll()
         ElseIf gsSelectAvailableRoom = True Then
-            fLoadRoomAvailable()
+            LoadRoomAvailable()
         ElseIf gsSelectNotAvailableRoom = True Then
-            fLoadRoomNotAvailable()
+            LoadRoomNotAvailable()
         End If
 
-        fTimeTrick()
+        TimeTrick()
     End Sub
     Private Sub FrmPOSRoom_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-
-
         If gsCloseCall = True Then
             bActiveFirst = False
-            frmSplash.Show()
-            frmSplash.Timer1.Enabled = True
+            FrmSplash.Show()
+            FrmSplash.Timer1.Enabled = True
             gsMenuSubID = 0
             gsMenuID = 0
             Me.Dispose()
@@ -453,21 +436,16 @@ NewPOS_LOG:
         End If
 
     End Sub
-
-    Private Sub tsExit_Click(sender As Object, e As EventArgs)
-
+    Private Sub TsAllRoom_Click(sender As Object, e As EventArgs) Handles tsAllRoom.Click
+        LoadRoomAll()
     End Sub
 
-    Private Sub tsAllRoom_Click(sender As Object, e As EventArgs) Handles tsAllRoom.Click
-        fLoadRoomAll()
+    Private Sub TsAvailableRoom_Click(sender As Object, e As EventArgs) Handles tsAvailableRoom.Click
+        LoadRoomAvailable()
     End Sub
 
-    Private Sub tsAvailableRoom_Click(sender As Object, e As EventArgs) Handles tsAvailableRoom.Click
-        fLoadRoomAvailable()
-    End Sub
-
-    Private Sub tsNotAvailableRoom_Click(sender As Object, e As EventArgs) Handles tsNotAvailableRoom.Click
-        fLoadRoomNotAvailable()
+    Private Sub TsNotAvailableRoom_Click(sender As Object, e As EventArgs) Handles tsNotAvailableRoom.Click
+        LoadRoomNotAvailable()
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
@@ -478,9 +456,9 @@ NewPOS_LOG:
 
                 Try
                     If .Cells("STATUS").Value = "CHECK-IN" Then
-                        fCountDownTime(N, CDate(.Cells("time_out").Value))
+                        CountDownTime(N, CDate(.Cells("time_out").Value))
                     ElseIf .Cells("STATUS").Value = "CHECK-OUT" Then
-                        fRunningTime(N, CDate(.Cells("TIME_STATUS").Value))
+                        RunningTime(N, CDate(.Cells("TIME_STATUS").Value))
                     End If
 
 
@@ -495,11 +473,8 @@ NewPOS_LOG:
 
 
     End Sub
-    Private Sub fRunningTime(ByVal N As Integer, ByVal prTimeOut As DateTime)
+    Private Sub RunningTime(ByVal N As Integer, ByVal prTimeOut As DateTime)
         Try
-
-
-
             Dim iSpan As TimeSpan = TimeSpan.FromSeconds(DateDiff(DateInterval.Second, prTimeOut, DateTime.Now))
             Dim xTimeValue As String
             If DateDiff(DateInterval.Second, prTimeOut, DateTime.Now) > 0 Then
@@ -530,11 +505,8 @@ NewPOS_LOG:
         End Try
 
     End Sub
-    Private Sub fCountDownTime(ByVal N As Integer, ByVal prTimeOut As DateTime)
+    Private Sub CountDownTime(ByVal N As Integer, ByVal prTimeOut As DateTime)
         Try
-
-
-
             Dim iSpan As TimeSpan = TimeSpan.FromSeconds(DateDiff(DateInterval.Second, DateTime.Now, prTimeOut))
             Dim xTimeValue As String
             If DateDiff(DateInterval.Second, DateTime.Now, prTimeOut) > 0 Then
@@ -563,7 +535,7 @@ NewPOS_LOG:
 
 
     End Sub
-    Private Sub fOpenRoom()
+    Private Sub OpenRoom()
         If dgvList.Rows.Count <> 0 Then
 
             With dgvList.CurrentRow
@@ -571,24 +543,24 @@ NewPOS_LOG:
                 Dim INVOICE_ID As Integer = .Cells("invoice_id").Value
                 If .Cells("STATUS").Value = "CHECK-IN" Then
                     gsDocument_Finder_ID = INVOICE_ID
-                    frmPOSRoomDetails.Text = .Cells("description").Value
+                    FrmPOSRoomDetails.Text = .Cells("description").Value
 
-                    frmPOSRoomDetails.gsRoomID = Room_ID
-                    frmPOSRoomDetails.gsCHECK_IN = gsCheckInType
-                    frmPOSRoomDetails.ShowDialog()
+                    FrmPOSRoomDetails.gsRoomID = Room_ID
+                    FrmPOSRoomDetails.gsCHECK_IN = gsCheckInType
+                    FrmPOSRoomDetails.ShowDialog()
 
 
-                    frmPOSRoomDetails.Dispose()
-                    frmPOSRoomDetails = Nothing
+                    FrmPOSRoomDetails.Dispose()
+                    FrmPOSRoomDetails = Nothing
                     If gsGotChangeData = True Then
-                        fPreviewRefresh()
+                        PreviewRefresh()
                     End If
                 ElseIf .Cells("STATUS").Value = "CHECK-OUT" Then
 
                     If MessageBoxPointOfSalesYesNO("Do you want to set as Available?") = True Then
 
                         SqlExecuted($"UPDATE invoice SET `CUSTOM_FIELD3` = '{GetDateTimeNowSql()}',`DEALER_ID`='{gsPOS_LOG_ID}'  WHERE `ID`= '{INVOICE_ID}' limit 1; ")
-                        fPreviewRefresh()
+                        PreviewRefresh()
                     End If
 
                 End If
@@ -597,21 +569,15 @@ NewPOS_LOG:
             End With
         End If
     End Sub
-    Private Sub dgvList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellContentClick
-
-    End Sub
-
-    Private Sub dgvList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellDoubleClick
-        fOpenRoom()
+    Private Sub DgvList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellDoubleClick
+        OpenRoom()
     End Sub
 
     Private Sub FrmPOSRoom_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         gsCloseCall = False
 
         If gsPOS_LOG_ID <> 0 Then
-
             tsMenu.PerformClick()
-
         Else
             gsCloseCall = True
             Me.Close()
@@ -620,11 +586,11 @@ NewPOS_LOG:
 
     End Sub
 
-    Private Sub tsMenu_Click(sender As Object, e As EventArgs) Handles tsMenu.Click
+    Private Sub TsMenu_Click(sender As Object, e As EventArgs) Handles tsMenu.Click
 
-        frmPOSRoomLog.ShowDialog()
-        frmPOSRoomLog.Dispose()
-        frmPOSRoomLog = Nothing
+        FrmPOSRoomLog.ShowDialog()
+        FrmPOSRoomLog.Dispose()
+        FrmPOSRoomLog = Nothing
 
         If gsCloseCall = True Then
             Me.Close()
@@ -632,19 +598,19 @@ NewPOS_LOG:
 
     End Sub
 
-    Private Sub tsDown_Click(sender As Object, e As EventArgs) Handles tsDown.Click
+    Private Sub TsDown_Click(sender As Object, e As EventArgs) Handles tsDown.Click
         Try
             If dgvList.Rows.Count = 0 Then
                 Exit Sub
             End If
             dgvList.Select()
-            dgvList.CurrentCell = dgvList.Rows(fCheckingGotVisibleIndex(False)).Cells("DESCRIPTION")
+            dgvList.CurrentCell = dgvList.Rows(GetVisibleIndex(False)).Cells("DESCRIPTION")
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub tsUp_Click(sender As Object, e As EventArgs) Handles tsUp.Click
+    Private Sub TsUp_Click(sender As Object, e As EventArgs) Handles tsUp.Click
         Try
             If dgvList.Rows.Count = 0 Then
                 Exit Sub
@@ -652,13 +618,13 @@ NewPOS_LOG:
 
             dgvList.Select()
 
-            dgvList.CurrentCell = dgvList.Rows(fCheckingGotVisibleIndex(True)).Cells("DESCRIPTION")
+            dgvList.CurrentCell = dgvList.Rows(GetVisibleIndex(True)).Cells("DESCRIPTION")
         Catch ex As Exception
 
         End Try
 
     End Sub
-    Public Function fCheckingGotVisibleIndex(ByVal isUp As Boolean) As Integer
+    Public Function GetVisibleIndex(ByVal isUp As Boolean) As Integer
         Dim This_number As Integer = dgvList.CurrentRow.Index
         Dim Current As Integer = dgvList.CurrentRow.Index
         If isUp = True Then
@@ -681,16 +647,14 @@ NewPOS_LOG:
                         This_number = N
                         Exit For
                     End If
-
                 End If
-
             Next
         End If
 
         Return This_number
     End Function
 
-    Private Sub tsShowRoom_Click(sender As Object, e As EventArgs) Handles tsShowRoom.Click
-        fOpenRoom()
+    Private Sub TsShowRoom_Click(sender As Object, e As EventArgs) Handles tsShowRoom.Click
+        OpenRoom()
     End Sub
 End Class

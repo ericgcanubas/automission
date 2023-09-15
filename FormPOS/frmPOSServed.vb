@@ -33,10 +33,10 @@ Public Class FrmPOSServed
             .Item("AMOUNT").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
 
         End With
-        fAvailable_Load()
+        Available_Load()
 
     End Sub
-    Private Sub fAvailable_Load()
+    Private Sub Available_Load()
         dgvAVAILABLE.Rows.Clear()
         Dim rd As OdbcDataReader = SqlReader($"SELECT s.ID,s.CODE, s.AMOUNT FROM sales_order as s  WHERE s.CUSTOMER_ID = '{gsCUSTOMER_ID}' and s.LOCATION_ID ='{gsDefault_LOCATION_ID}' and  s.SHIP_TO ='{gsTABLE_NO}' and s.SHIP_VIA_ID='{gsORDER_TYPE}' and s.STATUS in('16')")
         While rd.Read

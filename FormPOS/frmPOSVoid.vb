@@ -7,35 +7,35 @@ Public Class FrmPOSVoid
 
     Private Sub FrmPOSVoid_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         FirstLoad = True
-        '  fSelected()
+        '  Selector()
         gsGotVoid = False
-        fPOS_Payment()
+        POS_PaymentLoad()
     End Sub
-    Private Sub fPOS_Payment()
+    Private Sub POS_PaymentLoad()
         GS_LoadDataGridView(dgvPAYMENT, $"SELECT P.ID,P.CODE as `REF No.`,P.RECEIPT_REF_NO as `OR No.`, PN.AMOUNT_APPLIED as `PAID` FROM PAYMENT as P INNER JOIN PAYMENT_INVOICES AS PN on PN.PAYMENT_ID = P.ID  WHERE P.LOCATION_ID = '{gsDefault_LOCATION_ID}' and P.POS_LOG_ID = '{gsPOS_LOG_ID}' ")
         dgvPAYMENT.Columns(0).Visible = False
 
         dgvPAYMENT.Columns("PAID").DefaultCellStyle.Format = "N2"
         dgvPAYMENT.Columns("PAID").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         dgvPAYMENT.Columns("PAID").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-        fPOS_SUM()
+        POSTotal()
 
     End Sub
 
-    Private Sub dtpDATE_ValueChanged(sender As Object, e As EventArgs)
-        fPOS_Payment()
+    Private Sub DtpDATE_ValueChanged(sender As Object, e As EventArgs)
+        POS_PaymentLoad()
 
     End Sub
-    Private Sub fPOS_SUM()
+    Private Sub POSTotal()
         Dim P As Double = 0
         For N As Integer = 0 To dgvPAYMENT.Rows.Count - 1
-            P = P + GF_NumIsNull(dgvPAYMENT.Rows(N).Cells("PAID").Value)
+            P += GF_NumIsNull(dgvPAYMENT.Rows(N).Cells("PAID").Value)
         Next
         lblSales.Text = NumberFormatStandard(P)
 
     End Sub
 
-    Private Sub fSelected()
+    Private Sub Selector()
         Dim ID As Integer = 0
         If dgvPAYMENT.Rows.Count <> 0 Then
             dgvPAYMENT.Select()
@@ -81,37 +81,28 @@ Public Class FrmPOSVoid
 
     End Sub
 
-    Private Sub dgvPAYMENT_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPAYMENT.CellContentClick
-
-    End Sub
-
-    Private Sub dgvPAYMENT_RowStateChanged(sender As Object, e As DataGridViewRowStateChangedEventArgs) Handles dgvPAYMENT.RowStateChanged
-
-
-    End Sub
-
     Private Sub FrmPOSVoid_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         FirstLoad = False
-        fSelected()
+        Selector()
     End Sub
 
-    Private Sub btnCLOSE_Click(sender As Object, e As EventArgs) Handles btnCLOSE.Click
+    Private Sub BtnCLOSE_Click(sender As Object, e As EventArgs) Handles btnCLOSE.Click
         Me.Close()
 
     End Sub
 
-    Private Sub btnDELETE_Click(sender As Object, e As EventArgs) Handles btnDELETE.Click
+    Private Sub BtnDELETE_Click(sender As Object, e As EventArgs) Handles btnDELETE.Click
 
         If dgvITEM.Rows.Count <> 0 Then
 
-            If SecurityAccessDelete(frmReceivePayment) = False Then
+            If SecurityAccessDelete(FrmReceivePayment) = False Then
                 Exit Sub
             End If
 
             With dgvPAYMENT.CurrentRow
                 Dim ID As Integer = GF_NumIsNull(.Cells(0).Value)
                 If MessageBoxPointOfSalesYesNO("Do you want to delete this record?") = True Then
-                    fPayment_Delete(ID)
+                    PaymentDelete(ID)
                 End If
             End With
 
@@ -120,7 +111,7 @@ Public Class FrmPOSVoid
 
     End Sub
 
-    Private Sub fMustPrint(ByVal ThisID As Integer)
+    Private Sub DirectPrint(ByVal ThisID As Integer)
         If MessageBoxPointOfSalesYesNO($"Do you want to Print?") = True Then
 
             Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
@@ -139,31 +130,30 @@ Public Class FrmPOSVoid
 
             If gsPOSPrintPreview = True Then
                 gsToolPanelView = False
-                frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
-                frmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
-                frmReportViewer.WindowState = FormWindowState.Normal
-                frmReportViewer.ShowDialog()
-                frmReportViewer.Dispose()
+                FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+                FrmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
+                FrmReportViewer.WindowState = FormWindowState.Normal
+                FrmReportViewer.ShowDialog()
+                FrmReportViewer.Dispose()
             Else
                 gscryRpt.PrintToPrinter(1, False, 0, 0)
             End If
 
         End If
     End Sub
-    Private Sub fPayment_Delete(ByVal prID As Integer)
+    Private Sub PaymentDelete(ByVal prID As Integer)
 
-        fMustPrint(prID)
+        DirectPrint(prID)
 
-        Dim Invoice_ID As Integer = 0
+        Dim Invoice_ID As Integer
         Dim rd As OdbcDataReader = SqlReader($"select * from payment_invoices where payment_id = '{prID}'")
         If rd.Read Then
             Invoice_ID = rd("INVOICE_ID")
-            fInvoiceVoid(Invoice_ID)
-            '
-            ' fJournalTransaction_Payment_Received_Delete(prID)
+            InvoicingVoid(Invoice_ID)
+
 
             If gsPOSVoidEntry = False Then
-                'full delete for none 
+
                 SqlExecuted("DELETE FROM payment_invoices WHERE ID='" & rd("ID") & "' and PAYMENT_ID='" & prID & "' and INVOICE_ID='" & Invoice_ID & "'")
 
             End If
@@ -186,7 +176,7 @@ Public Class FrmPOSVoid
 
         gsGotVoid = True
 
-        fPOS_Payment()
+        POS_PaymentLoad()
         MessageBoxInfo("Successfully Remove.")
         If dgvPAYMENT.Rows.Count = 0 Then
             btnCLOSE.PerformClick()
@@ -194,7 +184,7 @@ Public Class FrmPOSVoid
 
 
     End Sub
-    Private Sub fInvoiceVoid(ByVal Invoice_ID As Integer)
+    Private Sub InvoicingVoid(ByVal Invoice_ID As Integer)
         If Invoice_ID <> 0 Then
             Dim DT As Date = ""
             Dim Loc_ID As Integer = ""
@@ -222,7 +212,7 @@ Public Class FrmPOSVoid
 
             End If
 
-            fDeletePOSVoid_Invoice_Item(Invoice_ID, DT, Loc_ID)
+            DeletePOSVoid_Invoice_Item(Invoice_ID, DT, Loc_ID)
 
             If gsPOSVoidEntry = True Then
                 SqlExecuted("UPDATE invoice SET STATUS ='7' where `ID` ='" & Invoice_ID & "' limit 1;")
@@ -240,14 +230,14 @@ Public Class FrmPOSVoid
             'End re-compute
         End If
     End Sub
-    Private Sub dgvPAYMENT_SelectionChanged(sender As Object, e As EventArgs) Handles dgvPAYMENT.SelectionChanged
+    Private Sub DgvPAYMENT_SelectionChanged(sender As Object, e As EventArgs) Handles dgvPAYMENT.SelectionChanged
         If FirstLoad = True Then
 
         Else
-            fSelected()
+            Selector()
         End If
     End Sub
-    Private Sub fDeletePOSVoid_Invoice_Item(ByVal INVOICE_ID As Integer, ByVal DT As Date, ByVal Loc_ID As Integer)
+    Private Sub DeletePOSVoid_Invoice_Item(ByVal INVOICE_ID As Integer, ByVal DT As Date, ByVal Loc_ID As Integer)
 
 
         Dim rd As OdbcDataReader = SqlReader($"select n.id,n.item_id,i.type,n.ASSET_ACCOUNT_ID,n.COGS_ACCOUNT_ID from invoice_items as n inner join item as i on i.id = n.item_id where n.invoice_ID ='{INVOICE_ID}'  limit 1;")
@@ -267,9 +257,9 @@ Public Class FrmPOSVoid
                 End If
             End If
         End While
-        fRecaluculateItemInvoie(INVOICE_ID, Loc_ID, DT)
+        RecaluculateItemInvoie(INVOICE_ID, Loc_ID, DT)
     End Sub
-    Private Sub fRecaluculateItemInvoie(ByVal Invoice_ID As Integer, ByVal Loc_ID As Integer, ByVal dt As Date)
+    Private Sub RecaluculateItemInvoie(ByVal Invoice_ID As Integer, ByVal Loc_ID As Integer, ByVal dt As Date)
 
         Dim rd As OdbcDataReader = SqlReader($"select * from invoice_items where invoice_id = '{Invoice_ID}' ")
         While rd.Read

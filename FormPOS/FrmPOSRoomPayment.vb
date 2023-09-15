@@ -16,8 +16,8 @@ Public Class FrmPOSRoomPayment
 
     Private Sub FrmPOSCreatePaymentMultiMethod_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        fMethodList()
-        fMethodListSet()
+        MethodList()
+        MethodListSet()
         gsCustomer_ID = GF_GetNumberFieldValue("INVOICE", "ID", gsInvoice_ID, "CUSTOMER_ID")
         xlblCustomer_Name.Text = GF_GetStringFieldValue("CONTACT", "id", gsCustomer_ID, "NAME")
         gsOK = False
@@ -29,19 +29,19 @@ Public Class FrmPOSRoomPayment
         dtpCARD_EXPIRY_DATE.Checked = False
 
         gsEnter = False
-        fGetValue()
+        GetValue()
 
-        lblAMOUNT_APPLIED.Text = fGetINVOICE_AMOUNT()
+        lblAMOUNT_APPLIED.Text = GetInvoiceAmount()
         xlblCHANGE.Text = "0.00"
-        fComputed()
+        Computed()
 
     End Sub
-    Private Function fGetINVOICE_AMOUNT() As Double
+    Private Function GetInvoiceAmount() As Double
         Dim ThisAMOUNT As Double = GF_GetNumberFieldValue("INVOICE", "ID", gsInvoice_ID, "BALANCE_DUE")
         Return ThisAMOUNT
     End Function
 
-    Private Function fNEXT_LOG_SERIAL_NO() As Integer
+    Private Function GetNextLogSerialNumber() As Integer
         Dim i As Integer = 0
         Dim rd As OdbcDataReader = SqlReader("select NEXT_LOG_SERIAL_NO from POS_MACHINE where ID = '" & gsPOS_MACHINE_ID & "' limit 1;")
         If rd.Read Then
@@ -51,7 +51,7 @@ Public Class FrmPOSRoomPayment
         SqlExecuted("Update pos_machine set NEXT_LOG_SERIAL_NO = '" & i + 1 & "' where ID ='" & gsPOS_MACHINE_ID & "' limit 1;")
         Return 1
     End Function
-    Private Sub fMethodList()
+    Private Sub MethodList()
         With dgvMethod.Columns
             .Clear()
             .Add("ID", "ID")
@@ -69,7 +69,7 @@ Public Class FrmPOSRoomPayment
 
 
     End Sub
-    Private Sub fMethodListSet()
+    Private Sub MethodListSet()
         With dgvMethodSet
             .Columns.Clear()
             .Columns.Add("ID", "ID")
@@ -85,10 +85,10 @@ Public Class FrmPOSRoomPayment
 
 
     End Sub
-    Private Sub fComputed()
+    Private Sub Computed()
         Dim TOTAL As Double = 0
         For I As Integer = 0 To dgvMethodSet.Rows.Count - 1
-            TOTAL = TOTAL + dgvMethodSet.Rows(I).Cells("AMOUNT").Value
+            TOTAL += dgvMethodSet.Rows(I).Cells("AMOUNT").Value
         Next
 
         lblAMOUNT.Text = NumberFormatStandard(TOTAL)
@@ -98,11 +98,11 @@ Public Class FrmPOSRoomPayment
         End If
         xlblCHANGE.Text = NumberFormatStandard(C)
     End Sub
-    Private Sub btnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCANCEL.Click
+    Private Sub BtnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCANCEL.Click
         Me.Close()
     End Sub
 
-    Private Sub btnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
+    Private Sub BtnSAVE_Click(sender As Object, e As EventArgs) Handles btnSAVE.Click
         If dgvMethodSet.Rows.Count = 0 Then
             MessageBoxInfo("No payment method found.")
             Exit Sub
@@ -210,9 +210,9 @@ SET `ID` = '{gsID}',
     End Sub
 
 
-    Private Sub fGetValue()
+    Private Sub GetValue()
 
-        fGetLimit()
+        GetLimit()
         xxlblValue.Text = gsValue
 
     End Sub
@@ -220,61 +220,61 @@ SET `ID` = '{gsID}',
 
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
 
-        gsValue = gsValue & "0"
-        fGetValue()
+        gsValue &= "0"
+        GetValue()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        gsValue = gsValue & "1"
-        fGetValue()
+        gsValue &= "1"
+        GetValue()
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        gsValue = gsValue & "2"
-        fGetValue()
+        gsValue &= "2"
+        GetValue()
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        gsValue = gsValue & "3"
-        fGetValue()
+        gsValue &= "3"
+        GetValue()
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        gsValue = gsValue & "4"
-        fGetValue()
+        gsValue &= "4"
+        GetValue()
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        gsValue = gsValue & "5"
-        fGetValue()
+        gsValue &= "5"
+        GetValue()
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        gsValue = gsValue & "6"
-        fGetValue()
+        gsValue &= "6"
+        GetValue()
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-        gsValue = gsValue & "7"
-        fGetValue()
+        gsValue &= "7"
+        GetValue()
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
-        gsValue = gsValue & "8"
-        fGetValue()
+        gsValue &= "8"
+        GetValue()
     End Sub
 
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        gsValue = gsValue & "9"
-        fGetValue()
+        gsValue &= "9"
+        GetValue()
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
         If gsValue.Contains(".") = True Then
 
         Else
-            gsValue = gsValue & "."
-            fGetValue()
+            gsValue &= "."
+            GetValue()
         End If
 
     End Sub
@@ -292,10 +292,10 @@ SET `ID` = '{gsID}',
         End Try
 
 
-        fGetValue()
+        GetValue()
     End Sub
 
-    Private Sub fGetLimit()
+    Private Sub GetLimit()
         If gsValue = "" Then
             Exit Sub
         End If
@@ -306,18 +306,18 @@ SET `ID` = '{gsID}',
 
             If gsValue.Substring(N, 1) = "." Then
                 got_point = True
-                Get_Collect = Get_Collect & gsValue.Substring(N, 1)
+                Get_Collect &= gsValue.Substring(N, 1)
             Else
                 If got_point = True Then
                     If got_point_i < 2 Then
-                        Get_Collect = Get_Collect & gsValue.Substring(N, 1)
+                        Get_Collect &= gsValue.Substring(N, 1)
 
                     Else
                         Exit For
                     End If
-                    got_point_i = got_point_i + 1
+                    got_point_i += 1
                 Else
-                    Get_Collect = Get_Collect & gsValue.Substring(N, 1)
+                    Get_Collect &= gsValue.Substring(N, 1)
                 End If
 
             End If
@@ -330,7 +330,7 @@ SET `ID` = '{gsID}',
         gsValue = Get_Collect
     End Sub
 
-    Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
+    Private Sub BtnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
 
         If dgvMethodSet.Rows.Count = 0 Then
             Exit Sub
@@ -341,28 +341,28 @@ SET `ID` = '{gsID}',
             dgvMethodSet.Rows.RemoveAt(.Index)
         End With
 
-        fComputed()
+        Computed()
     End Sub
 
-    Private Function fGetAlreadyCredit() As Double
+    Private Function GetAlreadyCredit() As Double
 
         Dim gsCollect As Double = 0
 
         For N As Integer = 0 To dgvMethodSet.Rows.Count - 1
-            gsCollect = gsCollect + dgvMethodSet.Rows(N).Cells("APPLIED").Value
+            gsCollect += dgvMethodSet.Rows(N).Cells("APPLIED").Value
         Next
 
         Return gsCollect
 
     End Function
-    Private Sub btnAdded_Click(sender As Object, e As EventArgs) Handles btnAdded.Click
+    Private Sub BtnAdded_Click(sender As Object, e As EventArgs) Handles btnAdded.Click
         If GF_NumIsNull(xxlblValue.Text) = 0 Then
             MessageBoxExclamation($"No {xxMETHOD_LABEL.Text} Value ")
             Exit Sub
         End If
 
         If dgvMethod.Rows.Count = 0 Then Exit Sub
-        Dim BAL As Double = GF_NumIsNull(lblAMOUNT_APPLIED.Text) - fGetAlreadyCredit()
+        Dim BAL As Double = GF_NumIsNull(lblAMOUNT_APPLIED.Text) - GetAlreadyCredit()
         If BAL <= 0 Then
             MessageBoxInfo("Invalid entry transaction.")
             Exit Sub
@@ -377,24 +377,24 @@ SET `ID` = '{gsID}',
             dgvMethod.Rows.RemoveAt(.Index)
         End With
 
-        fComputed()
+        Computed()
     End Sub
-    Private Sub dgvMethod_SelectionChanged(sender As Object, e As EventArgs) Handles dgvMethod.SelectionChanged
+    Private Sub DgvMethod_SelectionChanged(sender As Object, e As EventArgs) Handles dgvMethod.SelectionChanged
         If dgvMethod.Rows.Count <> 0 Then
             xxMETHOD_LABEL.Text = dgvMethod.CurrentRow.Cells("METHOD").Value
         Else
             xxMETHOD_LABEL.Text = ""
         End If
     End Sub
-    Private Sub txtCARD_NO_Click(sender As Object, e As EventArgs) Handles txtCARD_NO.Click
+    Private Sub TxtCARD_NO_Click(sender As Object, e As EventArgs) Handles txtCARD_NO.Click
         KeyBoardToTouch(txtCARD_NO, "CARD NO.")
     End Sub
-    Private Sub txtNOTES_Click(sender As Object, e As EventArgs) Handles txtNOTES.Click
+    Private Sub TxtNOTES_Click(sender As Object, e As EventArgs) Handles txtNOTES.Click
         KeyBoardToTouch(txtNOTES, "NOTES")
     End Sub
 
 
-    Private Function fCheckingGotVisibleIndex(ByVal dgv As DataGridView, ByVal isUp As Boolean) As Integer
+    Private Function GotVisibleIndex(ByVal dgv As DataGridView, ByVal isUp As Boolean) As Integer
         Dim This_number As Integer = dgv.CurrentRow.Index
         Dim Current As Integer = dgv.CurrentRow.Index
         If isUp = True Then
@@ -426,50 +426,50 @@ SET `ID` = '{gsID}',
         Return This_number
     End Function
 
-    Private Sub btnDownA_Click(sender As Object, e As EventArgs) Handles btnDownA.Click
+    Private Sub BtnDownA_Click(sender As Object, e As EventArgs) Handles btnDownA.Click
         Try
             If dgvMethod.Rows.Count = 0 Then
                 Exit Sub
             End If
             dgvMethod.Select()
-            dgvMethod.CurrentCell = dgvMethod.Rows(fCheckingGotVisibleIndex(dgvMethod, False)).Cells("METHOD")
+            dgvMethod.CurrentCell = dgvMethod.Rows(GotVisibleIndex(dgvMethod, False)).Cells("METHOD")
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub btnUpA_Click(sender As Object, e As EventArgs) Handles btnUpA.Click
+    Private Sub BtnUpA_Click(sender As Object, e As EventArgs) Handles btnUpA.Click
         Try
             If dgvMethod.Rows.Count = 0 Then
                 Exit Sub
             End If
 
             dgvMethod.Select()
-            dgvMethod.CurrentCell = dgvMethod.Rows(fCheckingGotVisibleIndex(dgvMethod, True)).Cells("METHOD")
+            dgvMethod.CurrentCell = dgvMethod.Rows(GotVisibleIndex(dgvMethod, True)).Cells("METHOD")
         Catch ex As Exception
         End Try
     End Sub
 
-    Private Sub btnDownB_Click(sender As Object, e As EventArgs) Handles btnDownB.Click
+    Private Sub BtnDownB_Click(sender As Object, e As EventArgs) Handles btnDownB.Click
         Try
             If dgvMethodSet.Rows.Count = 0 Then
                 Exit Sub
             End If
             dgvMethodSet.Select()
-            dgvMethodSet.CurrentCell = dgvMethodSet.Rows(fCheckingGotVisibleIndex(dgvMethodSet, False)).Cells("METHOD")
+            dgvMethodSet.CurrentCell = dgvMethodSet.Rows(GotVisibleIndex(dgvMethodSet, False)).Cells("METHOD")
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub btnUpB_Click(sender As Object, e As EventArgs) Handles btnUpB.Click
+    Private Sub BtnUpB_Click(sender As Object, e As EventArgs) Handles btnUpB.Click
         Try
             If dgvMethodSet.Rows.Count = 0 Then
                 Exit Sub
             End If
 
             dgvMethodSet.Select()
-            dgvMethodSet.CurrentCell = dgvMethodSet.Rows(fCheckingGotVisibleIndex(dgvMethodSet, True)).Cells("METHOD")
+            dgvMethodSet.CurrentCell = dgvMethodSet.Rows(GotVisibleIndex(dgvMethodSet, True)).Cells("METHOD")
         Catch ex As Exception
         End Try
     End Sub

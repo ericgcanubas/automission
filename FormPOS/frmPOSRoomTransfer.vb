@@ -5,15 +5,15 @@ Public Class FrmPOSRoomTransfer
     Dim INVOICE_ID_SQL As String = $" IFNULL((SELECT n.id FROM  invoice AS n  INNER JOIN invoice_items AS ni ON  ni.invoice_id = n.id WHERE ni.item_id = i.`ID`  AND n.ship_via_id = '{gsCheckInType}' LIMIT 1),0) "
 
 
-    Private Sub frmPOSRoomTransfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPOSRoomTransfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         gsTransfer_Item_ID = 0
         dgvList.Columns.Add("id", "id")
         dgvList.Columns("id").Visible = False
         dgvList.Columns.Add("description", "Rooms")
-        fRefreshload()
+        Refreshload()
 
     End Sub
-    Private Sub fRefreshload()
+    Private Sub Refreshload()
         dgvList.Rows.Clear()
         Dim rd As OdbcDataReader = SqlReader($"Select i.id, i.description, {INVOICE_ID_SQL} AS `invoice_id` FROM item AS i WHERE i.type ='{gsCheckInType}' AND i.inactive ='0' ORDER BY i.description")
         While rd.Read
@@ -26,19 +26,19 @@ Public Class FrmPOSRoomTransfer
         rd.Close()
 
     End Sub
-    Private Sub tsDown_Click(sender As Object, e As EventArgs) Handles tsDown.Click
+    Private Sub TsDown_Click(sender As Object, e As EventArgs) Handles tsDown.Click
         Try
             If dgvList.Rows.Count = 0 Then
                 Exit Sub
             End If
             dgvList.Select()
-            dgvList.CurrentCell = dgvList.Rows(fCheckingGotVisibleIndex(False)).Cells("description")
+            dgvList.CurrentCell = dgvList.Rows(GetVisibleIndex(False)).Cells("description")
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub tsUp_Click(sender As Object, e As EventArgs) Handles tsUp.Click
+    Private Sub TsUp_Click(sender As Object, e As EventArgs) Handles tsUp.Click
         Try
             If dgvList.Rows.Count = 0 Then
                 Exit Sub
@@ -46,13 +46,13 @@ Public Class FrmPOSRoomTransfer
 
             dgvList.Select()
 
-            dgvList.CurrentCell = dgvList.Rows(fCheckingGotVisibleIndex(True)).Cells("description")
+            dgvList.CurrentCell = dgvList.Rows(GetVisibleIndex(True)).Cells("description")
         Catch ex As Exception
 
         End Try
 
     End Sub
-    Public Function fCheckingGotVisibleIndex(ByVal isUp As Boolean) As Integer
+    Public Function GetVisibleIndex(ByVal isUp As Boolean) As Integer
         Dim This_number As Integer = dgvList.CurrentRow.Index
         Dim Current As Integer = dgvList.CurrentRow.Index
         If isUp = True Then
@@ -84,11 +84,11 @@ Public Class FrmPOSRoomTransfer
         Return This_number
     End Function
 
-    Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
+    Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
         Me.Close()
     End Sub
 
-    Private Sub tsShowRoom_Click(sender As Object, e As EventArgs) Handles tsShowRoom.Click
+    Private Sub TsShowRoom_Click(sender As Object, e As EventArgs) Handles tsShowRoom.Click
         Try
             dgvList.Select()
             gsTransfer_Item_ID = dgvList.CurrentRow.Cells("ID").Value

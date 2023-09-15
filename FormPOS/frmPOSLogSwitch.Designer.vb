@@ -42,10 +42,10 @@ Partial Class FrmPOSLogSwitch
         '
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(19, 25)
+        Me.Label1.Location = New System.Drawing.Point(31, 25)
         Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(165, 27)
+        Me.Label1.Size = New System.Drawing.Size(215, 27)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Date Transaction :"
         '
@@ -53,7 +53,7 @@ Partial Class FrmPOSLogSwitch
         '
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(18, 65)
+        Me.Label2.Location = New System.Drawing.Point(36, 65)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(193, 27)
@@ -64,7 +64,7 @@ Partial Class FrmPOSLogSwitch
         '
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(18, 96)
+        Me.Label3.Location = New System.Drawing.Point(32, 96)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(194, 27)
@@ -73,7 +73,7 @@ Partial Class FrmPOSLogSwitch
         '
         'lblDate
         '
-        Me.lblDate.BackColor = System.Drawing.Color.Transparent
+        Me.lblDate.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblDate.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDate.Location = New System.Drawing.Point(221, 23)
@@ -86,7 +86,7 @@ Partial Class FrmPOSLogSwitch
         '
         'lblLastCashCount
         '
-        Me.lblLastCashCount.BackColor = System.Drawing.Color.Transparent
+        Me.lblLastCashCount.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblLastCashCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblLastCashCount.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLastCashCount.Location = New System.Drawing.Point(221, 65)
@@ -99,7 +99,7 @@ Partial Class FrmPOSLogSwitch
         '
         'lblLastCountEntry
         '
-        Me.lblLastCountEntry.BackColor = System.Drawing.Color.Transparent
+        Me.lblLastCountEntry.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblLastCountEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblLastCountEntry.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLastCountEntry.Location = New System.Drawing.Point(221, 96)
@@ -114,7 +114,7 @@ Partial Class FrmPOSLogSwitch
         '
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(25, 195)
+        Me.Label5.Location = New System.Drawing.Point(46, 195)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(190, 23)
@@ -123,7 +123,7 @@ Partial Class FrmPOSLogSwitch
         '
         'lblLogCount
         '
-        Me.lblLogCount.BackColor = System.Drawing.Color.Transparent
+        Me.lblLogCount.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblLogCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblLogCount.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLogCount.Location = New System.Drawing.Point(221, 195)
@@ -136,7 +136,7 @@ Partial Class FrmPOSLogSwitch
         '
         'lblTotalCountEntry
         '
-        Me.lblTotalCountEntry.BackColor = System.Drawing.Color.Transparent
+        Me.lblTotalCountEntry.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblTotalCountEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblTotalCountEntry.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotalCountEntry.Location = New System.Drawing.Point(221, 164)
@@ -149,7 +149,7 @@ Partial Class FrmPOSLogSwitch
         '
         'lblTotalCashCount
         '
-        Me.lblTotalCashCount.BackColor = System.Drawing.Color.Transparent
+        Me.lblTotalCashCount.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblTotalCashCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblTotalCashCount.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTotalCashCount.Location = New System.Drawing.Point(221, 134)
@@ -164,7 +164,7 @@ Partial Class FrmPOSLogSwitch
         '
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(20, 164)
+        Me.Label8.Location = New System.Drawing.Point(25, 164)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(193, 27)
@@ -175,7 +175,7 @@ Partial Class FrmPOSLogSwitch
         '
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(18, 134)
+        Me.Label9.Location = New System.Drawing.Point(28, 134)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(194, 27)
@@ -184,21 +184,27 @@ Partial Class FrmPOSLogSwitch
         '
         'btnNew
         '
+        Me.btnNew.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnNew.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnNew.Location = New System.Drawing.Point(221, 265)
         Me.btnNew.Name = "btnNew"
         Me.btnNew.Size = New System.Drawing.Size(165, 57)
         Me.btnNew.TabIndex = 14
         Me.btnNew.Text = "CREATE NEW"
-        Me.btnNew.UseVisualStyleBackColor = True
+        Me.btnNew.UseVisualStyleBackColor = False
         '
         'btnClose
         '
+        Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnClose.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnClose.Location = New System.Drawing.Point(18, 265)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(165, 57)
+        Me.btnClose.Size = New System.Drawing.Size(177, 57)
         Me.btnClose.TabIndex = 15
         Me.btnClose.Text = "View to Continue"
-        Me.btnClose.UseVisualStyleBackColor = True
+        Me.btnClose.UseVisualStyleBackColor = False
         '
         'FrmPOSLogSwitch
         '
@@ -209,13 +215,13 @@ Partial Class FrmPOSLogSwitch
         Me.Controls.Add(Me.btnNew)
         Me.Controls.Add(Me.lblTotalCountEntry)
         Me.Controls.Add(Me.lblTotalCashCount)
-        Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.lblLogCount)
-        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.lblLastCountEntry)
         Me.Controls.Add(Me.lblLastCashCount)
         Me.Controls.Add(Me.lblDate)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
