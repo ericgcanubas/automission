@@ -326,6 +326,9 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", 0, cmbLOCATION_ID.SelectedValue)
         Else
 
+            If GS_IsInventoryLastEntry(dgvItem, cmbLOCATION_ID.SelectedValue, 6, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
 
 
             tChangeAccept = True
@@ -464,11 +467,11 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
                         Dim i_ID As Double = ObjectTypeMapId("INVENTORY_ADJUSTMENT_ITEMS")
                         SqlExecuted("INSERT INTO inventory_adjustment_items SET INVENTORY_ADJUSTMENT_ID ='" & ID & "',ID ='" & i_ID & "',LINE_NO='" & i & "',ITEM_ID ='" & r.Cells("ITEM_ID").Value & "',QTY_DIFFERENCE='" & r.Cells("QTY_DIFFERENCE").Value & "',VALUE_DIFFERENCE=" & GotNullNumber(r.Cells("VALUE_DIFFERENCE").Value) & ",ASSET_ACCOUNT_ID='" & r.Cells("ASSET_ACCOUNT_ID").Value & "',ASSET_VALUE='" & r.Cells("ASSET_VALUE").Value & "',UNIT_ID=" & GotNullNumber(r.Cells("UNIT_ID").Value) & ",UNIT_BASE_QUANTITY=" & GotNullNumber(r.Cells("UNIT_BASE_QUANTITY").Value) & ",BATCH_ID =" & GotNullNumber(GF_NumIsNull(.Cells("BATCH_ID").Value)) & ";")
-                        fBILL_ITEM_COST_UPDATE_NEW(r.Cells("ITEM_ID").Value, GF_NumIsNull(r.Cells("NEW_VALUE").Value))
+                        GS_BILL_ITEM_COST_UPDATE_NEW(r.Cells("ITEM_ID").Value, GF_NumIsNull(r.Cells("NEW_VALUE").Value))
                         r.Cells("ID").Value = i_ID
 
 
-                        fItem_Inventory_SQL(r.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("QTY_DIFFERENCE").Value, GF_NumIsNull(r.Cells("NEW_VALUE").Value), 6, i_ID, dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(r.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("QTY_DIFFERENCE").Value, GF_NumIsNull(r.Cells("NEW_VALUE").Value), 6, i_ID, dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
                         '===========================================
                         If gsSkipJournalEntry = False Then
                             GS_AccountJournalExecute(r.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("ITEM_ID").Value, 20, r.Cells("ID").Value, dtpDATE.Value, IIf(r.Cells("QTY_DIFFERENCE").Value >= 0, 0, 1), r.Cells("ASSET_VALUE").Value, gsJOURNAL_NO_FORM)
@@ -497,7 +500,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                         Else
                             SqlExecuted("UPDATE inventory_adjustment_items SET LINE_NO='" & i & "', QTY_DIFFERENCE ='" & r.Cells("QTY_DIFFERENCE").Value & "',VALUE_DIFFERENCE=" & GotNullNumber(r.Cells("VALUE_DIFFERENCE").Value) & ",ASSET_VALUE='" & r.Cells("ASSET_VALUE").Value & "',UNIT_ID=" & GotNullNumber(r.Cells("UNIT_ID").Value) & ",UNIT_BASE_QUANTITY=" & GotNullNumber(r.Cells("UNIT_BASE_QUANTITY").Value) & ",BATCH_ID =" & GotNullNumber(GF_NumIsNull(.Cells("BATCH_ID").Value)) & " WHERE ID ='" & r.Cells("ID").Value & "' and ITEM_ID ='" & r.Cells("ITEM_ID").Value & "' and  INVENTORY_ADJUSTMENT_ID ='" & ID & "' limit 1;")
 
-                            fItem_Inventory_SQL(r.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("QTY_DIFFERENCE").Value, GF_NumIsNull(r.Cells("NEW_VALUE").Value), 6, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                            GS_Item_Inventory_SQL(r.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("QTY_DIFFERENCE").Value, GF_NumIsNull(r.Cells("NEW_VALUE").Value), 6, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
                             '=========================================== 
                             If gsSkipJournalEntry = False Then
                                 GS_AccountJournalExecute(r.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, r.Cells("ITEM_ID").Value, 20, r.Cells("ID").Value, dtpDATE.Value, IIf(r.Cells("QTY_DIFFERENCE").Value >= 0, 0, 1), r.Cells("ASSET_VALUE").Value, gsJOURNAL_NO_FORM)
@@ -519,21 +522,21 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         Next
 
 
-        For i As Integer = 0 To dgvItem.Rows.Count - 1
-            With dgvItem.Rows(i)
-                If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    .Cells("CONTROL_STATUS").Value = "S"
-                ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
-                    If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    End If
-                    .Cells("CONTROL_STATUS").Value = "S"
-                End If
-            End With
-        Next
+        'For i As Integer = 0 To dgvItem.Rows.Count - 1
+        '    With dgvItem.Rows(i)
+        '        If .Cells("CONTROL_STATUS").Value = "D" Then
+        '            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+        '        ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
+        '            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+        '            .Cells("CONTROL_STATUS").Value = "S"
+        '        ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
+        '            If Date.Now.Date <> dtpDATE.Value Then
+        '                fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+        '            End If
+        '            .Cells("CONTROL_STATUS").Value = "S"
+        '        End If
+        '    End With
+        'Next
 
     End Sub
 
@@ -589,18 +592,25 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 Exit Sub
             End If
 
-            If CheckHasChange() = True Then
-                If MessageBoxQuestion(gsMessageCheckEdit) = True Then
-                    tChangeAccept = False
-                    TsSaveNew_Click(sender, e)
-                    If tChangeAccept = False Then
-                        MessageBoxInfo("Cancel")
-                        Exit Sub
-                    End If
-                Else
-                    Exit Sub
-                End If
+            If GS_IsInventoryLastEntry(dgvItem, cmbLOCATION_ID.SelectedValue, 6, dtpDATE.Value) = False Then
+                Exit Sub
             End If
+
+
+
+
+            'If CheckHasChange() = True Then
+            '    If MessageBoxQuestion(gsMessageCheckEdit) = True Then
+            '        tChangeAccept = False
+            '        TsSaveNew_Click(sender, e)
+            '        If tChangeAccept = False Then
+            '            MessageBoxInfo("Cancel")
+            '            Exit Sub
+            '        End If
+            '    Else
+            '        Exit Sub
+            '    End If
+            'End If
 
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
@@ -610,8 +620,6 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                 Next
                 SaveItem()
 
-
-                fDeleteItem_INVENTORY_ITEM_RECALCULATE(dgvItem, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
 
 
                 '===========================================

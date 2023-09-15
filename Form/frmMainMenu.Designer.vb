@@ -72,13 +72,15 @@ Partial Class FrmMainMenu
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.pnlSearch = New System.Windows.Forms.Panel()
-        Me.dgvSearch = New System.Windows.Forms.DataGridView()
-        Me.btnClose = New System.Windows.Forms.Button()
         Me.BunifuGradientPanel4 = New Bunifu.Framework.UI.BunifuGradientPanel()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.dgvSearch = New System.Windows.Forms.DataGridView()
+        Me.btnClose = New System.Windows.Forms.Button()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.pnlSideMenuList = New System.Windows.Forms.Panel()
         Me.pnlApplication = New System.Windows.Forms.Panel()
+        Me.BunifuGradientPanel1 = New Bunifu.Framework.UI.BunifuGradientPanel()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.btnSearchApp = New System.Windows.Forms.Button()
         Me.txtSearchMenu = New System.Windows.Forms.TextBox()
         Me.trvApplication = New System.Windows.Forms.TreeView()
@@ -87,18 +89,16 @@ Partial Class FrmMainMenu
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.bgpTOp = New Bunifu.Framework.UI.BunifuGradientPanel()
-        Me.BunifuGradientPanel1 = New Bunifu.Framework.UI.BunifuGradientPanel()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.pnlSearch.SuspendLayout()
-        CType(Me.dgvSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.BunifuGradientPanel4.SuspendLayout()
+        CType(Me.dgvSearch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlSideMenuList.SuspendLayout()
         Me.pnlApplication.SuspendLayout()
+        Me.BunifuGradientPanel1.SuspendLayout()
         Me.pnlFavorate.SuspendLayout()
         Me.bgpTOp.SuspendLayout()
-        Me.BunifuGradientPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -417,8 +417,8 @@ Partial Class FrmMainMenu
         'ToolStripStatusLabel4
         '
         Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
-        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(19, 17)
-        Me.ToolStripStatusLabel4.Text = "    "
+        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(79, 17)
+        Me.ToolStripStatusLabel4.Text = "                        "
         '
         'tssUsername
         '
@@ -456,34 +456,6 @@ Partial Class FrmMainMenu
         Me.pnlSearch.TabIndex = 23
         Me.pnlSearch.Visible = False
         '
-        'dgvSearch
-        '
-        Me.dgvSearch.AllowUserToAddRows = False
-        Me.dgvSearch.AllowUserToDeleteRows = False
-        Me.dgvSearch.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvSearch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvSearch.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
-        Me.dgvSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSearch.Location = New System.Drawing.Point(2, 27)
-        Me.dgvSearch.Name = "dgvSearch"
-        Me.dgvSearch.ReadOnly = True
-        Me.dgvSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSearch.Size = New System.Drawing.Size(637, 237)
-        Me.dgvSearch.TabIndex = 17
-        '
-        'btnClose
-        '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClose.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnClose.Location = New System.Drawing.Point(618, 0)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(22, 21)
-        Me.btnClose.TabIndex = 18
-        Me.btnClose.Text = "X"
-        Me.btnClose.UseVisualStyleBackColor = True
-        '
         'BunifuGradientPanel4
         '
         Me.BunifuGradientPanel4.BackColor = System.Drawing.Color.Black
@@ -511,6 +483,34 @@ Partial Class FrmMainMenu
         Me.Label2.Size = New System.Drawing.Size(139, 16)
         Me.Label2.TabIndex = 19
         Me.Label2.Text = "Quick Search Result"
+        '
+        'dgvSearch
+        '
+        Me.dgvSearch.AllowUserToAddRows = False
+        Me.dgvSearch.AllowUserToDeleteRows = False
+        Me.dgvSearch.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvSearch.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvSearch.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
+        Me.dgvSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSearch.Location = New System.Drawing.Point(2, 27)
+        Me.dgvSearch.Name = "dgvSearch"
+        Me.dgvSearch.ReadOnly = True
+        Me.dgvSearch.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvSearch.Size = New System.Drawing.Size(637, 237)
+        Me.dgvSearch.TabIndex = 17
+        '
+        'btnClose
+        '
+        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClose.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnClose.Location = New System.Drawing.Point(618, 0)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Size = New System.Drawing.Size(22, 21)
+        Me.btnClose.TabIndex = 18
+        Me.btnClose.Text = "X"
+        Me.btnClose.UseVisualStyleBackColor = True
         '
         'Timer1
         '
@@ -541,6 +541,34 @@ Partial Class FrmMainMenu
         Me.pnlApplication.Name = "pnlApplication"
         Me.pnlApplication.Size = New System.Drawing.Size(226, 599)
         Me.pnlApplication.TabIndex = 2
+        '
+        'BunifuGradientPanel1
+        '
+        Me.BunifuGradientPanel1.BackColor = System.Drawing.Color.Black
+        Me.BunifuGradientPanel1.BackgroundImage = CType(resources.GetObject("BunifuGradientPanel1.BackgroundImage"), System.Drawing.Image)
+        Me.BunifuGradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.BunifuGradientPanel1.Controls.Add(Me.Label4)
+        Me.BunifuGradientPanel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BunifuGradientPanel1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BunifuGradientPanel1.GradientBottomLeft = System.Drawing.Color.White
+        Me.BunifuGradientPanel1.GradientBottomRight = System.Drawing.Color.MidnightBlue
+        Me.BunifuGradientPanel1.GradientTopLeft = System.Drawing.Color.LightCyan
+        Me.BunifuGradientPanel1.GradientTopRight = System.Drawing.Color.LightBlue
+        Me.BunifuGradientPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.BunifuGradientPanel1.Name = "BunifuGradientPanel1"
+        Me.BunifuGradientPanel1.Quality = 10
+        Me.BunifuGradientPanel1.Size = New System.Drawing.Size(224, 26)
+        Me.BunifuGradientPanel1.TabIndex = 26
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.Location = New System.Drawing.Point(3, 5)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(70, 16)
+        Me.Label4.TabIndex = 19
+        Me.Label4.Text = "Menu List"
         '
         'btnSearchApp
         '
@@ -642,35 +670,7 @@ Partial Class FrmMainMenu
         Me.bgpTOp.Size = New System.Drawing.Size(1350, 40)
         Me.bgpTOp.TabIndex = 0
         '
-        'BunifuGradientPanel1
-        '
-        Me.BunifuGradientPanel1.BackColor = System.Drawing.Color.Black
-        Me.BunifuGradientPanel1.BackgroundImage = CType(resources.GetObject("BunifuGradientPanel1.BackgroundImage"), System.Drawing.Image)
-        Me.BunifuGradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.BunifuGradientPanel1.Controls.Add(Me.Label4)
-        Me.BunifuGradientPanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.BunifuGradientPanel1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BunifuGradientPanel1.GradientBottomLeft = System.Drawing.Color.White
-        Me.BunifuGradientPanel1.GradientBottomRight = System.Drawing.Color.MidnightBlue
-        Me.BunifuGradientPanel1.GradientTopLeft = System.Drawing.Color.LightCyan
-        Me.BunifuGradientPanel1.GradientTopRight = System.Drawing.Color.LightBlue
-        Me.BunifuGradientPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.BunifuGradientPanel1.Name = "BunifuGradientPanel1"
-        Me.BunifuGradientPanel1.Quality = 10
-        Me.BunifuGradientPanel1.Size = New System.Drawing.Size(224, 26)
-        Me.BunifuGradientPanel1.TabIndex = 26
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(3, 5)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(70, 16)
-        Me.Label4.TabIndex = 19
-        Me.Label4.Text = "Menu List"
-        '
-        'frmMainMenu
+        'FrmMainMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -682,7 +682,7 @@ Partial Class FrmMainMenu
         Me.Controls.Add(Me.bgpTOp)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Name = "frmMainMenu"
+        Me.Name = "FrmMainMenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Company"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -691,17 +691,17 @@ Partial Class FrmMainMenu
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.pnlSearch.ResumeLayout(False)
-        CType(Me.dgvSearch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.BunifuGradientPanel4.ResumeLayout(False)
         Me.BunifuGradientPanel4.PerformLayout()
+        CType(Me.dgvSearch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlSideMenuList.ResumeLayout(False)
         Me.pnlApplication.ResumeLayout(False)
         Me.pnlApplication.PerformLayout()
+        Me.BunifuGradientPanel1.ResumeLayout(False)
+        Me.BunifuGradientPanel1.PerformLayout()
         Me.pnlFavorate.ResumeLayout(False)
         Me.pnlFavorate.PerformLayout()
         Me.bgpTOp.ResumeLayout(False)
-        Me.BunifuGradientPanel1.ResumeLayout(False)
-        Me.BunifuGradientPanel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

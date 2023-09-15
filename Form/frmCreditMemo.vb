@@ -467,6 +467,11 @@ ON B.ID = II.BATCH_ID
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
+            If GS_IsInventoryLastEntry(dgvProductItem, cmbLOCATION_ID.SelectedValue, 12, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
+
             tChangeAccept = True
             Dim squery As String = SqlUpdate(Me)
             Dim nStatus As Integer = 0
@@ -480,6 +485,11 @@ ON B.ID = II.BATCH_ID
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
+        '================================
+        If GF_IsTransactionSuccess(ID, "CREDIT_MEMO") = False Then
+            MessageBoxWarning("Please Try Again")
+            Exit Sub
+        End If
 
 
         '===========================================
@@ -495,15 +505,11 @@ ON B.ID = II.BATCH_ID
             End If
 
         End If
-        '================================
 
 
         SaveItem()  ' Save item
 
-        If GF_IsTransactionSuccess(ID, "CREDIT_MEMO") = False Then
-            MessageBoxWarning("Please Try Again")
-            Exit Sub
-        End If
+
 
         If IsNew = True Then
             PrompNotify(Me.Text, SaveMsg, True)
@@ -596,25 +602,6 @@ ON B.ID = II.BATCH_ID
             End With
         Next
 
-
-        For i As Integer = 0 To dgvProductItem.Rows.Count - 1
-            With dgvProductItem.Rows(i)
-                If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    .Cells("CONTROL_STATUS").Value = "S"
-                ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
-                    If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    End If
-                    .Cells("CONTROL_STATUS").Value = "S"
-                End If
-            End With
-        Next
-
-
-
     End Sub
     Private Sub ApplytoInvoice()
         With FrmCreditMemoInvoice
@@ -692,6 +679,12 @@ ON B.ID = II.BATCH_ID
             If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
+
+
+            If GS_IsInventoryLastEntry(dgvProductItem, cmbLOCATION_ID.SelectedValue, 12, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
 
             If IsNew = False And ID > 0 Then
                 If CheckHasChange() = True Then

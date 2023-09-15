@@ -179,7 +179,7 @@ Public Class FrmBillPayment
         End If
 
 
-        fPaymentSaving(dgvBill, ID, True, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbPAY_TO_ID.SelectedValue)
+        GS_PaymentSaving(dgvBill, ID, True, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbPAY_TO_ID.SelectedValue)
         gsGotChangeDate = False
         gsGotChangeLocation1 = False
         gsGotChangeLocation2 = False
@@ -546,7 +546,7 @@ WHERE  EXISTS
                     End With
                 Next
 
-                fPaymentSaving(dgvBill, ID, True, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbPAY_TO_ID.SelectedValue)
+                GS_PaymentSaving(dgvBill, ID, True, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbPAY_TO_ID.SelectedValue)
 
                 '===========================================
                 If gsSkipJournalEntry = False Then

@@ -1,9 +1,10 @@
 ﻿Imports System.Data.Odbc
 Module modMultiFuntion
-    Public Sub fcolumnGrid_U_SalesOrder(ByVal dgvProductItem As DataGridView)
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = gsCUSTOM_TAX
-        chk.Name = "TAX"
+    Public Sub GS_ColumnGrid_U_SalesOrder(ByVal dgvProductItem As DataGridView)
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = gsCUSTOM_TAX,
+            .Name = "TAX"
+        }
 
         With dgvProductItem.Columns
             .Clear()
@@ -69,10 +70,11 @@ Module modMultiFuntion
             .Item("GROUP_LINE_ID").Visible = False
         End With
     End Sub
-    Public Sub fcolumnGrid_U_SalesReceipt(ByVal dgvProductItem As DataGridView)
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = gsCUSTOM_TAX
-        chk.Name = "TAX"
+    Public Sub ColumnGrid_U_SalesReceipt(ByVal dgvProductItem As DataGridView)
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = gsCUSTOM_TAX,
+            .Name = "TAX"
+        }
 
         With dgvProductItem.Columns
             .Clear()
@@ -155,10 +157,11 @@ Module modMultiFuntion
         End With
 
     End Sub
-    Public Sub fcolumnGrid_U_Invoice(ByVal dgvProductItem As DataGridView)
-        Dim chk As New DataGridViewCheckBoxColumn
-        chk.HeaderText = gsCUSTOM_TAX
-        chk.Name = "TAX"
+    Public Sub GS_ColumnGrid_U_Invoice(ByVal dgvProductItem As DataGridView)
+        Dim chk As New DataGridViewCheckBoxColumn With {
+            .HeaderText = gsCUSTOM_TAX,
+            .Name = "TAX"
+        }
 
         With dgvProductItem.Columns
             .Clear()
@@ -223,7 +226,7 @@ Module modMultiFuntion
         End With
 
     End Sub
-    Private Function fCheck_Payment_Bill(ByVal prBill_ID As String, ByVal prCheck_ID As String) As Boolean
+    Private Function GF_Check_Payment_Bill(ByVal prBill_ID As String, ByVal prCheck_ID As String) As Boolean
         Dim b As Boolean = False
 
         Try
@@ -235,14 +238,14 @@ Module modMultiFuntion
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                b = fCheck_Payment_Bill(prBill_ID, prCheck_ID)
+                b = GF_Check_Payment_Bill(prBill_ID, prCheck_ID)
             Else
                 End
             End If
         End Try
         Return b
     End Function
-    Private Function fCheckPaymentInvoice(ByVal prInvoice_ID As String, ByVal prPayment_ID As String) As Boolean
+    Private Function GF_CheckPaymentInvoice(ByVal prInvoice_ID As String, ByVal prPayment_ID As String) As Boolean
         Dim b As Boolean = False
         '  Dim cn As New MySqlConnection(mysqlConstr)
         Try
@@ -254,14 +257,14 @@ Module modMultiFuntion
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                b = fCheckPaymentInvoice(prInvoice_ID, prPayment_ID)
+                b = GF_CheckPaymentInvoice(prInvoice_ID, prPayment_ID)
             Else
                 End
             End If
         End Try
         Return b
     End Function
-    Public Sub fPaymentSaving(ByVal dgvUnpaid As DataGridView, ByVal gsID As Integer, ByVal isBill As Boolean, ByVal prLocation_ID As Integer, ByVal prDate As Date, ByVal prContact_ID As Integer)
+    Public Sub GS_PaymentSaving(ByVal dgvUnpaid As DataGridView, ByVal gsID As Integer, ByVal isBill As Boolean, ByVal prLocation_ID As Integer, ByVal prDate As Date, ByVal prContact_ID As Integer)
 
         Dim PayItemID(100) As String
         Dim PayItemRun As Integer = 0
@@ -272,12 +275,12 @@ Module modMultiFuntion
                 If .Cells("SELECTED").Value = True Then
                     If isBill = True Then
                         'Bill Payment
-                        If fCheck_Payment_Bill(.Cells("BILL_ID").Value, gsID) = True Then
+                        If GF_Check_Payment_Bill(.Cells("BILL_ID").Value, gsID) = True Then
 
                             GET_LAST_DISCOUNT_ID = GF_GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `CHECK_BILLS` WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
                             SqlExecuted("UPDATE `check_bills` SET DISCOUNT=" & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT").Value)) & ",AMOUNT_PAID = " & GotNullNumber(GF_NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_PAYABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_PAYABLE_ID").Value) & " WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
                             PayItemID(PayItemRun) = .Cells("BILL_ID").Value
-                            PayItemRun = PayItemRun + 1
+                            PayItemRun += 1
                             If GF_NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
                                 GET_LAST_DISCOUNT_ID = .Cells("DISCOUNT_ACCOUNT_ID").Value
                             End If
@@ -285,7 +288,7 @@ Module modMultiFuntion
                             Dim i_ID As Double = ObjectTypeMapId("CHECK_BILLS")
                             SqlExecuted("INSERT INTO `check_bills` Set ID='" & i_ID & "',CHECK_ID='" & gsID & "',BILL_ID='" & .Cells("BILL_ID").Value & "',DISCOUNT=" & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT").Value)) & ", AMOUNT_PAID = " & GotNullNumber(GF_NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_PAYABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_PAYABLE_ID").Value) & ";")
                             PayItemID(PayItemRun) = .Cells("BILL_ID").Value
-                            PayItemRun = PayItemRun + 1
+                            PayItemRun += 1
                             .Cells("ID").Value = i_ID
                             If GF_NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
                                 GET_LAST_DISCOUNT_ID = .Cells("DISCOUNT_ACCOUNT_ID").Value
@@ -318,12 +321,12 @@ Module modMultiFuntion
                         'Invoice
                         '======================================================
 
-                        If fCheckPaymentInvoice(.Cells("INVOICE_ID").Value, gsID) = True Then
+                        If GF_CheckPaymentInvoice(.Cells("INVOICE_ID").Value, gsID) = True Then
                             GET_LAST_DISCOUNT_ID = GF_GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `PAYMENT_INVOICES` WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
                             SqlExecuted("UPDATE `payment_invoices` SET DISCOUNT=" & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT").Value)) & ",AMOUNT_APPLIED = " & GotNullNumber(GF_NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_RECEIVABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_RECEIVABLE_ID").Value) & " WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
                             PayItemID(PayItemRun) = .Cells("INVOICE_ID").Value
 
-                            PayItemRun = PayItemRun + 1
+                            PayItemRun += 1
                             If GF_NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
                                 GET_LAST_DISCOUNT_ID = .Cells("DISCOUNT_ACCOUNT_ID").Value
                             End If
@@ -331,7 +334,7 @@ Module modMultiFuntion
                             Dim i_ID As Double = ObjectTypeMapId("PAYMENT_INVOICES")
                             SqlExecuted("INSERT INTO `payment_invoices` Set ID='" & i_ID & "',PAYMENT_ID='" & gsID & "',INVOICE_ID='" & .Cells("INVOICE_ID").Value & "',DISCOUNT=" & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT").Value)) & ", AMOUNT_APPLIED = " & GotNullNumber(GF_NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_RECEIVABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_RECEIVABLE_ID").Value) & ";")
                             PayItemID(PayItemRun) = .Cells("INVOICE_ID").Value
-                            PayItemRun = PayItemRun + 1
+                            PayItemRun += 1
                             .Cells("ID").Value = i_ID
                             If GF_NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
                                 GET_LAST_DISCOUNT_ID = .Cells("DISCOUNT_ACCOUNT_ID").Value
@@ -365,7 +368,7 @@ Module modMultiFuntion
                     'Delete
                     If isBill = True Then
 
-                        If fCheck_Payment_Bill(.Cells("BILL_ID").Value, gsID) = True Then
+                        If GF_Check_Payment_Bill(.Cells("BILL_ID").Value, gsID) = True Then
                             If gsSkipJournalEntry = False Then
 
                                 GET_LAST_DISCOUNT_ID = GF_GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `check_bills` WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
@@ -376,7 +379,7 @@ Module modMultiFuntion
                             SqlExecuted("DELETE FROM `check_bills` WHERE ID='" & .Cells("ID").Value & "' and CHECK_ID='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
                             PayItemID(PayItemRun) = .Cells("BILL_ID").Value
 
-                            PayItemRun = PayItemRun + 1
+                            PayItemRun += 1
 
                             'GS_SetUpdateBillBalance(.Cells("BILL_ID").Value, prContact_ID)
 
@@ -384,7 +387,7 @@ Module modMultiFuntion
                     Else
                         'Invoice
 
-                        If fCheckPaymentInvoice(.Cells("INVOICE_ID").Value, gsID) = True Then
+                        If GF_CheckPaymentInvoice(.Cells("INVOICE_ID").Value, gsID) = True Then
                             If gsSkipJournalEntry = False Then
                                 GET_LAST_DISCOUNT_ID = GF_GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `PAYMENT_INVOICES` WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
                                 GS_AccountJournalDelete(GF_NumIsNull(.Cells("ACCOUNTS_RECEIVABLE_ID").Value), prLocation_ID, 42, GF_NumIsNull(.Cells("ID").Value), prDate)
@@ -392,7 +395,7 @@ Module modMultiFuntion
                             End If
                             SqlExecuted("DELETE FROM `payment_invoices` WHERE ID='" & .Cells("ID").Value & "' and PAYMENT_ID='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
                             PayItemID(PayItemRun) = .Cells("INVOICE_ID").Value
-                            PayItemRun = PayItemRun + 1
+                            PayItemRun += 1
 
                             ' SetUpdateInvoiceBalance(.Cells("INVOICE_ID").Value, prContact_ID)
 

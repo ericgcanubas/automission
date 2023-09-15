@@ -5,43 +5,41 @@ Public Class FrmMainMenu
     Dim mousex As Integer
     Dim mousey As Integer
     Dim NewPartIndex As Integer
-    Private Sub fApplication()
+    Private Sub FApplication()
         Dim thisSearch As String = txtSearchMenu.Text.Replace("'", "")
         Dim i As Integer = 0
         Dim rd As OdbcDataReader = SqlReader($"select * from tblmenu as m where EXISTS (select * from system_security where `description` = `NAME` and user_id = '" & gsUser_ID & "' ) and first_display ='0' and menu_id in ('1','2','3','4') and visible ='1' order by position_no")
 
-        Dim myIndex As Integer = 0
         While rd.Read
             If GF_NumIsNull(rd("visible")) = 1 Then
 
 
-                myIndex = gsImgList.Images.IndexOfKey(rd("DESCRIPTION"))
+                Dim myIndex As Integer = gsImgList.Images.IndexOfKey(rd("DESCRIPTION"))
                 trvApplication.Nodes.Add(rd("MENU_ID"), rd("DESCRIPTION"), myIndex).Tag = 0
                 trvApplication.Nodes.Item(i).NodeFont = New Font(trvApplication.Font, FontStyle.Bold)
-                NewPartIndex = NewPartIndex + 1
+                NewPartIndex += 1
                 Dim rd_sub As OdbcDataReader = SqlReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' and sm.description like '%" & thisSearch & "%' and sm.active <> '0' order by sm.description")
                 While rd_sub.Read
                     Dim T As Integer = GF_NumIsNull(rd_sub("access_control"))
-                    myIndex = gsImgList.Images.IndexOfKey(rd_sub("sub_id"))
 
+                    myIndex = gsImgList.Images.IndexOfKey(rd_sub("sub_id"))
                     trvApplication.Nodes(i).Nodes.Add(rd_sub("sub_id"), rd_sub("description"), myIndex).ForeColor = Color.DarkBlue 'Tag = rd("MENU_ID")
                 End While
                 rd_sub.Close()
 
-                i = i + 1
+                i += 1
             End If
         End While
 
         rd.Close()
 
     End Sub
-    Private Sub fReport()
+    Private Sub FReport()
         Dim thisSearch As String = txtSearchMenu.Text.Replace("'", "")
-        Dim myIndex As Integer = 0
         Dim sType As String = ""
         Dim int3 As Integer = 0
         Dim i As Integer = NewPartIndex - 1
-        myIndex = gsImgList.Images.IndexOfKey("Reports")
+        Dim myIndex As Integer = gsImgList.Images.IndexOfKey("Reports")
         trvApplication.Nodes.Add(NewPartIndex.ToString, "Reports", myIndex).Tag = 0
         trvApplication.Nodes.Item(i).NodeFont = New Font(trvApplication.Font, FontStyle.Bold)
 
@@ -51,7 +49,7 @@ Public Class FrmMainMenu
         While rd.Read
 
             If sType <> GF_TextIsNull(rd("Report_Group")) Then
-                int3 = int3 + 1
+                int3 += 1
                 myIndex = gsImgList.Images.IndexOfKey("print")
                 trvApplication.Nodes(i).Nodes.Add(rd("ref_desc") & $"-{int3}", rd("Report_Group"), myIndex).Tag = 0
             End If
@@ -67,14 +65,13 @@ Public Class FrmMainMenu
 
 
     End Sub
-    Private Sub fLoadUtilities()
+    Private Sub FLoadUtilities()
         'Utility
         Dim thisSearch As String = txtSearchMenu.Text.Replace("'", "")
-        Dim myIndex As Integer = 0
         Dim sType As String = ""
         Dim int3 As Integer = 0
         Dim i As Integer = NewPartIndex - 1
-        myIndex = gsImgList.Images.IndexOfKey("Utility")
+        Dim myIndex As Integer = gsImgList.Images.IndexOfKey("Utility")
         trvApplication.Nodes.Add(NewPartIndex.ToString, "Other List", myIndex).Tag = 0
         trvApplication.Nodes.Item(i).NodeFont = New Font(trvApplication.Font, FontStyle.Bold)
 
@@ -83,7 +80,7 @@ Public Class FrmMainMenu
 
             If sType <> GF_TextIsNull(rd("Report_Group")) Then
                 myIndex = gsImgList.Images.IndexOfKey("doc-group")
-                int3 = int3 + 1
+                int3 += 1
                 trvApplication.Nodes(i).Nodes.Add(rd("Report_Group") & $"-{int3}", rd("Report_Group"), myIndex).Tag = 0
             End If
 
@@ -136,16 +133,16 @@ Public Class FrmMainMenu
         '        End If
         '    End Try
     End Sub
-    Private Sub fLoadApplication()
+    Private Sub FLoadApplication()
         trvApplication.Nodes.Clear()
 
         NewPartIndex = 1
         Try
             trvApplication.BeginUpdate()
-            fApplication()
-            fReport()
-            NewPartIndex = NewPartIndex + 1
-            fLoadUtilities()
+            FApplication()
+            FReport()
+            NewPartIndex += 1
+            FLoadUtilities()
             trvApplication.EndUpdate()
 
             If txtSearchMenu.Text.Length > 2 Then
@@ -160,40 +157,33 @@ Public Class FrmMainMenu
             End If
         End Try
     End Sub
-    Private Sub fAddMenuToolSeparator(ByVal icount As Integer)
+    Private Sub FAddMenuToolSeparator(ByVal icount As Integer)
         With TSQuickAcces
-            Dim b As New ToolStripSeparator
-            b.Name = "separator" & icount
-            b.Text = "separator" & icount
+            Dim b As New ToolStripSeparator With {
+                .Name = "separator" & icount,
+                .Text = "separator" & icount
+            }
             .Items.Add(b)
         End With
     End Sub
     Private Sub QuickAccess()
         Try
-
-
             Dim rd As OdbcDataReader = SqlReader($"select s.sub_id,s.description,s.image_file,s.Form from tblsub_group_details as sgd  inner join tblsub_menu as s on s.sub_id =  sgd.sub_id  where sgd.group_id = '0' and s.active <> '0' order by sgd.ID ")
             Dim separator_count As Integer = 0
             While rd.Read
-
                 If GF_NumIsNull(rd("sub_id")) = 0 Then
-
-                    separator_count = separator_count + 1
-                    'fAddMenuToolSeparator(separator_count)
+                    separator_count += 1
                 Else
 
-
-
-
-                    Dim TB As New ToolStripButton
-
-                    TB.Name = rd("description").ToString.Replace(" ", "")
-                    TB.Text = rd("description")
-                    TB.AccessibleName = rd("Form")
-                    TB.ForeColor = Color.Black
-                    TB.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText
-                    TB.TextImageRelation = TextImageRelation.ImageAboveText
-                    TB.ImageAlign = ContentAlignment.MiddleCenter
+                    Dim TB As New ToolStripButton With {
+                        .Name = rd("description").ToString.Replace(" ", ""),
+                        .Text = rd("description"),
+                        .AccessibleName = rd("Form"),
+                        .ForeColor = Color.Black,
+                        .DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+                        .TextImageRelation = TextImageRelation.ImageAboveText,
+                        .ImageAlign = ContentAlignment.MiddleCenter
+                    }
                     Dim img As String = rd("image_file")
                     Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub"
                     Dim filename As String = System.IO.Path.Combine(folder, img)
@@ -216,7 +206,7 @@ Public Class FrmMainMenu
             End If
         End Try
     End Sub
-    Private Sub fLoadReport()
+    Private Sub FLoadReport()
         Dim sType As String = ""
 
         Dim s As New ToolStripSeparator
@@ -234,34 +224,39 @@ Public Class FrmMainMenu
 
                     int3 = 1
                     'ReportsToolStripMenuItem
-                    Dim n As New ToolStripMenuItem
-                    n.Name = rd("ID")
-                    n.Text = rd("Title")
-                    n.AccessibleDescription = rd("ref_desc") 'Reference 'Type
-                    n.AccessibleName = rd("File") 'File
-                    AddHandler n.Click, AddressOf fWhenClickReport
-                    t = New ToolStripMenuItem
-                    t.Name = GF_TextIsNull(rd("Report_Group")).Replace(" ", "")
-                    t.Text = GF_TextIsNull(rd("Report_Group"))
+                    Dim n As New ToolStripMenuItem With {
+                        .Name = rd("ID"),
+                        .Text = rd("Title"),
+                        .AccessibleDescription = rd("ref_desc"), 'Reference 'Type
+                        .AccessibleName = rd("File") 'File
+                        }
+                    AddHandler n.Click, AddressOf FWhenClickReport
+                    t = New ToolStripMenuItem With {
+                        .Name = GF_TextIsNull(rd("Report_Group")).Replace(" ", ""),
+                        .Text = GF_TextIsNull(rd("Report_Group"))
+                    }
                     t.DropDownItems.Add(n)
 
                     ReportsToolStripMenuItem.DropDownItems.Add(t)
 
                     sType = GF_TextIsNull(rd("Report_Group"))
                 Else
-                    int3 = int3 + 1
+                    int3 += 1
                     If int3 = 3 Then
-                        s = New ToolStripSeparator
-                        s.Name = "Line_" & rd("ID")
+                        s = New ToolStripSeparator With {
+                            .Name = "Line_" & rd("ID")
+                        }
                         t.DropDownItems.Add(s)
                         int3 = 1
                     End If
-                    Dim n As New ToolStripMenuItem
-                    n.Name = rd("ID")
-                    n.Text = rd("Title") 'Description
-                    n.AccessibleDescription = rd("ref_desc") 'Reference
-                    n.AccessibleName = rd("File") 'FIle
-                    AddHandler n.Click, AddressOf fWhenClickReport
+
+                    Dim n As New ToolStripMenuItem With {
+                        .Name = rd("ID"),
+                        .Text = rd("Title"), 'Description
+                        .AccessibleDescription = rd("ref_desc"), 'Reference
+                        .AccessibleName = rd("File") 'FIle
+                        }
+                    AddHandler n.Click, AddressOf FWhenClickReport
                     t.DropDownItems.Add(n)
 
                 End If
@@ -277,7 +272,7 @@ Public Class FrmMainMenu
         End Try
     End Sub
 
-    Private Sub fWhenClickReport(ByVal sender As Object, ByVal e As EventArgs)
+    Private Sub FWhenClickReport(ByVal sender As Object, ByVal e As EventArgs)
         'gsReportType = "sales"
         'fShowReportSetup("crySalesByCustomerDetails.rpt", "Sales by Customer Details")
         Dim t As ToolStripMenuItem = DirectCast(sender, ToolStripMenuItem)
@@ -309,14 +304,15 @@ Public Class FrmMainMenu
 
         Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
         Dim img As Image = Image.FromFile(folder & "report_setup.png")
-        Dim R As New FrmReportSetup
-        R.Text = Title
+        Dim R As New FrmReportSetup With {
+            .Text = Title
+        }
 
 
         TabFormOpen(R, Me.MyTab, img)
         gsMenuSubID = 0
     End Sub
-    Private Sub fShowReportSetup(ByVal prReportFileName As String, ByVal prTabname As String)
+    Private Sub FShowReportSetup(ByVal prReportFileName As String, ByVal prTabname As String)
 
         gsReportTabName = prTabname
         gsReportFileName = prReportFileName
@@ -342,13 +338,13 @@ Public Class FrmMainMenu
 
 
         Me.trvApplication.ImageList = gsImgList
-        fLoadApplication()
+        FLoadApplication()
 
         gsDEFAULT_PRINTER = GetDBAccessValueByText("DEFAULT_PRINTER")
         '  fMaterialSkin(Me)
         Me.Icon = gsIcon
         QuickAccess()
-        fLoadReport()
+        FLoadReport()
 
 
         gsMainWith = Me.Width - Me.Width / 4
@@ -412,15 +408,15 @@ Public Class FrmMainMenu
     End Sub
 
     Private Sub ThemeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThemeToolStripMenuItem.Click
-        frmThemeStyle.ShowDialog()
-        frmThemeStyle.Dispose()
-        frmThemeStyle = Nothing
+        FrmThemeStyle.ShowDialog()
+        FrmThemeStyle.Dispose()
+        FrmThemeStyle = Nothing
     End Sub
 
     Private Sub ResetToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ResetToolStripMenuItem.Click
-        frmDatabaseReset.ShowDialog()
-        frmDatabaseReset.Dispose()
-        frmDatabaseReset = Nothing
+        FrmDatabaseReset.ShowDialog()
+        FrmDatabaseReset.Dispose()
+        FrmDatabaseReset = Nothing
     End Sub
 
     Private Sub AccountJournalErrorsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AccountJournalErrorsToolStripMenuItem.Click
@@ -428,9 +424,9 @@ Public Class FrmMainMenu
             Exit Sub
         End If
 
-        frmAccountJournalError.ShowDialog()
-        frmAccountJournalError.Dispose()
-        frmAccountJournalError = Nothing
+        FrmAccountJournalError.ShowDialog()
+        FrmAccountJournalError.Dispose()
+        FrmAccountJournalError = Nothing
     End Sub
 
     Private Sub AccountJournalDuplicateRemoveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AccountJournalDuplicateRemoveToolStripMenuItem.Click
@@ -446,29 +442,29 @@ Public Class FrmMainMenu
         If gsAdmin_User = 0 Then
             Exit Sub
         End If
-        frmPrimaryKeyUpdater.ShowDialog()
-        frmPrimaryKeyUpdater.Dispose()
-        frmPrimaryKeyUpdater = Nothing
+        FrmPrimaryKeyUpdater.ShowDialog()
+        FrmPrimaryKeyUpdater.Dispose()
+        FrmPrimaryKeyUpdater = Nothing
     End Sub
 
     Private Sub ItemInventoryFixedEndingQtyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ItemInventoryFixedEndingQtyToolStripMenuItem.Click
         If gsAdmin_User = True Then
-            frmSelectDate.ShowDialog()
-            If frmSelectDate.gsOK = True Then
-                frmSelectLocation.ShowDialog()
-                If frmSelectLocation.gsOK = True Then
-                    Dim L As Integer = frmSelectLocation.cmbLOCATION_ID.SelectedValue
+            FrmSelectDate.ShowDialog()
+            If FrmSelectDate.gsOK = True Then
+                FrmSelectLocation.ShowDialog()
+                If FrmSelectLocation.gsOK = True Then
+                    Dim L As Integer = FrmSelectLocation.cmbLOCATION_ID.SelectedValue
                     GS_DoEvents()
                     Dim rd As OdbcDataReader = SqlReader("Select ID from `ITEM` WHERE `TYPE` ='0' and INACTIVE ='0'")
                     While rd.Read
-                        ReCalculateInventory(rd("ID"), L, frmSelectDate.dtpSelect.Value)
+                        'ReCalculateInventory(rd("ID"), L, FrmSelectDate.dtpSelect.Value)
                     End While
                 End If
-                frmSelectLocation.Dispose()
-                frmSelectLocation = Nothing
+                FrmSelectLocation.Dispose()
+                FrmSelectLocation = Nothing
             End If
-            frmSelectDate.Dispose()
-            frmSelectDate = Nothing
+            FrmSelectDate.Dispose()
+            FrmSelectDate = Nothing
         End If
     End Sub
 
@@ -518,7 +514,7 @@ Public Class FrmMainMenu
         FrmImportBIRInventory = Nothing
     End Sub
 
-    Private Sub frmMainMenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub FrmMainMenu_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Dim r As Integer = MessageBoxQuestionYesNoCancel("Yes = Log-out " & vbNewLine & "No = Close Program ")
         If r = 1 Then
             fLogout_user_access_control()
@@ -531,22 +527,22 @@ Public Class FrmMainMenu
         End If
     End Sub
 
-    Private Sub frmMainMenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub FrmMainMenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         bActiveFirst = False
-        frmSplash.Show()
-        frmSplash.Timer1.Enabled = True
+        FrmSplash.Show()
+        FrmSplash.Timer1.Enabled = True
         gsMenuSubID = 0
         gsMenuID = 0
         Me.Dispose()
     End Sub
 
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+    Private Sub TxtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         pnlSearch.Visible = False
     End Sub
-    Private Sub txtSearch_LostFocus(sender As Object, e As EventArgs) Handles txtSearch.LostFocus
-        fLostFocus()
+    Private Sub TxtSearch_LostFocus(sender As Object, e As EventArgs) Handles txtSearch.LostFocus
+        FLostFocus()
     End Sub
-    Private Sub fLostFocus()
+    Private Sub FLostFocus()
         If Trim(txtSearch.Text) = "" Then
             txtSearch.Text = "Search Here"
             txtSearch.Font = New Font(gsFont, 8, FontStyle.Italic)
@@ -555,7 +551,7 @@ Public Class FrmMainMenu
 
         End If
     End Sub
-    Private Sub txtSearch_GotFocus(sender As Object, e As EventArgs) Handles txtSearch.GotFocus
+    Private Sub TxtSearch_GotFocus(sender As Object, e As EventArgs) Handles txtSearch.GotFocus
         If txtSearch.Text = "Search Here" Then
             txtSearch.Clear()
             txtSearch.Font = New Font(gsFont, 8, FontStyle.Regular)
@@ -565,10 +561,10 @@ Public Class FrmMainMenu
         End If
     End Sub
 
-    Public Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
+    Public Sub TxtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
 
-            fQuickSearch()
+            FQuickSearch()
         ElseIf e.KeyCode = Keys.Down Then
             If dgvSearch.Rows.Count <> 0 Then
                 dgvSearch.Focus()
@@ -578,7 +574,7 @@ Public Class FrmMainMenu
             txtSearch.Clear()
         End If
     End Sub
-    Public Sub fQuickSearch()
+    Public Sub FQuickSearch()
         Try
             If Trim(txtSearch.Text) = "" Then Exit Sub
 
@@ -601,7 +597,7 @@ Public Class FrmMainMenu
 
                 Case 1
 
-                    sQuery = fContactTransaction(txtSearch.Text)
+                    sQuery = FContactTransaction(txtSearch.Text)
                     GS_LoadDataGridView(dgvSearch, sQuery)
                     dgvSearch.Columns(0).Visible = False
                     If dgvSearch.Rows.Count <> 0 Then
@@ -614,7 +610,7 @@ Public Class FrmMainMenu
                     dgvSearch.Columns(2).Width = 100
                     dgvSearch.Columns(3).Width = 100
                 Case 2
-                    sQuery = fReferenceTransaction(txtSearch.Text)
+                    sQuery = FReferenceTransaction(txtSearch.Text)
                     GS_LoadDataGridView(dgvSearch, sQuery)
                     dgvSearch.Columns(0).Visible = False
                     If dgvSearch.Rows.Count <> 0 Then
@@ -635,7 +631,7 @@ Public Class FrmMainMenu
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fQuickSearch()
+                FQuickSearch()
             Else
                 End
             End If
@@ -644,13 +640,13 @@ Public Class FrmMainMenu
         End Try
     End Sub
 
-    Private Sub cmbSearchType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSearchType.SelectedIndexChanged
+    Private Sub CmbSearchType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSearchType.SelectedIndexChanged
 
         pnlSearch.Visible = False
 
 
     End Sub
-    Private Function fReferenceTransaction(ByVal prFind As String) As String
+    Private Function FReferenceTransaction(ByVal prFind As String) As String
 
         Dim sALl_Document_SQL As String = $"select * from (
 SELECT 
@@ -1016,7 +1012,7 @@ FROM
         Return sALl_Document_SQL
 
     End Function
-    Private Sub fselected_Reference()
+    Private Sub Fselected_Reference()
         Dim sType As String = dgvSearch.Rows(dgvSearch.CurrentRow.Index).Cells("TYPE").Value
         Dim i As Integer = GF_NumIsNull(GF_GetNumberFieldValue("tblsub_menu", "Description", sType, "sub_id"))
 
@@ -1054,7 +1050,7 @@ FROM
 
 
     End Sub
-    Private Sub fselected_search()
+    Private Sub Fselected_search()
         Try
             GS_CursorLoadingOn(True)
             pnlSearch.Enabled = False
@@ -1069,7 +1065,7 @@ FROM
                             If rd.Read Then
                                 gsReportType = GF_TextIsNull(rd("ref_desc"))
                                 gsReportTabName = GF_TextIsNull(rd("Title"))
-                                fShowReportSetup(GF_TextIsNull(rd("File")), gsReportTabName)
+                                FShowReportSetup(GF_TextIsNull(rd("File")), gsReportTabName)
 
                             End If
                             rd.Close()
@@ -1091,9 +1087,9 @@ FROM
 
 
                 Case 1
-                    fselected_Reference()
+                    Fselected_Reference()
                 Case 2
-                    fselected_Reference()
+                    Fselected_Reference()
             End Select
 
 
@@ -1103,22 +1099,22 @@ FROM
         Finally
             pnlSearch.Enabled = True
             txtSearch.Clear()
-            fLostFocus()
+            FLostFocus()
             GS_CursorLoadingOn(False)
         End Try
     End Sub
-    Private Sub dgvSearch_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSearch.CellDoubleClick
-        fselected_search()
+    Private Sub DgvSearch_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSearch.CellDoubleClick
+        Fselected_search()
     End Sub
 
-    Private Sub dgvSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSearch.KeyDown
+    Private Sub DgvSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
-            fselected_search()
+            Fselected_search()
         ElseIf e.KeyCode = Keys.Escape Then
             txtSearch.Focus()
         End If
     End Sub
-    Private Function fContactTransaction(ByVal prFind As String) As String
+    Private Function FContactTransaction(ByVal prFind As String) As String
 
         Dim sALl_Document_SQL As String = "select * from (
 SELECT 
@@ -1485,11 +1481,11 @@ FROM
 
     End Function
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         pnlSearch.Visible = False
     End Sub
 
-    Private Sub dgvSearch_MouseDown(sender As Object, e As MouseEventArgs) Handles pnlSearch.MouseDown
+    Private Sub DgvSearch_MouseDown(sender As Object, e As MouseEventArgs) Handles pnlSearch.MouseDown
         drag = True 'Sets the variable drag to true.
 
         mousex = Windows.Forms.Cursor.Position.X - pnlSearch.Left 'Sets variable mousex
@@ -1497,10 +1493,10 @@ FROM
         mousey = Windows.Forms.Cursor.Position.Y - pnlSearch.Top 'Sets variable mousey
 
     End Sub
-    Private Sub dgvSearch_MouseUp(sender As Object, e As MouseEventArgs) Handles pnlSearch.MouseUp
+    Private Sub DgvSearch_MouseUp(sender As Object, e As MouseEventArgs) Handles pnlSearch.MouseUp
         drag = False 'Sets drag to false, so the form does not move according to the code in MouseMove
     End Sub
-    Private Sub dgvSearch_MouseMove(sender As Object, e As MouseEventArgs) Handles pnlSearch.MouseMove
+    Private Sub DgvSearch_MouseMove(sender As Object, e As MouseEventArgs) Handles pnlSearch.MouseMove
 
         'If drag is set to true then move the form accordingly.
 
@@ -1544,46 +1540,11 @@ FROM
         End If
     End Sub
 
-    Private Sub frmMainMenu_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        fLostFocus()
-
-
-        'Location = New Point(Width, Height)
-        '   StartPosition = FormStartPosition.CenterScreen
-
-        '  Me.FormBorderStyle = Windows.Forms.FormBorderStyle.None
-        '  Me.Dock = DockStyle.Fill
-        'Dim H_PC As Integer = My.Computer.Screen.WorkingArea.Height
-        '' Dim H_ As Integer = Screen.PrimaryScreen.Bounds.Height
-        'Me.Width = Screen.PrimaryScreen.Bounds.Width
-        'Me.Height = H_PC
-        'Me.Location = New Point(0, 0)
-        'Timer1.Start()
+    Private Sub FrmMainMenu_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        FLostFocus()
     End Sub
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        ' Me.WindowState = FormWindowState.Maximized
-
-        '  Timer1.Stop()
-
-    End Sub
-
-    Private Sub TSSubMenu_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs)
-
-    End Sub
-
-    Private Sub myPanel_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
-
-    Private Sub trvMENU_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles trvApplication.AfterSelect
-
-
-
-
-    End Sub
-
-    Private Sub trvApplication_BeforeSelect(sender As Object, e As TreeViewCancelEventArgs) Handles trvApplication.BeforeSelect
+    Private Sub TrvApplication_BeforeSelect(sender As Object, e As TreeViewCancelEventArgs) Handles trvApplication.BeforeSelect
 
         If ApplicationClick = True Then
             e.Cancel = True
@@ -1615,67 +1576,27 @@ FROM
             End Try
 
         End If
-        'Select Case e.Node.Tag
-        '    Case 1 ' buyers
-        '        Dim N As Integer = e.Node.Name
 
-        '        OpenFormBySubId(N)
-        '    Case 2 ' seller
-        '        Dim N As Integer = e.Node.Name
-        '        OpenFormBySubId(N)
-        '    Case 3 ' store
-        '        Dim N As Integer = e.Node.Name
-        '        OpenFormBySubId(N)
-        '    Case 4 ' depository
-        '        Dim N As Integer = e.Node.Name
-        '        OpenFormBySubId(N)
-        '    Case 5 ' reports
-        '        Dim N As Integer = e.Node.Name
-
-        '        OpenReport(N, e.Node.Text)
-        '    Case 6 ' tools
-        '        Dim N As Integer = e.Node.Name
-        '        OpenFormBySubId(N)
-        '    Case 7 ' utitl
-        '        Dim N As Integer = e.Node.Name
-        '        OpenFormBySubId(N)
-        '    Case Else
-
-        'End Select
 
         ApplicationClick = True
         e.Cancel = True
     End Sub
 
-    Private Sub txtSearchMenu_TextChanged(sender As Object, e As EventArgs) Handles txtSearchMenu.TextChanged
-        fLoadApplication()
+    Private Sub TxtSearchMenu_TextChanged(sender As Object, e As EventArgs) Handles txtSearchMenu.TextChanged
+        FLoadApplication()
     End Sub
 
-    Private Sub btnSearchApp_Click(sender As Object, e As EventArgs) Handles btnSearchApp.Click
-        fLoadApplication()
+    Private Sub BtnSearchApp_Click(sender As Object, e As EventArgs) Handles btnSearchApp.Click
+        FLoadApplication()
     End Sub
 
-    Private Sub trvApplication_MouseUp(sender As Object, e As MouseEventArgs) Handles trvApplication.MouseUp
+    Private Sub TrvApplication_MouseUp(sender As Object, e As MouseEventArgs) Handles trvApplication.MouseUp
         ApplicationClick = False
     End Sub
 
-    Private Sub pnlFavorate_Paint(sender As Object, e As PaintEventArgs) Handles pnlFavorate.Paint
-
-    End Sub
-
-    Private Sub TSQuickAcces_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles TSQuickAcces.ItemClicked
-
-    End Sub
-
-    Private Sub pnlSideMenuList_Paint(sender As Object, e As PaintEventArgs) Handles pnlSideMenuList.Paint
-
-    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnQuickButton.Click
-        fQuickSearch()
+        FQuickSearch()
     End Sub
 
-    Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
-
-    End Sub
 End Class

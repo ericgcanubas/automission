@@ -12,7 +12,7 @@ Public Class FrmInventoryAdjustmentType
     End Sub
     Private Sub FrmInventoryAdjustmentType_Load(sender As Object, e As EventArgs) Handles Me.Load
         tsTITLE.Text = gsSubMenuForm
-        Refresh()
+        RefreshData()
     End Sub
     Private Sub NewRecordsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsCreate.Click
         If SecurityAccessMode(Me, True) = False Then

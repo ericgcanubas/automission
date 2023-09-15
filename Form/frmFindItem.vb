@@ -262,7 +262,7 @@ WHERE
                 FrmSelectDate.ShowDialog()
                 If FrmSelectDate.gsOK = True Then
 
-                    ReCalculateInventory(dgvItem.CurrentRow.Cells("ID").Value, tscmbLocation.ComboBox.SelectedValue, FrmSelectDate.dtpSelect.Value)
+                    'ReCalculateInventory(dgvItem.CurrentRow.Cells("ID").Value, tscmbLocation.ComboBox.SelectedValue, FrmSelectDate.dtpSelect.Value)
 
 
                 End If

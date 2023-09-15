@@ -549,6 +549,11 @@ FROM
             SetTransactionDateSelectUpdate(dtpDATE.Value)
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbVENDOR_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
+
+            If GS_IsInventoryLastEntry(dgvProductItem, cmbLOCATION_ID.SelectedValue, 1, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
             'Check bills / payments
             If GF_GetNumberFieldValue("check_bills", "bill_id", ID, "id") <> 0 Then
                 If gsAdmin_User = False Then
@@ -616,7 +621,7 @@ FROM
 
         SaveItem()  ' Save item
         SaveExpenses()
-        ItemUpdateStatus()
+
         ExpensesUpdateStatus()
 
         gsGotChangeDate = False
@@ -675,23 +680,25 @@ FROM
                             If gsGotChangeLocation1 = True Then
                                 ItemInventoryChangeLocation(cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 1, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, gsLast_Location_ID)
                             End If
-                            GS_InventoryJournalVendors(dgvProductItem, i, False, 3, 1, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                            GS_InventoryJournalVendors(dgvProductItem, i, False, 3, 1, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, GF_NumIsNull(.Cells("UNIT_PRICE").Value))
+
                         Case "A"
                             fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                             Dim i_ID As Double = ObjectTypeMapId("BILL_ITEMS")
                             .Cells("ID").Value = i_ID
                             SqlExecuted("INSERT INTO bill_items SET LINE_NO='" & i & "',ID='" & i_ID & "',QUANTITY ='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",BILL_ID ='" & ID & "',ACCOUNT_ID=" & GotNullNumber(GF_NumIsNull(.Cells("ACCOUNT_ID").Value)) & ",CLASS_ID=" & GotNullNumber(GF_NumIsNull(.Cells("CLASS_ID").Value)) & ",PO_ITEM_ID=" & GotNullNumber(GF_NumIsNull(.Cells("PO_ITEM_ID").Value)) & ",BATCH_ID = " & GotNullNumber(GF_NumIsNull(.Cells("BATCH_ID").Value)) & ";")
-                            GS_InventoryJournalVendors(dgvProductItem, i, False, 3, 1, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                            GS_InventoryJournalVendors(dgvProductItem, i, False, 3, 1, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, GF_NumIsNull(.Cells("UNIT_PRICE").Value))
                             PurchaseItemUpdate(GF_NumIsNull(.Cells("PO_ITEM_ID").Value), GF_NumIsNull(.Cells("QTY").Value), True)
-                            fBILL_ITEM_COST_UPDATE_NEW(GF_NumIsNull(.Cells("ITEM_ID").Value), GF_NumIsNull(.Cells("UNIT_PRICE").Value))
+                            GS_BILL_ITEM_COST_UPDATE_NEW(GF_NumIsNull(.Cells("ITEM_ID").Value), GF_NumIsNull(.Cells("UNIT_PRICE").Value))
+
                         Case "E"
                             fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                             SqlExecuted("UPDATE bill_items SET LINE_NO='" & i & "',QUANTITY='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",CLASS_ID=" & GotNullNumber(GF_NumIsNull(.Cells("CLASS_ID").Value)) & ",PO_ITEM_ID=" & GotNullNumber(GF_NumIsNull(.Cells("PO_ITEM_ID").Value)) & ",BATCH_ID = " & GotNullNumber(GF_NumIsNull(.Cells("BATCH_ID").Value)) & " WHERE BILL_ID ='" & ID & "' and ID = " & GF_NumIsNull(.Cells("ID").Value) & " limit 1;")
-                            GS_InventoryJournalVendors(dgvProductItem, i, False, 3, 1, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                            GS_InventoryJournalVendors(dgvProductItem, i, False, 3, 1, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, GF_NumIsNull(.Cells("UNIT_PRICE").Value))
                             PurchaseItemUpdate(GF_NumIsNull(.Cells("PO_ITEM_ID").Value), GF_NumIsNull(.Cells("QTY").Value), True)
                         Case "D"
                             SqlExecuted("DELETE FROM bill_items WHERE BILL_ID ='" & ID & "' and ID = '" & GF_NumIsNull(.Cells("ID").Value) & "' limit 1;")
-                            GS_InventoryJournalVendors(dgvProductItem, i, False, 3, 1, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                            GS_InventoryJournalVendors(dgvProductItem, i, False, 3, 1, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, GF_NumIsNull(.Cells("UNIT_PRICE").Value))
                             PurchaseItemUpdate(GF_NumIsNull(.Cells("PO_ITEM_ID").Value), GF_NumIsNull(.Cells("QTY").Value), False)
                     End Select
 
@@ -703,24 +710,6 @@ FROM
 
 
 
-    End Sub
-
-    Private Sub ItemUpdateStatus()
-        For i As Integer = 0 To dgvProductItem.Rows.Count - 1
-            With dgvProductItem.Rows(i)
-                If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    .Cells("CONTROL_STATUS").Value = "S"
-                ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
-                    If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    End If
-                    .Cells("CONTROL_STATUS").Value = "S"
-                End If
-            End With
-        Next
     End Sub
     Private Sub PurchaseItemUpdate(ByVal gsID As Integer, ByVal prRECEIVED_QTY As Double, ByVal ADD_EDIT As Boolean)
         Dim SQL As String = ""
@@ -957,6 +946,12 @@ FROM
                 Exit Sub
             End If
 
+
+            If GS_IsInventoryLastEntry(dgvProductItem, cmbLOCATION_ID.SelectedValue, 1, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
+
             If MessageBoxQuestion(gsMessageQuestion) = True Then
 
                 Try
@@ -1063,7 +1058,7 @@ FROM
 
                 SqlExecuted("Delete from `bill` where ID = '" & ID & "' limit 1;")
 
-                   DeleteNotify(Me)
+                DeleteNotify(Me)
 
                 If MessageBoxQuestion("Without clear details?") = True Then
                     cmbLOCATION_ID.Enabled = True

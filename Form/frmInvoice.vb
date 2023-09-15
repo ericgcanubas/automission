@@ -286,7 +286,7 @@ ON B.ID = II.BATCH_ID
         cmbACCOUNTS_RECEIVABLE_ID.Visible = gsShowAccounts
 
         tsTITLE.Text = gsSubMenuForm
-        fcolumnGrid_U_Invoice(dgvProductItem)
+        GS_ColumnGrid_U_Invoice(dgvProductItem)
 
         ClearInfo()
 
@@ -405,6 +405,13 @@ ON B.ID = II.BATCH_ID
             SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
+
+            If GS_IsInventoryLastEntry(dgvProductItem, cmbLOCATION_ID.SelectedValue, 10, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
+
+
             tChangeAccept = True
 
             Dim bTotal_Balance As Double = NumberFormatFixed(lblBALANCE_DUE.Text)
@@ -419,6 +426,11 @@ ON B.ID = II.BATCH_ID
 
         End If
 
+
+        If GF_IsTransactionSuccess(ID, "INVOICE") = False Then
+            MessageBoxWarning("Please Try Again")
+            Exit Sub
+        End If
 
 
         '===========================================
@@ -437,10 +449,6 @@ ON B.ID = II.BATCH_ID
 
         SaveInvoiceItem(ID, dgvProductItem, cmbOUTPUT_TAX_ID, cmbLOCATION_ID, dtpDATE)
 
-        If GF_IsTransactionSuccess(ID, "INVOICE") = False Then
-            MessageBoxWarning("Please Try Again")
-            Exit Sub
-        End If
 
         If IsNew = True Then
             PrompNotify(Me.Text, SaveMsg, True)
@@ -887,12 +895,14 @@ ON B.ID = II.BATCH_ID
                 Exit Sub
             End If
 
-            If MessageBoxQuestion(gsMessageQuestion) = True Then
 
-                '   Dim cn As New MySqlConnection(mysqlConstr)
-                'Payment
+            If GS_IsInventoryLastEntry(dgvProductItem, cmbLOCATION_ID.SelectedValue, 10, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
+            If MessageBoxQuestion(gsMessageQuestion) = True Then
                 Try
-                    '  cn.Open()
+
                     Dim rd As OdbcDataReader = SqlReader("select * from payment_invoices where invoice_id = '" & ID & "' limit 1")
                     If rd.Read Then
                         If gsForceDeleteInvoice = False Then
@@ -924,9 +934,7 @@ ON B.ID = II.BATCH_ID
                     End If
                     rd.Close()
                 Catch ex As Exception
-                    'If cn.State = ConnectionState.Open Then
-                    '    cn.Close()
-                    'End If
+
                     MessageBoxWarning(ex.Message)
                     Exit Sub
                 End Try
@@ -975,7 +983,7 @@ ON B.ID = II.BATCH_ID
 
                 SqlExecuted("delete from invoice where id ='" & ID & "' limit 1;")
 
-                   DeleteNotify(Me)
+                DeleteNotify(Me)
 
                 SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 

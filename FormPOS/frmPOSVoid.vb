@@ -257,14 +257,7 @@ Public Class FrmPOSVoid
                 End If
             End If
         End While
-        RecaluculateItemInvoie(INVOICE_ID, Loc_ID, DT)
-    End Sub
-    Private Sub RecaluculateItemInvoie(ByVal Invoice_ID As Integer, ByVal Loc_ID As Integer, ByVal dt As Date)
 
-        Dim rd As OdbcDataReader = SqlReader($"select * from invoice_items where invoice_id = '{Invoice_ID}' ")
-        While rd.Read
-            ReCalculateInventory(Invoice_ID, Loc_ID, dt.AddDays(-1))
-        End While
-        rd.Close()
     End Sub
+
 End Class

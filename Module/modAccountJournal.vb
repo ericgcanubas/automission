@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Module modAccountJournal
-    Public Sub GS_InventoryJournalVendors(ByVal dgv As DataGridView, ByVal N As Integer, ByVal IsDeducted As Boolean, ByVal Obj_Type As Integer, ByVal Src_Type As Integer, ByVal LOCATION_ID As Integer, ByVal DT As Date)
+    Public Sub GS_InventoryJournalVendors(ByVal dgv As DataGridView, ByVal N As Integer, ByVal IsDeducted As Boolean, ByVal Obj_Type As Integer, ByVal Src_Type As Integer, ByVal LOCATION_ID As Integer, ByVal DT As Date, ByVal COST As Double)
 
         Dim dgvROW As DataGridViewRow = dgv.Rows(N)
         With dgvROW
@@ -10,13 +10,13 @@ Module modAccountJournal
             Else
                 If .Cells("CONTROL_STATUS").Value <> "D" Then
                     'INVENTORY ITEM
-                    Dim LAST_ENDING_UNIT_COST As Double = GF_NumIsNull(.Cells("AMOUNT").Value) / GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value)
+                    Dim LAST_ENDING_UNIT_COST_ As Double = GF_NumIsNull(.Cells("AMOUNT").Value) / GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value)
 
 
                     If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
                         'ITEM INVENTORY/ ASSEMBLY ONLY
                         Dim THIS_QTY As Double = GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) * GF_NumIsNull(.Cells("QTY").Value)
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, LOCATION_ID, IIf(IsDeducted = True, THIS_QTY * -1, THIS_QTY), LAST_ENDING_UNIT_COST, Src_Type, GF_NumIsNull(.Cells("ID").Value), DT, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(.Cells("ITEM_ID").Value, LOCATION_ID, IIf(IsDeducted = True, THIS_QTY * -1, THIS_QTY), COST, Src_Type, GF_NumIsNull(.Cells("ID").Value), DT, GF_NumIsNull(.Cells("BATCH_ID").Value))
                     End If
 
                     If gsSkipJournalEntry = False Then
@@ -72,10 +72,10 @@ Module modAccountJournal
                 If .Cells("CONTROL_STATUS").Value <> "D" Then
                     'INVENTORY ITEM
                     Dim LAST_ENDING_UNIT_COST As Double = 0
-                    If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
+                    If .Cells("ITEM_TYPE").Value <= 1 Then
                         'ITEM INVENTORY/ ASSEMBLY ONLY
                         Dim THIS_QTY As Double = GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) * GF_NumIsNull(.Cells("QTY").Value)
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, LOCATION_ID, IIf(IsDeducted = True, THIS_QTY * -1, THIS_QTY), LAST_ENDING_UNIT_COST, Src_Type, GF_NumIsNull(.Cells("ID").Value), DT, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(.Cells("ITEM_ID").Value, LOCATION_ID, IIf(IsDeducted = True, THIS_QTY * -1, THIS_QTY), LAST_ENDING_UNIT_COST, Src_Type, GF_NumIsNull(.Cells("ID").Value), DT, GF_NumIsNull(.Cells("BATCH_ID").Value))
                     End If
 
                     If gsSkipJournalEntry = False Then
@@ -97,7 +97,7 @@ Module modAccountJournal
 
                         GS_AccountJournalExecute(GF_NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT, E, AMT, gsJOURNAL_NO_FORM)
 
-                        If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
+                        If .Cells("ITEM_TYPE").Value <= 1 Then
                             'ITEM INVENTORY/ ASSEMBLY
                             'COST ONLY
                             Dim AMT_COST As Double = LAST_ENDING_UNIT_COST * GF_NumIsNull(.Cells("QTY").Value)
@@ -160,41 +160,39 @@ Module modAccountJournal
 
 
         Dim prSEQUENCE_NO As Integer
-        Dim bOpen As Boolean = False
         Dim sItem_Inventory As String = "SELECT ID,PREVIOUS_ID,SEQUENCE_NO FROM ITEM_INVENTORY WHERE ITEM_ID='" & prItem_ID & "' and SOURCE_REF_TYPE= '" & prSOURCE_TYPE & "' and SOURCE_REF_ID ='" & prSOURCE_ID & "' and SOURCE_REF_DATE = '" & DateFormatMySql(prSOURCE_DATE) & "' and Location_ID='" & prLocation_ID & "' Limit 1"
         Dim prID As Double = 0
-        Dim prPrev_ID As Double = 0
         Dim ENDING_QUANTITY As Double
 
         Try
 
             Dim rd As OdbcDataReader = SqlReader(sItem_Inventory)
             If rd.Read Then
-                bOpen = True
+                Dim bOpen As Boolean = True
                 prID = GF_NumIsNull(rd("ID"))
-                prPrev_ID = GF_NumIsNull(rd("PREVIOUS_ID"))
+                Dim prPrev_ID As Double = GF_NumIsNull(rd("PREVIOUS_ID"))
                 prSEQUENCE_NO = GF_NumIsNull(rd("SEQUENCE_NO"))
             End If
             rd.Close()
+            SqlExecuted("DELETE FROM item_inventory WHERE ID='" & prID & "' and ITEM_ID='" & prItem_ID & "' and LOCATION_ID='" & prLocation_ID & "';")
 
-            rd = Nothing
-            If bOpen = True Then
-                Dim sSelect_SQL As String = "SELECT ID,SEQUENCE_NO,ENDING_QUANTITY,QUANTITY,ENDING_UNIT_COST FROM ITEM_INVENTORY WHERE ITEM_ID='" & prItem_ID & "' and Location_ID='" & prLocation_ID & "' and  SEQUENCE_NO >='" & prSEQUENCE_NO & "' ORDER BY SEQUENCE_NO,ID"
+            'rd = Nothing
+            'If bOpen = True Then
+            '    Dim sSelect_SQL As String = "SELECT ID,SEQUENCE_NO,ENDING_QUANTITY,QUANTITY,ENDING_UNIT_COST FROM ITEM_INVENTORY WHERE ITEM_ID='" & prItem_ID & "' and Location_ID='" & prLocation_ID & "' and  SEQUENCE_NO >='" & prSEQUENCE_NO & "' ORDER BY SEQUENCE_NO,ID"
 
-                rd = SqlReader(sSelect_SQL)
-                While rd.Read
-                    If prSEQUENCE_NO = GF_NumIsNull(rd("SEQUENCE_NO")) And prID = GF_NumIsNull(rd("ID")) Then
-                        ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY"))
-                        SqlExecuted("DELETE FROM item_inventory WHERE ID='" & prID & "' and ITEM_ID='" & prItem_ID & "' and LOCATION_ID='" & prLocation_ID & "';")
+            '    rd = SqlReader(sSelect_SQL)
+            '    While rd.Read
+            '        If prSEQUENCE_NO = GF_NumIsNull(rd("SEQUENCE_NO")) And prID = GF_NumIsNull(rd("ID")) Then
+            '            ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY"))
 
-                    Else
-                        ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY")) + GF_NumIsNull(rd("QUANTITY"))
-                        SqlExecuted("UPDATE item_inventory SET ENDING_COST='" & GF_NumIsNull(rd("ENDING_UNIT_COST")) * ENDING_QUANTITY & "',ENDING_QUANTITY='" & ENDING_QUANTITY & "',PREVIOUS_ID = " & GotNullNumber(prPrev_ID) & " WHERE ID = '" & rd("ID") & "' and ITEM_ID = '" & prItem_ID & "' and LOCATION_ID='" & prLocation_ID & "';")
-                        prPrev_ID = GF_NumIsNull(rd("ID"))
-                    End If
-                End While
-                rd.Close()
-            End If
+            '        Else
+            '            ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY")) + GF_NumIsNull(rd("QUANTITY"))
+            '            SqlExecuted("UPDATE item_inventory SET ENDING_COST='" & GF_NumIsNull(rd("ENDING_UNIT_COST")) * ENDING_QUANTITY & "',ENDING_QUANTITY='" & ENDING_QUANTITY & "',PREVIOUS_ID = " & GotNullNumber(prPrev_ID) & " WHERE ID = '" & rd("ID") & "' and ITEM_ID = '" & prItem_ID & "' and LOCATION_ID='" & prLocation_ID & "';")
+            '            prPrev_ID = GF_NumIsNull(rd("ID"))
+            '        End If
+            '    End While
+            '    rd.Close()
+            'End If
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try

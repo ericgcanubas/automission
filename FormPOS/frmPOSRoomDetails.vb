@@ -321,7 +321,7 @@ ON B.ID = II.BATCH_ID
         spJournal.Visible = gsShowAccounts
         tsJournal.Visible = gsShowAccounts
         cmbACCOUNTS_RECEIVABLE_ID.Visible = gsShowAccounts
-        fcolumnGrid_U_Invoice(dgvProductItem)
+        GS_ColumnGrid_U_Invoice(dgvProductItem)
         dgvProductItem.Columns("CODE").Visible = False
         dgvProductItem.Columns("UM").Visible = False
         dgvProductItem.Columns("DISCOUNT_TYPE").Visible = False

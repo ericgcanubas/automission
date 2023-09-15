@@ -10,7 +10,7 @@ Public Class FrmReportViewer
 
         CrystalReportViewer1.AllowedExportFormats = formats
 
-
+        gsToolPanelView = False
         If gsToolPanelView = False Then
             'Default
             CrystalReportViewer1.ToolPanelView = ToolPanelViewType.None
@@ -19,9 +19,6 @@ Public Class FrmReportViewer
         End If
 
         gsToolPanelView = True
-        '  fBackGroundImageStyle(Me)
-
-
 
     End Sub
 
@@ -33,7 +30,7 @@ Public Class FrmReportViewer
 
             CrystalReportViewer1.ReportSource = rpt
             CrystalReportViewer1.Refresh()
-            CrystalReportViewer1.Zoom(100)
+            CrystalReportViewer1.Zoom(1)
             Hide_Tab(CrystalReportViewer1)
             If gsSearchRedBox <> "" Then
                 CrystalReportViewer1.SearchForText(gsSearchRedBox)

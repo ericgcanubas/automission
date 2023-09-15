@@ -210,7 +210,7 @@ Public Class FrmPOSmenu
         gsPOS_TYPE_ID = GF_PosMachineTypeMap()
 
         Me.Text = "POS - " & gsSystemName
-        fcolumnGrid_U_SalesReceipt(dgvProductItem)
+        ColumnGrid_U_SalesReceipt(dgvProductItem)
         gsMainWith = Me.Width
         gsMainHeight = Me.Height
         POSComputed()

@@ -16,9 +16,10 @@ Module modEmail
                 mm.Subject = SUBJECT
                 mm.Body = BODY
                 mm.IsBodyHtml = False
-                Dim smtp As New SmtpClient()
-                smtp.Host = "smtp.gmail.com"
-                smtp.EnableSsl = True
+                Dim smtp As New SmtpClient With {
+                    .Host = "smtp.gmail.com",
+                    .EnableSsl = True
+                }
                 Dim NetworkCred As New NetworkCredential($"{gsGmailUsername}@gmail.com", gsGmailPassword)
                 smtp.UseDefaultCredentials = True
                 smtp.Credentials = NetworkCred
@@ -63,9 +64,10 @@ Module modEmail
             Using mm As New MailMessage($"{gsGmailUsername}@gmail.com", EMAIL)
                 mm.Subject = SUBJECT
                 mm.IsBodyHtml = True
-                Dim smtp As New SmtpClient()
-                smtp.Host = "smtp.gmail.com"
-                smtp.EnableSsl = True
+                Dim smtp As New SmtpClient With {
+                    .Host = "smtp.gmail.com",
+                    .EnableSsl = True
+                }
                 Dim NetworkCred As New NetworkCredential($"{gsGmailUsername}@gmail.com", gsGmailPassword)
                 smtp.UseDefaultCredentials = True
                 smtp.Credentials = NetworkCred

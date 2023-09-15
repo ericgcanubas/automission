@@ -43,7 +43,7 @@ Public Class FrmStockReceived
     Private Sub InventorySetUpdate()
         For I As Integer = 0 To dgvStock.Rows.Count - 1
             With dgvStock.Rows(I)
-                fUpdateItemInventory_AccountJournalCost(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ID").Value, 28, 97)
+                GS_UpdateItemInventory_AccountJournalCost(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ID").Value, 28, 97)
             End With
         Next
     End Sub
@@ -404,8 +404,8 @@ Public Class FrmStockReceived
                         .Cells("ID").Value = i_ID
 
                         'INVENTORY ITEM
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value) * -1, GF_NumIsNull(.Cells("UNIT_COST").Value), 28, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value), GF_NumIsNull(.Cells("UNIT_COST").Value), 28, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value) * -1, GF_NumIsNull(.Cells("UNIT_COST").Value), 28, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value), GF_NumIsNull(.Cells("UNIT_COST").Value), 28, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
 
                         If gsSkipJournalEntry = False Then
                             'Location
@@ -424,8 +424,8 @@ Public Class FrmStockReceived
                             GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                         End If
 
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value) * -1, GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value), GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value) * -1, GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value), GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
 
                     Case "D"
                         SqlExecuted("DELETE FROM stock_received_items  WHERE ID='" & Val(.Cells(0).Value) & "' and Stock_received_ID = '" & ID & "' limit 1;")
@@ -448,24 +448,24 @@ Public Class FrmStockReceived
 
 
 
-        For i As Integer = 0 To dgvStock.Rows.Count - 1
-            With dgvStock.Rows(i)
-                If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
-                ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
-                    .Cells("CONTROL_STATUS").Value = "S"
-                ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
-                    If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
-                    End If
-                    .Cells("CONTROL_STATUS").Value = "S"
-                End If
-            End With
-        Next
+        'For i As Integer = 0 To dgvStock.Rows.Count - 1
+        '    With dgvStock.Rows(i)
+        '        If .Cells("CONTROL_STATUS").Value = "D" Then
+        '            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+        '            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
+        '        ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
+        '            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+        '            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
+        '            .Cells("CONTROL_STATUS").Value = "S"
+        '        ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
+        '            If Date.Now.Date <> dtpDATE.Value Then
+        '                fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+        '                fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
+        '            End If
+        '            .Cells("CONTROL_STATUS").Value = "S"
+        '        End If
+        '    End With
+        'Next
 
 
 

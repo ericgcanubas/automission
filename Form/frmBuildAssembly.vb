@@ -154,7 +154,7 @@ Public Class FrmBuildAssembly
                 i_AMOUNT = rd("COST")
                 GetItemApplied(rd("ITEM_ID"), i_NEEDED, i_AMOUNT, i_ASSET_ACCOUNT_ID, i_ID)
 
-                I_ON_HAND = Val(fItemInventoryReturnValue(rd("ITEM_ID"), cmbLOCATION_ID.SelectedValue, 19, i_ID, dtpDATE.Value, "ENDING_QUANTITY"))
+                I_ON_HAND = Val(GF_ItemInventoryReturnValue(rd("ITEM_ID"), cmbLOCATION_ID.SelectedValue, 19, i_ID, dtpDATE.Value, "ENDING_QUANTITY"))
                 If i_ASSET_ACCOUNT_ID = "" Then
 
                     i_ASSET_ACCOUNT_ID = GF_NumIsNull(rd("ASSET_ACCOUNT_ID"))
@@ -336,7 +336,7 @@ Public Class FrmBuildAssembly
 
 
         'INVENTORY ITEM
-        fItem_Inventory_SQL(cmbASSEMBLY_ITEM_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, numQUANTITY.Value, 0, 19, GF_NumIsNull(ID), dtpDATE.Value, GF_NumIsNull(cmbBATCH_ID.SelectedValue))
+        GS_Item_Inventory_SQL(cmbASSEMBLY_ITEM_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, numQUANTITY.Value, 0, 19, GF_NumIsNull(ID), dtpDATE.Value, GF_NumIsNull(cmbBATCH_ID.SelectedValue))
 
         '===========================================
         If gsSkipJournalEntry = False Then
@@ -390,7 +390,7 @@ Public Class FrmBuildAssembly
                         If xID <> "" Then
                             SqlExecuted("DELETE FROM `build_assembly_items` where  ID = '" & xID & "' limit 1 ")
                             GS_ItemInventoryRemove(19, xID, dtpDATE.Value, GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
-                            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                            'fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                             If gsSkipJournalEntry = False Then
                                 GS_AccountJournalDelete(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 71, GF_NumIsNull(xID), dtpDATE.Value)
                             End If
@@ -421,7 +421,7 @@ Public Class FrmBuildAssembly
                         'MISSING FUNCTION
                         SqlExecuted($"UPDATE `build_assembly_items` set QUANTITY = '" & GF_NumIsNull(.Cells("QTY_NEEDED").Value) & "',AMOUNT='" & .Cells("AMOUNT").Value & "',ASSET_ACCOUNT_ID = " & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & " where  id = '" & xID & "' and  build_assembly_id = '" & ID & "' and item_Id = '" & .Cells("item_ID").Value & "' limit 1;")
                         'INVENTORY ITEM
-                        fItem_Inventory_SQL(.Cells("item_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("QTY_NEEDED").Value * -1, 0, 19, GF_NumIsNull(xID), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(.Cells("item_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("QTY_NEEDED").Value * -1, 0, 19, GF_NumIsNull(xID), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
                         '===========================================
                         If gsSkipJournalEntry = False Then
                             GS_AccountJournalExecute(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("item_ID").Value), 71, GF_NumIsNull(xID), dtpDATE.Value, 1, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
@@ -436,7 +436,7 @@ Public Class FrmBuildAssembly
                         Dim i_ID As Double = ObjectTypeMapId("build_assembly_items")
                         SqlExecuted("INSERT INTO `build_assembly_items` SET  ID ='" & i_ID & "', build_assembly_id = '" & ID & "',item_Id = '" & .Cells("item_ID").Value & "', QUANTITY = '" & .Cells("QTY_NEEDED").Value & "',AMOUNT='" & .Cells("AMOUNT").Value & "',ASSET_ACCOUNT_ID = " & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & ";")
                         'INVENTORY ITEM
-                        fItem_Inventory_SQL(.Cells("item_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QTY_NEEDED").Value) * -1, 0, 19, GF_NumIsNull(i_ID), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        GS_Item_Inventory_SQL(.Cells("item_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QTY_NEEDED").Value) * -1, 0, 19, GF_NumIsNull(i_ID), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
                         '===========================================
                         If gsSkipJournalEntry = False Then
                             GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("item_ID").Value, 71, GF_NumIsNull(i_ID), dtpDATE.Value, 1, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
@@ -535,7 +535,7 @@ Public Class FrmBuildAssembly
                         If xID <> "" Then
                             SqlExecuted("DELETE FROM `build_assembly_items` where  ID = '" & xID & "' limit 1 ")
                             GS_ItemInventoryRemove(19, xID, dtpDATE.Value, GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
-                            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                            'fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                             If gsSkipJournalEntry = False Then
                                 GS_AccountJournalDelete(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 71, GF_NumIsNull(xID), dtpDATE.Value)
                             End If

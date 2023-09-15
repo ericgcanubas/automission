@@ -4,7 +4,7 @@ Module modAddInventory
 
         Dim Unit_Name As String = GF_GetStringFieldValue("unit_of_measure", "ID", prUNIT_ID, "NAME")
         Dim Batch_NO As String = GF_GetStringFieldValue("item_batches", "id", prBATCH_ID, "BATCH_NO")
-        Dim dCurrent_Qty As Double = Val(fItemInventoryReturnValue(prItem_ID, prLocation_ID, 6, 0, prDate, "ENDING_QUANTITY"))
+        Dim dCurrent_Qty As Double = Val(GF_ItemInventoryReturnValue(prItem_ID, prLocation_ID, 6, 0, prDate, "ENDING_QUANTITY"))
         Dim prNew_Qty As Double = InQty * prUNIT_BASE_QUANTITY
         Dim dQty_Diff As Integer = InQty - dCurrent_Qty
         Dim iAsset_Account_ID As Integer = 0

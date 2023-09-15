@@ -746,8 +746,8 @@ Public Class FrmItemDetails
     End Sub
     Private Sub GeneralRefresh()
         bFirstLoad = True
-        Dim tmp_sc As Integer = GF_GetNumberFieldValue("item", "id", ID, "sub_class_id")
-        Dim tmp_c As Integer = GF_GetNumberFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
+        Dim tmp_sc As Integer = gsDefaultItemSubClassId
+        Dim tmp_c As Integer = gsDefaultItemClassId
         If IsNew = False Then
             RefreshForm()
             Me.Text = "Update Item"
@@ -1505,7 +1505,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
 
             GetInsertSQL(SQL_Field, SQL_Value)
-            SqlExecuted($"INSERT INTO contact_group ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
+            SqlExecuted($"INSERT INTO item ({SQL_Field},ID) VALUES ({SQL_Value},'{ID}') ")
             GS_SetNextItemCode(cmbTYPE.SelectedValue, txtCODE.Text)
 
         Else

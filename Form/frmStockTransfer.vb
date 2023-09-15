@@ -42,7 +42,7 @@ Public Class FrmStockTransfer
     Private Sub InventorySetUpdateOnly()
         For I As Integer = 0 To dgvStock.Rows.Count - 1
             With dgvStock.Rows(I)
-                fUpdateItemInventory_AccountJournalCost(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ID").Value, 7, 39)
+                GS_UpdateItemInventory_AccountJournalCost(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ID").Value, 7, 39)
             End With
         Next
     End Sub
@@ -256,6 +256,12 @@ Public Class FrmStockTransfer
 
         Else
 
+
+            If GS_IsInventoryLastEntry(dgvStock, cmbLOCATION_ID.SelectedValue, 7, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
+
             tChangeAccept = True
             GotChangeTransactionToStockTransfer(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbTRANSFER_TO_ID.SelectedValue)
 
@@ -280,6 +286,12 @@ Public Class FrmStockTransfer
 
         End If
 
+        If GF_IsTransactionSuccess(ID, "STOCK_TRANSFER") = False Then
+            MessageBoxWarning("Please try again")
+            Exit Sub
+        End If
+
+
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
@@ -297,12 +309,9 @@ Public Class FrmStockTransfer
         SaveItem()
 
 
-        If GF_IsTransactionSuccess(ID, "STOCK_TRANSFER") = False Then
-            MessageBoxWarning("Please try again")
-            Exit Sub
-        End If
 
-        UpdateItemStatus()
+
+
 
         SaveNotify(Me, IsNew)
         gsGotChangeDate = False
@@ -429,36 +438,13 @@ Public Class FrmStockTransfer
 
 
     End Sub
-    Private Sub UpdateItemStatus()
-
-        For i As Integer = 0 To dgvStock.Rows.Count - 1
-            With dgvStock.Rows(i)
-                If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
-                ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
-                    .Cells("CONTROL_STATUS").Value = "S"
-                ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
-                    If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
-                    End If
-                    .Cells("CONTROL_STATUS").Value = "S"
-                End If
-            End With
-        Next
-
-
-    End Sub
     Private Sub StockTransfer_Inventory(ByVal dgv As DataGridView, ByVal I As Integer)
         Dim SQL_SCRIPT As String = ""
         With dgv.Rows(I)
             Dim QTY_BASE As Integer = GF_NumIsNull(.Cells("UNIT_BASE_QUANTITY").Value)
             Dim QTY_IN As Double = QTY_BASE * GF_NumIsNull(.Cells("QUANTITY").Value)
-            fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, QTY_IN * -1, GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
-            fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, QTY_IN, GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+            GS_Item_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, QTY_IN * -1, GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+            GS_Item_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, QTY_IN, GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
         End With
     End Sub
     Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
@@ -512,6 +498,13 @@ Public Class FrmStockTransfer
             If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
+
+
+            If GS_IsInventoryLastEntry(dgvStock, cmbLOCATION_ID.SelectedValue, 7, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
+
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
                 RefreshInfo()

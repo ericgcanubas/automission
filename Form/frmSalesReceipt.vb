@@ -30,7 +30,7 @@ Public Class FrmSalesReceipt '
 
         tsTITLE.Text = gsSubMenuForm
 
-        fcolumnGrid_U_SalesReceipt(dgvProductItem)
+        ColumnGrid_U_SalesReceipt(dgvProductItem)
         ClearInfo()
 
         If IsNew = False Then
@@ -345,13 +345,17 @@ FROM
 
         Else
 
-            tChangeAccept = True
-            GS_CursorLoadingOn(True)
-            SqlExecuted("UPDATE sales_receipt SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "'")
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
-        End If
+            If GS_IsInventoryLastEntry(dgvProductItem, cmbLOCATION_ID.SelectedValue, 13, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
 
-        If GF_IsTransactionSuccess(ID, "SALES_RECEIPT") = False Then
+            tChangeAccept = True
+                GS_CursorLoadingOn(True)
+                SqlExecuted("UPDATE sales_receipt SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "'")
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            End If
+
+            If GF_IsTransactionSuccess(ID, "SALES_RECEIPT") = False Then
             GS_CursorLoadingOn(False)
             MessageBoxWarning("Please try again")
             Exit Sub
@@ -532,6 +536,11 @@ FROM
             If IsClosingDate(dtpDATE.Value, IsNew) = False Then
                 Exit Sub
             End If
+
+            If GS_IsInventoryLastEntry(dgvProductItem, cmbLOCATION_ID.SelectedValue, 13, dtpDATE.Value) = False Then
+                Exit Sub
+            End If
+
 
             If CheckHasChange() = True Then
                 If MessageBoxQuestion(gsMessageCheckEdit) = True Then

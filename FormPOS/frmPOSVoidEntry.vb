@@ -86,7 +86,7 @@ Public Class FrmPOSVoidEntry
                     Dim rd_item As OdbcDataReader = SqlReader($"select s.id,s.item_id,i.type,i.GL_ACCOUNT_ID,i.COGS_ACCOUNT_ID,i.ASSET_ACCOUNT_ID from sales_receipt_items as s inner join item as i on i.id = s.item_id where sales_receipt_id = '{ThisID}' limit 1;")
                     While rd_item.Read
                         RemoveMoreReference(rd_item("type"), rd_item("id"), ThisDate, rd_item("item_id"), gsDefault_LOCATION_ID, GF_NumIsNull(rd_item("GL_ACCOUNT_ID")), GF_NumIsNull(rd_item("ASSET_ACCOUNT_ID")), GF_NumIsNull(rd_item("COGS_ACCOUNT_ID")))
-                        ReCalculateInventory(GF_NumIsNull(rd_item("ITEM_ID")), gsDefault_LOCATION_ID, ThisDate.AddDays(-1))
+                        'ReCalculateInventory(GF_NumIsNull(rd_item("ITEM_ID")), gsDefault_LOCATION_ID, ThisDate.AddDays(-1))
 
                     End While
                     rd_item.Close()

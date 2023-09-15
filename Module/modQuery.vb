@@ -39,38 +39,8 @@ Module modQuery
             End With
         Next
 
-        InvoiceItemCalculate(dgvProductItem, cmbLOCATION_ID, dtpDATE)
     End Sub
-    Private Sub InvoiceItemCalculate(ByVal dgvProductItem As DataGridView, ByVal cmbLOCATION_ID As ComboBox, ByVal dtpDATE As DateTimePicker)
-        Dim LAST_SO As Integer = 0
-        For N As Integer = 0 To dgvProductItem.Rows.Count - 1
-            With dgvProductItem.Rows(N)
-                If GF_NumIsNull(.Cells("REF_LINE_ID").Value) <> 0 Then
 
-                    Dim SO_ID As Integer = GF_GetNumberFieldValue("sales_order_items", "id", GF_NumIsNull(.Cells("REF_LINE_ID").Value), "SALES_ORDER_ID")
-                    If LAST_SO <> SO_ID Then
-                        CheckStatusSalesOrder(SO_ID, cmbLOCATION_ID)
-                    End If
-
-                    LAST_SO = SO_ID
-                End If
-
-                If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    .Cells("CONTROL_STATUS").Value = "S"
-                ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
-                    If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    End If
-                    .Cells("CONTROL_STATUS").Value = "S"
-                End If
-
-
-            End With
-        Next
-    End Sub
     Private Sub CheckStatusSalesOrder(ByVal THIS_SO_ID As Integer, ByVal cmbLOCATION_ID As ComboBox)
         Dim rd As OdbcDataReader = SqlReader($"select  * from sales_order_items Where SALES_ORDER_ID = '{THIS_SO_ID}' and `CLOSED` = '1' limit 1;")
         Dim E As Integer
@@ -137,27 +107,11 @@ Module modQuery
             End With
         Next
 
-        SalesReceiptItemCalculate(dgvProductItem, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+
 
     End Sub
 
-    Private Sub SalesReceiptItemCalculate(ByVal dgvProductItem As DataGridView, ByVal LOC_ID As Integer, ByVal DT As Date)
-        For i As Integer = 0 To dgvProductItem.Rows.Count - 1
-            With dgvProductItem.Rows(i)
-                If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
-                ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
-                    .Cells("CONTROL_STATUS").Value = "S"
-                ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
-                    If Date.Now.Date <> DT Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
-                    End If
-                    .Cells("CONTROL_STATUS").Value = "S"
-                End If
-            End With
-        Next
-    End Sub
+
     Public Sub EnterToTabHandle(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
 

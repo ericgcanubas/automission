@@ -1054,7 +1054,7 @@ FROM
 
     End Sub
     Private Sub ColumnGridInvoice()
-        fcolumnGrid_U_Invoice(dgvProductItem)
+        GS_ColumnGrid_U_Invoice(dgvProductItem)
     End Sub
     Private Sub Hide_Standard_Column()
         With dgvProductItem
@@ -1077,7 +1077,7 @@ FROM
         End With
     End Sub
     Private Sub ColumnGrid_Sales_order()
-        fcolumnGrid_U_SalesOrder(dgvProductItem)
+        GS_ColumnGrid_U_SalesOrder(dgvProductItem)
 
     End Sub
     Private Sub TsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click

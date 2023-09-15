@@ -26,7 +26,7 @@ Public Class FrmSalesOrder
     Private Sub FrmSalesOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         tsTITLE.Text = gsSubMenuForm
 
-        fcolumnGrid_U_SalesOrder(dgvProductItem)
+        GS_ColumnGrid_U_SalesOrder(dgvProductItem)
         ClearInfo()
         If IsNew = False Then
             RefreshInfo()

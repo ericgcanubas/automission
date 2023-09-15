@@ -545,7 +545,7 @@ WHERE  EXISTS
         End If
         '================================
 
-        fPaymentSaving(dgvInvoice, ID, False, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbCUSTOMER_ID.SelectedValue)
+        GS_PaymentSaving(dgvInvoice, ID, False, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbCUSTOMER_ID.SelectedValue)
 
         If GF_IsTransactionSuccess(ID, "PAYMENT") = False Then
             MessageBoxWarning("Please try again")
@@ -697,7 +697,7 @@ WHERE  EXISTS
                         End With
                     Next
 
-                    fPaymentSaving(dgvInvoice, ID, False, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbCUSTOMER_ID.SelectedValue)
+                    GS_PaymentSaving(dgvInvoice, ID, False, cmbLOCATION_ID.SelectedValue, dtpDATE.Value, cmbCUSTOMER_ID.SelectedValue)
 
                     '===========================================
                     If gsSkipJournalEntry = False Then

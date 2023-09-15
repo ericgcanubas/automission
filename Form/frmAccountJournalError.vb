@@ -95,7 +95,7 @@ GROUP BY m.`Type`,m.date,m.code,m.contact_id,a.location_id,m.notes,m.contact_nam
     Private Sub DgvCLASS_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCLASS.CellDoubleClick
         Dim ref As String = dgvCLASS.Rows(e.RowIndex).Cells(2).Value
         FrmMainMenu.txtSearch.Text = ref
-        FrmMainMenu.fQuickSearch()
+        FrmMainMenu.FQuickSearch()
 
     End Sub
 End Class
