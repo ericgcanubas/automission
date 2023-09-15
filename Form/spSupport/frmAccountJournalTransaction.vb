@@ -11,7 +11,7 @@ Public Class frmAccountJournalTransaction
 
     Private Sub FrmAccountJournalTransaction_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        type_name = GetStringFieldValue("object_type_map", "ID", gsObject_Type, "Name")
+        type_name = GF_GetStringFieldValue("object_type_map", "ID", gsObject_Type, "Name")
         DBAccessComboBoxLoad(cmbPageFormat, "select [file_name],[print_title] from tblprint Where [form_name] ='" & Me.Name & "' order by [print_default] desc ", "file_name", "print_title")
 
     End Sub
@@ -20,7 +20,7 @@ Public Class frmAccountJournalTransaction
         Try
             Dim rd As OdbcDataReader = SqlReader($"SELECT  a.JOURNAL_NO  FROM account_journal AS a WHERE a.object_type = '{gsObject_Type}' AND a.object_id ='{ID}' AND a.account_id ='{gsAccount_Id}'   LIMIT 1")
             If rd.Read Then
-                journal_no = NumIsNull(rd("JOURNAL_NO"))
+                journal_no = GF_NumIsNull(rd("JOURNAL_NO"))
                 gsReportFileName = prFile
                 gsReportName = prTitle & " " & type_name
                 gsReportTabName = "Journal (" & journal_no & ")"
@@ -40,7 +40,7 @@ Public Class frmAccountJournalTransaction
     End Sub
     Private Sub BtnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
         Me.Close()
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         JournalAccountProccess(cmbPageFormat.SelectedValue, cmbPageFormat.Text)
         If journal_no <> 0 Then
 
@@ -55,13 +55,13 @@ Public Class frmAccountJournalTransaction
         Else
             MessageBoxWarning("Journal not found.")
         End If
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
 
     End Sub
 
     Private Sub BtnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         Me.Close()
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         JournalAccountProccess(cmbPageFormat.SelectedValue, cmbPageFormat.Text)
         If journal_no <> 0 Then
             gscryRpt.PrintToPrinter(1, False, 0, 0)
@@ -69,7 +69,7 @@ Public Class frmAccountJournalTransaction
             MessageBoxWarning("Journal not found.")
         End If
 
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
     End Sub
 
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

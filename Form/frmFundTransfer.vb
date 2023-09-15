@@ -39,24 +39,24 @@ Public Class FrmFundTransfer
 
     End Sub
     Private Sub RefreshComboBox()
-        ComboBoxLoad(cmbTO_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '2','3','4','6','7','8','9')", "ID", "BANK")
+        GS_ComboBoxLoad(cmbTO_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '2','3','4','6','7','8','9')", "ID", "BANK")
 
-        ComboBoxLoad(cmbFROM_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '2','3','4','6','7','8','9')", "ID", "BANK")
+        GS_ComboBoxLoad(cmbFROM_ACCOUNT_ID, "SELECT a.ID,CONCAT(a.`NAME`, ' / ', atm.`DESCRIPTION`) AS `BANK`  FROM account AS a INNER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` WHERE a.`type` IN ('0', '2','3','4','6','7','8','9')", "ID", "BANK")
 
-        ComboBoxLoad(cmbFROM_LOCATION_ID, "Select * from location", "ID", "NAME")
-
-
-        ComboBoxLoad(cmbFROM_NAME_ID, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `NAMES` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "NAMES")
-        ComboBoxLoad(cmbTO_NAME_ID, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `NAMES` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "NAMES")
+        GS_ComboBoxLoad(cmbFROM_LOCATION_ID, "Select * from location", "ID", "NAME")
 
 
-        ComboBoxLoad(cmbCLASS_ID, "Select ID,NAME from CLASS", "ID", "NAME")
+        GS_ComboBoxLoad(cmbFROM_NAME_ID, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `NAMES` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "NAMES")
+        GS_ComboBoxLoad(cmbTO_NAME_ID, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `NAMES` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "NAMES")
+
+
+        GS_ComboBoxLoad(cmbCLASS_ID, "Select ID,NAME from CLASS", "ID", "NAME")
         SetToLocation()
     End Sub
     Private Sub SetToLocation()
         Try
 
-            ComboBoxLoad(cmbTO_LOCATION_ID, "Select * from location where ID <> '" & cmbFROM_LOCATION_ID.SelectedValue & "' ", "ID", "NAME")
+            GS_ComboBoxLoad(cmbTO_LOCATION_ID, "Select * from location where ID <> '" & cmbFROM_LOCATION_ID.SelectedValue & "' ", "ID", "NAME")
 
         Catch ex As Exception
 
@@ -126,7 +126,7 @@ Public Class FrmFundTransfer
 
 
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("FUND_TRANSFER", cmbFROM_LOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("FUND_TRANSFER", cmbFROM_LOCATION_ID.SelectedValue)
             End If
 
             lblINTER_LOCATION_ACCOUNT_ID.Text = gsINTER_LOCATION_ACCOUNT_ID
@@ -146,7 +146,7 @@ Public Class FrmFundTransfer
             SqlExecuted($"INSERT INTO bill ({SQL_Field0},{SQL_Field1},{SQL_Field2},ID,RECORDED_ON) VALUES ({SQL_Value0},{SQL_Value1},{SQL_Value2},{ID},'{GetDateTimeNowSql()}') ")
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, GF_NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
             PrompNotify(Me.Text, SaveMsg, True)
 
         Else
@@ -154,7 +154,7 @@ Public Class FrmFundTransfer
             Dim squery As String = SqlUpdate(Me) & "," & SqlUpdate(GroupBox1) & "," & SqlUpdate(GroupBox2)
             SqlExecuted("UPDATE `fund_transfer` SET " & squery & " WHERE ID = '" & ID & "'")
             PrompNotify(Me.Text, UpdateMsg, True)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbFROM_NAME_ID.SelectedValue, cmbFROM_ACCOUNT_ID.SelectedValue, GF_NumIsNull(numAMOUNT.Value), cmbFROM_LOCATION_ID.SelectedValue)
         End If
 
         If GF_IsTransactionSuccess(ID, "FUND_TRANSFER") = False Then
@@ -252,7 +252,7 @@ Public Class FrmFundTransfer
             End If
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
-                CursorLoadingOn(True)
+                GS_CursorLoadingOn(True)
                 If gsSkipJournalEntry = False Then
                     fJournalAccountRemoveFixed_Account_ID(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), 93, ID, dtpDATE.Value, cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue)
                     fJournalAccountRemoveFixed_Account_ID(cmbFROM_ACCOUNT_ID.SelectedValue, 93, ID, dtpDATE.Value, cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue)
@@ -265,7 +265,7 @@ Public Class FrmFundTransfer
                 ClearInfo()
                 ID = 0
                 IsNew = True
-                CursorLoadingOn(False)
+                GS_CursorLoadingOn(False)
             End If
         End If
     End Sub

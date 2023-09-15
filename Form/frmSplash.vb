@@ -40,10 +40,10 @@ Public Class FrmSplash
                 ImgListAddMore(imglist, rd("sub_id"), ImagePath)
             End While
             rd.Close()
-            ImgListAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "1", "description"), "\image\menu\customer.png")
-            ImgListAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "2", "description"), "\image\menu\vendor.png")
-            ImgListAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "3", "description"), "\image\menu\company.png")
-            ImgListAddMore(imglist, GetStringFieldValue("tblmenu", "menu_id", "4", "description"), "\image\menu\banking.png")
+            ImgListAddMore(imglist, GF_GetStringFieldValue("tblmenu", "menu_id", "1", "description"), "\image\menu\customer.png")
+            ImgListAddMore(imglist, GF_GetStringFieldValue("tblmenu", "menu_id", "2", "description"), "\image\menu\vendor.png")
+            ImgListAddMore(imglist, GF_GetStringFieldValue("tblmenu", "menu_id", "3", "description"), "\image\menu\company.png")
+            ImgListAddMore(imglist, GF_GetStringFieldValue("tblmenu", "menu_id", "4", "description"), "\image\menu\banking.png")
 
             ImgListAddMore(imglist, "Reports", "\image\menu\reports.png")
             ImgListAddMore(imglist, "print", "\image\sub\print-icon.png")
@@ -89,7 +89,7 @@ Public Class FrmSplash
         For R_number = 0 To F_number
             pbLoadingBar.Value = R_number
             GS_DoEvents()
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             ' GF_Sleep(50)
 
 
@@ -153,8 +153,8 @@ Public Class FrmSplash
 
                 gsDRAWER_ACCOUNT_ID = GetDrawerAccount()
 
-                gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
-                gsPOS_TYPE_ID = fPOS_machine_type_map()
+                gsPOS_MACHINE_ID = GF_GetPosMachineId()
+                gsPOS_TYPE_ID = GF_PosMachineTypeMap()
 
                 If gsPOS_Mode = False Then
                     LoadSubMenuTypeItem()
@@ -222,7 +222,7 @@ Public Class FrmSplash
         pbLoadingBar.Visible = False
         lblinitialization.Visible = False
         CloseDateRunLoad()
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
 
         FrmLogin.ShowDialog()
         If FrmLogin.IsLogin = False Then

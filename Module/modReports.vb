@@ -69,7 +69,7 @@ Module modReports
 
     End Function
     Public Sub GlobalPreviewReport(ByVal prTabname As String)
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         gsReportTabName = prTabname
         gsMenuSubID = "31"
         gsRefresh = True
@@ -93,7 +93,7 @@ Module modReports
 
         TabFormOpen(R, FrmMainMenu.MyTab, img)
 
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
         gsMenuSubID = 0
     End Sub
     Public Sub CryParameterInsertValue(ByRef cryRpt As ReportDocument, ByVal prValue As String, ByVal prName As String)

@@ -46,13 +46,13 @@ Public Class FrmPOSRestoKitchenMonitoring
         While rd.Read
             N = N + 1
             Dim BG As Color
-            If TextIsNull(rd("NOTES")).ToString.Contains("DINE-IN") = True Then
+            If GF_TextIsNull(rd("NOTES")).ToString.Contains("DINE-IN") = True Then
                 BG = Color.NavajoWhite
             Else
                 BG = Color.Yellow
             End If
 
-            fCreateObject(N, rd("ID"), rd("payment_id"), NumIsNull(rd("SHIP_TO")), NumberFormatStandard(rd("AMOUNT_APPLIED")), rd("TIME_LOG"), BG)
+            fCreateObject(N, rd("ID"), rd("payment_id"), GF_NumIsNull(rd("SHIP_TO")), NumberFormatStandard(rd("AMOUNT_APPLIED")), rd("TIME_LOG"), BG)
         End While
         rd.Close()
 
@@ -156,7 +156,7 @@ Public Class FrmPOSRestoKitchenMonitoring
 
         Dim SQL As String = $"Select i.DESCRIPTION As `MENU`,ii.QUANTITY As `QTY`,ii.RATE As `PRICE`,ii.AMOUNT FROM payment_invoices As pn inner join invoice_items As ii On ii.invoice_id = pn.invoice_id inner join item As i On i.id = ii.item_id where ii.print_in_forms = '0' and  pn.payment_id = '{ID}'  "
 
-        LoadDataGridView(prDGV, SQL)
+        GS_LoadDataGridView(prDGV, SQL)
         With prDGV.Columns
             .Item("MENU").Width = 260
 

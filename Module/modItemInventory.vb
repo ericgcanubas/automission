@@ -6,8 +6,8 @@ Module modItemInventory
         Dim rd As OdbcDataReader = SqlReader($"SELECT ID,SOURCE_REF_TYPE,SOURCE_REF_ID,QUANTITY,SOURCE_REF_DATE,COST, ENDING_UNIT_COST from item_inventory WHERE SEQUENCE_NO > '{SEQUENCE_NO}' and LOCATION_ID = '{LOCATION_ID}' and ITEM_ID = '{ITEM_ID}' ORDER BY SEQUENCE_NO")
         While rd.Read
 
-            Dim ENDING_UNIT_COST As Double = NumIsNull(rd("ENDING_UNIT_COST"))
-            ENDING_QUANTITY = ENDING_QUANTITY + NumIsNull(rd("QUANTITY"))
+            Dim ENDING_UNIT_COST As Double = GF_NumIsNull(rd("ENDING_UNIT_COST"))
+            ENDING_QUANTITY = ENDING_QUANTITY + GF_NumIsNull(rd("QUANTITY"))
             Dim ENDING_COST As Double = ENDING_QUANTITY * ENDING_UNIT_COST
 
             SqlExecuted($"UPDATE 
@@ -45,7 +45,7 @@ Module modItemInventory
 
         If rd.Read Then
             'Update
-            fItem_Inventory_Last_Ending_Qty(ITEM_ID, LOCATION_ID, NumIsNull(rd("PREVIOUS_ID")), NumIsNull(rd("SEQUENCE_NO")), SOURCE_REF_DATE, LAST_QTY, LAST_COST)
+            fItem_Inventory_Last_Ending_Qty(ITEM_ID, LOCATION_ID, GF_NumIsNull(rd("PREVIOUS_ID")), GF_NumIsNull(rd("SEQUENCE_NO")), SOURCE_REF_DATE, LAST_QTY, LAST_COST)
             If COST > 0 Then
                 LAST_COST = COST
             End If
@@ -73,7 +73,7 @@ Module modItemInventory
             LImIT 1;")
 
             '============ data ============
-            fFixedInventoryList(ITEM_ID, LOCATION_ID, ENDING_QUANTITY, NumIsNull(rd("SEQUENCE_NO")))
+            fFixedInventoryList(ITEM_ID, LOCATION_ID, ENDING_QUANTITY, GF_NumIsNull(rd("SEQUENCE_NO")))
 
         Else
 
@@ -119,8 +119,8 @@ Module modItemInventory
         'INSERT PURPOSE
         Dim rd As OdbcDataReader = SqlReader($"select * from item_inventory where ITEM_ID = '{ITEM_ID}' and LOCATION_ID = '{LOCATION_ID}' order by ID DESC limit 1; ")
         If rd.Read Then
-            R_PREVIOUS_ID = NumIsNull(rd("PREVIOUS_ID"))
-            R_SEQUENCE_NO = NumIsNull(rd("SEQUENCE_NO")) + 1
+            R_PREVIOUS_ID = GF_NumIsNull(rd("PREVIOUS_ID"))
+            R_SEQUENCE_NO = GF_NumIsNull(rd("SEQUENCE_NO")) + 1
         Else
             R_PREVIOUS_ID = 0
             R_SEQUENCE_NO = 0
@@ -137,8 +137,8 @@ Module modItemInventory
         End If
         Dim rd As OdbcDataReader = SqlReader(SQL)
         If rd.Read Then
-            ENDING_QUANTITY = NumIsNull(rd("ENDING_QUANTITY"))
-            ENDING_UNIT_COST = NumIsNull(rd("COST"))
+            ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY"))
+            ENDING_UNIT_COST = GF_NumIsNull(rd("COST"))
         End If
         rd.Close()
     End Sub

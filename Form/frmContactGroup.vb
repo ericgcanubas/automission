@@ -19,7 +19,7 @@
     End Sub
     Private Sub RefreshData()
 
-        LoadDataGridViewBinding(dgvContactGroup, "SELECT cg.ID,cg.`Code`,cg.`Description`, cm.`DESCRIPTION` AS `Type` FROM contact_group AS cg INNER JOIN contact_type_map AS cm ON cm.`ID` = cg.`TYPE`", item_BS)
+        GS_LoadDataGridViewBinding(dgvContactGroup, "SELECT cg.ID,cg.`Code`,cg.`Description`, cm.`DESCRIPTION` AS `Type` FROM contact_group AS cg INNER JOIN contact_type_map AS cm ON cm.`ID` = cg.`TYPE`", item_BS)
         With dgvContactGroup.Columns
             .Item(0).Visible = False
         End With

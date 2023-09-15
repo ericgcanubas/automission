@@ -10,7 +10,7 @@ Module modInvoiceTax
 
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_WITHHELD)  as P  from `tax_credit_invoices` as cmi inner join tax_credit as c on c.id = cmi.tax_credit_ID where c.Customer_ID = '" & prCustomer_ID & "' and cmi.Invoice_ID = '" & prID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -34,7 +34,7 @@ Module modInvoiceTax
 
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_WITHHELD)  as P  from TAX_CREDIT_invoices as cmi inner join TAX_CREDIT as c on c.id = cmi.TAX_CREDIT_ID where c.Customer_ID = '" & prCustomer_ID & "' and cmi.TAX_CREDIT_ID = '" & prTAX_CREDIT_ID & "' and cmi.Invoice_ID = '" & prInvoice_ID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -53,7 +53,7 @@ Module modInvoiceTax
         Try
             Dim rd As OdbcDataReader = SqlReader("select sum(AMOUNT_WITHHELD) as P from credit_Tax_invoices where credit_Tax_ID = '" & prTAX_CREDIT_ID & "' and Invoice_ID <> '" & prInvoice_id & "'")
             If rd.Read Then
-                dAmount = NumIsNull(rd("P"))
+                dAmount = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception

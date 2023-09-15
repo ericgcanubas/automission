@@ -5,7 +5,7 @@ Public Class FrmPRAvailable
     Private Sub FrmPRAvailable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ColumnView()
-        ComboBoxLoad(cmbLOCATION_ID, "SELECT ID,NAME FROM LOCATION WHERE INACTIVE='0'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "SELECT ID,NAME FROM LOCATION WHERE INACTIVE='0'", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
 
@@ -13,7 +13,7 @@ Public Class FrmPRAvailable
 
     Private Sub BillingLoad()
 
-        LoadDataGridView(dgvDocument, $"SELECT b.`ID`,b.`Date` ,b.CODE ,c.`Name` AS Vendor,l.NAME AS `From Location` FROM BILL AS b INNER JOIN CONTACT AS c ON c.ID = b.VENDOR_ID INNER JOIN LOCATION AS L ON l.ID = b.LOCATION_ID WHERE b.RECEIVED_LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' and NOT EXISTS(SELECT *  FROM stock_received_items as s inner join bill_items as i on i.id = s.bill_item_id  WHERE i.bill_id = b.ID )")
+        GS_LoadDataGridView(dgvDocument, $"SELECT b.`ID`,b.`Date` ,b.CODE ,c.`Name` AS Vendor,l.NAME AS `From Location` FROM BILL AS b INNER JOIN CONTACT AS c ON c.ID = b.VENDOR_ID INNER JOIN LOCATION AS L ON l.ID = b.LOCATION_ID WHERE b.RECEIVED_LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' and NOT EXISTS(SELECT *  FROM stock_received_items as s inner join bill_items as i on i.id = s.bill_item_id  WHERE i.bill_id = b.ID )")
         dgvDocument.Columns(0).Visible = False
 
         LoadRequest()
@@ -70,7 +70,7 @@ Public Class FrmPRAvailable
 
             Dim rd As OdbcDataReader = SqlReader($"SELECT bl.ID,bl.ITEM_ID,i.CODE,i.PURCHASE_DESCRIPTION,bl.UNIT_ID,bl.UNIT_BASE_QUANTITY,u.SYMBOL,bl.QUANTITY,bl.RATE as `UNIT_COST`,i.RATE as `UNIT_PRICE` from BILL_ITEMS as bl inner join bill as b on b.id = bl.bill_id inner join item as i on i.id = bl.item_Id left outer join unit_of_measure as u on u.id = bl.UNIT_ID Where bl.BILL_ID = '{ID}' and NOT EXISTS (SELECT * FROM stock_received_items as r where  r.Bill_ITEM_ID = b.ID  )")
             While rd.Read
-                dgvStock.Rows.Add(False, rd("ID"), rd("ITEM_ID"), rd("CODE"), rd("PURCHASE_DESCRIPTION"), NumIsNull(rd("UNIT_ID")), NumIsNull(rd("UNIT_BASE_QUANTITY")), TextIsNull(rd("SYMBOL")), NumIsNull(rd("QUANTITY")), NumIsNull(rd("UNIT_COST")), NumIsNull(rd("UNIT_PRICE")))
+                dgvStock.Rows.Add(False, rd("ID"), rd("ITEM_ID"), rd("CODE"), rd("PURCHASE_DESCRIPTION"), GF_NumIsNull(rd("UNIT_ID")), GF_NumIsNull(rd("UNIT_BASE_QUANTITY")), GF_TextIsNull(rd("SYMBOL")), GF_NumIsNull(rd("QUANTITY")), GF_NumIsNull(rd("UNIT_COST")), GF_NumIsNull(rd("UNIT_PRICE")))
             End While
         Catch ex As Exception
 

@@ -1,11 +1,11 @@
 ﻿Public Class FrmCheckingAccountReference
     Private Sub FrmCheckingAccountJournal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbOBJECT, "select * from object_type_map", "ID", "NAME")
+        GS_ComboBoxLoad(cmbOBJECT, "select * from object_type_map", "ID", "NAME")
         cmbOBJECT.SelectedValue = 53
-        ComboBoxLoad(cmbACCOUNT_ID, "select * from Account ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbACCOUNT_ID, "select * from Account ", "ID", "NAME")
         cmbACCOUNT_ID.SelectedValue = 37
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
         dtpDATE1.Value = gsFirstDate
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
@@ -42,7 +42,7 @@ where aj.`ACCOUNT_ID` = '{cmbACCOUNT_ID.SelectedValue}'
   and aj.`OBJECT_DATE` between '{DateFormatMySql(dtpDATE1.Value)}' 
   and '{DateFormatMySql(dtpDATE2.Value)}' "
 
-        LoadDataGridView(dgvList, SQL)
+        GS_LoadDataGridView(dgvList, SQL)
         dgvList.Columns(0).Visible = False
 
     End Sub
@@ -122,8 +122,8 @@ where aj.`ACCOUNT_ID` = '{cmbACCOUNT_ID.SelectedValue}'
         If dgvList.Rows.Count = 0 Then Exit Sub
 
         Dim ID As Integer = dgvList.CurrentRow.Cells(0).Value
-        Dim PREVIOUS_ID As Integer = GetNumberFieldValue("ACCOUNT_JOURNAL", "ID", ID, "PREVIOUS_ID")
-        Dim HOLDER_ID As Integer = GetNumberFieldValue("ACCOUNT_JOURNAL", "PREVIOUS_ID", ID, "ID")
+        Dim PREVIOUS_ID As Integer = GF_GetNumberFieldValue("ACCOUNT_JOURNAL", "ID", ID, "PREVIOUS_ID")
+        Dim HOLDER_ID As Integer = GF_GetNumberFieldValue("ACCOUNT_JOURNAL", "PREVIOUS_ID", ID, "ID")
 
         SqlExecuted($"UPDATE account_journal SET PREVIOUS_ID ='{PREVIOUS_ID}' WHERE `ID` ='{HOLDER_ID}' limit 1;")
         SqlExecuted($"UPDATE account_journal SET PREVIOUS_ID = NULL WHERE `ID` ='{ID}' limit 1;")

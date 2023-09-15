@@ -38,8 +38,8 @@ Public Class FrmEditAdjustmentItem
         Dim DT As Date
         Dim rd As OdbcDataReader = SqlReader($"select SOURCE_REF_DATE,PREVIOUS_ID,SEQUENCE_NO from item_inventory  WHERE source_ref_type='6' AND item_id ='{xITEM_ID}' AND location_id ='{xLocation_ID}' and SOURCE_REF_ID ='{xSOURCE_REF_ID}' limit 1;")
         If rd.Read Then
-            PREV_ID = NumIsNull(rd("PREVIOUS_ID"))
-            SEQ_NO = NumIsNull(rd("SEQUENCE_NO"))
+            PREV_ID = GF_NumIsNull(rd("PREVIOUS_ID"))
+            SEQ_NO = GF_NumIsNull(rd("SEQUENCE_NO"))
             DT = CDate(rd("SOURCE_REF_DATE"))
 
         End If
@@ -66,10 +66,10 @@ Public Class FrmEditAdjustmentItem
 
         Dim rd As OdbcDataReader = SqlReader($"SELECT PREVIOUS_ID,QUANTITY,ENDING_QUANTITY,ENDING_UNIT_COST,ENDING_COST FROM item_inventory WHERE source_ref_type='6' AND item_id ='{aITEM_ID}' AND location_id ='{aLocation_ID}' and SOURCE_REF_ID ='{aSOURCE_REF_ID}'")
         If rd.Read Then
-            PREVIOUS_ID = NumIsNull(rd("PREVIOUS_ID"))
-            END_QUANTITY = NumIsNull(rd("ENDING_QUANTITY"))
-            THIS_QUANTITY = NumIsNull(rd("QUANTITY"))
-            E_U_COST = NumIsNull(rd("ENDING_UNIT_COST"))
+            PREVIOUS_ID = GF_NumIsNull(rd("PREVIOUS_ID"))
+            END_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY"))
+            THIS_QUANTITY = GF_NumIsNull(rd("QUANTITY"))
+            E_U_COST = GF_NumIsNull(rd("ENDING_UNIT_COST"))
 
             numQTY.Value = END_QUANTITY
             numCOST.Value = E_U_COST

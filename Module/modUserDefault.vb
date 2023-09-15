@@ -2,24 +2,24 @@
 Module modUserDefault
 
     Public Function fUserDefaultLocation() As Integer
-        Return GetNumberFieldValue("user_default", "user_id", gsUser_ID, "location_ID")
+        Return GF_GetNumberFieldValue("user_default", "user_id", gsUser_ID, "location_ID")
     End Function
     Public Function fUserDefaultPriceLevel() As Integer
-        Return GetNumberFieldValue("user_default", "user_id", gsUser_ID, "price_level_ID")
+        Return GF_GetNumberFieldValue("user_default", "user_id", gsUser_ID, "price_level_ID")
     End Function
     Public Function fUserDefaulLockNegativePerUser() As Boolean
 
-        Return GetNumberFieldValue("user_default", "user_id", gsUser_ID, "LockNegativePerUser")
+        Return GF_GetNumberFieldValue("user_default", "user_id", gsUser_ID, "LockNegativePerUser")
 
     End Function
     Public Function fUserDefaulDisabled() As Boolean
 
-        Return GetNumberFieldValue("user_default", "user_id", gsUser_ID, "user_disabled")
+        Return GF_GetNumberFieldValue("user_default", "user_id", gsUser_ID, "user_disabled")
 
     End Function
 
     Public Function fUserPriceLock() As Boolean
-        Dim b As Boolean = GetNumberFieldValue("user_default", "user_id", gsUser_ID, "price_lock")
+        Dim b As Boolean = GF_GetNumberFieldValue("user_default", "user_id", gsUser_ID, "price_lock")
         Return IIf(b = True, False, True)
 
     End Function

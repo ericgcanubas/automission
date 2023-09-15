@@ -2093,7 +2093,6 @@ D:\Automission\obj\Debug\Automission.vbproj.SuggestedBindingRedirects.cache
 D:\Automission\obj\Debug\Automission.exe.config
 D:\Automission\obj\Debug\Interop.VBIDE.dll
 D:\Automission\obj\Debug\Automission.vbproj.ResolveComReference.cache
-D:\Automission\obj\Debug\Automission.FrmDataBackUp.resources
 D:\Automission\obj\Debug\Automission.frmCashCountConfirm.resources
 D:\Automission\obj\Debug\Automission.frmPOSCreatePayment.resources
 D:\Automission\obj\Debug\Automission.FrmPOSCreatePaymentMultiMethod.resources

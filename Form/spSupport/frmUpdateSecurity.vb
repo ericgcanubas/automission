@@ -35,9 +35,9 @@ Public Class frmUpdateSecurity
                     Dim rd As OdbcDataReader = SqlReader("select ID,`NAME` from `user` where `Type` = '" & gsUSER_TYPE_ID & "'")
                     While rd.Read
                         user_counting = user_counting + 1
-                        Dim xName As String = TextIsNull(rd("NAME"))
+                        Dim xName As String = GF_TextIsNull(rd("NAME"))
 
-                        fUserSecuritySettingSetUpdateControl(NumIsNull(rd("ID")), gsUSER_TYPE_ID)
+                        fUserSecuritySettingSetUpdateControl(GF_NumIsNull(rd("ID")), gsUSER_TYPE_ID)
                         ProgressBar1.Value = user_counting
                     End While
                     rd.Close()

@@ -24,7 +24,7 @@ Public Class FrmShipViaDetails
         End If
 
         If txtCODE.Text = "" Then
-            txtCODE.Text = Format(Val(GetMaxField("CODE", "ship_via")), "0000")
+            txtCODE.Text = Format(Val(GF_GetMaxField("CODE", "ship_via")), "0000")
         End If
 
 

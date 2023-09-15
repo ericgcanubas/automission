@@ -279,7 +279,7 @@ Partial Class FrmPOSmenu
         Me.tsSaveNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsSaveNew.Image = CType(resources.GetObject("tsSaveNew.Image"), System.Drawing.Image)
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = tsSaveNew.Name
+        Me.tsSaveNew.Name = Me.tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(106, 22)
         Me.tsSaveNew.Text = "Save and New"
         '
@@ -443,8 +443,9 @@ Partial Class FrmPOSmenu
         Me.dgvProductItem.AllowUserToDeleteRows = False
         Me.dgvProductItem.AllowUserToResizeColumns = False
         Me.dgvProductItem.AllowUserToResizeRows = False
-        Me.dgvProductItem.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.dgvProductItem.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvProductItem.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvProductItem.ColumnHeadersHeight = 30
         Me.dgvProductItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
@@ -470,7 +471,8 @@ Partial Class FrmPOSmenu
         '
         'lblAMOUNT
         '
-        Me.lblAMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblAMOUNT.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblAMOUNT.BackColor = System.Drawing.Color.Black
         Me.lblAMOUNT.Font = New System.Drawing.Font("Verdana", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAMOUNT.ForeColor = System.Drawing.Color.Lime
@@ -483,21 +485,25 @@ Partial Class FrmPOSmenu
         '
         'lblOUTPUT_TAX_AMOUNT
         '
-        Me.lblOUTPUT_TAX_AMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblOUTPUT_TAX_AMOUNT.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblOUTPUT_TAX_AMOUNT.BackColor = System.Drawing.Color.Black
         Me.lblOUTPUT_TAX_AMOUNT.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblOUTPUT_TAX_AMOUNT.ForeColor = System.Drawing.Color.GreenYellow
-        Me.lblOUTPUT_TAX_AMOUNT.Location = New System.Drawing.Point(941, 420)
+        Me.lblOUTPUT_TAX_AMOUNT.Location = New System.Drawing.Point(806, 420)
         Me.lblOUTPUT_TAX_AMOUNT.Name = "lblOUTPUT_TAX_AMOUNT"
-        Me.lblOUTPUT_TAX_AMOUNT.Size = New System.Drawing.Size(337, 42)
+        Me.lblOUTPUT_TAX_AMOUNT.Size = New System.Drawing.Size(472, 42)
         Me.lblOUTPUT_TAX_AMOUNT.TabIndex = 99
         Me.lblOUTPUT_TAX_AMOUNT.Text = "99,999.99"
         Me.lblOUTPUT_TAX_AMOUNT.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'tsITEM_MENU_TOOLS
         '
+        Me.tsITEM_MENU_TOOLS.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tsITEM_MENU_TOOLS.AutoSize = False
         Me.tsITEM_MENU_TOOLS.BackColor = System.Drawing.Color.Transparent
+        Me.tsITEM_MENU_TOOLS.Dock = System.Windows.Forms.DockStyle.None
         Me.tsITEM_MENU_TOOLS.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsITEM_MENU_TOOLS.ImageScalingSize = New System.Drawing.Size(32, 32)
         Me.tsITEM_MENU_TOOLS.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TsSaveFile, Me.tsRefresh, Me.tsTax, Me.tsPayment, Me.tsBack, Me.ToolStripSeparator3, Me.tsSalesman, Me.tsBuyer, Me.ToolStripSeparator1})
@@ -579,7 +585,7 @@ Partial Class FrmPOSmenu
         Me.tsSalesman.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSalesman.Name = "tsSalesman"
         Me.tsSalesman.Size = New System.Drawing.Size(84, 54)
-        Me.tsSalesman.Text = "&Salesman"
+        Me.tsSalesman.Text = "Sales&man"
         Me.tsSalesman.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'tsBuyer
@@ -630,7 +636,8 @@ Partial Class FrmPOSmenu
         '
         'xxxxSUB_TOTAL
         '
-        Me.xxxxSUB_TOTAL.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.xxxxSUB_TOTAL.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.xxxxSUB_TOTAL.BackColor = System.Drawing.Color.Black
         Me.xxxxSUB_TOTAL.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.xxxxSUB_TOTAL.ForeColor = System.Drawing.Color.PaleGreen
@@ -666,7 +673,8 @@ Partial Class FrmPOSmenu
         '
         'xlblTax
         '
-        Me.xlblTax.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.xlblTax.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.xlblTax.BackColor = System.Drawing.Color.Black
         Me.xlblTax.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.xlblTax.ForeColor = System.Drawing.Color.GreenYellow
@@ -679,7 +687,8 @@ Partial Class FrmPOSmenu
         '
         'BunifuGradientPanel6
         '
-        Me.BunifuGradientPanel6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BunifuGradientPanel6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BunifuGradientPanel6.BackColor = System.Drawing.Color.Black
         Me.BunifuGradientPanel6.BackgroundImage = CType(resources.GetObject("BunifuGradientPanel6.BackgroundImage"), System.Drawing.Image)
         Me.BunifuGradientPanel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
@@ -715,6 +724,8 @@ Partial Class FrmPOSmenu
         '
         'BunifuGradientPanel5
         '
+        Me.BunifuGradientPanel5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BunifuGradientPanel5.BackColor = System.Drawing.Color.Black
         Me.BunifuGradientPanel5.BackgroundImage = CType(resources.GetObject("BunifuGradientPanel5.BackgroundImage"), System.Drawing.Image)
         Me.BunifuGradientPanel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
@@ -758,7 +769,7 @@ Partial Class FrmPOSmenu
         Me.ToolStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsAdd, Me.tsUpdateItem, Me.tsDeleteItem})
         Me.ToolStrip2.Location = New System.Drawing.Point(0, 3)
         Me.ToolStrip2.Name = "ToolStrip2"
-        Me.ToolStrip2.Size = New System.Drawing.Size(357, 46)
+        Me.ToolStrip2.Size = New System.Drawing.Size(499, 46)
         Me.ToolStrip2.TabIndex = 9
         Me.ToolStrip2.Text = "ToolStrip2"
         '
@@ -779,8 +790,8 @@ Partial Class FrmPOSmenu
         Me.tsUpdateItem.Image = Global.Automission.My.Resources.Resources.l_update
         Me.tsUpdateItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsUpdateItem.Name = "tsUpdateItem"
-        Me.tsUpdateItem.Size = New System.Drawing.Size(97, 43)
-        Me.tsUpdateItem.Text = "&Update"
+        Me.tsUpdateItem.Size = New System.Drawing.Size(137, 43)
+        Me.tsUpdateItem.Text = "&Update Item"
         '
         'tsDeleteItem
         '
@@ -789,8 +800,8 @@ Partial Class FrmPOSmenu
         Me.tsDeleteItem.Image = Global.Automission.My.Resources.Resources.l_delete
         Me.tsDeleteItem.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsDeleteItem.Name = "tsDeleteItem"
-        Me.tsDeleteItem.Size = New System.Drawing.Size(91, 43)
-        Me.tsDeleteItem.Text = "&Delete"
+        Me.tsDeleteItem.Size = New System.Drawing.Size(131, 43)
+        Me.tsDeleteItem.Text = "&Delete Item"
         '
         'cmbCUSTOMER_ID
         '
@@ -863,7 +874,7 @@ Partial Class FrmPOSmenu
         '
         'xlblTender
         '
-        Me.xlblTender.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.xlblTender.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.xlblTender.BackColor = System.Drawing.Color.Transparent
         Me.xlblTender.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.xlblTender.ForeColor = System.Drawing.Color.White
@@ -876,7 +887,8 @@ Partial Class FrmPOSmenu
         '
         'lblPAYMENT_AMOUNT
         '
-        Me.lblPAYMENT_AMOUNT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblPAYMENT_AMOUNT.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblPAYMENT_AMOUNT.BackColor = System.Drawing.Color.Black
         Me.lblPAYMENT_AMOUNT.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblPAYMENT_AMOUNT.Font = New System.Drawing.Font("Verdana", 32.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -903,7 +915,7 @@ Partial Class FrmPOSmenu
         '
         'xlblChange
         '
-        Me.xlblChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.xlblChange.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.xlblChange.BackColor = System.Drawing.Color.Black
         Me.xlblChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.xlblChange.Font = New System.Drawing.Font("Verdana", 32.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -969,7 +981,8 @@ Partial Class FrmPOSmenu
         '
         'xxxlblSUB_TOTAL
         '
-        Me.xxxlblSUB_TOTAL.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.xxxlblSUB_TOTAL.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.xxxlblSUB_TOTAL.BackColor = System.Drawing.Color.Black
         Me.xxxlblSUB_TOTAL.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.xxxlblSUB_TOTAL.ForeColor = System.Drawing.Color.PaleGreen
@@ -1063,9 +1076,9 @@ Partial Class FrmPOSmenu
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(3, 1)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(139, 23)
+        Me.Label2.Size = New System.Drawing.Size(197, 23)
         Me.Label2.TabIndex = 19
-        Me.Label2.Text = "Buyer name"
+        Me.Label2.Text = "Customer Name :"
         '
         'BunifuGradientPanel3
         '
@@ -1098,7 +1111,8 @@ Partial Class FrmPOSmenu
         '
         'BunifuGradientPanel7
         '
-        Me.BunifuGradientPanel7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BunifuGradientPanel7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BunifuGradientPanel7.BackColor = System.Drawing.Color.Black
         Me.BunifuGradientPanel7.BackgroundImage = CType(resources.GetObject("BunifuGradientPanel7.BackgroundImage"), System.Drawing.Image)
         Me.BunifuGradientPanel7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
@@ -1115,7 +1129,7 @@ Partial Class FrmPOSmenu
         '
         'BunifuGradientPanel8
         '
-        Me.BunifuGradientPanel8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.BunifuGradientPanel8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BunifuGradientPanel8.BackColor = System.Drawing.Color.Black
         Me.BunifuGradientPanel8.BackgroundImage = CType(resources.GetObject("BunifuGradientPanel8.BackgroundImage"), System.Drawing.Image)
         Me.BunifuGradientPanel8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
@@ -1130,7 +1144,7 @@ Partial Class FrmPOSmenu
         Me.BunifuGradientPanel8.Size = New System.Drawing.Size(381, 26)
         Me.BunifuGradientPanel8.TabIndex = 165
         '
-        'frmPOSmenu
+        'FrmPOSmenu
         '
         Me.AccessibleName = "7"
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1185,7 +1199,7 @@ Partial Class FrmPOSmenu
         Me.Controls.Add(Me.xxxxSUB_TOTAL)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Name = "frmPOSmenu"
+        Me.Name = "FrmPOSmenu"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Point Of Sales"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

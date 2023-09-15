@@ -28,41 +28,41 @@ Public Class FrmPOSLogDetails
         Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM `POS_LOG` WHERE ID = '{gsID}' limit 1;")
 
         If rd.Read Then
-            POS_STARTING_CASH_ID = NumIsNull(rd("STARTING_CASH_ID"))
-            POS_CASH_COUNT_ID = NumIsNull(rd("CASH_COUNT_ID"))
+            POS_STARTING_CASH_ID = GF_NumIsNull(rd("STARTING_CASH_ID"))
+            POS_CASH_COUNT_ID = GF_NumIsNull(rd("CASH_COUNT_ID"))
 
-            xlblRecorded_on1.Text = TextIsNull(rd("RECORDED_ON"))
+            xlblRecorded_on1.Text = GF_TextIsNull(rd("RECORDED_ON"))
             ThisLocationID = rd("LOCATION_ID")
-            lblLOG_LOCATION.Text = GetStringFieldValue("LOCATION", "ID", ThisLocationID, "NAME")
-            lblPOS_MACHINE.Text = GetStringFieldValue("POS_MACHINE", "ID", rd("POS_MACHINE_ID"), "NAME")
-            lblLOG_CASHIER.Text = GetStringFieldValue("CONTACT", "ID", rd("CASHIER_ID"), "NAME")
+            lblLOG_LOCATION.Text = GF_GetStringFieldValue("LOCATION", "ID", ThisLocationID, "NAME")
+            lblPOS_MACHINE.Text = GF_GetStringFieldValue("POS_MACHINE", "ID", rd("POS_MACHINE_ID"), "NAME")
+            lblLOG_CASHIER.Text = GF_GetStringFieldValue("CONTACT", "ID", rd("CASHIER_ID"), "NAME")
 
-            numLOG_DISCOUNT.Value = NumIsNull(rd("DISCOUNT"))
-            numLOG_RETURN.Value = NumIsNull(rd("RETURN"))
-            numLOG_COUPON.Value = NumIsNull(rd("COUPON"))
-            numLOG_GIFT_CERT.Value = NumIsNull(rd("GIFT_CERT"))
-            numLOG_TRADE_IN.Value = NumIsNull(rd("TRADE_IN"))
-            numLOG_VOID.Value = NumIsNull(rd("VOID"))
+            numLOG_DISCOUNT.Value = GF_NumIsNull(rd("DISCOUNT"))
+            numLOG_RETURN.Value = GF_NumIsNull(rd("RETURN"))
+            numLOG_COUPON.Value = GF_NumIsNull(rd("COUPON"))
+            numLOG_GIFT_CERT.Value = GF_NumIsNull(rd("GIFT_CERT"))
+            numLOG_TRADE_IN.Value = GF_NumIsNull(rd("TRADE_IN"))
+            numLOG_VOID.Value = GF_NumIsNull(rd("VOID"))
 
-            numLOG_CASH.Value = NumIsNull(rd("CASH"))
-            numLOG_CHECK.Value = NumIsNull(rd("CHECK"))
-            numLOG_AMEX.Value = NumIsNull(rd("AMEX"))
-            numLOG_DISCOVER.Value = NumIsNull(rd("DISCOVER"))
-            numLOG_MASTER_CARD.Value = NumIsNull(rd("MASTER_CARD"))
-            numLOG_VISA.Value = NumIsNull(rd("VISA"))
+            numLOG_CASH.Value = GF_NumIsNull(rd("CASH"))
+            numLOG_CHECK.Value = GF_NumIsNull(rd("CHECK"))
+            numLOG_AMEX.Value = GF_NumIsNull(rd("AMEX"))
+            numLOG_DISCOVER.Value = GF_NumIsNull(rd("DISCOVER"))
+            numLOG_MASTER_CARD.Value = GF_NumIsNull(rd("MASTER_CARD"))
+            numLOG_VISA.Value = GF_NumIsNull(rd("VISA"))
 
-            numLOG_DINNERS.Value = NumIsNull(rd("DINNERS"))
-            numLOG_JCB.Value = NumIsNull(rd("JCB"))
-            numLOG_OTHER_CARD.Value = NumIsNull(rd("OTHER_CARD"))
-            numLOG_PAIDIN.Value = NumIsNull(rd("PAIDIN"))
-            numLOG_PAIDOUT.Value = NumIsNull(rd("PAIDOUT"))
+            numLOG_DINNERS.Value = GF_NumIsNull(rd("DINNERS"))
+            numLOG_JCB.Value = GF_NumIsNull(rd("JCB"))
+            numLOG_OTHER_CARD.Value = GF_NumIsNull(rd("OTHER_CARD"))
+            numLOG_PAIDIN.Value = GF_NumIsNull(rd("PAIDIN"))
+            numLOG_PAIDOUT.Value = GF_NumIsNull(rd("PAIDOUT"))
 
-            numLOG_TAXABLE_AMOUNT.Value = NumIsNull(rd("TAXABLE_AMOUNT"))
-            numLOG_OUTPUT_TAX_AMOUNT.Value = NumIsNull(rd("OUTPUT_TAX_AMOUNT"))
-            numLOG_NONTAXABLE_AMOUNT.Value = NumIsNull(rd("NONTAXABLE_AMOUNT"))
+            numLOG_TAXABLE_AMOUNT.Value = GF_NumIsNull(rd("TAXABLE_AMOUNT"))
+            numLOG_OUTPUT_TAX_AMOUNT.Value = GF_NumIsNull(rd("OUTPUT_TAX_AMOUNT"))
+            numLOG_NONTAXABLE_AMOUNT.Value = GF_NumIsNull(rd("NONTAXABLE_AMOUNT"))
 
-            lblLOG_TOTAL.Text = NumberFormatStandard(NumIsNull(rd("TOTAL")))
-            lblLOG_GRAND_TOTAL.Text = NumberFormatStandard(NumIsNull(rd("GRAND_TOTAL")))
+            lblLOG_TOTAL.Text = NumberFormatStandard(GF_NumIsNull(rd("TOTAL")))
+            lblLOG_GRAND_TOTAL.Text = NumberFormatStandard(GF_NumIsNull(rd("GRAND_TOTAL")))
         End If
 
 
@@ -75,8 +75,8 @@ Public Class FrmPOSLogDetails
             Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM `pos_starting_cash` where id ='{POS_STARTING_CASH_ID}' LIMIT 1")
 
             If rd.Read Then
-                xlblRecorded_on2.Text = TextIsNull(rd("RECORDED_ON"))
-                numSTARTING_AMOUNT.Value = NumIsNull(rd("AMOUNT"))
+                xlblRecorded_on2.Text = GF_TextIsNull(rd("RECORDED_ON"))
+                numSTARTING_AMOUNT.Value = GF_NumIsNull(rd("AMOUNT"))
 
             End If
         End If
@@ -88,12 +88,12 @@ Public Class FrmPOSLogDetails
             Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM `pos_cash_count` where id ='{POS_CASH_COUNT_ID}' LIMIT 1")
             If rd.Read Then
 
-                xlblRecorded_on3.Text = TextIsNull(rd("RECORDED_ON"))
-                numCASH.Value = NumIsNull(rd("CASH"))
-                numCHECK.Value = NumIsNull(rd("CHECK"))
-                numCREDIT_CARD.Value = NumIsNull(rd("CREDIT_CARD"))
-                numOTHER_PAYMENT.Value = NumIsNull(rd("OTHER_PAYMENT"))
-                lblTOTAL.Text = NumberFormatStandard(NumIsNull(rd("TOTAL")))
+                xlblRecorded_on3.Text = GF_TextIsNull(rd("RECORDED_ON"))
+                numCASH.Value = GF_NumIsNull(rd("CASH"))
+                numCHECK.Value = GF_NumIsNull(rd("CHECK"))
+                numCREDIT_CARD.Value = GF_NumIsNull(rd("CREDIT_CARD"))
+                numOTHER_PAYMENT.Value = GF_NumIsNull(rd("OTHER_PAYMENT"))
+                lblTOTAL.Text = NumberFormatStandard(GF_NumIsNull(rd("TOTAL")))
 
 
             End If
@@ -105,11 +105,11 @@ Public Class FrmPOSLogDetails
     End Sub
     Private Sub CashDenomination()
 
-        LoadDataGridView(dgvCASH_DENOMINATION, $"SELECT cl.`ID`,cd.`DESCRIPTION` AS `DENOMINATION`,cl.`NOMINAL_VALUE` AS `NOMINAL VALUE`,cl.`COUNT`,cl.`AMOUNT` FROM pos_cash_count_lines AS cl  INNER JOIN pos_cash_denomination AS  cd ON cd.`ID` = cl.`DENOMINATION_ID` WHERE cl.`CASH_COUNT_ID` ='{POS_CASH_COUNT_ID}' ")
+        GS_LoadDataGridView(dgvCASH_DENOMINATION, $"SELECT cl.`ID`,cd.`DESCRIPTION` AS `DENOMINATION`,cl.`NOMINAL_VALUE` AS `NOMINAL VALUE`,cl.`COUNT`,cl.`AMOUNT` FROM pos_cash_count_lines AS cl  INNER JOIN pos_cash_denomination AS  cd ON cd.`ID` = cl.`DENOMINATION_ID` WHERE cl.`CASH_COUNT_ID` ='{POS_CASH_COUNT_ID}' ")
         dgvCASH_DENOMINATION.Columns(0).Visible = False
     End Sub
     Private Sub TransactionList()
-        LoadDataGridView(dgvTransaction, $"SELECT * FROM(
+        GS_LoadDataGridView(dgvTransaction, $"SELECT * FROM(
 (SELECT s.`RECORDED_ON` AS `Recorded On`,s.`CODE` AS `Reference`, s.`Date`, c.`NAME` AS `Customer`,pm.`DESCRIPTION` AS `Payment Method`, s.`PAYMENT_REF_NO` AS `Ref No.`,s.`Amount` FROM sales_receipt AS s LEFT OUTER JOIN payment_method AS pm ON pm.`ID` = s.`PAYMENT_METHOD_ID` INNER JOIN contact AS c ON c.`ID` = s.`CUSTOMER_ID` WHERE s.STATUS <> '7' AND s.`POS_LOG_ID` = '{gsID}')
 UNION ALL
 (SELECT p.`RECORDED_ON` AS `Recorded On`,p.`CODE` AS `Reference`, p.`Date`, c.`NAME` AS `Customer`,pm.`DESCRIPTION` AS `Payment Method`, p.`RECEIPT_REF_NO` AS `Ref No.`,p.`Amount` FROM `payment` AS p LEFT OUTER JOIN payment_method AS pm ON pm.`ID` =  p.PAYMENT_METHOD_ID INNER JOIN contact AS c ON c.`ID` = p.`CUSTOMER_ID` WHERE p.STATUS <> '7' AND p.`POS_LOG_ID` = '{gsID}')

@@ -44,22 +44,22 @@ Public Class FrmImportBIRInventory
             If rd.Read Then
 
 
-                SheetName = TextIsNull(rd("SheetName"))
+                SheetName = GF_TextIsNull(rd("SheetName"))
 
-                col_code = GetCol(TextIsNull(rd("ProductCode")), True)
-                row_code = Val(GetCol(TextIsNull(rd("ProductCode")), False)) - 1
+                col_code = GetCol(GF_TextIsNull(rd("ProductCode")), True)
+                row_code = Val(GetCol(GF_TextIsNull(rd("ProductCode")), False)) - 1
 
-                col_desc = GetCol(TextIsNull(rd("ProductDescription")), True)
-                row_desc = Val(GetCol(TextIsNull(rd("ProductDescription")), False)) - 1
+                col_desc = GetCol(GF_TextIsNull(rd("ProductDescription")), True)
+                row_desc = Val(GetCol(GF_TextIsNull(rd("ProductDescription")), False)) - 1
 
-                col_UnitCost = GetCol(TextIsNull(rd("UnitCost")), True)
-                row_UnitCost = Val(GetCol(TextIsNull(rd("UnitCost")), False)) - 1
+                col_UnitCost = GetCol(GF_TextIsNull(rd("UnitCost")), True)
+                row_UnitCost = Val(GetCol(GF_TextIsNull(rd("UnitCost")), False)) - 1
 
-                col_Quantity = GetCol(TextIsNull(rd("Quantity")), True)
-                row_Quantity = Val(GetCol(TextIsNull(rd("Quantity")), False)) - 1
+                col_Quantity = GetCol(GF_TextIsNull(rd("Quantity")), True)
+                row_Quantity = Val(GetCol(GF_TextIsNull(rd("Quantity")), False)) - 1
 
-                col_MOU = GetCol(TextIsNull(rd("MOU")), True)
-                row_MOU = Val(GetCol(TextIsNull(rd("MOU")), False)) - 1
+                col_MOU = GetCol(GF_TextIsNull(rd("MOU")), True)
+                row_MOU = Val(GetCol(GF_TextIsNull(rd("MOU")), False)) - 1
 
                 CantRun = False
 
@@ -130,7 +130,7 @@ Public Class FrmImportBIRInventory
     End Sub
     Private Sub ImportingData()
         Try
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             Dim xlApp As Excel.Application
             Dim xlWorkBook As Excel.Workbook
             Dim xlWorkSheet As Excel.Worksheet
@@ -195,7 +195,7 @@ Public Class FrmImportBIRInventory
             ReleaseObject(xlApp)
             ReleaseObject(xlWorkBook)
             ReleaseObject(xlWorkSheet)
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
             MessageBoxInfo("Import Complete.")
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
@@ -253,7 +253,7 @@ Public Class FrmImportBIRInventory
 
         End If
         btnChecking.Enabled = False
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         pbStatus.Value = 0
         pbStatus.Maximum = dgvCollectData.Rows.Count
         Dim StrItemSQL As String = ""
@@ -281,7 +281,7 @@ Public Class FrmImportBIRInventory
             MessageBoxInfo("Checking Complete.")
         End If
 
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
         btnInventoryAdjustment.Enabled = True
         btnInventoryAdjustment.PerformClick()
 

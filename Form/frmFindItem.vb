@@ -6,7 +6,7 @@
     Dim xSQL As String
     Private Sub RefreshLocation()
 
-        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
+        GS_TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
 
     End Sub
     Private Sub RefreshData()
@@ -54,7 +54,7 @@
 
             End If
 
-            LoadDataGridViewBinding(dgvItem, "SELECT
+            GS_LoadDataGridViewBinding(dgvItem, "SELECT
 	i.ID,
 	i.CODE AS `Code`,
 	i.`DESCRIPTION` AS `Description`,

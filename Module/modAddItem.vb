@@ -5,7 +5,7 @@ Module modAddItem
         Dim rd As OdbcDataReader = SqlReader($"select EXPIRY_DATE from item_batches where ID = '{BATCH_ID}' and ITEM_ID ='{ITEM_ID}' limit 1")
         If rd.Read Then
             IsExpired = True
-            Expired_Date = CDate(TextIsNull(rd("EXPIRY_DATE")))
+            Expired_Date = CDate(GF_TextIsNull(rd("EXPIRY_DATE")))
         Else
             IsExpired = False
         End If
@@ -19,7 +19,7 @@ Module modAddItem
 
             Dim rd As OdbcDataReader = SqlReader($"select ID from item_batches where ITEM_ID ='{ITEM_ID}' and EXPIRY_DATE = '{ DateFormatMySql(dtpDate.Value)}' limit 1")
             If rd.Read Then
-                BATCH_ID = NumIsNull(rd("ID"))
+                BATCH_ID = GF_NumIsNull(rd("ID"))
 
             Else
                 BATCH_ID = GF_GetNewItemBatch(ITEM_ID, dtpDate.Value)
@@ -31,7 +31,7 @@ Module modAddItem
     End Function
     Private Function GF_GetNewItemBatch(ByVal ITEM_ID As Integer, ByVal DT As Date) As Integer
         Dim ThisID As Integer = ObjectTypeMapId("item_batches")
-        Dim BATCH_NO As String = Format(Val(GetMaxFieldLine("BATCH_NO", "item_batches", "ITEM_ID", ITEM_ID)), "000000")
+        Dim BATCH_NO As String = Format(Val(GF_GetMaxFieldLine("BATCH_NO", "item_batches", "ITEM_ID", ITEM_ID)), "000000")
         SqlExecuted($"INSERT INTO item_batches SET ID = '{ThisID}',ITEM_ID='{ITEM_ID}',BATCH_NO='{BATCH_NO}',EXPIRY_DATE='{DateFormatMySql(DT)}'")
         PrompNotify("Item batch expiration", "New batch entry save.", True)
 
@@ -88,8 +88,8 @@ Module modAddItem
         Dim REF_LINE_ID As String = ""
         Dim RATE_TYPE As String = ""
         Dim ITEM_TYPE As Integer = 0
-        Dim CLASS_NAME As String = GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME")
-        Dim BATCH_NO As String = GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
+        Dim CLASS_NAME As String = GF_GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME")
+        Dim BATCH_NO As String = GF_GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
         '  Dim cn As New MySqlConnection(mysqlConstr)
         Try
 
@@ -99,20 +99,20 @@ Module modAddItem
                 If rd.Read Then
 
 
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    COGS_AMOUNT_ID = TextIsNull(rd("COGS_ACCOUNT_ID"))
-                    ASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-                    INCOME_ACCOUNT_ID = TextIsNull(rd("GL_ACCOUNT_ID"))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
+                    COGS_AMOUNT_ID = GF_TextIsNull(rd("COGS_ACCOUNT_ID"))
+                    ASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                    INCOME_ACCOUNT_ID = GF_TextIsNull(rd("GL_ACCOUNT_ID"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
                     REF_LINE_ID = ""
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
-                    ITEM_TYPE = NumIsNull(rd("TYPE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
+                    ITEM_TYPE = GF_NumIsNull(rd("TYPE"))
                 End If
                 rd.Close()
 
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
                 If bNEw = True Then
                     .Rows.Add("N", gsITEM_CODE, Item_Description, Int(qty), UM_Description, NumberFormatStandard(price), discount_type, NumberFormatStandard(discount_rate), NumberFormatStandard(Amt), tax, Unit_ID, constrol_status, RATE_TYPE, UNIT_QUANTITY_BASE, DISCOUNT_ID, TAXABLE_AMOUNT, TAX_AMOUNT, ORG_AMT, item_ID, CLASS_NAME, prClass_ID, ITEM_TYPE, ASSET_ACCOUNT_ID, prBATCH_ID, BATCH_NO)
                 Else
@@ -177,19 +177,19 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & item_ID & "' limit 1")
             With dgv
                 If rd.Read Then
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    COGS_AMOUNT_ID = TextIsNull(rd("COGS_ACCOUNT_ID"))
-                    ASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-                    INCOME_ACCOUNT_ID = TextIsNull(rd("GL_ACCOUNT_ID"))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
+                    COGS_AMOUNT_ID = GF_TextIsNull(rd("COGS_ACCOUNT_ID"))
+                    ASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                    INCOME_ACCOUNT_ID = GF_TextIsNull(rd("GL_ACCOUNT_ID"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
                     REF_LINE_ID = ""
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
                 End If
                 rd.Close()
 
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
 
                 If bNEw = True Then
                     .Rows.Add("N", gsITEM_CODE, Item_Description, Int(qty), UM_Description, Format(price, "standard"), discount_type, Format(discount_rate, "standard"), Format(Amt, "Standard"), tax, Unit_ID, constrol_status, RATE_TYPE, UNIT_QUANTITY_BASE, DISCOUNT_ID, TAXABLE_AMOUNT, TAX_AMOUNT, ORG_AMT, item_ID, PR_ID)
@@ -253,19 +253,19 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & item_ID & "' limit 1")
             With dgv
                 If rd.Read Then
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    COGS_AMOUNT_ID = TextIsNull(rd("COGS_ACCOUNT_ID"))
-                    ASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-                    INCOME_ACCOUNT_ID = TextIsNull(rd("GL_ACCOUNT_ID"))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
+                    COGS_AMOUNT_ID = GF_TextIsNull(rd("COGS_ACCOUNT_ID"))
+                    ASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                    INCOME_ACCOUNT_ID = GF_TextIsNull(rd("GL_ACCOUNT_ID"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
                     REF_LINE_ID = ""
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
                 End If
                 rd.Close()
 
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
 
                 If bNEw = True Then
                     .Rows.Add("N", gsITEM_CODE, Item_Description, Int(qty), UM_Description, Format(price, "standard"), discount_type, Format(discount_rate, "standard"), Format(Amt, "Standard"), tax, Unit_ID, constrol_status, RATE_TYPE, UNIT_QUANTITY_BASE, DISCOUNT_ID, TAXABLE_AMOUNT, TAX_AMOUNT, ORG_AMT, item_ID)
@@ -312,7 +312,7 @@ Module modAddItem
     End Sub
     Public Sub GS_RowDataItemSalesReceipt(ByVal dgv As DataGridView, ByVal bNEw As Boolean, ByVal item_ID As String, ByVal qty As Double, ByVal price As Double, ByVal discount_type As String, ByVal discount_rate As String, ByVal Amt As Double, ByVal tax As Boolean, ByVal Unit_ID As String, ByVal constrol_status As String, ByVal UNIT_QUANTITY_BASE As Double, ByVal DISCOUNT_ID As String, ByVal ORG_AMT As Double, ByVal prPRICE_LEVEL_ID As String, ByVal prPrintINForm As Boolean, ByVal prGROUP_LINE_ID As Integer, ByVal prBATCH_ID As Integer)
         If item_ID = "" Then Exit Sub
-        Dim BATCH_NO As String = GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
+        Dim BATCH_NO As String = GF_GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
         Dim Item_Description As String = ""
         Dim TAXABLE_AMOUNT As Double = 0
         Dim TAX_AMOUNT As Double = 0
@@ -335,18 +335,18 @@ Module modAddItem
             With dgv
                 If rd.Read Then
 
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    COGS_AMOUNT_ID = TextIsNull(rd("COGS_ACCOUNT_ID"))
-                    ASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-                    INCOME_ACCOUNT_ID = TextIsNull(rd("GL_ACCOUNT_ID"))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
-                    ITEM_TYPE = NumIsNull(rd("TYPE"))
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
-                    NON_DISCOUNTED_ITEM = NumIsNull(rd("NON_DISCOUNTED_ITEM"))
-                    G_PRINT_IN_FORMS = CBool(NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS")))
-                    NON_PORFOLIO_COMPUTATION = CBool(NumIsNull(rd("NON_PORFOLIO_COMPUTATION")))
+                    COGS_AMOUNT_ID = GF_TextIsNull(rd("COGS_ACCOUNT_ID"))
+                    ASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                    INCOME_ACCOUNT_ID = GF_TextIsNull(rd("GL_ACCOUNT_ID"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
+                    ITEM_TYPE = GF_NumIsNull(rd("TYPE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
+                    NON_DISCOUNTED_ITEM = GF_NumIsNull(rd("NON_DISCOUNTED_ITEM"))
+                    G_PRINT_IN_FORMS = CBool(GF_NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS")))
+                    NON_PORFOLIO_COMPUTATION = CBool(GF_NumIsNull(rd("NON_PORFOLIO_COMPUTATION")))
                 End If
                 rd.Close()
 
@@ -358,7 +358,7 @@ Module modAddItem
                 Dim DEPOSITED As Integer = 0
 
 
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
 
                 If bNEw = True Then
 
@@ -383,10 +383,10 @@ Module modAddItem
                                 Dim r As DataGridViewRow = d.Rows(N)
                                 'ADD ITEM GROUP
                                 Dim rd_item As OdbcDataReader = SqlReader($"select * from item where `id` = '{r.Cells("ITEM_ID").Value}' limit 1;")
-                                D_TOTAL += NumIsNull(r.Cells("RATE").Value)
+                                D_TOTAL += GF_NumIsNull(r.Cells("RATE").Value)
 
                                 If rd_item.Read Then
-                                    GS_RowDataItemSalesReceipt(dgv, True, r.Cells("ITEM_ID").Value, r.Cells("QTY").Value, NumberFormatStandard(r.Cells("RATE").Value / r.Cells("QTY").Value), IIf(NumIsNull(r.Cells("RATE").Value) = 0, 0, discount_type), IIf(NumIsNull(r.Cells("RATE").Value) = 0, 0, discount_rate), NumberFormatStandard(r.Cells("RATE").Value), IIf(NumIsNull(rd_item("TAXABLE")) = 0, False, True), NumIsNull(rd_item("BASE_UNIT_ID")), "A", 1, 0, 0, "", G_PRINT_IN_FORMS, item_ID, 0)
+                                    GS_RowDataItemSalesReceipt(dgv, True, r.Cells("ITEM_ID").Value, r.Cells("QTY").Value, NumberFormatStandard(r.Cells("RATE").Value / r.Cells("QTY").Value), IIf(GF_NumIsNull(r.Cells("RATE").Value) = 0, 0, discount_type), IIf(GF_NumIsNull(r.Cells("RATE").Value) = 0, 0, discount_rate), NumberFormatStandard(r.Cells("RATE").Value), IIf(GF_NumIsNull(rd_item("TAXABLE")) = 0, False, True), GF_NumIsNull(rd_item("BASE_UNIT_ID")), "A", 1, 0, 0, "", G_PRINT_IN_FORMS, item_ID, 0)
                                 End If
                                 rd_item.Close()
 
@@ -412,9 +412,9 @@ Module modAddItem
                         While rd_group.Read
 
                             'ADD ITEM GROUP
-                            Dim r_rate As Double = IIf(NumIsNull(rd_group("RATE")) <= Amt, NumIsNull(rd_group("RATE")), Amt)
-                            Dim BS_UNIT As String = TextIsNull(rd_group("BASE_UNIT_ID"))
-                            GS_RowDataItemSalesReceipt(dgv, True, rd_group("COMPONENT_ID"), rd_group("QUANTITY") * Int(qty), NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), IIf(NumIsNull(rd_group("RATE")) = 0, 0, discount_type), IIf(NumIsNull(rd_group("RATE")) = 0, 0, discount_rate), (r_rate * Int(qty)), IIf(NumIsNull(rd_group("TAXABLE")) = 0, False, True), BS_UNIT, "A", 1, IIf(NumIsNull(rd_group("RATE")) = 0, 0, DISCOUNT_ID), 0, "", G_PRINT_IN_FORMS, item_ID, 0)
+                            Dim r_rate As Double = IIf(GF_NumIsNull(rd_group("RATE")) <= Amt, GF_NumIsNull(rd_group("RATE")), Amt)
+                            Dim BS_UNIT As String = GF_TextIsNull(rd_group("BASE_UNIT_ID"))
+                            GS_RowDataItemSalesReceipt(dgv, True, rd_group("COMPONENT_ID"), rd_group("QUANTITY") * Int(qty), NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), IIf(GF_NumIsNull(rd_group("RATE")) = 0, 0, discount_type), IIf(GF_NumIsNull(rd_group("RATE")) = 0, 0, discount_rate), (r_rate * Int(qty)), IIf(GF_NumIsNull(rd_group("TAXABLE")) = 0, False, True), BS_UNIT, "A", 1, IIf(GF_NumIsNull(rd_group("RATE")) = 0, 0, DISCOUNT_ID), 0, "", G_PRINT_IN_FORMS, item_ID, 0)
                         End While
                         rd_group.Close()
                     End If
@@ -518,18 +518,18 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & item_ID & "' limit 1")
             With dgv
                 If rd.Read Then
-                    Item_Description = TextIsNull(rd("DESCRIPTION"))
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION"))
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    G_PRINT_IN_FORMS = CBool(NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS")))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
-                    ITEM_TYPE = NumIsNull(rd("TYPE"))
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
-                    NON_PORFOLIO_COMPUTATION = CBool(NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS")))
+                    G_PRINT_IN_FORMS = CBool(GF_NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS")))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
+                    ITEM_TYPE = GF_NumIsNull(rd("TYPE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
+                    NON_PORFOLIO_COMPUTATION = CBool(GF_NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS")))
                 End If
                 rd.Close()
 
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL")
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL")
 
                 If bNEw = True Then
 
@@ -554,10 +554,10 @@ Module modAddItem
                                 Dim r As DataGridViewRow = d.Rows(N)
                                 'ADD ITEM GROUP
                                 Dim rd_item As OdbcDataReader = SqlReader($"select * from item where `id` = '{r.Cells("ITEM_ID").Value}' limit 1;")
-                                D_TOTAL += NumIsNull(r.Cells("RATE").Value)
+                                D_TOTAL += GF_NumIsNull(r.Cells("RATE").Value)
                                 If rd_item.Read Then
 
-                                    GS_RowDataItemSalesOrder(dgv, True, r.Cells("ITEM_ID").Value, r.Cells("QTY").Value, NumberFormatStandard(r.Cells("RATE").Value), 0, 0, NumIsNull(r.Cells("RATE").Value), NumIsNull(rd_item("TAXABLE")), NumIsNull(rd_item("BASE_UNIT_ID")), "A", 1, "", 0, "", "", G_PRINT_IN_FORMS, item_ID)
+                                    GS_RowDataItemSalesOrder(dgv, True, r.Cells("ITEM_ID").Value, r.Cells("QTY").Value, NumberFormatStandard(r.Cells("RATE").Value), 0, 0, GF_NumIsNull(r.Cells("RATE").Value), GF_NumIsNull(rd_item("TAXABLE")), GF_NumIsNull(rd_item("BASE_UNIT_ID")), "A", 1, "", 0, "", "", G_PRINT_IN_FORMS, item_ID)
                                 End If
                                 rd_item.Close()
 
@@ -584,7 +584,7 @@ Module modAddItem
 
                         Dim rd_group As OdbcDataReader = SqlReader("SELECT ic.*,s.`TAXABLE` FROM item_components AS ic  INNER JOIN item AS i ON ic.item_ID = i.ID  INNER JOIN item AS s ON s.`ID` = ic.`COMPONENT_ID` WHERE i.`TYPE` IN ('6','9') and i.ID = '" & item_ID & "' Limit 100 ")
                         While rd_group.Read
-                            GS_RowDataItemSalesOrder(dgv, True, rd_group("COMPONENT_ID"), rd_group("QUANTITY") * Int(qty), NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), 0, 0, (rd_group("RATE") * Int(qty)), IIf(NumIsNull(rd_group("TAXABLE")) = 0, False, True), 0, "A", 1, "", 0, "", "", G_PRINT_IN_FORMS, item_ID)
+                            GS_RowDataItemSalesOrder(dgv, True, rd_group("COMPONENT_ID"), rd_group("QUANTITY") * Int(qty), NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), 0, 0, (rd_group("RATE") * Int(qty)), IIf(GF_NumIsNull(rd_group("TAXABLE")) = 0, False, True), 0, "A", 1, "", 0, "", "", G_PRINT_IN_FORMS, item_ID)
                         End While
                         rd.Close()
                     End If
@@ -677,15 +677,15 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & item_ID & "' limit 1")
             With dgv
                 If rd.Read Then
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
-                    ITEM_TYPE = NumIsNull(rd("TYPE"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
+                    ITEM_TYPE = GF_NumIsNull(rd("TYPE"))
                 End If
                 rd.Close()
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
                 If bNEw = True Then
                     .Rows.Add("N", gsITEM_CODE, Item_Description, Int(qty), UM_Description, Format(price, "standard"), discount_type, Format(discount_rate, "standard"), Format(Amt, "Standard"), tax, Unit_ID, constrol_status, RATE_TYPE, UNIT_QUANTITY_BASE, DISCOUNT_ID, TAXABLE_AMOUNT, TAX_AMOUNT, ORG_AMT, item_ID, PRICE_LEVEL_ID, ITEM_TYPE)
 
@@ -699,7 +699,7 @@ Module modAddItem
                         End If
                         'ADD ITEM GROUP
                         i_group_amount += (rd_group("RATE") * Int(qty))
-                        GS_RowDataItemSalesOrder(dgv, True, rd_group("COMPONENT_ID"), rd_group("QUANTITY") * Int(qty), NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), 0, 0, (rd_group("RATE") * Int(qty)), IIf(NumIsNull(rd_group("TAXABLE")) = 0, False, True), 0, "A", 1, "", 0, "", "", False, item_ID)
+                        GS_RowDataItemSalesOrder(dgv, True, rd_group("COMPONENT_ID"), rd_group("QUANTITY") * Int(qty), NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), 0, 0, (rd_group("RATE") * Int(qty)), IIf(GF_NumIsNull(rd_group("TAXABLE")) = 0, False, True), 0, "A", 1, "", 0, "", "", False, item_ID)
                     End While
                     rd_group.Close()
                     i_group_amount = 0
@@ -772,7 +772,7 @@ Module modAddItem
     Public Sub GS_RowDataItemCreditMemo(ByVal dgv As DataGridView, ByVal bNEw As Boolean, ByVal item_ID As String, ByVal qty As Double, ByVal price As Double, ByVal discount_type As String, ByVal discount_rate As String, ByVal Amt As Double, ByVal tax As Boolean, ByVal Unit_ID As String, ByVal constrol_status As String, ByVal UNIT_QUANTITY_BASE As Double, ByVal DISCOUNT_ID As String, ByVal ORG_AMT As Double, ByVal prPRICE_LEVEL_ID As String, ByVal prGROUP_LINE_ID As Integer, ByVal prPrintINForm As Boolean, ByVal prBATCH_ID As Integer)
         If item_ID = "" Then Exit Sub
         Dim Item_Description As String = ""
-        Dim BATCH_NO As String = GetStringFieldValue("item_batches", "id", prBATCH_ID, "batch_no")
+        Dim BATCH_NO As String = GF_GetStringFieldValue("item_batches", "id", prBATCH_ID, "batch_no")
         Dim TAXABLE_AMOUNT As Double = 0
         Dim TAX_AMOUNT As Double = 0
         Dim COGS_AMOUNT_ID As String = ""
@@ -789,21 +789,21 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & item_ID & "' limit 1")
             With dgv
                 If rd.Read Then
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    COGS_AMOUNT_ID = TextIsNull(rd("COGS_ACCOUNT_ID"))
-                    ASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-                    INCOME_ACCOUNT_ID = TextIsNull(rd("GL_ACCOUNT_ID"))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
-                    ITEM_TYPE = NumIsNull(rd("TYPE"))
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
-                    G_PRINT_IN_FORMS = CBool(NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS")))
+                    COGS_AMOUNT_ID = GF_TextIsNull(rd("COGS_ACCOUNT_ID"))
+                    ASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                    INCOME_ACCOUNT_ID = GF_TextIsNull(rd("GL_ACCOUNT_ID"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
+                    ITEM_TYPE = GF_NumIsNull(rd("TYPE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
+                    G_PRINT_IN_FORMS = CBool(GF_NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS")))
                 End If
                 rd.Close()
 
                 PRICE_LEVEL_ID = prPRICE_LEVEL_ID
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
                 If bNEw = True Then
                     .Rows.Add("N", gsITEM_CODE, Item_Description, Int(qty), UM_Description, NumberFormatStandard(price), discount_type, IIf(DISCOUNT_ID = "1", Val(discount_rate), NumberFormatStandard(discount_rate)), NumberFormatStandard(Amt), tax, Unit_ID, constrol_status, RATE_TYPE, UNIT_QUANTITY_BASE, DISCOUNT_ID, TAXABLE_AMOUNT, TAX_AMOUNT, COGS_AMOUNT_ID, ASSET_ACCOUNT_ID, INCOME_ACCOUNT_ID, PRICE_LEVEL_ID, ORG_AMT, item_ID, prGROUP_LINE_ID, ITEM_TYPE, prPrintINForm, prBATCH_ID, BATCH_NO)
 
@@ -814,10 +814,10 @@ Module modAddItem
                     Dim rd_group As OdbcDataReader = SqlReader("SELECT ic.*,s.`TAXABLE`,i.TYPE,s.BASE_UNIT_ID FROM item_components AS ic  INNER JOIN item AS i ON ic.item_ID = i.ID  INNER JOIN item AS s ON s.`ID` = ic.`COMPONENT_ID` WHERE i.`TYPE` IN ('6','9') and i.ID = '" & item_ID & "' Limit 100 ")
                     While rd_group.Read
 
-                        Dim r_rate As Double = IIf(NumIsNull(rd_group("RATE")) <= Amt, NumIsNull(rd_group("RATE")), Amt)
-                        Dim BS_UNIT As String = TextIsNull(rd_group("BASE_UNIT_ID"))
+                        Dim r_rate As Double = IIf(GF_NumIsNull(rd_group("RATE")) <= Amt, GF_NumIsNull(rd_group("RATE")), Amt)
+                        Dim BS_UNIT As String = GF_TextIsNull(rd_group("BASE_UNIT_ID"))
 
-                        GS_RowDataItemCreditMemo(dgv, True, rd_group("COMPONENT_ID"), rd_group("QUANTITY") * Int(qty), NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), IIf(NumIsNull(rd_group("RATE")) = 0, 0, discount_type), IIf(NumIsNull(rd_group("RATE")) = 0, 0, discount_rate), (r_rate * Int(qty)), IIf(NumIsNull(rd_group("TAXABLE")) = 0, False, True), BS_UNIT, "A", 1, "", 0, "", item_ID, G_PRINT_IN_FORMS, 0)
+                        GS_RowDataItemCreditMemo(dgv, True, rd_group("COMPONENT_ID"), rd_group("QUANTITY") * Int(qty), NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), IIf(GF_NumIsNull(rd_group("RATE")) = 0, 0, discount_type), IIf(GF_NumIsNull(rd_group("RATE")) = 0, 0, discount_rate), (r_rate * Int(qty)), IIf(GF_NumIsNull(rd_group("TAXABLE")) = 0, False, True), BS_UNIT, "A", 1, "", 0, "", item_ID, G_PRINT_IN_FORMS, 0)
                     End While
 
                     rd_group.Close()
@@ -902,16 +902,16 @@ Module modAddItem
                 Dim i As Integer = Ndex
                 Dim d As DataGridViewRow = dgv.Rows(i)
 
-                If NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
+                If GF_NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
                     MessageBoxInfo("Invalid Delete")
                     Exit Sub
-                ElseIf NumIsNull(d.Cells("ITEM_TYPE").Value) = 10 Then
+                ElseIf GF_NumIsNull(d.Cells("ITEM_TYPE").Value) = 10 Then
                     MessageBoxInfo("Invalid room delete")
                     Exit Sub
-                ElseIf NumIsNull(d.Cells("ITEM_TYPE").Value) = 6 Or NumIsNull(d.Cells("ITEM_TYPE").Value) = 9 Then
+                ElseIf GF_NumIsNull(d.Cells("ITEM_TYPE").Value) = 6 Or GF_NumIsNull(d.Cells("ITEM_TYPE").Value) = 9 Then
                     '===============================================================================================
                     Dim THIS_ITEM_ID As Integer = d.Cells("ITEM_ID").Value
-                    If NumIsNull(dgv.Rows(i).Cells(0).Value) <> 0 Then
+                    If GF_NumIsNull(dgv.Rows(i).Cells(0).Value) <> 0 Then
                         dgv.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                         dgv.Rows(i).Visible = False
                         i += 1
@@ -928,7 +928,7 @@ Module modAddItem
                     Else
                         dgv.Rows.RemoveAt(i)
                         Try
-                            While NumIsNull(dgv.Rows(i).Cells("GROUP_LINE_ID").Value) = THIS_ITEM_ID
+                            While GF_NumIsNull(dgv.Rows(i).Cells("GROUP_LINE_ID").Value) = THIS_ITEM_ID
                                 dgv.Rows.RemoveAt(i)
                             End While
                         Catch ex As Exception
@@ -938,7 +938,7 @@ Module modAddItem
                     '=========================================================================================
                 Else
 
-                    If NumIsNull(dgv.Rows(i).Cells(0).Value) <> 0 Then
+                    If GF_NumIsNull(dgv.Rows(i).Cells(0).Value) <> 0 Then
                         dgv.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                         dgv.Rows(i).Visible = False
                     Else
@@ -967,8 +967,8 @@ Module modAddItem
         Dim gsITEM_CODE As String = ""
         Dim REF_LINE_ID As String = ""
         Dim RATE_TYPE As String = ""
-        Dim CLASS_NAME As String = GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME")
-        Dim BATCH_NO As String = GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
+        Dim CLASS_NAME As String = GF_GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME")
+        Dim BATCH_NO As String = GF_GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
         Dim ITEM_TYPE As Integer = 0
         ' Dim cn As New MySqlConnection(mysqlConstr)
         Try
@@ -977,20 +977,20 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & item_ID & "' limit 1")
             With dgv
                 If rd.Read Then
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    COGS_AMOUNT_ID = TextIsNull(rd("COGS_ACCOUNT_ID"))
-                    ASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-                    INCOME_ACCOUNT_ID = TextIsNull(rd("GL_ACCOUNT_ID"))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
+                    COGS_AMOUNT_ID = GF_TextIsNull(rd("COGS_ACCOUNT_ID"))
+                    ASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                    INCOME_ACCOUNT_ID = GF_TextIsNull(rd("GL_ACCOUNT_ID"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
                     REF_LINE_ID = ""
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
-                    ITEM_TYPE = NumIsNull(rd("TYPE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
+                    ITEM_TYPE = GF_NumIsNull(rd("TYPE"))
                 End If
                 rd.Close()
 
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
                 If bNEw = True Then
                     .Rows.Add("N", gsITEM_CODE, Item_Description, Int(qty), UM_Description, NumberFormatStandard(price), discount_type, NumberFormatStandard(discount_rate), NumberFormatStandard(Amt), tax, Unit_ID, constrol_status, RATE_TYPE, UNIT_QUANTITY_BASE, DISCOUNT_ID, TAXABLE_AMOUNT, TAX_AMOUNT, ORG_AMT, item_ID, CLASS_NAME, prClass_ID, ITEM_TYPE, ASSET_ACCOUNT_ID, prBATCH_ID, BATCH_NO)
                 Else
@@ -1047,8 +1047,8 @@ Module modAddItem
         Dim gsITEM_CODE As String = ""
         Dim REF_LINE_ID As String = ""
         Dim RATE_TYPE As String = ""
-        Dim CLASS_NAME As String = GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME")
-        Dim BATCH_NO As String = GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
+        Dim CLASS_NAME As String = GF_GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME")
+        Dim BATCH_NO As String = GF_GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
 
         Try
             Dim ITEM_TYPE As Integer = 0
@@ -1056,19 +1056,19 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & item_ID & "' limit 1")
             With dgv
                 If rd.Read Then
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    COGS_AMOUNT_ID = TextIsNull(rd("COGS_ACCOUNT_ID"))
-                    ASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-                    INCOME_ACCOUNT_ID = TextIsNull(rd("GL_ACCOUNT_ID"))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
+                    COGS_AMOUNT_ID = GF_TextIsNull(rd("COGS_ACCOUNT_ID"))
+                    ASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                    INCOME_ACCOUNT_ID = GF_TextIsNull(rd("GL_ACCOUNT_ID"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
                     REF_LINE_ID = ""
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
-                    ITEM_TYPE = NumIsNull(rd("TYPE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
+                    ITEM_TYPE = GF_NumIsNull(rd("TYPE"))
                 End If
                 rd.Close()
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
                 If bNEw = True Then
                     .Rows.Add("N", gsITEM_CODE, Item_Description, Int(qty), UM_Description, NumberFormatStandard(price), discount_type, NumberFormatStandard(discount_rate), NumberFormatStandard(Amt), tax, Unit_ID, constrol_status, RATE_TYPE, UNIT_QUANTITY_BASE, DISCOUNT_ID, TAXABLE_AMOUNT, TAX_AMOUNT, ORG_AMT, item_ID, CLASS_NAME, prClass_ID, prPO_ITEM_ID, ITEM_TYPE, ASSET_ACCOUNT_ID, prBATCH_ID, BATCH_NO)
                 Else
@@ -1117,10 +1117,10 @@ Module modAddItem
     End Sub
     Public Sub GS_RowDataStockTransfer(ByVal dgv As DataGridView, ByVal bAdd As Boolean, ByVal pritem_ID As String, ByVal prQty As Double, ByVal prQty_BASE As Double, ByVal prUnit_ID As Integer, ByVal prUnit_Price As Double, ByVal prTotal_Retail As Double, ByVal prCONTROL_STATUS As String, ByVal prBATCH_ID As Integer)
 
-        Dim BATCH_NO As String = GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
+        Dim BATCH_NO As String = GF_GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
 
         Dim sDESCRIPTION As String = ""
-        Dim sUNIT_NAME As String = GetStringFieldValue("UNIT_OF_MEASURE", "ID", prUnit_ID, "NAME")
+        Dim sUNIT_NAME As String = GF_GetStringFieldValue("UNIT_OF_MEASURE", "ID", prUnit_ID, "NAME")
 
         Dim sAccount_ID As Integer = 0
         Dim iUnit_Cost As Double = prUnit_Price
@@ -1134,11 +1134,11 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & pritem_ID & "'  limit 1")
 
             If rd.Read Then
-                sAccount_ID = NumIsNull(rd("ASSET_ACCOUNT_ID"))
-                item_CODE = TextIsNull(rd("CODE"))
-                sDESCRIPTION = TextIsNull(rd("DESCRIPTION"))
+                sAccount_ID = GF_NumIsNull(rd("ASSET_ACCOUNT_ID"))
+                item_CODE = GF_TextIsNull(rd("CODE"))
+                sDESCRIPTION = GF_TextIsNull(rd("DESCRIPTION"))
 
-                iUnit_Price = NumIsNull(rd("RATE")) ' Rate now
+                iUnit_Price = GF_NumIsNull(rd("RATE")) ' Rate now
 
                 iTotal_Amount = iUnit_Cost * prQty ' Costing
                 prTotal_Retail = iUnit_Price * prQty
@@ -1203,10 +1203,10 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & pritem_ID & "'  limit 1")
 
             If rd.Read Then
-                sAccount_ID = NumIsNull(rd("ASSET_ACCOUNT_ID"))
-                item_CODE = TextIsNull(rd("CODE"))
-                sDESCRIPTION = TextIsNull(rd("DESCRIPTION"))
-                sUNIT_NAME = GetStringFieldValue("UNIT_OF_MEASURE", "ID", prUnit_ID, "NAME")
+                sAccount_ID = GF_NumIsNull(rd("ASSET_ACCOUNT_ID"))
+                item_CODE = GF_TextIsNull(rd("CODE"))
+                sDESCRIPTION = GF_TextIsNull(rd("DESCRIPTION"))
+                sUNIT_NAME = GF_GetStringFieldValue("UNIT_OF_MEASURE", "ID", prUnit_ID, "NAME")
 
 
                 iTotal_Amount = prUnit_COST * prQty ' Costing
@@ -1263,7 +1263,7 @@ Module modAddItem
         Dim INCOME_ACCOUNT_ID As String = ""
         Dim gsITEM_CODE As String = ""
         Dim NON_PORFOLIO_COMPUTATION As Boolean = False
-        Dim BATCH_NAME As String = GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
+        Dim BATCH_NAME As String = GF_GetStringFieldValue("ITEM_BATCHES", "ID", prBATCH_ID, "BATCH_NO")
         Dim REF_LINE_ID As String = prREF_LINE_ID
         Dim RATE_TYPE As String = ""
         Dim PRICE_LEVEL_ID As String = prPRICE_LEVEL_ID
@@ -1273,21 +1273,21 @@ Module modAddItem
             Dim rd As OdbcDataReader = SqlReader("select * from item where id = '" & item_ID & "' limit 1")
             With dgv
                 If rd.Read Then
-                    Item_Description = TextIsNull(rd("DESCRIPTION")) ' Description_ITem
+                    Item_Description = GF_TextIsNull(rd("DESCRIPTION")) ' Description_ITem
                     TAXABLE_AMOUNT = 0
                     TAX_AMOUNT = 0
-                    COGS_AMOUNT_ID = TextIsNull(rd("COGS_ACCOUNT_ID"))
-                    ASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
-                    INCOME_ACCOUNT_ID = TextIsNull(rd("GL_ACCOUNT_ID"))
-                    gsITEM_CODE = TextIsNull(rd("CODE"))
-                    RATE_TYPE = TextIsNull(rd("RATE_TYPE"))
-                    ITEM_TYPE = NumIsNull(rd("TYPE"))
-                    G_PRINT_IN_FORM = NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS"))
-                    NON_PORFOLIO_COMPUTATION = NumIsNull(rd("NON_PORFOLIO_COMPUTATION"))
+                    COGS_AMOUNT_ID = GF_TextIsNull(rd("COGS_ACCOUNT_ID"))
+                    ASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                    INCOME_ACCOUNT_ID = GF_TextIsNull(rd("GL_ACCOUNT_ID"))
+                    gsITEM_CODE = GF_TextIsNull(rd("CODE"))
+                    RATE_TYPE = GF_TextIsNull(rd("RATE_TYPE"))
+                    ITEM_TYPE = GF_NumIsNull(rd("TYPE"))
+                    G_PRINT_IN_FORM = GF_NumIsNull(rd("PRINT_INDIVIDUAL_ITEMS"))
+                    NON_PORFOLIO_COMPUTATION = GF_NumIsNull(rd("NON_PORFOLIO_COMPUTATION"))
                 End If
                 rd.Close()
 
-                Dim UM_Description As String = GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
+                Dim UM_Description As String = GF_GetStringFieldValue("unit_of_measure", "ID", Unit_ID, "SYMBOL") ' Discripion_UNIT
 
                 If bNEw = True Then
 
@@ -1340,9 +1340,9 @@ Module modAddItem
                                 Dim r As DataGridViewRow = d.Rows(N)
 
                                 Dim rd_item As OdbcDataReader = SqlReader($"select * from item where `id` = '{r.Cells("ITEM_ID").Value}' limit 1;")
-                                D_TOTAL += NumIsNull(r.Cells("RATE").Value)
+                                D_TOTAL += GF_NumIsNull(r.Cells("RATE").Value)
                                 If rd_item.Read Then
-                                    GS_RowDataItemInvoice(dgv, True, r.Cells("ITEM_ID").Value, r.Cells("QTY").Value, (r.Cells("RATE").Value / r.Cells("QTY").Value), 0, 0, r.Cells("RATE").Value, rd_item("TAXABLE"), NumIsNull(rd_item("BASE_UNIT_ID")), "A", 1, "", 0, "", "", item_ID, G_PRINT_IN_FORM, 0)
+                                    GS_RowDataItemInvoice(dgv, True, r.Cells("ITEM_ID").Value, r.Cells("QTY").Value, (r.Cells("RATE").Value / r.Cells("QTY").Value), 0, 0, r.Cells("RATE").Value, rd_item("TAXABLE"), GF_NumIsNull(rd_item("BASE_UNIT_ID")), "A", 1, "", 0, "", "", item_ID, G_PRINT_IN_FORM, 0)
                                 End If
                                 rd_item.Close()
 
@@ -1399,10 +1399,10 @@ Module modAddItem
                         Dim rd_group As OdbcDataReader = SqlReader("SELECT ic.*,s.`TAXABLE`,i.TYPE,s.BASE_UNIT_ID FROM item_components AS ic  INNER JOIN item AS i ON ic.item_ID = i.ID  INNER JOIN item AS s ON s.`ID` = ic.`COMPONENT_ID` WHERE i.`TYPE` IN ('6','9') and i.ID = '" & item_ID & "' Limit 100 ")
                         While rd_group.Read
 
-                            Dim r_rate As Double = IIf(NumIsNull(rd_group("RATE")) <= Amt, NumIsNull(rd_group("RATE")), Amt)
-                            Dim BS_UNIT As String = TextIsNull(rd_group("BASE_UNIT_ID"))
+                            Dim r_rate As Double = IIf(GF_NumIsNull(rd_group("RATE")) <= Amt, GF_NumIsNull(rd_group("RATE")), Amt)
+                            Dim BS_UNIT As String = GF_TextIsNull(rd_group("BASE_UNIT_ID"))
 
-                            GS_RowDataItemInvoice(dgv, True, rd_group("COMPONENT_ID"), NumIsNull(rd_group("QUANTITY")) * qty, NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), IIf(NumIsNull(rd_group("RATE")) = 0, 0, discount_type), IIf(NumIsNull(rd_group("RATE")) = 0, 0, discount_rate), (r_rate * Int(qty)), IIf(NumIsNull(rd_group("TAXABLE")) = 0, False, True), BS_UNIT, "A", 1, "", 0, "", "", item_ID, G_PRINT_IN_FORM, 0)
+                            GS_RowDataItemInvoice(dgv, True, rd_group("COMPONENT_ID"), GF_NumIsNull(rd_group("QUANTITY")) * qty, NumberFormatStandard(rd_group("RATE") / rd_group("QUANTITY")), IIf(GF_NumIsNull(rd_group("RATE")) = 0, 0, discount_type), IIf(GF_NumIsNull(rd_group("RATE")) = 0, 0, discount_rate), (r_rate * Int(qty)), IIf(GF_NumIsNull(rd_group("TAXABLE")) = 0, False, True), BS_UNIT, "A", 1, "", 0, "", "", item_ID, G_PRINT_IN_FORM, 0)
 
                         End While
                         rd_group.Close()
@@ -1501,11 +1501,11 @@ Module modAddItem
                             drToAdd(i) = System.DBNull.Value
                             'do nothing
                         ElseIf IsNumeric(rd(i)) = False Or rd.GetName(i) = "Account Number" Then
-                            drToAdd(i) = TextIsNull(rd(i))
+                            drToAdd(i) = GF_TextIsNull(rd(i))
 
                         Else
                             If Int(rd(i)) = True Then
-                                drToAdd(i) = NumIsNull(rd(i))
+                                drToAdd(i) = GF_NumIsNull(rd(i))
                             Else
                                 drToAdd(i) = rd(i)
                             End If
@@ -1525,10 +1525,10 @@ Module modAddItem
                             dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = System.DBNull.Value
                             'do nothing
                         ElseIf IsNumeric(rd(i)) = False Or rd.GetName(i) = "Account Number" Then
-                            dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = TextIsNull(rd(i))
+                            dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = GF_TextIsNull(rd(i))
                         Else
                             If Int(rd(i)) = True Then
-                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = NumIsNull(rd(i))
+                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = GF_NumIsNull(rd(i))
                             Else
                                 dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = rd(i)
                             End If
@@ -1687,14 +1687,14 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
                         ElseIf IsNumeric(rd(i)) = True Then
 
                             If Int(rd(i)) = True Then
-                                drToAdd(i) = NumIsNull(rd(i))
+                                drToAdd(i) = GF_NumIsNull(rd(i))
                             Else
                                 drToAdd(i) = rd(i)
                             End If
 
                         Else
 
-                            drToAdd(i) = TextIsNull(rd(i))
+                            drToAdd(i) = GF_TextIsNull(rd(i))
                         End If
 
                     Next
@@ -1711,7 +1711,7 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
                         ElseIf IsNumeric(rd(i)) = True Then
 
                             If Int(rd(i)) = True Then
-                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = NumIsNull(rd(i))
+                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = GF_NumIsNull(rd(i))
                             Else
                                 dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = rd(i)
                             End If
@@ -1719,7 +1719,7 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
 
                         Else
 
-                            dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = TextIsNull(rd(i))
+                            dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = GF_TextIsNull(rd(i))
                         End If
                     Next
                     BS.Position = dgv.CurrentRow.Index
@@ -1792,9 +1792,9 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
             dTax = iSUB_TAX + dTax
             dNon_Tax = iSUB_NON_TAX + dNon_Tax
             Dim total As Double
-            If TextIsNull(cmbINPUT_TAX_ID.Text) <> "" Then
+            If GF_TextIsNull(cmbINPUT_TAX_ID.Text) <> "" Then
                 'add tax
-                dVat = fTax_Rate_Find(NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
+                dVat = fTax_Rate_Find(GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
                 dINput_value = (dVat / 100) * dTax
                 total = dINput_value + dTax
 
@@ -1879,7 +1879,7 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
             For i As Integer = 0 To dgvExpenses.Rows.Count - 1
                 If dgvExpenses.Rows(i).Cells("CONTROL_STATUS").Value <> "D" Then
                     dTotal_Expenses += NumberFormatFixed(dgvExpenses.Rows(i).Cells("AMOUNT").Value)
-                    If NumIsNull(dgvExpenses.Rows(i).Cells("Tax").Value) = 0 Then
+                    If GF_NumIsNull(dgvExpenses.Rows(i).Cells("Tax").Value) = 0 Then
                         dNon_Tax += NumberFormatFixed(dgvExpenses.Rows(i).Cells("AMOUNT").Value)
                     Else
                         dTax += NumberFormatFixed(dgvExpenses.Rows(i).Cells("AMOUNT").Value)
@@ -1895,9 +1895,9 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
 
 
             Dim total As Double
-            If TextIsNull(cmbINPUT_TAX_ID.Text) <> "" Then
+            If GF_TextIsNull(cmbINPUT_TAX_ID.Text) <> "" Then
                 'add tax
-                dVat = fTax_Rate_Find(NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
+                dVat = fTax_Rate_Find(GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
                 dINput_value = (dVat / 100) * dTax
                 total = dINput_value + dTax
 
@@ -1975,9 +1975,9 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
             dNon_Tax = iSUB_NON_TAX + dNon_Tax
 
             Dim total As Double
-            If TextIsNull(cmbOUTPUT_TAX_ID.Text) <> "" Then
+            If GF_TextIsNull(cmbOUTPUT_TAX_ID.Text) <> "" Then
                 'add tax
-                dVat = fTax_Rate_Find(NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue))
+                dVat = fTax_Rate_Find(GF_NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue))
                 dOutput_value = (dVat / 100) * dTax
                 total = dOutput_value + dTax
 

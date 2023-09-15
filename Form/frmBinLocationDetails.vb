@@ -29,7 +29,7 @@ Public Class FrmBinLocationDetails
         End If
 
         If txtCODE.Text = "" Then
-            txtCODE.Text = Format(Val(GetMaxField("CODE", "stock_bin")), "0000")
+            txtCODE.Text = Format(Val(GF_GetMaxField("CODE", "stock_bin")), "0000")
         End If
 
 

@@ -4,7 +4,7 @@
         RefreshSubMenuGroup()
     End Sub
     Private Sub RefreshMenu()
-        LoadDataGridView(dgvMenu, "Select MENU_ID as `ID`,DESCRIPTION from tblMenu where MENU_ID <> '5' ")
+        GS_LoadDataGridView(dgvMenu, "Select MENU_ID as `ID`,DESCRIPTION from tblMenu where MENU_ID <> '5' ")
         If dgvMenu.Rows.Count <> 0 Then
             RefreshSubMenu()
         End If
@@ -14,7 +14,7 @@
         If dgvMenu.Rows.Count <> 0 Then
             i = dgvMenu.Rows(dgvMenu.CurrentRow.Index).Cells(0).Value
         End If
-        LoadDataGridView(dgvSubMenu, "select s.SUB_ID as `ID`,s.DESCRIPTION from tblsub_menu as s inner join tblmenu_list as ml on ml.sub_id = s.sub_id where ml.menu_id = '" & i & "' order by s.sub_id ")
+        GS_LoadDataGridView(dgvSubMenu, "select s.SUB_ID as `ID`,s.DESCRIPTION from tblsub_menu as s inner join tblmenu_list as ml on ml.sub_id = s.sub_id where ml.menu_id = '" & i & "' order by s.sub_id ")
     End Sub
     Private Sub DgvMenu_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMenu.CellContentClick
         RefreshSubMenu()
@@ -24,7 +24,7 @@
         RefreshSubMenu()
     End Sub
     Private Sub RefreshSubMenuGroup()
-        LoadDataGridView(dgvSUB_MENU_GROUP, "select GROUP_ID as `ID`,DESCRIPTION from tblsub_group")
+        GS_LoadDataGridView(dgvSUB_MENU_GROUP, "select GROUP_ID as `ID`,DESCRIPTION from tblsub_group")
         If dgvSUB_MENU_GROUP.Rows.Count <> 0 Then
             RefreshSMGD()
         End If
@@ -35,7 +35,7 @@
             i = dgvSUB_MENU_GROUP.Rows(dgvSUB_MENU_GROUP.CurrentRow.Index).Cells(0).Value
         End If
 
-        LoadDataGridView(dgvSUB_MENU_GROUP_DETAILS, "select sm.ID,s.sub_ID as`SUB ID`,s.DESCRIPTION  from tblsub_group_details as sm inner join tblsub_menu as s on s.sub_id = sm.sub_id where sm.group_id = '" & i & "' order by sm.ID")
+        GS_LoadDataGridView(dgvSUB_MENU_GROUP_DETAILS, "select sm.ID,s.sub_ID as`SUB ID`,s.DESCRIPTION  from tblsub_group_details as sm inner join tblsub_menu as s on s.sub_id = sm.sub_id where sm.group_id = '" & i & "' order by sm.ID")
 
     End Sub
 

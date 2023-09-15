@@ -7,7 +7,7 @@ Public Class FrmInventoryAdjustmentType
 
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvInventoryAdjustmentType, "select i.ID,i.Code,i.Description, a.`Name`  as `Account` from Inventory_Adjustment_Type as i left outer join account as a on a.ID = i.account_id", item_BS)
+        GS_LoadDataGridViewBinding(dgvInventoryAdjustmentType, "select i.ID,i.Code,i.Description, a.`Name`  as `Account` from Inventory_Adjustment_Type as i left outer join account as a on a.ID = i.account_id", item_BS)
         ViewColumn(dgvInventoryAdjustmentType, 43)
     End Sub
     Private Sub FrmInventoryAdjustmentType_Load(sender As Object, e As EventArgs) Handles Me.Load

@@ -19,13 +19,13 @@ Public Class FrmPriceLevelDetails
             .Item("STATUS").Visible = False
 
         End With
-        DatagridViewMode(dgvProductItem)
+
     End Sub
     Private Sub FrmPriceLevelDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CreateColumn()
-        ComboBoxLoad(cmbITEM_CODE, "select ID,CODE from item where inactive ='0' ", "ID", "CODE")
-        ComboBoxLoad(cmbTYPE, "Select * from price_level_type_map", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbITEM_GROUP_ID, "select * from item_group", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbITEM_CODE, "select ID,CODE from item where inactive ='0' ", "ID", "CODE")
+        GS_ComboBoxLoad(cmbTYPE, "Select * from price_level_type_map", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbITEM_GROUP_ID, "select * from item_group", "ID", "DESCRIPTION")
     End Sub
 
     Private Sub CmbTYPE_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTYPE.SelectedIndexChanged
@@ -74,12 +74,12 @@ Public Class FrmPriceLevelDetails
                 MessageBoxWarning(ex.Message)
             End Try
         End If
-        ViewNotSort(dgvProductItem)
+        GS_ViewNotSort(dgvProductItem)
     End Sub
     Private Sub CmbITEM_CODE_LostFocus(sender As Object, e As EventArgs) Handles cmbITEM_CODE.LostFocus
         Try
-            lblDescription.Text = GetStringFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Description")
-            lblRate.Text = Format(GetNumberFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Rate"), "Standard")
+            lblDescription.Text = GF_GetStringFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Description")
+            lblRate.Text = Format(GF_GetNumberFieldValue("item", "ID", cmbITEM_CODE.SelectedValue, "Rate"), "Standard")
         Catch ex As Exception
             lblDescription.Text = ""
             lblRate.Text = ""
@@ -94,7 +94,7 @@ Public Class FrmPriceLevelDetails
 
             Dim rd As OdbcDataReader = SqlReader("select pll.ID,pll.Item_ID,i.CODE,i.Description,format(i.rate,2) as `Unit_price`, format(pll.custom_price,2) as `Custom_Price` from price_level_lines as pll inner join item  as i on i.id = pll.item_id where pll.price_level_id = '" & ID & "'")
             While rd.Read
-                dgvProductItem.Rows.Add(rd("ID"), rd("ITEM_ID"), TextIsNull(rd("CODE")), TextIsNull(rd("Description")), Format(NumIsNull(rd("Unit_price")), "Standard"), Format(NumIsNull(rd("Custom_Price")), "Standard"), "S")
+                dgvProductItem.Rows.Add(rd("ID"), rd("ITEM_ID"), GF_TextIsNull(rd("CODE")), GF_TextIsNull(rd("Description")), Format(GF_NumIsNull(rd("Unit_price")), "Standard"), Format(GF_NumIsNull(rd("Custom_Price")), "Standard"), "S")
             End While
             rd.Close()
         Catch ex As Exception
@@ -194,7 +194,7 @@ Public Class FrmPriceLevelDetails
             Dim r As DataGridViewRow = dgvProductItem.CurrentRow
             cmbITEM_CODE.SelectedValue = r.Cells("ITEM_ID").Value
             CmbITEM_CODE_LostFocus(sender, e)
-            numCUSTOM_PRICE.Value = NumIsNull(r.Cells("CUSTOM_PRICE").Value)
+            numCUSTOM_PRICE.Value = GF_NumIsNull(r.Cells("CUSTOM_PRICE").Value)
             cmbITEM_CODE.Enabled = False
             dgvProductItem.Enabled = False
         End If
@@ -211,7 +211,7 @@ Public Class FrmPriceLevelDetails
                     Case "S"
 
                     Case "A"
-                        SqlExecuted("INSERT INTO price_level_lines SET custom_price = '" & Format(r.Cells("custom_price").Value) & "', price_level_id ='" & ID & "' , ID = '" & GetMaxField("ID", "price_level_lines") & "' , ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
+                        SqlExecuted("INSERT INTO price_level_lines SET custom_price = '" & Format(r.Cells("custom_price").Value) & "', price_level_id ='" & ID & "' , ID = '" & GF_GetMaxField("ID", "price_level_lines") & "' , ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
                     Case "E"
                         SqlExecuted("UPDATE price_level_lines SET custom_price = '" & NumberFormatFixed(r.Cells("custom_price").Value) & "' where price_level_id ='" & ID & "' and ID = '" & r.Cells("ID").Value & "' and ITEM_ID = '" & r.Cells("ITEM_ID").Value & "'")
                     Case "D"
@@ -241,7 +241,7 @@ Public Class FrmPriceLevelDetails
         End If
 
         If Trim(txtCODE.Text) = "" Then
-            txtCODE.Text = Format(GetMaxField("CODE", "price_level"), "0000")
+            txtCODE.Text = Format(GF_GetMaxField("CODE", "price_level"), "0000")
         End If
 
 

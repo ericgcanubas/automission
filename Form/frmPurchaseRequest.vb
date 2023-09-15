@@ -138,14 +138,14 @@ FROM
                 dgvProductItem.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(i)
-                        If CheckNumStandard(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
-                        ElseIf CheckBoolType(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckBoolType(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = CBool(GF_NumIsNull(rd(i)))
                         Else
-                            dgvProductItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                            dgvProductItem.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
                         End If
                     End With
 
@@ -189,11 +189,11 @@ FROM
     End Function
 
     Private Sub fRefreshCombo()
-        ComboBoxLoad(cmbVENDOR_ID, "select * from contact where type='0'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbVENDOR_ID, "select * from contact where type='0'", "ID", "NAME")
 
-        ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
         '
-        ComboBoxLoad(cmbINPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
+        GS_ComboBoxLoad(cmbINPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
     End Sub
     Private Sub fRefreshField(ByVal id As String)
 
@@ -268,9 +268,9 @@ FROM
                 '.gsSelection_Label = "Class"
                 '.gsSelection_DESCRIPTION = "NAME"
                 '.gsSelection_VALUE = "ID"
-                '.gsSelection_ID = TextIsNull(dgvProductItem.Rows.Item(I).Cells("CLASS_ID").Value)
+                '.gsSelection_ID = GF_TextIsNull(dgvProductItem.Rows.Item(I).Cells("CLASS_ID").Value)
 
-                If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
+                If GF_NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
                     bAlreadySave = True
@@ -338,13 +338,13 @@ FROM
                         'Sub Total
                     ElseIf IsDiscountItem(dgvProductItem.Rows(i).Cells("ITEM_TYPE").Value) = True Then
                         'Discount Item
-                        Dim dtDiscount_Less As Double = (dTotal_amount * (Format(NumIsNull(dgvProductItem.Rows(i).Cells("UNIT_PRICE").Value)) * -1 / 100))
+                        Dim dtDiscount_Less As Double = (dTotal_amount * (Format(GF_NumIsNull(dgvProductItem.Rows(i).Cells("UNIT_PRICE").Value)) * -1 / 100))
                         dTotal_amount = dTotal_amount - NumberFormatFixed(dtDiscount_Less)
 
-                        dtDiscount_Less = (dTax * (NumberFormatFixed(NumIsNull(dgvProductItem.Rows(i).Cells("UNIT_PRICE").Value)) * -1 / 100))
+                        dtDiscount_Less = (dTax * (NumberFormatFixed(GF_NumIsNull(dgvProductItem.Rows(i).Cells("UNIT_PRICE").Value)) * -1 / 100))
                         dTax = dTax - NumberFormatFixed(dtDiscount_Less)
 
-                        dtDiscount_Less = (dNon_Tax * (NumberFormatFixed(NumIsNull(dgvProductItem.Rows(i).Cells("UNIT_PRICE").Value)) * -1 / 100))
+                        dtDiscount_Less = (dNon_Tax * (NumberFormatFixed(GF_NumIsNull(dgvProductItem.Rows(i).Cells("UNIT_PRICE").Value)) * -1 / 100))
                         dNon_Tax = dNon_Tax - NumberFormatFixed(dtDiscount_Less)
                     Else
                         dTotal_amount = dTotal_amount + NumberFormatFixed(dgvProductItem.Rows(i).Cells("AMOUNT").Value)
@@ -362,9 +362,9 @@ FROM
                 n = n + 1
             Next
 
-            If TextIsNull(cmbINPUT_TAX_ID.Text) <> "" Then
+            If GF_TextIsNull(cmbINPUT_TAX_ID.Text) <> "" Then
                 'add tax
-                dVat = fTax_Rate_Find(NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
+                dVat = fTax_Rate_Find(GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
                 dOutput_value = (dVat / 100) * dTax
                 total = dOutput_value + dTax
 
@@ -406,10 +406,10 @@ FROM
         fComputed()
         Try
 
-            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,ASSET_ACCOUNT_ID from tax where ID ='" & NumIsNull(cmbINPUT_TAX_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,ASSET_ACCOUNT_ID from tax where ID ='" & GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblINPUT_TAX_VAT_METHOD.Text = TextIsNull(rd("VAT_METHOD"))
-                lblINPUT_TAX_ACCOUNT_ID.Text = TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                lblINPUT_TAX_VAT_METHOD.Text = GF_TextIsNull(rd("VAT_METHOD"))
+                lblINPUT_TAX_ACCOUNT_ID.Text = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
             Else
                 lblINPUT_TAX_VAT_METHOD.Text = ""
                 lblINPUT_TAX_ACCOUNT_ID.Text = ""
@@ -492,7 +492,7 @@ FROM
 
 
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("PURCHASE_REQUEST", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("PURCHASE_REQUEST", cmbLOCATION_ID.SelectedValue)
             End If
             dtpDATE.Checked = True
 
@@ -504,13 +504,13 @@ FROM
 
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbVENDOR_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
             tChangeAccept = True
             SqlExecuted("UPDATE PURCHASE_REQUEST SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "' ")
 
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbVENDOR_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -564,23 +564,23 @@ FROM
                 Select Case .Cells("CONTROL_STATUS").Value
                     Case "S"
                         'UPDATE TAX ONLY
-                        fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SQL_SCRIPT = "UPDATE purchase_request_items SET TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE PR_ID ='" & dID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value))
+                        fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SQL_SCRIPT = "UPDATE purchase_request_items SET TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE PR_ID ='" & dID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value))
                         SqlExecuted(SQL_SCRIPT)
                     Case "A"
-                        fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         Dim i_ID As Double = ObjectTypeMapId("PURCHASE_REQUEST_ITEMS")
 
-                        SQL_SCRIPT = "INSERT INTO purchase_request_items SET LINE_NO='" & GetMaxFieldLine("LINE_NO", "PURCHASE_REQUEST_ITEMS", "PR_ID", dID) & "',ID='" & i_ID & "',QUANTITY ='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",PR_ID ='" & dID & "',CLOSED='0'"
+                        SQL_SCRIPT = "INSERT INTO purchase_request_items SET LINE_NO='" & GF_GetMaxFieldLine("LINE_NO", "PURCHASE_REQUEST_ITEMS", "PR_ID", dID) & "',ID='" & i_ID & "',QUANTITY ='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",PR_ID ='" & dID & "',CLOSED='0'"
                         SqlExecuted(SQL_SCRIPT)
                         .Cells("ID").Value = i_ID
 
                     Case "E"
-                        fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SQL_SCRIPT = "UPDATE purchase_request_items SET QUANTITY='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & " WHERE PR_ID ='" & dID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & ""
+                        fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SQL_SCRIPT = "UPDATE purchase_request_items SET QUANTITY='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & " WHERE PR_ID ='" & dID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & ""
                         SqlExecuted(SQL_SCRIPT)
                     Case "D"
-                        SQL_SCRIPT = "DELETE FROM purchase_request_items WHERE PR_ID ='" & dID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "'"
+                        SQL_SCRIPT = "DELETE FROM purchase_request_items WHERE PR_ID ='" & dID & "' and ID = '" & GF_NumIsNull(.Cells("ID").Value) & "'"
                         SqlExecuted(SQL_SCRIPT)
                 End Select
 
@@ -613,7 +613,7 @@ FROM
                 SqlExecuted("DELETE FROM purchase_request_items WHERE PR_ID = '" & ID & "'")
                 SqlExecuted("DELETE FROM purchase_request WHERE ID = '" & ID & "' limit 1;")
                    DeleteNotify(Me)
-                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbVENDOR_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
@@ -631,9 +631,9 @@ FROM
 
     Private Sub frmPurchaseOrder_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
-        ViewNotSort(dgvProductItem)
-        ViewItemDisplay(dgvProductItem)
-        '  ViewItemDisplay(dgvProductItem)
+        GS_ViewNotSort(dgvProductItem)
+        GS_ViewItemDisplay(dgvProductItem)
+        '  GS_ViewItemDisplay(dgvProductItem)
 
 
     End Sub
@@ -816,7 +816,7 @@ FROM
         Try
             If dgvProductItem.Rows.Count <> 0 Then
                 Dim i As Integer = dgvProductItem.CurrentRow.Index
-                If NumIsNull(dgvProductItem.Rows(i).Cells(0).Value) <> 0 Then
+                If GF_NumIsNull(dgvProductItem.Rows(i).Cells(0).Value) <> 0 Then
                     dgvProductItem.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                     dgvProductItem.Rows(i).Visible = False
                 Else

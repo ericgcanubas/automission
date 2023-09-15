@@ -11,15 +11,15 @@ Module modAutoTransactionUpdate
 
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                If NumIsNull(rd(0)) <> 0 Then
+                If GF_NumIsNull(rd(0)) <> 0 Then
                     bInvoice = True
                 End If
 
-                If NumIsNull(rd(1)) <> 0 Then
+                If GF_NumIsNull(rd(1)) <> 0 Then
                     bCreditMeno = True
                 End If
 
-                If NumIsNull(rd(2)) <> 0 Then
+                If GF_NumIsNull(rd(2)) <> 0 Then
                     bSalesReceipt = True
                 End If
 
@@ -27,13 +27,13 @@ Module modAutoTransactionUpdate
                 If bInvoice = True Or bCreditMeno = True Or bSalesReceipt = True Then
                     Dim msg As String = ""
                     If bInvoice = True Then
-                        msg = msg & NumIsNull(rd(0)) & " record. do you want to update all transaction for invoice " & vbNewLine
+                        msg = msg & GF_NumIsNull(rd(0)) & " record. do you want to update all transaction for invoice " & vbNewLine
                     End If
                     If bCreditMeno = True Then
-                        msg = msg & NumIsNull(rd(1)) & " record. do you want to update all transaction for credit memo " & vbNewLine
+                        msg = msg & GF_NumIsNull(rd(1)) & " record. do you want to update all transaction for credit memo " & vbNewLine
                     End If
                     If bSalesReceipt = True Then
-                        msg = msg & NumIsNull(rd(2)) & " record. do you want to update all transaction for sales receipt " & vbNewLine
+                        msg = msg & GF_NumIsNull(rd(2)) & " record. do you want to update all transaction for sales receipt " & vbNewLine
                     End If
 
                     If MessageBoxQuestion(msg) = True Then

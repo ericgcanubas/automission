@@ -2,8 +2,8 @@
 Public Class FrmItemInventoryCostUpdate
     Dim Last_COST As Double
     Private Sub FrmItemInventoryCostUpdate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbLOCATION_ID, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
-        ComboBoxLoad(cmbITEM, "select ID,DESCRIPTION from item Where inactive = '0' and type ='0' order by DESCRIPTION", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
+        GS_ComboBoxLoad(cmbITEM, "select ID,DESCRIPTION from item Where inactive = '0' and type ='0' order by DESCRIPTION", "ID", "DESCRIPTION")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
 
@@ -13,7 +13,7 @@ Public Class FrmItemInventoryCostUpdate
             Dim rd As OdbcDataReader = SqlReader($"select ID,COST,COGS_ACCOUNT_ID,ASSET_ACCOUNT_ID from item Where inactive = '0' and type ='0' and ID = '{cmbITEM.SelectedValue}'  limit 1;")
             If rd.Read Then
                 GS_DoEvents()
-                fInventoryRead(rd("ID"), NumIsNull(rd("COST")), NumIsNull(rd("COGS_ACCOUNT_ID")), NumIsNull(rd("ASSET_ACCOUNT_ID")))
+                fInventoryRead(rd("ID"), GF_NumIsNull(rd("COST")), GF_NumIsNull(rd("COGS_ACCOUNT_ID")), GF_NumIsNull(rd("ASSET_ACCOUNT_ID")))
                 MessageBoxInfo("Update Complete.")
 
             Else
@@ -29,14 +29,14 @@ Public Class FrmItemInventoryCostUpdate
             Dim TotalRow As Integer
 
 
-            Dim rd As OdbcDataReader = ReaderCounting("select ID,COST,COGS_ACCOUNT_ID,ASSET_ACCOUNT_ID from item Where inactive = '0' and type ='0' ", TotalRow)
+            Dim rd As OdbcDataReader = SQL_ReaderCounting("select ID,COST,COGS_ACCOUNT_ID,ASSET_ACCOUNT_ID from item Where inactive = '0' and type ='0' ", TotalRow)
             While rd.Read
 
                 PBItemList.Maximum = TotalRow
                 PBItemList.Value = PBItemList.Value + 1
                 lblItemList.Text = "Item List :" & PBItemList.Value & "/" & PBItemList.Maximum
                 GS_DoEvents()
-                fInventoryRead(rd("ID"), NumIsNull(rd("COST")), NumIsNull(rd("COGS_ACCOUNT_ID")), NumIsNull(rd("ASSET_ACCOUNT_ID")))
+                fInventoryRead(rd("ID"), GF_NumIsNull(rd("COST")), GF_NumIsNull(rd("COGS_ACCOUNT_ID")), GF_NumIsNull(rd("ASSET_ACCOUNT_ID")))
             End While
             MessageBoxInfo("Update Complete.")
         End If
@@ -57,13 +57,13 @@ Public Class FrmItemInventoryCostUpdate
             SQL_LIST = $"select ID,SOURCE_REF_TYPE,SOURCE_REF_ID,SOURCE_REF_DATE,QUANTITY,COST,ENDING_QUANTITY,ENDING_UNIT_COST,ENDING_COST,LOCATION_ID from item_inventory where SOURCE_REF_DATE >='{DateFormatMySql(dtpDateStart.Value)}' and item_id = '{prItem_ID}' and LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' order by SOURCE_REF_DATE,ID "
         End If
 
-        Dim rd As OdbcDataReader = ReaderCounting(SQL_LIST, TotalRow)
+        Dim rd As OdbcDataReader = SQL_ReaderCounting(SQL_LIST, TotalRow)
         While rd.Read
             PBInventory.Maximum = TotalRow
             PBInventory.Value = PBInventory.Value + 1
             lblInventory.Text = "Inventory :" & PBInventory.Value & "/" & PBInventory.Maximum
             GS_DoEvents()
-            h_COST = NumIsNull(rd("ENDING_UNIT_COST"))
+            h_COST = GF_NumIsNull(rd("ENDING_UNIT_COST"))
             If chkBaseOnItemCost.Checked = False Then
                 If COST = h_COST Then
 
@@ -110,7 +110,7 @@ Public Class FrmItemInventoryCostUpdate
             GS_DoEvents()
             fJournal(ASSET_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
             GS_DoEvents()
-            SqlExecuted($"UPDATE item_inventory SET  COST={GotNullNumber(IIf(Qty < 0, 0, d_COST))},ENDING_UNIT_COST = '{d_COST}',ENDING_COST='{ NumIsNull(rd("ENDING_QUANTITY")) * d_COST}' where id = '{rd("ID")}' limit 1;")
+            SqlExecuted($"UPDATE item_inventory SET  COST={GotNullNumber(IIf(Qty < 0, 0, d_COST))},ENDING_UNIT_COST = '{d_COST}',ENDING_COST='{ GF_NumIsNull(rd("ENDING_QUANTITY")) * d_COST}' where id = '{rd("ID")}' limit 1;")
 
         End While
 
@@ -118,7 +118,7 @@ Public Class FrmItemInventoryCostUpdate
     End Sub
     Private Sub fJournal(ByVal ACCOUNT_ID As Integer, ByVal AMOUNT As Double, ByVal OBJECT_DATE As String, ByVal OBJECT_ID As Integer, ByVal LOCATION_ID As Integer, ByVal DOC_TYPE As Integer, ByVal SUBSIDIARY_ID As Integer)
         Dim RowCount As Integer
-        Dim rd As OdbcDataReader = ReaderCounting($"select ID from account_journal Where ACCOUNT_ID ='{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_DATE = '{OBJECT_DATE}' and OBJECT_ID = '{OBJECT_ID}' and  OBJECT_TYPE ='{ThisObjectID(DOC_TYPE)}' and SUBSIDIARY_ID = '{SUBSIDIARY_ID}' ", RowCount)
+        Dim rd As OdbcDataReader = SQL_ReaderCounting($"select ID from account_journal Where ACCOUNT_ID ='{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_DATE = '{OBJECT_DATE}' and OBJECT_ID = '{OBJECT_ID}' and  OBJECT_TYPE ='{ThisObjectID(DOC_TYPE)}' and SUBSIDIARY_ID = '{SUBSIDIARY_ID}' ", RowCount)
         While rd.Read
             If RowCount = 1 Then
                 SqlExecuted($"UPDATE account_journal SET AMOUNT = '{AMOUNT}' WHERE ID ='{rd("ID")}' Limit 1;")

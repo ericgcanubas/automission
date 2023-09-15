@@ -12,24 +12,24 @@ Module modPaymentTerms
             '   cn.Open()
             Dim rd As OdbcDataReader = SqlReader("select `TYPE`,NET_DUE,DATE_MONTH_PARAM,DATE_DAY_PARAM,DATE_MIN_DAYS from payment_terms where id = '" & CStr(prPayment_Terms.SelectedValue.ToString) & "' and INACTIVE ='0' limit 1 ")
             If rd.Read Then
-                Select Case NumIsNull(rd("TYPE"))
+                Select Case GF_NumIsNull(rd("TYPE"))
                     Case 0
-                        N = NumIsNull(rd("NET_DUE"))
+                        N = GF_NumIsNull(rd("NET_DUE"))
                         prDue_date.Value = dt.AddDays(N)
                     Case 1
                     Case 2
                     Case 3
                     Case 4
                     Case 5
-                        Dim M As Integer = NumIsNull(rd("DATE_MONTH_PARAM"))
-                        Dim D As Integer = NumIsNull(rd("DATE_DAY_PARAM"))
+                        Dim M As Integer = GF_NumIsNull(rd("DATE_MONTH_PARAM"))
+                        Dim D As Integer = GF_NumIsNull(rd("DATE_DAY_PARAM"))
                         If M = 0 Then
                             M = dt.Month
                         End If
                         If D = 0 Then
                             D = dt.Day
                         End If
-                        N = NumIsNull(rd("NET_DUE"))
+                        N = GF_NumIsNull(rd("NET_DUE"))
                         dt = M & "/" & D & "/" & (N + Date.Now.Year)
                         prDue_date.Value = dt
                 End Select

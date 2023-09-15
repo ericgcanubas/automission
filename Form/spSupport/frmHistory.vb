@@ -8,7 +8,7 @@
         gsSelect = False
 
 
-        LoadDataGridView(dgvDocument, gsQuery)
+        GS_LoadDataGridView(dgvDocument, gsQuery)
         dgvDocument.Columns(0).Visible = False
         dgvDocument.Columns(dgvDocument.Columns.Count - 1).Visible = False
         dgvDocument.Columns(dgvDocument.Columns.Count - 2).DefaultCellStyle.Format = "N2"

@@ -26,7 +26,7 @@ Public Class FrmItemClassDetails
         End If
 
         If txtCODE.Text = "" Then
-            txtCODE.Text = Format(Val(GetMaxField("CODE", "item_class")), "0000")
+            txtCODE.Text = Format(Val(GF_GetMaxField("CODE", "item_class")), "0000")
         End If
 
         If IsNew = False Then

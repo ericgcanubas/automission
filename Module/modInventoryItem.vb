@@ -37,11 +37,11 @@ Module modInventoryItem
         Dim rd As OdbcDataReader = SqlReader($"SELECT i.SOURCE_REF_DATE,i.QUANTITY,i.ENDING_QUANTITY,i.COST,i.ENDING_UNIT_COST,i.ENDING_COST FROM item_inventory  AS i WHERE i.`ITEM_ID` = '{prITEM_ID}' AND i.`LOCATION_ID` = '{prLOCATION_ID}' AND i.SOURCE_REF_TYPE ='{prSOURCE_REF_TYPE}' and i.SOURCE_REF_ID = '{prSOURCE_REF_ID}' order by i.ID desc Limit 1 ")
         If rd.Read Then
             DateStart = rd("SOURCE_REF_DATE")
-            Qty = NumIsNull(rd("QUANTITY"))
-            Qty_End = NumIsNull(rd("ENDING_QUANTITY"))
-            Cost = NumIsNull(rd("COST"))
-            Ending_unit_cost = NumIsNull(rd("ENDING_UNIT_COST"))
-            Ending_cost = NumIsNull(rd("ENDING_COST"))
+            Qty = GF_NumIsNull(rd("QUANTITY"))
+            Qty_End = GF_NumIsNull(rd("ENDING_QUANTITY"))
+            Cost = GF_NumIsNull(rd("COST"))
+            Ending_unit_cost = GF_NumIsNull(rd("ENDING_UNIT_COST"))
+            Ending_cost = GF_NumIsNull(rd("ENDING_COST"))
             B = True
         Else
             Qty = 0
@@ -52,21 +52,21 @@ Module modInventoryItem
     End Function
 
     Public Sub ReCalculateInventory(ByVal prITEM_ID As Integer, ByVal prLOCATION_ID As Integer, ByVal ThisDate As Date)
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         Dim Qty_END_T As Double = QtyActualOnDateLocation(prITEM_ID, ThisDate, prLOCATION_ID)
 
         Dim NewSQL As String = ""
 
         Dim rd As OdbcDataReader = SqlReader($"SELECT i.* FROM item_inventory  AS i WHERE i.SOURCE_REF_DATE >='{ DateFormatMySql(ThisDate) }' and i.`ITEM_ID` = '{prITEM_ID}' AND i.`LOCATION_ID` = '{prLOCATION_ID}' order by i.SOURCE_REF_DATE,i.ID")
         While rd.Read
-            If NumIsNull(rd("SOURCE_REF_TYPE")) = 6 Then
+            If GF_NumIsNull(rd("SOURCE_REF_TYPE")) = 6 Then
                 Dim L_QTY As Double = Qty_END_T
-                Qty_END_T = NumIsNull(rd("ENDING_QUANTITY"))
+                Qty_END_T = GF_NumIsNull(rd("ENDING_QUANTITY"))
                 Dim D_QTY As Double = Qty_END_T - L_QTY
-                NewSQL = NewSQL & $"UPDATE item_inventory SET QUANTITY='{NumIsNull(D_QTY)}' WHERE ID ='{rd("ID")}' and ITEM_ID = '{prITEM_ID}' and LOCATION_ID ='{prLOCATION_ID}' Limit 1;"
+                NewSQL = NewSQL & $"UPDATE item_inventory SET QUANTITY='{GF_NumIsNull(D_QTY)}' WHERE ID ='{rd("ID")}' and ITEM_ID = '{prITEM_ID}' and LOCATION_ID ='{prLOCATION_ID}' Limit 1;"
             Else
-                Qty_END_T = Qty_END_T + NumIsNull(rd("QUANTITY"))
-                NewSQL = NewSQL & $"UPDATE item_inventory SET ENDING_QUANTITY='{NumIsNull(Qty_END_T)}' WHERE ID ='{rd("ID")}' and ITEM_ID = '{prITEM_ID}' and LOCATION_ID ='{prLOCATION_ID}' Limit 1;"
+                Qty_END_T = Qty_END_T + GF_NumIsNull(rd("QUANTITY"))
+                NewSQL = NewSQL & $"UPDATE item_inventory SET ENDING_QUANTITY='{GF_NumIsNull(Qty_END_T)}' WHERE ID ='{rd("ID")}' and ITEM_ID = '{prITEM_ID}' and LOCATION_ID ='{prLOCATION_ID}' Limit 1;"
             End If
 
         End While
@@ -75,7 +75,7 @@ Module modInventoryItem
             SqlExecuted(NewSQL)
 
         End If
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
 
 
     End Sub
@@ -108,10 +108,10 @@ Module modInventoryItem
 
             Dim rd As OdbcDataReader = SqlReader($"SELECT i.* FROM item_inventory  AS i WHERE i.SOURCE_REF_DATE >='{ DateFormatMySql(DateStart) }' and i.`ITEM_ID` = '{prITEM_ID}' AND i.`LOCATION_ID` = '{prLOCATION_ID}' AND i.SOURCE_REF_TYPE <> '{prSOURCE_REF_TYPE}' order by i.ID")
             While rd.Read
-                Qty_END_T = Qty_END_T + NumIsNull(rd("QUANTITY"))
+                Qty_END_T = Qty_END_T + GF_NumIsNull(rd("QUANTITY"))
                 Cost_UN_END = Ending_unit_cost
 
-                If NumIsNull(rd("QUANTITY")) <= 0 Then
+                If GF_NumIsNull(rd("QUANTITY")) <= 0 Then
                     COST_T = 0
                     Temp_ENDING_COST = Last_COST * Qty_END_T
                 Else
@@ -120,7 +120,7 @@ Module modInventoryItem
                     COST_T = Qty_END_T * Last_COST
                 End If
 
-                SqlExecuted($"UPDATE item_inventory SET ENDING_QUANTITY='{NumIsNull(Qty_END_T)}',COST={GotNullNumber(COST_T)},ENDING_COST={GotNullNumber(Temp_ENDING_COST)},ENDING_UNIT_COST={GotNullNumber(Cost_UN_END)} WHERE ID ='{rd("ID")}' and ITEM_ID = '{prITEM_ID}' and LOCATION_ID ='{prLOCATION_ID}' Limit 1;")
+                SqlExecuted($"UPDATE item_inventory SET ENDING_QUANTITY='{GF_NumIsNull(Qty_END_T)}',COST={GotNullNumber(COST_T)},ENDING_COST={GotNullNumber(Temp_ENDING_COST)},ENDING_UNIT_COST={GotNullNumber(Cost_UN_END)} WHERE ID ='{rd("ID")}' and ITEM_ID = '{prITEM_ID}' and LOCATION_ID ='{prLOCATION_ID}' Limit 1;")
 
             End While
             rd.Close()
@@ -143,24 +143,24 @@ Module modInventoryItem
         While rd.Read
 
             Dim SQL_ITEM As String
-            If 20 = NumIsNull(rd("OBJECT_TYPE")) Then
+            If 20 = GF_NumIsNull(rd("OBJECT_TYPE")) Then
 
                 SQL_ITEM = $"SELECT ENDING_QUANTITY as QUANTITY FROM ITEM_INVENTORY WHERE SOURCE_REF_TYPE ='6' and  SOURCE_REF_ID='{rd("OBJECT_ID")}'  and ITEM_ID ='{ITEM_SUBSI}' and SOURCE_REF_DATE = '{rd("OBJECT_DATE")}' Limit 1; "
 
             Else
-                SQL_ITEM = $"SELECT QUANTITY FROM {GetStringFieldValue("OBJECT_TYPE_MAP", "ID", rd("OBJECT_TYPE"), "TABLE_NAME")} WHERE ID='{rd("OBJECT_ID")}'  and ITEM_ID ='{ITEM_SUBSI}' Limit 1; "
+                SQL_ITEM = $"SELECT QUANTITY FROM {GF_GetStringFieldValue("OBJECT_TYPE_MAP", "ID", rd("OBJECT_TYPE"), "TABLE_NAME")} WHERE ID='{rd("OBJECT_ID")}'  and ITEM_ID ='{ITEM_SUBSI}' Limit 1; "
 
             End If
 
             Dim rd_item As OdbcDataReader = SqlReader(SQL_ITEM)
             If rd_item.Read Then
-                If NumIsNull(rd("ENTRY_TYPE")) = 0 Then
-                    T_Balance = T_Balance + (ThisCost * NumIsNull(rd_item("QUANTITY")))
+                If GF_NumIsNull(rd("ENTRY_TYPE")) = 0 Then
+                    T_Balance = T_Balance + (ThisCost * GF_NumIsNull(rd_item("QUANTITY")))
                 Else
-                    T_Balance = T_Balance - (ThisCost * NumIsNull(rd_item("QUANTITY")))
+                    T_Balance = T_Balance - (ThisCost * GF_NumIsNull(rd_item("QUANTITY")))
                 End If
 
-                Tmp_SQL = Tmp_SQL & $"UPDATE account_journal SET AMOUNT = '{(ThisCost * NumIsNull(rd_item("QUANTITY")))}', ENDING_BALANCE ='{T_Balance}' WHERE ID ='{rd("ID")}' and SUBSIDIARY_ID = '{ITEM_SUBSI}' AND location_id ='{LOCATION_ID}' AND account_id = '{ACCOUNT_ID}' Limit 1;"
+                Tmp_SQL = Tmp_SQL & $"UPDATE account_journal SET AMOUNT = '{(ThisCost * GF_NumIsNull(rd_item("QUANTITY")))}', ENDING_BALANCE ='{T_Balance}' WHERE ID ='{rd("ID")}' and SUBSIDIARY_ID = '{ITEM_SUBSI}' AND location_id ='{LOCATION_ID}' AND account_id = '{ACCOUNT_ID}' Limit 1;"
             End If
             rd_item.Close()
         End While
@@ -174,7 +174,7 @@ Module modInventoryItem
         Dim ThisBalance As Double
         Dim rd As OdbcDataReader = SqlReader($"SELECT ENDING_BALANCE FROM account_journal WHERE SUBSIDIARY_ID = '{ITEM_SUBSI}' AND location_id ='{LOCATION_ID}' AND account_id = '{ACCOUNT_ID}' and OBJECT_DATE < '{DateFormatMySql(ThisDate)}' ORDER BY OBJECT_DATE DESC,ID DESC LIMIT 1")
         If rd.Read Then
-            ThisBalance = NumIsNull(rd("ENDING_BALANCE"))
+            ThisBalance = GF_NumIsNull(rd("ENDING_BALANCE"))
         End If
         rd.Close()
         Return ThisBalance

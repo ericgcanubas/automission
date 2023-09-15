@@ -4,18 +4,18 @@
         SystemLoadPrinter(cmbPRINTER)
         cmbPRINTER.Text = gsPOS_DEFAULT_PRINTER
 
-        fPOSRefreshFormat(cmbPrinterPage, frmSalesOrder.Name)
+        GS_PosRefreshFormat(cmbPrinterPage, frmSalesOrder.Name)
         frmSalesOrder = Nothing
 
-        fPOSRefreshFormat(cmbPrinterPage2, frmInvoice.Name)
+        GS_PosRefreshFormat(cmbPrinterPage2, frmInvoice.Name)
         frmInvoice = Nothing
 
 
-        fPOSRefreshFormat(cmbPrinterPage3, frmReceivePayment.Name)
+        GS_PosRefreshFormat(cmbPrinterPage3, frmReceivePayment.Name)
         frmReceivePayment = Nothing
 
 
-        fPOSRefreshFormat(cmbPrinterPage4, "frmPOSLogResto")
+        GS_PosRefreshFormat(cmbPrinterPage4, "frmPOSLogResto")
 
 
         chkSmallBoxMonitoring.Checked = CBool(Val(GetDBAccessValueByText("USE_SMALL_BOX")))
@@ -54,14 +54,14 @@
         '========================================
 
 
-        gsPOS_DEFAULT_PRINTER = TextIsNull(cmbPRINTER.Text)
+        gsPOS_DEFAULT_PRINTER = GF_TextIsNull(cmbPRINTER.Text)
         SetDBAccessValue("POS_DEFAULT_PRINTER", gsPOS_DEFAULT_PRINTER)
 
-        SetDBAccessValue("USE_SMALL_BOX", NumIsNull(chkSmallBoxMonitoring.Checked))
-        SetDBAccessValue("CUSTOM_DINE_IN_NO", NumIsNull(numCUSTOM_DINE_IN_NO.Value))
-        SetDBAccessValue("MSG_PRINT_PAYMENT", NumIsNull(chkMsgPrintPayment.Checked))
-        SetDBAccessValue("PRINT_INVOICE_AFTER_PRINT_PAYMENT", NumIsNull(chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Checked))
-        SetDBAccessValue("PRINT_OS_AFTER_SAVE_INVOICE", NumIsNull(chkPRINT_OS_AFTER_SAVE_INVOICE.Checked))
+        SetDBAccessValue("USE_SMALL_BOX", GF_NumIsNull(chkSmallBoxMonitoring.Checked))
+        SetDBAccessValue("CUSTOM_DINE_IN_NO", GF_NumIsNull(numCUSTOM_DINE_IN_NO.Value))
+        SetDBAccessValue("MSG_PRINT_PAYMENT", GF_NumIsNull(chkMsgPrintPayment.Checked))
+        SetDBAccessValue("PRINT_INVOICE_AFTER_PRINT_PAYMENT", GF_NumIsNull(chkPRINT_INVOICE_AFTER_PRINT_PAYMENT.Checked))
+        SetDBAccessValue("PRINT_OS_AFTER_SAVE_INVOICE", GF_NumIsNull(chkPRINT_OS_AFTER_SAVE_INVOICE.Checked))
 
         Me.Close()
 
@@ -81,7 +81,7 @@
         FrmPrintPageSettings.Dispose()
         FrmPrintPageSettings = Nothing
         If ClickOK = True Then
-            fPOSRefreshFormat(cmbPrinterPage, frmSalesOrder.Name)
+            GS_PosRefreshFormat(cmbPrinterPage, frmSalesOrder.Name)
         End If
         frmSalesOrder = Nothing
 
@@ -100,7 +100,7 @@
         FrmPrintPageSettings.Dispose()
         FrmPrintPageSettings = Nothing
         If ClickOK = True Then
-            fPOSRefreshFormat(cmbPrinterPage2, frmInvoice.Name)
+            GS_PosRefreshFormat(cmbPrinterPage2, frmInvoice.Name)
         End If
         frmInvoice = Nothing
     End Sub
@@ -119,7 +119,7 @@
         FrmPrintPageSettings.Dispose()
         FrmPrintPageSettings = Nothing
         If ClickOK = True Then
-            fPOSRefreshFormat(cmbPrinterPage3, frmReceivePayment.Name)
+            GS_PosRefreshFormat(cmbPrinterPage3, frmReceivePayment.Name)
         End If
         frmReceivePayment = Nothing
     End Sub
@@ -138,7 +138,7 @@
         FrmPrintPageSettings.Dispose()
         FrmPrintPageSettings = Nothing
         If ClickOK = True Then
-            fPOSRefreshFormat(cmbPrinterPage4, "frmPOSLogResto")
+            GS_PosRefreshFormat(cmbPrinterPage4, "frmPOSLogResto")
         End If
 
     End Sub

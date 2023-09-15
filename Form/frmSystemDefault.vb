@@ -38,7 +38,7 @@
     End Sub
 
     Private Sub FrmSystemDefault_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(xcmbDrawerAccountId, "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME", "ID", "T")
+        GS_ComboBoxLoad(xcmbDrawerAccountId, "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME", "ID", "T")
         SystemLoadPrinter(cmbPrinter)
         cmbPrinter.Text = gsDEFAULT_PRINTER
 
@@ -55,10 +55,10 @@
 
         xchkUSE_SCREEN_BUTTON.Checked = gsUSE_SCREEN_BUTTON
         txsExportPDFLocation.Text = gsExportPDFLocation
-        xnumPOS_ID.Value = fPOS_MACHINE_ID()
-        xchkOR_REQUIRED.Checked = fPOS_OR_Required()
-        xcmbDrawerAccountId.SelectedValue = fPOS_Drawer_Account_PER_UNIT()
-        xchkPOS_STARTING_CASH.Checked = fPOS_STARTING_CASH()
+        xnumPOS_ID.Value = GF_GetPosMachineId()
+        xchkOR_REQUIRED.Checked = GF_IsPosOfficialReceiptRequired()
+        xcmbDrawerAccountId.SelectedValue = GF_PosDrawerAccountIdPerUnit()
+        xchkPOS_STARTING_CASH.Checked = GF_PosStartingCash()
 
 
         chkOpenCashDrawer.Checked = CBool(GetDBAccessValueByBool("OpenCashDrawer"))

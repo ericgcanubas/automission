@@ -5,7 +5,7 @@
     Private Sub RefreshData()
         Dim SQL As String = "select cd.`ID`,cd.`CODE`,cd.`DESCRIPTION`,cd.NOMINAL_VALUE as `NOMINAL VALUE`,ct.DESCRIPTION as `TYPE`, if( cd.`INACTIVE`=0,'No','Yes') as `INACTIVE` from pos_cash_denomination  as cd inner join pos_cash_type_map as ct on ct.id = cd.type "
 
-        LoadDataGridViewBinding(dgvList, SQL, item_BS)
+        GS_LoadDataGridViewBinding(dgvList, SQL, item_BS)
 
         With dgvList.Columns
             .Item(0).Visible = False

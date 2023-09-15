@@ -2,7 +2,7 @@
     Public contact_BS As BindingSource
     Private Sub RefreshData()
 
-        LoadDataGridViewBinding(dgvEmployee, "SELECT 
+        GS_LoadDataGridViewBinding(dgvEmployee, "SELECT 
 c.ID,
 c.Name,
 c.POSTAL_ADDRESS AS 'Postal Address',

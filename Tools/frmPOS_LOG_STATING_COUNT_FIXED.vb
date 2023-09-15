@@ -3,21 +3,21 @@ Public Class frmPOS_LOG_STATING_COUNT_FIXED
 
 
     Private Sub frmPOS_LOG_STATING_COUNT_FIXED_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbLOCATION_ID, "SELECT ID,NAME FROM LOCATION ", "ID", "NAME")
-        ComboBoxLoad(cmbPOS_MACHINE_ID, "SELECT ID,NAME FROM POS_MACHINE ", "ID", "NAME")
-        ComboBoxLoad(cmbCASHIER_ID, "SELECT ID,NAME FROM CONTACT WHERE `TYPE` ='2' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "SELECT ID,NAME FROM LOCATION ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPOS_MACHINE_ID, "SELECT ID,NAME FROM POS_MACHINE ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCASHIER_ID, "SELECT ID,NAME FROM CONTACT WHERE `TYPE` ='2' ", "ID", "NAME")
     End Sub
 
     Private Sub btnRUN_Click(sender As Object, e As EventArgs) Handles btnRUN.Click
 UP_NOW:
         ' GS_DoEvents()
-        'CursorLoadingOn(True)
+        'GS_CursorLoadingOn(True)
         Dim dt As Date = dtpDATE.Value
         Dim dn As Date = Date.Now
         If dt <= dn Then
             fRunning(dt)
         Else
-            ' CursorLoadingOn(False)
+            ' GS_CursorLoadingOn(False)
             MessageBoxInfo("Done")
             Exit Sub
         End If
@@ -32,7 +32,7 @@ UP_NOW:
         gsPOS_LOG_ID = 0
         gsCashier_ID = cmbCASHIER_ID.SelectedValue
         gsPOS_MACHINE_ID = cmbPOS_MACHINE_ID.SelectedValue
-        gsDRAWER_ACCOUNT_ID = GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
+        gsDRAWER_ACCOUNT_ID = GF_GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
         gsDefault_LOCATION_ID = cmbLOCATION_ID.SelectedValue
         Dim rd As OdbcDataReader
         If chkRESTO_MODE.Checked = False Then
@@ -49,10 +49,10 @@ UP_NOW:
             Dim rd_pos_start As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}' and  CASHIER_ID = '{gsCashier_ID}'  and DATE(RECORDED_ON) ='{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' ")
             While rd_pos_start.Read()
 
-                gsPOS_LOG_ID = NumIsNull(rd_pos_start("ID"))
-                gsSTARTING_CASH_ID = NumIsNull(rd_pos_start("STARTING_CASH_ID"))
-                gsENDING_RECEIPT_NO = NumIsNull(rd_pos_start("ENDING_RECEIPT_NO"))
-                gsCASH_COUNT_ID = NumIsNull(rd_pos_start("CASH_COUNT_ID"))
+                gsPOS_LOG_ID = GF_NumIsNull(rd_pos_start("ID"))
+                gsSTARTING_CASH_ID = GF_NumIsNull(rd_pos_start("STARTING_CASH_ID"))
+                gsENDING_RECEIPT_NO = GF_NumIsNull(rd_pos_start("ENDING_RECEIPT_NO"))
+                gsCASH_COUNT_ID = GF_NumIsNull(rd_pos_start("CASH_COUNT_ID"))
 
 
                 If gsPOS_LOG_ID <> 0 Then
@@ -66,9 +66,9 @@ UP_NOW:
 
                     D_PLOG(gsPOS_DATE)
                     If chkRESTO_MODE.Checked = False Then
-                        fCollect_POSLog()
+                        GS_CollectPosLog()
                     Else
-                        fCollect_POSLog_Resto()
+                        GS_CollectPosLogResto()
                     End If
 
                     D_PLOG(gsPOS_DATE)
@@ -145,10 +145,10 @@ CASH_COUNT_ID=null," & sValueSet
         Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and DATE(recorded_On) ='{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}'  Limit 1;")
 
         If rd.Read Then
-            gsPOS_LOG_ID = NumIsNull(rd("ID"))
-            gsSTARTING_CASH_ID = NumIsNull(rd("STARTING_CASH_ID"))
-            gsENDING_RECEIPT_NO = NumIsNull(rd("ENDING_RECEIPT_NO"))
-            gsCASH_COUNT_ID = NumIsNull(rd("CASH_COUNT_ID"))
+            gsPOS_LOG_ID = GF_NumIsNull(rd("ID"))
+            gsSTARTING_CASH_ID = GF_NumIsNull(rd("STARTING_CASH_ID"))
+            gsENDING_RECEIPT_NO = GF_NumIsNull(rd("ENDING_RECEIPT_NO"))
+            gsCASH_COUNT_ID = GF_NumIsNull(rd("CASH_COUNT_ID"))
         Else
             gsCASH_COUNT_ID = 0
             gsSTARTING_CASH_ID = ObjectTypeMapId("POS_STARTING_CASH")
@@ -172,7 +172,7 @@ CASH_COUNT_ID=null," & sValueSet
     'LIMIT 1")
 
     '        If rd.Read Then
-    '            G_TOTAL = NumIsNull(rd("GRAND_TOTAL"))
+    '            G_TOTAL = GF_NumIsNull(rd("GRAND_TOTAL"))
 
     '        End If 
 

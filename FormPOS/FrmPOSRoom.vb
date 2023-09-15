@@ -116,7 +116,7 @@ Public Class FrmPOSRoom
         gsSelectAvailableRoom = False
         gsSelectNotAvailableRoom = False
         flpBox.Controls.Clear()
-        Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' and i.GROUP_ID ='{  NumIsNull(ts.Tag)}' AND i.inactive ='0' ORDER BY i.id")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' and i.GROUP_ID ='{  GF_NumIsNull(ts.Tag)}' AND i.inactive ='0' ORDER BY i.id")
         While rd.Read
             fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
         End While
@@ -134,13 +134,13 @@ Public Class FrmPOSRoom
         'POS LOG   DATE(recorded_On) ='{DateFormatMySql(gsPOS_DATE)}'
         Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID, RECORDED_ON,CASHIER_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and LOCATION_ID = '{gsDefault_LOCATION_ID}' and `CASH_COUNT_ID` is null ORDER BY ID DESC Limit 1;")
         If rd.Read Then
-            If gsCashier_ID <> NumIsNull(rd("CASHIER_ID")) Then
+            If gsCashier_ID <> GF_NumIsNull(rd("CASHIER_ID")) Then
                 MessageBoxExclamation("Please set cash count from last user. ")
                 gsCloseCall = True
                 Exit Sub
             End If
 
-            'If NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
+            'If GF_NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
             '    FrmPOSLogSwitch.ShowDialog()
             '    bStartNew = FrmPOSLogSwitch.gsStartNew
             '    FrmPOSLogSwitch.Dispose()
@@ -152,11 +152,11 @@ Public Class FrmPOSRoom
             'End If
 
             gsPOS_DATE = CDate(rd("RECORDED_ON"))
-            gsSTARTING_RECEIPT_NO = NumIsNull(rd("STARTING_RECEIPT_NO"))
-            gsPOS_LOG_ID = NumIsNull(rd("ID"))
-            gsSTARTING_CASH_ID = NumIsNull(rd("STARTING_CASH_ID"))
-            gsENDING_RECEIPT_NO = NumIsNull(rd("ENDING_RECEIPT_NO"))
-            gsCASH_COUNT_ID = NumIsNull(rd("CASH_COUNT_ID"))
+            gsSTARTING_RECEIPT_NO = GF_NumIsNull(rd("STARTING_RECEIPT_NO"))
+            gsPOS_LOG_ID = GF_NumIsNull(rd("ID"))
+            gsSTARTING_CASH_ID = GF_NumIsNull(rd("STARTING_CASH_ID"))
+            gsENDING_RECEIPT_NO = GF_NumIsNull(rd("ENDING_RECEIPT_NO"))
+            gsCASH_COUNT_ID = GF_NumIsNull(rd("CASH_COUNT_ID"))
 
         Else
 
@@ -167,7 +167,7 @@ NewPOS_LOG:
                 gsCASH_COUNT_ID = 0
                 Dim sAMount As Double = 0
                 gsSTARTING_CASH_ID = 0
-                If fPOS_STARTING_CASH() = True Then
+                If GF_PosStartingCash() = True Then
                     frmPOSStartingCash.ShowDialog()
                     sAMount = frmPOSStartingCash.gsStartAmount
                     frmPOSStartingCash.Dispose()
@@ -183,21 +183,21 @@ NewPOS_LOG:
 
                 SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{sAMount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
                 fPOS_STARTING_CASH_JOURNAL(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
-                fPOS_LOG()
+                GS_PosLogLoad()
 
             Else
                 Dim rd_temp As OdbcDataReader = SqlReader($"select * from pos_log where location_id = '{gsDefault_LOCATION_ID}' order by id desc limit 1;")
                 If rd_temp.Read Then
-                    If gsCashier_ID = NumIsNull(rd_temp("cashier_id")) Then
+                    If gsCashier_ID = GF_NumIsNull(rd_temp("cashier_id")) Then
 
                         If MessageBoxPointOfSalesYesNO($"Do yo want to open the previous POS LOG No. {rd_temp("id")}") = True Then
 
                             gsPOS_DATE = CDate(rd_temp("RECORDED_ON"))
-                            gsSTARTING_RECEIPT_NO = NumIsNull(rd_temp("STARTING_RECEIPT_NO"))
-                            gsPOS_LOG_ID = NumIsNull(rd_temp("ID"))
-                            gsSTARTING_CASH_ID = NumIsNull(rd_temp("STARTING_CASH_ID"))
-                            gsENDING_RECEIPT_NO = NumIsNull(rd_temp("ENDING_RECEIPT_NO"))
-                            gsCASH_COUNT_ID = NumIsNull(rd_temp("CASH_COUNT_ID"))
+                            gsSTARTING_RECEIPT_NO = GF_NumIsNull(rd_temp("STARTING_RECEIPT_NO"))
+                            gsPOS_LOG_ID = GF_NumIsNull(rd_temp("ID"))
+                            gsSTARTING_CASH_ID = GF_NumIsNull(rd_temp("STARTING_CASH_ID"))
+                            gsENDING_RECEIPT_NO = GF_NumIsNull(rd_temp("ENDING_RECEIPT_NO"))
+                            gsCASH_COUNT_ID = GF_NumIsNull(rd_temp("CASH_COUNT_ID"))
                         End If
 
                     End If
@@ -209,7 +209,7 @@ NewPOS_LOG:
 
         If gsPOS_LOG_ID <> 0 Then
 
-            fCollect_POSLog_Resto()
+            GS_CollectPosLogResto()
 
         End If
 
@@ -218,7 +218,7 @@ NewPOS_LOG:
 
         dgvList.Height = CheckInPanelHeight
 
-        gsHours_Item_ID = GetNumberFieldValueOneReturn($"SELECT ID from ITEM where BASE_UNIT_ID = '{gsMeasureHoursID}' limit 1;")
+        gsHours_Item_ID = GF_GetNumberFieldValueOneReturn($"SELECT ID from ITEM where BASE_UNIT_ID = '{gsMeasureHoursID}' limit 1;")
         If gsHours_Item_ID = 0 Then
             MessageBoxExclamation("no item hours created.")
         End If
@@ -235,9 +235,9 @@ NewPOS_LOG:
         'PRINT_INVOICE_AFTER_PRINT_PAYMENT = CBool(Val(GetDBAccessValueByText("PRINT_INVOICE_AFTER_PRINT_PAYMENT")))
         'PRINT_OS_AFTER_SAVE_INVOICE = CBool(Val(GetDBAccessValueByText("PRINT_OS_AFTER_SAVE_INVOICE")))
 
-        gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
-        gsPOS_SERVED_ONLY = fGET_SERVED_ONLY()
-        gsPOS_TYPE_ID = fPOS_machine_type_map()
+        gsPOS_MACHINE_ID = GF_GetPosMachineId()
+        gsPOS_SERVED_ONLY = GS_IsServedOnly()
+        gsPOS_TYPE_ID = GF_PosMachineTypeMap()
 
         gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
         gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
@@ -246,13 +246,13 @@ NewPOS_LOG:
         gsIncRefNoByLocation = GetIncRefNoByLocation()
         gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
 
-        Me.AccessibleName = GetStringFieldValue("tblsub_menu", "form", "frmInvoice", "sub_id")
+        Me.AccessibleName = GF_GetStringFieldValue("tblsub_menu", "form", "frmInvoice", "sub_id")
 
         gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
         gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
         gsPOSDefaultCustomer_ID = GetSystemSettingValueByText("POSDefaultCustomerId")
-        gsPOS_RESTAURANT_TABLE_NO = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
-        gsDRAWER_ACCOUNT_ID = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
+        gsPOS_RESTAURANT_TABLE_NO = GF_GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
+        gsDRAWER_ACCOUNT_ID = GF_GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
 
         fLoadRoomAll()
         fLoadOtherMenu()
@@ -334,7 +334,7 @@ NewPOS_LOG:
         flpBox.Controls.Clear()
         Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description,{INVOICE_ID_SQL} AS `invoice_id`,{INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.description")
         While rd.Read
-            If TextIsNull(rd("Invoice_id")) = "0" Then
+            If GF_TextIsNull(rd("Invoice_id")) = "0" Then
                 fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
             End If
 
@@ -348,7 +348,7 @@ NewPOS_LOG:
         flpBox.Controls.Clear()
         Dim rd As OdbcDataReader = SqlReader($"SELECT i.id,i.description, {INVOICE_ID_SQL} AS `invoice_id`, {INVOICE_CHECK_OUT} as `CHECK_OUT` FROM item AS i WHERE i.type ='10' AND i.inactive ='0' ORDER BY i.description")
         While rd.Read
-            If TextIsNull(rd("Invoice_id")) <> "0" Then
+            If GF_TextIsNull(rd("Invoice_id")) <> "0" Then
                 fCreateRoom(rd("id"), rd("description"), rd("Invoice_id"), rd("CHECK_OUT"))
             End If
         End While

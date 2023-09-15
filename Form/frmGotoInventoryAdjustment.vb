@@ -1,8 +1,8 @@
 ﻿Public Class FrmGotoInventoryAdjustment
     Public gsCLick As Boolean = False
     Private Sub FrmGotoInventoryAdjustment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbADJUSTMENT_TYPE_ID, "select ID,DESCRIPTION FROM inventory_adjustment_type ", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbADJUSTMENT_TYPE_ID, "select ID,DESCRIPTION FROM inventory_adjustment_type ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
 
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
         cmbLOCATION_ID.Enabled = IsLockLocation()

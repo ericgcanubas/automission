@@ -113,8 +113,8 @@ Public Class FrmPOSmenu
 
     Public Sub PosLogMenu()
         SetNew()
-        With frmPOSLog
-            fCollect_POSLog()
+        With FrmPOSLog
+            GS_CollectPosLog()
             .ShowDialog()
             If .gsType = 1 Then
 
@@ -128,7 +128,7 @@ Public Class FrmPOSmenu
             .Dispose()
 
         End With
-        frmPOSLog = Nothing
+        FrmPOSLog = Nothing
 
     End Sub
 
@@ -193,11 +193,11 @@ Public Class FrmPOSmenu
         gsSTARTING_RECEIPT_NO = 0
         gsENDING_RECEIPT_NO = 0
 
-        Me.AccessibleName = GetStringFieldValue("tblsub_menu", "form", "frmSalesReceipt", "sub_id")
+        Me.AccessibleName = GF_GetStringFieldValue("tblsub_menu", "form", "frmSalesReceipt", "sub_id")
 
         gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
 
-        OR_REF = fPOS_OR_Required()
+        OR_REF = GF_IsPosOfficialReceiptRequired()
 
         gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
         gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
@@ -205,9 +205,9 @@ Public Class FrmPOSmenu
         gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
         gsDefault_LOCATION_ID = GetLoadLocationDefault()
         gsIncRefNoByLocation = GetIncRefNoByLocation()
-        gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
-        gsDRAWER_ACCOUNT_ID = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
-        gsPOS_TYPE_ID = fPOS_machine_type_map()
+        gsPOS_MACHINE_ID = GF_GetPosMachineId()
+        gsDRAWER_ACCOUNT_ID = GF_GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
+        gsPOS_TYPE_ID = GF_PosMachineTypeMap()
 
         Me.Text = "POS - " & gsSystemName
         fcolumnGrid_U_SalesReceipt(dgvProductItem)
@@ -295,17 +295,17 @@ B.ID = ii.BATCH_ID
                 dgvProductItem.Rows.Add()
                 For RowNum As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(RowNum)
-                        If CheckNumStandard(.Name) = True Then
-                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = NumberFormatStandard(NumIsNull(rd(RowNum)))
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
-                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = NumberFormatNoDecimal(NumIsNull(rd(RowNum)))
-                        ElseIf CheckBoolType(.Name) = True Then
-                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = CBool(NumIsNull(rd(RowNum)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = NumberFormatStandard(GF_NumIsNull(rd(RowNum)))
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
+                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(RowNum)))
+                        ElseIf GF_CheckBoolType(.Name) = True Then
+                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = CBool(GF_NumIsNull(rd(RowNum)))
                         Else
 
 
 
-                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = TextIsNull(rd(RowNum))
+                            dgvProductItem.Rows(XRow).Cells(RowNum).Value = GF_TextIsNull(rd(RowNum))
 
                         End If
                     End With
@@ -350,15 +350,15 @@ B.ID = ii.BATCH_ID
 
     End Sub
     Private Sub ComboxRefresh()
-        ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
         cmbCUSTOMER_ID.SelectedIndex = -1
-        ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
         cmbPAYMENT_METHOD_ID.SelectedIndex = -1
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
-        ComboBoxLoad(cmbCLASS_ID, "select * from class", "ID", "NAME")
-        ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCLASS_ID, "select * from class", "ID", "NAME")
+        GS_ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
         cmbSALES_REP_ID.SelectedIndex = -1
-        ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
+        GS_ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
 
     End Sub
     Private Sub Find_Click(sender As Object, e As EventArgs) Handles tsFind.Click
@@ -485,7 +485,7 @@ B.ID = ii.BATCH_ID
         End If
 
 
-        If NumIsNull(lblPAYMENT_AMOUNT.Text) = 0 Then
+        If GF_NumIsNull(lblPAYMENT_AMOUNT.Text) = 0 Then
             MessageBoxInfo("Please enter payment")
             Exit Sub
         End If
@@ -570,40 +570,36 @@ B.ID = ii.BATCH_ID
         If IsNew = True Then
 
             lblCASHIER_ID.Text = gsCashier_ID
-            lblCODE.Text = GetNextCode("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
+            lblCODE.Text = GF_GetNextCode("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
             lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text = gsDRAWER_ACCOUNT_ID 'POS user only
             lblDEPOSITED.Text = "0"
 
 
             SqlCreate(Me, SQL_Field, SQL_Value)
             ID = ObjectTypeMapId("SALES_RECEIPT")
-            SqlExecuted($"INSERT INTO sales_receipt ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},{GetDateTimeNowSql()},3,{GetDateTimeNowSql()})")
+            SqlExecuted($"INSERT INTO sales_receipt ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},'{ID}','{GetDateTimeNowSql()}','3','{GetDateTimeNowSql()}')")
 
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
             tChangeAccept = True
-            Dim squery As String = SqlUpdate(Me)
-            squery = squery & " WHERE ID = '" & ID & "' limit 1;"
-
-            SqlExecuted("UPDATE sales_receipt SET " & squery)
-            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SqlExecuted("UPDATE sales_receipt SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "' limit 1")
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
-
 
         '================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
 
-            GS_AccountJournalExecute(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
-            If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
+            GS_AccountJournalExecute(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 0, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            If GF_NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, ID, CDate(dtpDATE.Value), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 1, GF_NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
 
         End If
@@ -611,7 +607,7 @@ B.ID = ii.BATCH_ID
 
         If IsNew = True Then
             If OR_REF = False Then
-                fUPDATE_NEXT_RECEIPT_NO()
+                GS_UpdateNextReceiptNumber()
             Else
                 SqlExecuted("Update pos_machine SET NEXT_RECEIPT_NO = '" & Val(txtPAYMENT_REF_NO.Text) + 1 & "' where ID = '" & gsPOS_MACHINE_ID & "' limit 1;")
             End If
@@ -676,7 +672,7 @@ B.ID = ii.BATCH_ID
     End Sub
     Private Sub OUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
         POSComputed()
-        Select Case NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue)
+        Select Case GF_NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue)
             Case 14
                 xlblTax.Text = " 0% VAT"
             Case 12
@@ -688,10 +684,10 @@ B.ID = ii.BATCH_ID
 
         Try
 
-            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & GF_NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblOUTPUT_TAX_VAT_METHOD.Text = TextIsNull(rd("VAT_METHOD"))
-                lblOUTPUT_TAX_ACCOUNT_ID.Text = TextIsNull(rd("TAX_ACCOUNT_ID"))
+                lblOUTPUT_TAX_VAT_METHOD.Text = GF_TextIsNull(rd("VAT_METHOD"))
+                lblOUTPUT_TAX_ACCOUNT_ID.Text = GF_TextIsNull(rd("TAX_ACCOUNT_ID"))
             Else
                 lblOUTPUT_TAX_VAT_METHOD.Text = ""
                 lblOUTPUT_TAX_ACCOUNT_ID.Text = ""
@@ -726,21 +722,21 @@ B.ID = ii.BATCH_ID
             ElseIf IsDiscountItem(d.Cells("ITEM_TYPE").Value) = True Then
                 MessageBoxInfo("Invalid to Edit")
                 Exit Sub
-            ElseIf NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
+            ElseIf GF_NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
                 MessageBoxInfo("Invalid to Edit")
                 Exit Sub
             End If
             Dim GROUP_LINE_ID As Integer = 0
             tsITEM_MENU_TOOLS.Enabled = False
-            With frmAddItem
+            With FrmAddItem
 
-                If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
+                If GF_NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
                     bAlreadySave = True
                 End If
 
-                .sFormName = "frmSalesReceipt"
+                .sFormName = "FrmSalesReceipt"
                 GROUP_LINE_ID = Val(dgvProductItem.Rows.Item(I).Cells("GROUP_LINE_ID").Value)
                 .gsItem_ID = dgvProductItem.Rows.Item(I).Cells("ITEM_ID").Value
                 .gsUM = dgvProductItem.Rows.Item(I).Cells("UNIT_ID").Value
@@ -769,8 +765,8 @@ B.ID = ii.BATCH_ID
                 End If
             End With
             POSComputed()
-            frmAddItem.Dispose()
-            frmAddItem = Nothing
+            FrmAddItem.Dispose()
+            FrmAddItem = Nothing
         Catch ex As Exception
             MessageBoxInfo(ex.Message)
         End Try
@@ -815,7 +811,7 @@ ORDER BY sr.`DATE` DESC, sr.`ID` DESC
 LIMIT 1")
 
         If rd.Read Then
-            G_TOTAL = NumIsNull(rd("GRAND_TOTAL"))
+            G_TOTAL = GF_NumIsNull(rd("GRAND_TOTAL"))
 
         End If
 
@@ -824,8 +820,8 @@ LIMIT 1")
 
     Private Sub POSMenu_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         Dim H_PC As Integer = My.Computer.Screen.WorkingArea.Height
-        ViewItemDisplay(dgvProductItem)
-        ViewNotSort(dgvProductItem)
+        GS_ViewItemDisplay(dgvProductItem)
+        GS_ViewNotSort(dgvProductItem)
 
         Dim IsExit As Boolean = False
         With FrmPOSTransactionList
@@ -855,7 +851,7 @@ LIMIT 1")
         If rd.Read Then
             LOG_DATE = DateTimeFormatMySql(rd("RECORDED_ON"))
 
-            If NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
+            If GF_NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
                 FrmPOSLogSwitch.ShowDialog()
                 bStartNew = FrmPOSLogSwitch.gsStartNew
                 FrmPOSLogSwitch.Dispose()
@@ -866,19 +862,19 @@ LIMIT 1")
                 GoTo NewPOS_LOG
             End If
 
-            gsSTARTING_RECEIPT_NO = NumIsNull(rd("STARTING_RECEIPT_NO"))
-            gsPOS_LOG_ID = NumIsNull(rd("ID"))
-            gsSTARTING_CASH_ID = NumIsNull(rd("STARTING_CASH_ID"))
-            gsStartingCash_Amount = GetNumberFieldValue("pos_starting_cash", "ID", gsSTARTING_CASH_ID, "AMOUNT")
-            gsENDING_RECEIPT_NO = NumIsNull(rd("ENDING_RECEIPT_NO"))
-            gsCASH_COUNT_ID = NumIsNull(rd("CASH_COUNT_ID"))
+            gsSTARTING_RECEIPT_NO = GF_NumIsNull(rd("STARTING_RECEIPT_NO"))
+            gsPOS_LOG_ID = GF_NumIsNull(rd("ID"))
+            gsSTARTING_CASH_ID = GF_NumIsNull(rd("STARTING_CASH_ID"))
+            gsStartingCash_Amount = GF_GetNumberFieldValue("pos_starting_cash", "ID", gsSTARTING_CASH_ID, "AMOUNT")
+            gsENDING_RECEIPT_NO = GF_NumIsNull(rd("ENDING_RECEIPT_NO"))
+            gsCASH_COUNT_ID = GF_NumIsNull(rd("CASH_COUNT_ID"))
             gsPOS_DATE = CDate(rd("TRANSACTION_DATE"))
         Else
 NewPOS_LOG:
             gsCASH_COUNT_ID = 0
             gsStartingCash_Amount = 0
             gsSTARTING_CASH_ID = 0
-            If fPOS_STARTING_CASH() = True Then
+            If GF_PosStartingCash() = True Then
                 FrmPOSStartingCash.ShowDialog()
                 gsStartingCash_Amount = FrmPOSStartingCash.gsStartAmount
                 FrmPOSStartingCash.Dispose()
@@ -891,7 +887,7 @@ NewPOS_LOG:
 
             SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{gsStartingCash_Amount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
             fPOS_STARTING_CASH_JOURNAL(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
-            fPOS_LOG()
+            GS_PosLogLoad()
         End If
         rd.Close()
         PosLogMenu()
@@ -946,11 +942,11 @@ NewPOS_LOG:
                 cmbCUSTOMER_ID.SelectedValue = Val(gsPOSDefaultCustomer_ID)
                 cmbPAYMENT_METHOD_ID.SelectedValue = GetPaymentMethodDefault()
                 If OR_REF = False Then
-                    txtPAYMENT_REF_NO.Text = fGET_NEXT_RECEIPT_NO()
+                    txtPAYMENT_REF_NO.Text = GF_GetNextReceiptNumber()
                     PAYMENT_METHOD_ID_SelectedIndexChanged(0, EventArgs.Empty)
                 End If
 
-                lblCODE.Text = NextCodePreview("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
+                lblCODE.Text = GF_NextCodePreview("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
                 lblPOS_MACHINE_ID.Text = gsPOS_MACHINE_ID
                 lblPOS_TIMESTAMP.Text = Format(DateTime.Now, "yyyy-MM-dd hh:mm:ss")
                 lblPOS_POSTED.Text = "1"
@@ -970,7 +966,7 @@ NewPOS_LOG:
                 cmbPAYMENT_METHOD_ID.SelectedValue = GetPaymentMethodDefault()
                 cmbCUSTOMER_ID.SelectedValue = Val(gsPOSDefaultCustomer_ID)
                 cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
-                lblCODE.Text = fGET_NEXT_RECEIPT_NO()
+                lblCODE.Text = GF_GetNextReceiptNumber()
                 lblSO_MACHINE_ID.Text = gsPOS_MACHINE_ID
                 lblPOS_TIMESTAMP.Text = Format(DateTime.Now, "yyyy-MM-dd hh:mm:ss")
                 lblPOS_POSTED.Text = "0"
@@ -993,11 +989,11 @@ NewPOS_LOG:
         ' If IsNew = False Then Exit Sub
         If cmbCUSTOMER_ID.Text = "" Then Exit Sub
         xlblCustomer_Name.Text = cmbCUSTOMER_ID.Text
-        xlblAcctNo.Text = GetStringFieldValue("CONTACT", "ID", cmbCUSTOMER_ID.SelectedValue, "ACCOUNT_NO")
+        xlblAcctNo.Text = GF_GetStringFieldValue("CONTACT", "ID", cmbCUSTOMER_ID.SelectedValue, "ACCOUNT_NO")
         Dim rd As OdbcDataReader = SqlReader($"select TAX_ID from contact where id ='{s}' and `type` = '1' limit 1 ")
         If rd.Read Then
-            If NumIsNull(rd("TAX_ID")) <> 0 Then
-                cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
+            If GF_NumIsNull(rd("TAX_ID")) <> 0 Then
+                cmbOUTPUT_TAX_ID.SelectedValue = GF_NumIsNull(rd("TAX_ID"))
 
             Else
                 cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
@@ -1165,8 +1161,8 @@ NewPOS_LOG:
     Private Sub POSmenu_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         If gsCloseCall = True Then
             bActiveFirst = False
-            frmSplash.Show()
-            frmSplash.Timer1.Enabled = True
+            FrmSplash.Show()
+            FrmSplash.Timer1.Enabled = True
             gsMenuSubID = 0
             gsMenuID = 0
             Me.Dispose()
@@ -1176,13 +1172,13 @@ NewPOS_LOG:
     Private Sub PaymentMethodPOS()
         xlblTender.Text = "PAYMENT TENDER"
         lblPAYMENT_AMOUNT.Text = NumberFormatStandard(TenderSum())
-        xlblChange.Text = NumberFormatStandard(NumIsNull(lblAMOUNT.Text) - NumIsNull(lblPAYMENT_AMOUNT.Text))
+        xlblChange.Text = NumberFormatStandard(GF_NumIsNull(lblAMOUNT.Text) - GF_NumIsNull(lblPAYMENT_AMOUNT.Text))
     End Sub
     Private Function TenderSum() As Double
         Dim Amount As Double = 0
         For i As Integer = 0 To dgvTENDER_LIST.Rows.Count - 1
             If dgvTENDER_LIST.Rows(i).Visible = True Then
-                Amount += NumIsNull(dgvTENDER_LIST.Rows(i).Cells("AMOUNT").Value)
+                Amount += GF_NumIsNull(dgvTENDER_LIST.Rows(i).Cells("AMOUNT").Value)
             End If
         Next
         Return Amount
@@ -1245,8 +1241,8 @@ NewPOS_LOG:
 
         If bSaveAccept = True Then
             If PrintSave = False Then
-                fCollect_POSLog()
-                fPOS_LOG()
+                GS_CollectPosLog()
+                GS_PosLogLoad()
                 PosLogMenu()
             End If
 
@@ -1275,8 +1271,8 @@ NewPOS_LOG:
 
         If bSaveAccept = True Then
             PrintSave = False
-            fCollect_POSLog()
-            fPOS_LOG()
+            GS_CollectPosLog()
+            GS_PosLogLoad()
             PosLogMenu()
         End If
 
@@ -1300,7 +1296,7 @@ NewPOS_LOG:
         frmPOSContacts.ShowDialog()
 
         If frmPOSContacts.gsOK = True Then
-            ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+            GS_ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
 
             cmbCUSTOMER_ID.SelectedValue = frmPOSContacts.gsContact_ID
         Else
@@ -1316,7 +1312,7 @@ NewPOS_LOG:
             If frmContactDetails.gsOK = True Then
                 xlblCustomer_Name.Text = ""
                 xlblAcctNo.Text = ""
-                ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+                GS_ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
                 cmbCUSTOMER_ID.SelectedValue = frmContactDetails.ID
             End If
             frmContactDetails.Dispose()
@@ -1331,11 +1327,11 @@ NewPOS_LOG:
 
         If frmPOSContacts.gsOK = True Then
             If frmPOSContacts.gsContact_ID = 0 Then
-                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedIndex = -1
                 xlblSalesRep.Text = ""
             Else
-                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedValue = frmPOSContacts.gsContact_ID
             End If
         Else
@@ -1350,7 +1346,7 @@ NewPOS_LOG:
             frmContactDetails.ShowDialog()
             If frmContactDetails.gsOK = True Then
                 xlblSalesRep.Text = ""
-                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedValue = frmContactDetails.ID
             End If
             frmContactDetails.Dispose()
@@ -1471,10 +1467,10 @@ NewPOS_LOG:
     Private Sub AddPayment()
         With frmPOSPayment
 
-            .gsTransTotal = NumIsNull(lblAMOUNT.Text)
+            .gsTransTotal = GF_NumIsNull(lblAMOUNT.Text)
 
             .numAMOUNT.Visible = True
-            ComboBoxLoad(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+            GS_ComboBoxLoad(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
             .gsPaymentMethod_ID = GetPaymentMethodDefault()
             .gsPAYMENT_REF_NO = ""
             .gsCARD_NO = ""
@@ -1550,10 +1546,10 @@ NewPOS_LOG:
         End If
 
         With frmPOSPayment
-            .gsTransTotal = NumIsNull(lblAMOUNT.Text)
+            .gsTransTotal = GF_NumIsNull(lblAMOUNT.Text)
             .btnDelete.Visible = True
             .numAMOUNT.Visible = True
-            ComboBoxLoad(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+            GS_ComboBoxLoad(.cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
             .gsPaymentMethod_ID = dgvTENDER_LIST.CurrentRow.Cells("PAYMENT_METHOD_ID").Value
             .gsPAYMENT_REF_NO = dgvTENDER_LIST.CurrentRow.Cells("PAYMENT_REF_NO").Value
             .gsCARD_NO = dgvTENDER_LIST.CurrentRow.Cells("CARD_NO").Value
@@ -1646,7 +1642,7 @@ NewPOS_LOG:
         tsITEM_MENU_TOOLS.Enabled = False
         With frmAddItemSidePanel
             .StartPosition = FormStartPosition.Manual
-            .sFormName = "frmSalesReceipt"
+            .sFormName = "FrmSalesReceipt"
             .gsLOCATION_ID = cmbLOCATION_ID.SelectedValue
             .gsDate = dtpDATE.Value
             .dgv = dgvProductItem

@@ -31,7 +31,7 @@ FROM
     WHERE p.`ID` <> '{ThisPOSlogID}' and p.`LOCATION_ID` = '{ThisLocationID}' and date(p.RECORDED_ON) ='{DateFormatMySql(ThisPOS_DATE)}' 
     ORDER BY p.`RECORDED_ON` desc"
 
-        LoadDataGridView(dgvPOSLog, sql)
+        GS_LoadDataGridView(dgvPOSLog, sql)
 
     End Sub
 

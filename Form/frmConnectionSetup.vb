@@ -10,13 +10,13 @@ Public Class FrmConnectionSetup
             cn.Open()
             Dim rd As OleDb.OleDbDataReader = DbAccessReader("select * from tblconnection where connection_name = '" & strCon_Name & "'", cn)
             If rd.Read Then
-                txtConnectionName.Text = TextIsNull(rd("connection_name"))
-                txtServer.Text = TextIsNull(rd("db_server"))
-                txtDatabase.Text = TextIsNull(rd("db_name"))
-                txtUsername.Text = TextIsNull(rd("db_username"))
-                txtPassword.Text = TextIsNull(Decrypt(rd("db_password")))
-                txtPort.Text = TextIsNull(rd("db_port"))
-                cmbPOS_TYPE.SelectedIndex = NumIsNull(rd("db_datasource_name"))
+                txtConnectionName.Text = GF_TextIsNull(rd("connection_name"))
+                txtServer.Text = GF_TextIsNull(rd("db_server"))
+                txtDatabase.Text = GF_TextIsNull(rd("db_name"))
+                txtUsername.Text = GF_TextIsNull(rd("db_username"))
+                txtPassword.Text = GF_TextIsNull(Decrypt(rd("db_password")))
+                txtPort.Text = GF_TextIsNull(rd("db_port"))
+                cmbPOS_TYPE.SelectedIndex = GF_NumIsNull(rd("db_datasource_name"))
                 chkPOS_MODE.Checked = rd("POS_MODE")
 
             End If

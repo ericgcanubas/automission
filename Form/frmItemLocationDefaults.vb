@@ -8,9 +8,9 @@
         fMaterialSkin(Me)
         Dim sQuery As String = " SELECT '0' AS `ID`, '' AS `NAME` UNION SELECT ID,`NAME` FROM unit_of_measure WHERE inactive ='0'"
         lblLocation.Text = dLocation
-        ComboBoxLoad(cmbPurchases, sQuery, "ID", "NAME")
-        ComboBoxLoad(cmbSales, sQuery, "ID", "NAME")
-        ComboBoxLoad(cmbShipping, sQuery, "ID", "NAME")
+        GS_ComboBoxLoad(cmbPurchases, sQuery, "ID", "NAME")
+        GS_ComboBoxLoad(cmbSales, sQuery, "ID", "NAME")
+        GS_ComboBoxLoad(cmbShipping, sQuery, "ID", "NAME")
 
         cmbPurchases.SelectedValue = purchase_id
         cmbSales.SelectedValue = sales_id
@@ -20,9 +20,9 @@
     End Sub
 
     Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
-        purchase_id = NumIsNull(cmbPurchases.SelectedValue)
-        sales_id = NumIsNull(cmbSales.SelectedValue)
-        ship_id = NumIsNull(cmbShipping.SelectedValue)
+        purchase_id = GF_NumIsNull(cmbPurchases.SelectedValue)
+        sales_id = GF_NumIsNull(cmbSales.SelectedValue)
+        ship_id = GF_NumIsNull(cmbShipping.SelectedValue)
         If purchase_id = 0 And sales_id = 0 And ship_id = 0 Then
 
         Else

@@ -20,7 +20,7 @@
         ViewColumn(dgvLocation, "29")
     End Sub
     Private Sub fRefreshList()
-        LoadDataGridViewBinding(dgvLocation, "select  l.`ID`,l.`Code`,l.`Name`,ifnull(p.DESCRIPTION,'') as `Price level`,l.Inactive from location as l left outer join price_level as p on p.ID = l.price_level_id", item_BS)
+        GS_LoadDataGridViewBinding(dgvLocation, "select  l.`ID`,l.`Code`,l.`Name`,ifnull(p.DESCRIPTION,'') as `Price level`,l.Inactive from location as l left outer join price_level as p on p.ID = l.price_level_id", item_BS)
 
         With dgvLocation.Columns
             .Item(0).Visible = False

@@ -11,7 +11,7 @@ Public Class FrmLocationDetails
 
     Private Sub frmLocationDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbPRICE_LEVEL_ID, "SELECT `ID`,`DESCRIPTION` from price_level ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbPRICE_LEVEL_ID, "SELECT `ID`,`DESCRIPTION` from price_level ", "ID", "DESCRIPTION")
         If ID > 0 Then
             IsNew = False
             fRefresh()

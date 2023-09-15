@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Module modDatagridView
     <System.Runtime.CompilerServices.Extension()>
-    Public Function DataGridViewCounting(ByVal dgv As DataGridView) As Integer
+    Public Function GF_DataGridViewCounting(ByVal dgv As DataGridView) As Integer
         Dim N As Integer = 0
         For I As Integer = 0 To dgv.Rows.Count - 1
             If dgv.Rows(I).Visible = True Then
@@ -11,7 +11,7 @@ Module modDatagridView
         Return N
     End Function
 
-    Public Sub StatusGridUpdateRefresh(ByVal dgv As DataGridView)
+    Public Sub GS_StatusGridUpdateRefresh(ByVal dgv As DataGridView)
         For i As Integer = 0 To dgv.Rows.Count - 1
             With dgv.Rows(i)
                 Select Case .Cells("CONTROL_STATUS").Value
@@ -32,7 +32,7 @@ Module modDatagridView
         Dim i As Integer = d.CurrentRow.Index
         d.Rows(i).Cells(0).Value = IIf(d.Rows(i).Cells(0).Value = True, False, True)
     End Sub
-    Public Sub ViewStyleColor(ByVal dgv As DataGridView)
+    Public Sub GS_ViewStyleColor(ByVal dgv As DataGridView)
 
         dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249)
         dgv.DefaultCellStyle.SelectionBackColor = Color.DarkCyan
@@ -44,8 +44,8 @@ Module modDatagridView
         End If
 
     End Sub
-    Public Sub ViewExpensesDisplay(ByVal dgv As DataGridView)
-        ViewStyleColor(dgv)
+    Public Sub GS_ViewExpensesDisplay(ByVal dgv As DataGridView)
+        GS_ViewStyleColor(dgv)
         With dgv.Columns
             .Item("ACCOUNT").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             .Item("PARTICULAR").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
@@ -59,7 +59,7 @@ Module modDatagridView
         End With
     End Sub
 
-    Public Sub ViewItemDisplay(ByVal dgv As DataGridView)
+    Public Sub GS_ViewItemDisplay(ByVal dgv As DataGridView)
 
         With dgv
             With .Columns
@@ -188,7 +188,7 @@ Module modDatagridView
 
         End With
     End Sub
-    Public Function CheckBoolType(ByVal Txt As String) As Boolean
+    Public Function GF_CheckBoolType(ByVal Txt As String) As Boolean
         Select Case Txt.ToUpper
             Case "SELECTED"
                 Return True
@@ -204,7 +204,7 @@ Module modDatagridView
 
         End Select
     End Function
-    Public Function CheckNumNoDecimal(ByVal Txt As String) As Boolean
+    Public Function GF_CheckNumNoDecimal(ByVal Txt As String) As Boolean
         Select Case Txt.ToUpper
             Case "QTY"
                 Return True
@@ -221,7 +221,7 @@ Module modDatagridView
 
         End Select
     End Function
-    Public Function CheckNumStandard(ByVal Txt As String) As Boolean
+    Public Function GF_CheckNumStandard(ByVal Txt As String) As Boolean
         Select Case Txt.ToUpper
             Case "AMOUNT"
 
@@ -250,34 +250,15 @@ Module modDatagridView
 
 
     End Function
-    Public Sub DatagridViewMode(ByVal dgv As DataGridView)
-        Exit Sub
-        If dgv.RowHeadersVisible = False Then Exit Sub
-        dgv.RowHeadersVisible = False
-        dgv.RowsDefaultCellStyle.WrapMode = DataGridViewTriState.True
-        dgv.MultiSelect = False
-        dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgv.EditMode = DataGridViewEditMode.EditProgrammatically
-        dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-        dgv.ColumnHeadersHeight = 50
-        dgv.AllowUserToResizeColumns = False
-        dgv.AllowUserToResizeRows = False
-        ViewStyleColor(dgv)
-        AddHandler dgv.CellPainting, AddressOf CellPainting
-    End Sub
-    Public Sub ViewNotSort(ByVal dgv As DataGridView)
-        ViewStyleColor(dgv)
+    Public Sub GS_ViewNotSort(ByVal dgv As DataGridView)
+        GS_ViewStyleColor(dgv)
         dgv.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised
         dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised
         dgv.CellBorderStyle = DataGridViewCellBorderStyle.Raised
         dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-
         dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
         dgv.ColumnHeadersHeight = 40
-
         dgv.RowHeadersVisible = False
-
         ' dgv.ColumnHeadersDefaultCellStyle.Font = New Font("Verdana", 10, FontStyle.Regular)
         For i As Integer = 0 To dgv.Columns.Count - 1
             With dgv.Columns.Item(i)
@@ -317,15 +298,15 @@ Module modDatagridView
                             DRow(i) = System.DBNull.Value
                         ElseIf IsNumeric(rd(i)) = True Then
 
-                            DRow(i) = NumIsNull(rd(i))
+                            DRow(i) = GF_NumIsNull(rd(i))
 
                             If Int(rd(i)) = True Then
-                                DRow(i) = NumIsNull(rd(i))
+                                DRow(i) = GF_NumIsNull(rd(i))
                             Else
                                 DRow(i) = rd(i)
                             End If
                         Else
-                            DRow(i) = TextIsNull(rd(i))
+                            DRow(i) = GF_TextIsNull(rd(i))
                         End If
 
                     Next
@@ -342,12 +323,12 @@ Module modDatagridView
                         ElseIf IsNumeric(rd(i)) = True Then
 
                             If Int(rd(i)) = True Then
-                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = NumIsNull(rd(i))
+                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = GF_NumIsNull(rd(i))
                             Else
-                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = TextIsNull(rd(i))
+                                dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = GF_TextIsNull(rd(i))
                             End If
                         Else
-                            dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = TextIsNull(rd(i))
+                            dgv.Rows(dgv.CurrentRow.Index).Cells(i).Value = GF_TextIsNull(rd(i))
                         End If
                     Next
 

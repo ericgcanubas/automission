@@ -10,30 +10,30 @@ Module modQuery
                 Select Case .Cells("CONTROL_STATUS").Value
                     Case "S"
                         'UPDATE TAX ONLY
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SqlExecuted("UPDATE invoice_items SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE INVOICE_ID ='" & gsID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & " limit 1;")
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SqlExecuted("UPDATE invoice_items SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE INVOICE_ID ='" & gsID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & " limit 1;")
                         GS_InventoryJournalProcess(dgvProductItem, i, True, 24, 10, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                     Case "A"
 
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         Dim i_ID As Double = ObjectTypeMapId("INVOICE_ITEMS")
-                        SqlExecuted("INSERT INTO invoice_items SET BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ",PRINT_IN_FORMS ='" & NumIsNull(.Cells("PRINT_IN_FORMS").Value) & "',LINE_NO='" & i & "',ID='" & i_ID & "',QUANTITY ='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",REF_LINE_ID =" & GotNullNumber(NumIsNull(.Cells("REF_LINE_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",INVOICE_ID ='" & gsID & "',GROUP_LINE_ID = " & GotNullNumber(.Cells("GROUP_LINE_ID").Value) & ",CUSTOM_FIELD5='" & gsPOS_LOG_ID & "';")
+                        SqlExecuted("INSERT INTO invoice_items SET BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ",PRINT_IN_FORMS ='" & GF_NumIsNull(.Cells("PRINT_IN_FORMS").Value) & "',LINE_NO='" & i & "',ID='" & i_ID & "',QUANTITY ='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(GF_NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",REF_LINE_ID =" & GotNullNumber(GF_NumIsNull(.Cells("REF_LINE_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(GF_NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",INVOICE_ID ='" & gsID & "',GROUP_LINE_ID = " & GotNullNumber(.Cells("GROUP_LINE_ID").Value) & ",CUSTOM_FIELD5='" & gsPOS_LOG_ID & "';")
                         .Cells("ID").Value = i_ID
 
                         GS_InventoryJournalProcess(dgvProductItem, i, True, 24, 10, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                        SalesOrderItemUpdated(NumIsNull(.Cells("REF_LINE_ID").Value), NumIsNull(.Cells("QTY").Value), True, GET_SO_ID)
+                        SalesOrderItemUpdated(GF_NumIsNull(.Cells("REF_LINE_ID").Value), GF_NumIsNull(.Cells("QTY").Value), True, GET_SO_ID)
                     Case "E"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SqlExecuted("UPDATE invoice_items SET  BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ", LINE_NO='" & i & "',QUANTITY='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",REF_LINE_ID =" & GotNullNumber(NumIsNull(.Cells("REF_LINE_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & " WHERE INVOICE_ID ='" & gsID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & " limit 1;")
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SqlExecuted("UPDATE invoice_items SET  BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ", LINE_NO='" & i & "',QUANTITY='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(GF_NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",REF_LINE_ID =" & GotNullNumber(GF_NumIsNull(.Cells("REF_LINE_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(GF_NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & " WHERE INVOICE_ID ='" & gsID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & " limit 1;")
                         GS_InventoryJournalProcess(dgvProductItem, i, True, 24, 10, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                        SalesOrderItemUpdated(NumIsNull(.Cells("REF_LINE_ID").Value), NumIsNull(.Cells("QTY").Value), True, GET_SO_ID)
+                        SalesOrderItemUpdated(GF_NumIsNull(.Cells("REF_LINE_ID").Value), GF_NumIsNull(.Cells("QTY").Value), True, GET_SO_ID)
                         '10 = src type
                         '24 =object
                     Case "D"
 
                         GS_InventoryJournalProcess(dgvProductItem, i, True, 24, 10, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                        SalesOrderItemUpdated(NumIsNull(.Cells("REF_LINE_ID").Value), 0, False, GET_SO_ID)
-                        SqlExecuted("DELETE FROM invoice_items WHERE INVOICE_ID ='" & gsID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "' limit 1;")
+                        SalesOrderItemUpdated(GF_NumIsNull(.Cells("REF_LINE_ID").Value), 0, False, GET_SO_ID)
+                        SqlExecuted("DELETE FROM invoice_items WHERE INVOICE_ID ='" & gsID & "' and ID = '" & GF_NumIsNull(.Cells("ID").Value) & "' limit 1;")
 
                 End Select
             End With
@@ -45,9 +45,9 @@ Module modQuery
         Dim LAST_SO As Integer = 0
         For N As Integer = 0 To dgvProductItem.Rows.Count - 1
             With dgvProductItem.Rows(N)
-                If NumIsNull(.Cells("REF_LINE_ID").Value) <> 0 Then
+                If GF_NumIsNull(.Cells("REF_LINE_ID").Value) <> 0 Then
 
-                    Dim SO_ID As Integer = GetNumberFieldValue("sales_order_items", "id", NumIsNull(.Cells("REF_LINE_ID").Value), "SALES_ORDER_ID")
+                    Dim SO_ID As Integer = GF_GetNumberFieldValue("sales_order_items", "id", GF_NumIsNull(.Cells("REF_LINE_ID").Value), "SALES_ORDER_ID")
                     If LAST_SO <> SO_ID Then
                         CheckStatusSalesOrder(SO_ID, cmbLOCATION_ID)
                     End If
@@ -56,13 +56,13 @@ Module modQuery
                 End If
 
                 If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                 ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                     .Cells("CONTROL_STATUS").Value = "S"
                 ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
                     If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                     End If
                     .Cells("CONTROL_STATUS").Value = "S"
                 End If
@@ -92,7 +92,7 @@ Module modQuery
 
         If REF_LINE_ID <> 0 Then
             Dim SqlStr As String
-            Dim Get_SO_ID As Integer = GetNumberFieldValue("sales_order_items", "ID", REF_LINE_ID, "SALES_ORDER_ID")
+            Dim Get_SO_ID As Integer = GF_GetNumberFieldValue("sales_order_items", "ID", REF_LINE_ID, "SALES_ORDER_ID")
             If isUPDATE = True Then
                 SqlStr = "Update sales_order_items SET `INVOICED_QTY` = '" & prINVOICED_QTY & "' ,`CLOSED` = '1' where ID = '" & REF_LINE_ID & "'"
             Else
@@ -114,23 +114,23 @@ Module modQuery
                 Select Case .Cells("CONTROL_STATUS").Value
                     Case "S"
                         'UPDATE TAX ONLY
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SqlExecuted("UPDATE sales_receipt_items SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE SALES_RECEIPT_ID ='" & gsID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & ";")
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SqlExecuted("UPDATE sales_receipt_items SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE SALES_RECEIPT_ID ='" & gsID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & ";")
                         GS_InventoryJournalProcess(dgvProductItem, i, True, 53, 13, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
 
                     Case "A"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         Dim i_ID As Double = ObjectTypeMapId("SALES_RECEIPT_ITEMS")
-                        SqlExecuted("INSERT INTO sales_receipt_items SET  BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ", GROUP_LINE_ID=" & GotNullNumber(.Cells("GROUP_LINE_ID").Value) & ",LINE_NO='" & i & "',ID='" & i_ID & "',QUANTITY ='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",SALES_RECEIPT_ID ='" & gsID & "',POS_TRX_TYPE=" & GotNullNumber(.Cells("POS_TRX_TYPE").Value) & ",POS_EDIT_QTY=" & GotNullNumber(.Cells("POS_EDIT_QTY").Value) & ",POS_NOTES=" & GF_GotNullText(.Cells("POS_NOTES").Value) & ",PRINT_IN_FORMS=" & GotNullNumber(.Cells("PRINT_IN_FORMS").Value) & ",DEPOSITED=" & GotNullNumber(.Cells("DEPOSITED").Value) & ";")
+                        SqlExecuted("INSERT INTO sales_receipt_items SET  BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ", GROUP_LINE_ID=" & GotNullNumber(.Cells("GROUP_LINE_ID").Value) & ",LINE_NO='" & i & "',ID='" & i_ID & "',QUANTITY ='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(GF_NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(GF_NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",SALES_RECEIPT_ID ='" & gsID & "',POS_TRX_TYPE=" & GotNullNumber(.Cells("POS_TRX_TYPE").Value) & ",POS_EDIT_QTY=" & GotNullNumber(.Cells("POS_EDIT_QTY").Value) & ",POS_NOTES=" & GF_GotNullText(.Cells("POS_NOTES").Value) & ",PRINT_IN_FORMS=" & GotNullNumber(.Cells("PRINT_IN_FORMS").Value) & ",DEPOSITED=" & GotNullNumber(.Cells("DEPOSITED").Value) & ";")
                         .Cells("ID").Value = i_ID
                         GS_InventoryJournalProcess(dgvProductItem, i, True, 53, 13, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                     Case "E"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SqlExecuted("UPDATE sales_receipt_items SET BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ", GROUP_LINE_ID=" & GotNullNumber(.Cells("GROUP_LINE_ID").Value) & ",QUANTITY='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",POS_TRX_TYPE=" & GotNullNumber(NumIsNull(.Cells("POS_TRX_TYPE").Value)) & ",POS_EDIT_QTY=" & GotNullNumber(NumIsNull(.Cells("POS_EDIT_QTY").Value)) & ",POS_NOTES=" & GF_GotNullText(TextIsNull(.Cells("POS_NOTES").Value)) & ",PRINT_IN_FORMS=" & GotNullNumber(NumIsNull(.Cells("PRINT_IN_FORMS").Value)) & ",DEPOSITED=" & GotNullNumber(NumIsNull(.Cells("DEPOSITED").Value)) & " WHERE SALES_RECEIPT_ID ='" & gsID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "'")
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SqlExecuted("UPDATE sales_receipt_items SET BATCH_ID=" & GotNullNumber(.Cells("BATCH_ID").Value) & ", GROUP_LINE_ID=" & GotNullNumber(.Cells("GROUP_LINE_ID").Value) & ",QUANTITY='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',COGS_ACCOUNT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("COGS_ACCOUNT_ID").Value)) & ",ASSET_ACCOUNT_ID=" & GotNullNumber(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value)) & ",INCOME_ACCOUNT_ID = " & GotNullNumber(GF_NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value)) & ",PRICE_LEVEL_ID =" & GotNullNumber(GF_NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",POS_TRX_TYPE=" & GotNullNumber(GF_NumIsNull(.Cells("POS_TRX_TYPE").Value)) & ",POS_EDIT_QTY=" & GotNullNumber(GF_NumIsNull(.Cells("POS_EDIT_QTY").Value)) & ",POS_NOTES=" & GF_GotNullText(GF_TextIsNull(.Cells("POS_NOTES").Value)) & ",PRINT_IN_FORMS=" & GotNullNumber(GF_NumIsNull(.Cells("PRINT_IN_FORMS").Value)) & ",DEPOSITED=" & GotNullNumber(GF_NumIsNull(.Cells("DEPOSITED").Value)) & " WHERE SALES_RECEIPT_ID ='" & gsID & "' and ID = '" & GF_NumIsNull(.Cells("ID").Value) & "'")
                         GS_InventoryJournalProcess(dgvProductItem, i, True, 53, 13, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                     Case "D"
 
-                        SqlExecuted("DELETE FROM sales_receipt_items WHERE SALES_RECEIPT_ID ='" & gsID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "' limit 1;")
+                        SqlExecuted("DELETE FROM sales_receipt_items WHERE SALES_RECEIPT_ID ='" & gsID & "' and ID = '" & GF_NumIsNull(.Cells("ID").Value) & "' limit 1;")
                         GS_InventoryJournalProcess(dgvProductItem, i, True, 53, 13, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
 
                 End Select
@@ -145,13 +145,13 @@ Module modQuery
         For i As Integer = 0 To dgvProductItem.Rows.Count - 1
             With dgvProductItem.Rows(i)
                 If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
                 ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
                     .Cells("CONTROL_STATUS").Value = "S"
                 ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
                     If Date.Now.Date <> DT Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
+                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), LOC_ID, DT)
                     End If
                     .Cells("CONTROL_STATUS").Value = "S"
                 End If
@@ -243,7 +243,7 @@ Module modQuery
 
             Case "cmb"
                 Dim cmb As ComboBox = ctrl.Controls(paramIndex)
-                Dim vx As Integer = NumIsNull(cmb.SelectedValue)
+                Dim vx As Integer = GF_NumIsNull(cmb.SelectedValue)
                 If vx = 0 Then
                     If cmb.DropDownStyle = ComboBoxStyle.DropDown Or cmb.AccessibleDescription = "null" Then
                         Return "NULL"
@@ -337,7 +337,7 @@ Module modQuery
                 Else
                     cmb.SelectedValue = Val(paramValue)
                     'If cmb.Name = "cmbLOCATION_ID" Or cmb.Name = "cmbTRANSFER_TO_ID" Or cmb.Name = "cmbASSEMBLY_ITEM_ID" Or cmb.Name = "cmbBANK_ACCOUNT_ID" Or cmb.Name = "cmbCUSTOMER_ID" Or cmb.Name = "cmbVENDOR_ID" Then
-                    '    If NumIsNull(paramValue) = 0 Then
+                    '    If GF_NumIsNull(paramValue) = 0 Then
                     '        cmb.Enabled = True
                     '    Else
                     '        cmb.Enabled = False

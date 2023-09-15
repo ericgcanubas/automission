@@ -30,9 +30,9 @@ Partial Class FrmPOSMessageYesNo
         'btnYES
         '
         Me.btnYES.BackColor = System.Drawing.Color.DarkSlateGray
-        Me.btnYES.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnYES.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnYES.ForeColor = System.Drawing.Color.White
-        Me.btnYES.Location = New System.Drawing.Point(12, 173)
+        Me.btnYES.Location = New System.Drawing.Point(12, 160)
         Me.btnYES.Name = "btnYES"
         Me.btnYES.Size = New System.Drawing.Size(163, 64)
         Me.btnYES.TabIndex = 0
@@ -42,9 +42,9 @@ Partial Class FrmPOSMessageYesNo
         'btnNO
         '
         Me.btnNO.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.btnNO.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnNO.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnNO.ForeColor = System.Drawing.Color.White
-        Me.btnNO.Location = New System.Drawing.Point(282, 173)
+        Me.btnNO.Location = New System.Drawing.Point(282, 160)
         Me.btnNO.Name = "btnNO"
         Me.btnNO.Size = New System.Drawing.Size(163, 64)
         Me.btnNO.TabIndex = 1
@@ -62,12 +62,12 @@ Partial Class FrmPOSMessageYesNo
         Me.lblmsg.Text = "Thank you."
         Me.lblmsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'frmPOSMessageYesNo
+        'FrmPOSMessageYesNo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 23.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(457, 249)
+        Me.ClientSize = New System.Drawing.Size(457, 229)
         Me.ControlBox = False
         Me.Controls.Add(Me.lblmsg)
         Me.Controls.Add(Me.btnNO)
@@ -76,7 +76,7 @@ Partial Class FrmPOSMessageYesNo
         Me.Margin = New System.Windows.Forms.Padding(6, 5, 6, 5)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSMessageYesNo"
+        Me.Name = "FrmPOSMessageYesNo"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "POS Message"
         Me.ResumeLayout(False)

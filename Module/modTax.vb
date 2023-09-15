@@ -11,8 +11,8 @@ Module modTax
         i = 0
         Dim rd As OdbcDataReader = SqlReader("select `id`,`rate` from `tax` order by `id` ")
         While rd.Read
-            gsTax_ID(i) = NumIsNull(rd("id"))
-            gsTax_Rate(i) = NumIsNull(rd("rate"))
+            gsTax_ID(i) = GF_NumIsNull(rd("id"))
+            gsTax_Rate(i) = GF_NumIsNull(rd("rate"))
             i = i + 1
         End While
     End Sub
@@ -36,8 +36,8 @@ Module modTax
         If prTaxable = True Then
             Dim dVat As Double = 0
             'add tax
-            '  dVat = GetNumberFieldValue("TAX", "ID", TextIsNull(prTax_Type.SelectedValue), "RATE")
-            dVat = fTax_Rate_Find(NumIsNull(prTax_Type.SelectedValue))
+            '  dVat = GF_GetNumberFieldValue("TAX", "ID", GF_TextIsNull(prTax_Type.SelectedValue), "RATE")
+            dVat = fTax_Rate_Find(GF_NumIsNull(prTax_Type.SelectedValue))
             Tax_Amount = (dVat / 100) * prAmount
             Taxable_Amount = Tax_Amount + prAmount
             If prTax_Type.SelectedValue = 12 Then

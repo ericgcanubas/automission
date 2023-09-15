@@ -4,7 +4,7 @@
         tsTITLE.Text = gsSubMenuForm
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvShipVia, "Select ID,Code,Description from Ship_via", item_BS)
+        GS_LoadDataGridViewBinding(dgvShipVia, "Select ID,Code,Description from Ship_via", item_BS)
         ViewColumn(dgvShipVia, 40)
     End Sub
 

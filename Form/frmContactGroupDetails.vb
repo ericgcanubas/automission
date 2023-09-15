@@ -16,7 +16,7 @@ Public Class FrmContactGroupDetails
         End If
     End Sub
     Private Sub ClearInfo()
-        ComboBoxLoad(cmbTYPE, "select ID,DESCRIPTION from contact_type_map", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbTYPE, "select ID,DESCRIPTION from contact_type_map", "ID", "DESCRIPTION")
         txtCODE.Clear()
         txtDescription.Clear()
     End Sub
@@ -42,7 +42,7 @@ Public Class FrmContactGroupDetails
         Else
 
             If Trim(txtCODE.Text) = "" Then
-                Dim bCODE_INTEGER As Double = Val(GetMaxField("CODE", "contact_group"))
+                Dim bCODE_INTEGER As Double = Val(GF_GetMaxField("CODE", "contact_group"))
                 txtCODE.Text = bCODE_INTEGER.ToString("0000")
             End If
 

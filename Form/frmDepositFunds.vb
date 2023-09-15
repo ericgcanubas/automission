@@ -12,10 +12,10 @@
 
     Private Sub FrmDepositFunds_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbReceivedFrom, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `PAY_TO` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "PAY_TO")
+        GS_ComboBoxLoad(cmbReceivedFrom, "SELECT c.`ID`, CONCAT(c.`NAME`,' / ',ctm.`DESCRIPTION` ) AS `PAY_TO` FROM contact AS c INNER JOIN  contact_type_map AS ctm ON ctm.`ID` = c.`TYPE` WHERE c.`INACTIVE` ='0' ORDER BY c.`TYPE`", "ID", "PAY_TO")
         Dim sql_statement As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
-        ComboBoxLoad(cmbAccounts, sql_statement, "ID", "T")
-        ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbAccounts, sql_statement, "ID", "T")
+        GS_ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
 
 
 
@@ -68,7 +68,7 @@
             gsCheck_NO = txtCheckNo.Text
             gsAmount = numAmount.Value
 
-            fAdd_Deposit_fund(gsDGV, True, gsReceivedFrom_ID, gsAccount_ID, gsPayment_Method_ID, gsCheck_NO, gsAmount)
+            GF_AddDepositFund(gsDGV, True, gsReceivedFrom_ID, gsAccount_ID, gsPayment_Method_ID, gsCheck_NO, gsAmount)
 
             ClearAndRefresh(Me)
             cmbReceivedFrom.Focus()

@@ -111,10 +111,10 @@ Public Class FrmReceivePayment
 
     End Sub
     Private Sub ComboxRefresh()
-        ComboBoxLoad(cmbCUSTOMER_ID, "select * from contact where type='1'", "ID", "NAME")
-        ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
-        ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCUSTOMER_ID, "select * from contact where type='1'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
     End Sub
     Private Sub CmbPAYMENT_METHOD_ID_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbPAYMENT_METHOD_ID.SelectedValueChanged
         Try
@@ -227,10 +227,10 @@ Public Class FrmReceivePayment
                 .Cells("ACCOUNTS_RECEIVABLE_ID").Value = prACCOUNTS_RECEIVABLE_ID
                 .Cells("BALANCE_DUE").Value = NumberFormatStandard(prBalance_due)
                 .Cells("DISCOUNT").Value = NumberFormatStandard(prDiscount)
-                .Cells("BALANCE_REMAINING").Value = NumIsNull(.Cells("BALANCE_DUE").Value)
+                .Cells("BALANCE_REMAINING").Value = GF_NumIsNull(.Cells("BALANCE_DUE").Value)
                 .Cells("PAYMENT").Value = NumberFormatStandard(prPayment)
                 .Cells("INVOICE_ID").Value = prInvoice_ID
-                .Cells("DISCOUNT_ACCOUNT_ID").Value = TextIsNull(prDISCOUNT_ACCOUNT_ID)
+                .Cells("DISCOUNT_ACCOUNT_ID").Value = GF_TextIsNull(prDISCOUNT_ACCOUNT_ID)
             End With
         End If
     End Sub
@@ -275,7 +275,7 @@ WHERE  EXISTS
 
                 GetAppliedPayment(invoice_ID, ID, sLine_ID, dPayment, dDiscount, sDISCOUNT_ACCOUNT_ID)
 
-                Dim dBalance As Double = NumIsNull(rd("BALANCE_DUE")) + dPayment
+                Dim dBalance As Double = GF_NumIsNull(rd("BALANCE_DUE")) + dPayment
 
 
                 Dim bSelected As Boolean = False
@@ -287,7 +287,7 @@ WHERE  EXISTS
                 'Open New Item Transaction
                 If dBalance > 0 Then
 
-                    AddItemInvoice(sLine_ID, bSelected, rd("Date"), rd("CODE"), rd("AMOUNT"), DateIsNull(rd("DISCOUNT_DATE")), DateIsNull(rd("DUE_DATE")), NumIsNull(rd("ACCOUNTS_RECEIVABLE_ID")), dBalance, dDiscount, dPayment, invoice_ID, sDISCOUNT_ACCOUNT_ID)
+                    AddItemInvoice(sLine_ID, bSelected, rd("Date"), rd("CODE"), rd("AMOUNT"), GF_DateIsNull(rd("DISCOUNT_DATE")), GF_DateIsNull(rd("DUE_DATE")), GF_NumIsNull(rd("ACCOUNTS_RECEIVABLE_ID")), dBalance, dDiscount, dPayment, invoice_ID, sDISCOUNT_ACCOUNT_ID)
 
                 End If
             End While
@@ -316,9 +316,9 @@ WHERE  EXISTS
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
                 refPayment_ID_Line = rd("ID")
-                refPayment_Applied = NumIsNull(rd("AMOUNT_APPLIED"))
-                refDiscount = NumIsNull(rd("DISCOUNT"))
-                refDISCOUNT_ACCOUNT_ID = TextIsNull(rd("DISCOUNT_ACCOUNT_ID"))
+                refPayment_Applied = GF_NumIsNull(rd("AMOUNT_APPLIED"))
+                refDiscount = GF_NumIsNull(rd("DISCOUNT"))
+                refDISCOUNT_ACCOUNT_ID = GF_TextIsNull(rd("DISCOUNT_ACCOUNT_ID"))
 
             Else
 
@@ -360,7 +360,7 @@ WHERE  EXISTS
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
         If rd.Read Then
-            i = NumIsNull(rd("sub_id"))
+            i = GF_NumIsNull(rd("sub_id"))
             F = GetFormModule(rd("Form"))
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
             Img = Image.FromFile(folder & rd("image_file"))
@@ -398,7 +398,7 @@ WHERE  EXISTS
         Dim dPayment As Double = 0
         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
             If dgvInvoice.Rows(i).Cells(1).Value = True Then
-                dPayment += (NumIsNull(dgvInvoice.Rows(i).Cells("PAYMENT").Value) + NumIsNull(dgvInvoice.Rows(i).Cells("DISCOUNT").Value))
+                dPayment += (GF_NumIsNull(dgvInvoice.Rows(i).Cells("PAYMENT").Value) + GF_NumIsNull(dgvInvoice.Rows(i).Cells("DISCOUNT").Value))
             End If
         Next
         lblAMOUNT_APPLIED.Text = NumberFormatStandard(dPayment)
@@ -419,7 +419,7 @@ WHERE  EXISTS
                     MessageBoxExclamation("No amount Value")
                     Exit Sub
                 Else
-                    If NumIsNull(cmbPAYMENT_METHOD_ID.SelectedValue) = 0 Then
+                    If GF_NumIsNull(cmbPAYMENT_METHOD_ID.SelectedValue) = 0 Then
                         MessageBoxExclamation("Please select payment method")
                         Exit Sub
                     End If
@@ -436,7 +436,7 @@ WHERE  EXISTS
                     Else
                         b = True
                         bPay = numAMOUNT.Value
-                        Dim dSelect_balance As Double = NumIsNull(.Cells("BALANCE_REMAINING").Value)
+                        Dim dSelect_balance As Double = GF_NumIsNull(.Cells("BALANCE_REMAINING").Value)
                         'get remaining amount
                         Dim dAmount_remain As Double = 0
                         Dim Balance_Due As Double = 0
@@ -445,7 +445,7 @@ WHERE  EXISTS
 
                         For i As Integer = 0 To dgvInvoice.Rows.Count - 1
                             If dgvInvoice.Rows(i).Cells(1).Value = True And i <> e.RowIndex Then
-                                dPayment += (NumIsNull(dgvInvoice.Rows(i).Cells("PAYMENT").Value) + NumIsNull(dgvInvoice.Rows(i).Cells("DISCOUNT").Value))
+                                dPayment += (GF_NumIsNull(dgvInvoice.Rows(i).Cells("PAYMENT").Value) + GF_NumIsNull(dgvInvoice.Rows(i).Cells("DISCOUNT").Value))
                             End If
                         Next
                         dAmount_remain = bPay - dPayment
@@ -489,7 +489,7 @@ WHERE  EXISTS
         End If
 
 
-        If NumIsNull(cmbPAYMENT_METHOD_ID.SelectedValue) = 0 Then
+        If GF_NumIsNull(cmbPAYMENT_METHOD_ID.SelectedValue) = 0 Then
             MessageBoxInfo("Please select payment method")
             Exit Sub
         End If
@@ -515,7 +515,7 @@ WHERE  EXISTS
         If IsNew = True Then
 
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("PAYMENT", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("PAYMENT", cmbLOCATION_ID.SelectedValue)
             End If
 
             lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text = gsDefault_UNDEPOSITED_FUNDS_ACCOUNT_ID
@@ -526,14 +526,14 @@ WHERE  EXISTS
             SqlExecuted($"INSERT INTO payment ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE,DEPOSITED) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',15,'{GetDateTimeNowSql()}',0) ")
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(numAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(numAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
 
 
             tChangeAccept = True
             SqlExecuted("UPDATE payment SET " & SqlUpdate(Me) & " WHERE ID ='" & ID & "'")
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(numAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(numAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
 
@@ -687,7 +687,7 @@ WHERE  EXISTS
 
             Try
                 If MessageBoxQuestion(gsMessageQuestion) = True Then
-                    CursorLoadingOn(True)
+                    GS_CursorLoadingOn(True)
 
 
                     For i As Integer = 0 To dgvInvoice.Rows.Count - 1
@@ -702,18 +702,18 @@ WHERE  EXISTS
                     '===========================================
                     If gsSkipJournalEntry = False Then
                         gsJOURNAL_NO_FORM = 0
-                        GS_AccountJournalDelete(NumIsNull(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 41, ID, dtpDATE.Value)
+                        GS_AccountJournalDelete(GF_NumIsNull(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 41, ID, dtpDATE.Value)
                     End If
                     '================================
 
                     SqlExecuted("DELETE FROM `payment` where ID = '" & ID & "' limit 1;")
 
                        DeleteNotify(Me)
-                    SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(numAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                    SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(numAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                     IsNew = True
                     ID = 0
-                    CursorLoadingOn(False)
+                    GS_CursorLoadingOn(False)
                     ClearInfo()
 
                 End If
@@ -727,7 +727,7 @@ WHERE  EXISTS
 
     Private Sub FrmReceivePayment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         dgvInvoice.Columns("SELECTED").Width = 30
-        ViewNotSort(dgvInvoice)
+        GS_ViewNotSort(dgvInvoice)
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
@@ -905,7 +905,7 @@ WHERE  EXISTS
             Dim getACCOUNT_ID As Integer = 5
             Dim rd As OdbcDataReader = SqlReader($"select ACCOUNT_ID from account_journal where OBJECT_TYPE ='41' and OBJECT_ID ='{ID}' and OBJECT_DATE = '{DateFormatMySql(dtpDATE.Value)}' and ENTRY_TYPE ='0' and LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' limit 1 ")
             If rd.Read Then
-                getACCOUNT_ID = NumIsNull(rd("ACCOUNT_ID"))
+                getACCOUNT_ID = GF_NumIsNull(rd("ACCOUNT_ID"))
             End If
             rd.Close()
             AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 41, getACCOUNT_ID, cmbCUSTOMER_ID.Text, txtCODE.Text, txtNOTES.Text)
@@ -945,11 +945,11 @@ WHERE  EXISTS
             .lblDATE.Text = d.Cells(2).Value
             .lblCreditUsed.Text = ""
             .lblCODE.Text = d.Cells(3).Value
-            .lblAMOUNT.Text = NumberFormatStandard(NumIsNull(d.Cells("ORG_AMOUNT").Value))
-            .lblAmount_Due.Text = NumberFormatStandard(NumIsNull(d.Cells("ORG_AMOUNT").Value) - NumIsNull(d.Cells("PAYMENT").Value))
-            .lblBALANCE.Text = NumIsNull(d.Cells("ORG_AMOUNT").Value) - NumIsNull(d.Cells("PAYMENT").Value)
+            .lblAMOUNT.Text = NumberFormatStandard(GF_NumIsNull(d.Cells("ORG_AMOUNT").Value))
+            .lblAmount_Due.Text = NumberFormatStandard(GF_NumIsNull(d.Cells("ORG_AMOUNT").Value) - GF_NumIsNull(d.Cells("PAYMENT").Value))
+            .lblBALANCE.Text = GF_NumIsNull(d.Cells("ORG_AMOUNT").Value) - GF_NumIsNull(d.Cells("PAYMENT").Value)
             .lblDISCOUNT_DATE.Text = d.Cells(5).Value
-            .lblTERMS.Text = GetStringFieldValue("PAYMENT_TERMS", "ID", GetStringFieldValue("invoice", "ID", d.Cells("INVOICE_ID").Value, "PAYMENT_TERMS_ID"), "DESCRIPTION")
+            .lblTERMS.Text = GF_GetStringFieldValue("PAYMENT_TERMS", "ID", GF_GetStringFieldValue("invoice", "ID", d.Cells("INVOICE_ID").Value, "PAYMENT_TERMS_ID"), "DESCRIPTION")
             .lblSuggested_Discount.Text = "0"
             .gsDISCOUNT_ACCOUNT_ID = d.Cells(10).Value
             .gsDISCOUNT_AMOUNT = d.Cells(7).Value

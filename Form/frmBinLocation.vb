@@ -5,7 +5,7 @@
         RefreshLoad()
     End Sub
     Private Sub RefreshLoad()
-        LoadDataGridViewBinding(dgvBinLocation, "Select ID,Code,Description from stock_bin", item_BS)
+        GS_LoadDataGridViewBinding(dgvBinLocation, "Select ID,Code,Description from stock_bin", item_BS)
         ViewColumn(dgvBinLocation, 41)
     End Sub
 

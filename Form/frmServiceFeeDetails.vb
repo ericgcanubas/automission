@@ -47,7 +47,7 @@ Public Class FrmServiceFeeDetails
         If IsNew = False Then
             SqlExecuted("UPDATE service_fee SET " & SqlUpdate(Me) & "  Where ID = '" & ID & "'")
         Else
-            ID = GetMaxField("ID", "`SERVICE_FEE`")
+            ID = GF_GetMaxField("ID", "`SERVICE_FEE`")
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO service_fee ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
 

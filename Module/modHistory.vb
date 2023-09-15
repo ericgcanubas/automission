@@ -322,7 +322,7 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
         If dgv.Rows.Count = 0 Then Exit Sub
 
         Dim sType As String = prType
-        Dim i As Integer = NumIsNull(GetNumberFieldValue("tblsub_menu", "Description", sType, "sub_id"))
+        Dim i As Integer = GF_NumIsNull(GF_GetNumberFieldValue("tblsub_menu", "Description", sType, "sub_id"))
         gsMenuSubID = i
         gsRefresh = True
         gsDocument_Finder_ID = prID
@@ -331,7 +331,7 @@ WHERE s.DEPOSIT_ID ='" & prID & "'
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
         If rd.Read Then
-            i = NumIsNull(rd("sub_id"))
+            i = GF_NumIsNull(rd("sub_id"))
             F = GetFormModule(rd("Form"))
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
             Img = Image.FromFile(folder & rd("image_file"))

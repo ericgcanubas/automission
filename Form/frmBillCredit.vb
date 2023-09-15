@@ -97,14 +97,14 @@ FROM
                 dgvExpenses.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvExpenses.Columns(i)
-                        If CheckNumStandard(.Name) = True Then
-                            dgvExpenses.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
-                            dgvExpenses.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
-                        ElseIf CheckBoolType(.Name) = True Then
-                            dgvExpenses.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvExpenses.Rows(x).Cells(i).Value = NumberFormatStandard(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
+                            dgvExpenses.Rows(x).Cells(i).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckBoolType(.Name) = True Then
+                            dgvExpenses.Rows(x).Cells(i).Value = CBool(GF_NumIsNull(rd(i)))
                         Else
-                            dgvExpenses.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                            dgvExpenses.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
                         End If
                     End With
 
@@ -182,14 +182,14 @@ FROM
                 dgvProductItem.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(i)
-                        If CheckNumStandard(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
-                        ElseIf CheckBoolType(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckBoolType(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = CBool(GF_NumIsNull(rd(i)))
                         Else
-                            dgvProductItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                            dgvProductItem.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
                         End If
                     End With
 
@@ -229,10 +229,10 @@ FROM
         End Try
     End Sub
     Private Sub RefreshCombo()
-        ComboBoxLoad(cmbVENDOR_ID, "select * from contact where type='0' ", "ID", "NAME")
-        ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
-        ComboBoxLoad(cmbINPUT_TAX_ID, "select * from tax where tax_type = '3' order by ID DESC", "ID", "NAME")
-        ComboBoxLoad(cmbACCOUNTS_PAYABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 5", "ID", "NAME")
+        GS_ComboBoxLoad(cmbVENDOR_ID, "select * from contact where type='0' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbINPUT_TAX_ID, "select * from tax where tax_type = '3' order by ID DESC", "ID", "NAME")
+        GS_ComboBoxLoad(cmbACCOUNTS_PAYABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 5", "ID", "NAME")
 
     End Sub
 
@@ -361,14 +361,14 @@ FROM
     Private Sub Computed()
 
 
-        lblCount.Text = DataGridViewCounting(dgvProductItem)
-        lblCount2.Text = DataGridViewCounting(dgvExpenses)
+        lblCount.Text = GF_DataGridViewCounting(dgvProductItem)
+        lblCount2.Text = GF_DataGridViewCounting(dgvExpenses)
 
         GS_BillVendorComputation(dgvProductItem, dgvExpenses, cmbINPUT_TAX_ID, lblINPUT_TAX_AMOUNT, lblAMOUNT, lblINPUT_TAX_RATE, lbsTotal_Amount_Item, lbsTotal_Amount_Expense)
 
         Dim dPayment_applied As Double = GF_BillCreditAppliedAmount(ID, cmbVENDOR_ID.SelectedValue)
         lblAMOUNT_APPLIED.Text = NumberFormatStandard(dPayment_applied)
-        Dim dBalance As Double = NumIsNull(NumberFormatFixed(lblAMOUNT.Text)) - dPayment_applied
+        Dim dBalance As Double = GF_NumIsNull(NumberFormatFixed(lblAMOUNT.Text)) - dPayment_applied
         lbsCredits.Text = NumberFormatStandard(dBalance)
 
 
@@ -379,10 +379,10 @@ FROM
         Computed()
         Try
 
-            Dim rd As OdbcDataReader = SqlReader("Select VAT_METHOD , ASSET_ACCOUNT_ID from tax where ID ='" & NumIsNull(cmbINPUT_TAX_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("Select VAT_METHOD , ASSET_ACCOUNT_ID from tax where ID ='" & GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblINPUT_TAX_VAT_METHOD.Text = TextIsNull(rd("VAT_METHOD"))
-                lblINPUT_TAX_ACCOUNT_ID.Text = TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                lblINPUT_TAX_VAT_METHOD.Text = GF_TextIsNull(rd("VAT_METHOD"))
+                lblINPUT_TAX_ACCOUNT_ID.Text = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
             Else
                 lblINPUT_TAX_VAT_METHOD.Text = ""
                 lblINPUT_TAX_ACCOUNT_ID.Text = ""
@@ -468,9 +468,9 @@ FROM
                 .gsSelection_Label = "Class"
                 .gsSelection_DESCRIPTION = "NAME"
                 .gsSelection_VALUE = "ID"
-                .gsSelection_ID = TextIsNull(dgvProductItem.Rows.Item(I).Cells("CLASS_ID").Value)
+                .gsSelection_ID = GF_TextIsNull(dgvProductItem.Rows.Item(I).Cells("CLASS_ID").Value)
 
-                If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
+                If GF_NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
                     bAlreadySave = True
@@ -529,7 +529,7 @@ FROM
             .ShowDialog()
             If .gsSave = True Then
                 Dim C_STATUS As String
-                If NumIsNull(dr.Cells("ID").Value) = 0 Then
+                If GF_NumIsNull(dr.Cells("ID").Value) = 0 Then
                     C_STATUS = "A"
                 Else
                     C_STATUS = "E"
@@ -545,8 +545,8 @@ FROM
         Computed()
     End Sub
     Private Sub Row_Data_Expenses(ByVal pradd As Boolean, ByVal prAccount_ID As String, ByVal prAmount As Double, ByVal prTax As Boolean, ByVal prParticular As String, ByVal prClass_ID As String, ByVal prControl_Status As String)
-        Dim sAccount_Name As String = GetStringFieldValue("account", "ID", prAccount_ID, "NAME")
-        Dim sclass_name As String = GetStringFieldValue("class", "ID", prClass_ID, "NAME")
+        Dim sAccount_Name As String = GF_GetStringFieldValue("account", "ID", prAccount_ID, "NAME")
+        Dim sclass_name As String = GF_GetStringFieldValue("class", "ID", prClass_ID, "NAME")
         Dim taxable_amount As Double = 0
         Dim tax_amount As Double = 0
         If pradd = True Then
@@ -578,7 +578,7 @@ FROM
             Exit Sub
         End If
 
-        If NumIsNull(cmbACCOUNTS_PAYABLE_ID.SelectedValue) = 0 Then
+        If GF_NumIsNull(cmbACCOUNTS_PAYABLE_ID.SelectedValue) = 0 Then
             MessageBoxInfo("Please select account payable")
             Exit Sub
         End If
@@ -602,7 +602,7 @@ FROM
         If IsNew = True Then
 
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("bill_credit", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("bill_credit", cmbLOCATION_ID.SelectedValue)
             End If
 
 
@@ -613,10 +613,10 @@ FROM
             ID = ObjectTypeMapId("bill_credit")
             SqlExecuted($"INSERT INTO bill_credit ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}','2') ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbVENDOR_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
             'bill_credit_bills / Returns
-            If GetNumberFieldValue("bill_credit_bills", "bill_credit_id", ID, "id") <> 0 Then
+            If GF_GetNumberFieldValue("bill_credit_bills", "bill_credit_id", ID, "id") <> 0 Then
                 If gsAdmin_User = False Then
                     MessageBoxWarning("Invalid update bill credit already applied refund.")
                     Exit Sub
@@ -633,31 +633,31 @@ FROM
             If gsSkipJournalEntry = False Then
                 GotChangeTransaction("bill_credit", ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
                 If gsGotChangeDate = True Then
-                    AccountJournalChangeDate(dtpDATE.Value, NumIsNull(cmbACCOUNTS_PAYABLE_ID.SelectedValue), 59, ID, gsLast_Location_ID, gsLast_Date)
-                    AccountJournalChangeDate(dtpDATE.Value, NumIsNull(lblINPUT_TAX_ACCOUNT_ID.Text), 59, ID, gsLast_Location_ID, gsLast_Date)
+                    AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(cmbACCOUNTS_PAYABLE_ID.SelectedValue), 59, ID, gsLast_Location_ID, gsLast_Date)
+                    AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(lblINPUT_TAX_ACCOUNT_ID.Text), 59, ID, gsLast_Location_ID, gsLast_Date)
                 End If
 
                 If gsGotChangeLocation1 = True Then
-                    AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(cmbACCOUNTS_PAYABLE_ID.SelectedValue), 59, ID, dtpDATE.Value, gsLast_Location_ID)
-                    AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(lblINPUT_TAX_ACCOUNT_ID.Text), 59, ID, dtpDATE.Value, gsLast_Location_ID)
+                    AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(cmbACCOUNTS_PAYABLE_ID.SelectedValue), 59, ID, dtpDATE.Value, gsLast_Location_ID)
+                    AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(lblINPUT_TAX_ACCOUNT_ID.Text), 59, ID, dtpDATE.Value, gsLast_Location_ID)
                 End If
             End If
 
             Dim squery As String = SqlUpdate(Me)
             squery = squery & " WHERE ID = '" & ID & "'"
             SqlExecuted("UPDATE bill_credit SET " & squery)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbVENDOR_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
 
-            GS_AccountJournalExecute(cmbACCOUNTS_PAYABLE_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 59, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(cmbACCOUNTS_PAYABLE_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 59, ID, dtpDATE.Value, 0, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
 
-            If NumIsNull(lblINPUT_TAX_AMOUNT.Text) = 0 Then
+            If GF_NumIsNull(lblINPUT_TAX_AMOUNT.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblINPUT_TAX_ACCOUNT_ID.Text), 59, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue)
             Else
-                GS_AccountJournalExecute(Val(lblINPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 59, ID, dtpDATE.Value, 1, NumIsNull(lblINPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblINPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 59, ID, dtpDATE.Value, 1, GF_NumIsNull(lblINPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
         End If
 
@@ -729,37 +729,37 @@ FROM
                     Select Case .Cells("CONTROL_STATUS").Value
                         Case "S"
                             'UPDATE TAX ONLY
-                            fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                            SqlExecuted("UPDATE bill_credit_items SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE BILL_CREDIT_ID ='" & ID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & ";")
+                            fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                            SqlExecuted("UPDATE bill_credit_items SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE BILL_CREDIT_ID ='" & ID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & ";")
 
                             If gsSkipJournalEntry = False Then
 
                                 If gsGotChangeDate = True Then
-                                    AccountJournalChangeDate(dtpDATE.Value, .Cells("ACCOUNT_ID").Value, 60, NumIsNull(.Cells("ID").Value), gsLast_Location_ID, gsLast_Date)
+                                    AccountJournalChangeDate(dtpDATE.Value, .Cells("ACCOUNT_ID").Value, 60, GF_NumIsNull(.Cells("ID").Value), gsLast_Location_ID, gsLast_Date)
                                 End If
                                 If gsGotChangeLocation1 = True Then
-                                    AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, .Cells("ACCOUNT_ID").Value, 60, NumIsNull(.Cells("ID").Value), dtpDATE.Value, gsLast_Location_ID)
+                                    AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, .Cells("ACCOUNT_ID").Value, 60, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, gsLast_Location_ID)
                                 End If
                             End If
                             If gsGotChangeDate = True Then
-                                ItemInventoryChangeDate(dtpDATE.Value, .Cells("ITEM_ID").Value, 3, NumIsNull(.Cells("ID").Value), gsLast_Location_ID, gsLast_Date)
+                                ItemInventoryChangeDate(dtpDATE.Value, .Cells("ITEM_ID").Value, 3, GF_NumIsNull(.Cells("ID").Value), gsLast_Location_ID, gsLast_Date)
                             End If
                             If gsGotChangeLocation1 = True Then
-                                ItemInventoryChangeLocation(cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 3, NumIsNull(.Cells("ID").Value), dtpDATE.Value, gsLast_Location_ID)
+                                ItemInventoryChangeLocation(cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 3, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, gsLast_Location_ID)
                             End If
                             GS_InventoryJournalVendors(dgvProductItem, i, True, 60, 3, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                         Case "A"
-                            fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                            fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                             Dim i_ID As Double = ObjectTypeMapId("BILL_CREDIT_ITEMS")
-                            SqlExecuted("INSERT INTO bill_credit_items SET BATCH_ID =" & GotNullNumber(NumIsNull(.Cells("BATCH_ID").Value)) & ",LINE_NO='" & i & "',ID='" & i_ID & "',QUANTITY ='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",BILL_CREDIT_ID ='" & ID & "',ACCOUNT_ID=" & GotNullNumber(NumIsNull(.Cells("ACCOUNT_ID").Value)) & ",CLASS_ID=" & GotNullNumber(NumIsNull(.Cells("CLASS_ID").Value)) & ";")
+                            SqlExecuted("INSERT INTO bill_credit_items SET BATCH_ID =" & GotNullNumber(GF_NumIsNull(.Cells("BATCH_ID").Value)) & ",LINE_NO='" & i & "',ID='" & i_ID & "',QUANTITY ='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",BILL_CREDIT_ID ='" & ID & "',ACCOUNT_ID=" & GotNullNumber(GF_NumIsNull(.Cells("ACCOUNT_ID").Value)) & ",CLASS_ID=" & GotNullNumber(GF_NumIsNull(.Cells("CLASS_ID").Value)) & ";")
                             .Cells("ID").Value = i_ID
                             GS_InventoryJournalVendors(dgvProductItem, i, True, 60, 3, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                         Case "E"
-                            fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                            SqlExecuted("UPDATE bill_credit_items SET BATCH_ID =" & GotNullNumber(NumIsNull(.Cells("BATCH_ID").Value)) & ",LINE_NO='" & i & "',QUANTITY='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",CLASS_ID=" & GotNullNumber(NumIsNull(.Cells("CLASS_ID").Value)) & " WHERE BILL_CREDIT_ID ='" & ID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & " limit 1;")
+                            fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                            SqlExecuted("UPDATE bill_credit_items SET BATCH_ID =" & GotNullNumber(GF_NumIsNull(.Cells("BATCH_ID").Value)) & ",LINE_NO='" & i & "',QUANTITY='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",CLASS_ID=" & GotNullNumber(GF_NumIsNull(.Cells("CLASS_ID").Value)) & " WHERE BILL_CREDIT_ID ='" & ID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & " limit 1;")
                             GS_InventoryJournalVendors(dgvProductItem, i, True, 60, 3, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                         Case "D"
-                            SqlExecuted("DELETE FROM bill_credit_items WHERE BILL_CREDIT_ID ='" & ID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "' limit 1;")
+                            SqlExecuted("DELETE FROM bill_credit_items WHERE BILL_CREDIT_ID ='" & ID & "' and ID = '" & GF_NumIsNull(.Cells("ID").Value) & "' limit 1;")
                             GS_InventoryJournalVendors(dgvProductItem, i, True, 60, 3, cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                     End Select
                 End With
@@ -774,13 +774,13 @@ FROM
         For i As Integer = 0 To dgvProductItem.Rows.Count - 1
             With dgvProductItem.Rows(i)
                 If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                 ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                     .Cells("CONTROL_STATUS").Value = "S"
                 ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
                     If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                     End If
                     .Cells("CONTROL_STATUS").Value = "S"
                 End If
@@ -795,78 +795,78 @@ FROM
                     Select Case .Cells("CONTROL_STATUS").Value
                         Case "S"
                             'UPDATE TAX
-                            fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvExpenses.Rows(i))
-                            SqlExecuted("UPDATE bill_credit_expenses SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE BILL_CREDIT_ID ='" & ID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & " limit 1;")
+                            fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvExpenses.Rows(i))
+                            SqlExecuted("UPDATE bill_credit_expenses SET LINE_NO='" & i & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE BILL_CREDIT_ID ='" & ID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & " limit 1;")
                             If gsSkipJournalEntry = False Then
                                 If gsGotChangeDate = True Then
-                                    AccountJournalChangeDate(dtpDATE.Value, NumIsNull(.Cells("Account_ID").Value), 80, NumIsNull(.Cells("ID").Value), gsLast_Location_ID, gsLast_Date)
+                                    AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(.Cells("Account_ID").Value), 80, GF_NumIsNull(.Cells("ID").Value), gsLast_Location_ID, gsLast_Date)
                                 End If
                                 If gsGotChangeLocation1 = True Then
-                                    AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("Account_ID").Value), 80, NumIsNull(.Cells("ID").Value), gsLast_Date, gsLast_Location_ID)
+                                    AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("Account_ID").Value), 80, GF_NumIsNull(.Cells("ID").Value), gsLast_Date, gsLast_Location_ID)
                                 End If
 
                                 Dim E As Integer
-                                If NumIsNull(.Cells("AMOUNT").Value) >= 0 Then
+                                If GF_NumIsNull(.Cells("AMOUNT").Value) >= 0 Then
                                     E = 1
                                 Else
                                     E = 0
                                 End If
 
                                 Dim AMT As Double
-                                If NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
-                                    AMT = NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
+                                If GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
+                                    AMT = GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
                                 Else
-                                    AMT = NumIsNull(.Cells("AMOUNT").Value)
+                                    AMT = GF_NumIsNull(.Cells("AMOUNT").Value)
                                 End If
-                                GS_AccountJournalExecute(NumIsNull(.Cells("Account_ID").Value), cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 80, .Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
+                                GS_AccountJournalExecute(GF_NumIsNull(.Cells("Account_ID").Value), cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 80, .Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
                             End If
                         Case "A"
-                            fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvExpenses.Rows(i))
+                            fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvExpenses.Rows(i))
                             Dim i_ID As Double = ObjectTypeMapId("BILL_CREDIT_EXPENSES")
-                            SqlExecuted("INSERT INTO bill_credit_expenses SET LINE_NO='" & i & "',ID='" & i_ID & "',AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',BILL_CREDIT_ID ='" & ID & "',ACCOUNT_ID='" & NumIsNull(.Cells("Account_ID").Value) & "',PARTICULARS='" & TextIsNull(.Cells("Particular").Value) & "',CLASS_ID=" & GotNullNumber(NumIsNull(.Cells("CLASS_ID").Value)) & ";")
+                            SqlExecuted("INSERT INTO bill_credit_expenses SET LINE_NO='" & i & "',ID='" & i_ID & "',AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',BILL_CREDIT_ID ='" & ID & "',ACCOUNT_ID='" & GF_NumIsNull(.Cells("Account_ID").Value) & "',PARTICULARS='" & GF_TextIsNull(.Cells("Particular").Value) & "',CLASS_ID=" & GotNullNumber(GF_NumIsNull(.Cells("CLASS_ID").Value)) & ";")
 
                             .Cells("ID").Value = i_ID
                             .Cells("CONTROL_STATUS").Value = "S"
                             If gsSkipJournalEntry = False Then
                                 Dim E As Integer
-                                If NumIsNull(.Cells("AMOUNT").Value) >= 0 Then
+                                If GF_NumIsNull(.Cells("AMOUNT").Value) >= 0 Then
                                     E = 1
                                 Else
                                     E = 0
                                 End If
                                 Dim AMT As Double
-                                If NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
-                                    AMT = NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
+                                If GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
+                                    AMT = GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
                                 Else
-                                    AMT = NumIsNull(.Cells("AMOUNT").Value)
+                                    AMT = GF_NumIsNull(.Cells("AMOUNT").Value)
                                 End If
-                                GS_AccountJournalExecute(NumIsNull(.Cells("Account_ID").Value), cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 80, .Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
+                                GS_AccountJournalExecute(GF_NumIsNull(.Cells("Account_ID").Value), cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 80, .Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
                             End If
 
                         Case "E"
 
-                            fTax_Computation(cmbINPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvExpenses.Rows(i))
+                            fTax_Computation(cmbINPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvExpenses.Rows(i))
 
-                            SqlExecuted("UPDATE bill_credit_expenses SET LINE_NO='" & i & "',PARTICULARS='" & TextIsNull(.Cells("Particular").Value) & "',ACCOUNT_ID='" & NumIsNull(.Cells("Account_ID").Value) & "',AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',CLASS_ID=" & GotNullNumber(NumIsNull(.Cells("CLASS_ID").Value)) & " WHERE BILL_CREDIT_ID ='" & ID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & " limit 1;")
+                            SqlExecuted("UPDATE bill_credit_expenses SET LINE_NO='" & i & "',PARTICULARS='" & GF_TextIsNull(.Cells("Particular").Value) & "',ACCOUNT_ID='" & GF_NumIsNull(.Cells("Account_ID").Value) & "',AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',CLASS_ID=" & GotNullNumber(GF_NumIsNull(.Cells("CLASS_ID").Value)) & " WHERE BILL_CREDIT_ID ='" & ID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & " limit 1;")
                             If gsSkipJournalEntry = False Then
                                 Dim E As Integer
-                                If NumIsNull(.Cells("AMOUNT").Value) >= 0 Then
+                                If GF_NumIsNull(.Cells("AMOUNT").Value) >= 0 Then
                                     E = 1
                                 Else
                                     E = 0
                                 End If
                                 Dim AMT As Double
-                                If NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
-                                    AMT = NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
+                                If GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
+                                    AMT = GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
                                 Else
-                                    AMT = NumIsNull(.Cells("AMOUNT").Value)
+                                    AMT = GF_NumIsNull(.Cells("AMOUNT").Value)
                                 End If
-                                GS_AccountJournalExecute(NumIsNull(.Cells("Account_ID").Value), cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 80, .Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
+                                GS_AccountJournalExecute(GF_NumIsNull(.Cells("Account_ID").Value), cmbLOCATION_ID.SelectedValue, cmbVENDOR_ID.SelectedValue, 80, .Cells("ID").Value, dtpDATE.Value, E, AMT, gsJOURNAL_NO_FORM)
                             End If
                         Case "D"
-                            SqlExecuted("DELETE FROM bill_credit_expenses WHERE BILL_CREDIT_ID ='" & ID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "' limit 1;")
+                            SqlExecuted("DELETE FROM bill_credit_expenses WHERE BILL_CREDIT_ID ='" & ID & "' and ID = '" & GF_NumIsNull(.Cells("ID").Value) & "' limit 1;")
                             If gsSkipJournalEntry = False Then
-                                GS_AccountJournalDelete(NumIsNull(.Cells("Account_ID").Value), cmbLOCATION_ID.SelectedValue, 80, .Cells("ID").Value, dtpDATE.Value)
+                                GS_AccountJournalDelete(GF_NumIsNull(.Cells("Account_ID").Value), cmbLOCATION_ID.SelectedValue, 80, .Cells("ID").Value, dtpDATE.Value)
                             End If
 
                     End Select
@@ -907,14 +907,14 @@ FROM
 
 
                 If MessageBoxQuestion(gsMessageQuestion) = True Then
-                    CursorLoadingOn(True)
+                    GS_CursorLoadingOn(True)
                     '  
                     Try
 
                         Dim rd As OdbcDataReader = SqlReader("select BILL_ID from BILL_CREDIT_BILLS where bill_CREDIT_ID = '" & ID & "'")
                         While rd.Read
 
-                            Dim prORG_Amount As Double = GetNumberFieldValue("BILL", "ID", rd("BILL_ID"), "AMOUNT")
+                            Dim prORG_Amount As Double = GF_GetNumberFieldValue("BILL", "ID", rd("BILL_ID"), "AMOUNT")
 
                             Dim total_pay As Double = GF_GetCreditOtherBill(ID, rd("BILL_ID")) + GF_GetBillSumTaxAppliedAmount(rd("BILL_ID"), cmbVENDOR_ID.SelectedValue) + GF_GetBillSumPaymentApplied(rd("BILL_ID"), cmbVENDOR_ID.SelectedValue)
 
@@ -966,7 +966,7 @@ FROM
                         gsJOURNAL_NO_FORM = 0
 
                         GS_AccountJournalDelete(cmbACCOUNTS_PAYABLE_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 59, ID, dtpDATE.Value)
-                        If NumIsNull(lblINPUT_TAX_AMOUNT.Text) <> 0 Then
+                        If GF_NumIsNull(lblINPUT_TAX_AMOUNT.Text) <> 0 Then
                             GS_AccountJournalDelete(Val(lblINPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 59, ID, dtpDATE.Value)
                         End If
 
@@ -980,7 +980,7 @@ FROM
                     SqlExecuted("delete from bill_credit_expenses where bill_CREDIT_ID ='" & ID & "'")
                     SqlExecuted("delete from bill_credit where ID ='" & ID & "' limit 1;")
                     DeleteNotify(Me)
-                    SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbVENDOR_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                    SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbVENDOR_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                     ClearInfo()
                     dgvProductItem.Rows.Clear()
@@ -988,7 +988,7 @@ FROM
                     Computed()
                     ID = 0
                     IsNew = True
-                    CursorLoadingOn(False)
+                    GS_CursorLoadingOn(False)
                 End If
             Catch ex As Exception
 
@@ -1003,11 +1003,11 @@ FROM
         End If
     End Sub
     Private Sub FrmBillCredit_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewItemDisplay(dgvProductItem)
-        ViewExpensesDisplay(dgvExpenses)
+        GS_ViewItemDisplay(dgvProductItem)
+        GS_ViewExpensesDisplay(dgvExpenses)
 
-        ViewNotSort(dgvProductItem)
-        ViewNotSort(dgvExpenses)
+        GS_ViewNotSort(dgvProductItem)
+        GS_ViewNotSort(dgvExpenses)
 
     End Sub
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
@@ -1261,7 +1261,7 @@ FROM
                     FrmContactDetails.this_BS = Nothing
                     FrmContactDetails.ShowDialog()
                     If FrmContactDetails.gsOK = True Then
-                        ComboBoxLoad(cmbVENDOR_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('0') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+                        GS_ComboBoxLoad(cmbVENDOR_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('0') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
                         cmbVENDOR_ID.SelectedValue = FrmContactDetails.ID
                         CmbVENDOR_ID_LostFocus(sender, e)
                     End If
@@ -1290,8 +1290,8 @@ FROM
 
         Dim rd As OdbcDataReader = SqlReader($"select * from contact where id ='{s}' and `type` = '0' limit 1 ")
         If rd.Read Then
-            If NumIsNull(rd("TAX_ID")) <> 0 Then
-                cmbINPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
+            If GF_NumIsNull(rd("TAX_ID")) <> 0 Then
+                cmbINPUT_TAX_ID.SelectedValue = GF_NumIsNull(rd("TAX_ID"))
 
             End If
 
@@ -1312,8 +1312,7 @@ FROM
                 TabControl1.SelectedTab = TabPage2
             End If
         End If
-        DatagridViewMode(dgvProductItem)
-        DatagridViewMode(dgvExpenses)
+
     End Sub
 
     Private Sub TsAddItem_Click(sender As Object, e As EventArgs) Handles tsAddItem.Click
@@ -1352,7 +1351,7 @@ FROM
         Try
             If dgvProductItem.Rows.Count <> 0 Then
                 Dim i As Integer = dgvProductItem.CurrentRow.Index
-                If NumIsNull(dgvProductItem.Rows(i).Cells(0).Value) <> 0 Then
+                If GF_NumIsNull(dgvProductItem.Rows(i).Cells(0).Value) <> 0 Then
                     dgvProductItem.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                     dgvProductItem.Rows(i).Visible = False
                 Else
@@ -1392,7 +1391,7 @@ FROM
             If dgvExpenses.Rows.Count <> 0 Then
                 Dim i As Integer = dgvExpenses.CurrentRow.Index
 
-                If NumIsNull(dgvExpenses.Rows(i).Cells(0).Value) <> 0 Then
+                If GF_NumIsNull(dgvExpenses.Rows(i).Cells(0).Value) <> 0 Then
                     dgvExpenses.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                     dgvExpenses.Rows(i).Visible = False
                 Else

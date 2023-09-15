@@ -9,7 +9,7 @@
         LoadComponents()
     End Sub
     Private Sub LoadComponents()
-        LoadDataGridView(dgvReportComponent, "select c.ID,t.DESCRIPTION as `Type`,c.`NAME` from COMPONENT as c inner join COMPONENT_TYPE as t on t.ID = c.`TYPE` order by c.ID ")
+        GS_LoadDataGridView(dgvReportComponent, "select c.ID,t.DESCRIPTION as `Type`,c.`NAME` from COMPONENT as c inner join COMPONENT_TYPE as t on t.ID = c.`TYPE` order by c.ID ")
     End Sub
 
     Private Sub FrmReportComponents_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -5,7 +5,7 @@
     Public gsOK As Boolean = False
     Private Sub FrmDiscountBill_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sql_statement As String = "SELECT a.ID, a.NAME AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  where a.TYPE ='11' "
-        ComboBoxLoad(cmbDiscount_Account, sql_statement, "ID", "T")
+        GS_ComboBoxLoad(cmbDiscount_Account, sql_statement, "ID", "T")
         numAmount_of_Discount.Value = gsDISCOUNT_AMOUNT
         lblDISCOUNT.Text = Format(gsDISCOUNT_AMOUNT, "Standard")
         cmbDiscount_Account.SelectedValue = Val(gsDISCOUNT_ACCOUNT_ID)

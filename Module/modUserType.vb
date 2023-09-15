@@ -19,12 +19,12 @@ Module modUserType
             While rd.Read
                 gsUserLoop = gsUserLoop + 1
                 Dim bAdd As Boolean
-                If TextIsNull(rd("user_value")) = "" Then
+                If GF_TextIsNull(rd("user_value")) = "" Then
                     bAdd = False
                 Else
                     bAdd = True
                 End If
-                fUpdateUserTypeValue(prUser_Type_Id, TextIsNull(rd("description")), bAdd)
+                fUpdateUserTypeValue(prUser_Type_Id, GF_TextIsNull(rd("description")), bAdd)
                 gsProgressBar.Value = gsUserLoop
 
             End While
@@ -33,12 +33,12 @@ Module modUserType
             rd = SqlReader("SELECT sm.menu_id,sm.description,(SELECT `NAME` FROM system_security WHERE user_id ='" & prUserIdBase & "' AND `name` = sm.`Description` ) AS `user_value` FROM  tblmenu AS sm  ORDER BY sm.description ")
             While rd.Read
                 Dim bAdd As Boolean
-                If TextIsNull(rd("user_value")) = "" Then
+                If GF_TextIsNull(rd("user_value")) = "" Then
                     bAdd = False
                 Else
                     bAdd = True
                 End If
-                fUpdateUserTypeValue(prUser_Type_Id, TextIsNull(rd("description")), bAdd)
+                fUpdateUserTypeValue(prUser_Type_Id, GF_TextIsNull(rd("description")), bAdd)
             End While
             rd.Close()
             fUpdateUserTypeSecurityAccess(prUserIdBase, prUser_Type_Id)
@@ -90,7 +90,7 @@ Module modUserType
             Dim rd As OdbcDataReader = SqlReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_security_access as u  on u.sub_id = s.sub_id and u.user_id = '" & user_id & "' where s.access_control = '1' order by ml.menu_id,s.description")
             While rd.Read
                 gsUserLoop = gsUserLoop + 1
-                fUpdateUserTypeSecurityAccessValue(User_Type_ID, NumIsNull(rd("IDx")), NumIsNull(rd("NEW")), NumIsNull(rd("EDIT")), NumIsNull(rd("DELETE")), NumIsNull(rd("FIND")), NumIsNull(rd("PRINT_PREVIEW")))
+                fUpdateUserTypeSecurityAccessValue(User_Type_ID, GF_NumIsNull(rd("IDx")), GF_NumIsNull(rd("NEW")), GF_NumIsNull(rd("EDIT")), GF_NumIsNull(rd("DELETE")), GF_NumIsNull(rd("FIND")), GF_NumIsNull(rd("PRINT_PREVIEW")))
                 gsProgressBar.Value = gsUserLoop
             End While
             rd.Close()
@@ -136,12 +136,12 @@ Module modUserType
             While rd.Read
                 gsUserLoop = gsUserLoop + 1
                 Dim bAdd As Boolean
-                If TextIsNull(rd("user_value")) = "" Then
+                If GF_TextIsNull(rd("user_value")) = "" Then
                     bAdd = False
                 Else
                     bAdd = True
                 End If
-                fUserSetValue(User_ID, TextIsNull(rd("description")), bAdd)
+                fUserSetValue(User_ID, GF_TextIsNull(rd("description")), bAdd)
                 gsProgressBar.Value = gsUserLoop
 
             End While
@@ -152,12 +152,12 @@ Module modUserType
             rd = SqlReader("SELECT sm.menu_id,sm.description,(SELECT `NAME` FROM user_type_system_security WHERE user_type_ID ='" & BaseUserTypeID & "' AND `name` = sm.`Description` ) AS `user_value` FROM  tblmenu AS sm  ORDER BY sm.description ")
             While rd.Read
                 Dim bAdd As Boolean
-                If TextIsNull(rd("user_value")) = "" Then
+                If GF_TextIsNull(rd("user_value")) = "" Then
                     bAdd = False
                 Else
                     bAdd = True
                 End If
-                fUserSetValue(User_ID, TextIsNull(rd("description")), bAdd)
+                fUserSetValue(User_ID, GF_TextIsNull(rd("description")), bAdd)
 
             End While
             rd.Close()
@@ -207,7 +207,7 @@ Module modUserType
             Dim rd As OdbcDataReader = SqlReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_type_security_access as u  on u.sub_id = s.sub_id and u.user_type_id = '" & User_Type_ID & "' where s.access_control = '1' order by ml.menu_id,s.description")
             While rd.Read
                 gsUserLoop = gsUserLoop + 1
-                fUpdateUserSecurityAccessValue(user_id, NumIsNull(rd("IDx")), NumIsNull(rd("NEW")), NumIsNull(rd("EDIT")), NumIsNull(rd("DELETE")), NumIsNull(rd("FIND")), NumIsNull(rd("PRINT_VIEW")))
+                fUpdateUserSecurityAccessValue(user_id, GF_NumIsNull(rd("IDx")), GF_NumIsNull(rd("NEW")), GF_NumIsNull(rd("EDIT")), GF_NumIsNull(rd("DELETE")), GF_NumIsNull(rd("FIND")), GF_NumIsNull(rd("PRINT_VIEW")))
                 gsProgressBar.Value = gsUserLoop
             End While
             rd.Close()

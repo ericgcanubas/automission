@@ -10,33 +10,33 @@ Module modAccountJournal
             Else
                 If .Cells("CONTROL_STATUS").Value <> "D" Then
                     'INVENTORY ITEM
-                    Dim LAST_ENDING_UNIT_COST As Double = NumIsNull(.Cells("AMOUNT").Value) / NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value)
+                    Dim LAST_ENDING_UNIT_COST As Double = GF_NumIsNull(.Cells("AMOUNT").Value) / GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value)
 
 
                     If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
                         'ITEM INVENTORY/ ASSEMBLY ONLY
-                        Dim THIS_QTY As Double = NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) * NumIsNull(.Cells("QTY").Value)
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, LOCATION_ID, IIf(IsDeducted = True, THIS_QTY * -1, THIS_QTY), LAST_ENDING_UNIT_COST, Src_Type, NumIsNull(.Cells("ID").Value), DT, NumIsNull(.Cells("BATCH_ID").Value))
+                        Dim THIS_QTY As Double = GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) * GF_NumIsNull(.Cells("QTY").Value)
+                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, LOCATION_ID, IIf(IsDeducted = True, THIS_QTY * -1, THIS_QTY), LAST_ENDING_UNIT_COST, Src_Type, GF_NumIsNull(.Cells("ID").Value), DT, GF_NumIsNull(.Cells("BATCH_ID").Value))
                     End If
 
                     If gsSkipJournalEntry = False Then
                         'INCOME_ACCOUNT_ID
                         Dim AMT As Double = 0
-                        If NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
-                            AMT = NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
+                        If GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
+                            AMT = GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
                         Else
-                            AMT = NumIsNull(.Cells("AMOUNT").Value)
+                            AMT = GF_NumIsNull(.Cells("AMOUNT").Value)
                         End If
 
                         Dim E As Integer = 0
 
-                        If NumIsNull(.Cells("AMOUNT").Value) <= 0 Then
+                        If GF_NumIsNull(.Cells("AMOUNT").Value) <= 0 Then
                             E = IIf(IsDeducted = True, 0, 1)
                         Else
                             E = IIf(IsDeducted = True, 1, 0)
                         End If
 
-                        GS_AccountJournalExecute(NumIsNull(.Cells("ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, NumIsNull(.Cells("ID").Value), DT, E, AMT, gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(GF_NumIsNull(.Cells("ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT, E, AMT, gsJOURNAL_NO_FORM)
 
                         If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
                             'ITEM INVENTORY/ ASSEMBLY
@@ -49,11 +49,11 @@ Module modAccountJournal
                     'DELETE
 
                     If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
-                        GS_ItemInventoryRemove(Src_Type, NumIsNull(.Cells("ID").Value), DT, NumIsNull(.Cells("ITEM_ID").Value), LOCATION_ID)
+                        GS_ItemInventoryRemove(Src_Type, GF_NumIsNull(.Cells("ID").Value), DT, GF_NumIsNull(.Cells("ITEM_ID").Value), LOCATION_ID)
                     End If
 
                     If gsSkipJournalEntry = False Then
-                        GS_AccountJournalDelete(NumIsNull(.Cells("ACCOUNT_ID").Value), LOCATION_ID, Obj_Type, NumIsNull(.Cells("ID").Value), DT)
+                        GS_AccountJournalDelete(GF_NumIsNull(.Cells("ACCOUNT_ID").Value), LOCATION_ID, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT)
                     End If
                 End If
             End If
@@ -74,42 +74,42 @@ Module modAccountJournal
                     Dim LAST_ENDING_UNIT_COST As Double = 0
                     If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
                         'ITEM INVENTORY/ ASSEMBLY ONLY
-                        Dim THIS_QTY As Double = NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) * NumIsNull(.Cells("QTY").Value)
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, LOCATION_ID, IIf(IsDeducted = True, THIS_QTY * -1, THIS_QTY), LAST_ENDING_UNIT_COST, Src_Type, NumIsNull(.Cells("ID").Value), DT, NumIsNull(.Cells("BATCH_ID").Value))
+                        Dim THIS_QTY As Double = GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) * GF_NumIsNull(.Cells("QTY").Value)
+                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, LOCATION_ID, IIf(IsDeducted = True, THIS_QTY * -1, THIS_QTY), LAST_ENDING_UNIT_COST, Src_Type, GF_NumIsNull(.Cells("ID").Value), DT, GF_NumIsNull(.Cells("BATCH_ID").Value))
                     End If
 
                     If gsSkipJournalEntry = False Then
                         'INCOME_ACCOUNT_ID
                         Dim AMT As Double = 0
-                        If NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
-                            AMT = NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
+                        If GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) <> 0 Then
+                            AMT = GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value)
                         Else
-                            AMT = NumIsNull(.Cells("AMOUNT").Value)
+                            AMT = GF_NumIsNull(.Cells("AMOUNT").Value)
                         End If
 
                         Dim E As Integer = 0
 
-                        If NumIsNull(.Cells("AMOUNT").Value) <= 0 Then
+                        If GF_NumIsNull(.Cells("AMOUNT").Value) <= 0 Then
                             E = IIf(IsDeducted = True, 0, 1)
                         Else
                             E = IIf(IsDeducted = True, 1, 0)
                         End If
 
-                        GS_AccountJournalExecute(NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, NumIsNull(.Cells("ID").Value), DT, E, AMT, gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(GF_NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT, E, AMT, gsJOURNAL_NO_FORM)
 
                         If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
                             'ITEM INVENTORY/ ASSEMBLY
                             'COST ONLY
-                            Dim AMT_COST As Double = LAST_ENDING_UNIT_COST * NumIsNull(.Cells("QTY").Value)
+                            Dim AMT_COST As Double = LAST_ENDING_UNIT_COST * GF_NumIsNull(.Cells("QTY").Value)
 
                             If dgv.Columns.Contains("ASSET_ACCOUNT_ID") = True Then
-                                GS_AccountJournalExecute(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, NumIsNull(.Cells("ID").Value), DT, IIf(IsDeducted = True, 1, 0), AMT_COST, gsJOURNAL_NO_FORM)
+                                GS_AccountJournalExecute(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT, IIf(IsDeducted = True, 1, 0), AMT_COST, gsJOURNAL_NO_FORM)
 
                             End If
 
                             If dgv.Columns.Contains("COGS_ACCOUNT_ID") = True Then
 
-                                GS_AccountJournalExecute(NumIsNull(.Cells("COGS_ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, NumIsNull(.Cells("ID").Value), DT, IIf(IsDeducted = True, 0, 1), AMT_COST, gsJOURNAL_NO_FORM)
+                                GS_AccountJournalExecute(GF_NumIsNull(.Cells("COGS_ACCOUNT_ID").Value), LOCATION_ID, .Cells("ITEM_ID").Value, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT, IIf(IsDeducted = True, 0, 1), AMT_COST, gsJOURNAL_NO_FORM)
 
                             End If
 
@@ -121,11 +121,11 @@ Module modAccountJournal
                 Else
                     'DELETE
                     If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
-                        GS_ItemInventoryRemove(Src_Type, NumIsNull(.Cells("ID").Value), DT, NumIsNull(.Cells("ITEM_ID").Value), LOCATION_ID)
+                        GS_ItemInventoryRemove(Src_Type, GF_NumIsNull(.Cells("ID").Value), DT, GF_NumIsNull(.Cells("ITEM_ID").Value), LOCATION_ID)
                     End If
 
                     If gsSkipJournalEntry = False Then
-                        GS_AccountJournalDelete(NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value), LOCATION_ID, Obj_Type, NumIsNull(.Cells("ID").Value), DT)
+                        GS_AccountJournalDelete(GF_NumIsNull(.Cells("INCOME_ACCOUNT_ID").Value), LOCATION_ID, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT)
 
                         If .Cells("ITEM_TYPE").Value = 0 Or .Cells("ITEM_TYPE").Value = 1 Then
                             'ITEM INVENTORY/ ASSEMBLY
@@ -133,12 +133,12 @@ Module modAccountJournal
                             'COST ONLY
                             If dgv.Columns.Contains("ASSET_ACCOUNT_ID") = True Then
                                 'ASSET_ACCOUNT_ID
-                                GS_AccountJournalDelete(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), LOCATION_ID, Obj_Type, NumIsNull(.Cells("ID").Value), DT)
+                                GS_AccountJournalDelete(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), LOCATION_ID, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT)
                             End If
 
                             If dgv.Columns.Contains("COGS_ACCOUNT_ID") = True Then
                                 'COGS_ACCOUNT_ID
-                                GS_AccountJournalDelete(NumIsNull(.Cells("COGS_ACCOUNT_ID").Value), LOCATION_ID, Obj_Type, NumIsNull(.Cells("ID").Value), DT)
+                                GS_AccountJournalDelete(GF_NumIsNull(.Cells("COGS_ACCOUNT_ID").Value), LOCATION_ID, Obj_Type, GF_NumIsNull(.Cells("ID").Value), DT)
                             End If
                         End If
                     End If
@@ -151,7 +151,7 @@ Module modAccountJournal
 
         Dim rd As OdbcDataReader = SqlReader($"SELECT ID,JOURNAL_NO,PREVIOUS_ID,ENDING_BALANCE,ENTRY_TYPE,AMOUNT FROM account_journal WHERE `ACCOUNT_ID` = '{ACCOUNT_ID}' and `LOCATION_ID` = '{LOCATION_ID}' and `OBJECT_TYPE` = '{OBJECT_TYPE}' and `OBJECT_ID` = '{OBJECT_ID}' and OBJECT_DATE = '{DateFormatMySql(OBJECT_DATE)}' limit 1;")
         If rd.Read Then
-            SqlExecuted($"DELETE FROM account_journal WHERE `ID`= '{NumIsNull(rd("ID"))}' AND `ACCOUNT_ID` = '{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_TYPE = '{OBJECT_TYPE}' and OBJECT_ID = '{OBJECT_ID}' and OBJECT_DATE = '{DateFormatMySql(OBJECT_DATE)}' limit 1;")
+            SqlExecuted($"DELETE FROM account_journal WHERE `ID`= '{GF_NumIsNull(rd("ID"))}' AND `ACCOUNT_ID` = '{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_TYPE = '{OBJECT_TYPE}' and OBJECT_ID = '{OBJECT_ID}' and OBJECT_DATE = '{DateFormatMySql(OBJECT_DATE)}' limit 1;")
         End If
         rd.Close()
 
@@ -171,9 +171,9 @@ Module modAccountJournal
             Dim rd As OdbcDataReader = SqlReader(sItem_Inventory)
             If rd.Read Then
                 bOpen = True
-                prID = NumIsNull(rd("ID"))
-                prPrev_ID = NumIsNull(rd("PREVIOUS_ID"))
-                prSEQUENCE_NO = NumIsNull(rd("SEQUENCE_NO"))
+                prID = GF_NumIsNull(rd("ID"))
+                prPrev_ID = GF_NumIsNull(rd("PREVIOUS_ID"))
+                prSEQUENCE_NO = GF_NumIsNull(rd("SEQUENCE_NO"))
             End If
             rd.Close()
 
@@ -183,14 +183,14 @@ Module modAccountJournal
 
                 rd = SqlReader(sSelect_SQL)
                 While rd.Read
-                    If prSEQUENCE_NO = NumIsNull(rd("SEQUENCE_NO")) And prID = NumIsNull(rd("ID")) Then
-                        ENDING_QUANTITY = NumIsNull(rd("ENDING_QUANTITY"))
+                    If prSEQUENCE_NO = GF_NumIsNull(rd("SEQUENCE_NO")) And prID = GF_NumIsNull(rd("ID")) Then
+                        ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY"))
                         SqlExecuted("DELETE FROM item_inventory WHERE ID='" & prID & "' and ITEM_ID='" & prItem_ID & "' and LOCATION_ID='" & prLocation_ID & "';")
 
                     Else
-                        ENDING_QUANTITY = NumIsNull(rd("ENDING_QUANTITY")) + NumIsNull(rd("QUANTITY"))
-                        SqlExecuted("UPDATE item_inventory SET ENDING_COST='" & NumIsNull(rd("ENDING_UNIT_COST")) * ENDING_QUANTITY & "',ENDING_QUANTITY='" & ENDING_QUANTITY & "',PREVIOUS_ID = " & GotNullNumber(prPrev_ID) & " WHERE ID = '" & rd("ID") & "' and ITEM_ID = '" & prItem_ID & "' and LOCATION_ID='" & prLocation_ID & "';")
-                        prPrev_ID = NumIsNull(rd("ID"))
+                        ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY")) + GF_NumIsNull(rd("QUANTITY"))
+                        SqlExecuted("UPDATE item_inventory SET ENDING_COST='" & GF_NumIsNull(rd("ENDING_UNIT_COST")) * ENDING_QUANTITY & "',ENDING_QUANTITY='" & ENDING_QUANTITY & "',PREVIOUS_ID = " & GotNullNumber(prPrev_ID) & " WHERE ID = '" & rd("ID") & "' and ITEM_ID = '" & prItem_ID & "' and LOCATION_ID='" & prLocation_ID & "';")
+                        prPrev_ID = GF_NumIsNull(rd("ID"))
                     End If
                 End While
                 rd.Close()
@@ -216,19 +216,19 @@ Module modAccountJournal
 
             If rd.Read Then
                 'update
-                THIS_ID = NumIsNull(rd("ID"))
-                THIS_JOURNAL_NO = NumIsNull(rd("JOURNAL_NO"))
+                THIS_ID = GF_NumIsNull(rd("ID"))
+                THIS_JOURNAL_NO = GF_NumIsNull(rd("JOURNAL_NO"))
                 'Dim THIS_BAL As Double
                 'Select Case rd("ENTRY_TYPE")
                 '    Case 0
-                '        THIS_BAL = NumIsNull(rd("ENDING_BALANCE")) - NumIsNull(rd("AMOUNT"))
+                '        THIS_BAL = GF_NumIsNull(rd("ENDING_BALANCE")) - GF_NumIsNull(rd("AMOUNT"))
                 '        ENDING_BALANCE = THIS_BAL + AMOUNT
                 '    Case 1
-                '        THIS_BAL = NumIsNull(rd("ENDING_BALANCE")) + NumIsNull(rd("AMOUNT"))
+                '        THIS_BAL = GF_NumIsNull(rd("ENDING_BALANCE")) + GF_NumIsNull(rd("AMOUNT"))
                 '        ENDING_BALANCE = THIS_BAL - AMOUNT
                 'End Select
 
-                ENDING_BALANCE = NumIsNull(rd("ENDING_BALANCE"))
+                ENDING_BALANCE = GF_NumIsNull(rd("ENDING_BALANCE"))
                 SQL = $"UPDATE `account_journal`
 SET 
   `ENTRY_TYPE` = '{ENTRY_TYPE}',
@@ -278,7 +278,7 @@ WHERE `ID` = '{THIS_ID}' and
     End Sub
 
     Public Function GF_GetNetJournalNumber() As Double
-        Return Val(GetMaxField("JOURNAL_NO", "ACCOUNT_JOURNAL"))
+        Return Val(GF_GetMaxField("JOURNAL_NO", "ACCOUNT_JOURNAL"))
     End Function
     Public Function GF_GetNewSequencesNo(ByVal ACCOUNT_ID As Integer, ByVal LOCATION_ID As Integer) As String
         Return $"(Select  (MAX(CAST(SEQUENCE_NO AS UNSIGNED)) +1 ) From `ACCOUNT_JOURNAL` as a where ACCOUNT_ID ='{ACCOUNT_ID}' and LOCATION_ID ='{LOCATION_ID}' limit 1)"

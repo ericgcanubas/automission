@@ -274,39 +274,39 @@ Module modMultiFuntion
                         'Bill Payment
                         If fCheck_Payment_Bill(.Cells("BILL_ID").Value, gsID) = True Then
 
-                            GET_LAST_DISCOUNT_ID = GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `CHECK_BILLS` WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
-                            SqlExecuted("UPDATE `check_bills` SET DISCOUNT=" & GotNullNumber(NumIsNull(.Cells("DISCOUNT").Value)) & ",AMOUNT_PAID = " & GotNullNumber(NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_PAYABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_PAYABLE_ID").Value) & " WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
+                            GET_LAST_DISCOUNT_ID = GF_GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `CHECK_BILLS` WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
+                            SqlExecuted("UPDATE `check_bills` SET DISCOUNT=" & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT").Value)) & ",AMOUNT_PAID = " & GotNullNumber(GF_NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_PAYABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_PAYABLE_ID").Value) & " WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
                             PayItemID(PayItemRun) = .Cells("BILL_ID").Value
                             PayItemRun = PayItemRun + 1
-                            If NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
+                            If GF_NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
                                 GET_LAST_DISCOUNT_ID = .Cells("DISCOUNT_ACCOUNT_ID").Value
                             End If
                         Else
                             Dim i_ID As Double = ObjectTypeMapId("CHECK_BILLS")
-                            SqlExecuted("INSERT INTO `check_bills` Set ID='" & i_ID & "',CHECK_ID='" & gsID & "',BILL_ID='" & .Cells("BILL_ID").Value & "',DISCOUNT=" & GotNullNumber(NumIsNull(.Cells("DISCOUNT").Value)) & ", AMOUNT_PAID = " & GotNullNumber(NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_PAYABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_PAYABLE_ID").Value) & ";")
+                            SqlExecuted("INSERT INTO `check_bills` Set ID='" & i_ID & "',CHECK_ID='" & gsID & "',BILL_ID='" & .Cells("BILL_ID").Value & "',DISCOUNT=" & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT").Value)) & ", AMOUNT_PAID = " & GotNullNumber(GF_NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_PAYABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_PAYABLE_ID").Value) & ";")
                             PayItemID(PayItemRun) = .Cells("BILL_ID").Value
                             PayItemRun = PayItemRun + 1
                             .Cells("ID").Value = i_ID
-                            If NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
+                            If GF_NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
                                 GET_LAST_DISCOUNT_ID = .Cells("DISCOUNT_ACCOUNT_ID").Value
                             End If
 
                         End If
                         '======================================================
                         If gsSkipJournalEntry = False Then
-                            GS_AccountJournalExecute(.Cells("ACCOUNTS_PAYABLE_ID").Value, prLocation_ID, .Cells("BILL_ID").Value, 58, .Cells("ID").Value, prDate, 0, NumIsNull(.Cells("PAYMENT").Value), gsJOURNAL_NO_FORM)
-                            If NumIsNull(.Cells("DISCOUNT").Value) <> 0 Then
+                            GS_AccountJournalExecute(.Cells("ACCOUNTS_PAYABLE_ID").Value, prLocation_ID, .Cells("BILL_ID").Value, 58, .Cells("ID").Value, prDate, 0, GF_NumIsNull(.Cells("PAYMENT").Value), gsJOURNAL_NO_FORM)
+                            If GF_NumIsNull(.Cells("DISCOUNT").Value) <> 0 Then
                                 'if got discount
-                                GS_AccountJournalExecute(GET_LAST_DISCOUNT_ID, prLocation_ID, .Cells("BILL_ID").Value, 58, .Cells("ID").Value, prDate, 0, NumIsNull(.Cells("DISCOUNT").Value), gsJOURNAL_NO_FORM)
+                                GS_AccountJournalExecute(GET_LAST_DISCOUNT_ID, prLocation_ID, .Cells("BILL_ID").Value, 58, .Cells("ID").Value, prDate, 0, GF_NumIsNull(.Cells("DISCOUNT").Value), gsJOURNAL_NO_FORM)
                                 If IsDate(.Cells("DISC_DATE").Value) = True Then
                                     SqlExecuted($"UPDATE bill SET DISCOUNT_DATE  = '{DateFormatMySql(.Cells("DISC_DATE").Value)}'  WHERE ID = '{ .Cells("BILL_ID").Value}'  limit 1;")
                                 Else
                                     SqlExecuted($"UPDATE bill SET DISCOUNT_DATE  = NULL  WHERE ID = '{ .Cells("BILL_ID").Value}'  limit 1;")
-                                    GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 58, NumIsNull(.Cells("ID").Value), prDate)
+                                    GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 58, GF_NumIsNull(.Cells("ID").Value), prDate)
                                 End If
 
                             Else
-                                GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 58, NumIsNull(.Cells("ID").Value), prDate)
+                                GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 58, GF_NumIsNull(.Cells("ID").Value), prDate)
 
                             End If
 
@@ -319,41 +319,41 @@ Module modMultiFuntion
                         '======================================================
 
                         If fCheckPaymentInvoice(.Cells("INVOICE_ID").Value, gsID) = True Then
-                            GET_LAST_DISCOUNT_ID = GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `PAYMENT_INVOICES` WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
-                            SqlExecuted("UPDATE `payment_invoices` SET DISCOUNT=" & GotNullNumber(NumIsNull(.Cells("DISCOUNT").Value)) & ",AMOUNT_APPLIED = " & GotNullNumber(NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_RECEIVABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_RECEIVABLE_ID").Value) & " WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
+                            GET_LAST_DISCOUNT_ID = GF_GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `PAYMENT_INVOICES` WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
+                            SqlExecuted("UPDATE `payment_invoices` SET DISCOUNT=" & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT").Value)) & ",AMOUNT_APPLIED = " & GotNullNumber(GF_NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_RECEIVABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_RECEIVABLE_ID").Value) & " WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
                             PayItemID(PayItemRun) = .Cells("INVOICE_ID").Value
 
                             PayItemRun = PayItemRun + 1
-                            If NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
+                            If GF_NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
                                 GET_LAST_DISCOUNT_ID = .Cells("DISCOUNT_ACCOUNT_ID").Value
                             End If
                         Else
                             Dim i_ID As Double = ObjectTypeMapId("PAYMENT_INVOICES")
-                            SqlExecuted("INSERT INTO `payment_invoices` Set ID='" & i_ID & "',PAYMENT_ID='" & gsID & "',INVOICE_ID='" & .Cells("INVOICE_ID").Value & "',DISCOUNT=" & GotNullNumber(NumIsNull(.Cells("DISCOUNT").Value)) & ", AMOUNT_APPLIED = " & GotNullNumber(NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_RECEIVABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_RECEIVABLE_ID").Value) & ";")
+                            SqlExecuted("INSERT INTO `payment_invoices` Set ID='" & i_ID & "',PAYMENT_ID='" & gsID & "',INVOICE_ID='" & .Cells("INVOICE_ID").Value & "',DISCOUNT=" & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT").Value)) & ", AMOUNT_APPLIED = " & GotNullNumber(GF_NumIsNull(.Cells("PAYMENT").Value)) & ",DISCOUNT_ACCOUNT_ID=" & GF_GotNullText(.Cells("DISCOUNT_ACCOUNT_ID").Value) & ",ACCOUNTS_RECEIVABLE_ID=" & GF_GotNullText(.Cells("ACCOUNTS_RECEIVABLE_ID").Value) & ";")
                             PayItemID(PayItemRun) = .Cells("INVOICE_ID").Value
                             PayItemRun = PayItemRun + 1
                             .Cells("ID").Value = i_ID
-                            If NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
+                            If GF_NumIsNull(.Cells("DISCOUNT_ACCOUNT_ID").Value) <> 0 Then
                                 GET_LAST_DISCOUNT_ID = .Cells("DISCOUNT_ACCOUNT_ID").Value
                             End If
 
                         End If
                         '======================================================
                         If gsSkipJournalEntry = False Then
-                            GS_AccountJournalExecute(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, prLocation_ID, .Cells("INVOICE_ID").Value, 42, .Cells("ID").Value, prDate, 1, NumIsNull(.Cells("PAYMENT").Value), gsJOURNAL_NO_FORM)
-                            If NumIsNull(.Cells("DISCOUNT").Value) <> 0 Then
+                            GS_AccountJournalExecute(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, prLocation_ID, .Cells("INVOICE_ID").Value, 42, .Cells("ID").Value, prDate, 1, GF_NumIsNull(.Cells("PAYMENT").Value), gsJOURNAL_NO_FORM)
+                            If GF_NumIsNull(.Cells("DISCOUNT").Value) <> 0 Then
                                 'if got discount
-                                GS_AccountJournalExecute(GET_LAST_DISCOUNT_ID, prLocation_ID, .Cells("INVOICE_ID").Value, 42, .Cells("ID").Value, prDate, 1, NumIsNull(.Cells("DISCOUNT").Value), gsJOURNAL_NO_FORM)
+                                GS_AccountJournalExecute(GET_LAST_DISCOUNT_ID, prLocation_ID, .Cells("INVOICE_ID").Value, 42, .Cells("ID").Value, prDate, 1, GF_NumIsNull(.Cells("DISCOUNT").Value), gsJOURNAL_NO_FORM)
                                 If IsDate(.Cells("DISC_DATE").Value) = True Then
                                     SqlExecuted($"UPDATE invoice SET DISCOUNT_DATE  = '{DateFormatMySql(.Cells("DISC_DATE").Value)}'  WHERE ID = '{ .Cells("INVOICE_ID").Value}' and LOCATION_ID ='{prLocation_ID}' limit 1;") 'UPDATE BILL got DISCOUNT
                                 Else
                                     SqlExecuted($"UPDATE invoice SET DISCOUNT_DATE  = NULL  WHERE ID = '{ .Cells("INVOICE_ID").Value}'  limit 1;") 'UPDATE BILL got DISCOUNT
 
-                                    GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 42, NumIsNull(.Cells("ID").Value), prDate)
+                                    GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 42, GF_NumIsNull(.Cells("ID").Value), prDate)
                                 End If
 
                             Else
-                                GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 42, NumIsNull(.Cells("ID").Value), prDate)
+                                GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 42, GF_NumIsNull(.Cells("ID").Value), prDate)
 
                             End If
 
@@ -368,9 +368,9 @@ Module modMultiFuntion
                         If fCheck_Payment_Bill(.Cells("BILL_ID").Value, gsID) = True Then
                             If gsSkipJournalEntry = False Then
 
-                                GET_LAST_DISCOUNT_ID = GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `check_bills` WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
-                                GS_AccountJournalDelete(NumIsNull(.Cells("ACCOUNTS_PAYABLE_ID").Value), prLocation_ID, 58, NumIsNull(.Cells("ID").Value), prDate)
-                                GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 58, NumIsNull(.Cells("ID").Value), prDate)
+                                GET_LAST_DISCOUNT_ID = GF_GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `check_bills` WHERE ID ='" & .Cells("ID").Value & "' and CHECK_ID ='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
+                                GS_AccountJournalDelete(GF_NumIsNull(.Cells("ACCOUNTS_PAYABLE_ID").Value), prLocation_ID, 58, GF_NumIsNull(.Cells("ID").Value), prDate)
+                                GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 58, GF_NumIsNull(.Cells("ID").Value), prDate)
 
                             End If
                             SqlExecuted("DELETE FROM `check_bills` WHERE ID='" & .Cells("ID").Value & "' and CHECK_ID='" & gsID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
@@ -386,15 +386,15 @@ Module modMultiFuntion
 
                         If fCheckPaymentInvoice(.Cells("INVOICE_ID").Value, gsID) = True Then
                             If gsSkipJournalEntry = False Then
-                                GET_LAST_DISCOUNT_ID = GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `PAYMENT_INVOICES` WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
-                                GS_AccountJournalDelete(NumIsNull(.Cells("ACCOUNTS_RECEIVABLE_ID").Value), prLocation_ID, 42, NumIsNull(.Cells("ID").Value), prDate)
-                                GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 42, NumIsNull(.Cells("ID").Value), prDate)
+                                GET_LAST_DISCOUNT_ID = GF_GetNumberFieldValueOneReturn($"SELECT DISCOUNT_ACCOUNT_ID FROM `PAYMENT_INVOICES` WHERE ID ='" & .Cells("ID").Value & "' and PAYMENT_ID ='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
+                                GS_AccountJournalDelete(GF_NumIsNull(.Cells("ACCOUNTS_RECEIVABLE_ID").Value), prLocation_ID, 42, GF_NumIsNull(.Cells("ID").Value), prDate)
+                                GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 42, GF_NumIsNull(.Cells("ID").Value), prDate)
                             End If
                             SqlExecuted("DELETE FROM `payment_invoices` WHERE ID='" & .Cells("ID").Value & "' and PAYMENT_ID='" & gsID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
                             PayItemID(PayItemRun) = .Cells("INVOICE_ID").Value
                             PayItemRun = PayItemRun + 1
 
-                            ' UpdateInvoiceBalance(.Cells("INVOICE_ID").Value, prContact_ID)
+                            ' SetUpdateInvoiceBalance(.Cells("INVOICE_ID").Value, prContact_ID)
 
                         End If
                     End If

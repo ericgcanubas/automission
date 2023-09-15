@@ -33,7 +33,7 @@ Public Class FrmGeneralJournal
             .Item("CLASS").Width = 100
         End With
 
-        ViewNotSort(dgvDetails)
+        GS_ViewNotSort(dgvDetails)
         If IsNew = False Then
             RefreshDetails()
         End If
@@ -84,8 +84,8 @@ Public Class FrmGeneralJournal
         Dim creditAmt As Double = 0
         For i As Integer = 0 To dgv.Rows.Count - 1
             If dgv.Rows(i).Visible = True Then
-                debitAmt += NumberFormatFixed(NumIsNull(dgv.Rows(i).Cells("DEBIT").Value))
-                creditAmt += NumberFormatFixed(NumIsNull(dgv.Rows(i).Cells("CREDIT").Value))
+                debitAmt += NumberFormatFixed(GF_NumIsNull(dgv.Rows(i).Cells("DEBIT").Value))
+                creditAmt += NumberFormatFixed(GF_NumIsNull(dgv.Rows(i).Cells("CREDIT").Value))
             End If
         Next
 
@@ -128,7 +128,7 @@ Public Class FrmGeneralJournal
                     'credit
                     c_amount = Format(rd("credit"), "Standard")
                 End If
-                dgvDetails.Rows.Add(rd("ID"), rd("Account_ID"), rd("account_name"), rd("entry_type"), d_amount, c_amount, rd("amount"), TextIsNull(rd("notes")), TextIsNull(rd("Class_ID")), TextIsNull(rd("class_name")), "S")
+                dgvDetails.Rows.Add(rd("ID"), rd("Account_ID"), rd("account_name"), rd("entry_type"), d_amount, c_amount, rd("amount"), GF_TextIsNull(rd("notes")), GF_TextIsNull(rd("Class_ID")), GF_TextIsNull(rd("class_name")), "S")
             End While
 
             rd.Close()
@@ -148,7 +148,7 @@ Public Class FrmGeneralJournal
 
     End Sub
     Private Sub RefreshCombox()
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
     End Sub
     Private Sub EntryEdit()
         If dgvDetails.Rows.Count = 0 Then
@@ -157,8 +157,8 @@ Public Class FrmGeneralJournal
         With FrmJournalEntry
             Dim r As DataGridViewRow = dgvDetails.Rows(dgvDetails.CurrentRow.Index)
             .gsAccount_ID = r.Cells("ACCOUNT_ID").Value
-            .gsDebit = NumberFormatFixed(NumIsNull(r.Cells("DEBIT").Value))
-            .gsCredit = NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))
+            .gsDebit = NumberFormatFixed(GF_NumIsNull(r.Cells("DEBIT").Value))
+            .gsCredit = NumberFormatFixed(GF_NumIsNull(r.Cells("CREDIT").Value))
             .gsNotes = r.Cells("NOTES").Value
             .gsClass_ID = r.Cells("CLASS_ID").Value
             .chkAuto.Visible = False
@@ -207,7 +207,7 @@ Public Class FrmGeneralJournal
 
         If IsNew = True Then
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("general_journal", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("general_journal", cmbLOCATION_ID.SelectedValue)
             End If
 
             ID = ObjectTypeMapId("general_journal")
@@ -279,45 +279,45 @@ Public Class FrmGeneralJournal
                     SqlExecuted("UPDATE `general_journal_details` Set LINE_NO='" & i & "' WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
                     If gsGotChangeDate = True And gsSkipJournalEntry = False Then
                         'Main
-                        AccountJournalChangeDate(dtpDATE.Value, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
+                        AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
                     End If
                     If gsGotChangeLocation1 = True And gsSkipJournalEntry = False Then
                         'Main
-                        AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
+                        AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
                     End If
 
                     If gsGotChangeLocation1 = False And gsGotChangeDate = False Then
                         If gsSkipJournalEntry = False Then
-                            GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, GF_NumIsNull(r.Cells("DEBIT").Value), GF_NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                         End If
                     End If
 
                 Case "A"
                     Dim i_ID As Double = ObjectTypeMapId("general_journal_details")
-                    SqlExecuted("INSERT INTO `general_journal_details` SET ID='" & i_ID & "',GENERAL_JOURNAL_ID='" & ID & "',LINE_NO='" & i & "',ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',DEBIT=" & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("DEBIT").Value))) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("AMOUNT").Value))) & ",NOTES=" & GF_GotNullText(TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GF_GotNullText(r.Cells("CLASS_ID").Value) & ";")
+                    SqlExecuted("INSERT INTO `general_journal_details` SET ID='" & i_ID & "',GENERAL_JOURNAL_ID='" & ID & "',LINE_NO='" & i & "',ACCOUNT_ID='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',DEBIT=" & GotNullNumber(NumberFormatFixed(GF_NumIsNull(r.Cells("DEBIT").Value))) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(GF_NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(GF_NumIsNull(r.Cells("AMOUNT").Value))) & ",NOTES=" & GF_GotNullText(GF_TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GF_GotNullText(r.Cells("CLASS_ID").Value) & ";")
                     r.Cells("ID").Value = i_ID
 
                     '===========================================
                     If gsSkipJournalEntry = False Then
-                        GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, GF_NumIsNull(r.Cells("DEBIT").Value), GF_NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                     End If
                     '===========================================
                     r.Cells("CONTROL_STATUS").Value = "S"
                 Case "E"
 
-                    SqlExecuted("UPDATE `general_journal_details` Set LINE_NO='" & i & "', `ACCOUNT_ID`='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',`DEBIT`=" & GotNullNumber(Format(NumIsNull(r.Cells("DEBIT").Value), "FIXED")) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(NumIsNull(r.Cells("AMOUNT").Value))) & ",`NOTES`=" & GF_GotNullText(TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GF_GotNullText(r.Cells("CLASS_ID").Value) & " WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
+                    SqlExecuted("UPDATE `general_journal_details` Set LINE_NO='" & i & "', `ACCOUNT_ID`='" & r.Cells("ACCOUNT_ID").Value & "',ENTRY_TYPE='" & r.Cells("ENTRY_TYPE").Value & "',`DEBIT`=" & GotNullNumber(Format(GF_NumIsNull(r.Cells("DEBIT").Value), "FIXED")) & ",`CREDIT` = " & GotNullNumber(NumberFormatFixed(GF_NumIsNull(r.Cells("CREDIT").Value))) & ",`AMOUNT` = " & GotNullNumber(NumberFormatFixed(GF_NumIsNull(r.Cells("AMOUNT").Value))) & ",`NOTES`=" & GF_GotNullText(GF_TextIsNull(r.Cells("NOTES").Value)) & ",CLASS_ID=" & GF_GotNullText(r.Cells("CLASS_ID").Value) & " WHERE ID='" & r.Cells("ID").Value & "' and GENERAL_JOURNAL_ID='" & ID & "' limit 1;")
                     If gsGotChangeDate = True Then
                         'Main
-                        AccountJournalChangeDate(dtpDATE.Value, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
+                        AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
                     End If
 
                     If gsGotChangeLocation1 = True Then
                         'Main
-                        AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
+                        AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(r.Cells("ACCOUNT_ID").Value), 84, r.Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
                     End If
                     '===========================================
                     If gsSkipJournalEntry = False Then
-                        GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, NumIsNull(r.Cells("DEBIT").Value), NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(r.Cells("ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 0, 84, r.Cells("ID").Value, dtpDATE.Value, r.Cells("ENTRY_TYPE").Value, IIf(r.Cells("ENTRY_TYPE").Value = 0, GF_NumIsNull(r.Cells("DEBIT").Value), GF_NumIsNull(r.Cells("CREDIT").Value)), gsJOURNAL_NO_FORM)
                     End If
                     '==========================================
                     r.Cells("CONTROL_STATUS").Value = "S"
@@ -623,7 +623,7 @@ Public Class FrmGeneralJournal
             If dgvDetails.Rows.Count <> 0 Then
                 Dim i As Integer = dgvDetails.CurrentRow.Index
 
-                If NumIsNull(dgvDetails.Rows(i).Cells(0).Value) <> 0 Then
+                If GF_NumIsNull(dgvDetails.Rows(i).Cells(0).Value) <> 0 Then
 
                     dgvDetails.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                     dgvDetails.Rows(i).Visible = False

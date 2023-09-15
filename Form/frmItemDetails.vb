@@ -65,7 +65,7 @@ Public Class FrmItemDetails
 
         cmbRATE_TYPE.Visible = False
 
-        ComboBoxLoad(cmbGROUP_ID, " select '0' as ID ,' ' as `Description` union select id,description from item_group where item_type = '" & ItemTypeId & "'", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbGROUP_ID, " select '0' as ID ,' ' as `Description` union select id,description from item_group where item_type = '" & ItemTypeId & "'", "ID", "DESCRIPTION")
 
 
         Select Case ItemTypeId
@@ -713,25 +713,25 @@ Public Class FrmItemDetails
         xlblCOGS_ACCOUNT.Visible = gsShowAccounts
 
         Dim sql_statement As String = " select '0' as ID ,' ' as `NAME` union SELECT  a.ID, a.NAME FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE "
-        ComboBoxLoad(cmbASSET_ACCOUNT_ID, sql_statement, "ID", "NAME")
-        ComboBoxLoad(cmbGL_ACCOUNT_ID, sql_statement, "ID", "NAME")
-        ComboBoxLoad(cmbCOGS_ACCOUNT_ID, sql_statement, "ID", "NAME")
+        GS_ComboBoxLoad(cmbASSET_ACCOUNT_ID, sql_statement, "ID", "NAME")
+        GS_ComboBoxLoad(cmbGL_ACCOUNT_ID, sql_statement, "ID", "NAME")
+        GS_ComboBoxLoad(cmbCOGS_ACCOUNT_ID, sql_statement, "ID", "NAME")
 
 
-        ComboBoxLoad(cmbPREFERRED_VENDOR_ID, "select ID,NAME from contact where type = '0' ", "ID", "NAME")
-        ComboBoxLoad(cmbMANUFACTURER_ID, "select ID, `NAME`  from manufacturer", "ID", "NAME")
-        ComboBoxLoad(cmbSTOCK_TYPE, "Select ID,DESCRIPTION from stock_type_map", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbRATE_TYPE, "Select ID,DESCRIPTION from rate_type_map", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbPREFERRED_VENDOR_ID, "select ID,NAME from contact where type = '0' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbMANUFACTURER_ID, "select ID, `NAME`  from manufacturer", "ID", "NAME")
+        GS_ComboBoxLoad(cmbSTOCK_TYPE, "Select ID,DESCRIPTION from stock_type_map", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbRATE_TYPE, "Select ID,DESCRIPTION from rate_type_map", "ID", "DESCRIPTION")
 
         sql_statement = "select '0' as ID ,' ' as `NAME` union select ID, NAME as T from unit_of_measure where inactive='0'"
-        ComboBoxLoad(cmbBASE_UNIT_ID, sql_statement, "ID", "NAME")
-        ComboBoxLoad(cmbPURCHASES_UNIT_ID, sql_statement, "ID", "NAME")
-        ComboBoxLoad(cmbSALES_UNIT_ID, sql_statement, "ID", "NAME")
-        ComboBoxLoad(cmbSHIPPING_UNIT_ID, sql_statement, "ID", "NAME")
-        ComboBoxLoad(cmbCLASS_ID, "select '0' as ID ,' ' as `DESCRIPTION` union  Select ID,DESCRIPTION from item_class", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbSUB_CLASS_ID, "select '0' as ID ,' ' as `DESCRIPTION` union  Select ID,DESCRIPTION from item_sub_class ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbBASE_UNIT_ID, sql_statement, "ID", "NAME")
+        GS_ComboBoxLoad(cmbPURCHASES_UNIT_ID, sql_statement, "ID", "NAME")
+        GS_ComboBoxLoad(cmbSALES_UNIT_ID, sql_statement, "ID", "NAME")
+        GS_ComboBoxLoad(cmbSHIPPING_UNIT_ID, sql_statement, "ID", "NAME")
+        GS_ComboBoxLoad(cmbCLASS_ID, "select '0' as ID ,' ' as `DESCRIPTION` union  Select ID,DESCRIPTION from item_class", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbSUB_CLASS_ID, "select '0' as ID ,' ' as `DESCRIPTION` union  Select ID,DESCRIPTION from item_sub_class ", "ID", "DESCRIPTION")
 
-        ComboBoxLoad(cmbTYPE, "select ID,DESCRIPTION from item_type_map WHERE INACTIVE = '0' ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbTYPE, "select ID,DESCRIPTION from item_type_map WHERE INACTIVE = '0' ", "ID", "DESCRIPTION")
         GoLoad = False
         cmbTYPE.SelectedIndex = -1
         cmbTYPE.SelectedIndex = 0
@@ -746,14 +746,14 @@ Public Class FrmItemDetails
     End Sub
     Private Sub GeneralRefresh()
         bFirstLoad = True
-        Dim tmp_sc As Integer = GetNumberFieldValue("item", "id", ID, "sub_class_id")
-        Dim tmp_c As Integer = GetNumberFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
+        Dim tmp_sc As Integer = GF_GetNumberFieldValue("item", "id", ID, "sub_class_id")
+        Dim tmp_c As Integer = GF_GetNumberFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
         If IsNew = False Then
             RefreshForm()
             Me.Text = "Update Item"
             cmbTYPE.Enabled = False
-            tmp_sc = GetNumberFieldValue("item", "id", ID, "sub_class_id")
-            tmp_c = GetNumberFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
+            tmp_sc = GF_GetNumberFieldValue("item", "id", ID, "sub_class_id")
+            tmp_c = GF_GetNumberFieldValue("item_sub_class", "id", tmp_sc, "CLASS_ID")
         Else
             Me.Text = "Create Item"
             chkPRINT_INDIVIDUAL_ITEMS.Checked = GetSystemSettingValueByBool("InvisibleGroup")
@@ -788,7 +788,7 @@ Public Class FrmItemDetails
     Private Sub SetDefault()
 
         If IsNew = True Then
-            txtCODE.Text = GetNextItemCode(cmbTYPE.SelectedValue)
+            txtCODE.Text = GF_GetNextItemCode(cmbTYPE.SelectedValue)
         End If
 
         If cmbTYPE.SelectedValue <= 1 Then
@@ -936,14 +936,14 @@ Public Class FrmItemDetails
                 .Add("PRICE_LEVEL_LINES_ID", "PRICE_LEVEL_LINES_ID")
                 .Item("PRICE_LEVEL_LINES_ID").Visible = False
             End With
-            ViewNotSort(dgvPriceLevel)
+            GS_ViewNotSort(dgvPriceLevel)
         End If
 
         dgvPriceLevel.Rows.Clear()
         Dim rd As OdbcDataReader = SqlReader(" SELECT p.`ID` as PRICE_LEVEL_ID ,p.`DESCRIPTION` as `PRICE_LEVEL`,format( pll.`CUSTOM_PRICE`,2) as `CUSTOM_PRICE`,pll.ID as `PRICE_LEVEL_LINE_ID` FROM price_level AS p LEFT OUTER JOIN price_level_lines AS pll ON p.id = pll.`PRICE_LEVEL_ID` AND pll.`ITEM_ID` ='" & ID & "' WHERE p.`TYPE` = '1' ")
         While rd.Read
 
-            dgvPriceLevel.Rows.Add(rd("PRICE_LEVEL_ID"), TextIsNull(rd("PRICE_LEVEL")), TextIsNull(rd("CUSTOM_PRICE")), "s", TextIsNull(rd("PRICE_LEVEL_LINE_ID")))
+            dgvPriceLevel.Rows.Add(rd("PRICE_LEVEL_ID"), GF_TextIsNull(rd("PRICE_LEVEL")), GF_TextIsNull(rd("CUSTOM_PRICE")), "s", GF_TextIsNull(rd("PRICE_LEVEL_LINE_ID")))
 
         End While
 
@@ -1061,7 +1061,7 @@ Public Class FrmItemDetails
             End If
 
         End With
-        ViewNotSort(dgvComponents)
+        GS_ViewNotSort(dgvComponents)
     End Sub
 
     Private Sub ComponentLoad()
@@ -1070,8 +1070,8 @@ Public Class FrmItemDetails
         dgvComponents.Rows.Clear()
         Dim rd As OdbcDataReader = SqlReader($"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate`,i.ID as `ITEM_ID` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
         While rd.Read
-            dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), NumIsNull(rd("Quantity")), NumIsNull(rd("RATE")), "s", rd("ITEM_ID"))
-            TotalRate += NumIsNull(rd("RATE"))
+            dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), GF_NumIsNull(rd("Quantity")), GF_NumIsNull(rd("RATE")), "s", rd("ITEM_ID"))
+            TotalRate += GF_NumIsNull(rd("RATE"))
         End While
         numRATE.Value = TotalRate
         With dgvComponents
@@ -1104,13 +1104,13 @@ Public Class FrmItemDetails
             .Columns(3).Width = 70
             .Columns(4).Width = 80
         End With
-        ViewNotSort(dgvComponents)
+        GS_ViewNotSort(dgvComponents)
     End Sub
     Private Sub ComponentsByGroup()
         dgvComponents.Rows.Clear()
         Dim rd As OdbcDataReader = SqlReader($"SELECT ic.ID,i.Code,i.`DESCRIPTION`,ic.`Quantity`,ic.`Rate`,i.ID as `ITEM_ID` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{ID}' ")
         While rd.Read
-            dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), NumIsNull(rd("Quantity")), NumIsNull(rd("RATE")), "s", rd("ITEM_ID"))
+            dgvComponents.Rows.Add(rd("ID"), rd("CODE"), rd("DESCRIPTION"), GF_NumIsNull(rd("Quantity")), GF_NumIsNull(rd("RATE")), "s", rd("ITEM_ID"))
         End While
     End Sub
     Private Sub OrderPreference()
@@ -1145,7 +1145,7 @@ Public Class FrmItemDetails
             .Columns(6).Width = 70
             .Columns(7).Width = 70
         End With
-        ViewNotSort(dgvOrder_Preference)
+        GS_ViewNotSort(dgvOrder_Preference)
         dgvOrder_Preference.ColumnHeadersHeight = 60
 
 
@@ -1154,7 +1154,7 @@ Public Class FrmItemDetails
 
         While rd.Read
             With dgvOrder_Preference.Rows
-                .Add(rd("ITEM_PREFERENCE_ID"), rd("LOCATION_ID"), rd("LOCATION"), TextIsNull(rd("ORDER_POINT")).Replace(",", ""), TextIsNull(rd("ORDER_QTY")).Replace(",", ""), TextIsNull(rd("ORDER_LEADTIME")).Replace(",", ""), TextIsNull(rd("ONHAND_MAX_LIMIT")).Replace(",", ""), TextIsNull(rd("STOCK_BIN")), TextIsNull(rd("STOCK_BIN_ID")), "s")
+                .Add(rd("ITEM_PREFERENCE_ID"), rd("LOCATION_ID"), rd("LOCATION"), GF_TextIsNull(rd("ORDER_POINT")).Replace(",", ""), GF_TextIsNull(rd("ORDER_QTY")).Replace(",", ""), GF_TextIsNull(rd("ORDER_LEADTIME")).Replace(",", ""), GF_TextIsNull(rd("ONHAND_MAX_LIMIT")).Replace(",", ""), GF_TextIsNull(rd("STOCK_BIN")), GF_TextIsNull(rd("STOCK_BIN_ID")), "s")
             End With
         End While
 
@@ -1191,7 +1191,7 @@ Public Class FrmItemDetails
             .Add("DATA", "DATA")
             .Item("DATA").Visible = False
 
-            ViewNotSort(dgvReleted_Units)
+            GS_ViewNotSort(dgvReleted_Units)
         End With
 
         With dgvReleted_Units
@@ -1208,7 +1208,7 @@ Public Class FrmItemDetails
         dgvReleted_Units.Rows.Clear()
         Dim rd As OdbcDataReader = SqlReader("SELECT ui.ID,u.`ID` as `UNIT_ID`,u.`NAME` as `UNIT`,u.`SYMBOL`, format(ui.`QUANTITY`,0) as `QTY` , format(ui.`RATE`,2) as `RATE`,ui.`BARCODE` FROM item_units AS ui INNER JOIN unit_of_measure AS u ON ui.`UNIT_ID` = u.`ID`  WHERE ui.`ITEM_ID` ='" & ID & "'")
         While rd.Read
-            dgvReleted_Units.Rows.Add(TextIsNull(rd("ID")), rd("UNIT_ID"), rd("UNIT"), rd("SYMBOL"), rd("QTY"), rd("RATE"), rd("BARCODE"), "s", SQL_UNIT_PRICE_LEVEL(TextIsNull(rd("ID"))))
+            dgvReleted_Units.Rows.Add(GF_TextIsNull(rd("ID")), rd("UNIT_ID"), rd("UNIT"), rd("SYMBOL"), rd("QTY"), rd("RATE"), rd("BARCODE"), "s", SQL_UNIT_PRICE_LEVEL(GF_TextIsNull(rd("ID"))))
         End While
 
         'RefreshUnit_UM_PriceLevels()
@@ -1218,7 +1218,7 @@ Public Class FrmItemDetails
         Dim StrCollect As String = ""
         Dim rd As OdbcDataReader = SqlReader("SELECT ipl.`ID`,ipl.PRICE_LEVEL_ID,p.`DESCRIPTION` as `PRICE_LEVEL`,format(ipl.`CUSTOM_PRICE`,2) as `CUSTOM_PRICE` FROM item_unit_price_levels AS ipl INNER JOIN price_level AS p ON p.`ID` = ipl.`PRICE_LEVEL_ID` WHERE ipl.`ITEM_UNIT_LINE_ID` ='" & Related_ID & "' and p.`TYPE` = '1' ")
         While rd.Read
-            StrCollect &= $"{ TextIsNull(rd("ID"))},{rd("PRICE_LEVEL_ID")},{rd("PRICE_LEVEL")},{ NumIsNull(rd("CUSTOM_PRICE"))},s;"
+            StrCollect &= $"{ GF_TextIsNull(rd("ID"))},{rd("PRICE_LEVEL_ID")},{rd("PRICE_LEVEL")},{ GF_NumIsNull(rd("CUSTOM_PRICE"))},s;"
         End While
         rd.Close()
 
@@ -1229,7 +1229,7 @@ Public Class FrmItemDetails
         Dim StrCollect As String = ""
         For I As Integer = 0 To dgvUM_Price_level.Rows.Count - 1
             With dgvUM_Price_level.Rows(I)
-                StrCollect &= $"{ NumIsNull(.Cells("ID").Value)},{ .Cells("PRICE_LEVEL_ID").Value},{ .Cells("PRICE_LEVEL").Value},{ NumIsNull(.Cells("CUSTOM_PRICE").Value)},{ .Cells("STATUS").Value};"
+                StrCollect &= $"{ GF_NumIsNull(.Cells("ID").Value)},{ .Cells("PRICE_LEVEL_ID").Value},{ .Cells("PRICE_LEVEL").Value},{ GF_NumIsNull(.Cells("CUSTOM_PRICE").Value)},{ .Cells("STATUS").Value};"
             End With
         Next
         dgvReleted_Units.Rows(dgvReleted_Units.CurrentRow.Index).Cells("DATA").Value = StrCollect
@@ -1253,7 +1253,7 @@ Public Class FrmItemDetails
 
             .Add("STATUS", "STATUS")
             .Item("STATUS").Visible = False
-            ViewNotSort(dgvUM_Price_level)
+            GS_ViewNotSort(dgvUM_Price_level)
 
 
         End With
@@ -1346,7 +1346,7 @@ Public Class FrmItemDetails
                 .Item("ITEM_LOCATION_UNITS_ID").Visible = False
             End With
             dgvLocation_Default.Columns("LOCATION").Width = 120
-            ViewNotSort(dgvLocation_Default)
+            GS_ViewNotSort(dgvLocation_Default)
         End If
 
 
@@ -1388,13 +1388,13 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
     Private Sub CmbSUB_CLASS_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSUB_CLASS_ID.SelectedIndexChanged
         If bFirstLoad = True Then
-            cmbCLASS_ID.SelectedValue = NumIsNull(GetStringFieldValue("ITEM_SUB_CLASS", "ID", NumIsNull(cmbSUB_CLASS_ID.SelectedValue), "CLASS_ID"))
+            cmbCLASS_ID.SelectedValue = GF_NumIsNull(GF_GetStringFieldValue("ITEM_SUB_CLASS", "ID", GF_NumIsNull(cmbSUB_CLASS_ID.SelectedValue), "CLASS_ID"))
         End If
     End Sub
 
     Private Sub CmbClass_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCLASS_ID.SelectedIndexChanged
         If bFirstLoad = False Then
-            ComboBoxLoad(cmbSUB_CLASS_ID, "Select ID,DESCRIPTION from item_sub_class where CLASS_ID = '" & NumIsNull(cmbCLASS_ID.SelectedValue) & "'", "ID", "DESCRIPTION")
+            GS_ComboBoxLoad(cmbSUB_CLASS_ID, "Select ID,DESCRIPTION from item_sub_class where CLASS_ID = '" & GF_NumIsNull(cmbCLASS_ID.SelectedValue) & "'", "ID", "DESCRIPTION")
         End If
     End Sub
     Private Sub DgvComponents_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvComponents.CellDoubleClick
@@ -1471,7 +1471,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
             If Trim(rtbDESCRIPTION.Text) <> "" Then
                 Dim IsUsed As Boolean = False
-                Dim rd_des As OdbcDataReader = SqlReader($"SELECT * FROM item WHERE `DESCRIPTION` = '{TextApostrophe(rtbDESCRIPTION.Text)}' limit 1; ")
+                Dim rd_des As OdbcDataReader = SqlReader($"SELECT * FROM item WHERE `DESCRIPTION` = '{GF_TextApostrophe(rtbDESCRIPTION.Text)}' limit 1; ")
                 If rd_des.Read Then
                     IsUsed = True
                     MessageBoxInfo($"{xlblDescription.Text} => {rtbDESCRIPTION.Text} is already used.")
@@ -1486,7 +1486,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
             If Trim(rtbPURCHASE_DESCRIPTION.Text) <> "" Then
                 Dim IsUsed As Boolean = False
-                Dim rd_des As OdbcDataReader = SqlReader($"SELECT * FROM item WHERE `PURCHASE_DESCRIPTION` = '{TextApostrophe(rtbPURCHASE_DESCRIPTION.Text)}' limit 1; ")
+                Dim rd_des As OdbcDataReader = SqlReader($"SELECT * FROM item WHERE `PURCHASE_DESCRIPTION` = '{GF_TextApostrophe(rtbPURCHASE_DESCRIPTION.Text)}' limit 1; ")
                 If rd_des.Read Then
                     IsUsed = True
                     MessageBoxInfo($"{xlblPurchase_Description.Text} => {rtbPURCHASE_DESCRIPTION.Text} is already used.")
@@ -1500,16 +1500,16 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
 
 
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             ID = ObjectTypeMapId("item")
 
 
             GetInsertSQL(SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO contact_group ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
-            SetNextItemCode(cmbTYPE.SelectedValue, txtCODE.Text)
+            GS_SetNextItemCode(cmbTYPE.SelectedValue, txtCODE.Text)
 
         Else
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             Dim sQuery As String = GetUpdateSQL()
             SqlExecuted("UPDATE item SET " & sQuery & " WHERE ID = '" & ID & "'")
         End If
@@ -1525,9 +1525,9 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
                         Case "n"
                             .Cells("ID").Value = ObjectTypeMapId("ITEM_UNITS")
-                            SqlExecuted($"INSERT INTO item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ NumIsNull(.Cells("QTY").Value)}',RATE='{NumIsNull(.Cells("RATE").Value)}',BARCODE={GF_GotNullText(.Cells("BARCODE").Value)},ITEM_ID='{ID}',ID='{ .Cells("ID").Value}';")
+                            SqlExecuted($"INSERT INTO item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ GF_NumIsNull(.Cells("QTY").Value)}',RATE='{GF_NumIsNull(.Cells("RATE").Value)}',BARCODE={GF_GotNullText(.Cells("BARCODE").Value)},ITEM_ID='{ID}',ID='{ .Cells("ID").Value}';")
                         Case "e"
-                            SqlExecuted($"UPDATE item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ NumIsNull(.Cells("QTY").Value)}',RATE='{NumIsNull(.Cells("RATE").Value)}',BARCODE={ GF_GotNullText(.Cells("BARCODE").Value)} WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' limit 1;")
+                            SqlExecuted($"UPDATE item_units SET UNIT_ID='{ .Cells("UNIT_ID").Value}',QUANTITY='{ GF_NumIsNull(.Cells("QTY").Value)}',RATE='{GF_NumIsNull(.Cells("RATE").Value)}',BARCODE={ GF_GotNullText(.Cells("BARCODE").Value)} WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' limit 1;")
                         Case "d"
                             SqlExecuted($"DELETE FROM item_units  WHERE ITEM_ID='{ID}' and ID='{ .Cells("ID").Value}' limit 1;")
                     End Select
@@ -1540,9 +1540,9 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
                     Select Case .Cells("STATUS").Value
                         Case "s"
                         Case "n"
-                            SqlExecuted($" INSERT INTO item_location_units SET PURCHASES_UNIT_ID={GotNullNumber(NumIsNull(.Cells("PURCHASES_UNIT_ID").Value))},SALES_UNIT_ID={GotNullNumber(NumIsNull(.Cells("SALES_UNIT_ID").Value))},SHIPPING_UNIT_ID={GotNullNumber(NumIsNull(.Cells("SHIPPING_UNIT_ID").Value))},LOCATION_ID='{ .Cells("LOCATION_ID").Value}',ITEM_ID='{ID}',ID='{ObjectTypeMapId("ITEM_LOCATION_UNITS")}';")
+                            SqlExecuted($" INSERT INTO item_location_units SET PURCHASES_UNIT_ID={GotNullNumber(GF_NumIsNull(.Cells("PURCHASES_UNIT_ID").Value))},SALES_UNIT_ID={GotNullNumber(GF_NumIsNull(.Cells("SALES_UNIT_ID").Value))},SHIPPING_UNIT_ID={GotNullNumber(GF_NumIsNull(.Cells("SHIPPING_UNIT_ID").Value))},LOCATION_ID='{ .Cells("LOCATION_ID").Value}',ITEM_ID='{ID}',ID='{ObjectTypeMapId("ITEM_LOCATION_UNITS")}';")
                         Case "e"
-                            SqlExecuted($" UPDATE item_location_units SET PURCHASES_UNIT_ID={GotNullNumber(NumIsNull(.Cells("PURCHASES_UNIT_ID").Value))},SALES_UNIT_ID={GotNullNumber(NumIsNull(.Cells("SALES_UNIT_ID").Value))},SHIPPING_UNIT_ID={GotNullNumber(NumIsNull(.Cells("SHIPPING_UNIT_ID").Value))} WHERE LOCATION_ID='{ .Cells("LOCATION_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("ITEM_LOCATION_UNITS_ID").Value}' limit 1;")
+                            SqlExecuted($" UPDATE item_location_units SET PURCHASES_UNIT_ID={GotNullNumber(GF_NumIsNull(.Cells("PURCHASES_UNIT_ID").Value))},SALES_UNIT_ID={GotNullNumber(GF_NumIsNull(.Cells("SALES_UNIT_ID").Value))},SHIPPING_UNIT_ID={GotNullNumber(GF_NumIsNull(.Cells("SHIPPING_UNIT_ID").Value))} WHERE LOCATION_ID='{ .Cells("LOCATION_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("ITEM_LOCATION_UNITS_ID").Value}' limit 1;")
                         Case "d"
                             SqlExecuted($" DELETE FROM item_location_units  WHERE LOCATION_ID='{ .Cells("LOCATION_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("ITEM_LOCATION_UNITS_ID").Value}' limit 1;")
                     End Select
@@ -1558,9 +1558,9 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
                     Select Case .Cells("STATUS").Value
                         Case "s"
                         Case "n"
-                            SqlExecuted($"INSERT INTO price_level_lines SET CUSTOM_PRICE='{ NumIsNull(.Cells("CUSTOM_PRICE").Value)}',PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}',ITEM_ID='{ID}',ID='{ObjectTypeMapId("PRICE_LEVEL_LINES")}';")
+                            SqlExecuted($"INSERT INTO price_level_lines SET CUSTOM_PRICE='{ GF_NumIsNull(.Cells("CUSTOM_PRICE").Value)}',PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}',ITEM_ID='{ID}',ID='{ObjectTypeMapId("PRICE_LEVEL_LINES")}';")
                         Case "e"
-                            SqlExecuted($"UPDATE price_level_lines SET CUSTOM_PRICE='{ NumIsNull(.Cells("CUSTOM_PRICE").Value)}' WHERE PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("PRICE_LEVEL_LINES_ID").Value}' Limit 1;")
+                            SqlExecuted($"UPDATE price_level_lines SET CUSTOM_PRICE='{ GF_NumIsNull(.Cells("CUSTOM_PRICE").Value)}' WHERE PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("PRICE_LEVEL_LINES_ID").Value}' Limit 1;")
                         Case "d"
                             SqlExecuted($"DELETE FROM price_level_lines WHERE PRICE_LEVEL_ID='{ .Cells("PRICE_LEVEL_ID").Value}' and ITEM_ID='{ID}' and ID='{ .Cells("PRICE_LEVEL_LINES_ID").Value}' Limit 1;")
                     End Select
@@ -1615,9 +1615,9 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
                         Case "s" ' stable
 
                         Case "n" ' new
-                            SqlExecuted($"INSERT INTO item_preference SET ITEM_ID='{ID}', LOCATION_ID='{ .Cells("LOCATION_ID").Value}',ORDER_POINT={GotNullNumber(NumIsNull(.Cells("ORDER_POINT").Value))},ORDER_QTY={ GotNullNumber(NumIsNull(.Cells("ORDER_QTY").Value))},ORDER_LEADTIME={ GotNullNumber(NumIsNull(.Cells("ORDER_LEADTIME").Value))},ONHAND_MAX_LIMIT={GotNullNumber(NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value))},STOCK_BIN_ID={GotNullNumber(NumIsNull(.Cells("STOCK_BIN_ID").Value))},ID='{ObjectTypeMapId("ITEM_PREFERENCE")}';")
+                            SqlExecuted($"INSERT INTO item_preference SET ITEM_ID='{ID}', LOCATION_ID='{ .Cells("LOCATION_ID").Value}',ORDER_POINT={GotNullNumber(GF_NumIsNull(.Cells("ORDER_POINT").Value))},ORDER_QTY={ GotNullNumber(GF_NumIsNull(.Cells("ORDER_QTY").Value))},ORDER_LEADTIME={ GotNullNumber(GF_NumIsNull(.Cells("ORDER_LEADTIME").Value))},ONHAND_MAX_LIMIT={GotNullNumber(GF_NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value))},STOCK_BIN_ID={GotNullNumber(GF_NumIsNull(.Cells("STOCK_BIN_ID").Value))},ID='{ObjectTypeMapId("ITEM_PREFERENCE")}';")
                         Case "e" ' edit
-                            SqlExecuted($"UPDATE item_preference SET ORDER_POINT={GotNullNumber(NumIsNull(.Cells("ORDER_POINT").Value))},ORDER_QTY={ GotNullNumber(NumIsNull(.Cells("ORDER_QTY").Value))},ORDER_LEADTIME={ GotNullNumber(NumIsNull(.Cells("ORDER_LEADTIME").Value))},ONHAND_MAX_LIMIT={GotNullNumber(NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value))},STOCK_BIN_ID={ GotNullNumber(NumIsNull(.Cells("STOCK_BIN_ID").Value))} WHERE ID='{ .Cells("ID").Value}' and ITEM_ID='{ID}' and LOCATION_ID='{ .Cells("LOCATION_ID").Value}' limit 1;")
+                            SqlExecuted($"UPDATE item_preference SET ORDER_POINT={GotNullNumber(GF_NumIsNull(.Cells("ORDER_POINT").Value))},ORDER_QTY={ GotNullNumber(GF_NumIsNull(.Cells("ORDER_QTY").Value))},ORDER_LEADTIME={ GotNullNumber(GF_NumIsNull(.Cells("ORDER_LEADTIME").Value))},ONHAND_MAX_LIMIT={GotNullNumber(GF_NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value))},STOCK_BIN_ID={ GotNullNumber(GF_NumIsNull(.Cells("STOCK_BIN_ID").Value))} WHERE ID='{ .Cells("ID").Value}' and ITEM_ID='{ID}' and LOCATION_ID='{ .Cells("LOCATION_ID").Value}' limit 1;")
                         Case "d" ' delete
                             SqlExecuted($"DELETE FROM item_preference WHERE ID='{ .Cells("ID").Value}' and ITEM_ID='{ID}' and LOCATION_ID='{ .Cells("LOCATION_ID").Value}' limit 1;")
                     End Select
@@ -1654,7 +1654,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
         GS_DoEvents()
 
         cmbTYPE.SelectedIndex = LAST_TYPE_INDEX
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
         SetDefault()
         Me.Text = "Create Item"
         Me.Refresh()
@@ -1710,7 +1710,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
             .gsITEM_ID = dgvComponents.Rows(i).Cells("ITEM_ID").Value
             .ID = dgvComponents.Rows(i).Cells("ID").Value
             .gsQTY = dgvComponents.Rows(i).Cells("QTY").Value
-            .gsRATE = NumIsNull(dgvComponents.Rows(i).Cells("RATE").Value)
+            .gsRATE = GF_NumIsNull(dgvComponents.Rows(i).Cells("RATE").Value)
             If cmbTYPE.SelectedValue = 9 Then
                 .numRate.Visible = False
                 .xRate.Visible = False
@@ -1732,7 +1732,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
         Dim dComponents_ID As String = dgvComponents.Rows(n).Cells(0).Value
 
 
-        If NumIsNull(dgvComponents.Rows(n).Cells(0).Value) <> 0 Then
+        If GF_NumIsNull(dgvComponents.Rows(n).Cells(0).Value) <> 0 Then
             dgvComponents.Rows(n).Cells("STATUS").Value = "d"
             dgvComponents.Rows(n).Visible = False
         Else
@@ -1771,9 +1771,9 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
         Dim iBarcode As String = ""
         With FrmItemUnitRelated
             .iUnit_ID = R.Cells("UNIT_ID").Value
-            .numQty.Value = NumIsNull(R.Cells("QTY").Value)
-            .numRate.Value = NumIsNull(R.Cells("RATE").Value)
-            .txtBarcode.Text = TextIsNull(R.Cells("BARCODE").Value)
+            .numQty.Value = GF_NumIsNull(R.Cells("QTY").Value)
+            .numRate.Value = GF_NumIsNull(R.Cells("RATE").Value)
+            .txtBarcode.Text = GF_TextIsNull(R.Cells("BARCODE").Value)
             .ShowDialog()
             bSave = .bSave
             If bSave = True Then
@@ -1783,7 +1783,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
                 R.Cells("QTY").Value = .numQty.Value
                 R.Cells("RATE").Value = .numRate.Value
                 R.Cells("BARCODE").Value = .txtBarcode.Text
-                R.Cells("STATUS").Value = IIf(NumIsNull(R.Cells("ID").Value) = 0, "n", "e")
+                R.Cells("STATUS").Value = IIf(GF_NumIsNull(R.Cells("ID").Value) = 0, "n", "e")
             End If
 
             .Dispose()
@@ -1802,7 +1802,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
         dgvReleted_Units.Focus()
 
-        If NumIsNull(dgvReleted_Units.Rows(i).Cells(0).Value) <> 0 Then
+        If GF_NumIsNull(dgvReleted_Units.Rows(i).Cells(0).Value) <> 0 Then
             dgvReleted_Units.Rows(i).Cells("STATUS").Value = "d"
             dgvReleted_Units.Rows(i).Visible = False
         Else
@@ -1857,7 +1857,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
                 R.Cells("PRICE_LEVEL_ID").Value = .cmbPriceLevel.SelectedValue
                 R.Cells("PRICE_LEVEL").Value = .cmbPriceLevel.Text
                 R.Cells("CUSTOM_PRICE").Value = .numCustomprice.Value
-                R.Cells("STATUS").Value = IIf(NumIsNull(R.Cells("ID").Value) = 0, "n", "e")
+                R.Cells("STATUS").Value = IIf(GF_NumIsNull(R.Cells("ID").Value) = 0, "n", "e")
                 RefreshUnit_PriceLevels_Recompute()
 
             End If
@@ -1877,7 +1877,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
         dgvUM_Price_level.Focus()
 
-        If NumIsNull(dgvUM_Price_level.Rows(i).Cells("ID").Value) <> 0 Then
+        If GF_NumIsNull(dgvUM_Price_level.Rows(i).Cells("ID").Value) <> 0 Then
             dgvUM_Price_level.Rows(i).Cells("STATUS").Value = "d"
             dgvUM_Price_level.Rows(i).Visible = False
         Else
@@ -1904,29 +1904,29 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
             Dim dSave As Boolean = False
             FrmItemPreference.bSave = dSave
             FrmItemPreference.gsDescription = dDescription 'Price Level RowID
-            FrmItemPreference.gsOrderPoint = NumIsNull(.Cells("ORDER_POINT").Value)
-            FrmItemPreference.gsOrderQty = NumIsNull(.Cells("ORDER_QTY").Value)
-            FrmItemPreference.gsOrderLeadTime = NumIsNull(.Cells("ORDER_LEADTIME").Value)
-            FrmItemPreference.gsOnHandMaxLimit = NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value)
-            FrmItemPreference.gsStock = NumIsNull(.Cells("STOCK_BIN_ID").Value)
+            FrmItemPreference.gsOrderPoint = GF_NumIsNull(.Cells("ORDER_POINT").Value)
+            FrmItemPreference.gsOrderQty = GF_NumIsNull(.Cells("ORDER_QTY").Value)
+            FrmItemPreference.gsOrderLeadTime = GF_NumIsNull(.Cells("ORDER_LEADTIME").Value)
+            FrmItemPreference.gsOnHandMaxLimit = GF_NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value)
+            FrmItemPreference.gsStock = GF_NumIsNull(.Cells("STOCK_BIN_ID").Value)
             FrmItemPreference.ShowDialog()
             dSave = FrmItemPreference.bSave
             If dSave = True Then
 
-                .Cells("ORDER_POINT").Value = IIf(NumIsNull(FrmItemPreference.gsOrderPoint) = 0, "", NumIsNull(FrmItemPreference.gsOrderPoint))
-                .Cells("ORDER_QTY").Value = IIf(NumIsNull(FrmItemPreference.gsOrderQty) = 0, "", NumIsNull(FrmItemPreference.gsOrderQty))
-                .Cells("ORDER_LEADTIME").Value = IIf(NumIsNull(FrmItemPreference.gsOrderLeadTime) = 0, "", NumIsNull(FrmItemPreference.gsOrderLeadTime))
-                .Cells("ONHAND_MAX_LIMIT").Value = IIf(NumIsNull(FrmItemPreference.gsOnHandMaxLimit) = 0, "", NumIsNull(FrmItemPreference.gsOnHandMaxLimit))
-                .Cells("STOCK_BIN_ID").Value = IIf(NumIsNull(FrmItemPreference.gsStock_bin_id) = 0, "", NumIsNull(FrmItemPreference.gsStock_bin_id))
+                .Cells("ORDER_POINT").Value = IIf(GF_NumIsNull(FrmItemPreference.gsOrderPoint) = 0, "", GF_NumIsNull(FrmItemPreference.gsOrderPoint))
+                .Cells("ORDER_QTY").Value = IIf(GF_NumIsNull(FrmItemPreference.gsOrderQty) = 0, "", GF_NumIsNull(FrmItemPreference.gsOrderQty))
+                .Cells("ORDER_LEADTIME").Value = IIf(GF_NumIsNull(FrmItemPreference.gsOrderLeadTime) = 0, "", GF_NumIsNull(FrmItemPreference.gsOrderLeadTime))
+                .Cells("ONHAND_MAX_LIMIT").Value = IIf(GF_NumIsNull(FrmItemPreference.gsOnHandMaxLimit) = 0, "", GF_NumIsNull(FrmItemPreference.gsOnHandMaxLimit))
+                .Cells("STOCK_BIN_ID").Value = IIf(GF_NumIsNull(FrmItemPreference.gsStock_bin_id) = 0, "", GF_NumIsNull(FrmItemPreference.gsStock_bin_id))
 
-                If NumIsNull(FrmItemPreference.gsStock_bin_id) <> 0 Then
+                If GF_NumIsNull(FrmItemPreference.gsStock_bin_id) <> 0 Then
                     .Cells("STOCK_BIN").Value = FrmItemPreference.cmbBinStock.Text
                 Else
                     .Cells("STOCK_BIN").Value = ""
                 End If
 
-                If NumIsNull(.Cells("ID").Value) = 0 Then
-                    If NumIsNull(.Cells("ORDER_POINT").Value) = 0 And NumIsNull(.Cells("ORDER_QTY").Value) = 0 And NumIsNull(.Cells("ORDER_LEADTIME").Value) = 0 And NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value) = 0 And NumIsNull(.Cells("STOCK_BIN_ID").Value) = 0 Then
+                If GF_NumIsNull(.Cells("ID").Value) = 0 Then
+                    If GF_NumIsNull(.Cells("ORDER_POINT").Value) = 0 And GF_NumIsNull(.Cells("ORDER_QTY").Value) = 0 And GF_NumIsNull(.Cells("ORDER_LEADTIME").Value) = 0 And GF_NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value) = 0 And GF_NumIsNull(.Cells("STOCK_BIN_ID").Value) = 0 Then
                         .Cells("STATUS").Value = "s"
                     Else
                         .Cells("STATUS").Value = "n"
@@ -1934,7 +1934,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
                 Else
 
-                    If NumIsNull(.Cells("ORDER_POINT").Value) = 0 And NumIsNull(.Cells("ORDER_QTY").Value) = 0 And NumIsNull(.Cells("ORDER_LEADTIME").Value) = 0 And NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value) = 0 And NumIsNull(.Cells("STOCK_BIN_ID").Value) = 0 Then
+                    If GF_NumIsNull(.Cells("ORDER_POINT").Value) = 0 And GF_NumIsNull(.Cells("ORDER_QTY").Value) = 0 And GF_NumIsNull(.Cells("ORDER_LEADTIME").Value) = 0 And GF_NumIsNull(.Cells("ONHAND_MAX_LIMIT").Value) = 0 And GF_NumIsNull(.Cells("STOCK_BIN_ID").Value) = 0 Then
                         .Cells("STATUS").Value = "d"
                     Else
                         .Cells("STATUS").Value = "e"
@@ -1958,9 +1958,9 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
             Dim dSave As Boolean = False
 
             FrmItemLocationDefaults.dLocation = .Cells("LOCATION").Value
-            FrmItemLocationDefaults.purchase_id = NumIsNull(.Cells("PURCHASES_UNIT_ID").Value)
-            FrmItemLocationDefaults.sales_id = NumIsNull(.Cells("SALES_UNIT_ID").Value)
-            FrmItemLocationDefaults.ship_id = NumIsNull(.Cells("SHIPPING_UNIT_ID").Value)
+            FrmItemLocationDefaults.purchase_id = GF_NumIsNull(.Cells("PURCHASES_UNIT_ID").Value)
+            FrmItemLocationDefaults.sales_id = GF_NumIsNull(.Cells("SALES_UNIT_ID").Value)
+            FrmItemLocationDefaults.ship_id = GF_NumIsNull(.Cells("SHIPPING_UNIT_ID").Value)
             FrmItemLocationDefaults.ShowDialog()
             dSave = FrmItemLocationDefaults.bSave
 
@@ -1975,15 +1975,15 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
                 .Cells("SHIPPING_UNIT_ID").Value = FrmItemLocationDefaults.cmbShipping.SelectedValue
                 .Cells("SHIPPING_UNIT").Value = FrmItemLocationDefaults.cmbShipping.Text
 
-                If TextIsNull(.Cells("ITEM_LOCATION_UNITS_ID").Value) = "" Then
-                    If NumIsNull(.Cells("PURCHASES_UNIT_ID").Value) = 0 And NumIsNull(.Cells("SALES_UNIT_ID").Value) = 0 And NumIsNull(.Cells("SHIPPING_UNIT_ID").Value) = 0 Then
+                If GF_TextIsNull(.Cells("ITEM_LOCATION_UNITS_ID").Value) = "" Then
+                    If GF_NumIsNull(.Cells("PURCHASES_UNIT_ID").Value) = 0 And GF_NumIsNull(.Cells("SALES_UNIT_ID").Value) = 0 And GF_NumIsNull(.Cells("SHIPPING_UNIT_ID").Value) = 0 Then
                         .Cells("STATUS").Value = "s"
                     Else
                         .Cells("STATUS").Value = "n"
                     End If
 
                 Else
-                    If NumIsNull(.Cells("PURCHASES_UNIT_ID").Value) = 0 And NumIsNull(.Cells("SALES_UNIT_ID").Value) = 0 And NumIsNull(.Cells("SHIPPING_UNIT_ID").Value) = 0 Then
+                    If GF_NumIsNull(.Cells("PURCHASES_UNIT_ID").Value) = 0 And GF_NumIsNull(.Cells("SALES_UNIT_ID").Value) = 0 And GF_NumIsNull(.Cells("SHIPPING_UNIT_ID").Value) = 0 Then
                         .Cells("STATUS").Value = "d"
                     Else
                         .Cells("STATUS").Value = "e"
@@ -2030,9 +2030,9 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
             With dgvPriceLevel.Rows(i)
                 .Cells("CUSTOM_PRICE").Value = IIf(Val(dValue) = 0, "", NumberFormatFixed(Val(dValue)))
 
-                If TextIsNull(.Cells("PRICE_LEVEL_LINES_ID").Value) = "" Then
+                If GF_TextIsNull(.Cells("PRICE_LEVEL_LINES_ID").Value) = "" Then
 
-                    If NumIsNull(.Cells("CUSTOM_PRICE").Value) = 0 Then
+                    If GF_NumIsNull(.Cells("CUSTOM_PRICE").Value) = 0 Then
                         .Cells("STATUS").Value = "s"
                     Else
                         .Cells("STATUS").Value = "n"
@@ -2040,7 +2040,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
 
                 Else
 
-                    If NumIsNull(.Cells("CUSTOM_PRICE").Value) = 0 Then
+                    If GF_NumIsNull(.Cells("CUSTOM_PRICE").Value) = 0 Then
                         .Cells("STATUS").Value = "d"
                     Else
                         .Cells("STATUS").Value = "e"

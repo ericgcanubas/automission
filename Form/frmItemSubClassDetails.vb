@@ -5,7 +5,7 @@ Public Class FrmItemSubClassDetails
     Public BS As BindingSource
     Public View As DataGridView
     Private Sub FrmItemSubClassDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbCLASS_ID, "SELECT ID,DESCRIPTION FROM ITEM_CLASS", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbCLASS_ID, "SELECT ID,DESCRIPTION FROM ITEM_CLASS", "ID", "DESCRIPTION")
         If ID > 0 Then
 
             Try
@@ -35,7 +35,7 @@ Public Class FrmItemSubClassDetails
         End If
 
         If Trim(txtCODE.Text) = "" Then
-            txtCODE.Text = Format(Val(GetMaxField("CODE", "item_sub_class")), "0000")
+            txtCODE.Text = Format(Val(GF_GetMaxField("CODE", "item_sub_class")), "0000")
         End If
 
         If IsNew = False Then

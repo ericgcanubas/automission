@@ -192,18 +192,6 @@
     <Compile Include="DataSet\dt.vb">
       <DependentUpon>dt.xsd</DependentUpon>
     </Compile>
-    <Compile Include="FormData\FrmDataBackUp.Designer.vb">
-      <DependentUpon>FrmDataBackUp.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormData\FrmDataBackUp.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormData\FrmDataRestore.Designer.vb">
-      <DependentUpon>FrmDataRestore.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormData\FrmDataRestore.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FormPOS\FrmCashCountConfirm.Designer.vb">
       <DependentUpon>FrmCashCountConfirm.vb</DependentUpon>
     </Compile>
@@ -2224,9 +2212,6 @@
     <Compile Include="Tools\modMsgForm.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormData\FrmDataBackUp.resx">
-      <DependentUpon>FrmDataBackUp.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormPOS\FrmCashCountConfirm.resx">
       <DependentUpon>FrmCashCountConfirm.vb</DependentUpon>
     </EmbeddedResource>

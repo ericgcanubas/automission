@@ -14,7 +14,7 @@
     End Sub
     Private Sub RefreshLocation()
 
-        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
+        GS_TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME`  ORDER BY `ID`", "ID", "NAME")
 
     End Sub
     Private Sub FrmInventoryStatus_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -48,7 +48,7 @@
 
             End If
 
-            LoadDataGridViewBinding(dgvItem, $"Select * from (SELECT 
+            GS_LoadDataGridViewBinding(dgvItem, $"Select * from (SELECT 
   i.ID,
   i.CODE AS `Code`,
   i.`PURCHASE_DESCRIPTION` AS `Purchase Description`,

@@ -20,7 +20,7 @@ Module modQuantityOnHand
 
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                i = NumIsNull(rd("TOTAL_QTY"))
+                i = GF_NumIsNull(rd("TOTAL_QTY"))
             End If
             rd.Close()
         Catch ex As Exception

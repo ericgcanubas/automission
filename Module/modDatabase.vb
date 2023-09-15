@@ -42,7 +42,7 @@ Module modDatabase
         Try
             Dim rd As OdbcDataReader = SqlReader(sql)
             If rd.Read Then
-                n = NumIsNull(rd(0))
+                n = GF_NumIsNull(rd(0))
             End If
             rd.Close()
         Catch ex As Exception
@@ -76,36 +76,36 @@ Module modDatabase
 
     End Function
 
-    Public Sub NullOTherField(ByVal Field As String, ByVal sTable As String, ByRef ReturnField As String, ByRef ReturnValue As String)
+    'Public Sub NullOTherField(ByVal Field As String, ByVal sTable As String, ByRef ReturnField As String, ByRef ReturnValue As String)
 
-        Dim Field_ As String = ""
-        Dim Value_ As String = ""
+    '    Dim Field_ As String = ""
+    '    Dim Value_ As String = ""
 
-        Try
+    '    Try
 
-            Dim rd As OdbcDataReader = SqlReader("DESCRIBE " & sTable)
-            While rd.Read()
-                If Field.Contains(rd("Field")) = False Then
-                    If (Field_ = "") Then
-                        Field_ &= Field_ & rd("Field")
-                        Value_ &= Value_ & " NULL "
-                    Else
-                        Field_ = Field_ & "," & rd("Field")
-                        Value_ &= Value_ & ", NULL "
-                    End If
-                End If
-            End While
-            rd.Close()
+    '        Dim rd As OdbcDataReader = SqlReader("DESCRIBE " & sTable)
+    '        While rd.Read()
+    '            If Field.Contains(rd("Field")) = False Then
+    '                If (Field_ = "") Then
+    '                    Field_ &= Field_ & rd("Field")
+    '                    Value_ &= Value_ & " NULL "
+    '                Else
+    '                    Field_ = Field_ & "," & rd("Field")
+    '                    Value_ &= Value_ & ", NULL "
+    '                End If
+    '            End If
+    '        End While
+    '        rd.Close()
 
-            ReturnField = Field_
-            ReturnValue = Value_
+    '        ReturnField = Field_
+    '        ReturnValue = Value_
 
-        Catch ex As Exception
-            NullOTherField(Field, sTable, ReturnField, ReturnValue)
+    '    Catch ex As Exception
+    '        NullOTherField(Field, sTable, ReturnField, ReturnValue)
 
-        End Try
+    '    End Try
 
-    End Sub
+    'End Sub
 
 
     Public Sub SqlExecutedUsingReading(ByVal c As Control, ByVal sQuery As String)
@@ -125,8 +125,7 @@ Module modDatabase
 
     End Sub
 
-
-    Public Function DataReader(ByVal sQuery As String) As OdbcDataReader
+    Private Function DataReader(ByVal sQuery As String) As OdbcDataReader
         Try
             Dim cmd As New OdbcCommand(sQuery, cnn) With {
                 .CommandTimeout = 999999
@@ -143,17 +142,16 @@ Module modDatabase
         End Try
     End Function
     Public Function SqlReader(ByVal sQuery) As OdbcDataReader
-
         Return DataReader(sQuery) 'dt.CreateDataReader
     End Function
-    Public Function ReaderCounting(ByVal sQuery As String, ByRef RowCount As Integer) As OdbcDataReader
+    Public Function SQL_ReaderCounting(ByVal sQuery As String, ByRef RowCount As Integer) As OdbcDataReader
         Dim dt As New DataTable
         Dim rd As OdbcDataReader = DataReader(sQuery)
         dt.Load(rd)
         RowCount = dt.Rows.Count
         Return rd
     End Function
-    Public Sub ExportQuery(ByVal SQL As String)
+    Public Sub GS_ExportQuery(ByVal SQL As String)
 
         If gsDataForwarderIsActive = False Or gsDataForwarderPath = "" Then
             Exit Sub
@@ -209,13 +207,13 @@ Module modDatabase
         If sQuery = "" Then Exit Sub
 
         Try
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             Dim cmd As New OdbcCommand(sQuery, cnn) With {
                 .CommandTimeout = 999999
             }
             cmd.ExecuteNonQuery()
-            CursorLoadingOn(False)
-            ExportQuery(sQuery)
+            GS_CursorLoadingOn(False)
+            GS_ExportQuery(sQuery)
         Catch ex As Exception
 
 
@@ -231,28 +229,27 @@ Module modDatabase
         End Try
 
     End Sub
-    Public Function GetStringFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As String
+    Public Function GF_GetStringFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As String
 
 
         Dim zValue As String = ""
         Try
             Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition & " = '" & xValue & "' limit 1")
             If rd.Read Then
-                zValue = TextIsNull(rd(xGet_Value))
+                zValue = GF_TextIsNull(rd(xGet_Value))
             End If
             rd.Close()
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = GetStringFieldValue(xTable, xCondition, xValue, xGet_Value)
+                zValue = GF_GetStringFieldValue(xTable, xCondition, xValue, xGet_Value)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-
-    Public Function GetDateFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As Date
+    Public Function GF_GetDateFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As Date
 
 
         Dim zValue As Date = Nothing
@@ -265,83 +262,83 @@ Module modDatabase
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = GetDateFieldValue(xTable, xCondition, xValue, xGet_Value)
+                zValue = GF_GetDateFieldValue(xTable, xCondition, xValue, xGet_Value)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function GetStringFieldValueByTwoCondtion(ByVal xTable As String, ByVal xCondition1 As String, ByVal xValue1 As String, ByVal xCondition2 As String, ByVal xValue2 As String, ByVal xGet_Value As String) As String
+    Public Function GF_GetStringFieldValueByTwoCondtion(ByVal xTable As String, ByVal xCondition1 As String, ByVal xValue1 As String, ByVal xCondition2 As String, ByVal xValue2 As String, ByVal xGet_Value As String) As String
         Dim zValue As String = ""
         Try
             Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition1 & " = '" & xValue1 & "' and " & xCondition2 & " = '" & xValue2 & "' limit 1")
             If rd.Read Then
-                zValue = TextIsNull(rd(xGet_Value))
+                zValue = GF_TextIsNull(rd(xGet_Value))
             End If
             rd.Close()
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = GetStringFieldValueByTwoCondtion(xTable, xCondition1, xValue1, xCondition2, xValue2, xGet_Value)
+                zValue = GF_GetStringFieldValueByTwoCondtion(xTable, xCondition1, xValue1, xCondition2, xValue2, xGet_Value)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function GetNumberFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As Double
+    Public Function GF_GetNumberFieldValue(ByVal xTable As String, ByVal xCondition As String, ByVal xValue As String, ByVal xGet_Value As String) As Double
         Dim zValue As Double = 0
         Try
             Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition & " = '" & xValue & "' limit 1")
             If rd.Read Then
-                zValue = NumIsNull(rd(xGet_Value))
+                zValue = GF_NumIsNull(rd(xGet_Value))
             End If
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = GetNumberFieldValue(xTable, xCondition, xValue, xGet_Value)
+                zValue = GF_GetNumberFieldValue(xTable, xCondition, xValue, xGet_Value)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function GetStringFieldValueOneReturn(ByVal sQuery As String) As String
+    Public Function GF_GetStringFieldValueOneReturn(ByVal sQuery As String) As String
         Dim zValue As String = ""
         Try
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                zValue = TextIsNull(rd(0))
+                zValue = GF_TextIsNull(rd(0))
             End If
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = GetStringFieldValueOneReturn(sQuery)
+                zValue = GF_GetStringFieldValueOneReturn(sQuery)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function GetNumberFieldValueOneReturn(ByVal sQuery As String) As Double
+    Public Function GF_GetNumberFieldValueOneReturn(ByVal sQuery As String) As Double
         Dim zValue As Double = 0
         Try
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                zValue = NumIsNull(rd(0))
+                zValue = GF_NumIsNull(rd(0))
             End If
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = GetNumberFieldValueOneReturn(sQuery)
+                zValue = GF_GetNumberFieldValueOneReturn(sQuery)
             Else
                 End
             End If
         End Try
         Return zValue
     End Function
-    Public Function GetNumberFieldValueByTwoCondition(ByVal xTable As String, ByVal xCondition1 As String, ByVal xValue1 As String, ByVal xCondition2 As String, ByVal xValue2 As String, ByVal xGet_Value As String) As Double
+    Public Function GF_GetNumberFieldValueByTwoCondition(ByVal xTable As String, ByVal xCondition1 As String, ByVal xValue1 As String, ByVal xCondition2 As String, ByVal xValue2 As String, ByVal xGet_Value As String) As Double
 
 
         Dim zValue As Double = 0
@@ -349,13 +346,13 @@ Module modDatabase
 
             Dim rd As OdbcDataReader = SqlReader("select " & xGet_Value & " from " & xTable & " where " & xCondition1 & " = '" & xValue1 & "' and " & xCondition2 & " = '" & xValue2 & "'  limit 1")
             If rd.Read Then
-                zValue = NumIsNull(rd(xGet_Value))
+                zValue = GF_NumIsNull(rd(xGet_Value))
             End If
             rd.Close()
             Return zValue
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                zValue = GetNumberFieldValueByTwoCondition(xTable, xCondition1, xValue1, xCondition2, xValue2, xGet_Value)
+                zValue = GF_GetNumberFieldValueByTwoCondition(xTable, xCondition1, xValue1, xCondition2, xValue2, xGet_Value)
             Else
                 End
             End If
@@ -363,8 +360,8 @@ Module modDatabase
         End Try
         Return zValue
     End Function
-    Public Sub LoadDataGridView(ByVal dgv As DataGridView, ByVal xSQL As String)
-        ViewStyleColor(dgv)
+    Public Sub GS_LoadDataGridView(ByVal dgv As DataGridView, ByVal xSQL As String)
+        GS_ViewStyleColor(dgv)
         Dim sqlDataAdapter As New OdbcDataAdapter
         Dim dt As New DataTable
         Dim bSource As New BindingSource
@@ -378,7 +375,7 @@ Module modDatabase
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                LoadDataGridView(dgv, xSQL)
+                GS_LoadDataGridView(dgv, xSQL)
             Else
                 End
             End If
@@ -389,8 +386,8 @@ Module modDatabase
 
 
     End Sub
-    Public Sub LoadDataGridViewStandard(ByVal dgv As DataGridView, ByVal xSQL As String)
-        ViewStyleColor(dgv)
+    Public Sub GS_LoadDataGridViewStandard(ByVal dgv As DataGridView, ByVal xSQL As String)
+        GS_ViewStyleColor(dgv)
 
 
         Dim sqlDataAdapter As New OdbcDataAdapter
@@ -406,7 +403,7 @@ Module modDatabase
             ' cn.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                LoadDataGridViewStandard(dgv, xSQL)
+                GS_LoadDataGridViewStandard(dgv, xSQL)
             Else
                 End
             End If
@@ -418,7 +415,7 @@ Module modDatabase
 
 
     End Sub
-    Public Sub ViewPrimarySetup(ByVal dgv As DataGridView)
+    Public Sub GS_ViewPrimarySetup(ByVal dgv As DataGridView)
         With dgv
             .AllowUserToAddRows = False
             .AllowUserToDeleteRows = False
@@ -432,9 +429,9 @@ Module modDatabase
 
 
     End Sub
-    Public Sub LoadDataGridViewBinding(ByVal dgv As DataGridView, ByVal xSQL As String, ByRef Ref_bSource As BindingSource)
-        ViewPrimarySetup(dgv)
-        ViewStyleColor(dgv)
+    Public Sub GS_LoadDataGridViewBinding(ByVal dgv As DataGridView, ByVal xSQL As String, ByRef Ref_bSource As BindingSource)
+        GS_ViewPrimarySetup(dgv)
+        GS_ViewStyleColor(dgv)
 
         Dim sqlDataAdapter As New OdbcDataAdapter
         Dim dt As New DataTable
@@ -449,7 +446,7 @@ Module modDatabase
             sqlDataAdapter.Update(dt)
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message & gsErrorMessage) = True Then
-                LoadDataGridViewBinding(dgv, xSQL, Ref_bSource)
+                GS_LoadDataGridViewBinding(dgv, xSQL, Ref_bSource)
             Else
                 End
             End If
@@ -457,7 +454,7 @@ Module modDatabase
 
 
     End Sub
-    Public Sub TSComboBoxLoad(ByVal cmb As ToolStripComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
+    Public Sub GS_TSComboBoxLoad(ByVal cmb As ToolStripComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
         Try
             Dim StrSql As String = sqlQuery
             Dim cmd As New OdbcCommand(StrSql, cnn)
@@ -480,15 +477,15 @@ Module modDatabase
                 End If
             End With
         Catch ex As Exception
-            TSComboBoxLoad(cmb, sqlQuery, xValue, xDisplay)
+            GS_TSComboBoxLoad(cmb, sqlQuery, xValue, xDisplay)
         End Try
 
     End Sub
-    Public Function CommandObject(ByVal StrSql As String) As OdbcCommand
+    Public Function GF_CommandObject(ByVal StrSql As String) As OdbcCommand
         Dim cmd As New OdbcCommand(StrSql, cnn)
         Return cmd
     End Function
-    Public Sub CommandObjectComboBoxLoad(ByVal cmd As OdbcCommand, ByVal cmb As ComboBox, ByVal xValue As String, ByVal xDisplay As String)
+    Public Sub GS_CommandObjectComboBoxLoad(ByVal cmd As OdbcCommand, ByVal cmb As ComboBox, ByVal xValue As String, ByVal xDisplay As String)
         Try
 
             Dim da As New OdbcDataAdapter(cmd)
@@ -521,7 +518,7 @@ Module modDatabase
         End Try
 
     End Sub
-    Public Sub ComboBoxLoad(ByVal cmb As ComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
+    Public Sub GS_ComboBoxLoad(ByVal cmb As ComboBox, ByVal sqlQuery As String, ByVal xValue As String, ByVal xDisplay As String)
         Try
             GS_DoEvents()
             Dim StrSql As String = sqlQuery
@@ -593,10 +590,10 @@ Module modDatabase
 
 
     End Sub
-    Public Function TextApostrophe(ByVal Str As String) As String
+    Public Function GF_TextApostrophe(ByVal Str As String) As String
         Return Str.Replace("'", "`")
     End Function
-    Public Function DateIsNull(ByVal EX As Object) As String
+    Public Function GF_DateIsNull(ByVal EX As Object) As String
         Try
             If IsDBNull(EX) = True Then
                 Return ""
@@ -608,7 +605,7 @@ Module modDatabase
         End Try
 
     End Function
-    Public Function TextIsNull(ByVal EX As Object) As String
+    Public Function GF_TextIsNull(ByVal EX As Object) As String
         Try
             If IsDBNull(EX) = True Then
                 Return ""
@@ -620,7 +617,7 @@ Module modDatabase
         End Try
 
     End Function
-    Public Function NumIsNull(ByVal ex As Object) As Double
+    Public Function GF_NumIsNull(ByVal ex As Object) As Double
         Try
             If IsDBNull(ex) = True Then
                 Return 0
@@ -634,36 +631,36 @@ Module modDatabase
         End Try
     End Function
 
-    Public Function GetMaxField(ByVal prField As String, ByVal prTable As String) As Double
+    Public Function GF_GetMaxField(ByVal prField As String, ByVal prTable As String) As Double
         Dim Inumber As Double
         Try
             Dim rd As OdbcDataReader = SqlReader($"Select  MAX(CAST({prField} AS UNSIGNED)) As T From `{prTable}`")
             If rd.Read Then
-                Inumber = NumIsNull(rd("T")) + 1
+                Inumber = GF_NumIsNull(rd("T")) + 1
             Else
                 Inumber = 1
             End If
             rd.Close()
         Catch ex As Exception
-            Inumber = GetMaxField(prField, prTable)
+            Inumber = GF_GetMaxField(prField, prTable)
         End Try
         Return Inumber
     End Function
-    Public Function GetMaxFieldLine(ByVal prField As String, ByVal prTable As String, ByVal prCondition As String, ByVal prValue As String) As String
+    Public Function GF_GetMaxFieldLine(ByVal prField As String, ByVal prTable As String, ByVal prCondition As String, ByVal prValue As String) As String
         Dim i As Double = 0
         Try
             Dim rd As OdbcDataReader = SqlReader("Select  MAX(CAST(" & prField & " AS UNSIGNED)) As T From " & prTable & " Where " & prCondition & "='" & prValue & "'")
             If rd.Read Then
-                i = NumIsNull(rd("T"))
+                i = GF_NumIsNull(rd("T"))
             End If
             rd.Close()
         Catch ex As Exception
-            i = GetMaxFieldLine(prField, prTable, prCondition, prValue)
+            i = GF_GetMaxFieldLine(prField, prTable, prCondition, prValue)
         End Try
         Return i + 1
 
     End Function
-    Public Sub CursorLoadingOn(ByVal bActive As Boolean)
+    Public Sub GS_CursorLoadingOn(ByVal bActive As Boolean)
 
         If bActive = True Then
             Cursor.Current = Cursors.WaitCursor
@@ -673,7 +670,7 @@ Module modDatabase
         End If
 
     End Sub
-    Public Function NextCodePreview(ByVal prTableName As String, ByVal prLocation_ID As Integer) As String
+    Public Function GF_NextCodePreview(ByVal prTableName As String, ByVal prLocation_ID As Integer) As String
         Dim sValue As String = ""
         If gsIncRefNoByLocation = True Then
             'check if have it
@@ -682,10 +679,10 @@ Module modDatabase
 
                 Dim rd As OdbcDataReader = SqlReader($"SELECT l.CODE,lr.SYMBOL_CODE,lr.NEXT_CODE,lr.DIGIT_CODE FROM location_reference as lr INNER JOIN location as l ON lr.LOCATION_ID = l.`ID` WHERE lr.LOCATION_ID = '{prLocation_ID}' and lr.TABLE_NAME = '{prTableName}' limit 1")
                 If rd.Read Then
-                    Dim L As String = TextIsNull(rd("CODE"))
-                    Dim S As String = TextIsNull(rd("SYMBOL_CODE"))
-                    Dim D As Integer = NumIsNull(rd("DIGIT_CODE"))
-                    Dim I As Double = NumIsNull(rd("NEXT_CODE"))
+                    Dim L As String = GF_TextIsNull(rd("CODE"))
+                    Dim S As String = GF_TextIsNull(rd("SYMBOL_CODE"))
+                    Dim D As Integer = GF_NumIsNull(rd("DIGIT_CODE"))
+                    Dim I As Double = GF_NumIsNull(rd("NEXT_CODE"))
 
                     rd.Close()
                     Dim get_digit As String = ""
@@ -700,8 +697,8 @@ Module modDatabase
 
                     Dim rd1 As OdbcDataReader = SqlReader("select SYMBOL_CODE from object_type_map where table_name = '" & prTableName & "' limit 1")
                     If rd1.Read Then
-                        Dim L As String = TextIsNull(GetStringFieldValue("location", "id", prLocation_ID, "CODE"))
-                        Dim S As String = TextIsNull(rd1("SYMBOL_CODE"))
+                        Dim L As String = GF_TextIsNull(GF_GetStringFieldValue("location", "id", prLocation_ID, "CODE"))
+                        Dim S As String = GF_TextIsNull(rd1("SYMBOL_CODE"))
                         Dim D As Integer = 5
                         Dim I As Double = 1
 
@@ -717,7 +714,7 @@ Module modDatabase
                 End If
             Catch ex As Exception
                 If MessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = NextCodePreview(prTableName, prLocation_ID)
+                    sValue = GF_NextCodePreview(prTableName, prLocation_ID)
                 Else
                     End
                 End If
@@ -729,10 +726,10 @@ Module modDatabase
             Try
                 Dim rd As OdbcDataReader = SqlReader("select SYMBOL_CODE,NEXT_CODE,DIGIT_CODE,USE_YEAR from object_type_map where table_name = '" & prTableName & "' limit 1")
                 If rd.Read Then
-                    Dim Y As Boolean = NumIsNull(rd("USE_YEAR"))
-                    Dim S As String = TextIsNull(rd("SYMBOL_CODE"))
-                    Dim D As Integer = NumIsNull(rd("DIGIT_CODE"))
-                    Dim I As Double = NumIsNull(rd("NEXT_CODE"))
+                    Dim Y As Boolean = GF_NumIsNull(rd("USE_YEAR"))
+                    Dim S As String = GF_TextIsNull(rd("SYMBOL_CODE"))
+                    Dim D As Integer = GF_NumIsNull(rd("DIGIT_CODE"))
+                    Dim I As Double = GF_NumIsNull(rd("NEXT_CODE"))
 
                     rd.Close()
                     Dim get_digit As String = ""
@@ -747,7 +744,7 @@ Module modDatabase
 
             Catch ex As Exception
                 If MessageBoxErrorYesNo(ex.Message) = True Then
-                    sValue = NextCodePreview(prTableName, prLocation_ID)
+                    sValue = GF_NextCodePreview(prTableName, prLocation_ID)
                 Else
                     End
                 End If
@@ -757,14 +754,13 @@ Module modDatabase
 
         Return sValue
     End Function
-
-    Public Function GetNextItemCode(ByVal TYPE As Integer) As String
+    Public Function GF_GetNextItemCode(ByVal TYPE As Integer) As String
         Dim sValue As String = ""
         Dim rd As OdbcDataReader = SqlReader($"select * FROM ITEM_TYPE_MAP where ID = '{TYPE}' LIMIT 1;")
         If rd.Read Then
-            Dim L As String = TextIsNull(rd("FIRST_CHARACTER"))
-            Dim D As Integer = NumIsNull(rd("DIGIT_COUNT"))
-            Dim I As Double = NumIsNull(rd("NEXT_ID"))
+            Dim L As String = GF_TextIsNull(rd("FIRST_CHARACTER"))
+            Dim D As Integer = GF_NumIsNull(rd("DIGIT_COUNT"))
+            Dim I As Double = GF_NumIsNull(rd("NEXT_ID"))
 
             rd.Close()
             Dim get_digit As String = ""
@@ -776,15 +772,14 @@ Module modDatabase
         rd.Close()
         Return sValue
     End Function
-
-    Public Sub SetNextItemCode(ByVal TYPE As Integer, ByVal THIS_CODE As String)
+    Public Sub GS_SetNextItemCode(ByVal TYPE As Integer, ByVal THIS_CODE As String)
 
         Dim rd As OdbcDataReader = SqlReader($"select * FROM ITEM_TYPE_MAP Where ID = '{TYPE}' LIMIT 1;")
         If rd.Read Then
 
-            Dim L As String = TextIsNull(rd("FIRST_CHARACTER"))
-            Dim D As Integer = NumIsNull(rd("DIGIT_COUNT"))
-            Dim I As Double = NumIsNull(rd("NEXT_ID"))
+            Dim L As String = GF_TextIsNull(rd("FIRST_CHARACTER"))
+            Dim D As Integer = GF_NumIsNull(rd("DIGIT_COUNT"))
+            Dim I As Double = GF_NumIsNull(rd("NEXT_ID"))
 
             Dim GetDigit As String = ""
             For r As Integer = 1 To D
@@ -798,8 +793,7 @@ Module modDatabase
         rd.Close()
 
     End Sub
-
-    Public Function GetNextCode(ByVal prTableName As String, ByVal prLocation_ID As Integer) As String
+    Public Function GF_GetNextCode(ByVal prTableName As String, ByVal prLocation_ID As Integer) As String
         Dim ReturnValue As String = ""
         If gsIncRefNoByLocation = True Then
             Try
@@ -807,10 +801,10 @@ Module modDatabase
 
                 Dim rd As OdbcDataReader = SqlReader($"SELECT l.CODE,lr.SYMBOL_CODE,lr.NEXT_CODE,lr.DIGIT_CODE FROM location_reference as lr INNER JOIN location as l ON lr.LOCATION_ID = l.`ID` WHERE lr.LOCATION_ID = '{prLocation_ID}' and lr.TABLE_NAME = '{prTableName}' limit 1")
                 If rd.Read Then
-                    Dim L As String = TextIsNull(rd("CODE"))
-                    Dim S As String = TextIsNull(rd("SYMBOL_CODE"))
-                    Dim D As Integer = NumIsNull(rd("DIGIT_CODE"))
-                    Dim I As Double = NumIsNull(rd("NEXT_CODE"))
+                    Dim L As String = GF_TextIsNull(rd("CODE"))
+                    Dim S As String = GF_TextIsNull(rd("SYMBOL_CODE"))
+                    Dim D As Integer = GF_NumIsNull(rd("DIGIT_CODE"))
+                    Dim I As Double = GF_NumIsNull(rd("NEXT_CODE"))
                     Dim GetDigit As String = ""
                     For r As Integer = 1 To D
                         GetDigit &= "0"
@@ -821,13 +815,13 @@ Module modDatabase
 
                 Else
 
-                    SqlExecuted($"INSERT INTO location_reference SET SYMBOL_CODE='{GetStringFieldValue("object_type_map", "table_name", prTableName, "SYMBOL_CODE") }',LOCATION_ID='{prLocation_ID}',TABLE_NAME='{prTableName.ToUpper}',NEXT_CODE='1',DIGIT_CODE='5' ")
-                    ReturnValue = GetNextCode(prTableName, prLocation_ID)
+                    SqlExecuted($"INSERT INTO location_reference SET SYMBOL_CODE='{GF_GetStringFieldValue("object_type_map", "table_name", prTableName, "SYMBOL_CODE") }',LOCATION_ID='{prLocation_ID}',TABLE_NAME='{prTableName.ToUpper}',NEXT_CODE='1',DIGIT_CODE='5' ")
+                    ReturnValue = GF_GetNextCode(prTableName, prLocation_ID)
                 End If
                 rd.Close()
             Catch ex As Exception
                 If MessageBoxErrorYesNo(ex.Message) = True Then
-                    ReturnValue = GetNextCode(prTableName, prLocation_ID)
+                    ReturnValue = GF_GetNextCode(prTableName, prLocation_ID)
                 Else
                     End
                 End If
@@ -838,10 +832,10 @@ Module modDatabase
             Try
                 Dim rd As OdbcDataReader = SqlReader("select SYMBOL_CODE,NEXT_CODE,DIGIT_CODE,USE_YEAR from object_type_map where table_name = '" & prTableName & "' limit 1")
                 If rd.Read Then
-                    Dim Y As Boolean = NumIsNull(rd("USE_YEAR"))
-                    Dim S As String = TextIsNull(rd("SYMBOL_CODE"))
-                    Dim D As Integer = NumIsNull(rd("DIGIT_CODE"))
-                    Dim I As Double = NumIsNull(rd("NEXT_CODE"))
+                    Dim Y As Boolean = GF_NumIsNull(rd("USE_YEAR"))
+                    Dim S As String = GF_TextIsNull(rd("SYMBOL_CODE"))
+                    Dim D As Integer = GF_NumIsNull(rd("DIGIT_CODE"))
+                    Dim I As Double = GF_NumIsNull(rd("NEXT_CODE"))
 
 
                     Dim get_digit As String = ""
@@ -857,7 +851,7 @@ Module modDatabase
                 rd.Close()
             Catch ex As Exception
                 If MessageBoxErrorYesNo(ex.Message) = True Then
-                    ReturnValue = GetNextCode(prTableName, prLocation_ID)
+                    ReturnValue = GF_GetNextCode(prTableName, prLocation_ID)
                 Else
                     End
                 End If

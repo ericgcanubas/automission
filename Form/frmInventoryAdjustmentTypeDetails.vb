@@ -6,7 +6,7 @@ Public Class FrmInventoryAdjustmentTypeDetails
     Public Dgv As DataGridView
     Private Sub FrmInventoryAdjustmentTypeDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbACCOUNT_ID, "select `ID`,`NAME` from account where inactive='0'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbACCOUNT_ID, "select `ID`,`NAME` from account where inactive='0'", "ID", "NAME")
         If ID > 0 Then
             Try
                 SqlExecutedUsingReading(Me, "select * from inventory_adjustment_type where ID = '" & ID & "' Limit 1")
@@ -42,7 +42,7 @@ Public Class FrmInventoryAdjustmentTypeDetails
             Exit Sub
         End If
         If Trim(txtCODE.Text) = "" Then
-            txtCODE.Text = Format(Val(GetMaxField("CODE", "inventory_adjustment_type")), "0000")
+            txtCODE.Text = Format(Val(GF_GetMaxField("CODE", "inventory_adjustment_type")), "0000")
         End If
 
 

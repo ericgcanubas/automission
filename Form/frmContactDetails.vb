@@ -10,20 +10,20 @@ Public Class FrmContactDetails
     Public this_BS As BindingSource
 
     Private Sub RefreshCombo()
-        ComboBoxLoad(cmbTAX_ID, "select * from tax where tax_type='3'", "ID", "NAME")
-        ComboBoxLoad(cmbGROUP_ID, "select * from contact_group", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbPAYMENT_TERMS_ID, "select * from payment_terms", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbSALES_REP_ID, "select * from contact  where type ='2' order by `NAME` ", "ID", "NAME")
-        ComboBoxLoad(cmbPRICE_LEVEL_ID, "select * from price_level", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbPREF_PAYMENT_METHOD_ID, "select * from payment_method", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbTAX_ID, "select * from tax where tax_type='3'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbGROUP_ID, "select * from contact_group", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbPAYMENT_TERMS_ID, "select * from payment_terms", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbSALES_REP_ID, "select * from contact  where type ='2' order by `NAME` ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPRICE_LEVEL_ID, "select * from price_level", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbPREF_PAYMENT_METHOD_ID, "select * from payment_method", "ID", "DESCRIPTION")
 
         Select Case ContactTypeId
             Case 1
-                ComboBoxLoad(cmbREFERRAL_ID, "select * from contact where type in ('6','1','2') order by `NAME` ", "ID", "NAME")
+                GS_ComboBoxLoad(cmbREFERRAL_ID, "select * from contact where type in ('6','1','2') order by `NAME` ", "ID", "NAME")
                 On Error Resume Next
                 cmbTAX_ID.SelectedIndex = 0
             Case 6
-                ComboBoxLoad(cmbREFERRAL_ID, "select * from contact where type in('6','1','2') order by `NAME`", "ID", "NAME")
+                GS_ComboBoxLoad(cmbREFERRAL_ID, "select * from contact where type in('6','1','2') order by `NAME`", "ID", "NAME")
         End Select
 
 
@@ -54,7 +54,7 @@ Public Class FrmContactDetails
                 get_digit &= "0"
             Next
 
-            txtACCOUNT_NO.Text = NumIsNull(rd("prefix")) & NumIsNull(rd("next_number")).ToString(get_digit)
+            txtACCOUNT_NO.Text = GF_NumIsNull(rd("prefix")) & GF_NumIsNull(rd("next_number")).ToString(get_digit)
         Else
 
             SqlExecuted($"INSERT INTO discountcardnumber SET  location_id = '{gsDefault_LOCATION_ID}',next_number ='1' ")
@@ -66,7 +66,7 @@ Public Class FrmContactDetails
     Private Sub UpdateDiscountCardNumber()
         Dim rd As OdbcDataReader = SqlReader($"select next_number from discountcardnumber where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
         If rd.Read Then
-            SqlExecuted($"UPDATE discountcardnumber SET `next_number` = '{ NumIsNull(rd("next_number")) + 1}' where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
+            SqlExecuted($"UPDATE discountcardnumber SET `next_number` = '{ GF_NumIsNull(rd("next_number")) + 1}' where location_id = '{gsDefault_LOCATION_ID}'  limit 1;")
         End If
         rd.Close()
     End Sub
@@ -228,9 +228,9 @@ Public Class FrmContactDetails
             End Try
 
             If Trim(txtACCOUNT_NO.Text) = "" Then
-                Dim dAcount_No As Double = Val(GetMaxFieldLine("ACCOUNT_NO", "CONTACT", "TYPE", ContactTypeId))
+                Dim dAcount_No As Double = Val(GF_GetMaxFieldLine("ACCOUNT_NO", "CONTACT", "TYPE", ContactTypeId))
                 txtACCOUNT_NO.Text = dAcount_No.ToString("0000")
-                ObjectTypeMapNextIdUpdateByName(dAcount_No, GetStringFieldValue("CONTACT_TYPE_MAP", "ID", ContactTypeId, "DESCRIPTION"))
+                ObjectTypeMapNextIdUpdateByName(dAcount_No, GF_GetStringFieldValue("CONTACT_TYPE_MAP", "ID", ContactTypeId, "DESCRIPTION"))
             End If
 
 

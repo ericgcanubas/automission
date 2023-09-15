@@ -16,8 +16,8 @@ Public Class FrmAccount
 
     End Sub
     Private Sub ClearInfo()
-        ComboBoxLoad(cmbTYPE, "select ID,DESCRIPTION from account_type_map ", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbGROUP_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbTYPE, "select ID,DESCRIPTION from account_type_map ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbGROUP_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
         txtNAME.Text = ""
         chkINACTIVE.Checked = False
     End Sub
@@ -43,7 +43,7 @@ Public Class FrmAccount
 
         If IsNew = True Then
             Try
-                Dim rd As OdbcDataReader = SqlReader("select * from account WHERE NAME = '" & TextIsNull(txtNAME.Text) & "' limit 1;")
+                Dim rd As OdbcDataReader = SqlReader("select * from account WHERE NAME = '" & GF_TextIsNull(txtNAME.Text) & "' limit 1;")
                 If rd.Read Then
                     rd.Close()
                     MessageBoxWarning("Account name is already exist!")
@@ -55,7 +55,7 @@ Public Class FrmAccount
                 Exit Sub
             End Try
 
-            Dim i As Integer = GetMaxFieldLine("`LINE_NO`", "ACCOUNT", "`TYPE`", cmbTYPE.SelectedValue)
+            Dim i As Integer = GF_GetMaxFieldLine("`LINE_NO`", "ACCOUNT", "`TYPE`", cmbTYPE.SelectedValue)
             ID = ObjectTypeMapId("ACCOUNT")
 
             SqlCreate(Me, SQL_FIELD, SQL_VALUE)

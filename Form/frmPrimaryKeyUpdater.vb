@@ -4,7 +4,7 @@
     End Sub
 
     Private Sub RefreshList()
-        LoadDataGridView(dgvLIST, "select ID,TABLE_NAME,NEXT_ID from `object_type_map` ")
+        GS_LoadDataGridView(dgvLIST, "select ID,TABLE_NAME,NEXT_ID from `object_type_map` ")
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -19,7 +19,7 @@
 
     Private Sub UpdateNextCode(ByVal ThisID As Integer, ByVal ThisTable As String)
 
-        Dim LastID As Double = Val(GetMaxField("ID", ThisTable))
+        Dim LastID As Double = Val(GF_GetMaxField("ID", ThisTable))
         If LastID = 0 Then
 
             If MessageBoxWarningYesNo(ThisTable & " this ID is 0. do you want to continue") = True Then

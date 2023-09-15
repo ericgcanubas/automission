@@ -11,7 +11,7 @@ Module modAccount
             '=============
             Dim rd As OdbcDataReader = SqlReader("select ID,TAG from account ")
             While rd.Read
-                gsACCOUNT_TAG_ID(rd("ID")) = TextIsNull(rd("TAG"))
+                gsACCOUNT_TAG_ID(rd("ID")) = GF_TextIsNull(rd("TAG"))
             End While
             rd.Close()
         Catch ex As Exception

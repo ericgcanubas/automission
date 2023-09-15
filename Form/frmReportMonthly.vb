@@ -21,7 +21,7 @@ Public Class FrmReportMonthly
             Dim rd As OdbcDataReader = SqlReader("select sales_target, service_fee_pct from service_fee where  sales_target > '0'   order by sales_target")
             While rd.Read
                 i = +1
-                If NumIsNull(rd("sales_target")) >= running_total Then
+                If GF_NumIsNull(rd("sales_target")) >= running_total Then
 
                     If g = 0 Then
 

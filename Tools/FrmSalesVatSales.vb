@@ -22,11 +22,11 @@ WHERE
   AND sr.`LOCATION_ID` = '{cmbLocation_ID.SelectedValue}'
   AND  sr.`DATE` between '{ DateFormatMySql(dtpDateFrom.Value)}' and '{DateFormatMySql(dtpDateTo.Value)}'"
 
-        LoadDataGridView(dgvDataList, SQL)
+        GS_LoadDataGridView(dgvDataList, SQL)
 
         For I As Integer = 0 To dgvDataList.Rows.Count - 1
             With dgvDataList.Rows(I)
-                If NumIsNull(.Cells("Tax Amount").Value) = NumIsNull(.Cells("Journal Amount").Value) Then
+                If GF_NumIsNull(.Cells("Tax Amount").Value) = GF_NumIsNull(.Cells("Journal Amount").Value) Then
                     .DefaultCellStyle.ForeColor = Color.Blue
 
                 Else
@@ -40,7 +40,7 @@ WHERE
 
     Private Sub FrmSalesVatSales_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbLocation_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLocation_ID, "Select * from location", "ID", "NAME")
         dtpDateFrom.Value = gsFirstDate
         cmbLocation_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub

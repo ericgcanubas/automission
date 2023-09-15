@@ -23,7 +23,7 @@ Public Class FrmTaxCredit
         cmbACCOUNTS_RECEIVABLE_ID.Visible = gsShowAccounts
 
         tsTITLE.Text = gsSubMenuForm
-        ComboBoxLoad(cmbEWT_ID, "select * from tax where tax_type='2' order by ID", "ID", "NAME")
+        GS_ComboBoxLoad(cmbEWT_ID, "select * from tax where tax_type='2' order by ID", "ID", "NAME")
         Dim chk As New DataGridViewCheckBoxColumn With {
             .HeaderText = "  ",
             .Name = "SELECTED"
@@ -77,10 +77,10 @@ Public Class FrmTaxCredit
         End If
     End Sub
     Private Sub ComboBoxRefresh()
-        ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
 
-        ComboBoxLoad(cmbCUSTOMER_ID, "select ID,NAME from contact where type='1'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCUSTOMER_ID, "select ID,NAME from contact where type='1'", "ID", "NAME")
 
     End Sub
 
@@ -99,10 +99,10 @@ Public Class FrmTaxCredit
 
         Try
 
-            Dim rd As OdbcDataReader = SqlReader("select RATE,TAX_ACCOUNT_ID from TAX where ID ='" & NumIsNull(cmbEWT_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select RATE,TAX_ACCOUNT_ID from TAX where ID ='" & GF_NumIsNull(cmbEWT_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblEWT_RATE.Text = NumIsNull(rd("RATE"))
-                lblEWT_ACCOUNT_ID.Text = NumIsNull(rd("TAX_ACCOUNT_ID"))
+                lblEWT_RATE.Text = GF_NumIsNull(rd("RATE"))
+                lblEWT_ACCOUNT_ID.Text = GF_NumIsNull(rd("TAX_ACCOUNT_ID"))
             Else
                 lblEWT_RATE.Text = ""
                 lblEWT_ACCOUNT_ID.Text = ""
@@ -137,16 +137,16 @@ Public Class FrmTaxCredit
         Try
 
             '   cn.Open()
-            Dim rd As OdbcDataReader = SqlReader("SELECT B.`ID` as `INVOICE_ID`,B.`DATE`,B.`CODE`,B.`AMOUNT`,B.`BALANCE_DUE`,   B.`TAXABLE_AMOUNT`,B.ACCOUNTS_RECEIVABLE_ID FROM Invoice AS B Where B.`Customer_ID` = '" & prPAY_ID & "' and B.LOCATION_ID ='" & NumIsNull(cmbLOCATION_ID.SelectedValue) & "'  GROUP BY B.`ID`,B.`DATE`,B.`CODE`,B.`AMOUNT`,B.`BALANCE_DUE`, B.`TAXABLE_AMOUNT`")
+            Dim rd As OdbcDataReader = SqlReader("SELECT B.`ID` as `INVOICE_ID`,B.`DATE`,B.`CODE`,B.`AMOUNT`,B.`BALANCE_DUE`,   B.`TAXABLE_AMOUNT`,B.ACCOUNTS_RECEIVABLE_ID FROM Invoice AS B Where B.`Customer_ID` = '" & prPAY_ID & "' and B.LOCATION_ID ='" & GF_NumIsNull(cmbLOCATION_ID.SelectedValue) & "'  GROUP BY B.`ID`,B.`DATE`,B.`CODE`,B.`AMOUNT`,B.`BALANCE_DUE`, B.`TAXABLE_AMOUNT`")
 
             While rd.Read
                 Dim INVOICE_ID As Integer = rd("INVOICE_ID")
                 Dim dTax As Double = fInvoiceSumTaxApplied_Amount(INVOICE_ID, prPAY_ID)
-                Dim Taxable_Amount As Double = NumIsNull(rd("TAXABLE_AMOUNT"))
+                Dim Taxable_Amount As Double = GF_NumIsNull(rd("TAXABLE_AMOUNT"))
 
                 dTax = GetAppliedCreditTax(INVOICE_ID, ID)
 
-                Dim dBalance As Double = NumIsNull(rd("BALANCE_DUE")) + dTax
+                Dim dBalance As Double = GF_NumIsNull(rd("BALANCE_DUE")) + dTax
 
                 Dim bSelected As Boolean = False
                 If dTax <> 0 Then
@@ -154,7 +154,7 @@ Public Class FrmTaxCredit
                 End If
                 'Open New Item Transaction
                 If dBalance <> 0 Then
-                    Additem(INVOICE_ID, bSelected, rd("Date"), rd("CODE"), NumIsNull(rd("AMOUNT")), Taxable_Amount, dBalance, dTax, NumIsNull(rd("ACCOUNTS_RECEIVABLE_ID")))
+                    Additem(INVOICE_ID, bSelected, rd("Date"), rd("CODE"), GF_NumIsNull(rd("AMOUNT")), Taxable_Amount, dBalance, dTax, GF_NumIsNull(rd("ACCOUNTS_RECEIVABLE_ID")))
                 End If
             End While
             rd.Close()
@@ -222,7 +222,7 @@ Public Class FrmTaxCredit
             Dim sQuery As String = "Select AMOUNT_WITHHELD AS A from `TAX_CREDIT_invoices` where TAX_CREDIT_ID = '" & prTAX_CREDIT_ID & "' and Invoice_id = '" & prInvoice_ID & "' Limit 1"
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                v = NumIsNull(rd("A"))
+                v = GF_NumIsNull(rd("A"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -373,18 +373,18 @@ Public Class FrmTaxCredit
 
         If IsNew = True Then
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("TAX_CREDIT", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("TAX_CREDIT", cmbLOCATION_ID.SelectedValue)
             End If
 
             ID = ObjectTypeMapId("TAX_CREDIT")
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO tax_credit ({SQL_Field},ID,RECORDED_ON,STATUS,STATUS_DATE) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',15,'{GetDateTimeNowSql()}') ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
             tChangeAccept = True
             SqlExecuted("UPDATE `tax_credit` SET " & SqlUpdate(Me) & " WHERE ID ='" & ID & "' ")
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
         If GF_IsTransactionSuccess(ID, "TAX_CREDIT") = False Then
@@ -441,7 +441,7 @@ Public Class FrmTaxCredit
 
                     '==============================================
                     If gsSkipJournalEntry = False Then
-                        GS_AccountJournalExecute(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value, 73, GET_ID, dtpDATE.Value, 1, NumIsNull(.Cells("AMT_WITHHOLDAMT").Value), gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value, 73, GET_ID, dtpDATE.Value, 1, GF_NumIsNull(.Cells("AMT_WITHHOLDAMT").Value), gsJOURNAL_NO_FORM)
                     End If
                     '===============================================
                 Else
@@ -485,7 +485,7 @@ Public Class FrmTaxCredit
     Private Sub UpdateInvoiceBalance(ByVal prInvoice_Id As String, ByVal prCustomer_ID As String)
 
         Dim dTotal_Payment As Double = fGetSumPaymentApplied(prInvoice_Id, prCustomer_ID) + fGetSumCreditApplied(prInvoice_Id, prCustomer_ID) + fInvoiceSumTaxApplied_Amount(prInvoice_Id, prCustomer_ID)
-        Dim dTotal_Amount As Double = GetNumberFieldValue("INVOICE", "ID", prInvoice_Id, "AMOUNT")
+        Dim dTotal_Amount As Double = GF_GetNumberFieldValue("INVOICE", "ID", prInvoice_Id, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer
 
@@ -512,7 +512,7 @@ Public Class FrmTaxCredit
             End If
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
-                CursorLoadingOn(True)
+                GS_CursorLoadingOn(True)
                 ' fJournalTransaction_Tax_Credit_Delete(ID)
                 For i As Integer = 0 To dgvInvoice.Rows.Count - 1
                     With dgvInvoice.Rows(i)
@@ -532,11 +532,11 @@ Public Class FrmTaxCredit
                 End If
                 SqlExecuted("DELETE FROM `tax_credit` WHERE ID = '" & ID & "' limit 1;")
                 DeleteNotify(Me)
-                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ClearInfo()
                 IsNew = True
                 ID = 0
-                CursorLoadingOn(False)
+                GS_CursorLoadingOn(False)
             End If
 
         End If
@@ -546,7 +546,7 @@ Public Class FrmTaxCredit
 
     Private Sub FrmTaxCredit_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         dgvInvoice.Columns("SELECTED").Width = 30
-        ViewNotSort(dgvInvoice)
+        GS_ViewNotSort(dgvInvoice)
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
@@ -692,7 +692,7 @@ Public Class FrmTaxCredit
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
         If rd.Read Then
-            i = NumIsNull(rd("sub_id"))
+            i = GF_NumIsNull(rd("sub_id"))
             F = GetFormModule(rd("Form"))
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
             Img = Image.FromFile(folder & rd("image_file"))

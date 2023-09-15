@@ -44,31 +44,31 @@ Public Class FrmDefaultValue
         Dim sQueryAccount As String = "SELECT a.ID, a.NAME  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
 
 
-        Dim cmd As OdbcCommand = CommandObject(sQueryAccount)
+        Dim cmd As OdbcCommand = GF_CommandObject(sQueryAccount)
 
-        ' CommandObjectComboBoxLoad(cmd, cmbDefaultAccountReceivableId, "ID", "T")
-        ComboBoxLoad(cmbPOSDefaultCustomerId, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-        CommandObjectComboBoxLoad(cmd, cmbDefaultAccountReceivableId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbDefaultAccountPayableId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbDefaultUndepositedFundAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbDefaultItemAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbStockTransferAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbStockReceivedAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbInterLocationAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbDrawerAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbPettyCashAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbCashOverShortExpenseId, "ID", "T")
+        ' GS_CommandObjectComboBoxLoad(cmd, cmbDefaultAccountReceivableId, "ID", "T")
+        GS_ComboBoxLoad(cmbPOSDefaultCustomerId, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultAccountReceivableId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultAccountPayableId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultUndepositedFundAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultItemAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbStockTransferAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbStockReceivedAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbInterLocationAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDrawerAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbPettyCashAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbCashOverShortExpenseId, "ID", "T")
 
-        CommandObjectComboBoxLoad(cmd, cmbDefaultItemAssetAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbDefaultItemCOGSAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbDefaultItemIncomeAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbDefaultItemOtherChargeAccountId, "ID", "T")
-        CommandObjectComboBoxLoad(cmd, cmbDefaultItemDiscountAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultItemAssetAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultItemCOGSAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultItemIncomeAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultItemOtherChargeAccountId, "ID", "T")
+        GS_CommandObjectComboBoxLoad(cmd, cmbDefaultItemDiscountAccountId, "ID", "T")
 
         '
 
-        ComboBoxLoad(cmbDefaultItemClassId, "select * from item_class  ", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbmeasure_hours, "SELECT ID,NAME FROM `unit_of_measure`", "ID", "NAME")
+        GS_ComboBoxLoad(cmbDefaultItemClassId, "select * from item_class  ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbmeasure_hours, "SELECT ID,NAME FROM `unit_of_measure`", "ID", "NAME")
 
 
 
@@ -113,6 +113,6 @@ Public Class FrmDefaultValue
 
         End Try
 
-        ComboBoxLoad(cmbDefaultItemSubClassId, $"SELECT * FROM item_sub_class WHERE CLASS_ID ='{CLASS_ID}' ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbDefaultItemSubClassId, $"SELECT * FROM item_sub_class WHERE CLASS_ID ='{CLASS_ID}' ", "ID", "DESCRIPTION")
     End Sub
 End Class

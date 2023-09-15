@@ -3,7 +3,7 @@ Public Class FrmItem
     Public item_BS As BindingSource
     Private Sub fRefreshDataGrid()
 
-        LoadDataGridViewBinding(dgvItem, "SELECT 
+        GS_LoadDataGridViewBinding(dgvItem, "SELECT 
   i.ID,
   i.CODE AS `Code`,
   i.`DESCRIPTION` AS `Description`,

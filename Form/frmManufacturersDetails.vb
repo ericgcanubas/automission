@@ -30,7 +30,7 @@ Public Class FrmManufacturersDetails
         End If
 
         If txtCODE.Text = "" Then
-            txtCODE.Text = Format(Val(GetMaxField("CODE", "manufacturer")), "0000")
+            txtCODE.Text = Format(Val(GF_GetMaxField("CODE", "manufacturer")), "0000")
         End If
 
 

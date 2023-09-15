@@ -1,67 +1,67 @@
 ﻿Public Class FrmPOSNumpad
     Public gsValue As String
     Public gsEnter As Boolean = False
-    Private Sub fGetValue()
-        fGetLimit()
+    Private Sub GetValue()
+        GetLimit()
         lblValue.Text = gsValue
 
     End Sub
-    Private Sub frmPOSNumpad_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPOSNumpad_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         gsEnter = False
 
 
-        fGetValue()
+        GetValue()
     End Sub
 
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
 
-        gsValue = gsValue & "0"
-        fGetValue()
+        gsValue &= "0"
+        GetValue()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        gsValue = gsValue & "1"
-        fGetValue()
+        gsValue &= "1"
+        GetValue()
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        gsValue = gsValue & "2"
-        fGetValue()
+        gsValue &= "2"
+        GetValue()
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        gsValue = gsValue & "3"
-        fGetValue()
+        gsValue &= "3"
+        GetValue()
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        gsValue = gsValue & "4"
-        fGetValue()
+        gsValue &= "4"
+        GetValue()
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        gsValue = gsValue & "5"
-        fGetValue()
+        gsValue &= "5"
+        GetValue()
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        gsValue = gsValue & "6"
-        fGetValue()
+        gsValue &= "6"
+        GetValue()
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-        gsValue = gsValue & "7"
-        fGetValue()
+        gsValue &= "7"
+        GetValue()
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
-        gsValue = gsValue & "8"
-        fGetValue()
+        gsValue &= "8"
+        GetValue()
     End Sub
 
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        gsValue = gsValue & "9"
-        fGetValue()
+        gsValue &= "9"
+        GetValue()
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
@@ -69,8 +69,8 @@
             If gsValue.Contains(".") = True Then
 
             Else
-                gsValue = gsValue & "."
-                fGetValue()
+                gsValue &= "."
+                GetValue()
             End If
 
         Catch ex As Exception
@@ -82,7 +82,7 @@
 
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
         Try
-            Dim L As Integer = NumIsNull(gsValue.Length)
+            Dim L As Integer = GF_NumIsNull(gsValue.Length)
             If L = 0 Then
                 gsValue = ""
             Else
@@ -93,20 +93,20 @@
         End Try
 
 
-        fGetValue()
+        GetValue()
     End Sub
 
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         gsEnter = False
         Me.Close()
     End Sub
 
-    Private Sub btnEnter_Click(sender As Object, e As EventArgs) Handles btnEnter.Click
+    Private Sub BtnEnter_Click(sender As Object, e As EventArgs) Handles btnEnter.Click
         gsEnter = True
         Me.Close()
 
     End Sub
-    Private Sub fGetLimit()
+    Private Sub GetLimit()
         If gsValue = "" Then
             Exit Sub
         End If
@@ -117,18 +117,18 @@
 
             If gsValue.Substring(N, 1) = "." Then
                 got_point = True
-                Get_Collect = Get_Collect & gsValue.Substring(N, 1)
+                Get_Collect &= gsValue.Substring(N, 1)
             Else
                 If got_point = True Then
                     If got_point_i < 2 Then
-                        Get_Collect = Get_Collect & gsValue.Substring(N, 1)
+                        Get_Collect &= gsValue.Substring(N, 1)
 
                     Else
                         Exit For
                     End If
-                    got_point_i = got_point_i + 1
+                    got_point_i += 1
                 Else
-                    Get_Collect = Get_Collect & gsValue.Substring(N, 1)
+                    Get_Collect &= gsValue.Substring(N, 1)
                 End If
 
             End If

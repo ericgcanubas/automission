@@ -10,7 +10,7 @@
         Me.Text = $"POS LOG  #{gsPOS_LOG_ID}  Date on {DateFormatStandard(gsPOS_DATE)}"
         fLabel_Digital_M(lblTOTAL)
         fLabel_Digital_M(lblTransactionNo)
-        lblCashierName.Text = GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
+        lblCashierName.Text = GF_GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
         lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
         lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
         fCOUNT_LOAD()
@@ -58,7 +58,7 @@
         End If
     End Sub
     Private Sub fPOS_COUNT()
-        gsCASH_COUNT_ID = GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
+        gsCASH_COUNT_ID = GF_GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
     End Sub
     Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
         '  ContextMenuStrip1.Show(Me, btnReport.Location)
@@ -156,7 +156,7 @@
         CryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
 
-        CryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
+        CryParameterInsertValue(gscryRpt, GF_GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
         CryParameterInsertValue(gscryRpt, lblCashierName.Text, "user_name")
@@ -195,7 +195,7 @@
         CryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
 
-        CryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
+        CryParameterInsertValue(gscryRpt, GF_GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
         CryParameterInsertValue(gscryRpt, lblCashierName.Text, "user_name")

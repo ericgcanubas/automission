@@ -3,10 +3,10 @@ Public Class FrmReportComponentItems
     Public ID As Integer
     Private Sub FrmReportComponentItems_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbTYPE, "SELECT * FROM COMPONENT_TYPE ", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbPARAMETER_ID1, "select ID,`NAME` FROM COMPONENT ", "ID", "NAME")
-        ComboBoxLoad(cmbPARAMETER_ID2, "select ID,`NAME` FROM COMPONENT ", "ID", "NAME")
-        ComboBoxLoad(cmbPARAMETER_ID3, "select ID,`NAME` FROM COMPONENT ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbTYPE, "SELECT * FROM COMPONENT_TYPE ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbPARAMETER_ID1, "select ID,`NAME` FROM COMPONENT ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPARAMETER_ID2, "select ID,`NAME` FROM COMPONENT ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPARAMETER_ID3, "select ID,`NAME` FROM COMPONENT ", "ID", "NAME")
         SqlExecutedUsingReading(Me, "select * FROM COMPONENT WHERE ID = '" & ID & "' limit 1")
 
     End Sub
@@ -22,7 +22,7 @@ Public Class FrmReportComponentItems
         End If
 
         If ID = 0 Then
-            ID = GetMaxField("ID", "COMPONENT")
+            ID = GF_GetMaxField("ID", "COMPONENT")
 
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO COMPONENT ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")

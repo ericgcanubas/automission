@@ -80,7 +80,7 @@ GROUP BY m.`Type`,m.date,m.code,m.contact_id,a.location_id,m.notes,m.contact_nam
 "
 
     Private Sub BtnReferesh_Click(sender As Object, e As EventArgs) Handles btnReferesh.Click
-        LoadDataGridViewStandard(dgvCLASS, sQuery)
+        GS_LoadDataGridViewStandard(dgvCLASS, sQuery)
         lblTotal.Text = "Total Record " & dgvCLASS.Rows.Count
     End Sub
 

@@ -7,7 +7,7 @@
     End Sub
 
     Private Sub RefreshLoad()
-        LoadDataGridViewBinding(dgvCLASS, "Select ID,`Name`, if(`Inactive`=0,'No','Yes') as `Inactive` from Class ", item_BS)
+        GS_LoadDataGridViewBinding(dgvCLASS, "Select ID,`Name`, if(`Inactive`=0,'No','Yes') as `Inactive` from Class ", item_BS)
         dgvCLASS.Columns(0).Visible = False
         ViewColumn(dgvCLASS, 36)
     End Sub

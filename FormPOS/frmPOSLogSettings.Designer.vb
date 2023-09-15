@@ -78,7 +78,7 @@ Partial Class FrmPOSLogSettings
         'btnCancel
         '
         Me.btnCancel.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCancel.Location = New System.Drawing.Point(394, 204)
+        Me.btnCancel.Location = New System.Drawing.Point(354, 175)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(113, 30)
         Me.btnCancel.TabIndex = 36
@@ -88,7 +88,7 @@ Partial Class FrmPOSLogSettings
         'btnSave
         '
         Me.btnSave.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSave.Location = New System.Drawing.Point(265, 204)
+        Me.btnSave.Location = New System.Drawing.Point(225, 175)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(113, 30)
         Me.btnSave.TabIndex = 35
@@ -149,11 +149,11 @@ Partial Class FrmPOSLogSettings
         Me.xchkOR_REQUIRED.Text = "POS When Save O.R# is  Required"
         Me.xchkOR_REQUIRED.UseVisualStyleBackColor = False
         '
-        'frmPOSLogSettings
+        'FrmPOSLogSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 14.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(515, 237)
+        Me.ClientSize = New System.Drawing.Size(515, 218)
         Me.Controls.Add(Me.chkPOSPrintPreview)
         Me.Controls.Add(Me.xchkPOS_STARTING_CASH)
         Me.Controls.Add(Me.xchkOR_REQUIRED)
@@ -169,7 +169,7 @@ Partial Class FrmPOSLogSettings
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSLogSettings"
+        Me.Name = "FrmPOSLogSettings"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

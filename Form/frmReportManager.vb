@@ -24,7 +24,7 @@
         RefreshComponent()
     End Sub
     Public Sub RefreshComponent()
-        LoadDataGridView(dgvReportComponent, "Select r.ID,r.LINE_NO as `POSITION NO.`,t.DESCRIPTION as `TYPE`,c.`NAME` from COMPONENT as c inner join  COMPONENT_TYPE as t on t.ID = c.TYPE inner join report_components as r on r.COMPONENT_ID = c.ID  WHERE r.SUB_ID = '" & gsSUB_ID & "' order by r.ID")
+        GS_LoadDataGridView(dgvReportComponent, "Select r.ID,r.LINE_NO as `POSITION NO.`,t.DESCRIPTION as `TYPE`,c.`NAME` from COMPONENT as c inner join  COMPONENT_TYPE as t on t.ID = c.TYPE inner join report_components as r on r.COMPONENT_ID = c.ID  WHERE r.SUB_ID = '" & gsSUB_ID & "' order by r.ID")
         dgvReportComponent.Columns(0).Visible = False
     End Sub
 

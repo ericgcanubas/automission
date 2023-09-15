@@ -5,7 +5,7 @@
         RefreshData()
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvPaymentTerms, "select  ID,CODE,DESCRIPTION,INACTIVE from payment_terms", item_BS)
+        GS_LoadDataGridViewBinding(dgvPaymentTerms, "select  ID,CODE,DESCRIPTION,INACTIVE from payment_terms", item_BS)
 
         With dgvPaymentTerms.Columns
             .Item(0).Visible = False

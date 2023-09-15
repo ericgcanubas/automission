@@ -9,13 +9,13 @@ Public Class FrmPOSLogSwitch
         Dim rd As OdbcDataReader = SqlReader($"select  l.TRANSACTION_COUNT,c.TOTAL  from POS_LOG as l inner join  POS_CASH_COUNT as C  on c.ID = l.CASH_COUNT_ID Where  DATE(l.recorded_On) ='{DateFormatMySql(gsPOS_DATE)}' and l.POS_MACHINE_ID='{gsPOS_MACHINE_ID}' and l.CASHIER_ID = '{gsCashier_ID}' and l.LOCATION_ID ='{gsDefault_LOCATION_ID}'")
 
         While rd.Read
-            EntryCount = EntryCount + NumIsNull(rd("TRANSACTION_COUNT"))
-            CashCount = CashCount + NumIsNull(rd("TOTAL"))
+            EntryCount += GF_NumIsNull(rd("TRANSACTION_COUNT"))
+            CashCount += GF_NumIsNull(rd("TOTAL"))
 
-            lblLastCashCount.Text = NumIsNull(rd("TOTAL"))
-            lblLastCountEntry.Text = NumIsNull(rd("TRANSACTION_COUNT"))
+            lblLastCashCount.Text = GF_NumIsNull(rd("TOTAL"))
+            lblLastCountEntry.Text = GF_NumIsNull(rd("TRANSACTION_COUNT"))
 
-            POS_COUNT = POS_COUNT + 1
+            POS_COUNT += 1
 
         End While
 

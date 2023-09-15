@@ -109,7 +109,7 @@ Module modMenuControl
             Dim rd As OdbcDataReader = SqlReader(SQL)
 
             If rd.Read Then
-                bModal = NumIsNull(rd("modal"))
+                bModal = GF_NumIsNull(rd("modal"))
 
             End If
             rd.Close()
@@ -211,7 +211,7 @@ Module modMenuControl
         Dim Img As Image = Nothing
         Dim bModal As Boolean = False
         If rd.Read Then
-            i = NumIsNull(rd("sub_id"))
+            i = GF_NumIsNull(rd("sub_id"))
             F = GetFormModule(rd("Form"))
             Try
                 Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
@@ -228,7 +228,7 @@ Module modMenuControl
             Else
                 F.Text = rd("description")
                 F.Tag = sub_ID
-                bModal = NumIsNull(rd("modal"))
+                bModal = GF_NumIsNull(rd("modal"))
 
 
                 If bModal = True Then

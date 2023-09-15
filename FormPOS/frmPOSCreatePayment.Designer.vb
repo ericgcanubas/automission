@@ -63,22 +63,24 @@ Partial Class FrmPOSCreatePayment
         '
         'Label2
         '
+        Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(341, 68)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(296, 23)
+        Me.Label2.Size = New System.Drawing.Size(191, 16)
         Me.Label2.TabIndex = 21
         Me.Label2.Text = "SELECTED ORDER SERVED"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label1
         '
+        Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(12, 68)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(263, 23)
+        Me.Label1.Size = New System.Drawing.Size(200, 16)
         Me.Label1.TabIndex = 20
         Me.Label1.Text = "AVAILABLE ORDER SERVED"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -412,12 +414,12 @@ Partial Class FrmPOSCreatePayment
         'Label4
         '
         Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(13, 7)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(206, 24)
+        Me.Label4.Size = New System.Drawing.Size(206, 27)
         Me.Label4.TabIndex = 45
-        Me.Label4.Text = "Buyer name"
+        Me.Label4.Text = "Customer :"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Label4.UseMnemonic = False
         '
@@ -426,9 +428,9 @@ Partial Class FrmPOSCreatePayment
         Me.xlblCustomer_Name.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.xlblCustomer_Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.xlblCustomer_Name.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xlblCustomer_Name.Location = New System.Drawing.Point(17, 34)
+        Me.xlblCustomer_Name.Location = New System.Drawing.Point(12, 32)
         Me.xlblCustomer_Name.Name = "xlblCustomer_Name"
-        Me.xlblCustomer_Name.Size = New System.Drawing.Size(619, 34)
+        Me.xlblCustomer_Name.Size = New System.Drawing.Size(624, 31)
         Me.xlblCustomer_Name.TabIndex = 44
         Me.xlblCustomer_Name.Text = "JUAN DELA CRUZ"
         Me.xlblCustomer_Name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -477,11 +479,10 @@ Partial Class FrmPOSCreatePayment
         Me.Label5.Text = "NOTES"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'frmPOSCreatePayment
+        'FrmPOSCreatePayment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(648, 529)
         Me.Controls.Add(Me.txtNOTES)
         Me.Controls.Add(Me.Label5)
@@ -523,7 +524,7 @@ Partial Class FrmPOSCreatePayment
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSCreatePayment"
+        Me.Name = "FrmPOSCreatePayment"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

@@ -1,7 +1,7 @@
 ﻿Public Class FrmStatement
     Private Sub FrmStatement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DataRangeLoad()
-        ComboBoxLoad(cmbCUSTOMER_ID, "select * from contact where type='1'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCUSTOMER_ID, "select * from contact where type='1'", "ID", "NAME")
         RefreshLocation()
     End Sub
     Private Sub DataRangeLoad()
@@ -63,7 +63,7 @@
 
     Private Sub RefreshLocation()
 
-        ComboBoxLoad(cmbLOCATION_ID, "SELECT  '*' AS `id`,'All Location' as `name`  UNION SELECT  `id`,`name` FROM location ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "SELECT  '*' AS `id`,'All Location' as `name`  UNION SELECT  `id`,`name` FROM location ", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
     End Sub

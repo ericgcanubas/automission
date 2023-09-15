@@ -74,8 +74,8 @@ Public Class FrmBuildAssembly
 
     End Sub
     Private Sub RefreshCombo()
-        ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
-        ComboBoxLoad(cmbASSEMBLY_ITEM_ID, "SELECT  ID,DESCRIPTION FROM ITEM WHERE INACTIVE='0' AND TYPE ='1'", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbASSEMBLY_ITEM_ID, "SELECT  ID,DESCRIPTION FROM ITEM WHERE INACTIVE='0' AND TYPE ='1'", "ID", "DESCRIPTION")
     End Sub
     Private Sub ColumnGrid()
         With dgvComponents.Columns
@@ -104,9 +104,9 @@ Public Class FrmBuildAssembly
     End Sub
     Private Sub LoadUnitList()
         Try
-            ComboBoxLoad(cmbUNIT_ID, "select ID,SYMBOL from unit_of_measure where  ID = '0' limit 1 ", "ID", "SYMBOL")
+            GS_ComboBoxLoad(cmbUNIT_ID, "select ID,SYMBOL from unit_of_measure where  ID = '0' limit 1 ", "ID", "SYMBOL")
             Dim in_sql As String = ""
-            Basic_Unit_ID = GetStringFieldValue("ITEM", "ID", cmbASSEMBLY_ITEM_ID.SelectedValue, "BASE_UNIT_ID") 'Gate Unit Base_ID
+            Basic_Unit_ID = GF_GetStringFieldValue("ITEM", "ID", cmbASSEMBLY_ITEM_ID.SelectedValue, "BASE_UNIT_ID") 'Gate Unit Base_ID
             If Basic_Unit_ID <> "" Then
 
                 in_sql = "In ('" & Basic_Unit_ID & "'"
@@ -118,7 +118,7 @@ Public Class FrmBuildAssembly
                 rd.Close()
 
                 in_sql &= ")"
-                ComboBoxLoad(cmbUNIT_ID, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
+                GS_ComboBoxLoad(cmbUNIT_ID, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
                 cmbUNIT_ID.SelectedValue = Basic_Unit_ID
                 lblUNIT_BASE_QUANTITY.Text = "1"
             End If
@@ -157,7 +157,7 @@ Public Class FrmBuildAssembly
                 I_ON_HAND = Val(fItemInventoryReturnValue(rd("ITEM_ID"), cmbLOCATION_ID.SelectedValue, 19, i_ID, dtpDATE.Value, "ENDING_QUANTITY"))
                 If i_ASSET_ACCOUNT_ID = "" Then
 
-                    i_ASSET_ACCOUNT_ID = NumIsNull(rd("ASSET_ACCOUNT_ID"))
+                    i_ASSET_ACCOUNT_ID = GF_NumIsNull(rd("ASSET_ACCOUNT_ID"))
                 End If
 
                 If IsNew = False And i_NEEDED = 0 Then
@@ -188,10 +188,10 @@ Public Class FrmBuildAssembly
 
             Dim rd As OdbcDataReader = SqlReader("select ID,QUANTITY,AMOUNT,ASSET_ACCOUNT_ID from build_assembly_items where BUILD_ASSEMBLY_ID = '" & ID & "' and item_ID = '" & prItem_ID & "' Limit 1")
             If rd.Read Then
-                prID = NumIsNull(rd("ID"))
-                prQty = NumIsNull(rd("QUANTITY"))
-                prAmount = NumIsNull(rd("AMOUNT"))
-                prASSET_ACCOUNT_ID = TextIsNull(rd("ASSET_ACCOUNT_ID"))
+                prID = GF_NumIsNull(rd("ID"))
+                prQty = GF_NumIsNull(rd("QUANTITY"))
+                prAmount = GF_NumIsNull(rd("AMOUNT"))
+                prASSET_ACCOUNT_ID = GF_TextIsNull(rd("ASSET_ACCOUNT_ID"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -226,7 +226,7 @@ Public Class FrmBuildAssembly
 
             Dim Qty As Double = FrmInsertValue.gsValue
             GetItemApplied(dgvComponents.Rows(i).Cells("ITEM_ID").Value, i_NEEDED, i_AMOUNT, i_ASSET_ACCOUNT_ID, i_ID)
-            Dim END_UNIT_COST As Double = GetNumberFieldValue("item", "id", dgvComponents.Rows(i).Cells("ITEM_ID").Value, "cost")
+            Dim END_UNIT_COST As Double = GF_GetNumberFieldValue("item", "id", dgvComponents.Rows(i).Cells("ITEM_ID").Value, "cost")
             dgvComponents.Rows(i).Cells("QTY_NEEDED").Value = Qty
             dgvComponents.Rows(i).Cells("AMOUNT").Value = NumberFormatFixed(Qty * END_UNIT_COST)
         End If
@@ -242,16 +242,16 @@ Public Class FrmBuildAssembly
 
     Private Sub CmbUNIT_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbUNIT_ID.SelectedIndexChanged
 
-        If Basic_Unit_ID = NumIsNull(cmbUNIT_ID.SelectedValue) Then
+        If Basic_Unit_ID = GF_NumIsNull(cmbUNIT_ID.SelectedValue) Then
             lblUNIT_BASE_QUANTITY.Text = "1"
         Else
 
             Try
 
-                Dim rd As OdbcDataReader = SqlReader("select quantity as q, rate as r from item_units where unit_id = '" & NumIsNull(cmbUNIT_ID.SelectedValue) & "' and item_id ='" & cmbASSEMBLY_ITEM_ID.SelectedValue & "' limit 1")
+                Dim rd As OdbcDataReader = SqlReader("select quantity as q, rate as r from item_units where unit_id = '" & GF_NumIsNull(cmbUNIT_ID.SelectedValue) & "' and item_id ='" & cmbASSEMBLY_ITEM_ID.SelectedValue & "' limit 1")
                 If rd.Read Then
-                    If NumIsNull(rd("q")) <> 0 Then
-                        lblUNIT_BASE_QUANTITY.Text = NumIsNull(rd("q"))
+                    If GF_NumIsNull(rd("q")) <> 0 Then
+                        lblUNIT_BASE_QUANTITY.Text = GF_NumIsNull(rd("q"))
                     Else
                         lblUNIT_BASE_QUANTITY.Text = "1"
                     End If
@@ -300,14 +300,14 @@ Public Class FrmBuildAssembly
             lblASSET_ACCOUNT_ID.Text = gsDefault_ITEM_ACCOUNT_ID
             dtpDATE.Checked = True
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("BUILD_ASSEMBLY", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("BUILD_ASSEMBLY", cmbLOCATION_ID.SelectedValue)
             End If
 
 
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO build_assembly ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',15) ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", "", "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         Else
 
 
@@ -315,13 +315,13 @@ Public Class FrmBuildAssembly
             GotChangeTransaction("BUILD_ASSEMBLY", ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue)
             If gsGotChangeDate = True Then
                 'Main
-                AccountJournalChangeDate(dtpDATE.Value, NumIsNull(lblASSET_ACCOUNT_ID.Text), 70, ID, gsLast_Location_ID, gsLast_Date)
-                ItemInventoryChangeDate(dtpDATE.Value, cmbASSEMBLY_ITEM_ID.SelectedValue, 19, NumIsNull(ID), gsLast_Location_ID, gsLast_Date)
+                AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(lblASSET_ACCOUNT_ID.Text), 70, ID, gsLast_Location_ID, gsLast_Date)
+                ItemInventoryChangeDate(dtpDATE.Value, cmbASSEMBLY_ITEM_ID.SelectedValue, 19, GF_NumIsNull(ID), gsLast_Location_ID, gsLast_Date)
             End If
             If gsGotChangeLocation1 = True Then
                 'Main
-                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(lblASSET_ACCOUNT_ID.Text), 70, ID, dtpDATE.Value, gsLast_Location_ID)
-                ItemInventoryChangeLocation(cmbLOCATION_ID.SelectedValue, cmbASSEMBLY_ITEM_ID.SelectedValue, 19, NumIsNull(ID), dtpDATE.Value, gsLast_Location_ID)
+                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(lblASSET_ACCOUNT_ID.Text), 70, ID, dtpDATE.Value, gsLast_Location_ID)
+                ItemInventoryChangeLocation(cmbLOCATION_ID.SelectedValue, cmbASSEMBLY_ITEM_ID.SelectedValue, 19, GF_NumIsNull(ID), dtpDATE.Value, gsLast_Location_ID)
             End If
 
 
@@ -329,19 +329,19 @@ Public Class FrmBuildAssembly
             tChangeAccept = True
             Dim sQuery As String = SqlUpdate(Me)
             SqlExecuted("UPDATE build_assembly SET " & sQuery & " Where ID ='" & ID & "'")
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", "", "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
 
 
 
         'INVENTORY ITEM
-        fItem_Inventory_SQL(cmbASSEMBLY_ITEM_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, numQUANTITY.Value, 0, 19, NumIsNull(ID), dtpDATE.Value, NumIsNull(cmbBATCH_ID.SelectedValue))
+        fItem_Inventory_SQL(cmbASSEMBLY_ITEM_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, numQUANTITY.Value, 0, 19, GF_NumIsNull(ID), dtpDATE.Value, GF_NumIsNull(cmbBATCH_ID.SelectedValue))
 
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            GS_AccountJournalExecute(lblASSET_ACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbASSEMBLY_ITEM_ID.SelectedValue, 70, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            GS_AccountJournalExecute(lblASSET_ACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbASSEMBLY_ITEM_ID.SelectedValue, 70, ID, dtpDATE.Value, 0, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
         End If
         '================================
         SaveAppliedItem()
@@ -386,45 +386,45 @@ Public Class FrmBuildAssembly
 
                     If qty = 0 Then
                         'DELETE
-                        Dim xID As String = GetStringFieldValueByTwoCondtion("build_assembly_items", "build_assembly_id", ID, "item_Id", .Cells("item_ID").Value, "ID")
+                        Dim xID As String = GF_GetStringFieldValueByTwoCondtion("build_assembly_items", "build_assembly_id", ID, "item_Id", .Cells("item_ID").Value, "ID")
                         If xID <> "" Then
                             SqlExecuted("DELETE FROM `build_assembly_items` where  ID = '" & xID & "' limit 1 ")
-                            GS_ItemInventoryRemove(19, xID, dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
-                            fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                            GS_ItemInventoryRemove(19, xID, dtpDATE.Value, GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
+                            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                             If gsSkipJournalEntry = False Then
-                                GS_AccountJournalDelete(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 71, NumIsNull(xID), dtpDATE.Value)
+                                GS_AccountJournalDelete(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 71, GF_NumIsNull(xID), dtpDATE.Value)
                             End If
                         End If
 
                     Else
-                        Dim xID As String = GetStringFieldValueByTwoCondtion("build_assembly_items", "build_assembly_id", ID, "item_Id", .Cells("item_ID").Value, "ID")
+                        Dim xID As String = GF_GetStringFieldValueByTwoCondtion("build_assembly_items", "build_assembly_id", ID, "item_Id", .Cells("item_ID").Value, "ID")
                         If gsSkipJournalEntry = False Then
 
                             If gsGotChangeDate = True Then
-                                AccountJournalChangeDate(dtpDATE.Value, NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 71, NumIsNull(xID), gsLast_Location_ID, gsLast_Date)
+                                AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 71, GF_NumIsNull(xID), gsLast_Location_ID, gsLast_Date)
                             End If
 
                             If gsGotChangeLocation1 = True Then
-                                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 71, NumIsNull(xID), dtpDATE.Value, gsLast_Location_ID)
+                                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 71, GF_NumIsNull(xID), dtpDATE.Value, gsLast_Location_ID)
                             End If
                         End If
 
                         If gsGotChangeDate = True Then
-                            ItemInventoryChangeDate(dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), 19, NumIsNull(xID), gsLast_Location_ID, gsLast_Date)
+                            ItemInventoryChangeDate(dtpDATE.Value, GF_NumIsNull(.Cells("ITEM_ID").Value), 19, GF_NumIsNull(xID), gsLast_Location_ID, gsLast_Date)
                         End If
 
                         If gsGotChangeLocation1 = True Then
-                            ItemInventoryChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("ITEM_ID").Value), 19, NumIsNull(xID), dtpDATE.Value, gsLast_Location_ID)
+                            ItemInventoryChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("ITEM_ID").Value), 19, GF_NumIsNull(xID), dtpDATE.Value, gsLast_Location_ID)
                         End If
 
                         'UPDATE
                         'MISSING FUNCTION
-                        SqlExecuted($"UPDATE `build_assembly_items` set QUANTITY = '" & NumIsNull(.Cells("QTY_NEEDED").Value) & "',AMOUNT='" & .Cells("AMOUNT").Value & "',ASSET_ACCOUNT_ID = " & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & " where  id = '" & xID & "' and  build_assembly_id = '" & ID & "' and item_Id = '" & .Cells("item_ID").Value & "' limit 1;")
+                        SqlExecuted($"UPDATE `build_assembly_items` set QUANTITY = '" & GF_NumIsNull(.Cells("QTY_NEEDED").Value) & "',AMOUNT='" & .Cells("AMOUNT").Value & "',ASSET_ACCOUNT_ID = " & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & " where  id = '" & xID & "' and  build_assembly_id = '" & ID & "' and item_Id = '" & .Cells("item_ID").Value & "' limit 1;")
                         'INVENTORY ITEM
-                        fItem_Inventory_SQL(.Cells("item_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("QTY_NEEDED").Value * -1, 0, 19, NumIsNull(xID), dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
+                        fItem_Inventory_SQL(.Cells("item_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("QTY_NEEDED").Value * -1, 0, 19, GF_NumIsNull(xID), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
                         '===========================================
                         If gsSkipJournalEntry = False Then
-                            GS_AccountJournalExecute(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("item_ID").Value), 71, NumIsNull(xID), dtpDATE.Value, 1, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("item_ID").Value), 71, GF_NumIsNull(xID), dtpDATE.Value, 1, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                         End If
                         '================================
 
@@ -436,10 +436,10 @@ Public Class FrmBuildAssembly
                         Dim i_ID As Double = ObjectTypeMapId("build_assembly_items")
                         SqlExecuted("INSERT INTO `build_assembly_items` SET  ID ='" & i_ID & "', build_assembly_id = '" & ID & "',item_Id = '" & .Cells("item_ID").Value & "', QUANTITY = '" & .Cells("QTY_NEEDED").Value & "',AMOUNT='" & .Cells("AMOUNT").Value & "',ASSET_ACCOUNT_ID = " & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & ";")
                         'INVENTORY ITEM
-                        fItem_Inventory_SQL(.Cells("item_ID").Value, cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("QTY_NEEDED").Value) * -1, 0, 19, NumIsNull(i_ID), dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
+                        fItem_Inventory_SQL(.Cells("item_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QTY_NEEDED").Value) * -1, 0, 19, GF_NumIsNull(i_ID), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
                         '===========================================
                         If gsSkipJournalEntry = False Then
-                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("item_ID").Value, 71, NumIsNull(i_ID), dtpDATE.Value, 1, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("item_ID").Value, 71, GF_NumIsNull(i_ID), dtpDATE.Value, 1, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                         End If
                         '================================
                     End If
@@ -469,7 +469,7 @@ Public Class FrmBuildAssembly
     Private Sub Computed()
         Dim dTotal As Double = 0
         For i As Integer = 0 To dgvComponents.Rows.Count - 1
-            dTotal += NumIsNull(dgvComponents.Rows(i).Cells("AMOUNT").Value)
+            dTotal += GF_NumIsNull(dgvComponents.Rows(i).Cells("AMOUNT").Value)
         Next
         lblAMOUNT.Text = NumberFormatFixed(dTotal)
     End Sub
@@ -528,16 +528,16 @@ Public Class FrmBuildAssembly
             End If
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
-                CursorLoadingOn(True)
+                GS_CursorLoadingOn(True)
                 For N As Integer = 0 To dgvComponents.Rows.Count - 1
                     With dgvComponents.Rows(N)
-                        Dim xID As String = GetStringFieldValueByTwoCondtion("build_assembly_items", "build_assembly_id", ID, "item_Id", .Cells("item_ID").Value, "ID")
+                        Dim xID As String = GF_GetStringFieldValueByTwoCondtion("build_assembly_items", "build_assembly_id", ID, "item_Id", .Cells("item_ID").Value, "ID")
                         If xID <> "" Then
                             SqlExecuted("DELETE FROM `build_assembly_items` where  ID = '" & xID & "' limit 1 ")
-                            GS_ItemInventoryRemove(19, xID, dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
-                            fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                            GS_ItemInventoryRemove(19, xID, dtpDATE.Value, GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
+                            fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
                             If gsSkipJournalEntry = False Then
-                                GS_AccountJournalDelete(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 71, NumIsNull(xID), dtpDATE.Value)
+                                GS_AccountJournalDelete(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, 71, GF_NumIsNull(xID), dtpDATE.Value)
                             End If
 
 
@@ -548,18 +548,18 @@ Public Class FrmBuildAssembly
 
                 '===========================================
                 If gsSkipJournalEntry = False Then
-                    GS_AccountJournalDelete(NumIsNull(lblASSET_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 70, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(GF_NumIsNull(lblASSET_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 70, ID, dtpDATE.Value)
                 End If
                 '================================
 
                 ' SqlExecuted("delete from build_assembly_items where build_assembly_id = '" & ID & "'")
                 SqlExecuted("delete from build_assembly where id = '" & ID & "' limit 1;")
                    DeleteNotify(Me)
-                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", "", "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ID = 0
                 ClearInfo()
                 IsNew = True
-                CursorLoadingOn(False)
+                GS_CursorLoadingOn(False)
             End If
 
 
@@ -570,7 +570,7 @@ Public Class FrmBuildAssembly
             .Item("CODE").Width = 150
             .Item("DESCRIPTION").Width = 400
         End With
-        ViewNotSort(dgvComponents)
+        GS_ViewNotSort(dgvComponents)
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click

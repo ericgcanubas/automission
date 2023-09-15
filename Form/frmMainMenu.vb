@@ -12,7 +12,7 @@ Public Class FrmMainMenu
 
         Dim myIndex As Integer = 0
         While rd.Read
-            If NumIsNull(rd("visible")) = 1 Then
+            If GF_NumIsNull(rd("visible")) = 1 Then
 
 
                 myIndex = gsImgList.Images.IndexOfKey(rd("DESCRIPTION"))
@@ -21,7 +21,7 @@ Public Class FrmMainMenu
                 NewPartIndex = NewPartIndex + 1
                 Dim rd_sub As OdbcDataReader = SqlReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' and sm.description like '%" & thisSearch & "%' and sm.active <> '0' order by sm.description")
                 While rd_sub.Read
-                    Dim T As Integer = NumIsNull(rd_sub("access_control"))
+                    Dim T As Integer = GF_NumIsNull(rd_sub("access_control"))
                     myIndex = gsImgList.Images.IndexOfKey(rd_sub("sub_id"))
 
                     trvApplication.Nodes(i).Nodes.Add(rd_sub("sub_id"), rd_sub("description"), myIndex).ForeColor = Color.DarkBlue 'Tag = rd("MENU_ID")
@@ -50,7 +50,7 @@ Public Class FrmMainMenu
 
         While rd.Read
 
-            If sType <> TextIsNull(rd("Report_Group")) Then
+            If sType <> GF_TextIsNull(rd("Report_Group")) Then
                 int3 = int3 + 1
                 myIndex = gsImgList.Images.IndexOfKey("print")
                 trvApplication.Nodes(i).Nodes.Add(rd("ref_desc") & $"-{int3}", rd("Report_Group"), myIndex).Tag = 0
@@ -59,7 +59,7 @@ Public Class FrmMainMenu
             myIndex = gsImgList.Images.IndexOfKey("report")
             trvApplication.Nodes(i).Nodes(N).Nodes.Add(rd("ID"), rd("Title"), myIndex).ForeColor = Color.DarkBlue 'Tag =' NewPartIndex
 
-            sType = TextIsNull(rd("Report_Group"))
+            sType = GF_TextIsNull(rd("Report_Group"))
         End While
 
         rd.Close()
@@ -81,7 +81,7 @@ Public Class FrmMainMenu
         Dim rd As OdbcDataReader = SqlReader("select sg.description as `Report_Group`,s.sub_id ,s.Description as `sub_desc`,s.`Form`,s.image_file from tblsub_group as sg inner join tblsub_group_details as sgd on sg.group_id = sgd.group_id inner join tblsub_menu as s on s.sub_id = sgd.sub_id where  sg.group_id > '0' and s.DESCRIPTION  like '%" & thisSearch & "%' and s.active <>'0' order by sg.description , s.description ")
         While rd.Read
 
-            If sType <> TextIsNull(rd("Report_Group")) Then
+            If sType <> GF_TextIsNull(rd("Report_Group")) Then
                 myIndex = gsImgList.Images.IndexOfKey("doc-group")
                 int3 = int3 + 1
                 trvApplication.Nodes(i).Nodes.Add(rd("Report_Group") & $"-{int3}", rd("Report_Group"), myIndex).Tag = 0
@@ -95,7 +95,7 @@ Public Class FrmMainMenu
 
 
 
-            sType = TextIsNull(rd("Report_Group"))
+            sType = GF_TextIsNull(rd("Report_Group"))
         End While
 
         rd.Close()
@@ -176,7 +176,7 @@ Public Class FrmMainMenu
             Dim separator_count As Integer = 0
             While rd.Read
 
-                If NumIsNull(rd("sub_id")) = 0 Then
+                If GF_NumIsNull(rd("sub_id")) = 0 Then
 
                     separator_count = separator_count + 1
                     'fAddMenuToolSeparator(separator_count)
@@ -230,7 +230,7 @@ Public Class FrmMainMenu
             Dim rd As OdbcDataReader = SqlReader("select r.Description as `Report_Group` , s.SUB_ID as `ID` ,s.Description as `Title`,s.FORM as `File`,s.IMAGE_File as `ref_desc` from tblsub_menu  as s inner join report_group as r on r.id = s.group_line  inner join system_security ss ON ss.NAME = s.DESCRIPTION where ss.USER_ID = '" & gsUser_ID & "' and s.active <> '0'  order by r.ID,s.Description ")
             While rd.Read
 
-                If sType <> TextIsNull(rd("Report_Group")) Then
+                If sType <> GF_TextIsNull(rd("Report_Group")) Then
 
                     int3 = 1
                     'ReportsToolStripMenuItem
@@ -241,13 +241,13 @@ Public Class FrmMainMenu
                     n.AccessibleName = rd("File") 'File
                     AddHandler n.Click, AddressOf fWhenClickReport
                     t = New ToolStripMenuItem
-                    t.Name = TextIsNull(rd("Report_Group")).Replace(" ", "")
-                    t.Text = TextIsNull(rd("Report_Group"))
+                    t.Name = GF_TextIsNull(rd("Report_Group")).Replace(" ", "")
+                    t.Text = GF_TextIsNull(rd("Report_Group"))
                     t.DropDownItems.Add(n)
 
                     ReportsToolStripMenuItem.DropDownItems.Add(t)
 
-                    sType = TextIsNull(rd("Report_Group"))
+                    sType = GF_TextIsNull(rd("Report_Group"))
                 Else
                     int3 = int3 + 1
                     If int3 = 3 Then
@@ -305,7 +305,7 @@ Public Class FrmMainMenu
         gsREPORT_ID = ID
         gsMenuSubID = 32
         gsReportTabName = Title
-        gsReportFileName = GetStringFieldValue("tblsub_menu", "SUB_ID", ID, "Form")
+        gsReportFileName = GF_GetStringFieldValue("tblsub_menu", "SUB_ID", ID, "Form")
 
         Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
         Dim img As Image = Image.FromFile(folder & "report_setup.png")
@@ -584,12 +584,12 @@ Public Class FrmMainMenu
 
             Dim t As Integer = cmbSearchType.SelectedIndex
             Dim sQuery As String = ""
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
 
             Select Case t
                 Case 0
                     sQuery = "SELECT s.`sub_id`,m.`description` AS `Category`, s.`Description` AS `Menu`  FROM tblsub_menu AS s INNER JOIN  tblmenu_list  AS ml ON ml.`sub_id` = s.`sub_id`  INNER JOIN tblmenu AS m ON m.`menu_id` =  ml.`menu_id` inner join system_security as ss on s.`description` = ss.`NAME` and ss.`user_id` = '" & gsUser_ID & "'   WHERE ml.menu_id IN ('1','2','3','4','5','6','7')  AND s.`Description` LIKE '%" & txtSearch.Text & "%' "
-                    LoadDataGridView(dgvSearch, sQuery)
+                    GS_LoadDataGridView(dgvSearch, sQuery)
                     dgvSearch.Columns(0).Visible = False
                     If dgvSearch.Rows.Count <> 0 Then
                         pnlSearch.Visible = True
@@ -602,7 +602,7 @@ Public Class FrmMainMenu
                 Case 1
 
                     sQuery = fContactTransaction(txtSearch.Text)
-                    LoadDataGridView(dgvSearch, sQuery)
+                    GS_LoadDataGridView(dgvSearch, sQuery)
                     dgvSearch.Columns(0).Visible = False
                     If dgvSearch.Rows.Count <> 0 Then
                         pnlSearch.Visible = True
@@ -615,7 +615,7 @@ Public Class FrmMainMenu
                     dgvSearch.Columns(3).Width = 100
                 Case 2
                     sQuery = fReferenceTransaction(txtSearch.Text)
-                    LoadDataGridView(dgvSearch, sQuery)
+                    GS_LoadDataGridView(dgvSearch, sQuery)
                     dgvSearch.Columns(0).Visible = False
                     If dgvSearch.Rows.Count <> 0 Then
                         pnlSearch.Visible = True
@@ -640,7 +640,7 @@ Public Class FrmMainMenu
                 End
             End If
         Finally
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End Try
     End Sub
 
@@ -1018,7 +1018,7 @@ FROM
     End Function
     Private Sub fselected_Reference()
         Dim sType As String = dgvSearch.Rows(dgvSearch.CurrentRow.Index).Cells("TYPE").Value
-        Dim i As Integer = NumIsNull(GetNumberFieldValue("tblsub_menu", "Description", sType, "sub_id"))
+        Dim i As Integer = GF_NumIsNull(GF_GetNumberFieldValue("tblsub_menu", "Description", sType, "sub_id"))
 
 
         gsMenuSubID = i
@@ -1029,7 +1029,7 @@ FROM
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
         If rd.Read Then
-            i = NumIsNull(rd("sub_id"))
+            i = GF_NumIsNull(rd("sub_id"))
             F = GetFormModule(rd("Form"))
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
             Img = Image.FromFile(folder & rd("image_file"))
@@ -1056,7 +1056,7 @@ FROM
     End Sub
     Private Sub fselected_search()
         Try
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             pnlSearch.Enabled = False
             Select Case cmbSearchType.SelectedIndex
                 Case 0
@@ -1067,9 +1067,9 @@ FROM
 
                             Dim rd As OdbcDataReader = SqlReader("select r.Description as `Report_Group` , s.SUB_ID as `ID` ,s.Description as `Title`,s.FORM as `File`,s.IMAGE_File as `ref_desc` from tblsub_menu  as s inner join report_group as r on r.id = s.group_line  inner join system_security ss ON ss.NAME = s.DESCRIPTION where ss.USER_ID = '" & gsUser_ID & "' and s.SUB_ID = '" & dgvSearch.Item(0, dgvSearch.CurrentRow.Index).Value & "'  order by r.ID,s.Description")
                             If rd.Read Then
-                                gsReportType = TextIsNull(rd("ref_desc"))
-                                gsReportTabName = TextIsNull(rd("Title"))
-                                fShowReportSetup(TextIsNull(rd("File")), gsReportTabName)
+                                gsReportType = GF_TextIsNull(rd("ref_desc"))
+                                gsReportTabName = GF_TextIsNull(rd("Title"))
+                                fShowReportSetup(GF_TextIsNull(rd("File")), gsReportTabName)
 
                             End If
                             rd.Close()
@@ -1104,7 +1104,7 @@ FROM
             pnlSearch.Enabled = True
             txtSearch.Clear()
             fLostFocus()
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End Try
     End Sub
     Private Sub dgvSearch_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSearch.CellDoubleClick
@@ -1596,7 +1596,7 @@ FROM
                 Dim rd As OdbcDataReader = SqlReader($"select sub_id as id,description,group_line from  tblsub_menu where description = '{e.Node.Text}' limit 1; ")
                 If rd.Read Then
 
-                    If NumIsNull(rd("group_line")) = 0 Then
+                    If GF_NumIsNull(rd("group_line")) = 0 Then
 
                         OpenFormBySubId(rd("id"))
                     Else

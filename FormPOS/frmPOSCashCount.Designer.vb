@@ -224,7 +224,6 @@ Partial Class FrmPOSCashCount
         '
         'gpbCD
         '
-        Me.gpbCD.BackColor = System.Drawing.Color.White
         Me.gpbCD.Controls.Add(Me.FlowLayoutPanel1)
         Me.gpbCD.Location = New System.Drawing.Point(269, 10)
         Me.gpbCD.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -302,11 +301,10 @@ Partial Class FrmPOSCashCount
         Me.xlblStartingCash.Text = "0.00"
         Me.xlblStartingCash.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'frmPOSCashCount
+        'FrmPOSCashCount
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(503, 504)
         Me.ControlBox = False
         Me.Controls.Add(Me.Label9)
@@ -330,7 +328,7 @@ Partial Class FrmPOSCashCount
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSCashCount"
+        Me.Name = "FrmPOSCashCount"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "POS Cash Count"
         CType(Me.numCASH, System.ComponentModel.ISupportInitialize).EndInit()

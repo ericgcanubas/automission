@@ -47,8 +47,8 @@ INNER JOIN contact_type_map AS cm ON c.`TYPE` = cm.`ID`
 
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                prCL = NumIsNull(rd("CL"))
-                prBALANCE_DUE = NumIsNull(rd("BALANCE_DUE"))
+                prCL = GF_NumIsNull(rd("CL"))
+                prBALANCE_DUE = GF_NumIsNull(rd("BALANCE_DUE"))
 
             Else
                 prCL = 0

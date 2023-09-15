@@ -2,7 +2,7 @@
 Public Class FrmDealer
     Public contact_BS As BindingSource
     Private Sub frmDealer_Load(sender As Object, e As EventArgs) Handles Me.Load
-        TSComboBoxLoad(tsManager, " SELECT '%' as ID, 'All Manager' as `NAME` UNION SELECT ID,`NAME` FROM contact WHERE `type`='2'", "ID", "NAME")
+        GS_TSComboBoxLoad(tsManager, " SELECT '%' as ID, 'All Manager' as `NAME` UNION SELECT ID,`NAME` FROM contact WHERE `type`='2'", "ID", "NAME")
     End Sub
 
     Private Sub tsClose_Click(sender As Object, e As EventArgs) Handles tsClose.Click
@@ -41,7 +41,7 @@ Public Class FrmDealer
 
         '  Dim sx As String = "  (SELECT IFNULL(SUM(pp.AMOUNT_APPLIED),0) + IFNULL( SUM( pp.penalty_paid),0) FROM  payment_invoices AS pp INNER JOIN  payment AS p ON p.ID = pp.payment_ID INNER JOIN invoice AS i ON i.id = pp.invoice_id WHERE i.ID = (SELECT i.ID FROM  invoice AS i WHERE i.balance_due > '0' AND i.DEALER_ID = c.`ID` AND MONTH(i.DUE_DATE) = '" & F.Month & "' AND YEAR(i.DUE_DATE) = '" & F.Year & "'  AND i.DEALER_ID = c.`ID` AND MONTH(p.`DATE`) = '" & F.Month & "' AND YEAR(p.`DATE`) = '" & F.Year & "' limit 1) + (SELECT IFNULL(SUM(sr.`AMOUNT`),0) FROM sales_receipt AS sr WHERE MONTH(sr.date) = '" & F.Month & "' AND YEAR(sr.date) ='" & F.Year & "' AND sr.DEALER_ID = c.`ID` limit 1)) "
 
-        LoadDataGridViewBinding(dgvDealer, "SELECT 
+        GS_LoadDataGridViewBinding(dgvDealer, "SELECT 
   c.ID,
   c.Name,
   c.POSTAL_ADDRESS AS 'Postal Address',

@@ -12,7 +12,7 @@ Module modInvoiceCredit
 
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_APPLIED)  as P  from credit_memo_invoices as cmi inner join credit_memo as c on c.id = cmi.credit_memo_id where c.customer_id = '" & prCustomer_ID & "' and cmi.credit_memo_ID = '" & prCreditMemo_ID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -28,7 +28,7 @@ Module modInvoiceCredit
 
             Dim rd As OdbcDataReader = SqlReader("select sum(amount_applied) as P from credit_memo_invoices where credit_memo_id = '" & prCreditMemo_ID & "' and Invoice_ID <> '" & prInvoice_id & "'")
             If rd.Read Then
-                dAmount = NumIsNull(rd("P"))
+                dAmount = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -54,7 +54,7 @@ Module modInvoiceCredit
         Try
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_APPLIED)  as P  from credit_memo_invoices as cmi inner join credit_memo as c on c.id = cmi.credit_memo_id where c.customer_id = '" & prCustomer_ID & "' and cmi.credit_memo_ID = '" & prCreditMemo_ID & "' and cmi.invoice_id = '" & prInvoice_ID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception

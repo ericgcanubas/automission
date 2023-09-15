@@ -5,9 +5,9 @@
     Dim ClickOk As Boolean = False
 
     Private Sub FrmCustomGroupItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = "CUSTOM GROUP : " & GetStringFieldValue("item", "id", gsITEM_ID, "DESCRIPTION")
+        Me.Text = "CUSTOM GROUP : " & GF_GetStringFieldValue("item", "id", gsITEM_ID, "DESCRIPTION")
         Me.Refresh()
-        LoadDataGridViewBinding(dgvList, $"select i.ID as `ITEM_ID`,i.CODE,i.DESCRIPTION, format(c.QUANTITY,0) as QTY, format(c.RATE/c.QUANTITY,2) as `RATE` from item_components as c inner join item as i on i.id = c.component_id where c.ITEM_ID = '{gsITEM_ID}' order by c.RATE DESC ", BS_LIST)
+        GS_LoadDataGridViewBinding(dgvList, $"select i.ID as `ITEM_ID`,i.CODE,i.DESCRIPTION, format(c.QUANTITY,0) as QTY, format(c.RATE/c.QUANTITY,2) as `RATE` from item_components as c inner join item as i on i.id = c.component_id where c.ITEM_ID = '{gsITEM_ID}' order by c.RATE DESC ", BS_LIST)
         dgvList.Columns(0).Visible = False
 
         With dgvSelected.Columns
@@ -21,10 +21,10 @@
             .Add("RATE", "RATE")
             .Item("RATE").DefaultCellStyle.Format = "N2"
         End With
-        ViewItemDisplay(dgvList)
-        ViewNotSort(dgvList)
-        ViewItemDisplay(dgvSelected)
-        ViewNotSort(dgvSelected)
+        GS_ViewItemDisplay(dgvList)
+        GS_ViewNotSort(dgvList)
+        GS_ViewItemDisplay(dgvSelected)
+        GS_ViewNotSort(dgvSelected)
 
     End Sub
     Private Sub Filtering()

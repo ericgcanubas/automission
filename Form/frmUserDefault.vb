@@ -2,8 +2,8 @@
 Public Class FrmUserDefault
     Public ID As Integer
     Private Sub FrmUserDefault_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
-        ComboBoxLoad(cmbPRICE_LEVEL_ID, "select * from price_level where inactive ='0' ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPRICE_LEVEL_ID, "select * from price_level where inactive ='0' ", "ID", "DESCRIPTION")
 
         Dim sQuery As String = "select * from user_default where USER_ID = '" & ID & "' Limit 1"
         SqlExecutedUsingReading(Me, sQuery)

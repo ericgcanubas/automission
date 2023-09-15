@@ -43,9 +43,9 @@ Partial Class FrmPOSNumpad
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(3, 265)
+        Me.Button1.Location = New System.Drawing.Point(8, 265)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(100, 94)
         Me.Button1.TabIndex = 0
@@ -55,9 +55,9 @@ Partial Class FrmPOSNumpad
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(109, 265)
+        Me.Button2.Location = New System.Drawing.Point(114, 265)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(100, 94)
         Me.Button2.TabIndex = 1
@@ -67,9 +67,9 @@ Partial Class FrmPOSNumpad
         'Button3
         '
         Me.Button3.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.Location = New System.Drawing.Point(216, 265)
+        Me.Button3.Location = New System.Drawing.Point(221, 265)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(100, 94)
         Me.Button3.TabIndex = 2
@@ -79,9 +79,9 @@ Partial Class FrmPOSNumpad
         'Button4
         '
         Me.Button4.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button4.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.Location = New System.Drawing.Point(3, 165)
+        Me.Button4.Location = New System.Drawing.Point(8, 165)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(100, 94)
         Me.Button4.TabIndex = 3
@@ -91,9 +91,9 @@ Partial Class FrmPOSNumpad
         'Button5
         '
         Me.Button5.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button5.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Location = New System.Drawing.Point(109, 165)
+        Me.Button5.Location = New System.Drawing.Point(114, 165)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(100, 94)
         Me.Button5.TabIndex = 4
@@ -103,9 +103,9 @@ Partial Class FrmPOSNumpad
         'Button6
         '
         Me.Button6.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button6.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button6.Location = New System.Drawing.Point(216, 165)
+        Me.Button6.Location = New System.Drawing.Point(221, 165)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(100, 94)
         Me.Button6.TabIndex = 5
@@ -115,9 +115,9 @@ Partial Class FrmPOSNumpad
         'Button7
         '
         Me.Button7.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button7.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button7.Location = New System.Drawing.Point(3, 65)
+        Me.Button7.Location = New System.Drawing.Point(8, 65)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(100, 94)
         Me.Button7.TabIndex = 6
@@ -127,9 +127,9 @@ Partial Class FrmPOSNumpad
         'Button8
         '
         Me.Button8.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button8.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button8.Location = New System.Drawing.Point(110, 65)
+        Me.Button8.Location = New System.Drawing.Point(115, 65)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(100, 94)
         Me.Button8.TabIndex = 7
@@ -139,9 +139,9 @@ Partial Class FrmPOSNumpad
         'Button9
         '
         Me.Button9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button9.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button9.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button9.Location = New System.Drawing.Point(216, 65)
+        Me.Button9.Location = New System.Drawing.Point(221, 65)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(100, 94)
         Me.Button9.TabIndex = 8
@@ -151,9 +151,9 @@ Partial Class FrmPOSNumpad
         'Button10
         '
         Me.Button10.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button10.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button10.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button10.Location = New System.Drawing.Point(3, 365)
+        Me.Button10.Location = New System.Drawing.Point(8, 365)
         Me.Button10.Name = "Button10"
         Me.Button10.Size = New System.Drawing.Size(100, 94)
         Me.Button10.TabIndex = 9
@@ -163,9 +163,9 @@ Partial Class FrmPOSNumpad
         'Button11
         '
         Me.Button11.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button11.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button11.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button11.Location = New System.Drawing.Point(109, 365)
+        Me.Button11.Location = New System.Drawing.Point(114, 365)
         Me.Button11.Name = "Button11"
         Me.Button11.Size = New System.Drawing.Size(100, 94)
         Me.Button11.TabIndex = 10
@@ -175,9 +175,9 @@ Partial Class FrmPOSNumpad
         'Button12
         '
         Me.Button12.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button12.Font = New System.Drawing.Font("Century Gothic", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button12.Location = New System.Drawing.Point(217, 365)
+        Me.Button12.Location = New System.Drawing.Point(222, 365)
         Me.Button12.Name = "Button12"
         Me.Button12.Size = New System.Drawing.Size(100, 94)
         Me.Button12.TabIndex = 11
@@ -189,7 +189,7 @@ Partial Class FrmPOSNumpad
         Me.lblValue.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.lblValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblValue.Font = New System.Drawing.Font("Century Gothic", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValue.Location = New System.Drawing.Point(3, 23)
+        Me.lblValue.Location = New System.Drawing.Point(8, 23)
         Me.lblValue.Name = "lblValue"
         Me.lblValue.Size = New System.Drawing.Size(314, 39)
         Me.lblValue.TabIndex = 12
@@ -199,10 +199,10 @@ Partial Class FrmPOSNumpad
         'btnEnter
         '
         Me.btnEnter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnEnter.Font = New System.Drawing.Font("Century Gothic", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnEnter.ForeColor = System.Drawing.Color.Black
-        Me.btnEnter.Location = New System.Drawing.Point(3, 463)
+        Me.btnEnter.Location = New System.Drawing.Point(8, 463)
         Me.btnEnter.Name = "btnEnter"
         Me.btnEnter.Size = New System.Drawing.Size(206, 94)
         Me.btnEnter.TabIndex = 13
@@ -212,10 +212,10 @@ Partial Class FrmPOSNumpad
         'btnCancel
         '
         Me.btnCancel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCancel.Font = New System.Drawing.Font("Century Gothic", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.ForeColor = System.Drawing.Color.Black
-        Me.btnCancel.Location = New System.Drawing.Point(216, 463)
+        Me.btnCancel.Location = New System.Drawing.Point(221, 463)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(100, 94)
         Me.btnCancel.TabIndex = 14
@@ -230,17 +230,17 @@ Partial Class FrmPOSNumpad
         Me.lblTITLE.ForeColor = System.Drawing.Color.Black
         Me.lblTITLE.Location = New System.Drawing.Point(0, 0)
         Me.lblTITLE.Name = "lblTITLE"
-        Me.lblTITLE.Size = New System.Drawing.Size(320, 23)
+        Me.lblTITLE.Size = New System.Drawing.Size(327, 23)
         Me.lblTITLE.TabIndex = 54
         Me.lblTITLE.Text = "NAME"
         Me.lblTITLE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'frmPOSNumpad
+        'FrmPOSNumpad
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.ClientSize = New System.Drawing.Size(320, 564)
+        Me.ClientSize = New System.Drawing.Size(327, 570)
         Me.ControlBox = False
         Me.Controls.Add(Me.lblTITLE)
         Me.Controls.Add(Me.btnCancel)
@@ -260,10 +260,10 @@ Partial Class FrmPOSNumpad
         Me.Controls.Add(Me.Button1)
         Me.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSNumpad"
+        Me.Name = "FrmPOSNumpad"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

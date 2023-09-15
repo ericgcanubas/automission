@@ -18,10 +18,11 @@
         End Try
 
     End Function
-    Public Function fDataRangeLoad(ByVal prName As String) As ComboBox
-        Dim cmb As ComboBox = New ComboBox
-        cmb.Name = prName
-        cmb.DropDownStyle = ComboBoxStyle.DropDownList
+    Public Function GF_DataRangeLoad(ByVal prName As String) As ComboBox
+        Dim cmb As New ComboBox With {
+            .Name = prName,
+            .DropDownStyle = ComboBoxStyle.DropDownList
+        }
         With cmb.Items
             .Add("Today")
             .Add("Yesterday")

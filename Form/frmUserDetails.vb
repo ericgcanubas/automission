@@ -6,9 +6,9 @@ Public Class FrmUserDetails
     Public gsBS As BindingSource
     Private Sub FrmUserDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbSTATUS, "select * from user_status_map", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbCONTACT_ID, "select * from contact where type ='2' and inactive ='0'", "ID", "NAME")
-        ComboBoxLoad(cmbTYPE, "select * from USER_TYPE_MAP ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbSTATUS, "select * from user_status_map", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbCONTACT_ID, "select * from contact where type ='2' and inactive ='0'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbTYPE, "select * from USER_TYPE_MAP ", "ID", "DESCRIPTION")
         If IsNew = False Then
             SqlExecutedUsingReading(Me, "select * from user where id ='" & ID & "' Limit 1")
         End If

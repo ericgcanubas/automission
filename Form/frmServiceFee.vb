@@ -11,7 +11,7 @@
         ViewColumn(dgvServiceFee, 31)
     End Sub
     Private Sub RefreshData()
-        LoadDataGridView(dgvServiceFee, "SELECT ID,Description,Service_Fee_PCT as `Service Fee %`,Format(Sales_Target,2) as `Sales Target`,year_sf as `Year`, monthname(concat('2013/',month_sf,'/1')) as `Month`,Inactive FROM service_fee where YEAR_SF like '" & IIf(tsYEAR.ComboBox.SelectedValue = 0, "%", tsYEAR.ComboBox.SelectedValue) & "' and MONTH_SF like '" & IIf(tsMONTH.ComboBox.SelectedValue = 0, "%", tsMONTH.ComboBox.SelectedValue) & "' ")
+        GS_LoadDataGridView(dgvServiceFee, "SELECT ID,Description,Service_Fee_PCT as `Service Fee %`,Format(Sales_Target,2) as `Sales Target`,year_sf as `Year`, monthname(concat('2013/',month_sf,'/1')) as `Month`,Inactive FROM service_fee where YEAR_SF like '" & IIf(tsYEAR.ComboBox.SelectedValue = 0, "%", tsYEAR.ComboBox.SelectedValue) & "' and MONTH_SF like '" & IIf(tsMONTH.ComboBox.SelectedValue = 0, "%", tsMONTH.ComboBox.SelectedValue) & "' ")
         With dgvServiceFee.Columns
             .Item(0).Visible = False
             .Item(1).Width = 300

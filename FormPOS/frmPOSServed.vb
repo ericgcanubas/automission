@@ -6,7 +6,7 @@ Public Class FrmPOSServed
     Public gsCUSTOMER_ID As Integer
 
     Private Sub FrmPOSServed_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        xlblCustomer_Name.Text = GetStringFieldValue("CONTACT", "id", gsCUSTOMER_ID, "NAME")
+        xlblCustomer_Name.Text = GF_GetStringFieldValue("CONTACT", "id", gsCUSTOMER_ID, "NAME")
         gsOK = False
 
         'Create ColumnView

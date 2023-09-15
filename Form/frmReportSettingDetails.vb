@@ -21,7 +21,7 @@ Public Class FrmReportSettingDetails
 
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO tblsub_menu ({SQL_Field}) VALUES ({SQL_Value}) ")
-            SqlExecuted("INSERT INTO tblmenu_list SET MENU_ID ='5',SUB_ID ='" & ID & "',position_no='" & GetMaxFieldLine("position_no", "tblMENU_LIST", "MENU_ID", "5") & "'")
+            SqlExecuted("INSERT INTO tblmenu_list SET MENU_ID ='5',SUB_ID ='" & ID & "',position_no='" & GF_GetMaxFieldLine("position_no", "tblMENU_LIST", "MENU_ID", "5") & "'")
         Else
             SqlExecuted("UPDATE tblsub_menu SET " & SqlUpdate(Me).Replace(",SUB_ID ='" & ID & "'", "") & " Where SUB_ID ='" & ID & "'")
 
@@ -31,7 +31,7 @@ Public Class FrmReportSettingDetails
 
         ClearAndRefresh(Me)
         btnSave.Text = "Save"
-        txtSUB_ID.Text = GetMaxField("SUB_ID", "tblsub_menu")
+        txtSUB_ID.Text = GF_GetMaxField("SUB_ID", "tblsub_menu")
         IsNew = True
         cmbGROUP_LINE.SelectedValue = t
     End Sub
@@ -39,9 +39,9 @@ Public Class FrmReportSettingDetails
     Private Sub FrmReportSettingDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
-        ComboBoxLoad(cmbGROUP_LINE, "select * from report_group ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbGROUP_LINE, "select * from report_group ", "ID", "DESCRIPTION")
         If IsNew = True Then
-            txtSUB_ID.Text = GetMaxField("SUB_ID", "tblsub_menu")
+            txtSUB_ID.Text = GF_GetMaxField("SUB_ID", "tblsub_menu")
             chkActive.Checked = True
         Else
             btnSave.Text = "Update"

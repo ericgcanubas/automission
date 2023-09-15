@@ -15,7 +15,7 @@ Public Class FrmPOSVoidEntry
             btnVOID.Text = "Delete"
         End If
 
-        LoadDataGridView(dgvSalesReceiptList, $"select s.id,s.Date,s.Code,s.customer_id,c.NAME as `Customer`,s.PAYMENT_REF_NO as `O.R`,pm.description  as `Payment Method`, format( s.Amount,2) as `Total`,dst.Description as `Status` from sales_receipt as s inner join contact as c on c.id = s.customer_id inner join `payment_method` as pm on pm.id = s.payment_method_id  inner join document_status_map as dst on dst.id = s.STATUS  where s.POS_LOG_ID = '{gsPOS_LOG_ID}' and s.CASHIER_ID ='{gsCashier_ID}' and s.LOCATION_ID = '{gsDefault_LOCATION_ID}'   ")
+        GS_LoadDataGridView(dgvSalesReceiptList, $"select s.id,s.Date,s.Code,s.customer_id,c.NAME as `Customer`,s.PAYMENT_REF_NO as `O.R`,pm.description  as `Payment Method`, format( s.Amount,2) as `Total`,dst.Description as `Status` from sales_receipt as s inner join contact as c on c.id = s.customer_id inner join `payment_method` as pm on pm.id = s.payment_method_id  inner join document_status_map as dst on dst.id = s.STATUS  where s.POS_LOG_ID = '{gsPOS_LOG_ID}' and s.CASHIER_ID ='{gsCashier_ID}' and s.LOCATION_ID = '{gsDefault_LOCATION_ID}'   ")
         dgvSalesReceiptList.Columns(0).Visible = False
         dgvSalesReceiptList.Columns("customer_id").Visible = False
     End Sub
@@ -79,14 +79,14 @@ Public Class FrmPOSVoidEntry
 
                     Dim rd As OdbcDataReader = SqlReader($"SELECT UNDEPOSITED_FUNDS_ACCOUNT_ID,OUTPUT_TAX_ACCOUNT_ID from sales_receipt WHERE `id` = '{ThisID}' and location_id = '{gsDefault_LOCATION_ID}' limit 1;")
                     If rd.Read Then
-                        UNDEPOSITED_FUNDS_ACCOUNT_ID = NumIsNull(rd("UNDEPOSITED_FUNDS_ACCOUNT_ID"))
-                        OUTPUT_TAX_ACCOUNT_ID = NumIsNull(rd("OUTPUT_TAX_ACCOUNT_ID"))
+                        UNDEPOSITED_FUNDS_ACCOUNT_ID = GF_NumIsNull(rd("UNDEPOSITED_FUNDS_ACCOUNT_ID"))
+                        OUTPUT_TAX_ACCOUNT_ID = GF_NumIsNull(rd("OUTPUT_TAX_ACCOUNT_ID"))
                     End If
                     rd.Close()
                     Dim rd_item As OdbcDataReader = SqlReader($"select s.id,s.item_id,i.type,i.GL_ACCOUNT_ID,i.COGS_ACCOUNT_ID,i.ASSET_ACCOUNT_ID from sales_receipt_items as s inner join item as i on i.id = s.item_id where sales_receipt_id = '{ThisID}' limit 1;")
                     While rd_item.Read
-                        fRemoveMoreReference(rd_item("type"), rd_item("id"), ThisDate, rd_item("item_id"), gsDefault_LOCATION_ID, NumIsNull(rd_item("GL_ACCOUNT_ID")), NumIsNull(rd_item("ASSET_ACCOUNT_ID")), NumIsNull(rd_item("COGS_ACCOUNT_ID")))
-                        ReCalculateInventory(NumIsNull(rd_item("ITEM_ID")), gsDefault_LOCATION_ID, ThisDate.AddDays(-1))
+                        fRemoveMoreReference(rd_item("type"), rd_item("id"), ThisDate, rd_item("item_id"), gsDefault_LOCATION_ID, GF_NumIsNull(rd_item("GL_ACCOUNT_ID")), GF_NumIsNull(rd_item("ASSET_ACCOUNT_ID")), GF_NumIsNull(rd_item("COGS_ACCOUNT_ID")))
+                        ReCalculateInventory(GF_NumIsNull(rd_item("ITEM_ID")), gsDefault_LOCATION_ID, ThisDate.AddDays(-1))
 
                     End While
                     rd_item.Close()
@@ -95,7 +95,7 @@ Public Class FrmPOSVoidEntry
 
 
                         GS_AccountJournalDelete(Val(UNDEPOSITED_FUNDS_ACCOUNT_ID), gsDefault_LOCATION_ID, 52, ThisID, ThisDate)
-                        If NumIsNull(OUTPUT_TAX_ACCOUNT_ID) <> 0 Then
+                        If GF_NumIsNull(OUTPUT_TAX_ACCOUNT_ID) <> 0 Then
                             GS_AccountJournalDelete(Val(OUTPUT_TAX_ACCOUNT_ID), gsDefault_LOCATION_ID, 52, ThisID, ThisDate)
                         End If
 
@@ -114,7 +114,7 @@ Public Class FrmPOSVoidEntry
 
 
 
-                    SetTransactionLog(ThisID, .Cells("Code").Value, 7, "Void", .Cells("customer_id").Value, "", NumIsNull(.Cells("Total").Value), gsDefault_LOCATION_ID)
+                    SetTransactionLog(ThisID, .Cells("Code").Value, 7, "Void", .Cells("customer_id").Value, "", GF_NumIsNull(.Cells("Total").Value), gsDefault_LOCATION_ID)
                 End With
                 fRefresh()
                 gsGotVoid = True

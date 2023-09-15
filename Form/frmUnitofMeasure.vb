@@ -5,7 +5,7 @@
         RefreshData()
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvUnitOfMeasure, "Select ID,`Name`,Symbol, If(Inactive=0,'No','Yes') as `Inactive` from Unit_of_measure", item_BS)
+        GS_LoadDataGridViewBinding(dgvUnitOfMeasure, "Select ID,`Name`,Symbol, If(Inactive=0,'No','Yes') as `Inactive` from Unit_of_measure", item_BS)
         ViewColumn(dgvUnitOfMeasure, 45)
     End Sub
 

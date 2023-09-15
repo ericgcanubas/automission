@@ -18,11 +18,11 @@ Public Class FrmMenuSettingsSetup
 
                     Dim rd As OdbcDataReader = SqlReader("Select * from tblmenu where menu_id = '" & ID & "' Limit 1")
                     If rd.Read Then
-                        numID1.Value = NumIsNull(rd("MENU_ID"))
+                        numID1.Value = GF_NumIsNull(rd("MENU_ID"))
                         numID1.Enabled = False
-                        txtDescription1.Text = TextIsNull(rd("Description"))
-                        cmbImage1.Text = TextIsNull(rd("image_file"))
-                        chkVisible.Checked = CBool(NumIsNull(rd("visible")))
+                        txtDescription1.Text = GF_TextIsNull(rd("Description"))
+                        cmbImage1.Text = GF_TextIsNull(rd("image_file"))
+                        chkVisible.Checked = CBool(GF_NumIsNull(rd("visible")))
                         IsNew = False
                     End If
                     rd.Close()
@@ -43,14 +43,14 @@ Public Class FrmMenuSettingsSetup
 
                     Dim rd As OdbcDataReader = SqlReader("Select * from tblsub_menu where sub_id = '" & ID & "' Limit 1")
                     If rd.Read Then
-                        numID2.Value = NumIsNull(rd("SUB_ID"))
+                        numID2.Value = GF_NumIsNull(rd("SUB_ID"))
                         numID2.Enabled = False
-                        txtDescription2.Text = TextIsNull(rd("Description"))
-                        cmbForm.Text = TextIsNull(rd("form"))
-                        cmbImage2.Text = TextIsNull(rd("image_file"))
-                        chkAccess_Control.Checked = NumIsNull(rd("access_control"))
-                        chkModal.Checked = NumIsNull(rd("modal"))
-                        chkActive.Checked = CBool(NumIsNull(rd("active")))
+                        txtDescription2.Text = GF_TextIsNull(rd("Description"))
+                        cmbForm.Text = GF_TextIsNull(rd("form"))
+                        cmbImage2.Text = GF_TextIsNull(rd("image_file"))
+                        chkAccess_Control.Checked = GF_NumIsNull(rd("access_control"))
+                        chkModal.Checked = GF_NumIsNull(rd("modal"))
+                        chkActive.Checked = CBool(GF_NumIsNull(rd("active")))
                         IsNew = False
                     End If
                     rd.Close()
@@ -84,7 +84,7 @@ Public Class FrmMenuSettingsSetup
 
 
         If numID1.Enabled = True Then
-            If GetNumberFieldValue("tblmenu", "MENU_ID", numID1.Value, "MENU_ID") <> 0 Then
+            If GF_GetNumberFieldValue("tblmenu", "MENU_ID", numID1.Value, "MENU_ID") <> 0 Then
                 MessageBoxInfo("ID is already used!")
                 Exit Sub
             End If
@@ -93,7 +93,7 @@ Public Class FrmMenuSettingsSetup
         If IsNew = False Then
             SqlExecuted("UPDATE tblmenu SET visible='" & IIf(chkVisible.Checked = True, 1, 0) & "',description ='" & txtDescription1.Text & "',image_file = '" & cmbImage1.Text & "'  where MENU_ID = '" & numID1.Value & "'")
         Else
-            SqlExecuted("INSERT INTO tblmenu SET visible='" & IIf(chkVisible.Checked = True, 1, 0) & "',description ='" & txtDescription1.Text & "',image_file = '" & cmbImage1.Text & "',MENU_ID = '" & numID1.Value & "',first_display ='0',position_no = '" & GetMaxField("position_no", "tblmenu") & "'")
+            SqlExecuted("INSERT INTO tblmenu SET visible='" & IIf(chkVisible.Checked = True, 1, 0) & "',description ='" & txtDescription1.Text & "',image_file = '" & cmbImage1.Text & "',MENU_ID = '" & numID1.Value & "',first_display ='0',position_no = '" & GF_GetMaxField("position_no", "tblmenu") & "'")
         End If
         Me.Close()
     End Sub
@@ -114,7 +114,7 @@ Public Class FrmMenuSettingsSetup
         End If
 
         If numID2.Enabled = True Then
-            If GetNumberFieldValue("tblsub_menu", "sub_ID", numID2.Value, "sub_ID") <> 0 Then
+            If GF_GetNumberFieldValue("tblsub_menu", "sub_ID", numID2.Value, "sub_ID") <> 0 Then
                 MessageBoxInfo("ID is already used!")
                 Exit Sub
             End If
@@ -130,12 +130,12 @@ Public Class FrmMenuSettingsSetup
 
     Private Sub NumID1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles numID1.MouseDoubleClick
         If numID1.Enabled = True Then
-            numID1.Value = Val(GetMaxField("menu_ID", "tblmenu"))
+            numID1.Value = Val(GF_GetMaxField("menu_ID", "tblmenu"))
         End If
     End Sub
     Private Sub NumID2_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles numID2.MouseDoubleClick
         If numID2.Enabled = True Then
-            numID2.Value = Val(GetMaxField("sub_ID", "tblsub_menu"))
+            numID2.Value = Val(GF_GetMaxField("sub_ID", "tblsub_menu"))
         End If
     End Sub
 

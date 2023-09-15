@@ -48,7 +48,7 @@ Module modFormFunction
         Try
             For r As Integer = 0 To org_dgv.Rows.Count - 1
                 For c As Integer = 0 To org_dgv.Columns.Count - 1
-                    If TextIsNull(org_dgv.Rows(r).Cells(c).Value) <> TextIsNull(tmp_dgv.Rows(r).Cells(c).Value) Then
+                    If GF_TextIsNull(org_dgv.Rows(r).Cells(c).Value) <> GF_TextIsNull(tmp_dgv.Rows(r).Cells(c).Value) Then
                         HasChange = True
                         Exit For
                     End If
@@ -58,7 +58,7 @@ Module modFormFunction
             If HasChange = False Then
                 For r As Integer = 0 To tmp_dgv.Rows.Count - 1
                     For c As Integer = 0 To tmp_dgv.Columns.Count - 1
-                        If TextIsNull(tmp_dgv.Rows(r).Cells(c).Value) <> TextIsNull(org_dgv.Rows(r).Cells(c).Value) Then
+                        If GF_TextIsNull(tmp_dgv.Rows(r).Cells(c).Value) <> GF_TextIsNull(org_dgv.Rows(r).Cells(c).Value) Then
                             HasChange = True
                             Exit For
                         End If
@@ -72,16 +72,16 @@ Module modFormFunction
         Return HasChange
     End Function
     Public Function GetObjectTypeMapID(ByVal prTABLE_NAME As String) As Integer
-        Return GetNumberFieldValue("OBJECT_TYPE_MAP", "TABLE_NAME", prTABLE_NAME, "ID")
+        Return GF_GetNumberFieldValue("OBJECT_TYPE_MAP", "TABLE_NAME", prTABLE_NAME, "ID")
     End Function
     Public Function GetDocumentTypeMapIdFromObjectId(ByVal object_ID As Integer) As Integer
-        Return GetNumberFieldValueOneReturn($"SELECT o.`DOCUMENT_TYPE` FROM object_type_map AS o WHERE o.`ID` = '{object_ID}' AND o.`IS_DOCUMENT` = '1' limit 1;")
+        Return GF_GetNumberFieldValueOneReturn($"SELECT o.`DOCUMENT_TYPE` FROM object_type_map AS o WHERE o.`ID` = '{object_ID}' AND o.`IS_DOCUMENT` = '1' limit 1;")
     End Function
     Public Function ObjectTypeMapId(ByVal prTABLE_NAME As String) As Integer
         Dim I As Integer
         Dim rd As OdbcDataReader = SqlReader("SELECT NEXT_ID FROM  object_type_map WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
         If rd.Read Then
-            I = NumIsNull(rd("NEXT_ID"))
+            I = GF_NumIsNull(rd("NEXT_ID"))
         Else
             MessageBoxExclamation(prTABLE_NAME & " table not found")
             End
@@ -102,7 +102,7 @@ Module modFormFunction
         Try
             Dim rd As OdbcDataReader = SqlReader("SELECT NEXT_ID FROM WHERE TABLE_NAME = '" & prTABLE_NAME & "' LIMIT 1")
             If rd.Read Then
-                NextID = NumIsNull(rd("NEXT_ID"))
+                NextID = GF_NumIsNull(rd("NEXT_ID"))
             Else
                 NextID = 1
             End If
@@ -414,7 +414,7 @@ Module modFormFunction
 
 
             If gsMenuID > 0 Then
-                gsMenuTitle.Text = GetStringFieldValue("tblmenu", "menu_id", gsMenuID, "description")
+                gsMenuTitle.Text = GF_GetStringFieldValue("tblmenu", "menu_id", gsMenuID, "description")
             End If
         Catch ex As Exception
 
@@ -422,14 +422,14 @@ Module modFormFunction
         End Try
         gsflpPanel.Visible = True
         bMainMenu = True
-        '   CursorLoadingOn(False)
+        '   GS_CursorLoadingOn(False)
     End Sub
     Public Sub RemoveControl()
         gsflpPanel.Controls.Clear()
 
     End Sub
     Public Sub MenuSet()
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         If gsMenuID <= 0 Then
             If gsRefresh = True Then
                 gsRefresh = False
@@ -449,7 +449,7 @@ Module modFormFunction
                             If gsTabControl.Controls(i).AccessibleName = gsMenuSubID Then
                                 If gsTabControl.Controls(i).Text = gsReportTabName Then
                                     gsTabControl.SelectTab(i)
-                                    CursorLoadingOn(False)
+                                    GS_CursorLoadingOn(False)
                                     Exit Sub
                                 End If
                             End If
@@ -463,7 +463,7 @@ Module modFormFunction
                                     Dim f As Form = gsTabControl.TabPages(i).Controls.Item(0)
                                     f.Text = gsDocument_Finder_ID
                                 End If
-                                CursorLoadingOn(False)
+                                GS_CursorLoadingOn(False)
                                 Exit Sub
                             End If
 
@@ -487,13 +487,13 @@ Module modFormFunction
 
                     Try
 
-                        CursorLoadingOn(True)
+                        GS_CursorLoadingOn(True)
 
 
                         Dim rd As OdbcDataReader = SqlReader("select * from tblsub_menu where sub_id = '" & gsMenuSubID & "' limit 1")
                         If rd.Read() Then
                             Dim frmName As String = rd("form")
-                            Dim iModal As Integer = NumIsNull(rd("modal"))
+                            Dim iModal As Integer = GF_NumIsNull(rd("modal"))
                             Dim sDescription As String = rd("description")
                             gsSubMenuForm = sDescription
                             rd.Close()
@@ -555,7 +555,7 @@ Module modFormFunction
                     Catch ex As Exception
                         MessageBoxWarning(ex.Message)
                     Finally
-                        CursorLoadingOn(False)
+                        GS_CursorLoadingOn(False)
                     End Try
 
 
@@ -573,7 +573,7 @@ Module modFormFunction
             ' gsSystem_Name.Visible = True
 
         End If
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
     End Sub
 
 
@@ -759,17 +759,17 @@ Module modFormFunction
                 If p.AccessibleName = "" Then
                     gsMenuSubID = 0
                     gsMenuID = 9
-                    gsMenuID = NumIsNull(p.Name.Replace("pnl", ""))
+                    gsMenuID = GF_NumIsNull(p.Name.Replace("pnl", ""))
 
                 Else
                     gsSubMenuForm = l.Text
-                    gsMenuSubID = NumIsNull(p.Name.Replace("pnl", ""))
+                    gsMenuSubID = GF_NumIsNull(p.Name.Replace("pnl", ""))
                 End If
 
 
             End If
         Else
-            gsMenuID = NumIsNull(p.Name.Replace("pnl", ""))
+            gsMenuID = GF_NumIsNull(p.Name.Replace("pnl", ""))
         End If
         gsRefresh = True
         MenuSet()
@@ -862,7 +862,7 @@ Module modFormFunction
 
         Dim cn As New OleDb.OleDbConnection(DbAccessStringConnection)
         Try
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             cn.Open()
             Dim cmd As New OleDb.OleDbCommand("select * from tblcolumn where id = " & gsID & " ", cn)
 
@@ -883,11 +883,11 @@ Module modFormFunction
             End If
             MessageBoxWarning(ex.Message)
         Finally
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End Try
     End Sub
     Public Sub ComboBoxNull(ByVal cmb As ComboBox, ByVal prID_NAME As String, ByVal prDESC_NAME As String)
-        ComboBoxLoad(cmb, "SELECT '' as " & prID_NAME & ", '' as " & prDESC_NAME & " ", prID_NAME, prDESC_NAME)
+        GS_ComboBoxLoad(cmb, "SELECT '' as " & prID_NAME & ", '' as " & prDESC_NAME & " ", prID_NAME, prDESC_NAME)
     End Sub
 
 End Module

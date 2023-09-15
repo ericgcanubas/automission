@@ -5,7 +5,7 @@
         RefreshData()
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvList, "SELECT b.`ID`,i.`CODE` as `BARCODE`,i.`PURCHASE_DESCRIPTION` AS `DESCRIPTION`,b.`BATCH_NO` AS `BATCH #`,b.`EXPIRY_DATE` AS `EXPIRED ON`  FROM `item_batches`  AS b INNER JOIN item AS i ON i.`ID` = b.`ITEM_ID` WHERE i.`INACTIVE` = '0';", item_BS)
+        GS_LoadDataGridViewBinding(dgvList, "SELECT b.`ID`,i.`CODE` as `BARCODE`,i.`PURCHASE_DESCRIPTION` AS `DESCRIPTION`,b.`BATCH_NO` AS `BATCH #`,b.`EXPIRY_DATE` AS `EXPIRED ON`  FROM `item_batches`  AS b INNER JOIN item AS i ON i.`ID` = b.`ITEM_ID` WHERE i.`INACTIVE` = '0';", item_BS)
         ViewColumn(dgvList, 48)
     End Sub
 

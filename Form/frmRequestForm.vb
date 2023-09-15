@@ -7,7 +7,7 @@ Public Class FrmRequestForm
     Public gsFirstLoad As Boolean = True
 
     Private Sub FrmRequestForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadDataGridView(dgvRequest, "select r.ID, r.Date, r.Code, c.name as `Vendor`, l.name as `Location`,r.location_id,r.vendor_id from purchase_request as r inner join location as l on l.id = r.location_id inner join contact as c on c.ID = r.vendor_id  WHERE r.status ='2'  ")
+        GS_LoadDataGridView(dgvRequest, "select r.ID, r.Date, r.Code, c.name as `Vendor`, l.name as `Location`,r.location_id,r.vendor_id from purchase_request as r inner join location as l on l.id = r.location_id inner join contact as c on c.ID = r.vendor_id  WHERE r.status ='2'  ")
         dgvRequest.Columns(0).Visible = False
         dgvRequest.Columns("location_id").Visible = False
         dgvRequest.Columns("vendor_id").Visible = False
@@ -174,16 +174,16 @@ FROM
                 For i As Integer = 0 To rd.FieldCount - 1
 
                     If i = 4 Or i = 6 Or i = 8 Then
-                        dgvItem.Rows(x).Cells(i).Value = GetTypeValue(NumIsNull(rd(i)))
+                        dgvItem.Rows(x).Cells(i).Value = GetTypeValue(GF_NumIsNull(rd(i)))
                     ElseIf i = 10 Then
-                        Dim b As Boolean = NumIsNull(rd(i))
+                        Dim b As Boolean = GF_NumIsNull(rd(i))
                         dgvItem.Rows(x).Cells(i).Value = b
                     ElseIf i = 9 Then
-                        dgvItem.Rows(x).Cells(i).Value = NumIsNull(rd("RATE")) * NumIsNull(rd("QUANTITY"))
+                        dgvItem.Rows(x).Cells(i).Value = GF_NumIsNull(rd("RATE")) * GF_NumIsNull(rd("QUANTITY"))
                     ElseIf i = 0 Then
                         dgvItem.Rows(x).Cells(i).Value = False
                     Else
-                        dgvItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                        dgvItem.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
 
                     End If
 

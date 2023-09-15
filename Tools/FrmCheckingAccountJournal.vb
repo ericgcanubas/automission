@@ -1,11 +1,11 @@
 ﻿Public Class FrmCheckingAccountJournal
     Private Sub FrmCheckingAccountJournal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbOBJECT, "select * from object_type_map", "ID", "NAME")
+        GS_ComboBoxLoad(cmbOBJECT, "select * from object_type_map", "ID", "NAME")
         cmbOBJECT.SelectedValue = 53
-        ComboBoxLoad(cmbACCOUNT_ID, "select * from Account ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbACCOUNT_ID, "select * from Account ", "ID", "NAME")
         cmbACCOUNT_ID.SelectedValue = 47
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
         dtpDATE1.Value = gsFirstDate
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
@@ -46,7 +46,7 @@ WHERE NOT EXISTS
   AND sr.`LOCATION_ID` = '{cmbLOCATION_ID.SelectedValue}' 
   AND i.`TYPE` IN (0, 1, 2, 3, 4, 7)"
 
-        LoadDataGridView(dgvList, SQL)
+        GS_LoadDataGridView(dgvList, SQL)
         dgvList.Columns(0).Visible = False
 
     End Sub

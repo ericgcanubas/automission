@@ -10,7 +10,7 @@
         RefreshData()
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvItemGroup, "Select ig.ID,ig.Code,ig.Description,itm.Description as `Item Type` from item_group as ig inner join item_type_map as itm on itm.ID = ig.item_type ", Item_BS)
+        GS_LoadDataGridViewBinding(dgvItemGroup, "Select ig.ID,ig.Code,ig.Description,itm.Description as `Item Type` from item_group as ig inner join item_type_map as itm on itm.ID = ig.item_type ", Item_BS)
         ViewColumn(dgvItemGroup, 39)
 
     End Sub

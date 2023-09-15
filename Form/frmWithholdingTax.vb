@@ -84,10 +84,10 @@ Public Class FrmWithholdingTax
         End If
     End Sub
     Private Sub ComboBoxRefresh()
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
-        ComboBoxLoad(cmbEWT_ID, "select * from tax where tax_type='2' order by ID", "ID", "NAME")
-        ComboBoxLoad(cmbWITHHELD_FROM_ID, "select ID,NAME from contact where type='0'", "ID", "NAME")
-        ComboBoxLoad(cmbACCOUNTS_PAYABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 5", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbEWT_ID, "select * from tax where tax_type='2' order by ID", "ID", "NAME")
+        GS_ComboBoxLoad(cmbWITHHELD_FROM_ID, "select ID,NAME from contact where type='0'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbACCOUNTS_PAYABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 5", "ID", "NAME")
     End Sub
     Private Sub ClearInfo()
         ComboBoxRefresh()
@@ -108,10 +108,10 @@ Public Class FrmWithholdingTax
 
         Try
 
-            Dim rd As OdbcDataReader = SqlReader("select RATE,TAX_ACCOUNT_ID from TAX where ID ='" & NumIsNull(cmbEWT_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select RATE,TAX_ACCOUNT_ID from TAX where ID ='" & GF_NumIsNull(cmbEWT_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblEWT_RATE.Text = NumIsNull(rd("RATE"))
-                lblEWT_ACCOUNT_ID.Text = NumIsNull(rd("TAX_ACCOUNT_ID"))
+                lblEWT_RATE.Text = GF_NumIsNull(rd("RATE"))
+                lblEWT_ACCOUNT_ID.Text = GF_NumIsNull(rd("TAX_ACCOUNT_ID"))
             Else
                 lblEWT_RATE.Text = ""
                 lblEWT_ACCOUNT_ID.Text = ""
@@ -145,17 +145,17 @@ Public Class FrmWithholdingTax
         Try
 
 
-            Dim rd As OdbcDataReader = SqlReader("SELECT B.`ID` as `BILL_ID`,B.`DATE`,B.`CODE`,B.`AMOUNT`,B.`BALANCE_DUE`, (B.`AMOUNT`- IFNULL(B.`INPUT_TAX_AMOUNT`,0))  AS `TAXABLE_TOTAL`,b.ACCOUNTS_PAYABLE_ID FROM bill AS B WHERE  B.VENDOR_ID = '" & prPAY_ID & "' and B.LOCATION_ID = '" & NumIsNull(cmbLOCATION_ID.SelectedValue) & "'  GROUP BY B.`ID`,B.`DATE`,B.`CODE`,B.`AMOUNT`,B.`BALANCE_DUE`")
+            Dim rd As OdbcDataReader = SqlReader("SELECT B.`ID` as `BILL_ID`,B.`DATE`,B.`CODE`,B.`AMOUNT`,B.`BALANCE_DUE`, (B.`AMOUNT`- IFNULL(B.`INPUT_TAX_AMOUNT`,0))  AS `TAXABLE_TOTAL`,b.ACCOUNTS_PAYABLE_ID FROM bill AS B WHERE  B.VENDOR_ID = '" & prPAY_ID & "' and B.LOCATION_ID = '" & GF_NumIsNull(cmbLOCATION_ID.SelectedValue) & "'  GROUP BY B.`ID`,B.`DATE`,B.`CODE`,B.`AMOUNT`,B.`BALANCE_DUE`")
 
             While rd.Read
-                Dim ACCOUNTS_PAYABLE_ID As Integer = NumIsNull(rd("ACCOUNTS_PAYABLE_ID"))
+                Dim ACCOUNTS_PAYABLE_ID As Integer = GF_NumIsNull(rd("ACCOUNTS_PAYABLE_ID"))
                 Dim bill_ID As Integer = rd("BILL_ID")
                 Dim dTax As Double = GF_GetBillSumTaxAppliedAmount(bill_ID, prPAY_ID)
-                Dim Taxable_Amount As Double = NumIsNull(rd("TAXABLE_TOTAL"))
+                Dim Taxable_Amount As Double = GF_NumIsNull(rd("TAXABLE_TOTAL"))
 
                 dTax = GetAppliedWithholdingTax(bill_ID, ID)
 
-                Dim dBalance As Double = NumIsNull(rd("BALANCE_DUE")) + dTax
+                Dim dBalance As Double = GF_NumIsNull(rd("BALANCE_DUE")) + dTax
 
                 Dim bSelected As Boolean = False
                 If dTax <> 0 Then
@@ -233,7 +233,7 @@ Public Class FrmWithholdingTax
             Dim sQuery As String = "Select AMOUNT_WITHHELD AS A from `withholding_tax_bills` where Withholding_Tax_ID = '" & prWithholding_Tax_ID & "' and bill_id = '" & prbill_ID & "' Limit 1"
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
-                v = NumIsNull(rd("A"))
+                v = GF_NumIsNull(rd("A"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -388,7 +388,7 @@ Public Class FrmWithholdingTax
         If IsNew = True Then
 
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("withholding_tax", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("withholding_tax", cmbLOCATION_ID.SelectedValue)
             End If
 
 
@@ -399,7 +399,7 @@ Public Class FrmWithholdingTax
 
 
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbWITHHELD_FROM_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
@@ -411,7 +411,7 @@ Public Class FrmWithholdingTax
             SqlExecuted("UPDATE `withholding_tax` SET " & SqlUpdate(Me) & " WHERE ID ='" & ID & "' ")
 
 
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbWITHHELD_FROM_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
         If GF_IsTransactionSuccess(ID, "WITHHOLDING_TAX") = False Then
@@ -464,19 +464,19 @@ Public Class FrmWithholdingTax
                 If .Cells(1).Value = True Then
                     Dim GET_ID As Integer = 0
                     If CheckWithholdingTax(.Cells("BILL_ID").Value, ID, GET_ID) = True Then
-                        SqlExecuted("UPDATE `withholding_tax_bills` SET AMOUNT_WITHHELD = '" & NumIsNull(.Cells("AMT_WITHHOLDAMT").Value) & "',ACCOUNTS_PAYABLE_ID='" & .Cells("ACCOUNTS_PAYABLE_ID").Value & "' WHERE ID = '" & GET_ID & "' and  WITHHOLDING_TAX_ID='" & ID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
+                        SqlExecuted("UPDATE `withholding_tax_bills` SET AMOUNT_WITHHELD = '" & GF_NumIsNull(.Cells("AMT_WITHHOLDAMT").Value) & "',ACCOUNTS_PAYABLE_ID='" & .Cells("ACCOUNTS_PAYABLE_ID").Value & "' WHERE ID = '" & GET_ID & "' and  WITHHOLDING_TAX_ID='" & ID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
                         UpdateBillBalance(.Cells("BILL_ID").Value, cmbWITHHELD_FROM_ID.SelectedValue)
 
                     Else
 
                         GET_ID = ObjectTypeMapId("WITHHOLDING_TAX_BILLS")
-                        SqlExecuted("INSERT INTO `withholding_tax_bills` SET ID='" & GET_ID & "',WITHHOLDING_TAX_ID='" & ID & "',BILL_ID='" & .Cells("BILL_ID").Value & "', AMOUNT_WITHHELD = '" & NumIsNull(.Cells("AMT_WITHHOLDAMT").Value) & "',ACCOUNTS_PAYABLE_ID='" & .Cells("ACCOUNTS_PAYABLE_ID").Value & "'")
+                        SqlExecuted("INSERT INTO `withholding_tax_bills` SET ID='" & GET_ID & "',WITHHOLDING_TAX_ID='" & ID & "',BILL_ID='" & .Cells("BILL_ID").Value & "', AMOUNT_WITHHELD = '" & GF_NumIsNull(.Cells("AMT_WITHHOLDAMT").Value) & "',ACCOUNTS_PAYABLE_ID='" & .Cells("ACCOUNTS_PAYABLE_ID").Value & "'")
                         UpdateBillBalance(.Cells("BILL_ID").Value, cmbWITHHELD_FROM_ID.SelectedValue)
 
                     End If
                     '==============================================
                     If gsSkipJournalEntry = False Then
-                        GS_AccountJournalExecute(.Cells("ACCOUNTS_PAYABLE_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("BILL_ID").Value, 68, GET_ID, dtpDATE.Value, 0, NumIsNull(.Cells("AMT_WITHHOLDAMT").Value), gsJOURNAL_NO_FORM)
+                        GS_AccountJournalExecute(.Cells("ACCOUNTS_PAYABLE_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("BILL_ID").Value, 68, GET_ID, dtpDATE.Value, 0, GF_NumIsNull(.Cells("AMT_WITHHOLDAMT").Value), gsJOURNAL_NO_FORM)
                     End If
                     '===============================================
                 Else
@@ -506,7 +506,7 @@ Public Class FrmWithholdingTax
             Dim rd As OdbcDataReader = SqlReader("select * from `withholding_tax_bills` where bill_id = '" & bill_ID & "' and withholding_tax_id = '" & withholding_tax_ID & "' limit 1")
             If rd.Read Then
                 gsUpdate = True
-                GetID = NumIsNull(rd("ID"))
+                GetID = GF_NumIsNull(rd("ID"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -524,7 +524,7 @@ Public Class FrmWithholdingTax
     End Function
     Private Sub UpdateBillBalance(ByVal prbill_Id As String, ByVal prVendor_ID As String)
         Dim dTotal_Payment As Double = GF_GetBillSumPaymentApplied(prbill_Id, prVendor_ID) + GF_GetBillSumCreditApplied(prbill_Id, prVendor_ID) + GF_GetBillSumTaxAppliedAmount(prbill_Id, prVendor_ID)
-        Dim dTotal_Amount As Double = GetNumberFieldValue("BILL", "ID", prbill_Id, "AMOUNT")
+        Dim dTotal_Amount As Double = GF_GetNumberFieldValue("BILL", "ID", prbill_Id, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer
         If 0 >= dTotal_Balance Then
@@ -566,7 +566,7 @@ Public Class FrmWithholdingTax
 
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
-                CursorLoadingOn(True)
+                GS_CursorLoadingOn(True)
 
                 Try
                     For i As Integer = 0 To dgvBill.Rows.Count - 1
@@ -583,7 +583,7 @@ Public Class FrmWithholdingTax
 
                     SqlExecuted("DELETE FROM `withholding_tax` WHERE ID ='" & ID & "' Limit 1")
                     DeleteNotify(Me)
-                    SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbWITHHELD_FROM_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                    SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbWITHHELD_FROM_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 Catch ex As Exception
                     MessageBoxWarning(ex.Message)
                 End Try
@@ -591,7 +591,7 @@ Public Class FrmWithholdingTax
                 ID = 0
                 IsNew = True
                 ClearInfo()
-                CursorLoadingOn(False)
+                GS_CursorLoadingOn(False)
             End If
         End If
 
@@ -600,7 +600,7 @@ Public Class FrmWithholdingTax
 
     Private Sub FrmWithholdingTax_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         dgvBill.Columns("SELECTED").Width = 30
-        ViewNotSort(dgvBill)
+        GS_ViewNotSort(dgvBill)
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles tsJournal.Click
@@ -748,7 +748,7 @@ Public Class FrmWithholdingTax
         Dim F As Form = Nothing
         Dim Img As Image = Nothing
         If rd.Read Then
-            i = NumIsNull(rd("sub_id"))
+            i = GF_NumIsNull(rd("sub_id"))
             F = GetFormModule(rd("Form"))
             Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
             Img = Image.FromFile(folder & rd("image_file"))

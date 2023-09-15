@@ -9,7 +9,7 @@
     Public gsStock_bin_id As String
     Private Sub FrmItemPreference_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbBinStock, "select ID,DESCRIPTION from stock_bin", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbBinStock, "select ID,DESCRIPTION from stock_bin", "ID", "DESCRIPTION")
         ClearAndRefresh(Me)
         lblDescription.Text = gsDescription
         numOrderPoint.Value = gsOrderPoint

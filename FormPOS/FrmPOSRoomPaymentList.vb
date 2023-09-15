@@ -8,7 +8,7 @@
 
     Private Sub fPaymentLoad()
 
-        LoadDataGridView(dgvList, $"SELECT p.`ID`,i.`ID` AS `INVOICE_ID`,ifnull({strQuery},0) as `ROOM_ID`,p.`CODE` as `PAYMENT No.`, pn.`AMOUNT_APPLIED` AS `PAYMENT` FROM payment AS p INNER JOIN payment_invoices AS pn ON pn.`PAYMENT_ID` = p.`ID` inner join invoice as i on i.id = pn.INVOICE_ID  where p.`POS_LOG_ID` = '{gsPOS_LOG_ID}' order by p.ID ")
+        GS_LoadDataGridView(dgvList, $"SELECT p.`ID`,i.`ID` AS `INVOICE_ID`,ifnull({strQuery},0) as `ROOM_ID`,p.`CODE` as `PAYMENT No.`, pn.`AMOUNT_APPLIED` AS `PAYMENT` FROM payment AS p INNER JOIN payment_invoices AS pn ON pn.`PAYMENT_ID` = p.`ID` inner join invoice as i on i.id = pn.INVOICE_ID  where p.`POS_LOG_ID` = '{gsPOS_LOG_ID}' order by p.ID ")
         dgvList.Columns("ID").Visible = False
         dgvList.Columns("INVOICE_ID").Visible = False
         dgvList.Columns("ROOM_ID").Visible = False
@@ -17,10 +17,10 @@
     Private Sub fClick()
         If dgvList.Rows.Count <> 0 Then
             gsGotChangeData = False
-            Dim ROOM_ID As Integer = NumIsNull(dgvList.CurrentRow.Cells("ROOM_ID").Value)
-            Dim INVOICE_ID As Integer = NumIsNull(dgvList.CurrentRow.Cells("INVOICE_ID").Value)
+            Dim ROOM_ID As Integer = GF_NumIsNull(dgvList.CurrentRow.Cells("ROOM_ID").Value)
+            Dim INVOICE_ID As Integer = GF_NumIsNull(dgvList.CurrentRow.Cells("INVOICE_ID").Value)
             gsDocument_Finder_ID = INVOICE_ID
-            Dim ROOM_NAME As String = GetStringFieldValue("ITEM", "id", ROOM_ID, "description")
+            Dim ROOM_NAME As String = GF_GetStringFieldValue("ITEM", "id", ROOM_ID, "description")
             frmPOSRoomDetails.IsNew = INVOICE_ID
             frmPOSRoomDetails.gsWalkInCustomer = IIf(ROOM_NAME = "", True, False)
             frmPOSRoomDetails.Text = IIf(ROOM_NAME = "", "Walk-in customer", ROOM_NAME)
@@ -108,7 +108,7 @@
 
             Dim Payment_ID As Integer = dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value
             Dim Invoice_ID As Integer = dgvList.Rows(dgvList.CurrentRow.Index).Cells("INVOICE_ID").Value
-            Dim Customer_ID As Integer = GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "CUSTOMER_ID")
+            Dim Customer_ID As Integer = GF_GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "CUSTOMER_ID")
 
             'Payment Method
             SqlExecuted($"Delete From `payment_multi_method` WHERE payment_id ='{Payment_ID}'  ")
@@ -121,8 +121,8 @@
             fPaymentLoad()
             gsGotChangeData = True
 
-            fCollect_POSLog_Resto()
-            fPOS_LOG()
+            GS_CollectPosLogResto()
+            GS_PosLogLoad()
         End If
 
 

@@ -57,7 +57,7 @@ Public Class FrmCreditMemoInvoice
 
         LoadInvoiceList()
         Computed()
-        DatagridViewMode(dgvAvailable)
+
     End Sub
     Private Sub LoadInvoiceList()
         dgvAvailable.Rows.Clear()
@@ -100,7 +100,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
                     bSelected = True
                 End If
 
-                dgvAvailable.Rows.Add(rd("invoice_id"), bSelected, Format(rd("date"), "MM/dd/yyyy"), rd("code"), NumberFormatStandard(rd("amount")), NumIsNull(rd("balance_due")) + credit_applied, Format(credit_applied, "Standard"))
+                dgvAvailable.Rows.Add(rd("invoice_id"), bSelected, Format(rd("date"), "MM/dd/yyyy"), rd("code"), NumberFormatStandard(rd("amount")), GF_NumIsNull(rd("balance_due")) + credit_applied, Format(credit_applied, "Standard"))
 
             End While
 
@@ -238,7 +238,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
     End Sub
 
     Private Sub FrmCreditMemoInvoice_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewNotSort(dgvAvailable)
+        GS_ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
 

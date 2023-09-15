@@ -13,19 +13,19 @@ Module modNewItemInventory
         If rd.Read Then
 
             'UPDATE
-            If NumIsNull(rd("LOCATION_ID")) = LOCATION_ID Then
+            If GF_NumIsNull(rd("LOCATION_ID")) = LOCATION_ID Then
 
             Else
                 'Change LOCATION
             End If
 
-            If NumIsNull(rd("COST")) = COST Then
+            If GF_NumIsNull(rd("COST")) = COST Then
 
             Else
                 'Change Cost
             End If
 
-            If NumIsNull(rd("QTY")) = QTY Then
+            If GF_NumIsNull(rd("QTY")) = QTY Then
 
             Else
                 'Change Cost
@@ -44,10 +44,10 @@ Module modNewItemInventory
             'Checking Last Entry
             Dim c_rd As OdbcDataReader = SqlReader($"select ID,SEQUENCE_NO,ENDING_QUANTITY,ENDING_COST from item_inventory Where ITEM_ID = '{ITEM_ID}' and LOCATION_ID = '{LOCATION_ID}' order by SEQUENCE_NO DESC Limit 1")
             If c_rd.Read Then
-                N_SEQUENCE_NO = NumIsNull(c_rd("SEQUENCE_NO"))
-                N_ENDING_QTY = NumIsNull(c_rd("ENDING_QUANTITY"))
-                N_ENDING_COST = NumIsNull(c_rd("ENDING_COST"))
-                N_PREVIOUS_ID = NumIsNull(c_rd("ID"))
+                N_SEQUENCE_NO = GF_NumIsNull(c_rd("SEQUENCE_NO"))
+                N_ENDING_QTY = GF_NumIsNull(c_rd("ENDING_QUANTITY"))
+                N_ENDING_COST = GF_NumIsNull(c_rd("ENDING_COST"))
+                N_PREVIOUS_ID = GF_NumIsNull(c_rd("ID"))
             End If
             c_rd.Close()
 

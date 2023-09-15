@@ -31,7 +31,7 @@ Public Class FrmDatabaseReset
             For I As Integer = 0 To chkTableList.Items.Count - 1
                 If chkTableList.GetItemChecked(I) = True Then
                     GS_DoEvents()
-                    Dim DOC_ID As Integer = GetNumberFieldValue("DOCUMENT_TYPE_MAP", "DESCRIPTION", chkTableList.Items(I), "ID")
+                    Dim DOC_ID As Integer = GF_GetNumberFieldValue("DOCUMENT_TYPE_MAP", "DESCRIPTION", chkTableList.Items(I), "ID")
 
                     Dim rd_object As OdbcDataReader = SqlReader($"select * from object_type_map where DOCUMENT_TYPE ='{DOC_ID}' order by ID Desc  ")
                     While rd_object.Read

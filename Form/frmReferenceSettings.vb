@@ -1,11 +1,11 @@
 ﻿Public Class FrmReferenceSettings
     Private Sub FrmReferenceSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(xmbMenu, "select * from object_type_map where IS_DOCUMENT = '1' ", "ID", "NAME")
+        GS_ComboBoxLoad(xmbMenu, "select * from object_type_map where IS_DOCUMENT = '1' ", "ID", "NAME")
         ClearAndRefresh(Me)
 
     End Sub
     Private Sub RefreshData()
-        SqlExecutedUsingReading(Me, "select * from object_type_map where ID = '" & NumIsNull(xmbMenu.SelectedValue) & "' limit 1")
+        SqlExecutedUsingReading(Me, "select * from object_type_map where ID = '" & GF_NumIsNull(xmbMenu.SelectedValue) & "' limit 1")
     End Sub
     Private Sub XmbMenu_SelectedIndexChanged(sender As Object, e As EventArgs) Handles xmbMenu.SelectedIndexChanged
         RefreshData()

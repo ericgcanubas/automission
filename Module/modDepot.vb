@@ -2,7 +2,7 @@
 Module modDepot
 
     Public Sub fDepotConnected(ByVal prOrder As ComboBox, ByVal prDealer As ComboBox, ByVal prSales_REP As ComboBox)
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
 
 
         Try
@@ -18,12 +18,12 @@ Module modDepot
 
             Dim rd As OdbcDataReader = SqlReader("select * from contact where id = '" & CStr(prOrder.SelectedValue.ToString) & "' Limit 1")
             If rd.Read Then
-                Select Case NumIsNull(rd("TYPE"))
+                Select Case GF_NumIsNull(rd("TYPE"))
                     Case 1
                         ' Dealer
-                        prDealer.SelectedValue = NumIsNull(rd("OTHER_CONTACT_ID"))
+                        prDealer.SelectedValue = GF_NumIsNull(rd("OTHER_CONTACT_ID"))
                         ' Manager
-                        prSales_REP.SelectedValue = NumIsNull(rd("SALES_REP_ID"))
+                        prSales_REP.SelectedValue = GF_NumIsNull(rd("SALES_REP_ID"))
                     Case 5
                         ' Manager
                         prDealer.SelectedValue = 0
@@ -32,7 +32,7 @@ Module modDepot
                         ' Dealer
                         prDealer.SelectedValue = prOrder.SelectedValue
 
-                        prSales_REP.SelectedValue = NumIsNull(rd("SALES_REP_ID"))
+                        prSales_REP.SelectedValue = GF_NumIsNull(rd("SALES_REP_ID"))
                         ' Manager
 
                 End Select
@@ -52,13 +52,13 @@ Module modDepot
 
 
 
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
     End Sub
 
 
 
     Public Function fgetRunningTotal(ByVal dt1 As String, ByVal dt2 As String) As Double ' OVER ALL COLLECTION
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
 
         Dim sqlx As String = "SELECT SUM(pv.`AMOUNT_APPLIED`)  FROM payment_invoices AS pv INNER JOIN  payment AS p ON p.`ID` = pv.`PAYMENT_ID` inner join invoice as i on pv.INVOICE_ID = i.ID WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "'"
         Dim sqls As String = "SELECT SUM(i.`AMOUNT`)   FROM sales_receipt AS i  WHERE i.`DATE` BETWEEN '" & dt1 & "' and '" & dt2 & "'"
@@ -67,7 +67,7 @@ Module modDepot
         n = n + GF_GetSummary(sqls)
 
         Return n
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
     End Function
     Public Function fgetRunningTotalByManager(ByVal dt1 As String, ByVal dt2 As String, ByVal prContact_ID As String)
 
@@ -137,9 +137,9 @@ WHERE c.Type = '6' AND c.`OTHER_CONTACT_ID` = '" & prContact_ID & "' "
             'cn.Open()
             Dim rd As OdbcDataReader = SqlReader(sql)
             While rd.Read
-                If NumIsNull(rd(0)) <= NumIsNull(rd(1)) Then
+                If GF_NumIsNull(rd(0)) <= GF_NumIsNull(rd(1)) Then
                     n = n + 1
-                    r = r + NumIsNull(rd(1))
+                    r = r + GF_NumIsNull(rd(1))
                 End If
             End While
             rd.Close()

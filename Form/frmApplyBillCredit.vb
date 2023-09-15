@@ -37,7 +37,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 Dim other_applied As Double = GF_GetCreditOtherBill(rd("bill_credit_id"), gsID)
-                Dim credit_amount As Double = NumIsNull(rd("amount")) - other_applied
+                Dim credit_amount As Double = GF_NumIsNull(rd("amount")) - other_applied
                 Dim credit_applied As Double = GF_GetCreditAppliedBills(rd("bill_credit_id"), gsVendor_ID, gsID)
                 Dim credit_balance As Double = 0
                 If credit_applied = 0 Then
@@ -103,7 +103,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
         lblDISCOUNT_USED.Text = NumberFormatStandard(fGetSumPaymentApplied(gsID, gsVendor_ID))
         lblAmount_Due.Text = NumberFormatStandard(gsBalance + GF_GetBillSumCreditApplied(gsID, gsVendor_ID))
         FormComputed()
-        DatagridViewMode(dgvAvailable)
+
     End Sub
 
     Private Sub FormComputed()
@@ -139,7 +139,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
             Else
                 'INSERT
                 If bSelected = True Then
-                    'GetMaxField("ID", "bill_credit_bills")
+                    'GF_GetMaxField("ID", "bill_credit_bills")
                     SqlExecuted("INSERT INTO bill_credit_bills set ID ='" & ObjectTypeMapId("BILL_CREDIT_BILLS") & "', bill_Credit_ID = '" & prbill_Credit_ID & "',BILL_ID = '" & gsID & "',AMOUNT_APPLIED ='" & amt_appled & "'")
                     bUpdate = True
                 End If
@@ -235,7 +235,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
         End Try
     End Sub
     Private Sub FrmApplyBillCredit_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewNotSort(dgvAvailable)
+        GS_ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
     Private Sub BtnCANCEL_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

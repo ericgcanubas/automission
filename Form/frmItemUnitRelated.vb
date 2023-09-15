@@ -4,8 +4,8 @@
 
 
     Private Sub FrmItemUnitRelated_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbUnit, "select * from unit_of_measure where inactive ='0'", "ID", "NAME")
-        ComboBoxLoad(cmbSymbol, "select * from unit_of_measure where inactive ='0'", "ID", "SYMBOL")
+        GS_ComboBoxLoad(cmbUnit, "select * from unit_of_measure where inactive ='0'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbSymbol, "select * from unit_of_measure where inactive ='0'", "ID", "SYMBOL")
         cmbUnit.SelectedValue = iUnit_ID
         cmbSymbol.SelectedValue = iUnit_ID
         bSave = False

@@ -267,7 +267,7 @@
             Exit Sub
         End If
 
-        If fPOS_OR_Required() = True And txtPAYMENT_REF_NO.Text.Length = 0 Then
+        If GF_IsPosOfficialReceiptRequired() = True And txtPAYMENT_REF_NO.Text.Length = 0 Then
 
             If txtPAYMENT_REF_NO.Text.Length = 0 Then
                 MessageBoxExclamation($"{lbslREF_No.Text} is required.")

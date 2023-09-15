@@ -5,7 +5,7 @@
         RefreshData()
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvSubClass, "select  isc.ID, isc.Code,isc.Description, ic.Description as `Class` from item_sub_class as isc  inner join item_class as ic on ic.id = isc.class_id ", item_BS)
+        GS_LoadDataGridViewBinding(dgvSubClass, "select  isc.ID, isc.Code,isc.Description, ic.Description as `Class` from item_sub_class as isc  inner join item_class as ic on ic.id = isc.class_id ", item_BS)
         ViewColumn(dgvSubClass, 38)
     End Sub
 

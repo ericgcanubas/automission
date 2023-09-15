@@ -24,7 +24,7 @@
     End Sub
     Private Sub fRefreshData()
 
-        LoadDataGridView(dgvManager, "SELECT 
+        GS_LoadDataGridView(dgvManager, "SELECT 
   c.ID,
   c.Name,
   c.POSTAL_ADDRESS AS 'Postal Address',

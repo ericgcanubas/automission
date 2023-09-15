@@ -11,7 +11,7 @@ Public Class FrmMenuSettings
 
     Private Sub fMainMenu()
         Try
-            LoadDataGridView(dgvMenu, "select menu_id as `ID`,`Description`,`Image_file` as `Image File`, if(Visible = 1, 'True','False') as Visible  From tblmenu where menu_id <> '5' ")
+            GS_LoadDataGridView(dgvMenu, "select menu_id as `ID`,`Description`,`Image_file` as `Image File`, if(Visible = 1, 'True','False') as Visible  From tblmenu where menu_id <> '5' ")
             dgvMenu.Columns(0).Width = 50
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
@@ -21,7 +21,7 @@ Public Class FrmMenuSettings
     Private Sub fSub()
         Try
 
-            LoadDataGridView(dgvSub, "select s.sub_id as `ID`,s.`Description`,s.`Form`, s.`image_file` as `Image File` from tblsub_menu as s where s.group_line ='0' ")
+            GS_LoadDataGridView(dgvSub, "select s.sub_id as `ID`,s.`Description`,s.`Form`, s.`image_file` as `Image File` from tblsub_menu as s where s.group_line ='0' ")
             dgvSub.Columns(0).Width = 50
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
@@ -34,7 +34,7 @@ Public Class FrmMenuSettings
 
             Dim i As Integer = dgvMenu.CurrentRow.Index
             Dim id As Integer = dgvMenu.Rows(i).Cells(0).Value
-            LoadDataGridView(dgvSubMenu, "select s.sub_id as `ID`,s.`Description` from tblsub_menu as s inner join tblmenu_list as l on l.sub_id = s.sub_id where l.menu_id ='" & id & "' ")
+            GS_LoadDataGridView(dgvSubMenu, "select s.sub_id as `ID`,s.`Description` from tblsub_menu as s inner join tblmenu_list as l on l.sub_id = s.sub_id where l.menu_id ='" & id & "' ")
             dgvSubMenu.Columns(0).Width = 50
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
@@ -265,7 +265,7 @@ Public Class FrmMenuSettings
         Dim menu_id As Integer = dgvMenu.Rows(dgvMenu.CurrentRow.Index).Cells(0).Value
         Dim sub_id As Integer = dgvSub.Rows(dgvSub.CurrentRow.Index).Cells(0).Value
 
-        SqlExecuted("INSERT INTO tblmenu_list SET menu_id ='" & menu_id & "',sub_id='" & sub_id & "',position_no = '" & Val(GetMaxFieldLine("position_no", "tblmenu_list", "menu_id", menu_id)) & "'  ")
+        SqlExecuted("INSERT INTO tblmenu_list SET menu_id ='" & menu_id & "',sub_id='" & sub_id & "',position_no = '" & Val(GF_GetMaxFieldLine("position_no", "tblmenu_list", "menu_id", menu_id)) & "'  ")
 
         fSub()
         fSUbMenu()

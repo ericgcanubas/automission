@@ -58,7 +58,7 @@ Public Class FrmAddItemTouchScreen
     Public gsDate As Date = Date.Now
     Dim Basic_Unit_ID As Integer = 0
     Dim _Unit_Rate As Double
-    Private Sub fSearchEnter()
+    Private Sub SearchKeyEnter()
         bSearching = True
         Try
             If txtSearch.Text.Length = 0 Then
@@ -70,14 +70,14 @@ Public Class FrmAddItemTouchScreen
 
         End Try
         bSearching = False
-        Search_Select()
+        SearchSelector()
     End Sub
-    Private Sub fMaster_KeyDown(sender As Object, e As KeyEventArgs)
+    Private Sub MasterKeyDown(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
             If dgvSearch.Visible = True Then
 
 
-                dgvSearch_KeyDown(sender, e)
+                DgvSearch_KeyDown(sender, e)
 
                 If cmbItem_Code.SelectedValue <> 0 Then
 
@@ -166,31 +166,28 @@ Public Class FrmAddItemTouchScreen
 
         End If
     End Sub
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
-
-    End Sub
-    Private Sub fCategory_Class()
+    Private Sub LoadCategoryClass()
         flp_Category.Controls.Clear()
         Dim rd As OdbcDataReader = SqlReader("select  * from item_class ")
         While rd.Read
-            Dim NewButton As New Button
-            NewButton.Name = $"btnclass{rd(0)}"
-            NewButton.Text = rd("description")
-            NewButton.Size = New Size(88, 57)
-            NewButton.BackColor = Color.DarkBlue
-            NewButton.ForeColor = Color.White
-
-            NewButton.AccessibleName = rd(0)
-            NewButton.Tag = 0
-            AddHandler NewButton.Click, AddressOf fButtonClass_Click
-            flp_Category.Controls.Add(NewButton)
-
+            Using NewButton As New Button With {
+                .Name = $"btnclass{rd(0)}",
+                .Text = rd("description"),
+                .Size = New Size(88, 57),
+                .BackColor = Color.DarkBlue,
+                .ForeColor = Color.White,
+                .AccessibleName = rd(0),
+                .Tag = 0
+            }
+                AddHandler NewButton.Click, AddressOf ButtonClass_Click
+                flp_Category.Controls.Add(NewButton)
+            End Using
         End While
         rd.Close()
 
 
     End Sub
-    Private Sub fButtonClass_Click(sender As Object, e As EventArgs)
+    Private Sub ButtonClass_Click(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim Class_ID As Integer = btn.AccessibleName
         flp_Category.Controls.Clear()
@@ -199,52 +196,55 @@ Public Class FrmAddItemTouchScreen
         BS_ITEM.Filter = $" CLASS_ID ='{Class_ID}' "
         Dim rd As OdbcDataReader = SqlReader($"select  * from item_sub_class where class_id ='{Class_ID}' ")
         While rd.Read
-            Dim NewButton As New Button
-            NewButton.Name = $"btnsubclass{rd(0)}"
-            NewButton.Text = rd("description")
-            NewButton.Size = New Size(88, 57)
-            NewButton.AccessibleName = rd(0)
-            NewButton.BackColor = Color.DarkMagenta
-            NewButton.ForeColor = Color.White
-            NewButton.AccessibleDescription = rd("CLASS_ID")
-            NewButton.Tag = 1
-            AddHandler NewButton.Click, AddressOf fButtonSub_Class_Click
-            flp_Category.Controls.Add(NewButton)
+            Using NewButton As New Button With {
+                .Name = $"btnsubclass{rd(0)}",
+                .Text = rd("description"),
+                .Size = New Size(88, 57),
+                .AccessibleName = rd(0),
+                .BackColor = Color.DarkMagenta,
+                .ForeColor = Color.White,
+                .AccessibleDescription = rd("CLASS_ID"),
+                .Tag = 1
+            }
+                AddHandler NewButton.Click, AddressOf ButtonSub_Class_Click
+                flp_Category.Controls.Add(NewButton)
+            End Using
         End While
         rd.Close()
         bSearching = False
-        Search_Select()
+        SearchSelector()
 
-        Dim BackButton As New Button
-        BackButton.Name = $"btnBACK"
-        BackButton.Text = "Back"
-        BackButton.BackColor = Color.Black
-        BackButton.ForeColor = Color.White
-        BackButton.Size = New Size(88, 57)
-        AddHandler BackButton.Click, AddressOf fBackButton
+        Dim BackButton As New Button With {
+            .Name = $"btnBACK",
+            .Text = "Back",
+            .BackColor = Color.Black,
+            .ForeColor = Color.White,
+            .Size = New Size(88, 57)
+        }
+        AddHandler BackButton.Click, AddressOf Me.BackButton
         flp_Category.Controls.Add(BackButton)
     End Sub
-    Private Sub fButtonSub_Class_Click(sender As Object, e As EventArgs)
+    Private Sub ButtonSub_Class_Click(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
         Dim sub_Class_ID As Integer = btn.AccessibleName
         bSearching = True
         BS_ITEM.Filter = $" SUB_CLASS_ID ='{sub_Class_ID}' "
         bSearching = False
-        Search_Select()
+        SearchSelector()
     End Sub
-    Private Sub fBackButton(sender As Object, e As EventArgs)
-        fCategory_Class()
+    Private Sub BackButton(sender As Object, e As EventArgs)
+        LoadCategoryClass()
 
         bSearching = True
         BS_ITEM.Filter = $""
         bSearching = False
-        Search_Select()
+        SearchSelector()
     End Sub
-    Private Function fCHECK_ITEM_ONHAND(ByVal prITEM_ID As Integer, ByVal prDESCRIPTION As String, ByVal prQTY As Double) As Boolean
+    Private Function IsItemOnHand(ByVal prITEM_ID As Integer, ByVal prDESCRIPTION As String, ByVal prQTY As Double) As Boolean
         Dim bON_HAND As Boolean = True
         Dim iQty As Double = QtyActualOnDateLocation(prITEM_ID, gsDate, gsLOCATION_ID)
 
-        Dim nQTY As Double = (numQty.Value * IIf(Val(lblQty_Base.Text) = 0, 1, Val(lblQty_Base.Text))) + fdgvGetQty(prITEM_ID)
+        Dim nQTY As Double = (numQty.Value * IIf(Val(lblQty_Base.Text) = 0, 1, Val(lblQty_Base.Text))) + GetQty(prITEM_ID)
 
         If iQty - nQTY <= -1 Then
             MessageBoxExclamation($"Not allowed negative inventory on  {prDESCRIPTION}. { Environment.NewLine} { Environment.NewLine} Sorry, unable to proceed.")
@@ -254,27 +254,22 @@ Public Class FrmAddItemTouchScreen
         Return bON_HAND
     End Function
 
-    Private Function fdgvGetQty(ByVal prITEM_ID As Integer) As Double
+    Private Function GetQty(ByVal prITEM_ID As Integer) As Double
         Dim qty As Double = 0
         If dgv.Rows.Count <> 0 Then
 
             For I As Integer = 0 To dgv.Rows.Count - 1
                 If dgv.Rows(I).Cells("ITEM_ID").Value = prITEM_ID Then
-                    qty = qty + (dgv.Rows(I).Cells("QTY").Value * Val(dgv.Rows(I).Cells("UNIT_QUANTITY_BASE").Value))
+                    qty += (dgv.Rows(I).Cells("QTY").Value * Val(dgv.Rows(I).Cells("UNIT_QUANTITY_BASE").Value))
                 End If
             Next
         End If
         Return qty
     End Function
 
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs)
 
 
-
-
-    End Sub
-
-    Private Sub fClearAll()
+    Private Sub FormClearAll()
         gsItem_ID = ""
         gsUnit_Price = 0
         gsDiscount_Rate = ""
@@ -302,7 +297,7 @@ Public Class FrmAddItemTouchScreen
         xlblLabel_Amount.Text = lbl1
         xlblnum_price.Text = lbl2
         xlblSelection.Text = lbl3
-        fMemberDiscount()
+        MemberDiscount()
         numQty.Value = 1
 
 
@@ -321,7 +316,7 @@ Public Class FrmAddItemTouchScreen
         numUnit_price.Enabled = gsUserPriceLock
         numQty.Enabled = True
     End Sub
-    Private Function fTotal_NOW(ByVal dgv As DataGridView) As Double
+    Private Function GetTotalNow(ByVal dgv As DataGridView) As Double
         Dim T As Double = 0
 
         For i As Integer = 0 To dgv.Rows.Count - 1
@@ -338,7 +333,7 @@ Public Class FrmAddItemTouchScreen
                         Case 7 ' DISCOUNT
                             T = 0
                         Case Else
-                            T = T + NumberFormatFixed(.Cells("AMOUNT").Value)
+                            T += NumberFormatFixed(.Cells("AMOUNT").Value)
                     End Select
 
                 End If
@@ -349,7 +344,7 @@ Public Class FrmAddItemTouchScreen
         Return T
     End Function
 
-    Private Sub fComputation()
+    Private Sub Computation()
         Try
             If lblAmount.Visible = False Then
                 Exit Sub
@@ -380,7 +375,7 @@ Public Class FrmAddItemTouchScreen
 
     End Sub
 
-    Private Sub frmAddItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmAddItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         fMaterialSkin(Me)
 
 
@@ -399,17 +394,17 @@ Public Class FrmAddItemTouchScreen
 UNION
 SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 6,'GROUP SET',''))) AS `GROUP`,FORMAT(IF (i.`TYPE`=6,(SELECT SUM( IF(t.`TYPE` IN ('0','2','3','4'),c.`RATE`,IF(t.`TYPE` = 7,-c.`RATE`,0))) FROM item_components  AS c  INNER JOIN item AS t ON t.`ID` = c.`COMPONENT_ID` WHERE c.ITEM_ID = i.ID),i.`RATE`),2) AS `RATE`,i.SUB_CLASS_ID,sc.CLASS_ID,i.GROUP_ID FROM ITEM AS I LEFT OUTER JOIN  item_sub_class AS sc ON sc.ID =  i.SUB_CLASS_ID LEFT OUTER JOIN item_group AS g ON g.`ID` = i.`GROUP_ID`  WHERE EXISTS (SELECT * FROM item_components AS ic WHERE ic.`ITEM_ID` ='{gsPOS_SELECTED_ROOM_ID}' AND i.`ID` = ic.`COMPONENT_ID` ) AND i.BUNDLE_SET = '0' AND i.INACTIVE = '0' AND  i.`type` NOT IN  ('1','2','3','4','5','10') "
 
-                ComboBoxLoad(cmbItem_Code, gsItemCodeQuery_, "ID", "CODE")
-                ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionQuery_, "ID", "DESCRIPTION")
-                LoadDataGridViewBinding(dgvSearch, gsItemSearchQuery_resto_, BS_ITEM)
+                GS_ComboBoxLoad(cmbItem_Code, gsItemCodeQuery_, "ID", "CODE")
+                GS_ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionQuery_, "ID", "DESCRIPTION")
+                GS_LoadDataGridViewBinding(dgvSearch, gsItemSearchQuery_resto_, BS_ITEM)
             Else
 
-                ComboBoxLoad(cmbItem_Code, gsItemCodeQuery, "ID", "CODE")
-                ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionQuery, "ID", "DESCRIPTION")
-                LoadDataGridViewBinding(dgvSearch, gsItemSearchQuery_resto, BS_ITEM)
+                GS_ComboBoxLoad(cmbItem_Code, gsItemCodeQuery, "ID", "CODE")
+                GS_ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionQuery, "ID", "DESCRIPTION")
+                GS_LoadDataGridViewBinding(dgvSearch, gsItemSearchQuery_resto, BS_ITEM)
             End If
 
-            fCategory_Class()
+            LoadCategoryClass()
 
             '   dgvSearch.Columns("DESCRIPTION").Width = 100
             If dgvSearch.Columns.Count <> 0 Then
@@ -429,10 +424,10 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
 
             cmbItem_Code.Enabled = False
             cmbItem_DESCRIPTION.Enabled = False
-        ElseIf gsCOST_AMOUNT_ONLY = True And (sFormName = frmStockTransfer.Name Or sFormName = frmInventoryAdjustment.Name) Then
-            ComboBoxLoad(cmbItem_Code, gsItemCodeZeroQuery, "ID", "CODE")
-            ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionZeroQuery, "ID", "DESCRIPTION")
-            LoadDataGridViewBinding(dgvSearch, gsItemSearchZeroQuery, BS_ITEM)
+        ElseIf gsCOST_AMOUNT_ONLY = True And (sFormName = FrmStockTransfer.Name Or sFormName = FrmInventoryAdjustment.Name) Then
+            GS_ComboBoxLoad(cmbItem_Code, gsItemCodeZeroQuery, "ID", "CODE")
+            GS_ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionZeroQuery, "ID", "DESCRIPTION")
+            GS_LoadDataGridViewBinding(dgvSearch, gsItemSearchZeroQuery, BS_ITEM)
 
             '  dgvSearch.Columns(2).Width = 200
             dgvSearch.Columns(3).Width = 60
@@ -443,9 +438,9 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             cmbItem_Code.Enabled = False
             cmbItem_DESCRIPTION.Enabled = False
         Else
-            ComboBoxLoad(cmbItem_Code, gsItemCodeCostQuery, "ID", "CODE")
-            ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionCostQuery, "ID", "DESCRIPTION")
-            LoadDataGridViewBinding(dgvSearch, gsItemSearchCostQuery, BS_ITEM)
+            GS_ComboBoxLoad(cmbItem_Code, gsItemCodeCostQuery, "ID", "CODE")
+            GS_ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionCostQuery, "ID", "DESCRIPTION")
+            GS_LoadDataGridViewBinding(dgvSearch, gsItemSearchCostQuery, BS_ITEM)
 
             ' dgvSearch.Columns(2).Width = 250
             dgvSearch.Columns(3).Width = 60
@@ -462,7 +457,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             dgvSearch.Columns(1).Visible = False
         End If
 
-        ComboBoxLoad(cmbDiscount_Type, "select '' as ID, '' as DESCRIPTION  FROM discount_type  UNION select ID,DESCRIPTION FROM discount_type ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbDiscount_Type, "select '' as ID, '' as DESCRIPTION  FROM discount_type  UNION select ID,DESCRIPTION FROM discount_type ", "ID", "DESCRIPTION")
 
         ClearAndRefresh(Me)
         If gsItem_ID <> "" Then
@@ -473,8 +468,8 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             FindItemToolStripMenuItem.Enabled = False
             txtSearch.Visible = True
 
-            cmbUM_SelectedIndexChanged(sender, e)
-            cmbItem_Code_LostFocus(sender, e)
+
+            CmbItem_Code_LostFocus(sender, e)
             Me.Text = "EDIT ITEMS"
             sFormName = ""
         Else
@@ -495,7 +490,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
                 Else
 
                     If Val(gsUM) <> 0 Then
-                        fCheckPriceLevel_UNIT(gsItem_ID, gsUM)
+                        SetCheckPriceLevelUnit(gsItem_ID, gsUM)
                         cmbPRICE_LEVEL.SelectedValue = Val(gsPRICE_LEVEL_ID)
                     End If
 
@@ -513,7 +508,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             End If
 
 
-            fComputation()
+            Computation()
 
         Else
             numQty.Value = 1
@@ -523,7 +518,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             xlblSelection.Visible = True
             cmbSelection.Visible = True
             xlblSelection.Text = gsSelection_Label
-            ComboBoxLoad(cmbSelection, gsSelection_Query, gsSelection_VALUE, gsSelection_DESCRIPTION)
+            GS_ComboBoxLoad(cmbSelection, gsSelection_Query, gsSelection_VALUE, gsSelection_DESCRIPTION)
 
             If Trim(gsSelection_ID) <> "" Then
                 cmbSelection.SelectedValue = gsSelection_ID
@@ -542,7 +537,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
 
 
         GS_DoEvents()
-        fDiscount_Effect()
+        DiscountEffects()
 
         cmbItem_Code.Enabled = False
         cmbItem_DESCRIPTION.Enabled = False
@@ -599,17 +594,14 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
 
 
 
-    Private Sub numUnit_price_ValueChanged(sender As Object, e As EventArgs)
-        fComputation()
+    Private Sub NumUnit_price_ValueChanged(sender As Object, e As EventArgs)
+        Computation()
     End Sub
 
-    Private Sub fDiscount_Effect()
+    Private Sub DiscountEffects()
         If gsNON_DISCOUNTED_ITEM = False Then
-
-
-
             Try
-                Select Case NumIsNull(cmbDiscount_Type.SelectedValue)
+                Select Case GF_NumIsNull(cmbDiscount_Type.SelectedValue)
 
                     Case 0
                         numDiscountValue.Enabled = True
@@ -625,7 +617,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
                         numDiscountValue.Value = 0
                 End Select
 
-                fComputation()
+                Computation()
             Catch ex As Exception
 
             End Try
@@ -636,53 +628,42 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             numDiscountValue.Enabled = False
             numDiscountValue.Value = 0
 
-            fComputation()
+            Computation()
         End If
     End Sub
-    Private Sub cmbDiscount_Type_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDiscount_Type.SelectedIndexChanged
+    Private Sub CmbDiscount_Type_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDiscount_Type.SelectedIndexChanged
 
-        fDiscount_Effect()
+        DiscountEffects()
     End Sub
 
-    Private Sub numDiscountValue_ValueChanged(sender As Object, e As EventArgs) Handles numDiscountValue.ValueChanged
-        fComputation()
+    Private Sub NumDiscountValue_ValueChanged(sender As Object, e As EventArgs) Handles numDiscountValue.ValueChanged
+        Computation()
     End Sub
-
-    Private Sub cmbUM_SelectedIndexChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btnBrowse_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Private Sub numQty_GotFocus(sender As Object, e As EventArgs) Handles numQty.GotFocus
+    Private Sub NumQty_GotFocus(sender As Object, e As EventArgs) Handles numQty.GotFocus
         dgvSearch.Visible = True
-
         BlueLight(numQty)
         xlblOnHand.Text = QtyActualOnDateLocation(cmbItem_Code.SelectedValue, gsDate, gsLOCATION_ID)
-        If NumIsNull(cmbItem_Code.SelectedValue) = 0 Then
+        If GF_NumIsNull(cmbItem_Code.SelectedValue) = 0 Then
             txtSearch.Focus()
         End If
     End Sub
-    Private Sub cmbItem_DESCRIPTION_LostFocus(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.LostFocus
-        fItemSelected(cmbItem_DESCRIPTION, cmbItem_Code)
+    Private Sub CmbItem_DESCRIPTION_LostFocus(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.LostFocus
+        ItemSelection(cmbItem_DESCRIPTION, cmbItem_Code)
     End Sub
-    Private Sub cmbItem_Code_LostFocus(sender As Object, e As EventArgs) Handles cmbItem_Code.LostFocus
+    Private Sub CmbItem_Code_LostFocus(sender As Object, e As EventArgs) Handles cmbItem_Code.LostFocus
 
-        fItemSelected(cmbItem_Code, cmbItem_DESCRIPTION)
+        ItemSelection(cmbItem_Code, cmbItem_DESCRIPTION)
 
     End Sub
 
-    Private Sub fCheckPriceLevel(ByVal prItem_ID As Double)
+    Private Sub SetCheckPriceLevel(ByVal prItem_ID As Double)
         If gsCOST_AMOUNT_ONLY = True Then
             'Must only price 
             Exit Sub
         End If
 
         Dim pl_SQL As String = $"select * from ((SELECT  '0'  AS ID  ,'Default' AS `CODE`) UNION (SELECT  pl.ID, pl.`CODE` FROM price_level AS  pl WHere pl.TYPE = '0' and pl.Inactive = '0' ) UNION (SELECT  pl.ID, pl.`CODE` FROM price_level_lines AS pll INNER JOIN price_level AS  pl ON pl.`ID`= pll.`PRICE_LEVEL_ID` WHERE pll.`ITEM_ID` = '{prItem_ID}' and pl.INACTIVE ='0' and pl.Type ='1' )) as T order by T.ID"
-        ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
+        GS_ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
         If cmbPRICE_LEVEL.Items.Count = 1 Then
             cmbPRICE_LEVEL.Visible = False
             xxxlblPrice_level.Visible = False
@@ -698,7 +679,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
         End If
 
     End Sub
-    Private Sub fCheckPriceLevel_UNIT(ByVal prItem_ID As Double, ByVal prUnit_ID As Double)
+    Private Sub SetCheckPriceLevelUnit(ByVal prItem_ID As Double, ByVal prUnit_ID As Double)
         If gsCOST_AMOUNT_ONLY = True Then
             'Must only price 
             Exit Sub
@@ -708,7 +689,7 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
         If rd.Read Then
             cmbPRICE_LEVEL.CausesValidation = False
             Dim pl_SQL As String = $"select * from ((SELECT  '0'  AS ID  ,'Default' AS `CODE`) UNION (SELECT pl.`ID`,pl.`CODE` FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{prItem_ID}' AND n.`UNIT_ID` = '{prUnit_ID}' AND pl.`INACTIVE` = '0' and pl.TYPE ='1' )) as T order by T.ID"
-            ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
+            GS_ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
             If cmbPRICE_LEVEL.Items.Count = 1 Then
                 cmbPRICE_LEVEL.Visible = False
                 xxxlblPrice_level.Visible = False
@@ -718,11 +699,11 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             End If
 
         Else
-            fCheckPriceLevel(prItem_ID)
+            SetCheckPriceLevel(prItem_ID)
         End If
         rd.Close()
     End Sub
-    Private Sub frmAddItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmAddItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         If sFormName = "" Then
             btnOK.Text = " OK"
             btnClose.Text = " Close"
@@ -733,14 +714,14 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             btnOK.Text = " ADD"
             btnClose.Text = "Close"
         End If
-        fMemberDiscount()
-        fDiscount_Effect()
+        MemberDiscount()
+        DiscountEffects()
 
 
         dgvSearch.Columns("DESCRIPTION").DefaultCellStyle.WrapMode = DataGridViewTriState.True
-        Search_Select()
+        SearchSelector()
     End Sub
-    Private Sub fMemberDiscount()
+    Private Sub MemberDiscount()
         If gsMEMBER = True Then
             cmbDiscount_Type.SelectedValue = 1
             numDiscountValue.Value = gsMEMEBER_DISCOUNT
@@ -751,38 +732,30 @@ SELECT i.ID, i.CODE, i.DESCRIPTION, UCASE(IFNULL(g.`DESCRIPTION`, IF(i.`TYPE` = 
             numDiscountValue.Enabled = True
         End If
     End Sub
-    Private Sub numUnit_price_LostFocus(sender As Object, e As EventArgs) Handles numUnit_price.LostFocus
-        fComputation()
-
+    Private Sub NumUnit_price_LostFocus(sender As Object, e As EventArgs) Handles numUnit_price.LostFocus
+        Computation()
     End Sub
 
-    Private Sub numQty_LostFocus(sender As Object, e As EventArgs) Handles numQty.LostFocus
-        fComputation()
+    Private Sub NumQty_LostFocus(sender As Object, e As EventArgs) Handles numQty.LostFocus
+        Computation()
         If sFormName <> "" Then
             If cmbUM.SelectedValue IsNot Nothing Then
-                cmbUM_SelectedIndexChanged(sender, e)
+
             End If
-
-
         End If
-
-
 
     End Sub
 
 
 
-    Private Sub numUnit_price_GotFocus(sender As Object, e As EventArgs) Handles numUnit_price.GotFocus
+    Private Sub NumUnit_price_GotFocus(sender As Object, e As EventArgs) Handles numUnit_price.GotFocus
         BlueLight(numUnit_price)
         dgvSearch.Visible = True
     End Sub
 
-    Private Sub btnBrowse_GotFocus(sender As Object, e As EventArgs)
-
-    End Sub
 
 
-    Private Sub fItemSelected(ByVal cmbPrimary As ComboBox, cmbSecondary As ComboBox)
+    Private Sub ItemSelection(ByVal cmbPrimary As ComboBox, cmbSecondary As ComboBox)
         Try
 
             xlblOnHand.Text = ""
@@ -810,29 +783,29 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     If rd.Read Then
                         If gsUseImageProduct = True Then
 
-                            fDisplayPhoto(TextIsNull(rd("PIC_FILENAME")), picItem)
+                            fDisplayPhoto(GF_TextIsNull(rd("PIC_FILENAME")), picItem)
 
 
                         End If
-                        ItemType = NumIsNull(rd("TYPE"))
-                        gsNON_PORFOLIO_COMPUTATION = NumIsNull(rd("NON_PORFOLIO_COMPUTATION"))
-                        gsNON_DISCOUNTED_ITEM = NumIsNull(rd("NON_DISCOUNTED_ITEM"))
+                        ItemType = GF_NumIsNull(rd("TYPE"))
+                        gsNON_PORFOLIO_COMPUTATION = GF_NumIsNull(rd("NON_PORFOLIO_COMPUTATION"))
+                        gsNON_DISCOUNTED_ITEM = GF_NumIsNull(rd("NON_DISCOUNTED_ITEM"))
                         If gsCOST_AMOUNT_ONLY = True And ItemType = 0 Then
-                            _Unit_Rate = NumIsNull(rd("COST"))
+                            _Unit_Rate = GF_NumIsNull(rd("COST"))
                         Else
 
-                            _Unit_Rate = NumIsNull(rd("RATE"))
+                            _Unit_Rate = GF_NumIsNull(rd("RATE"))
 
                         End If
 
                         If ItemType <= 3 Then
-                            Basic_Unit_ID = NumIsNull(rd("BASE_UNIT_ID"))
-                            chkTax.Checked = NumIsNull(rd("TAXABLE"))
+                            Basic_Unit_ID = GF_NumIsNull(rd("BASE_UNIT_ID"))
+                            chkTax.Checked = GF_NumIsNull(rd("TAXABLE"))
 
                         Else
                             Basic_Unit_ID = 0
 
-                            chkTax.Checked = NumIsNull(rd("TAXABLE"))
+                            chkTax.Checked = GF_NumIsNull(rd("TAXABLE"))
                         End If
 
 
@@ -860,12 +833,12 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                         MessageBoxWarning(ex.Message)
                         Exit Sub
                     End Try
-                    in_sql = in_sql & ")"
-                    ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
+                    in_sql &= ")"
+                    GS_ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
                     cmbUM.SelectedValue = Basic_Unit_ID
                     lblQty_Base.Text = "1"
                 Else
-                    ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID ='xxx' limit 1", "ID", "SYMBOL")
+                    GS_ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID ='xxx' limit 1", "ID", "SYMBOL")
                 End If
 
                 If Val(gsUM) <> 0 Then
@@ -873,7 +846,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 Else
 
                     BlueLight(numQty)
-                    fComputation()
+                    Computation()
                 End If
 
             Else
@@ -893,7 +866,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 numDiscountValue.Enabled = False
                 cmbDiscount_Type.Enabled = False
             ElseIf ItemType = 7 Then ' Discount
-                gsRate_Type = GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
+                gsRate_Type = GF_GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
                 If gsRate_Type = 0 Then
                     numUnit_price.DecimalPlaces = 2
                     numUnit_price.ThousandsSeparator = True
@@ -922,7 +895,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 End If
 
             ElseIf ItemType = 4 Then 'Other Discount
-                gsRate_Type = GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
+                gsRate_Type = GF_GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
                 If gsRate_Type = 0 Then
                     numUnit_price.DecimalPlaces = 2
                     numUnit_price.ThousandsSeparator = True
@@ -945,7 +918,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 numQty.Enabled = True
                 cmbUM.Enabled = True
                 If ItemType <= 4 And gsCOST_AMOUNT_ONLY = False Then
-                    fCheckPriceLevel(cmbPrimary.SelectedValue)
+                    SetCheckPriceLevel(cmbPrimary.SelectedValue)
 
                     If cmbPRICE_LEVEL.Visible = True Then
                         If gsDefault_unit_price_level_id <> 0 Then
@@ -963,8 +936,8 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
 
 
-            fLOadUNitPrize()
-            fDiscount_Effect()
+            LoadItemUnitPrice()
+            DiscountEffects()
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
@@ -972,31 +945,26 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
 
     End Sub
-
-
-
-
-
-    Private Sub numDiscountValue_GotFocus(sender As Object, e As EventArgs) Handles numDiscountValue.GotFocus
+    Private Sub NumDiscountValue_GotFocus(sender As Object, e As EventArgs) Handles numDiscountValue.GotFocus
         BlueLight(numDiscountValue)
         dgvSearch.Visible = True
     End Sub
 
-    Private Sub cmbUM_GotFocus(sender As Object, e As EventArgs) Handles cmbUM.GotFocus
-        fLOadUNitPrize()
+    Private Sub CmbUM_GotFocus(sender As Object, e As EventArgs) Handles cmbUM.GotFocus
+        LoadItemUnitPrice()
         dgvSearch.Visible = True
     End Sub
 
     Private Sub NumQty_ValueChanged(sender As Object, e As EventArgs) Handles numQty.ValueChanged
-        fComputation()
+        Computation()
     End Sub
 
 
-    Private Sub fLOadUNitPrize()
+    Private Sub LoadItemUnitPrice()
         If ItemType <= 4 Then
 
 
-            If Basic_Unit_ID = NumIsNull(cmbUM.SelectedValue) Then
+            If Basic_Unit_ID = GF_NumIsNull(cmbUM.SelectedValue) Then
 
                 lblQty_Base.Text = "1"
 
@@ -1026,15 +994,15 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                         numUnit_price.Value = _Unit_Rate
                         If cmbUM.SelectedValue Is Nothing Then Exit Sub
 
-                        Dim rd As OdbcDataReader = SqlReader("select quantity as q, rate as r from item_units where unit_id = '" & NumIsNull(cmbUM.SelectedValue) & "' and item_id ='" & cmbItem_Code.SelectedValue & "' limit 1")
+                        Dim rd As OdbcDataReader = SqlReader("select quantity as q, rate as r from item_units where unit_id = '" & GF_NumIsNull(cmbUM.SelectedValue) & "' and item_id ='" & cmbItem_Code.SelectedValue & "' limit 1")
                         If rd.Read Then
-                            If NumIsNull(rd("q")) <> 0 Then
-                                lblQty_Base.Text = NumIsNull(rd("q"))
+                            If GF_NumIsNull(rd("q")) <> 0 Then
+                                lblQty_Base.Text = GF_NumIsNull(rd("q"))
                             End If
 
                             If lblAmount.Visible = True Then
 
-                                If NumIsNull(rd("r")) <> 0 Then
+                                If GF_NumIsNull(rd("r")) <> 0 Then
                                     numUnit_price.Value = rd("r")
                                 End If
                             End If
@@ -1043,7 +1011,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     End If
                 Catch ex As Exception
                     If MessageBoxErrorYesNo(ex.Message) = True Then
-                        fLOadUNitPrize()
+                        LoadItemUnitPrice()
 
                     Else
                         End
@@ -1055,36 +1023,19 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         End If
     End Sub
 
-    Private Sub cmbUM_LostFocus(sender As Object, e As EventArgs) Handles cmbUM.LostFocus
-        fLOadUNitPrize()
+    Private Sub CmbUM_LostFocus(sender As Object, e As EventArgs) Handles cmbUM.LostFocus
+        LoadItemUnitPrice()
     End Sub
-
-    Private Sub cmbUexChanged(sender As Object, e As EventArgs)
-
+    Private Sub NumUnit_price_ValueChanged_1(sender As Object, e As EventArgs) Handles numUnit_price.ValueChanged
+        Computation()
     End Sub
-
-    Private Sub Lblnum_price_Click(sender As Object, e As EventArgs) Handles xlblnum_price.Click
-
-    End Sub
-
-    Private Sub numUnit_price_ValueChanged_1(sender As Object, e As EventArgs) Handles numUnit_price.ValueChanged
-        fComputation()
-    End Sub
-
-    Private Sub SearchItemToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-    End Sub
-    Public Sub Unit_Price_Level_Line()
-
-    End Sub
-
     Private Sub CmbUM_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbUM.SelectedIndexChanged
-        Dim UNIT_ID As Double = NumIsNull(DirectCast(sender, ComboBox).SelectedValue)
-        fLOadUNitPrize()
-        fCheckPriceLevel_UNIT(cmbItem_Code.SelectedValue, UNIT_ID)
+        Dim UNIT_ID As Double = GF_NumIsNull(DirectCast(sender, ComboBox).SelectedValue)
+        LoadItemUnitPrice()
+        SetCheckPriceLevelUnit(cmbItem_Code.SelectedValue, UNIT_ID)
     End Sub
 
-    Private Sub cmbPRICE_LEVEL_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPRICE_LEVEL.SelectedIndexChanged
+    Private Sub CmbPRICE_LEVEL_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPRICE_LEVEL.SelectedIndexChanged
         If gsCOST_AMOUNT_ONLY = True Then Exit Sub
 
         If cmbUM.Items.Count = 0 Then
@@ -1107,13 +1058,13 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 ' get price_level_Type
                 Dim rd As OdbcDataReader = SqlReader($"select type,rate from price_level where id = '{cmbPRICE_LEVEL.SelectedValue}' limit 1")
                 If rd.Read Then
-                    If NumIsNull(rd("type")) = 0 Then
+                    If GF_NumIsNull(rd("type")) = 0 Then
                         'Fixed
-                        Dim DISCOUNT_LESS As Double = _Unit_Rate * IIf(NumIsNull(rd("rate")) < 100, CDbl(0 & "." & Format(NumIsNull(rd("rate")), "00")), 1)
+                        Dim DISCOUNT_LESS As Double = _Unit_Rate * IIf(GF_NumIsNull(rd("rate")) < 100, CDbl(0 & "." & Format(GF_NumIsNull(rd("rate")), "00")), 1)
                         numUnit_price.Value = _Unit_Rate - DISCOUNT_LESS
-                    ElseIf NumIsNull(rd("type")) = 1 Then
+                    ElseIf GF_NumIsNull(rd("type")) = 1 Then
                         'Per Item
-                        numUnit_price.Value = GetNumberFieldValueByTwoCondition("Price_level_lines", "Price_level_ID", cmbPRICE_LEVEL.SelectedValue, "ITEM_ID", cmbItem_Code.SelectedValue, "CUSTOM_PRICE")
+                        numUnit_price.Value = GF_GetNumberFieldValueByTwoCondition("Price_level_lines", "Price_level_ID", cmbPRICE_LEVEL.SelectedValue, "ITEM_ID", cmbItem_Code.SelectedValue, "CUSTOM_PRICE")
                     End If
                 End If
                 rd.Close()
@@ -1124,7 +1075,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 Dim rd As OdbcDataReader = SqlReader($"SELECT u.`CUSTOM_PRICE`  FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{cmbItem_Code.SelectedValue}' AND n.`UNIT_ID` = '{cmbUM.SelectedValue}' AND pl.ID ='{cmbPRICE_LEVEL.SelectedValue}' AND pl.`INACTIVE` = '0' AND pl.type ='1'  limit 1")
                 If rd.Read Then
                     'Fixed
-                    numUnit_price.Value = NumIsNull(rd("CUSTOM_PRICE"))
+                    numUnit_price.Value = GF_NumIsNull(rd("CUSTOM_PRICE"))
                 End If
                 rd.Close()
             End If
@@ -1132,11 +1083,11 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
 
         End If
-        fComputation()
+        Computation()
 
     End Sub
 
-    Private Sub cmbUM_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbUM.KeyDown
+    Private Sub CmbUM_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbUM.KeyDown
         If e.KeyCode = Keys.Enter Then
             numUnit_price.Focus()
         ElseIf e.KeyCode = Keys.Escape Then
@@ -1145,68 +1096,38 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         End If
         ' cmbItem_Code_KeyDown(sender, e)
     End Sub
-    'Private Sub cmbItem_Code_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbItem_Code.KeyDown
-    '    If e.KeyCode = Keys.Escape Then
-    '        txtSearch.Focus()
-    '    ElseIf e.KeyCode = Keys.Enter Then
-    '        If cmbItem_Code.SelectedIndex = -1 Then
-    '            txtSearch.Focus()
-    '            Exit Sub
-    '        End If
-    '        If cmbItem_Code.SelectedValue = cmbItem_DESCRIPTION.SelectedValue Then
-    '            ' numQty.Focus()
 
-
-    '        End If
-
-
-    '    End If
-    'End Sub
-
-    'Private Sub cmbItem_DESCRIPTION_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbItem_DESCRIPTION.KeyDown
-    '    If e.KeyCode = Keys.Escape Then
-    '        txtSearch.Focus()
-
-    '    End If
-    'End Sub
-
-    Private Sub numQty_KeyDown(sender As Object, e As KeyEventArgs) Handles numQty.KeyDown
-
-
-        fMaster_KeyDown(sender, e)
-
+    Private Sub NumQty_KeyDown(sender As Object, e As KeyEventArgs) Handles numQty.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub numUnit_price_KeyDown(sender As Object, e As KeyEventArgs) Handles numUnit_price.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub NumUnit_price_KeyDown(sender As Object, e As KeyEventArgs) Handles numUnit_price.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub cmbPRICE_LEVEL_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbPRICE_LEVEL.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub CmbPRICE_LEVEL_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbPRICE_LEVEL.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub cmbDiscount_Type_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbDiscount_Type.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub CmbDiscount_Type_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbDiscount_Type.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub numDiscountValue_KeyDown(sender As Object, e As KeyEventArgs) Handles numDiscountValue.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub NumDiscountValue_KeyDown(sender As Object, e As KeyEventArgs) Handles numDiscountValue.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub cmbSelection_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSelection.SelectedIndexChanged
 
+    Private Sub CmbSelection_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbSelection.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub cmbSelection_KeyDown(sender As Object, e As KeyEventArgs) Handles cmbSelection.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub BtnAdd_KeyDown(sender As Object, e As KeyEventArgs)
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub btnAdd_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
-    End Sub
-
-    Private Sub btnCancel_KeyDown(sender As Object, e As KeyEventArgs)
-        fMaster_KeyDown(sender, e)
+    Private Sub BtnCancel_KeyDown(sender As Object, e As KeyEventArgs)
+        MasterKeyDown(sender, e)
     End Sub
 
     Private Sub FindItemToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FindItemToolStripMenuItem.Click
@@ -1217,11 +1138,11 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             If f.AccessibleDescription <> "" Then
                 If f.AccessibleDescription <> "cancel" Then
                     cmbItem_Code.SelectedValue = f.AccessibleDescription
-                    cmbItem_Code_LostFocus(sender, e)
+                    CmbItem_Code_LostFocus(sender, e)
 
                     BlueLight(numQty)
                     numQty.Focus()
-                    fComputation()
+                    Computation()
                 End If
             End If
 
@@ -1230,85 +1151,59 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         End Try
     End Sub
 
-    Private Sub numDiscountValue_TextChanged(sender As Object, e As EventArgs) Handles numDiscountValue.TextChanged
-        fComputation()
+    Private Sub NumDiscountValue_TextChanged(sender As Object, e As EventArgs) Handles numDiscountValue.TextChanged
+        Computation()
     End Sub
 
-    Private Sub numQty_TextChanged(sender As Object, e As EventArgs) Handles numQty.TextChanged
-        fComputation()
+    Private Sub NumQty_TextChanged(sender As Object, e As EventArgs) Handles numQty.TextChanged
+        Computation()
     End Sub
 
-    Private Sub numUnit_price_TextChanged(sender As Object, e As EventArgs) Handles numUnit_price.TextChanged
-
+    Private Sub DgvSearch_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSearch.CellDoubleClick
+        SearchSelector()
     End Sub
-
-    Private Sub numUnit_price_KeyPress(sender As Object, e As KeyPressEventArgs) Handles numUnit_price.KeyPress
-        ' ItemComputation()
-    End Sub
-
-
-    Private Sub dgvSearch_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSearch.CellDoubleClick
-        Search_Select()
-    End Sub
-
-
-    Private Sub Search_Select()
+    Private Sub SearchSelector()
         If dgvSearch.Rows.Count <> 0 Then
             dgvSearch.Focus()
             cmbItem_Code.SelectedValue = dgvSearch.CurrentRow.Cells(0).Value
             cmbItem_DESCRIPTION.SelectedValue = dgvSearch.CurrentRow.Cells(0).Value
             xlblDESCRIPTION.Text = dgvSearch.CurrentRow.Cells(2).Value
             dgvSearch.Visible = True
-
-
-            fItemSelected(cmbItem_Code, cmbItem_DESCRIPTION)
+            ItemSelection(cmbItem_Code, cmbItem_DESCRIPTION)
         End If
     End Sub
-    Private Sub cmbItem_DESCRIPTION_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cmbItem_DESCRIPTION.KeyPress
-
+    Private Sub TxtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        SearchKeyEnter()
     End Sub
 
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        fSearchEnter()
-    End Sub
+    Private Sub TxtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
 
-    Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
-
-        fMaster_KeyDown(sender, e)
+        MasterKeyDown(sender, e)
 
 
 
 
     End Sub
 
-    Private Sub cmbItem_Code_GotFocus(sender As Object, e As EventArgs) Handles cmbItem_Code.GotFocus
+    Private Sub CmbItem_Code_GotFocus(sender As Object, e As EventArgs) Handles cmbItem_Code.GotFocus
         dgvSearch.Visible = True
     End Sub
 
-    Private Sub cmbItem_DESCRIPTION_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub cmbItem_DESCRIPTION_GotFocus(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.GotFocus
+    Private Sub CmbItem_DESCRIPTION_GotFocus(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.GotFocus
         dgvSearch.Visible = True
     End Sub
 
-    Private Sub cmbPRICE_LEVEL_GotFocus(sender As Object, e As EventArgs) Handles cmbPRICE_LEVEL.GotFocus
+    Private Sub CmbPRICE_LEVEL_GotFocus(sender As Object, e As EventArgs) Handles cmbPRICE_LEVEL.GotFocus
         dgvSearch.Visible = True
     End Sub
-
-    Private Sub dgvSearch_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSearch.CellContentClick
-
-    End Sub
-
-    Private Sub dgvSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSearch.KeyDown
+    Private Sub DgvSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
             If dgvSearch.Rows.Count <> 0 Then
 
                 cmbItem_Code.SelectedValue = dgvSearch.CurrentRow.Cells(0).Value
                 cmbItem_DESCRIPTION.SelectedValue = dgvSearch.CurrentRow.Cells(0).Value
-                fItemSelected(cmbItem_Code, cmbItem_DESCRIPTION)
+                ItemSelection(cmbItem_Code, cmbItem_DESCRIPTION)
                 GS_DoEvents()
 
                 dgvSearch.Visible = True
@@ -1329,7 +1224,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
 
         Else
-            fMaster_KeyDown(sender, e)
+            MasterKeyDown(sender, e)
         End If
 
 
@@ -1338,24 +1233,24 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
     End Sub
 
-    Private Sub cmbItem_DESCRIPTION_EnabledChanged(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.EnabledChanged
+    Private Sub CmbItem_DESCRIPTION_EnabledChanged(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.EnabledChanged
         Dim cmb As ComboBox = DirectCast(sender, ComboBox)
         If cmb.Enabled = False Then
             cmb.ForeColor = Color.Red
         End If
     End Sub
 
-    Private Sub cmbItem_Code_TextChanged(sender As Object, e As EventArgs) Handles cmbItem_Code.TextChanged
+    Private Sub CmbItem_Code_TextChanged(sender As Object, e As EventArgs) Handles cmbItem_Code.TextChanged
         xlblITEM_ID.Text = cmbItem_Code.Text
     End Sub
 
-    Private Sub cmbItem_DESCRIPTION_TextChanged(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.TextChanged
+    Private Sub CmbItem_DESCRIPTION_TextChanged(sender As Object, e As EventArgs) Handles cmbItem_DESCRIPTION.TextChanged
         xlblDESCRIPTION.Text = cmbItem_DESCRIPTION.Text
     End Sub
 
 
 
-    Private Sub chkTax_GotFocus(sender As Object, e As EventArgs) Handles chkTax.GotFocus
+    Private Sub ChkTax_GotFocus(sender As Object, e As EventArgs) Handles chkTax.GotFocus
         If numUnit_price.Value = 0 And numQty.Value <= 1 Then
             If ItemType = 4 Or ItemType = 7 Then
                 numUnit_price.Select()
@@ -1363,16 +1258,16 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         End If
     End Sub
 
-    Private Sub chkTax_KeyDown(sender As Object, e As KeyEventArgs) Handles chkTax.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub ChkTax_KeyDown(sender As Object, e As KeyEventArgs) Handles chkTax.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub BtnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         gsSave = False
         Me.Close()
     End Sub
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
         If Trim(cmbItem_Code.Text) = "" Then
             MessageBoxInfo("Please select Item")
@@ -1412,7 +1307,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 Dim rd_group As OdbcDataReader = SqlReader($"SELECT i.ID as `ITEM_ID`,i.`DESCRIPTION`,ic.`Quantity`,i.`TYPE` FROM item_components AS ic INNER JOIN item AS i ON i.`ID` = ic.`COMPONENT_ID` WHERE ic.item_id = '{cmbItem_Code.SelectedValue}' ")
                 While rd_group.Read
 
-                    If fCHECK_ITEM_ONHAND(rd_group("ITEM_ID"), rd_group("DESCRIPTION"), rd_group("Quantity")) = False Then
+                    If IsItemOnHand(rd_group("ITEM_ID"), rd_group("DESCRIPTION"), rd_group("Quantity")) = False Then
                         Exit Sub
                     End If
 
@@ -1434,7 +1329,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             End If
         End If
 
-        If sFormName = "" Or sFormName = frmInventoryAdjustment.Name Then
+        If sFormName = "" Or sFormName = FrmInventoryAdjustment.Name Then
 
             'gsSave = True
             'gsItem_ID = cmbItem_Code.SelectedValue
@@ -1467,7 +1362,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
 
         Else
-            fComputation()
+            Computation()
             gsSave = False
             gsItem_ID = cmbItem_Code.SelectedValue
             gsItem_Description = cmbItem_DESCRIPTION.Text
@@ -1482,16 +1377,16 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             If gsSelection = True Then
                 gsSelection_ID = cmbSelection.SelectedValue
             End If
-            Dim DISC_OTH_DECT As Boolean = False
+            Dim DISC_OTH_DECT As Boolean
             Dim bDiscount_item As Boolean = IsDiscountItem(ItemType)
 
             'checking if is discount
-            Dim D_TYPE As Integer = 0
+
             DISC_OTH_DECT = False
             gsRate_Type = 0
             If ItemType = 4 Or ItemType = 7 Then
-                gsRate_Type = GetNumberFieldValue("ITEM", "ID", gsItem_ID, "RATE_TYPE")
-                DISC_NAME = GetStringFieldValue("DISCOUNT_TYPE", "ID", gsRate_Type, "DESCRIPTION")
+                gsRate_Type = GF_GetNumberFieldValue("ITEM", "ID", gsItem_ID, "RATE_TYPE")
+                DISC_NAME = GF_GetStringFieldValue("DISCOUNT_TYPE", "ID", gsRate_Type, "DESCRIPTION")
                 DISC_OTH_DECT = True
             End If
 
@@ -1513,12 +1408,12 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     'Case frmStockReceived.Name
                     '    GS_RowDataStockReceived(dgv, True, gsItem_ID, gsQty, gsBase_Qty, gsUM, gsUnit_Price, gsAmount, "A", 0)
                     '    GoTo down_now
-                    Case frmInvoice.Name.ToString
+                    Case FrmInvoice.Name.ToString
                         If ItemType > 1 Then
                             'Do Nothing
                         Else
                             If IsAllowNegativeInventory() = False Then
-                                If fCHECK_ITEM_ONHAND(cmbItem_Code.SelectedValue, cmbItem_DESCRIPTION.Text, numQty.Value) = False Then
+                                If IsItemOnHand(cmbItem_Code.SelectedValue, cmbItem_DESCRIPTION.Text, numQty.Value) = False Then
                                     Exit Sub
                                 End If
                             End If
@@ -1526,20 +1421,20 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
                         GS_RowDataItemInvoice(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, "", gsPRICE_LEVEL_ID, 0, False, gsBATCH_ID)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
-                    Case frmCreditMemo.Name.ToString
+                    Case FrmCreditMemo.Name.ToString
                         GS_RowDataItemCreditMemo(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID, 0, False, gsBATCH_ID)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
-                    Case frmSalesOrder.Name.ToString
+                    Case FrmSalesOrder.Name.ToString
                         GS_RowDataItemSalesOrder(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, "", gsPRICE_LEVEL_ID, False, 0)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
-                    Case frmSalesReceipt.Name.ToString
+                    Case FrmSalesReceipt.Name.ToString
 
                         If ItemType > 1 Then
                             'Do Nothing
                         Else
 
                             If IsAllowNegativeInventory() = False Then
-                                If fCHECK_ITEM_ONHAND(cmbItem_Code.SelectedValue, cmbItem_DESCRIPTION.Text, numQty.Value) = False Then
+                                If IsItemOnHand(cmbItem_Code.SelectedValue, cmbItem_DESCRIPTION.Text, numQty.Value) = False Then
                                     Exit Sub
                                 End If
                             End If
@@ -1547,7 +1442,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                         End If
                         GS_RowDataItemSalesReceipt(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID, False, 0, gsBATCH_ID)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
-                    Case frmEstimate.Name.ToString
+                    Case FrmEstimate.Name.ToString
                         GS_RowDataItemEstimate(dgv, True, gsItem_ID, gsQty, gsUnit_Price, cmbDiscount_Type.Text, gsDiscount_Rate, gsAmount, gsTax, cmbUM.SelectedValue, "A", gsBase_Qty, gsDiscount_Type, gsOriginal_Amount, gsPRICE_LEVEL_ID)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                         'Case frmBills.Name.ToString
@@ -1577,30 +1472,30 @@ down_now:
                 ' SET DISCOUNT
 
 
-                Dim T As Double = fTotal_NOW(dgv)
-                Dim L As Double = 0
+                Dim T As Double = GetTotalNow(dgv)
+
                 Select Case sFormName
-                    Case frmInvoice.Name
+                    Case FrmInvoice.Name
                         'SUB TOTAL
-                        '  GS_RowDataItemInvoice(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID, 0)
+                        '  GS_RowDataItemInvoice(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID, 0)
                         gsAmount = GS_DiscountOtherCharge(T, ItemType, gsRate_Type, gsUnit_Price)
                         GS_RowDataItemInvoice(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, 0, False, 0)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
-                    Case frmCreditMemo.Name
+                    Case FrmCreditMemo.Name
                         'SUB TOTAL
-                        ' GS_RowDataItemCreditMemo(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID, 0)
+                        ' GS_RowDataItemCreditMemo(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID, 0)
                         gsAmount = GS_DiscountOtherCharge(T, ItemType, gsRate_Type, gsUnit_Price)
                         GS_RowDataItemCreditMemo(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, 0, False, 0)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
-                    Case frmSalesOrder.Name
+                    Case FrmSalesOrder.Name
                         'SUB TOTAL
-                        ' GS_RowDataItemSalesOrder(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID)
+                        ' GS_RowDataItemSalesOrder(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", gsPRICE_LEVEL_ID)
                         gsAmount = GS_DiscountOtherCharge(T, ItemType, gsRate_Type, gsUnit_Price)
                         GS_RowDataItemSalesOrder(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, False, 0)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
-                    Case frmSalesReceipt.Name
+                    Case FrmSalesReceipt.Name
                         'SUB TOTAL
-                        ' GS_RowDataItemSalesReceipt(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID)
+                        ' GS_RowDataItemSalesReceipt(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, gsPRICE_LEVEL_ID)
                         gsAmount = GS_DiscountOtherCharge(T, ItemType, gsRate_Type, gsUnit_Price)
 
                         GS_RowDataItemSalesReceipt(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, False, 0, 0)
@@ -1608,68 +1503,62 @@ down_now:
 
                         'Case frmBills.Name
                         '    'SUB TOTAL
-                        '    ' GS_RowDataItemBills(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", "")
+                        '    ' GS_RowDataItemBills(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "", "")
                         '    GS_DiscountOtherCharge(T)
                         '    GS_RowDataItemBills(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", "")
 
                         'Case frmBillCredit.Name
                         '    'SUB TOTAL
-                        '    '  GS_RowDataItemBillCredit(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "")
+                        '    '  GS_RowDataItemBillCredit(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "")
                         '    GS_DiscountOtherCharge(T)
                         '    GS_RowDataItemBillCredit(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "")
 
                         'Case frmPurchaseOrder.Name
                         '    'SUB TOTAL
-                        '    'GS_RowDataItemPurchaseOrder(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, 0)
+                        '    'GS_RowDataItemPurchaseOrder(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, 0)
                         '    GS_DiscountOtherCharge(T)
                         '    GS_RowDataItemPurchaseOrder(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, 0)
 
                         'Case frmWriteCheck.Name
                         '    'SUB TOTAL
-                        '    ' GS_RowDataItemWriteCheck(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "")
+                        '    ' GS_RowDataItemWriteCheck(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", T, False, "", "A", 0, "", T, "")
                         '    GS_DiscountOtherCharge(T)
                         '    GS_RowDataItemWriteCheck(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "")
 
                 End Select
                 dgv.CurrentCell = dgv.Rows(dgv.Rows.Count - 1).Cells(ColumnViews(dgv)) 'Last Row HighLight
             End If
-            fClearAll()
-            Search_Select()
+            FormClearAll()
+            SearchSelector()
         End If
     End Sub
 
-    Private Sub frmAddItem_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub FrmAddItem_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub btnOK_KeyDown(sender As Object, e As KeyEventArgs) Handles btnOK.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub BtnOK_KeyDown(sender As Object, e As KeyEventArgs) Handles btnOK.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
 
-    Private Sub btnClose_KeyDown(sender As Object, e As KeyEventArgs) Handles btnClose.KeyDown
-        fMaster_KeyDown(sender, e)
+    Private Sub BtnClose_KeyDown(sender As Object, e As KeyEventArgs) Handles btnClose.KeyDown
+        MasterKeyDown(sender, e)
     End Sub
-
-
-    Private Sub dgvSearch_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSearch.CellClick
-        ' Search_Select()
-    End Sub
-
-    Private Sub dgvSearch_SelectionChanged(sender As Object, e As EventArgs) Handles dgvSearch.SelectionChanged
+    Private Sub DgvSearch_SelectionChanged(sender As Object, e As EventArgs) Handles dgvSearch.SelectionChanged
         If bSearching = False Then
-            Search_Select()
+            SearchSelector()
         End If
     End Sub
 
-    Private Sub btnUP_Click(sender As Object, e As EventArgs) Handles btnUP.Click
+    Private Sub BtnUP_Click(sender As Object, e As EventArgs) Handles btnUP.Click
         BS_ITEM.MovePrevious()
     End Sub
 
-    Private Sub btnDOWN_Click(sender As Object, e As EventArgs) Handles btnDOWN.Click
+    Private Sub BtnDOWN_Click(sender As Object, e As EventArgs) Handles btnDOWN.Click
         BS_ITEM.MoveNext()
     End Sub
 
-    Private Sub btnN_QTY_Click(sender As Object, e As EventArgs) Handles btnN_QTY.Click
+    Private Sub BtnN_QTY_Click(sender As Object, e As EventArgs) Handles btnN_QTY.Click
         Try
             numQty.Value = numQty.Value - 1
         Catch ex As Exception
@@ -1679,7 +1568,7 @@ down_now:
 
     End Sub
 
-    Private Sub btnP_QTY_Click(sender As Object, e As EventArgs) Handles btnP_QTY.Click
+    Private Sub BtnP_QTY_Click(sender As Object, e As EventArgs) Handles btnP_QTY.Click
         Try
             numQty.Value = numQty.Value + 1
         Catch ex As Exception
@@ -1687,7 +1576,7 @@ down_now:
         End Try
     End Sub
 
-    Private Sub btnN_Price_Click(sender As Object, e As EventArgs) Handles btnN_Price.Click
+    Private Sub BtnN_Price_Click(sender As Object, e As EventArgs) Handles btnN_Price.Click
         Try
             numUnit_price.Value = numUnit_price.Value - 1
         Catch ex As Exception
@@ -1695,7 +1584,7 @@ down_now:
         End Try
     End Sub
 
-    Private Sub btnP_Price_Click(sender As Object, e As EventArgs) Handles btnP_Price.Click
+    Private Sub BtnP_Price_Click(sender As Object, e As EventArgs) Handles btnP_Price.Click
         Try
             numUnit_price.Value = numUnit_price.Value + 1
         Catch ex As Exception
@@ -1703,7 +1592,7 @@ down_now:
         End Try
     End Sub
 
-    Private Sub btnN_DISC_Click(sender As Object, e As EventArgs) Handles btnN_DISC.Click
+    Private Sub BtnN_DISC_Click(sender As Object, e As EventArgs) Handles btnN_DISC.Click
 
         If cmbDiscount_Type.SelectedIndex = 0 Then Exit Sub
 
@@ -1714,7 +1603,7 @@ down_now:
         End Try
     End Sub
 
-    Private Sub btnP_DISC_Click(sender As Object, e As EventArgs) Handles btnP_DISC.Click
+    Private Sub BtnP_DISC_Click(sender As Object, e As EventArgs) Handles btnP_DISC.Click
         If cmbDiscount_Type.SelectedIndex = 0 Then Exit Sub
 
         Try
@@ -1724,34 +1613,23 @@ down_now:
         End Try
     End Sub
 
-    Private Sub numQty_Click(sender As Object, e As EventArgs) Handles numQty.Click
+    Private Sub NumQty_Click(sender As Object, e As EventArgs) Handles numQty.Click
         NumberPadKeyToTouch(numQty, xlblQTY.Text)
     End Sub
 
-    Private Sub numUnit_price_Click(sender As Object, e As EventArgs) Handles numUnit_price.Click
+    Private Sub NumUnit_price_Click(sender As Object, e As EventArgs) Handles numUnit_price.Click
 
         If numUnit_price.Enabled = True Then
             NumberPadKeyToTouch(numUnit_price, xlblnum_price.Text)
-        Else
-
-            If MessageBoxErrorYesNo("SSSSS") = True Then
-
-
-            End If
-
         End If
 
     End Sub
 
-    Private Sub numDiscountValue_Click(sender As Object, e As EventArgs) Handles numDiscountValue.Click
+    Private Sub NumDiscountValue_Click(sender As Object, e As EventArgs) Handles numDiscountValue.Click
         NumberPadKeyToTouch(numDiscountValue, $"DISCOUNT {cmbDiscount_Type.Text}")
     End Sub
 
-    Private Sub txtSearch_Click(sender As Object, e As EventArgs) Handles txtSearch.Click
+    Private Sub TxtSearch_Click(sender As Object, e As EventArgs) Handles txtSearch.Click
         KeyBoardToTouch(txtSearch, "SEARCH ITEM")
-    End Sub
-
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles btnUTPO.Click
-
     End Sub
 End Class

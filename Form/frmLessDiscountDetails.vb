@@ -22,7 +22,7 @@ Public Class FrmLessDiscountDetails
         If IsNew = False Then
             SqlExecuted("UPDATE LESS_DISCOUNT_PENALTY set " & SqlUpdate(Me) & " Where ID = '" & ID & "'")
         Else
-            ID = GetMaxField("ID", "LESS_DISCOUNT_PENALTY")
+            ID = GF_GetMaxField("ID", "LESS_DISCOUNT_PENALTY")
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO LESS_DISCOUNT_PENALTY ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
 

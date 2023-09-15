@@ -15,18 +15,18 @@ Public Class FrmPOSSetting
         '  fBackGroundImageStyle(Me)
 
         Dim sQueryAccount As String = "SELECT a.ID, CONCAT(a.NAME ,' / ', atm.Description)  AS T FROM account AS a INNER JOIN account_type_map AS atm ON  atm.ID = a.TYPE  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
-        ComboBoxLoad(cmbACCOUNT_ID, sQueryAccount, "ID", "T")
-        ComboBoxLoad(cmbTYPE, "select  ID,DESCRIPTION from pos_machine_type_map where INACTIVE = '0'", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbDINE_IN_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbTAKE_OUT_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbDELIVERY_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbACCOUNT_ID, sQueryAccount, "ID", "T")
+        GS_ComboBoxLoad(cmbTYPE, "select  ID,DESCRIPTION from pos_machine_type_map where INACTIVE = '0'", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbDINE_IN_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbTAKE_OUT_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbDELIVERY_ID, "select ID,DESCRIPTION from ship_via ", "ID", "DESCRIPTION")
 
 
 
 
 
 
-        xnumID.Value = fPOS_MACHINE_ID()
+        xnumID.Value = GF_GetPosMachineId()
     End Sub
 
     Private Sub xnumID_ValueChanged(sender As Object, e As EventArgs) Handles xnumID.ValueChanged

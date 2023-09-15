@@ -18,8 +18,8 @@ Public Class FrmLogin
         Try
             Dim rd As OdbcDataReader = SqlReader(sql_query)
             If rd.Read Then
-                gsUser_ID = NumIsNull(rd("ID"))
-                SystemStatusType = NumIsNull(rd("STATUS"))
+                gsUser_ID = GF_NumIsNull(rd("ID"))
+                SystemStatusType = GF_NumIsNull(rd("STATUS"))
 
                 Select Case SystemStatusType
                     Case 1
@@ -63,21 +63,21 @@ Public Class FrmLogin
 
 
 
-                If NumIsNull(rd("TYPE")) = 1 Then
+                If GF_NumIsNull(rd("TYPE")) = 1 Then
                     gsAdmin_User = True
                 Else
                     gsAdmin_User = False
                 End If
 
                 If gsPOS_Mode = True Then
-                    gsCashier_ID = TextIsNull(rd("CONTACT_ID"))
-                    If GetStringFieldValue("contact", "id", gsCashier_ID, "id") = "" Then
+                    gsCashier_ID = GF_TextIsNull(rd("CONTACT_ID"))
+                    If GF_GetStringFieldValue("contact", "id", gsCashier_ID, "id") = "" Then
 
                         PrompNotify(Me.Text, "Please set a  USER -> CONTACT", False)
                         Exit Sub
                     End If
 
-                    If fPOS_MACHINE_ID() = 0 Then
+                    If GF_GetPosMachineId() = 0 Then
 
                         PrompNotify(Me.Text, "POS machine No. is not set", False)
                         Exit Sub
@@ -100,8 +100,8 @@ Public Class FrmLogin
                 'load default
 
                 Dim pass_value As String = ""
-                gsUser_Name = TextIsNull(rd("Name"))
-                gsUserDescription = TextIsNull(rd("DESCRIPTION"))
+                gsUser_Name = GF_TextIsNull(rd("Name"))
+                gsUserDescription = GF_TextIsNull(rd("DESCRIPTION"))
                 'If chkRemember_password.Checked = True Then
                 '    pass_value = txtPassword.Text
                 'End If
@@ -124,22 +124,22 @@ Public Class FrmLogin
                     ' Gmail("User Login on BMS", $"Username:{gsUser_Name} {vbNewLine} DateTime:{GetDateTimeNowSql()} {vbNewLine} On BMS-POS", $"{gsGmailAddressTo}@gmail.com")
                     Select Case gsPOS_TYPE
                         Case 0
-                            fPOS_Reset()
+                            GS_PointOfSalesReset()
                             FrmPOSmenu.Show()
                         Case 1
-                            fPOS_Reset()
+                            GS_PointOfSalesReset()
                             FrmPOSOrderEntry.Show()
 
                         Case 2
 
-                            fPOS_Reset()
+                            GS_PointOfSalesReset()
                             FrmPOSRestoMenu.Show()
                         Case 3
                             FrmPOSRestoKitchenMonitoring.Show()
 
                         Case 4
 
-                            fPOS_Reset()
+                            GS_PointOfSalesReset()
                             FrmPOSRoom.Show()
 
                     End Select
@@ -207,9 +207,9 @@ Public Class FrmLogin
             End If
             txtPassword.Focus()
         ElseIf (e.KeyCode = Keys.F3 AndAlso e.Modifiers = Keys.Shift) Then
-            txtUsername.Text = Decrypt(GetStringFieldValue("`USER`", "`NAME`", txtUsername.Text, "PASSWORD"))
+            txtUsername.Text = Decrypt(GF_GetStringFieldValue("`USER`", "`NAME`", txtUsername.Text, "PASSWORD"))
         ElseIf (e.KeyCode = Keys.F3 AndAlso e.Modifiers = Keys.Control) Then
-            txtPassword.Text = Decrypt(GetStringFieldValue("`USER`", "`NAME`", txtUsername.Text, "PASSWORD"))
+            txtPassword.Text = Decrypt(GF_GetStringFieldValue("`USER`", "`NAME`", txtUsername.Text, "PASSWORD"))
         End If
 
     End Sub

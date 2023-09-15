@@ -84,7 +84,7 @@ Public Class FrmPaymentTermsDetails
 
     Private Sub FrmPaymentTermsDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbTYPE, "SELECT * FROM PAYMENT_TERMS_TYPE_MAP", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbTYPE, "SELECT * FROM PAYMENT_TERMS_TYPE_MAP", "ID", "DESCRIPTION")
         CmbTYPE_SelectedIndexChanged(sender, e)
         If ID > 0 Then
             RefreshData()
@@ -105,14 +105,14 @@ Public Class FrmPaymentTermsDetails
                 txtCODE.Text = rd("CODE")
                 txtDESCRIPTION.Text = rd("DESCRIPTION")
 
-                cmbTYPE.SelectedValue = NumIsNull(rd("TYPE"))
-                numNET_DUE.Value = NumIsNull(rd("NET_DUE"))
-                cmbDATE_DAY_PARAM.SelectedIndex = NumIsNull(rd("DATE_DAY_PARAM")) - 1
-                cmbDATE_MONTH_PARAM.SelectedIndex = NumIsNull(rd("DATE_MONTH_PARAM")) - 1
-                numDATE_MIN_DAYS.Value = NumIsNull(rd("DATE_MIN_DAYS"))
-                numDISCOUNT_PCT.Value = NumIsNull(rd("DISCOUNT_PCT"))
-                numDISCOUNT_DUE.Value = NumIsNull(rd("DISCOUNT_DUE"))
-                chkINACTIVE.Checked = NumIsNull(rd("INACTIVE"))
+                cmbTYPE.SelectedValue = GF_NumIsNull(rd("TYPE"))
+                numNET_DUE.Value = GF_NumIsNull(rd("NET_DUE"))
+                cmbDATE_DAY_PARAM.SelectedIndex = GF_NumIsNull(rd("DATE_DAY_PARAM")) - 1
+                cmbDATE_MONTH_PARAM.SelectedIndex = GF_NumIsNull(rd("DATE_MONTH_PARAM")) - 1
+                numDATE_MIN_DAYS.Value = GF_NumIsNull(rd("DATE_MIN_DAYS"))
+                numDISCOUNT_PCT.Value = GF_NumIsNull(rd("DISCOUNT_PCT"))
+                numDISCOUNT_DUE.Value = GF_NumIsNull(rd("DISCOUNT_DUE"))
+                chkINACTIVE.Checked = GF_NumIsNull(rd("INACTIVE"))
 
             End If
             rd.Close()

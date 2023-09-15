@@ -3,7 +3,7 @@ Module modBillPayment
     Public Sub GS_SetUpdateBillBalance(ByVal prBill_ID As String, ByVal prVendor_ID As String)
 
         Dim dTotal_Payment As Double = GF_GetBillSumPaymentApplied(prBill_ID, prVendor_ID) + GF_GetBillSumCreditApplied(prBill_ID, prVendor_ID) + GF_GetBillSumTaxAppliedAmount(prBill_ID, prVendor_ID)
-        Dim dTotal_Amount As Double = GetNumberFieldValue("BILL", "ID", prBill_ID, "AMOUNT") 'ORIGINAL AMOUNT
+        Dim dTotal_Amount As Double = GF_GetNumberFieldValue("BILL", "ID", prBill_ID, "AMOUNT") 'ORIGINAL AMOUNT
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer
         If 0 >= dTotal_Balance Then
@@ -27,7 +27,7 @@ Module modBillPayment
         Try
             Dim rd As OdbcDataReader = SqlReader("select SUM(pv.AMOUNT_PAID)  as P, SUM(pv.DISCOUNT) as D from `Check_bills` as pv  inner join `check` as p on p.id = pv.check_ID  where p.PAY_TO_ID = '" & prVendor_ID & "' and pv.Bill_ID = '" & prBill_ID & "' and p.STATUS ='15' ")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P")) + NumIsNull(rd("D"))
+                dPayment = GF_NumIsNull(rd("P")) + GF_NumIsNull(rd("D"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -49,7 +49,7 @@ Module modBillPayment
         Try
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_APPLIED)  as P  from bill_credit_bills as cmi inner join bill_credit as c on c.id = cmi.bill_credit_ID where c.vendor_ID = '" & prVendor_ID & "' and cmi.bill_ID = '" & prBill_ID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
 
@@ -73,7 +73,7 @@ Module modBillPayment
         Try
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_WITHHELD)  as P  from `withholding_tax_bills` as cmi inner join withholding_tax as c on c.id = cmi.withholding_tax_ID where c.WITHHELD_FROM_ID = '" & prVendor_ID & "' and cmi.Bill_ID = '" & prID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception

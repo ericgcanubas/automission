@@ -12,7 +12,7 @@ Module modBillTax
 
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_WITHHELD)  as P  from withholding_tax_bills as cmi inner join withholding_tax as c on c.id = cmi.withholding_Tax_ID where c.vendor_id = '" & prVendor_ID & "' and cmi.withholding_Tax_ID = '" & prWithholding_Tax_ID & "' and cmi.bill_ID = '" & prBill_ID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -32,7 +32,7 @@ Module modBillTax
 
             Dim rd As OdbcDataReader = SqlReader("select sum(amount_withheld) as P from Withholding_Tax_Bills where Withholding_Tax_ID = '" & prWithholding_Tax_ID & "' and Bill_ID <> '" & prBill_id & "'")
             If rd.Read Then
-                dAmount = NumIsNull(rd("P"))
+                dAmount = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception

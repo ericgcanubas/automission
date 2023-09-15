@@ -1,8 +1,8 @@
 ﻿Imports System.Data.Odbc
 Public Class FrmSalesTaxRecompute
     Private Sub FrmSalesTaxRecompute_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbITEM_ID, "select ID,DESCRIPTION from ITEM  Where TYPE ='0' and INACTIVE='0' ", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbLOCATION_ID, "select ID,NAME from location ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbITEM_ID, "select ID,DESCRIPTION from ITEM  Where TYPE ='0' and INACTIVE='0' ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "select ID,NAME from location ", "ID", "NAME")
 
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
 
@@ -27,13 +27,13 @@ Public Class FrmSalesTaxRecompute
             Dim Run As Integer = 0
             Dim Count As Integer
 
-            Dim r As OdbcDataReader = ReaderCounting(SQL, Count)
+            Dim r As OdbcDataReader = SQL_ReaderCounting(SQL, Count)
             pbListofTransaction.Minimum = 0
             pbListofTransaction.Maximum = Count
             lblSTATUS.Text = $"0/{Count}"
             While r.Read
                 'Change SalesReceipt Item ================ GET ITEM
-                Dim Item_amt_Value As Double = Item_amt_Value = UpdateSalesReceiptItem(NumIsNull(r("ID")), NumIsNull(r("AMOUNT")), NumIsNull(rd("TAXABLE")), NumIsNull(r("OUTPUT_TAX_ID")))
+                Dim Item_amt_Value As Double = Item_amt_Value = UpdateSalesReceiptItem(GF_NumIsNull(r("ID")), GF_NumIsNull(r("AMOUNT")), GF_NumIsNull(rd("TAXABLE")), GF_NumIsNull(r("OUTPUT_TAX_ID")))
                 'Change SalesReceipt ====================== GET TAX
 
                 Dim Out_put_Value As Double = UpdateSalesReceiptOnly(r("SALES_RECEIPT_ID"))
@@ -65,7 +65,7 @@ Public Class FrmSalesTaxRecompute
         Dim SQL As String = $"SELECT SUM(s.`TAXABLE_AMOUNT`) AS `TAXABLE_AMOUNT`,SUM(s.`TAX_AMOUNT`) AS `TAX_AMOUNT`,SUM(IF(s.`TAXABLE` = 0,s.AMOUNT,0)) AS NON_TAXABLE_AMOUNT FROM sales_receipt_items AS s INNER JOIN item AS i ON i.`ID` = s.`ITEM_ID` INNER JOIN sales_receipt AS r ON r.`ID` = s.`SALES_RECEIPT_ID` WHERE  i.`TYPE` <> '6' AND r.`POS_LOG_ID` = '{POS_LOG_ID}'"
         Dim rd As OdbcDataReader = SqlReader(SQL)
         If rd.Read Then
-            SqlExecuted($"UPDATE pos_log SET TAXABLE_AMOUNT ='{ NumIsNull(rd("TAXABLE_AMOUNT"))}',OUTPUT_TAX_AMOUNT='{ NumIsNull(rd("TAX_AMOUNT"))}',NONTAXABLE_AMOUNT='{ NumIsNull(rd("NON_TAXABLE_AMOUNT"))}'   WHERE ID = '{POS_LOG_ID}' limit 1; ")
+            SqlExecuted($"UPDATE pos_log SET TAXABLE_AMOUNT ='{ GF_NumIsNull(rd("TAXABLE_AMOUNT"))}',OUTPUT_TAX_AMOUNT='{ GF_NumIsNull(rd("TAX_AMOUNT"))}',NONTAXABLE_AMOUNT='{ GF_NumIsNull(rd("NON_TAXABLE_AMOUNT"))}'   WHERE ID = '{POS_LOG_ID}' limit 1; ")
         End If
         rd.Close()
     End Sub
@@ -75,7 +75,7 @@ Public Class FrmSalesTaxRecompute
 
         Dim Return_value As Double
         If prTaxable = True Then
-            Dim dVat As Double = fTax_Rate_Find(NumIsNull(Tax_Type))
+            Dim dVat As Double = fTax_Rate_Find(GF_NumIsNull(Tax_Type))
             Tax_Amount = (dVat / 100) * AMT
             Taxable_Amount = Tax_Amount + AMT
             If Tax_Type = 12 Then
@@ -108,8 +108,8 @@ Public Class FrmSalesTaxRecompute
         Dim rd As OdbcDataReader = SqlReader(SQL)
         If rd.Read Then
 
-            SqlExecuted($"UPDATE sales_receipt SET OUTPUT_TAX_AMOUNT ='{ NumIsNull(rd("TAX_AMOUNT"))}',TAXABLE_AMOUNT ='{ NumIsNull(rd("TAXABLE_AMOUNT"))}',NONTAXABLE_AMOUNT='{ NumIsNull(rd("NON_TAXABLE_AMOUNT"))}' WHERE ID = '{ID}' limit 1;")
-            OUT_PUT_TAX = NumIsNull(rd("TAX_AMOUNT"))
+            SqlExecuted($"UPDATE sales_receipt SET OUTPUT_TAX_AMOUNT ='{ GF_NumIsNull(rd("TAX_AMOUNT"))}',TAXABLE_AMOUNT ='{ GF_NumIsNull(rd("TAXABLE_AMOUNT"))}',NONTAXABLE_AMOUNT='{ GF_NumIsNull(rd("NON_TAXABLE_AMOUNT"))}' WHERE ID = '{ID}' limit 1;")
+            OUT_PUT_TAX = GF_NumIsNull(rd("TAX_AMOUNT"))
         End If
         rd.Close()
 

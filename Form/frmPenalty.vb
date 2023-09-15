@@ -28,7 +28,7 @@ INNER JOIN contact AS c
 ON c.`ID` = i.`CUSTOMER_ID` 
 INNER JOIN penalty_type_map AS ptm ON ptm.`ID` = i.`PENALTY_TYPE_ID`
 WHERE i.penalty_type_id IN ('1','2','3') and i.due_date <= '" & GetDateNow() & "' "
-        LoadDataGridView(dgvInvoice, gsQuery)
+        GS_LoadDataGridView(dgvInvoice, gsQuery)
         dgvInvoice.Columns(0).Visible = False
         dgvInvoice.Columns(0).Width = 40
         dgvInvoice.Columns("Total Balance").Width = 110

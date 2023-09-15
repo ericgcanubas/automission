@@ -12,7 +12,7 @@ Public Class FrmPOSVoid
         fPOS_Payment()
     End Sub
     Private Sub fPOS_Payment()
-        LoadDataGridView(dgvPAYMENT, $"SELECT P.ID,P.CODE as `REF No.`,P.RECEIPT_REF_NO as `OR No.`, PN.AMOUNT_APPLIED as `PAID` FROM PAYMENT as P INNER JOIN PAYMENT_INVOICES AS PN on PN.PAYMENT_ID = P.ID  WHERE P.LOCATION_ID = '{gsDefault_LOCATION_ID}' and P.POS_LOG_ID = '{gsPOS_LOG_ID}' ")
+        GS_LoadDataGridView(dgvPAYMENT, $"SELECT P.ID,P.CODE as `REF No.`,P.RECEIPT_REF_NO as `OR No.`, PN.AMOUNT_APPLIED as `PAID` FROM PAYMENT as P INNER JOIN PAYMENT_INVOICES AS PN on PN.PAYMENT_ID = P.ID  WHERE P.LOCATION_ID = '{gsDefault_LOCATION_ID}' and P.POS_LOG_ID = '{gsPOS_LOG_ID}' ")
         dgvPAYMENT.Columns(0).Visible = False
 
         dgvPAYMENT.Columns("PAID").DefaultCellStyle.Format = "N2"
@@ -29,7 +29,7 @@ Public Class FrmPOSVoid
     Private Sub fPOS_SUM()
         Dim P As Double = 0
         For N As Integer = 0 To dgvPAYMENT.Rows.Count - 1
-            P = P + NumIsNull(dgvPAYMENT.Rows(N).Cells("PAID").Value)
+            P = P + GF_NumIsNull(dgvPAYMENT.Rows(N).Cells("PAID").Value)
         Next
         lblSales.Text = NumberFormatStandard(P)
 
@@ -56,7 +56,7 @@ Public Class FrmPOSVoid
             lblPAID.Text = "0.00"
         End If
 
-        LoadDataGridView(dgvITEM, $"select ii.id,ii.ITEM_ID,i.DESCRIPTION,ii.QUANTITY as `QTY`,ii.RATE,ii.AMOUNT from payment_invoices as pn inner join invoice_items as ii  on ii.invoice_id = pn.invoice_id inner join item as i on i.id = ii.item_id  where ii.PRINT_IN_FORMS = '0' and  pn.payment_id = '{ID}' limit 100")
+        GS_LoadDataGridView(dgvITEM, $"select ii.id,ii.ITEM_ID,i.DESCRIPTION,ii.QUANTITY as `QTY`,ii.RATE,ii.AMOUNT from payment_invoices as pn inner join invoice_items as ii  on ii.invoice_id = pn.invoice_id inner join item as i on i.id = ii.item_id  where ii.PRINT_IN_FORMS = '0' and  pn.payment_id = '{ID}' limit 100")
 
         With dgvITEM.Columns
             .Item("ID").Visible = False
@@ -109,7 +109,7 @@ Public Class FrmPOSVoid
             End If
 
             With dgvPAYMENT.CurrentRow
-                Dim ID As Integer = NumIsNull(.Cells(0).Value)
+                Dim ID As Integer = GF_NumIsNull(.Cells(0).Value)
                 If MessageBoxPointOfSalesYesNO("Do you want to delete this record?") = True Then
                     fPayment_Delete(ID)
                 End If
@@ -175,12 +175,12 @@ Public Class FrmPOSVoid
         If gsPOSVoidEntry = False Then
             SqlExecuted("DELETE FROM payment WHERE ID = '" & prID & "' limit 1;")
 
-            SetTransactionLog(prID, lblPAYMENT_CODE.Text, 3, "Delete", gsPOSDefaultCustomer_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
+            SetTransactionLog(prID, lblPAYMENT_CODE.Text, 3, "Delete", gsPOSDefaultCustomer_ID, "", GF_NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
 
         Else
             SqlExecuted("UPDATE payment SET STATUS ='7' WHERE ID = '" & prID & "' limit 1;")
 
-            SetTransactionLog(prID, lblPAYMENT_CODE.Text, 3, "Void", gsPOSDefaultCustomer_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
+            SetTransactionLog(prID, lblPAYMENT_CODE.Text, 3, "Void", gsPOSDefaultCustomer_ID, "", GF_NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
 
         End If
 
@@ -202,8 +202,8 @@ Public Class FrmPOSVoid
             Dim r As OdbcDataReader = SqlReader($"select * from invoice where id ='{Invoice_ID}' limit 1")
             If r.Read() Then
                 DT = CDate(r("DATE"))
-                Loc_ID = NumIsNull(r("LOCATION_ID"))
-                INVOICE_CODE = NumIsNull(r("CODE"))
+                Loc_ID = GF_NumIsNull(r("LOCATION_ID"))
+                INVOICE_CODE = GF_NumIsNull(r("CODE"))
             End If
             r.Close()
 
@@ -213,8 +213,8 @@ Public Class FrmPOSVoid
             'Inventory re-Compute
             If gsSkipJournalEntry = False Then
                 gsJOURNAL_NO_FORM = 0
-                Dim Account_ID As Integer = GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "ACCOUNTS_RECEIVABLE_ID")
-                Dim Tax_Acct_ID As Integer = GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "OUTPUT_TAX_ACCOUNT_ID")
+                Dim Account_ID As Integer = GF_GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "ACCOUNTS_RECEIVABLE_ID")
+                Dim Tax_Acct_ID As Integer = GF_GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "OUTPUT_TAX_ACCOUNT_ID")
                 GS_AccountJournalDelete(Account_ID, Loc_ID, 23, Invoice_ID, DT)
                 If Tax_Acct_ID <> 0 Then
                     GS_AccountJournalDelete(Tax_Acct_ID, Loc_ID, 23, Invoice_ID, DT)
@@ -226,13 +226,13 @@ Public Class FrmPOSVoid
 
             If gsPOSVoidEntry = True Then
                 SqlExecuted("UPDATE invoice SET STATUS ='7' where `ID` ='" & Invoice_ID & "' limit 1;")
-                SetTransactionLog(Invoice_ID, INVOICE_CODE, 2, "Void", Loc_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
+                SetTransactionLog(Invoice_ID, INVOICE_CODE, 2, "Void", Loc_ID, "", GF_NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
 
             Else
                 'Delete
                 SqlExecuted("DELETE from invoice_items where INVOICE_ID  = '" & Invoice_ID & "'")
                 SqlExecuted("DELETE from invoice where `ID` ='" & Invoice_ID & "' limit 1;")
-                SetTransactionLog(Invoice_ID, INVOICE_CODE, 2, "Delete", Loc_ID, "", NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
+                SetTransactionLog(Invoice_ID, INVOICE_CODE, 2, "Delete", Loc_ID, "", GF_NumIsNull(lblPAID.Text), gsDefault_LOCATION_ID)
 
             End If
 
@@ -258,12 +258,12 @@ Public Class FrmPOSVoid
             End If
 
             If gsSkipJournalEntry = False Then
-                GS_AccountJournalDelete(NumIsNull(rd("INCOME_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
+                GS_AccountJournalDelete(GF_NumIsNull(rd("INCOME_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
 
                 If rd("type") = 0 Or rd("type") = 1 Then
                     'ITEM INVENTORY/ ASSEMBLY
-                    GS_AccountJournalDelete(NumIsNull(rd("ASSET_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
-                    GS_AccountJournalDelete(NumIsNull(rd("COGS_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
+                    GS_AccountJournalDelete(GF_NumIsNull(rd("ASSET_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
+                    GS_AccountJournalDelete(GF_NumIsNull(rd("COGS_ACCOUNT_ID")), Loc_ID, 24, rd("id"), DT)
                 End If
             End If
         End While

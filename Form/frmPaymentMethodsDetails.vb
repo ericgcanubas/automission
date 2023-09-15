@@ -21,8 +21,8 @@ Public Class FrmPaymentMethodsDetails
         End If
     End Sub
     Private Sub ClearInfoModule()
-        ComboBoxLoad(cmbPAYMENT_TYPE, "select ID,DESCRIPTION from payment_type_map", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbGL_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPAYMENT_TYPE, "select ID,DESCRIPTION from payment_type_map", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbGL_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
         txtCODE.Clear()
         txtDESCRIPTION.Clear()
     End Sub
@@ -39,7 +39,7 @@ Public Class FrmPaymentMethodsDetails
         Else
 
             If Trim(txtCODE.Text) = "" Then
-                Dim bCODE_INTEGER As Double = Val(GetMaxField("CODE", "payment_method"))
+                Dim bCODE_INTEGER As Double = Val(GF_GetMaxField("CODE", "payment_method"))
                 txtCODE.Text = bCODE_INTEGER.ToString("0000")
             End If
 

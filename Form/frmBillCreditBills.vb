@@ -61,7 +61,7 @@ Public Class FrmBillCreditBills
 
         LoadBillingList()
         Computed()
-        DatagridViewMode(dgvAvailable)
+
     End Sub
     Private Sub LoadBillingList()
         dgvAvailable.Rows.Clear()
@@ -210,7 +210,7 @@ WHERE i.VENDOR_ID = '" & gsVendor_ID & "' and i.location_id ='" & gsLocation_ID 
     End Sub
 
     Private Sub FrmBillCreditBills_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewNotSort(dgvAvailable)
+        GS_ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
     Private Sub BtnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click

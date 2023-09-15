@@ -35,7 +35,7 @@ Module modPenalty
     End Function
     Private Function fLessDiscountPenaltyPercent(ByVal d As Integer) As Double
         Dim percent As Double = 0
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         Try
             For i As Integer = 1 To d
                 If i = 1 Then
@@ -54,36 +54,36 @@ Module modPenalty
             'End If
             'fMessageboxError(ex)
         Finally
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End Try
         Return percent
     End Function
     Public Sub fUpdatePenalty()
-        Dim item_id As Integer = NumIsNull(GetSystemSettingValueByText("TargetPenaltyDiscount"))
+        Dim item_id As Integer = GF_NumIsNull(GetSystemSettingValueByText("TargetPenaltyDiscount"))
         Dim pPanalty_Paid As Double = 0
         '  Dim cn As New MySqlConnection(mysqlConstr)
         Try
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             ' cn.Open()
             Dim rd As OdbcDataReader = SqlReader("Select i.ID,i.Due_date,i.Amount,i.Balance_Due,i.Penalty_rate,i.Penalty_type_Id,i.penalty,
 (select  sum(ii.amount) FROM invoice_items as ii where ii.invoice_id = i.ID  and ii.item_id ='" & item_id & "') as basic_discount,
 (select FORMAT(IFNULL(sum(penalty_paid),0),2) from payment_invoices where invoice_id = i.ID) as `Penalty_Paid`   from  Invoice as i where i.penalty_type_Id in ('1','2','3')  and i.BALANCE_DUE > 0 ")
             While rd.Read
                 Dim p_rate As Double = 0
-                Dim p_current As Double = fPanaltyComputed(Date.Now.Date, TextIsNull(rd("Due_date")), NumIsNull(rd("AMOUNT")), NumIsNull(rd("Penalty_type_Id")), NumIsNull(rd("Penalty_rate")), 30, NumIsNull(rd("ID")))
-                Dim p_paid As Double = NumIsNull(rd("Penalty_Paid"))
+                Dim p_current As Double = fPanaltyComputed(Date.Now.Date, GF_TextIsNull(rd("Due_date")), GF_NumIsNull(rd("AMOUNT")), GF_NumIsNull(rd("Penalty_type_Id")), GF_NumIsNull(rd("Penalty_rate")), 30, GF_NumIsNull(rd("ID")))
+                Dim p_paid As Double = GF_NumIsNull(rd("Penalty_Paid"))
 
-                If NumIsNull(rd("BALANCE_DUE")) <> 0 Then
-                    If NumIsNull(rd("penalty_type_Id")) = 3 Then
-                        If NumIsNull(rd("basic_discount")) <> 0 Or (p_current + p_paid) <> 0 Then
+                If GF_NumIsNull(rd("BALANCE_DUE")) <> 0 Then
+                    If GF_NumIsNull(rd("penalty_type_Id")) = 3 Then
+                        If GF_NumIsNull(rd("basic_discount")) <> 0 Or (p_current + p_paid) <> 0 Then
 
-                            p_rate = NumIsNull(Math.Abs((Math.Abs(p_current + p_paid) / NumIsNull(rd("basic_discount"))) * 100))
+                            p_rate = GF_NumIsNull(Math.Abs((Math.Abs(p_current + p_paid) / GF_NumIsNull(rd("basic_discount"))) * 100))
                         Else
                             p_rate = 0
                         End If
 
                     Else
-                            p_rate = NumIsNull(rd("Penalty_rate"))
+                            p_rate = GF_NumIsNull(rd("Penalty_rate"))
                     End If
                     SqlExecuted("UPDATE invoice  SET Penalty_rate = '" & p_rate & "',PENALTY = '" & p_current & "' Where ID = '" & rd("ID") & "' ")
                 End If
@@ -93,7 +93,7 @@ Module modPenalty
 
             MessageBoxWarning(ex.Message)
         Finally
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End Try
     End Sub
 
@@ -101,7 +101,7 @@ Module modPenalty
 
     Public Function fPanaltyComputed(ByVal prDate As Date, ByVal prOverDueDate As Date, ByVal orginal_amount As Double, ByVal prPenalty_Type As Integer, ByVal prPenalty As Integer, ByVal prNum As Integer, ByVal prInvoice_ID As Integer) As Double
         Dim Disc As Double = fgetDiscount_Invoice_item(prInvoice_ID)
-        Dim A As Double = fInvoiceGotPenalty(prDate, prOverDueDate, NumIsNull(orginal_amount), prPenalty_Type, NumIsNull(prPenalty), prNum, Disc)
+        Dim A As Double = fInvoiceGotPenalty(prDate, prOverDueDate, GF_NumIsNull(orginal_amount), prPenalty_Type, GF_NumIsNull(prPenalty), prNum, Disc)
         Dim B As Double = fGetPenaltyPaidSum_DateRequired(prInvoice_ID, prDate)
 
         Return (NumberFormatFixed(A) - NumberFormatFixed(B))
@@ -115,7 +115,7 @@ Module modPenalty
         Dim gsDate As Date = prOverDueDate
         Dim actual_balance As Double = 0
         Try
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             Dim iPay_paid As Double = 0
             Dim iPay_remain As Double = 0
             Dim iDiscount As Double = fgetDiscount_Invoice_item(prInvoice_ID)
@@ -123,8 +123,8 @@ Module modPenalty
             Dim rd As OdbcDataReader = SqlReader("select p.date,ifnull(pv.penalty_paid,0) as pp ,  ifnull(pv.penalty_remaining,0) as pr  from payment_invoices  as pv  inner join  payment as p on p.id = pv.payment_id where pv.invoice_id = '" & prInvoice_ID & "' and pv.payment_id = '" & prPayment_ID & "' order by p.ID desc limit 1 ")
             If rd.Read Then
                 gsDate = rd("date")
-                iPay_paid = NumIsNull(rd("pp"))
-                iPay_remain = NumIsNull(rd("pr"))
+                iPay_paid = GF_NumIsNull(rd("pp"))
+                iPay_remain = GF_NumIsNull(rd("pr"))
                 actual_balance = fInvoiceGotPenalty(prDate, gsDate, orginal_amount, prPenalty_Type, prPenalty, prNum, iDiscount) + iPay_remain
             Else
                 actual_balance = fInvoiceGotPenalty(prDate, gsDate, orginal_amount, prPenalty_Type, prPenalty, prNum, iDiscount)
@@ -134,7 +134,7 @@ Module modPenalty
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         Finally
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End Try
 
         Return actual_balance
@@ -151,9 +151,9 @@ Module modPenalty
             Dim rd As OdbcDataReader = SqlReader("select DUE_DATE,AMOUNT,PENALTY_TYPE_ID,PENALTY_RATE from invoice where id = '" & prInvoice_ID & "' Limit 1")
             If rd.Read Then
                 DUE_DATE = rd("DUE_DATE")
-                AMOUNT = NumIsNull(rd("AMOUNT"))
-                PENALTY_TYPE_ID = NumIsNull(rd("PENALTY_TYPE_ID"))
-                PENALTY_RATE = NumIsNull(rd("PENALTY_RATE"))
+                AMOUNT = GF_NumIsNull(rd("AMOUNT"))
+                PENALTY_TYPE_ID = GF_NumIsNull(rd("PENALTY_TYPE_ID"))
+                PENALTY_RATE = GF_NumIsNull(rd("PENALTY_RATE"))
                 rd.Close()
             Else
                 rd.Close()
@@ -165,7 +165,7 @@ Module modPenalty
 
             MessageBoxWarning(ex.Message)
         Finally
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End Try
 
         Return fInvoiceGotPenalty(Date.Now.Date, DUE_DATE, AMOUNT, PENALTY_TYPE_ID, PENALTY_RATE, 30, DISCOUNT_AMOUNT)
@@ -192,17 +192,17 @@ Module modPenalty
         Dim disc As Double = 0
 
         Try
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
 
-            Dim rd As OdbcDataReader = SqlReader("select AMOUNT from invoice_items where invoice_id = '" & prInvoice_id & "' and item_id = '" & NumIsNull(GetSystemSettingValueByText("TargetPenaltyDiscount")) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select AMOUNT from invoice_items where invoice_id = '" & prInvoice_id & "' and item_id = '" & GF_NumIsNull(GetSystemSettingValueByText("TargetPenaltyDiscount")) & "' limit 1")
             If rd.Read Then
-                disc = Math.Abs(NumIsNull(rd("AMOUNT")))
+                disc = Math.Abs(GF_NumIsNull(rd("AMOUNT")))
             End If
             rd.Close()
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         Finally
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
         End Try
         Return disc
     End Function

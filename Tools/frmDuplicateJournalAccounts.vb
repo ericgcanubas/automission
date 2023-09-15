@@ -7,7 +7,7 @@
     End Sub
     Private Sub fRefresh()
 
-        LoadDataGridView(dgvList, $"SELECT 
+        GS_LoadDataGridView(dgvList, $"SELECT 
 aj.`ID`,
 a.`NAME` AS `Account Name`,
 aj.`OBJECT_DATE` AS `Entry date`,

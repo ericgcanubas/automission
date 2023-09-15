@@ -298,9 +298,9 @@ Public Class FrmAddItem
         End If
         dgvSearch.Size = New Size(563, 212)
         If gsCOST_AMOUNT_ONLY = False Then
-            ComboBoxLoad(cmbItem_Code, gsItemCodeQuery, "ID", "CODE")
-            ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionQuery, "ID", "DESCRIPTION")
-            LoadDataGridViewBinding(dgvSearch, gsItemSearchQuery, BS_ITEM)
+            GS_ComboBoxLoad(cmbItem_Code, gsItemCodeQuery, "ID", "CODE")
+            GS_ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionQuery, "ID", "DESCRIPTION")
+            GS_LoadDataGridViewBinding(dgvSearch, gsItemSearchQuery, BS_ITEM)
 
             dgvSearch.Columns("GROUP").Width = 50
             dgvSearch.Columns("RATE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -311,9 +311,9 @@ Public Class FrmAddItem
             cmbItem_Code.Enabled = False
             cmbItem_DESCRIPTION.Enabled = False
         ElseIf gsCOST_AMOUNT_ONLY = True And (sFormName = FrmStockTransfer.Name Or sFormName = FrmInventoryAdjustment.Name) Then
-            ComboBoxLoad(cmbItem_Code, gsItemCodeZeroQuery, "ID", "CODE")
-            ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionZeroQuery, "ID", "DESCRIPTION")
-            LoadDataGridViewBinding(dgvSearch, gsItemSearchZeroQuery, BS_ITEM)
+            GS_ComboBoxLoad(cmbItem_Code, gsItemCodeZeroQuery, "ID", "CODE")
+            GS_ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionZeroQuery, "ID", "DESCRIPTION")
+            GS_LoadDataGridViewBinding(dgvSearch, gsItemSearchZeroQuery, BS_ITEM)
 
             '  dgvSearch.Columns(2).Width = 200
             dgvSearch.Columns(3).Width = 60
@@ -324,9 +324,9 @@ Public Class FrmAddItem
             cmbItem_Code.Enabled = False
             cmbItem_DESCRIPTION.Enabled = False
         Else
-            ComboBoxLoad(cmbItem_Code, gsItemCodeCostQuery, "ID", "CODE")
-            ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionCostQuery, "ID", "DESCRIPTION")
-            LoadDataGridViewBinding(dgvSearch, gsItemSearchCostQuery, BS_ITEM)
+            GS_ComboBoxLoad(cmbItem_Code, gsItemCodeCostQuery, "ID", "CODE")
+            GS_ComboBoxLoad(cmbItem_DESCRIPTION, gsItemDescriptionCostQuery, "ID", "DESCRIPTION")
+            GS_LoadDataGridViewBinding(dgvSearch, gsItemSearchCostQuery, BS_ITEM)
 
             ' dgvSearch.Columns(2).Width = 250
             dgvSearch.Columns(3).Width = 80
@@ -342,7 +342,7 @@ Public Class FrmAddItem
 
         dgvSearch.Columns(0).Visible = False
         dgvSearch.Columns(1).Width = 90
-        ComboBoxLoad(cmbDiscount_Type, " select '' as ID, '' as DESCRIPTION  FROM discount_type  UNION select ID,DESCRIPTION FROM discount_type ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbDiscount_Type, " select '' as ID, '' as DESCRIPTION  FROM discount_type  UNION select ID,DESCRIPTION FROM discount_type ", "ID", "DESCRIPTION")
 
         ClearAndRefresh(Me)
         If gsItem_ID <> "" Then
@@ -409,7 +409,7 @@ Public Class FrmAddItem
             xlblSelection.Visible = True
             cmbSelection.Visible = True
             xlblSelection.Text = gsSelection_Label
-            ComboBoxLoad(cmbSelection, gsSelection_Query, gsSelection_VALUE, gsSelection_DESCRIPTION)
+            GS_ComboBoxLoad(cmbSelection, gsSelection_Query, gsSelection_VALUE, gsSelection_DESCRIPTION)
 
             If Trim(gsSelection_ID) <> "" Then
                 cmbSelection.SelectedValue = gsSelection_ID
@@ -501,7 +501,7 @@ Public Class FrmAddItem
         txtSearch.Clear()
         BlueLight(numQty)
         xlblOnHand.Text = QtyActualOnDateLocation(cmbItem_Code.SelectedValue, gsDate, gsLOCATION_ID)
-        If NumIsNull(cmbItem_Code.SelectedValue) = 0 Then
+        If GF_NumIsNull(cmbItem_Code.SelectedValue) = 0 Then
             txtSearch.Focus()
         End If
     End Sub
@@ -518,7 +518,7 @@ Public Class FrmAddItem
         End If
 
         Dim pl_SQL As String = $"select * from ((SELECT  '0'  AS ID  ,'Default' AS `CODE`) UNION (SELECT  pl.ID, pl.`CODE` FROM price_level AS  pl WHere pl.TYPE = '0' and pl.Inactive = '0' ) UNION (SELECT  pl.ID, pl.`CODE` FROM price_level_lines AS pll INNER JOIN price_level AS  pl ON pl.`ID`= pll.`PRICE_LEVEL_ID` WHERE pll.`ITEM_ID` = '{prItem_ID}' and pl.INACTIVE ='0' and pl.Type ='1' )) as T order by T.ID"
-        ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
+        GS_ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
         If cmbPRICE_LEVEL.Items.Count = 1 Then
             cmbPRICE_LEVEL.Visible = False
             xxxlblPrice_level.Visible = False
@@ -553,7 +553,7 @@ Public Class FrmAddItem
         If rd.Read Then
             cmbPRICE_LEVEL.CausesValidation = False
             Dim pl_SQL As String = $"select * from ((SELECT  '0'  AS ID  ,'Default' AS `CODE`) UNION (SELECT pl.`ID`,pl.`CODE` FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{prItem_ID}' AND n.`UNIT_ID` = '{prUnit_ID}' AND pl.`INACTIVE` = '0' and pl.TYPE ='1' )) as T order by T.ID"
-            ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
+            GS_ComboBoxLoad(cmbPRICE_LEVEL, pl_SQL, "ID", "CODE")
             If cmbPRICE_LEVEL.Items.Count = 1 Then
                 cmbPRICE_LEVEL.Visible = False
                 xxxlblPrice_level.Visible = False
@@ -582,7 +582,7 @@ Public Class FrmAddItem
         MemberDiscounted()
         DiscountEffect()
 
-        ViewItemDisplay(dgvSearch)
+        GS_ViewItemDisplay(dgvSearch)
     End Sub
     Private Sub MemberDiscounted()
         If gsMEMBER = True Then
@@ -644,30 +644,30 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     If rd.Read Then
                         If gsUseImageProduct = True Then
 
-                            fDisplayPhoto(TextIsNull(rd("PIC_FILENAME")), picItem)
+                            fDisplayPhoto(GF_TextIsNull(rd("PIC_FILENAME")), picItem)
 
 
                         End If
-                        ItemType = NumIsNull(rd("TYPE"))
-                        gsNON_DISCOUNTED_ITEM = NumIsNull(rd("NON_DISCOUNTED_ITEM"))
-                        gsNON_PORFOLIO_COMPUTATION = NumIsNull(rd("NON_PORFOLIO_COMPUTATION"))
-                        ItemBatches(CBool(NumIsNull(rd("IS_EXPIRED"))))
+                        ItemType = GF_NumIsNull(rd("TYPE"))
+                        gsNON_DISCOUNTED_ITEM = GF_NumIsNull(rd("NON_DISCOUNTED_ITEM"))
+                        gsNON_PORFOLIO_COMPUTATION = GF_NumIsNull(rd("NON_PORFOLIO_COMPUTATION"))
+                        ItemBatches(CBool(GF_NumIsNull(rd("IS_EXPIRED"))))
                         If gsCOST_AMOUNT_ONLY = True And ItemType = 0 Then
-                            _Unit_Rate = NumIsNull(rd("COST"))
+                            _Unit_Rate = GF_NumIsNull(rd("COST"))
                         Else
 
-                            _Unit_Rate = NumIsNull(rd("RATE"))
+                            _Unit_Rate = GF_NumIsNull(rd("RATE"))
 
                         End If
 
                         If ItemType <= 3 Then
-                            Basic_Unit_ID = NumIsNull(rd("BASE_UNIT_ID"))
-                            chkTax.Checked = NumIsNull(rd("TAXABLE"))
+                            Basic_Unit_ID = GF_NumIsNull(rd("BASE_UNIT_ID"))
+                            chkTax.Checked = GF_NumIsNull(rd("TAXABLE"))
 
                         Else
                             Basic_Unit_ID = 0
 
-                            chkTax.Checked = NumIsNull(rd("TAXABLE"))
+                            chkTax.Checked = GF_NumIsNull(rd("TAXABLE"))
                         End If
 
 
@@ -696,11 +696,11 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                         Exit Sub
                     End Try
                     in_sql &= ")"
-                    ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
+                    GS_ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID " & in_sql, "ID", "SYMBOL")
 
                     lblQty_Base.Text = "1"
                 Else
-                    ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID ='xxx' limit 1", "ID", "SYMBOL")
+                    GS_ComboBoxLoad(cmbUM, "select ID,SYMBOL from unit_of_measure where  ID ='xxx' limit 1", "ID", "SYMBOL")
                 End If
 
                 If (Basic_Unit_ID) <> 0 Then
@@ -731,7 +731,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 numDiscountValue.Enabled = False
                 cmbDiscount_Type.Enabled = False
             ElseIf ItemType = 7 Then ' Discount
-                gsRate_Type = GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
+                gsRate_Type = GF_GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
                 If gsRate_Type = 0 Then
                     numUnit_price.DecimalPlaces = 2
                     numUnit_price.ThousandsSeparator = True
@@ -759,7 +759,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     numUnit_price.Value = _Unit_Rate
                 End If
             ElseIf ItemType = 4 Then 'Other Discount
-                gsRate_Type = GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
+                gsRate_Type = GF_GetNumberFieldValue("ITEM", "ID", cmbItem_Code.SelectedValue, "RATE_TYPE")
                 If gsRate_Type = 0 Then
                     numUnit_price.DecimalPlaces = 2
                     numUnit_price.ThousandsSeparator = True
@@ -830,7 +830,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
     End Sub
     Private Sub LoadUnitPrice()
         If ItemType <= 4 Then
-            If Basic_Unit_ID = NumIsNull(cmbUM.SelectedValue) Then
+            If Basic_Unit_ID = GF_NumIsNull(cmbUM.SelectedValue) Then
                 lblQty_Base.Text = "1"
                 If lblAmount.Visible = True Then
                     If _Unit_Rate <> 0 Then
@@ -858,22 +858,22 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
                     If cmbUM.SelectedValue Is Nothing Then Exit Sub
 
-                    Dim rd As OdbcDataReader = SqlReader("select quantity as q, rate as r from item_units where unit_id = '" & NumIsNull(cmbUM.SelectedValue) & "' and item_id ='" & cmbItem_Code.SelectedValue & "' limit 1")
+                    Dim rd As OdbcDataReader = SqlReader("select quantity as q, rate as r from item_units where unit_id = '" & GF_NumIsNull(cmbUM.SelectedValue) & "' and item_id ='" & cmbItem_Code.SelectedValue & "' limit 1")
                     If rd.Read Then
-                        If NumIsNull(rd("q")) <> 0 Then
-                            lblQty_Base.Text = NumIsNull(rd("q"))
+                        If GF_NumIsNull(rd("q")) <> 0 Then
+                            lblQty_Base.Text = GF_NumIsNull(rd("q"))
                         End If
 
                         If lblAmount.Visible = True And gsCOST_AMOUNT_ONLY = False Then
 
-                            If NumIsNull(rd("r")) <> 0 Then
-                                numUnit_price.Value = NumIsNull(rd("r"))
+                            If GF_NumIsNull(rd("r")) <> 0 Then
+                                numUnit_price.Value = GF_NumIsNull(rd("r"))
                             End If
 
                         Else
 
                             If gsCOST_AMOUNT_ONLY = True Then
-                                numUnit_price.Value = _Unit_Rate * NumIsNull(rd("q"))
+                                numUnit_price.Value = _Unit_Rate * GF_NumIsNull(rd("q"))
                             End If
 
                         End If
@@ -896,7 +896,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
         ItemComputation()
     End Sub
     Private Sub CmbUM_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmbUM.SelectedIndexChanged
-        Dim UNIT_ID As Double = NumIsNull(DirectCast(sender, ComboBox).SelectedValue)
+        Dim UNIT_ID As Double = GF_NumIsNull(DirectCast(sender, ComboBox).SelectedValue)
         LoadUnitPrice()
         CheckPriceLevelUnits(cmbItem_Code.SelectedValue, UNIT_ID)
     End Sub
@@ -918,13 +918,13 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
 
                 Dim rd As OdbcDataReader = SqlReader($"select type,rate from price_level where id = '{cmbPRICE_LEVEL.SelectedValue}' limit 1")
                 If rd.Read Then
-                    If NumIsNull(rd("type")) = 0 Then
+                    If GF_NumIsNull(rd("type")) = 0 Then
                         'Fixed
-                        Dim DISCOUNT_LESS As Double = _Unit_Rate * IIf(NumIsNull(rd("rate")) < 100, CDbl(0 & "." & Format(NumIsNull(rd("rate")), "00")), 1)
+                        Dim DISCOUNT_LESS As Double = _Unit_Rate * IIf(GF_NumIsNull(rd("rate")) < 100, CDbl(0 & "." & Format(GF_NumIsNull(rd("rate")), "00")), 1)
                         numUnit_price.Value = _Unit_Rate - DISCOUNT_LESS
-                    ElseIf NumIsNull(rd("type")) = 1 Then
+                    ElseIf GF_NumIsNull(rd("type")) = 1 Then
                         'Per Item
-                        numUnit_price.Value = GetNumberFieldValueByTwoCondition("Price_level_lines", "Price_level_ID", cmbPRICE_LEVEL.SelectedValue, "ITEM_ID", cmbItem_Code.SelectedValue, "CUSTOM_PRICE")
+                        numUnit_price.Value = GF_GetNumberFieldValueByTwoCondition("Price_level_lines", "Price_level_ID", cmbPRICE_LEVEL.SelectedValue, "ITEM_ID", cmbItem_Code.SelectedValue, "CUSTOM_PRICE")
                     End If
                 End If
                 rd.Close()
@@ -935,7 +935,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                 Dim rd As OdbcDataReader = SqlReader($"SELECT u.`CUSTOM_PRICE`  FROM item_unit_price_levels AS u INNER JOIN price_level AS pl ON pl.`ID` = u.`PRICE_LEVEL_ID` INNER JOIN item_units AS n ON n.ID = u.ITEM_UNIT_LINE_ID WHERE n.ITEM_ID = '{cmbItem_Code.SelectedValue}' AND n.`UNIT_ID` = '{cmbUM.SelectedValue}' AND pl.ID ='{cmbPRICE_LEVEL.SelectedValue}' AND pl.`INACTIVE` = '0' AND pl.type ='1'  limit 1")
                 If rd.Read Then
                     'Fixed
-                    numUnit_price.Value = NumIsNull(rd("CUSTOM_PRICE"))
+                    numUnit_price.Value = GF_NumIsNull(rd("CUSTOM_PRICE"))
                 End If
                 rd.Close()
             End If
@@ -1264,8 +1264,8 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
             DISC_OTH_DECT = False
             gsRate_Type = 0
             If ItemType = 4 Or ItemType = 7 Then
-                gsRate_Type = GetNumberFieldValue("ITEM", "ID", gsItem_ID, "RATE_TYPE")
-                DISC_NAME = GetStringFieldValue("DISCOUNT_TYPE", "ID", gsRate_Type, "DESCRIPTION")
+                gsRate_Type = GF_GetNumberFieldValue("ITEM", "ID", gsItem_ID, "RATE_TYPE")
+                DISC_NAME = GF_GetStringFieldValue("DISCOUNT_TYPE", "ID", gsRate_Type, "DESCRIPTION")
                 DISC_OTH_DECT = True
             End If
 
@@ -1347,25 +1347,25 @@ down_now:
                 Select Case sFormName
                     Case FrmInvoice.Name
                         'SUB TOTAL
-                        '  GS_RowDataItemInvoice(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", TotalAmount, False, "", "A", 0, "", TotalAmount, "", gsPRICE_LEVEL_ID, 0)
+                        '  GS_RowDataItemInvoice(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", TotalAmount, False, "", "A", 0, "", TotalAmount, "", gsPRICE_LEVEL_ID, 0)
                         gsAmount = GS_DiscountOtherCharge(TotalAmount, ItemType, gsRate_Type, gsUnit_Price)
                         GS_RowDataItemInvoice(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, 0, False, 0)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case FrmCreditMemo.Name
                         'SUB TOTAL
-                        ' GS_RowDataItemCreditMemo(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", TotalAmount, False, "", "A", 0, "", TotalAmount, gsPRICE_LEVEL_ID, 0)
+                        ' GS_RowDataItemCreditMemo(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", TotalAmount, False, "", "A", 0, "", TotalAmount, gsPRICE_LEVEL_ID, 0)
                         gsAmount = GS_DiscountOtherCharge(TotalAmount, ItemType, gsRate_Type, gsUnit_Price)
                         GS_RowDataItemCreditMemo(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, 0, False, 0)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case FrmSalesOrder.Name
                         'SUB TOTAL
-                        ' GS_RowDataItemSalesOrder(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", TotalAmount, False, "", "A", 0, "", TotalAmount, "", gsPRICE_LEVEL_ID)
+                        ' GS_RowDataItemSalesOrder(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", TotalAmount, False, "", "A", 0, "", TotalAmount, "", gsPRICE_LEVEL_ID)
                         gsAmount = GS_DiscountOtherCharge(TotalAmount, ItemType, gsRate_Type, gsUnit_Price)
                         GS_RowDataItemSalesOrder(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, "", gsPRICE_LEVEL_ID, False, 0)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)
                     Case FrmSalesReceipt.Name
                         'SUB TOTAL
-                        ' GS_RowDataItemSalesReceipt(dgv, True, GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", TotalAmount, False, "", "A", 0, "", TotalAmount, gsPRICE_LEVEL_ID)
+                        ' GS_RowDataItemSalesReceipt(dgv, True, GF_GetStringFieldValue("ITEM", "TYPE", "5", "ID"), 0, 0, "", "", TotalAmount, False, "", "A", 0, "", TotalAmount, gsPRICE_LEVEL_ID)
                         gsAmount = GS_DiscountOtherCharge(TotalAmount, ItemType, gsRate_Type, gsUnit_Price)
                         GS_RowDataItemSalesReceipt(dgv, True, gsItem_ID, 0, gsUnit_Price, DISC_NAME, "", gsAmount, gsTax, "", "A", 0, gsRate_Type, gsAmount, gsPRICE_LEVEL_ID, False, 0, 0)
                         GS_SalesCustomerComputation(dgv, gscmbOUTPUT_TAX_ID, gslblOUTPUT_TAX_AMOUNT, gslblAMOUNT, gslblTAXABLE_AMOUNT, gslblNONTAXABLE_AMOUNT, gslblOUTPUT_TAX_RATE, gsSalesSubTotal)

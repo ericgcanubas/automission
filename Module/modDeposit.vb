@@ -1,10 +1,10 @@
 ﻿
 Module modDeposit
 
-    Public Sub fAdd_Deposit_fund(ByVal prDgv As DataGridView, ByVal prNew As Boolean, ByVal prReceived_ID As String, ByVal prAccount_ID As String, ByVal prPayment_Method_ID As String, ByVal prCheck_No As String, ByVal prAmount As Double)
-        Dim Received_name As String = GetStringFieldValue("CONTACT", "ID", prReceived_ID, "NAME")
-        Dim Account_name As String = GetStringFieldValue("ACCOUNT", "ID", prAccount_ID, "NAME")
-        Dim Payment_method_name As String = GetStringFieldValue("PAYMENT_METHOD", "ID", prPayment_Method_ID, "DESCRIPTION")
+    Public Sub GF_AddDepositFund(ByVal prDgv As DataGridView, ByVal prNew As Boolean, ByVal prReceived_ID As String, ByVal prAccount_ID As String, ByVal prPayment_Method_ID As String, ByVal prCheck_No As String, ByVal prAmount As Double)
+        Dim Received_name As String = GF_GetStringFieldValue("CONTACT", "ID", prReceived_ID, "NAME")
+        Dim Account_name As String = GF_GetStringFieldValue("ACCOUNT", "ID", prAccount_ID, "NAME")
+        Dim Payment_method_name As String = GF_GetStringFieldValue("PAYMENT_METHOD", "ID", prPayment_Method_ID, "DESCRIPTION")
 
         If prNew = True Then
 

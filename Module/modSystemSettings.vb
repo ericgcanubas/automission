@@ -372,13 +372,13 @@ Module modSystemSettings
     End Sub
     Public Function GetSystemSettingValueByNumber(ByVal prName As String) As Double
 
-        Dim sValue As Double = NumIsNull(DbAccessGetFieldValue("system_value", "tblsystem", "ID", prName))
+        Dim sValue As Double = GF_NumIsNull(DbAccessGetFieldValue("system_value", "tblsystem", "ID", prName))
 
         If sValue = 0 Then
             Try
                 Dim rd As OdbcDataReader = SqlReader("select `VALUE` from system_settings where `NAME` = '" & prName & "' Limit 1")
                 If rd.Read Then
-                    sValue = NumIsNull(rd("VALUE"))
+                    sValue = GF_NumIsNull(rd("VALUE"))
                 Else
                     SqlExecuted("INSERT INTO system_settings SET `VALUE`='0', `NAME` = '" & prName & "'")
                     MessageBoxInfo("New settings = " & prName)
@@ -436,7 +436,7 @@ Module modSystemSettings
         Return Val(GetSystemSettingValueByText("PettyCashAccountId"))
     End Function
     Public Function GetDrawerAccount() As Integer
-        Dim I As Integer = fPOS_Drawer_Account_PER_UNIT()
+        Dim I As Integer = GF_PosDrawerAccountIdPerUnit()
         If I <> 0 Then
             Return I
         Else

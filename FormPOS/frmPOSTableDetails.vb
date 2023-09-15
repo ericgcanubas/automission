@@ -14,7 +14,7 @@
 
         gsClickOk = False
 
-        LoadDataGridView(dgvPAYMENT, $"select  p.ID,p.RECORDED_ON as `Log`,p.RECEIPT_REF_NO as `O.R` ,p.AMOUNT_APPLIED  as `AMOUNT` from PAYMENT  as p inner join pos_table_served as s on s.PAYMENT_ID = p.ID WHERE  s.IS_ACTIVE <> '0' and s.table_no = '{gsTABLE_NO}' and s.pos_log_id = '{gsPOS_LOG_ID}' and s.cashier_id = '{gsCashier_ID}'")
+        GS_LoadDataGridView(dgvPAYMENT, $"select  p.ID,p.RECORDED_ON as `Log`,p.RECEIPT_REF_NO as `O.R` ,p.AMOUNT_APPLIED  as `AMOUNT` from PAYMENT  as p inner join pos_table_served as s on s.PAYMENT_ID = p.ID WHERE  s.IS_ACTIVE <> '0' and s.table_no = '{gsTABLE_NO}' and s.pos_log_id = '{gsPOS_LOG_ID}' and s.cashier_id = '{gsCashier_ID}'")
 
         dgvPAYMENT.Columns(0).Visible = False
 
@@ -95,7 +95,7 @@
         dgvPAYMENT.Select()
         Dim ThisID As Integer
         Try
-            ThisID = GetNumberFieldValue("payment_invoices", "payment_id", dgvPAYMENT.CurrentRow.Cells(0).Value, "invoice_id")
+            ThisID = GF_GetNumberFieldValue("payment_invoices", "payment_id", dgvPAYMENT.CurrentRow.Cells(0).Value, "invoice_id")
 
             If ThisID = 0 Then
                 Exit Sub

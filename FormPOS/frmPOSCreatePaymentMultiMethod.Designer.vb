@@ -90,9 +90,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button11
         '
         Me.Button11.BackColor = System.Drawing.Color.Blue
+        Me.Button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button11.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button11.ForeColor = System.Drawing.Color.White
-        Me.Button11.Location = New System.Drawing.Point(83, 355)
+        Me.Button11.Location = New System.Drawing.Point(96, 367)
         Me.Button11.Name = "Button11"
         Me.Button11.Size = New System.Drawing.Size(82, 81)
         Me.Button11.TabIndex = 39
@@ -102,9 +103,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button10
         '
         Me.Button10.BackColor = System.Drawing.Color.Navy
+        Me.Button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button10.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button10.ForeColor = System.Drawing.Color.White
-        Me.Button10.Location = New System.Drawing.Point(2, 355)
+        Me.Button10.Location = New System.Drawing.Point(15, 367)
         Me.Button10.Name = "Button10"
         Me.Button10.Size = New System.Drawing.Size(82, 81)
         Me.Button10.TabIndex = 38
@@ -114,9 +116,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button9
         '
         Me.Button9.BackColor = System.Drawing.Color.Navy
+        Me.Button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button9.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button9.ForeColor = System.Drawing.Color.White
-        Me.Button9.Location = New System.Drawing.Point(164, 121)
+        Me.Button9.Location = New System.Drawing.Point(177, 133)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(82, 81)
         Me.Button9.TabIndex = 37
@@ -126,9 +129,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button8
         '
         Me.Button8.BackColor = System.Drawing.Color.Navy
+        Me.Button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button8.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button8.ForeColor = System.Drawing.Color.White
-        Me.Button8.Location = New System.Drawing.Point(83, 121)
+        Me.Button8.Location = New System.Drawing.Point(96, 133)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(82, 81)
         Me.Button8.TabIndex = 36
@@ -138,9 +142,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button7
         '
         Me.Button7.BackColor = System.Drawing.Color.Navy
+        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button7.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button7.ForeColor = System.Drawing.Color.White
-        Me.Button7.Location = New System.Drawing.Point(2, 121)
+        Me.Button7.Location = New System.Drawing.Point(15, 133)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(82, 81)
         Me.Button7.TabIndex = 35
@@ -150,9 +155,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button6
         '
         Me.Button6.BackColor = System.Drawing.Color.Navy
+        Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button6.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button6.ForeColor = System.Drawing.Color.White
-        Me.Button6.Location = New System.Drawing.Point(164, 199)
+        Me.Button6.Location = New System.Drawing.Point(177, 211)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(82, 81)
         Me.Button6.TabIndex = 34
@@ -162,9 +168,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button5
         '
         Me.Button5.BackColor = System.Drawing.Color.Navy
+        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button5.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button5.ForeColor = System.Drawing.Color.White
-        Me.Button5.Location = New System.Drawing.Point(83, 199)
+        Me.Button5.Location = New System.Drawing.Point(96, 211)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(82, 81)
         Me.Button5.TabIndex = 33
@@ -174,9 +181,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button4
         '
         Me.Button4.BackColor = System.Drawing.Color.Navy
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button4.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button4.ForeColor = System.Drawing.Color.White
-        Me.Button4.Location = New System.Drawing.Point(2, 199)
+        Me.Button4.Location = New System.Drawing.Point(15, 211)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(82, 81)
         Me.Button4.TabIndex = 32
@@ -186,9 +194,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button3
         '
         Me.Button3.BackColor = System.Drawing.Color.Navy
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button3.ForeColor = System.Drawing.Color.White
-        Me.Button3.Location = New System.Drawing.Point(164, 277)
+        Me.Button3.Location = New System.Drawing.Point(177, 289)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(82, 81)
         Me.Button3.TabIndex = 31
@@ -198,9 +207,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.Color.Navy
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(83, 277)
+        Me.Button2.Location = New System.Drawing.Point(96, 289)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(82, 81)
         Me.Button2.TabIndex = 30
@@ -210,9 +220,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.Color.Navy
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(2, 277)
+        Me.Button1.Location = New System.Drawing.Point(15, 289)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(82, 81)
         Me.Button1.TabIndex = 29
@@ -224,7 +235,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.xxlblValue.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.xxlblValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.xxlblValue.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xxlblValue.Location = New System.Drawing.Point(2, 84)
+        Me.xxlblValue.Location = New System.Drawing.Point(15, 92)
         Me.xxlblValue.Name = "xxlblValue"
         Me.xxlblValue.Size = New System.Drawing.Size(243, 34)
         Me.xxlblValue.TabIndex = 42
@@ -253,10 +264,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'btnRemove
         '
         Me.btnRemove.BackColor = System.Drawing.Color.Maroon
-        Me.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRemove.Font = New System.Drawing.Font("Verdana", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnRemove.ForeColor = System.Drawing.Color.White
-        Me.btnRemove.Location = New System.Drawing.Point(447, 232)
+        Me.btnRemove.Location = New System.Drawing.Point(474, 240)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(63, 54)
         Me.btnRemove.TabIndex = 46
@@ -266,9 +277,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'btnSAVE
         '
         Me.btnSAVE.BackColor = System.Drawing.Color.DarkGreen
+        Me.btnSAVE.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSAVE.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSAVE.ForeColor = System.Drawing.Color.White
-        Me.btnSAVE.Location = New System.Drawing.Point(579, 363)
+        Me.btnSAVE.Location = New System.Drawing.Point(606, 371)
         Me.btnSAVE.Name = "btnSAVE"
         Me.btnSAVE.Size = New System.Drawing.Size(111, 81)
         Me.btnSAVE.TabIndex = 47
@@ -278,10 +290,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'btnAdded
         '
         Me.btnAdded.BackColor = System.Drawing.Color.Purple
-        Me.btnAdded.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnAdded.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAdded.Font = New System.Drawing.Font("Verdana", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAdded.ForeColor = System.Drawing.Color.White
-        Me.btnAdded.Location = New System.Drawing.Point(249, 232)
+        Me.btnAdded.Location = New System.Drawing.Point(276, 240)
         Me.btnAdded.Name = "btnAdded"
         Me.btnAdded.Size = New System.Drawing.Size(63, 54)
         Me.btnAdded.TabIndex = 45
@@ -293,17 +305,17 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(253, 397)
+        Me.Label5.Location = New System.Drawing.Point(280, 405)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(59, 16)
+        Me.Label5.Size = New System.Drawing.Size(58, 16)
         Me.Label5.TabIndex = 63
         Me.Label5.Text = "Notes :"
         '
         'txtNOTES
         '
         Me.txtNOTES.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNOTES.Location = New System.Drawing.Point(249, 413)
+        Me.txtNOTES.Location = New System.Drawing.Point(276, 421)
         Me.txtNOTES.Name = "txtNOTES"
         Me.txtNOTES.Size = New System.Drawing.Size(318, 27)
         Me.txtNOTES.TabIndex = 62
@@ -312,7 +324,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         '
         Me.dtpRECEIPT_DATE.Font = New System.Drawing.Font("Verdana", 11.25!)
         Me.dtpRECEIPT_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpRECEIPT_DATE.Location = New System.Drawing.Point(404, 329)
+        Me.dtpRECEIPT_DATE.Location = New System.Drawing.Point(431, 337)
         Me.dtpRECEIPT_DATE.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpRECEIPT_DATE.Name = "dtpRECEIPT_DATE"
         Me.dtpRECEIPT_DATE.ShowCheckBox = True
@@ -322,7 +334,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'txtRECEIPT_REF_NO
         '
         Me.txtRECEIPT_REF_NO.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRECEIPT_REF_NO.Location = New System.Drawing.Point(249, 329)
+        Me.txtRECEIPT_REF_NO.Location = New System.Drawing.Point(276, 337)
         Me.txtRECEIPT_REF_NO.Margin = New System.Windows.Forms.Padding(4)
         Me.txtRECEIPT_REF_NO.Name = "txtRECEIPT_REF_NO"
         Me.txtRECEIPT_REF_NO.Size = New System.Drawing.Size(153, 27)
@@ -333,19 +345,20 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.OR_No.AutoSize = True
         Me.OR_No.BackColor = System.Drawing.Color.Transparent
         Me.OR_No.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OR_No.Location = New System.Drawing.Point(246, 312)
+        Me.OR_No.Location = New System.Drawing.Point(273, 320)
         Me.OR_No.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.OR_No.Name = "OR_No"
-        Me.OR_No.Size = New System.Drawing.Size(70, 16)
+        Me.OR_No.Size = New System.Drawing.Size(69, 16)
         Me.OR_No.TabIndex = 51
         Me.OR_No.Text = "O.R No. :"
         '
         'btnCANCEL
         '
         Me.btnCANCEL.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.btnCANCEL.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCANCEL.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCANCEL.ForeColor = System.Drawing.Color.White
-        Me.btnCANCEL.Location = New System.Drawing.Point(692, 363)
+        Me.btnCANCEL.Location = New System.Drawing.Point(719, 371)
         Me.btnCANCEL.Name = "btnCANCEL"
         Me.btnCANCEL.Size = New System.Drawing.Size(111, 81)
         Me.btnCANCEL.TabIndex = 64
@@ -357,10 +370,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(401, 312)
+        Me.Label1.Location = New System.Drawing.Point(428, 320)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(71, 16)
+        Me.Label1.Size = New System.Drawing.Size(70, 16)
         Me.Label1.TabIndex = 65
         Me.Label1.Text = "O.R Date"
         '
@@ -370,7 +383,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.xlblCHANGE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.xlblCHANGE.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.xlblCHANGE.ForeColor = System.Drawing.Color.Plum
-        Me.xlblCHANGE.Location = New System.Drawing.Point(648, 325)
+        Me.xlblCHANGE.Location = New System.Drawing.Point(675, 333)
         Me.xlblCHANGE.Name = "xlblCHANGE"
         Me.xlblCHANGE.Size = New System.Drawing.Size(153, 31)
         Me.xlblCHANGE.TabIndex = 68
@@ -383,7 +396,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.lblAMOUNT_APPLIED.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAMOUNT_APPLIED.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAMOUNT_APPLIED.ForeColor = System.Drawing.Color.Yellow
-        Me.lblAMOUNT_APPLIED.Location = New System.Drawing.Point(648, 293)
+        Me.lblAMOUNT_APPLIED.Location = New System.Drawing.Point(675, 301)
         Me.lblAMOUNT_APPLIED.Name = "lblAMOUNT_APPLIED"
         Me.lblAMOUNT_APPLIED.Size = New System.Drawing.Size(153, 30)
         Me.lblAMOUNT_APPLIED.TabIndex = 67
@@ -394,7 +407,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         '
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(571, 292)
+        Me.Label3.Location = New System.Drawing.Point(598, 300)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(80, 28)
         Me.Label3.TabIndex = 66
@@ -406,7 +419,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         '
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(571, 324)
+        Me.Label6.Location = New System.Drawing.Point(598, 332)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(77, 30)
         Me.Label6.TabIndex = 69
@@ -420,7 +433,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.lblAMOUNT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAMOUNT.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAMOUNT.ForeColor = System.Drawing.Color.Lime
-        Me.lblAMOUNT.Location = New System.Drawing.Point(648, 261)
+        Me.lblAMOUNT.Location = New System.Drawing.Point(675, 269)
         Me.lblAMOUNT.Name = "lblAMOUNT"
         Me.lblAMOUNT.Size = New System.Drawing.Size(153, 30)
         Me.lblAMOUNT.TabIndex = 71
@@ -431,7 +444,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         '
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(571, 262)
+        Me.Label4.Location = New System.Drawing.Point(598, 270)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 28)
         Me.Label4.TabIndex = 70
@@ -442,10 +455,11 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         'Button12
         '
         Me.Button12.BackColor = System.Drawing.Color.Coral
+        Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button12.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button12.ForeColor = System.Drawing.Color.White
         Me.Button12.Image = Global.Automission.My.Resources.Resources.back_icon_set
-        Me.Button12.Location = New System.Drawing.Point(164, 355)
+        Me.Button12.Location = New System.Drawing.Point(177, 367)
         Me.Button12.Name = "Button12"
         Me.Button12.Size = New System.Drawing.Size(82, 81)
         Me.Button12.TabIndex = 40
@@ -455,7 +469,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         '
         Me.dtpCARD_EXPIRY_DATE.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpCARD_EXPIRY_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpCARD_EXPIRY_DATE.Location = New System.Drawing.Point(404, 372)
+        Me.dtpCARD_EXPIRY_DATE.Location = New System.Drawing.Point(431, 380)
         Me.dtpCARD_EXPIRY_DATE.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpCARD_EXPIRY_DATE.Name = "dtpCARD_EXPIRY_DATE"
         Me.dtpCARD_EXPIRY_DATE.ShowCheckBox = True
@@ -467,17 +481,17 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.CARD_EXPIRED_DATE.AutoSize = True
         Me.CARD_EXPIRED_DATE.BackColor = System.Drawing.Color.Transparent
         Me.CARD_EXPIRED_DATE.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CARD_EXPIRED_DATE.Location = New System.Drawing.Point(401, 356)
+        Me.CARD_EXPIRED_DATE.Location = New System.Drawing.Point(428, 364)
         Me.CARD_EXPIRED_DATE.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.CARD_EXPIRED_DATE.Name = "CARD_EXPIRED_DATE"
-        Me.CARD_EXPIRED_DATE.Size = New System.Drawing.Size(110, 16)
+        Me.CARD_EXPIRED_DATE.Size = New System.Drawing.Size(109, 16)
         Me.CARD_EXPIRED_DATE.TabIndex = 74
         Me.CARD_EXPIRED_DATE.Text = "Card Expired :"
         '
         'txtCARD_NO
         '
         Me.txtCARD_NO.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCARD_NO.Location = New System.Drawing.Point(249, 372)
+        Me.txtCARD_NO.Location = New System.Drawing.Point(276, 380)
         Me.txtCARD_NO.Margin = New System.Windows.Forms.Padding(4)
         Me.txtCARD_NO.Name = "txtCARD_NO"
         Me.txtCARD_NO.Size = New System.Drawing.Size(153, 26)
@@ -488,10 +502,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.CARD_NO.AutoSize = True
         Me.CARD_NO.BackColor = System.Drawing.Color.Transparent
         Me.CARD_NO.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CARD_NO.Location = New System.Drawing.Point(253, 357)
+        Me.CARD_NO.Location = New System.Drawing.Point(280, 365)
         Me.CARD_NO.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.CARD_NO.Name = "CARD_NO"
-        Me.CARD_NO.Size = New System.Drawing.Size(79, 16)
+        Me.CARD_NO.Size = New System.Drawing.Size(78, 16)
         Me.CARD_NO.TabIndex = 72
         Me.CARD_NO.Text = "Card No. :"
         '
@@ -500,9 +514,9 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.xlblCustomer_Name.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.xlblCustomer_Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.xlblCustomer_Name.Font = New System.Drawing.Font("Verdana", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xlblCustomer_Name.Location = New System.Drawing.Point(1, 25)
+        Me.xlblCustomer_Name.Location = New System.Drawing.Point(14, 33)
         Me.xlblCustomer_Name.Name = "xlblCustomer_Name"
-        Me.xlblCustomer_Name.Size = New System.Drawing.Size(803, 36)
+        Me.xlblCustomer_Name.Size = New System.Drawing.Size(812, 30)
         Me.xlblCustomer_Name.TabIndex = 76
         Me.xlblCustomer_Name.Text = "JUAN DELA CRUZ"
         Me.xlblCustomer_Name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -512,7 +526,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.Black
-        Me.Label7.Location = New System.Drawing.Point(-1, 1)
+        Me.Label7.Location = New System.Drawing.Point(12, 9)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(296, 24)
         Me.Label7.TabIndex = 77
@@ -525,7 +539,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
         Me.Label8.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(254, 70)
+        Me.Label8.Location = New System.Drawing.Point(281, 78)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(83, 14)
@@ -537,7 +551,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
         Me.Label9.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(449, 70)
+        Me.Label9.Location = New System.Drawing.Point(476, 78)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(116, 14)
@@ -549,10 +563,10 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.xxMETHOD_LABEL.AutoSize = True
         Me.xxMETHOD_LABEL.BackColor = System.Drawing.Color.Transparent
         Me.xxMETHOD_LABEL.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xxMETHOD_LABEL.Location = New System.Drawing.Point(5, 68)
+        Me.xxMETHOD_LABEL.Location = New System.Drawing.Point(18, 76)
         Me.xxMETHOD_LABEL.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.xxMETHOD_LABEL.Name = "xxMETHOD_LABEL"
-        Me.xxMETHOD_LABEL.Size = New System.Drawing.Size(71, 16)
+        Me.xxMETHOD_LABEL.Size = New System.Drawing.Size(70, 16)
         Me.xxMETHOD_LABEL.TabIndex = 80
         Me.xxMETHOD_LABEL.Text = "Selected"
         '
@@ -561,7 +575,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         Me.Panel1.Controls.Add(Me.dgvMethod)
         Me.Panel1.Controls.Add(Me.dgvMethodSet)
         Me.Panel1.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Panel1.Location = New System.Drawing.Point(249, 84)
+        Me.Panel1.Location = New System.Drawing.Point(276, 92)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(553, 146)
         Me.Panel1.TabIndex = 81
@@ -570,8 +584,7 @@ Partial Class FrmPOSCreatePaymentMultiMethod
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(806, 449)
+        Me.ClientSize = New System.Drawing.Size(846, 465)
         Me.Controls.Add(Me.btnRemove)
         Me.Controls.Add(Me.btnAdded)
         Me.Controls.Add(Me.Label9)

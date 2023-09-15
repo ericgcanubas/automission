@@ -23,7 +23,7 @@ Public Class FrmTaxDetails
 
     End Sub
     Private Sub ClearInfo()
-        ComboBoxLoad(cmbTAX_TYPE, "select ID,DESCRIPTION  from tax_type_map ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbTAX_TYPE, "select ID,DESCRIPTION  from tax_type_map ", "ID", "DESCRIPTION")
         ClearAndRefresh(Me)
     End Sub
     Private Sub TaxType(ByVal i As Integer)
@@ -44,7 +44,7 @@ Public Class FrmTaxDetails
                 lbxASSET_ACCOUNT.Visible = False
 
 
-                ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
                 cmbTAX_ACCOUNT_ID.Location = New Point(143, 140)
                 lbxTAX_ACCOUNT.Location = New Point(9, 142)
                 cmbTAX_ACCOUNT_ID.Visible = True
@@ -65,7 +65,7 @@ Public Class FrmTaxDetails
                 lbxASSET_ACCOUNT.Visible = False
 
 
-                ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
                 cmbTAX_ACCOUNT_ID.Location = New Point(143, 140)
                 lbxTAX_ACCOUNT.Location = New Point(9, 142)
                 cmbTAX_ACCOUNT_ID.Visible = True
@@ -79,14 +79,14 @@ Public Class FrmTaxDetails
                 lbxVAT_METHOD.Visible = False
 
 
-                ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
                 cmbTAX_ACCOUNT_ID.Location = New Point(143, 140)
                 lbxTAX_ACCOUNT.Location = New Point(9, 142)
                 cmbTAX_ACCOUNT_ID.Visible = True
                 lbxTAX_ACCOUNT.Visible = True
                 lbxTAX_ACCOUNT.Text = "Tax Account"
 
-                ComboBoxLoad(cmbASSET_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbASSET_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
                 cmbASSET_ACCOUNT_ID.Location = New Point(143, 163)
                 lbxASSET_ACCOUNT.Location = New Point(9, 166)
                 cmbASSET_ACCOUNT_ID.Visible = True
@@ -99,7 +99,7 @@ Public Class FrmTaxDetails
                 '9, 166 / 143, 163
                 '9, 188 / 143, 186
 
-                ComboBoxLoad(cmbVAT_METHOD, "select ID,DESCRIPTION from vat_method_map ", "ID", "DESCRIPTION")
+                GS_ComboBoxLoad(cmbVAT_METHOD, "select ID,DESCRIPTION from vat_method_map ", "ID", "DESCRIPTION")
                 cmbVAT_METHOD.DropDownStyle = ComboBoxStyle.DropDownList
                 cmbVAT_METHOD.Location = New Point(143, 140)
                 lbxVAT_METHOD.Location = New Point(9, 142)
@@ -109,14 +109,14 @@ Public Class FrmTaxDetails
 
 
 
-                ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
                 cmbTAX_ACCOUNT_ID.Location = New Point(143, 163)
                 lbxTAX_ACCOUNT.Location = New Point(9, 166)
                 cmbTAX_ACCOUNT_ID.Visible = True
                 lbxTAX_ACCOUNT.Visible = True
                 lbxTAX_ACCOUNT.Text = "Output Tax Account"
 
-                ComboBoxLoad(cmbASSET_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbASSET_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
                 cmbASSET_ACCOUNT_ID.Location = New Point(143, 186)
                 lbxASSET_ACCOUNT.Location = New Point(9, 188)
                 cmbASSET_ACCOUNT_ID.Visible = True
@@ -138,7 +138,7 @@ Public Class FrmTaxDetails
                 lbxASSET_ACCOUNT.Visible = False
 
 
-                ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
                 cmbTAX_ACCOUNT_ID.Location = New Point(143, 140)
                 lbxTAX_ACCOUNT.Location = New Point(9, 142)
                 cmbTAX_ACCOUNT_ID.Visible = True
@@ -148,9 +148,9 @@ Public Class FrmTaxDetails
 
                 '' ComboBoxNull(cmbVAT_METHOD, "ID", "NAME")
 
-                'ComboBoxLoad(cmbVAT_METHOD, "select ID,DESCRIPTION from vat_method_map ", "ID", "DESCRIPTION")
-                'ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
-                'ComboBoxLoad(cmbASSET_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                'GS_ComboBoxLoad(cmbVAT_METHOD, "select ID,DESCRIPTION from vat_method_map ", "ID", "DESCRIPTION")
+                'GS_ComboBoxLoad(cmbTAX_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
+                'GS_ComboBoxLoad(cmbASSET_ACCOUNT_ID, "SELECT i.ID, concat(i.`NAME`,' / ',atm.`DESCRIPTION`) as `NAME` from account as i inner join account_type_map as atm on atm.ID = i.`Type` where i.INACTIVE ='0'", "ID", "NAME")
 
         End Select
 

@@ -258,14 +258,14 @@ FROM
 
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvItem.Columns(i)
-                        If CheckNumStandard(.Name) = True Then
-                            dgvItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
-                            dgvItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
-                        ElseIf CheckBoolType(.Name) = True Then
-                            dgvItem.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvItem.Rows(x).Cells(i).Value = NumberFormatStandard(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
+                            dgvItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckBoolType(.Name) = True Then
+                            dgvItem.Rows(x).Cells(i).Value = CBool(GF_NumIsNull(rd(i)))
                         Else
-                            dgvItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                            dgvItem.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
                         End If
                     End With
 
@@ -291,7 +291,7 @@ FROM
         End If
     End Function
     Private Sub FrmAvailableItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbLOCATION_ID, "SELECT `id`,`name` FROM location UNION SELECT '' AS `id`,'All Location' AS `NAME` FROM location ORDER BY `ID`", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "SELECT `id`,`name` FROM location UNION SELECT '' AS `id`,'All Location' AS `NAME` FROM location ORDER BY `ID`", "ID", "NAME")
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
         gsLocation_Select_ID = cmbLOCATION_ID.SelectedValue
         firstload = False
@@ -306,7 +306,7 @@ FROM
         Catch ex As Exception
 
         End Try
-        LoadDataGridView(dgvDocument, "SELECT p.ID,
+        GS_LoadDataGridView(dgvDocument, "SELECT p.ID,
   p.CODE AS `Reference`,
   p.`Date`,
   t.`Description` AS `Payment Terms`,
@@ -347,7 +347,7 @@ p.vendor_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
         Catch ex As Exception
 
         End Try
-        LoadDataGridView(dgvDocument, "SELECT p.ID,
+        GS_LoadDataGridView(dgvDocument, "SELECT p.ID,
   p.CODE AS `Reference`,
   p.`Date`,
   t.`Description` AS `Payment Terms`,
@@ -391,7 +391,7 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
         Catch ex As Exception
 
         End Try
-        LoadDataGridView(dgvDocument, "SELECT p.ID,
+        GS_LoadDataGridView(dgvDocument, "SELECT p.ID,
   p.CODE AS `Reference`,
   p.`Date`,
   t.`Description` AS `Payment Terms`,
@@ -469,8 +469,8 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
     End Sub
     Private Sub FrmAvailableItem_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         ColumnGrid()
-        DatagridViewMode(dgvItem)
-        ViewNotSort(dgvItem)
+
+        GS_ViewNotSort(dgvItem)
         ChangeData()
 
         dgvItem.Columns("SELECTED").Width = 20
@@ -504,10 +504,10 @@ p.customer_id = '" & gsCONTACT_ID & "' and p.Location_id like '%" & l & "%'
                                 GS_RowDataItemBills(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), 0, d.Cells("ID").Value, 0)
                             Case 1
 
-                                GS_RowDataItemInvoice(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), NumIsNull(d.Cells("ID").Value), NumIsNull(d.Cells("PRICE_LEVEL_ID").Value), NumIsNull(d.Cells("GROUP_LINE_ID").Value), CBool(NumIsNull(d.Cells("PRINT_IN_FORMS").Value)), 0)
+                                GS_RowDataItemInvoice(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), GF_NumIsNull(d.Cells("ID").Value), GF_NumIsNull(d.Cells("PRICE_LEVEL_ID").Value), GF_NumIsNull(d.Cells("GROUP_LINE_ID").Value), CBool(GF_NumIsNull(d.Cells("PRINT_IN_FORMS").Value)), 0)
 
                             Case 2
-                                GS_RowDataItemSalesOrder(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), d.Cells("ID").Value, NumIsNull(d.Cells("PRICE_LEVEL_ID").Value), CBool(NumIsNull(d.Cells("PRINT_IN_FORMS").Value)), NumIsNull(d.Cells("GROUP_LINE_ID").Value))
+                                GS_RowDataItemSalesOrder(gsdgv, True, d.Cells("ITEM_ID").Value, d.Cells("QTY").Value, d.Cells("UNIT_PRICE").Value, d.Cells("DISCOUNT_TYPE").Value, d.Cells("DISCOUNT_RATE").Value, d.Cells("AMOUNT").Value, d.Cells("TAX").Value, d.Cells("UNIT_ID").Value, "A", Val(d.Cells("UNIT_QUANTITY_BASE").Value), d.Cells("DISCOUNT_ID").Value, Val(d.Cells("ORG_AMOUNT").Value), d.Cells("ID").Value, GF_NumIsNull(d.Cells("PRICE_LEVEL_ID").Value), CBool(GF_NumIsNull(d.Cells("PRINT_IN_FORMS").Value)), GF_NumIsNull(d.Cells("GROUP_LINE_ID").Value))
 
                         End Select
                     End If

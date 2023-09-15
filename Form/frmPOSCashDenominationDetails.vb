@@ -2,7 +2,7 @@
     Public ID As Integer
     Public gsOK As Boolean
     Private Sub FrmPOSCashDenominationDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbTYPE, " select  * from pos_cash_type_map", "id", "description")
+        GS_ComboBoxLoad(cmbTYPE, " select  * from pos_cash_type_map", "id", "description")
         gsOK = False
         If ID > 0 Then
             SqlExecutedUsingReading(Me, $"SELECT * FROM pos_cash_denomination WHERE id = '{ID}' limit 1")
@@ -27,7 +27,7 @@
         End If
 
         If txtCODE.Text.Length = 0 Then
-            txtCODE.Text = Format(Val(GetMaxField("CODE", "POS_CASH_DENOMINATION")), "0000")
+            txtCODE.Text = Format(Val(GF_GetMaxField("CODE", "POS_CASH_DENOMINATION")), "0000")
         End If
 
         If ID = 0 Then

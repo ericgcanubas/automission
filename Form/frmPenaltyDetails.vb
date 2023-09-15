@@ -10,10 +10,10 @@ Public Class FrmPenaltyDetails
             'cn.Open()
             Dim rd As OdbcDataReader = SqlReader("select * from invoice where id = '" & gsID & "' and penalty_type_id <> '0'")
             If rd.Read Then
-                lblName.Text = GetStringFieldValue("CONTACT", "ID", rd("customer_id"), "NAME")
+                lblName.Text = GF_GetStringFieldValue("CONTACT", "ID", rd("customer_id"), "NAME")
                 Dim d As Integer = DateDiff(DateInterval.Day, GetLastPaymentDate(gsID, rd("DUE_DATE")), Date.Now.Date)
-                penalty_rate = NumIsNull(rd("penalty_rate"))
-                balance_due = NumIsNull(rd("balance_due"))
+                penalty_rate = GF_NumIsNull(rd("penalty_rate"))
+                balance_due = GF_NumIsNull(rd("balance_due"))
                 lblBALANCE_DUE.Text = Format(balance_due, "Standard")
                 lblPENALTY_RATE.Text = penalty_rate & "% "
                 lblDAY_OVER.Text = d
@@ -21,15 +21,15 @@ Public Class FrmPenaltyDetails
                 lblPENALTY_AMOUNT.Text = Format(n, "standard")
                 Dim y As Double = n / 30
                 lblPENALTY_PER_DAY.Text = Format(y, "standard")
-                lblPENALTY_TYPE.Text = GetStringFieldValue("penalty_type_map", "ID", NumIsNull(rd("penalty_type_id")), "DESCRIPTION")
-                Select Case NumIsNull(rd("penalty_type_id"))
+                lblPENALTY_TYPE.Text = GF_GetStringFieldValue("penalty_type_map", "ID", GF_NumIsNull(rd("penalty_type_id")), "DESCRIPTION")
+                Select Case GF_NumIsNull(rd("penalty_type_id"))
                     Case 1
                         penalty_amount = y * 1
                     Case 2
                         penalty_amount = y * d
                 End Select
                 lblTOTAL_PENALTY.Text = Format(penalty_amount, "Standard")
-                lblTOTAL_BALANCE.Text = NumIsNull(rd("Balance_due")) + NumIsNull(rd("Penalty"))
+                lblTOTAL_BALANCE.Text = GF_NumIsNull(rd("Balance_due")) + GF_NumIsNull(rd("Penalty"))
 
             End If
             rd.Close()
@@ -44,7 +44,7 @@ Public Class FrmPenaltyDetails
             Dim rd As OdbcDataReader = SqlReader("select p.date as `D`  from  payment as p  inner join payment_invoices  as pv where pv.invoice_id = '" & gsID & "' and pv.penalty_paid > 0 order by p.Date desc Limit 1")
             If rd.Read Then
 
-                d = CDate(TextIsNull(rd("D")))
+                d = CDate(GF_TextIsNull(rd("D")))
             End If
             rd.Close()
         Catch ex As Exception

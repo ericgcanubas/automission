@@ -5,7 +5,7 @@ Public Class FrmSubDiscount
 
     End Sub
     Private Sub RefreshData()
-        LoadDataGridView(dgvSub, "select ID,CODE,DESCRIPTION from sub_discount ")
+        GS_LoadDataGridView(dgvSub, "select ID,CODE,DESCRIPTION from sub_discount ")
         dgvSub.Columns(0).Visible = False
 
     End Sub

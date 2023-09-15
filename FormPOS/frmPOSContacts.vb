@@ -4,7 +4,7 @@
     Public gsContact_Type As Integer = 0
     Public gsNewContact As Boolean = False
 
-    Private Function fGetnameContact() As String
+    Private Function GetnameContact() As String
 
         Select Case gsContact_Type
             Case 0
@@ -14,7 +14,6 @@
             Case 2
                 btnDefault.Text = "None"
                 Return "Sales Rep."
-
             Case 3
                 Return "Tax Agency"
             Case 4
@@ -24,28 +23,27 @@
         End Select
 
     End Function
-    Private Sub frmPOSCustomer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPOSCustomer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         gsNewContact = False
-        ' Me.BackColor = ColorTranslator.FromHtml(gsColor_Code)
         Me.Icon = gsIcon
         gsOK = False
         txtName.Text = "999999999999999"
-        fRefresh()
+        RefreshData()
         txtName.Clear()
-        btnNewContact.Text = "New " & fGetnameContact()
-        Me.Text = fGetnameContact()
+        btnNewContact.Text = "New " & GetnameContact()
+        Me.Text = GetnameContact()
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
         Dim squery As String = "select c.ID,c.NAME,c.ACCOUNT_NO  as `Account No.` from contact as c  where c.INACTIVE = '0' and type ='" & gsContact_Type & "' and ( c.Name like '%" & txtName.Text.Replace("'", "`") & "%' or c.ACCOUNT_NO like '%" & txtName.Text.Replace("'", "`") & "%') order by c.`NAME` limit 100 "
-        LoadDataGridView(dgvContact, squery)
+        GS_LoadDataGridView(dgvContact, squery)
         dgvContact.Columns(0).Visible = False
 
     End Sub
 
-    Private Sub txtName_TextChanged(sender As Object, e As EventArgs) Handles txtName.TextChanged
-        fRefresh()
+    Private Sub TxtName_TextChanged(sender As Object, e As EventArgs) Handles txtName.TextChanged
+        RefreshData()
     End Sub
-    Private Sub fselect()
+    Private Sub CustomerSelected()
         Try
             If dgvContact.Rows.Count = 0 Then Exit Sub
             gsContact_ID = dgvContact.Rows(dgvContact.CurrentRow.Index).Cells(0).Value
@@ -53,29 +51,29 @@
             Me.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fselect()
+                CustomerSelected()
             Else
                 End
             End If
         End Try
 
     End Sub
-    Private Sub dgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvContact.CellDoubleClick
-        fselect()
+    Private Sub DgvCustomer_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvContact.CellDoubleClick
+        CustomerSelected()
     End Sub
-    Private Sub dgvCustomer_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvContact.KeyDown
+    Private Sub DgvCustomer_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvContact.KeyDown
         If e.KeyCode = Keys.Enter Then
-            fselect()
+            CustomerSelected()
         End If
     End Sub
 
-    Private Sub txtName_KeyDown(sender As Object, e As KeyEventArgs) Handles txtName.KeyDown
+    Private Sub TxtName_KeyDown(sender As Object, e As KeyEventArgs) Handles txtName.KeyDown
         If e.KeyCode = Keys.Down Then
             dgvContact.Focus()
         End If
     End Sub
-    Private Sub frmPOSContacts_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewNotSort(dgvContact)
+    Private Sub FrmPOSContacts_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        GS_ViewNotSort(dgvContact)
         dgvContact.Columns(1).Width = 250
     End Sub
 
@@ -95,18 +93,14 @@
     End Sub
 
     Private Sub BtnSelect_Click(sender As Object, e As EventArgs) Handles btnSelect.Click
-        fselect()
+        CustomerSelected()
     End Sub
 
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         gsOK = False
         Me.Close()
     End Sub
-    Private Sub fMaster_keydown()
-
-    End Sub
-
-    Private Sub txtName_Click(sender As Object, e As EventArgs) Handles txtName.Click
+    Private Sub TxtName_Click(sender As Object, e As EventArgs) Handles txtName.Click
         KeyBoardToTouch(txtName, Me.Text)
     End Sub
 End Class

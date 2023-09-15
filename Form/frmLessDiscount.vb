@@ -4,7 +4,7 @@ Public Class FrmLessDiscount
         fRefresh()
     End Sub
     Private Sub fRefresh()
-        LoadDataGridView(dgvLDP, "SELECT ID,DESCRIPTION,day_from as `FROM`, day_to as `TO`, less_percent as `PERCENT`,INACTIVE  FROM less_discount_penalty ")
+        GS_LoadDataGridView(dgvLDP, "SELECT ID,DESCRIPTION,day_from as `FROM`, day_to as `TO`, less_percent as `PERCENT`,INACTIVE  FROM less_discount_penalty ")
         dgvLDP.Columns(0).Visible = False
         dgvLDP.Columns(1).Width = 300
         dgvLDP.Columns(2).Width = 50

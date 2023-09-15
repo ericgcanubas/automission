@@ -3,12 +3,12 @@
     Public GetID As Integer
 
     Private Sub FrmPOSFindEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fMaterialSkin(Me)
-        fdatagird()
+
+        DataGrid()
         GetID = 0
     End Sub
-    Private Sub fdatagird()
-        LoadDataGridViewBinding(dgvList, $"SELECT 
+    Private Sub DataGrid()
+        GS_LoadDataGridViewBinding(dgvList, $"SELECT 
   s.`ID`,
   s.`CODE` AS `ENTRY NO.`,
   c.`NAME` AS `BUYER`,
@@ -30,7 +30,7 @@ FROM
             .Item("TOTAL").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
         End With
     End Sub
-    Private Sub fSearchload()
+    Private Sub SearchLoad()
         Try
 
             Dim strSearch As String = ""
@@ -60,7 +60,7 @@ FROM
     End Sub
 
     Private Sub TxtFind_TextChanged(sender As Object, e As EventArgs) Handles txtFind.TextChanged
-        fSearchload()
+        SearchLoad()
     End Sub
 
     Private Sub BtnSelect_Click(sender As Object, e As EventArgs) Handles btnSelect.Click
@@ -73,11 +73,7 @@ FROM
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
-
-    Private Sub dgvList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellContentClick
-
-    End Sub
-    Private Sub fMaster_keydown(sender As Object, e As KeyEventArgs)
+    Private Sub Master_keydown(sender As Object, e As KeyEventArgs)
 
         If e.KeyCode = Keys.Enter Then
 
@@ -86,7 +82,7 @@ FROM
                 If dgvList.Focused = True Then
 
                     btnSelect.Select()
-                ElseIf btnSelect.focused = True Then
+                ElseIf btnSelect.Focused = True Then
                     btnSelect.PerformClick()
 
                 End If
@@ -100,23 +96,23 @@ FROM
 
     End Sub
 
-    Private Sub dgvList_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvList.KeyDown
-        fMaster_keydown(sender, e)
+    Private Sub DgvList_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvList.KeyDown
+        Master_keydown(sender, e)
     End Sub
 
-    Private Sub btnSelect_KeyDown(sender As Object, e As KeyEventArgs) Handles btnSelect.KeyDown
-        fMaster_keydown(sender, e)
+    Private Sub BtnSelect_KeyDown(sender As Object, e As KeyEventArgs) Handles btnSelect.KeyDown
+        Master_keydown(sender, e)
     End Sub
 
-    Private Sub btnCancel_KeyDown(sender As Object, e As KeyEventArgs) Handles btnCancel.KeyDown
-        fMaster_keydown(sender, e)
+    Private Sub BtnCancel_KeyDown(sender As Object, e As KeyEventArgs) Handles btnCancel.KeyDown
+        Master_keydown(sender, e)
     End Sub
 
-    Private Sub txtFind_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFind.KeyDown
-        fMaster_keydown(sender, e)
+    Private Sub TxtFind_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFind.KeyDown
+        Master_keydown(sender, e)
     End Sub
 
-    Private Sub frmPOSFindEntry_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        fMaster_keydown(sender, e)
+    Private Sub FrmPOSFindEntry_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        Master_keydown(sender, e)
     End Sub
 End Class

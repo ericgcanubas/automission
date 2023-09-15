@@ -3,7 +3,6 @@ Module modPOS
 
 
     Public gsPOS_SELECTED_ROOM_ID As Integer = 0
-
     Public gsClose_Date_Run_Per_Unit As Boolean
     Public gsPOS_DATE As Date
     Public gsPOS_LOG_ID As Double
@@ -58,7 +57,7 @@ Module modPOS
     Public gsPOS_NONTAXABLE_AMOUNT As Double = 0
 
 
-    Public Sub fPOS_Reset()
+    Public Sub GS_PointOfSalesReset()
         gsPOS_LOG_ID = 0
 
         gsSTARTING_RECEIPT_NO = 0
@@ -84,14 +83,14 @@ Module modPOS
         gsPOS_PAIDOUT = 0
         gsPOS_PAIDIN = 0
     End Sub
-    Public Function fPOS_MACHINE_ID() As Integer
+    Public Function GF_GetPosMachineId() As Integer
 
         Return Val(GetDBAccessValueByText("POS_MACHINE_ID"))
     End Function
-    Public Function fPOS_Drawer_Account_PER_UNIT() As Integer
+    Public Function GF_PosDrawerAccountIdPerUnit() As Integer
         Return Val(GetDBAccessValueByText("POS_DRAWER_ACCOUNT_ID_PER_UNIT"))
     End Function
-    Public Function fPOS_OR_Required() As Boolean
+    Public Function GF_IsPosOfficialReceiptRequired() As Boolean
         Try
             Return CBool(GetDBAccessValueByText("OR_REQUIRED"))
         Catch ex As Exception
@@ -99,45 +98,43 @@ Module modPOS
         End Try
 
     End Function
-    Public Function fPOS_STARTING_CASH() As Boolean
+    Public Function GF_PosStartingCash() As Boolean
         Try
             Return CBool(GetDBAccessValueByText("POS_STARTING_CASH"))
         Catch ex As Exception
             Return False
         End Try
     End Function
-    Public Function fPOS_machine_type_map() As Integer
+    Public Function GF_PosMachineTypeMap() As Integer
         Dim t As Integer = -1
         Dim rd As OdbcDataReader = SqlReader("select type as t from pos_machine where id = '" & gsPOS_MACHINE_ID & "' limit 1")
         If rd.Read Then
-            t = NumIsNull(rd("t"))
+            t = GF_NumIsNull(rd("t"))
         End If
         rd.Close()
         Return t
     End Function
 
-    Public Function fGET_SERVED_ONLY() As Boolean
-        Dim sValue As Boolean = False
+    Public Function GS_IsServedOnly() As Boolean
+        Dim sValue As Boolean
         Dim rd As OdbcDataReader = SqlReader("select RESTO_SERVED_ONLY from POS_MACHINE where ID = '" & gsPOS_MACHINE_ID & "' limit 1")
         If rd.Read Then
-
-            sValue = IIf(NumIsNull(rd("RESTO_SERVED_ONLY")) = 1, True, False)
-
+            sValue = IIf(GF_NumIsNull(rd("RESTO_SERVED_ONLY")) = 1, True, False)
         Else
             sValue = False
         End If
         rd.Close()
         Return sValue
     End Function
-    Public Function fGET_NEXT_RECEIPT_NO() As String
+    Public Function GF_GetNextReceiptNumber() As String
         Dim sValue As String
         Dim rd As OdbcDataReader = SqlReader("select NEXT_RECEIPT_NO,NO_OF_DIGITS from POS_MACHINE where ID = '" & gsPOS_MACHINE_ID & "' limit 1")
         If rd.Read Then
             Dim d As String = ""
-            For i As Integer = 1 To NumIsNull(rd("NO_OF_DIGITS"))
-                d = d & "0"
+            For i As Integer = 1 To GF_NumIsNull(rd("NO_OF_DIGITS"))
+                d &= "0"
             Next
-            sValue = NumIsNull(rd("NEXT_RECEIPT_NO")).ToString(d)
+            sValue = GF_NumIsNull(rd("NEXT_RECEIPT_NO")).ToString(d)
         Else
             sValue = ""
         End If
@@ -145,32 +142,30 @@ Module modPOS
         Return sValue
 
     End Function
-    Private Function fNEXT_LOG_SERIAL_NO() As Integer
+    Private Function GF_GetNextLOgSerialNumber() As Integer
         Dim i As Integer = 0
         Dim rd As OdbcDataReader = SqlReader("select NEXT_LOG_SERIAL_NO from POS_MACHINE where ID = '" & gsPOS_MACHINE_ID & "' limit 1")
-
         If rd.Read Then
-            i = NumIsNull(rd("NEXT_LOG_SERIAL_NO"))
+            i = GF_NumIsNull(rd("NEXT_LOG_SERIAL_NO"))
         End If
-
         rd.Close()
         SqlExecuted("Update pos_machine set NEXT_LOG_SERIAL_NO = '" & i + 1 & "' where ID ='" & gsPOS_MACHINE_ID & "' limit 1 ")
         Return 1
     End Function
-    Public Sub fUPDATE_NEXT_RECEIPT_NO()
-        Dim r As Integer = GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "NEXT_RECEIPT_NO") + 1
+    Public Sub GS_UpdateNextReceiptNumber()
+        Dim r As Integer = GF_GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "NEXT_RECEIPT_NO") + 1
         SqlExecuted("Update pos_machine SET NEXT_RECEIPT_NO = '" & r & "' where ID = '" & gsPOS_MACHINE_ID & "'")
     End Sub
 
 
-    Public Sub fOpenCashDrawer()
+    Public Sub GS_OpenCashDrawer()
 
         If gsOpenCashDrawer = True Then
 
         End If
 
     End Sub
-    Public Sub fCollect_POSLog()
+    Public Sub GS_CollectPosLog()
         gsPOS_TOTAL = 0
         gsPOS_GRAND_TOTAL = 0
         gsPOS_TRANSACTION_COUNT = 0
@@ -204,17 +199,17 @@ FROM   sales_receipt AS sr
     ON PTM.`ID` = PM.`PAYMENT_TYPE`  WHERE  sr.`STATUS` = '3' and pl.`ID` = '{gsPOS_LOG_ID}' and pl.CASHIER_ID = '{gsCashier_ID}'")
 
             If rd.Read Then
-                gsPOS_TOTAL = NumIsNull(rd("TOTAL"))
-                gsPOS_CASH = NumIsNull(rd("CASH_TOTAL"))
-                gsPOS_CHECK = NumIsNull(rd("CHECK_TOTAL"))
-                gsPOS_VISA = NumIsNull(rd("VISA_TOTAL"))
-                gsPOS_MASTER_CARD = NumIsNull(rd("MASTER_CARD_TOTAL"))
-                gsPOS_OTHER_CARD = NumIsNull(rd("OTHERS_TOTAL"))
-                gsPOS_TRANSACTION_COUNT = NumIsNull(rd("COUNT_NO"))
-                gsPOS_GRAND_TOTAL = gsPOS_TOTAL + fGET_GRAND_TOTAL_Sales_Receipt()
-                gsPOS_TAXABLE_AMOUNT = NumIsNull(rd("TA"))
-                gsPOS_OUTPUT_TAX_AMOUNT = NumIsNull(rd("OTA"))
-                gsPOS_NONTAXABLE_AMOUNT = NumIsNull(rd("NA"))
+                gsPOS_TOTAL = GF_NumIsNull(rd("TOTAL"))
+                gsPOS_CASH = GF_NumIsNull(rd("CASH_TOTAL"))
+                gsPOS_CHECK = GF_NumIsNull(rd("CHECK_TOTAL"))
+                gsPOS_VISA = GF_NumIsNull(rd("VISA_TOTAL"))
+                gsPOS_MASTER_CARD = GF_NumIsNull(rd("MASTER_CARD_TOTAL"))
+                gsPOS_OTHER_CARD = GF_NumIsNull(rd("OTHERS_TOTAL"))
+                gsPOS_TRANSACTION_COUNT = GF_NumIsNull(rd("COUNT_NO"))
+                gsPOS_GRAND_TOTAL = gsPOS_TOTAL + GF_GetGrandToTaLSalesReceipt()
+                gsPOS_TAXABLE_AMOUNT = GF_NumIsNull(rd("TA"))
+                gsPOS_OUTPUT_TAX_AMOUNT = GF_NumIsNull(rd("OTA"))
+                gsPOS_NONTAXABLE_AMOUNT = GF_NumIsNull(rd("NA"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -223,14 +218,14 @@ FROM   sales_receipt AS sr
 
     End Sub
 
-    Public Sub fPOS_LOG()
+    Public Sub GS_PosLogLoad()
         If gsPOS_TYPE_ID = 0 Then
-            Dim sQuery As String = ""
+            Dim sQuery As String
             Dim sValueSet As String = "TAXABLE_AMOUNT='" & gsPOS_TAXABLE_AMOUNT & "',OUTPUT_TAX_AMOUNT='" & gsPOS_OUTPUT_TAX_AMOUNT & "',NONTAXABLE_AMOUNT='" & gsPOS_NONTAXABLE_AMOUNT & "',`TOTAL`='" & gsPOS_TOTAL & "',`DISCOUNT`='" & gsPOS_DISCOUNT & "',`RETURN`='" & gsPOS_RETURN & "',`COUPON`='" & gsPOS_COUPON & "',`GIFT_CERT`='" & gsPOS_GIFT_CERT & "',`TRADE_IN`='" & gsPOS_TRADE_IN & "',`VOID`='" & gsPOS_VOID & "',`CASH`='" & gsPOS_CASH & "',`CHECK`='" & gsPOS_CHECK & "',GRAND_TOTAL='" & gsPOS_GRAND_TOTAL & "',`AMEX`='" & gsPOS_AMEX & "',`DISCOVER`='" & gsPOS_DISCOVER & "',`MASTER_CARD`='" & gsPOS_MASTER_CARD & "',`VISA`='" & gsPOS_VISA & "',`DINNERS`='" & gsPOS_DINNERS & "',`JCB`='" & gsPOS_JCB & "',`OTHER_CARD`='" & gsPOS_OTHER_CARD & "',`PAIDOUT`='" & gsPOS_PAIDOUT & "',`PAIDIN`='" & gsPOS_PAIDIN & "',TRANSACTION_COUNT='" & gsPOS_TRANSACTION_COUNT & "',STARTING_RECEIPT_NO='" & gsSTARTING_RECEIPT_NO & "',ENDING_RECEIPT_NO='" & gsENDING_RECEIPT_NO & "'"
 
             If gsPOS_LOG_ID = 0 Then
                 gsPOS_LOG_ID = ObjectTypeMapId("POS_LOG")
-                Dim iSerial_No As Integer = fNEXT_LOG_SERIAL_NO()
+                Dim iSerial_No As Integer = GF_GetNextLOgSerialNumber()
                 sQuery = "INSERT pos_log SET TRANSACTION_DATE='" & DateFormatMySql(gsPOS_DATE) & "',RECORDED_ON='" & LOG_DATE & "',
 SERIAL_NO='" & iSerial_No & "',
 ID = '" & gsPOS_LOG_ID & "',
@@ -252,7 +247,7 @@ CASH_COUNT_ID=null," & sValueSet
 
         End If
     End Sub
-    Public Sub fCollect_POSLog_Resto()
+    Public Sub GS_CollectPosLogResto()
         gsPOS_TOTAL = 0
         gsPOS_GRAND_TOTAL = 0
         gsPOS_TRANSACTION_COUNT = 0
@@ -287,18 +282,18 @@ WHERE  pl.`ID` = '{gsPOS_LOG_ID}' and pl.CASHIER_ID = '{gsCashier_ID}'")
 
             If rd.Read Then
 
-                gsPOS_TOTAL = NumIsNull(rd("TOTAL"))
+                gsPOS_TOTAL = GF_NumIsNull(rd("TOTAL"))
 
-                gsPOS_CASH = NumIsNull(rd("CASH_TOTAL"))
-                gsPOS_CHECK = NumIsNull(rd("CHECK_TOTAL"))
-                gsPOS_VISA = NumIsNull(rd("VISA_TOTAL"))
-                gsPOS_MASTER_CARD = NumIsNull(rd("MASTER_CARD_TOTAL"))
-                gsPOS_OTHER_CARD = NumIsNull(rd("OTHERS_TOTAL"))
-                gsPOS_TRANSACTION_COUNT = NumIsNull(rd("COUNT_NO"))
-                gsPOS_GRAND_TOTAL = gsPOS_TOTAL + fGET_GRAND_TOTAL_Payment()
-                gsPOS_TAXABLE_AMOUNT = NumIsNull(rd("TA"))
-                gsPOS_OUTPUT_TAX_AMOUNT = NumIsNull(rd("OTA"))
-                gsPOS_NONTAXABLE_AMOUNT = NumIsNull(rd("NA"))
+                gsPOS_CASH = GF_NumIsNull(rd("CASH_TOTAL"))
+                gsPOS_CHECK = GF_NumIsNull(rd("CHECK_TOTAL"))
+                gsPOS_VISA = GF_NumIsNull(rd("VISA_TOTAL"))
+                gsPOS_MASTER_CARD = GF_NumIsNull(rd("MASTER_CARD_TOTAL"))
+                gsPOS_OTHER_CARD = GF_NumIsNull(rd("OTHERS_TOTAL"))
+                gsPOS_TRANSACTION_COUNT = GF_NumIsNull(rd("COUNT_NO"))
+                gsPOS_GRAND_TOTAL = gsPOS_TOTAL + GF_GetGrandTotalPayment()
+                gsPOS_TAXABLE_AMOUNT = GF_NumIsNull(rd("TA"))
+                gsPOS_OUTPUT_TAX_AMOUNT = GF_NumIsNull(rd("OTA"))
+                gsPOS_NONTAXABLE_AMOUNT = GF_NumIsNull(rd("NA"))
 
             End If
             rd.Close()
@@ -307,7 +302,7 @@ WHERE  pl.`ID` = '{gsPOS_LOG_ID}' and pl.CASHIER_ID = '{gsCashier_ID}'")
         End Try
 
     End Sub
-    Private Function fGET_GRAND_TOTAL_Payment() As Double
+    Private Function GF_GetGrandTotalPayment() As Double
         Dim G_TOTAL As Double = 0
         Dim rd As OdbcDataReader = SqlReader($"SELECT pl.`GRAND_TOTAL`
 FROM
@@ -319,31 +314,31 @@ ORDER BY pl.ID DESC
 LIMIT 1")
 
         If rd.Read Then
-            G_TOTAL = NumIsNull(rd("GRAND_TOTAL"))
+            G_TOTAL = GF_NumIsNull(rd("GRAND_TOTAL"))
 
         End If
 
         Return G_TOTAL
     End Function
-    Private Function fGET_GRAND_TOTAL_Sales_Receipt() As Double
+    Private Function GF_GetGrandToTaLSalesReceipt() As Double
         Dim G_TOTAL As Double = 0
-        Dim rd As OdbcDataReader = SqlReader($"SELECT pl.`GRAND_TOTAL`
-FROM
-pos_log AS pl    
-WHERE pl.id < '{gsPOS_LOG_ID}' AND
-pl.`POS_MACHINE_ID` = '{gsPOS_MACHINE_ID}' and
-pl.LOCATION_ID = '{gsDefault_LOCATION_ID}'
-ORDER BY pl.ID DESC
-LIMIT 1")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT 
+        pl.`GRAND_TOTAL`
+        FROM
+        pos_log AS pl    
+        WHERE pl.id < '{gsPOS_LOG_ID}' AND
+        pl.`POS_MACHINE_ID` = '{gsPOS_MACHINE_ID}' and
+        pl.LOCATION_ID = '{gsDefault_LOCATION_ID}'
+        ORDER BY pl.ID DESC
+        LIMIT 1")
 
         If rd.Read Then
-            G_TOTAL = NumIsNull(rd("GRAND_TOTAL"))
-
+            G_TOTAL = GF_NumIsNull(rd("GRAND_TOTAL"))
         End If
 
         Return G_TOTAL
     End Function
-    Public Sub fPOSRefreshFormat(ByVal cmb As ComboBox, ByVal frmName As String)
+    Public Sub GS_PosRefreshFormat(ByVal cmb As ComboBox, ByVal frmName As String)
         DBAccessComboBoxLoad(cmb, "select [file_name],[print_title] from tblprint Where [form_name] ='" & frmName & "' order by [print_default] desc ", "file_name", "print_title")
     End Sub
 End Module

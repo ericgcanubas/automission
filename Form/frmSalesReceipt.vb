@@ -115,15 +115,15 @@ FROM
                 dgvProductItem.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(i)
-                        If CheckNumStandard(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
-                        ElseIf CheckBoolType(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckBoolType(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = CBool(GF_NumIsNull(rd(i)))
                         Else
 
-                            dgvProductItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                            dgvProductItem.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
 
                         End If
                     End With
@@ -173,13 +173,13 @@ FROM
     End Sub
     Private Sub ComboxRefresh()
 
-        ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
-        ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
-        ComboBoxLoad(cmbCLASS_ID, "select * from class", "ID", "NAME")
-        ComboBoxLoad(cmbSALES_REP_ID, "select * from contact where type ='2'", "ID", "NAME")
-        ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
-        ComboBoxLoad(cmbSTATUS, "SELECT ID,DESCRIPTION FROM document_status_map ", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPAYMENT_METHOD_ID, "select ID,DESCRIPTION from PAYMENT_METHOD", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "Select * from location", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCLASS_ID, "select * from class", "ID", "NAME")
+        GS_ComboBoxLoad(cmbSALES_REP_ID, "select * from contact where type ='2'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
+        GS_ComboBoxLoad(cmbSTATUS, "SELECT ID,DESCRIPTION FROM document_status_map ", "ID", "DESCRIPTION")
     End Sub
     Private Sub TsFind_Click(sender As Object, e As EventArgs) Handles tsFind.Click
         If SecurityAccessFind(Me) = False Then
@@ -328,7 +328,7 @@ FROM
         If IsNew = True Then
 
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("SALES_RECEIPT", cmbLOCATION_ID.SelectedValue)
             End If
 
             lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text = gsDefault_UNDEPOSITED_FUNDS_ACCOUNT_ID
@@ -337,22 +337,22 @@ FROM
 
             ID = ObjectTypeMapId("SALES_RECEIPT")
 
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO sales_receipt ({SQL_Field},ID,RECORDED_ON,STATUS_DATE) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}','{GetDateTimeNowSql()}') ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
             tChangeAccept = True
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             SqlExecuted("UPDATE sales_receipt SET " & SqlUpdate(Me) & " WHERE ID = '" & ID & "'")
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
         If GF_IsTransactionSuccess(ID, "SALES_RECEIPT") = False Then
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
             MessageBoxWarning("Please try again")
             Exit Sub
         End If
@@ -360,11 +360,11 @@ FROM
         '======================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            GS_AccountJournalExecute(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
-            If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
+            GS_AccountJournalExecute(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, dtpDATE.Value, 0, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            If GF_NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, dtpDATE.Value, 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, dtpDATE.Value, 1, GF_NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
         End If
         '================================
@@ -385,7 +385,7 @@ FROM
                 RefreshItem(ID)
             End If
         End Try
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
     End Sub
     Private Sub SetNew()
         ClearInfo()
@@ -401,10 +401,10 @@ FROM
     Private Sub CmbOUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
         Computed()
         Try
-            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & GF_NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblOUTPUT_TAX_VAT_METHOD.Text = TextIsNull(rd("VAT_METHOD"))
-                lblOUTPUT_TAX_ACCOUNT_ID.Text = TextIsNull(rd("TAX_ACCOUNT_ID"))
+                lblOUTPUT_TAX_VAT_METHOD.Text = GF_TextIsNull(rd("VAT_METHOD"))
+                lblOUTPUT_TAX_ACCOUNT_ID.Text = GF_TextIsNull(rd("TAX_ACCOUNT_ID"))
             Else
                 lblOUTPUT_TAX_VAT_METHOD.Text = ""
                 lblOUTPUT_TAX_ACCOUNT_ID.Text = ""
@@ -450,20 +450,20 @@ FROM
             ElseIf IsDiscountItem(d.Cells("ITEM_TYPE").Value) = True Then
                 MessageBoxInfo("Invalid to Edit")
                 Exit Sub
-            ElseIf NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 And NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> NumIsNull(d.Cells("ITEM_ID").Value) Then
+            ElseIf GF_NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 And GF_NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> GF_NumIsNull(d.Cells("ITEM_ID").Value) Then
                 MessageBoxInfo("Invalid to Edit")
                 Exit Sub
             End If
 
             Dim gsGROUP_ID As Integer = 0
             With FrmAddItem
-                If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
+                If GF_NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
                     bAlreadySave = True
                 End If
 
-                gsGROUP_ID = NumIsNull(dgvProductItem.Rows.Item(I).Cells("GROUP_LINE_ID").Value)
+                gsGROUP_ID = GF_NumIsNull(dgvProductItem.Rows.Item(I).Cells("GROUP_LINE_ID").Value)
                 .gsItem_ID = dgvProductItem.Rows.Item(I).Cells("ITEM_ID").Value
                 .gsUM = dgvProductItem.Rows.Item(I).Cells("UNIT_ID").Value
                 .gsUnit_Price = dgvProductItem.Rows.Item(I).Cells("UNIT_PRICE").Value
@@ -549,7 +549,7 @@ FROM
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
 
-                CursorLoadingOn(True)
+                GS_CursorLoadingOn(True)
 
                 For N As Integer = 0 To dgvProductItem.Rows.Count - 1
                     dgvProductItem.Rows(N).Cells("CONTROL_STATUS").Value = "D"
@@ -561,7 +561,7 @@ FROM
                 If gsSkipJournalEntry = False Then
 
                     GS_AccountJournalDelete(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 52, ID, dtpDATE.Value)
-                    If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) <> 0 Then
+                    If GF_NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) <> 0 Then
                         GS_AccountJournalDelete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 52, ID, dtpDATE.Value)
                     End If
 
@@ -569,10 +569,10 @@ FROM
 
                 SqlExecuted("DELETE FROM sales_receipt WHERE ID ='" & ID & "' limit 1; ")
                    DeleteNotify(Me)
-                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ID = 0
                 IsNew = True
-                CursorLoadingOn(False)
+                GS_CursorLoadingOn(False)
 
 
                 If MessageBoxQuestion("Without clear details?") = True Then
@@ -599,8 +599,8 @@ FROM
 
     End Sub
     Private Sub FrmSalesReceipt_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewItemDisplay(dgvProductItem)
-        ViewNotSort(dgvProductItem)
+        GS_ViewItemDisplay(dgvProductItem)
+        GS_ViewNotSort(dgvProductItem)
     End Sub
 
     Private Sub CmbCUSTOMER_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCUSTOMER_ID.SelectedIndexChanged
@@ -751,7 +751,7 @@ FROM
 
             Dim rd As OdbcDataReader = SqlReader($"select ACCOUNT_ID from account_journal where OBJECT_TYPE ='52' and OBJECT_ID ='{ID}' and OBJECT_DATE = '{DateFormatMySql(dtpDATE.Value)}' and ENTRY_TYPE ='0' and LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' limit 1 ")
             If rd.Read Then
-                getACCOUNT_ID = NumIsNull(rd("ACCOUNT_ID"))
+                getACCOUNT_ID = GF_NumIsNull(rd("ACCOUNT_ID"))
             End If
             rd.Close()
             AccountTransactionJournalEntry(ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, 52, getACCOUNT_ID, cmbCUSTOMER_ID.Text, txtCODE.Text, txtNOTES.Text)
@@ -805,9 +805,9 @@ FROM
 
         Dim rd As OdbcDataReader = SqlReader($"select * from contact where id ='{s}' and `type` = '1' limit 1 ")
         If rd.Read Then
-            If NumIsNull(rd("TAX_ID")) <> 0 Then
+            If GF_NumIsNull(rd("TAX_ID")) <> 0 Then
 
-                cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
+                cmbOUTPUT_TAX_ID.SelectedValue = GF_NumIsNull(rd("TAX_ID"))
 
             End If
 
@@ -838,7 +838,7 @@ FROM
                     FrmContactDetails.this_BS = Nothing
                     FrmContactDetails.ShowDialog()
                     If FrmContactDetails.gsOK = True Then
-                        ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+                        GS_ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
                         cmbCUSTOMER_ID.SelectedValue = FrmContactDetails.ID
                         CmbCUSTOMER_ID_LostFocus(sender, e)
                     End If

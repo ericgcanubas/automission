@@ -36,7 +36,7 @@ WHERE m.customer_id = '" & gsCustomer_ID & "' and m.LOCATION_ID = '" & gsLocatio
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
                 Dim other_applied As Double = fGetCreditOtherInvoice(rd("credit_memo_id"), ID)
-                Dim credit_amount As Double = NumIsNull(rd("amount")) - other_applied
+                Dim credit_amount As Double = GF_NumIsNull(rd("amount")) - other_applied
                 Dim credit_applied As Double = fGetCreditApplied_Invoice(rd("credit_memo_id"), gsCustomer_ID, ID)
 
                 Dim credit_balance As Double = 0
@@ -92,7 +92,7 @@ WHERE m.customer_id = '" & gsCustomer_ID & "' and m.LOCATION_ID = '" & gsLocatio
         lblDISCOUNT_USED.Text = NumberFormatStandard(fGetSumPaymentApplied(ID, gsCustomer_ID))
         lblAmount_Due.Text = NumberFormatStandard(gsBalance + fGetSumCreditApplied(ID, gsCustomer_ID))
         FormComputed()
-        DatagridViewMode(dgvAvailable)
+
     End Sub
 
     Private Sub FormComputed()
@@ -129,7 +129,7 @@ WHERE m.customer_id = '" & gsCustomer_ID & "' and m.LOCATION_ID = '" & gsLocatio
             Else
                 'INSERT
                 If bSelected = True Then
-                    SqlExecuted("INSERT INTO credit_memo_invoices set ID ='" & GetMaxField("ID", "credit_memo_invoices") & "', CREDIT_MEMO_ID = '" & prCredit_Memo_ID & "',INVOICE_ID = '" & ID & "',AMOUNT_APPLIED ='" & amt_appled & "'")
+                    SqlExecuted("INSERT INTO credit_memo_invoices set ID ='" & GF_GetMaxField("ID", "credit_memo_invoices") & "', CREDIT_MEMO_ID = '" & prCredit_Memo_ID & "',INVOICE_ID = '" & ID & "',AMOUNT_APPLIED ='" & amt_appled & "'")
                     bUpdate = True
                 End If
 
@@ -220,7 +220,7 @@ WHERE m.customer_id = '" & gsCustomer_ID & "' and m.LOCATION_ID = '" & gsLocatio
         End Try
     End Sub
     Private Sub FrmApplyCredits_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewNotSort(dgvAvailable)
+        GS_ViewNotSort(dgvAvailable)
         dgvAvailable.Columns("Select").Width = 50
     End Sub
     Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click

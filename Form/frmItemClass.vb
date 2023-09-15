@@ -5,7 +5,7 @@
         RefreshData()
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvItemClass, "Select ID,Code,Description from item_class ", item_BS)
+        GS_LoadDataGridViewBinding(dgvItemClass, "Select ID,Code,Description from item_class ", item_BS)
         ViewColumn(dgvItemClass, 37)
     End Sub
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles tsColumn.Click

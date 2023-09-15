@@ -81,7 +81,7 @@ Partial Class FrmPOSKeyboard
         'btn1
         '
         Me.btn1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn1.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn1.ForeColor = System.Drawing.Color.Black
         Me.btn1.Location = New System.Drawing.Point(5, 80)
@@ -95,7 +95,7 @@ Partial Class FrmPOSKeyboard
         'btn2
         '
         Me.btn2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn2.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn2.ForeColor = System.Drawing.Color.Black
         Me.btn2.Location = New System.Drawing.Point(100, 80)
@@ -109,7 +109,7 @@ Partial Class FrmPOSKeyboard
         'btn3
         '
         Me.btn3.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn3.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn3.ForeColor = System.Drawing.Color.Black
         Me.btn3.Location = New System.Drawing.Point(195, 80)
@@ -123,7 +123,7 @@ Partial Class FrmPOSKeyboard
         'btn4
         '
         Me.btn4.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn4.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn4.ForeColor = System.Drawing.Color.Black
         Me.btn4.Location = New System.Drawing.Point(290, 80)
@@ -137,7 +137,7 @@ Partial Class FrmPOSKeyboard
         'btn5
         '
         Me.btn5.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn5.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn5.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn5.ForeColor = System.Drawing.Color.Black
         Me.btn5.Location = New System.Drawing.Point(385, 80)
@@ -151,7 +151,7 @@ Partial Class FrmPOSKeyboard
         'btn6
         '
         Me.btn6.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn6.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn6.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn6.ForeColor = System.Drawing.Color.Black
         Me.btn6.Location = New System.Drawing.Point(480, 80)
@@ -165,7 +165,7 @@ Partial Class FrmPOSKeyboard
         'btn7
         '
         Me.btn7.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn7.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn7.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn7.ForeColor = System.Drawing.Color.Black
         Me.btn7.Location = New System.Drawing.Point(574, 80)
@@ -179,7 +179,7 @@ Partial Class FrmPOSKeyboard
         'btn8
         '
         Me.btn8.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn8.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn8.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn8.ForeColor = System.Drawing.Color.Black
         Me.btn8.Location = New System.Drawing.Point(669, 80)
@@ -193,7 +193,7 @@ Partial Class FrmPOSKeyboard
         'btn9
         '
         Me.btn9.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn9.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn9.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn9.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn9.ForeColor = System.Drawing.Color.Black
         Me.btn9.Location = New System.Drawing.Point(764, 80)
@@ -207,7 +207,7 @@ Partial Class FrmPOSKeyboard
         'btn0
         '
         Me.btn0.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btn0.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btn0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btn0.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn0.ForeColor = System.Drawing.Color.Black
         Me.btn0.Location = New System.Drawing.Point(859, 80)
@@ -221,7 +221,7 @@ Partial Class FrmPOSKeyboard
         'btnMinus
         '
         Me.btnMinus.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnMinus.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnMinus.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnMinus.ForeColor = System.Drawing.Color.Black
         Me.btnMinus.Location = New System.Drawing.Point(954, 80)
@@ -235,13 +235,13 @@ Partial Class FrmPOSKeyboard
         'btnback
         '
         Me.btnback.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.btnback.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnback.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnback.Font = New System.Drawing.Font("Century Gothic", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnback.ForeColor = System.Drawing.Color.Black
         Me.btnback.Location = New System.Drawing.Point(1049, 80)
         Me.btnback.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.btnback.Name = "btnback"
-        Me.btnback.Size = New System.Drawing.Size(88, 79)
+        Me.btnback.Size = New System.Drawing.Size(93, 79)
         Me.btnback.TabIndex = 11
         Me.btnback.Text = "Back"
         Me.btnback.UseVisualStyleBackColor = False
@@ -249,7 +249,7 @@ Partial Class FrmPOSKeyboard
         'btnQ
         '
         Me.btnQ.BackColor = System.Drawing.Color.Azure
-        Me.btnQ.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnQ.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnQ.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnQ.ForeColor = System.Drawing.Color.Black
         Me.btnQ.Location = New System.Drawing.Point(52, 165)
@@ -263,7 +263,7 @@ Partial Class FrmPOSKeyboard
         'btnW
         '
         Me.btnW.BackColor = System.Drawing.Color.Azure
-        Me.btnW.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnW.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnW.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnW.ForeColor = System.Drawing.Color.Black
         Me.btnW.Location = New System.Drawing.Point(148, 165)
@@ -277,7 +277,7 @@ Partial Class FrmPOSKeyboard
         'btnE
         '
         Me.btnE.BackColor = System.Drawing.Color.Azure
-        Me.btnE.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnE.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnE.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnE.ForeColor = System.Drawing.Color.Black
         Me.btnE.Location = New System.Drawing.Point(242, 165)
@@ -291,7 +291,7 @@ Partial Class FrmPOSKeyboard
         'btnR
         '
         Me.btnR.BackColor = System.Drawing.Color.Azure
-        Me.btnR.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnR.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnR.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnR.ForeColor = System.Drawing.Color.Black
         Me.btnR.Location = New System.Drawing.Point(338, 165)
@@ -305,7 +305,7 @@ Partial Class FrmPOSKeyboard
         'btnT
         '
         Me.btnT.BackColor = System.Drawing.Color.Azure
-        Me.btnT.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnT.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnT.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnT.ForeColor = System.Drawing.Color.Black
         Me.btnT.Location = New System.Drawing.Point(432, 165)
@@ -319,7 +319,7 @@ Partial Class FrmPOSKeyboard
         'btnY
         '
         Me.btnY.BackColor = System.Drawing.Color.Azure
-        Me.btnY.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnY.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnY.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnY.ForeColor = System.Drawing.Color.Black
         Me.btnY.Location = New System.Drawing.Point(528, 165)
@@ -333,7 +333,7 @@ Partial Class FrmPOSKeyboard
         'btnU
         '
         Me.btnU.BackColor = System.Drawing.Color.Azure
-        Me.btnU.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnU.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnU.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnU.ForeColor = System.Drawing.Color.Black
         Me.btnU.Location = New System.Drawing.Point(622, 165)
@@ -347,7 +347,7 @@ Partial Class FrmPOSKeyboard
         'btnI
         '
         Me.btnI.BackColor = System.Drawing.Color.Azure
-        Me.btnI.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnI.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnI.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnI.ForeColor = System.Drawing.Color.Black
         Me.btnI.Location = New System.Drawing.Point(718, 165)
@@ -361,7 +361,7 @@ Partial Class FrmPOSKeyboard
         'btnO
         '
         Me.btnO.BackColor = System.Drawing.Color.Azure
-        Me.btnO.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnO.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnO.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnO.ForeColor = System.Drawing.Color.Black
         Me.btnO.Location = New System.Drawing.Point(812, 165)
@@ -375,7 +375,7 @@ Partial Class FrmPOSKeyboard
         'btnP
         '
         Me.btnP.BackColor = System.Drawing.Color.Azure
-        Me.btnP.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnP.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnP.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnP.ForeColor = System.Drawing.Color.Black
         Me.btnP.Location = New System.Drawing.Point(908, 165)
@@ -389,7 +389,7 @@ Partial Class FrmPOSKeyboard
         'btnA
         '
         Me.btnA.BackColor = System.Drawing.Color.Azure
-        Me.btnA.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnA.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnA.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnA.ForeColor = System.Drawing.Color.Black
         Me.btnA.Location = New System.Drawing.Point(100, 250)
@@ -403,7 +403,7 @@ Partial Class FrmPOSKeyboard
         'btnS
         '
         Me.btnS.BackColor = System.Drawing.Color.Azure
-        Me.btnS.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnS.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnS.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnS.ForeColor = System.Drawing.Color.Black
         Me.btnS.Location = New System.Drawing.Point(195, 250)
@@ -417,7 +417,7 @@ Partial Class FrmPOSKeyboard
         'btnD
         '
         Me.btnD.BackColor = System.Drawing.Color.Azure
-        Me.btnD.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnD.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnD.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnD.ForeColor = System.Drawing.Color.Black
         Me.btnD.Location = New System.Drawing.Point(290, 250)
@@ -431,7 +431,7 @@ Partial Class FrmPOSKeyboard
         'btnF
         '
         Me.btnF.BackColor = System.Drawing.Color.Azure
-        Me.btnF.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnF.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnF.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnF.ForeColor = System.Drawing.Color.Black
         Me.btnF.Location = New System.Drawing.Point(385, 250)
@@ -445,7 +445,7 @@ Partial Class FrmPOSKeyboard
         'btnG
         '
         Me.btnG.BackColor = System.Drawing.Color.Azure
-        Me.btnG.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnG.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnG.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnG.ForeColor = System.Drawing.Color.Black
         Me.btnG.Location = New System.Drawing.Point(480, 250)
@@ -459,7 +459,7 @@ Partial Class FrmPOSKeyboard
         'btnH
         '
         Me.btnH.BackColor = System.Drawing.Color.Azure
-        Me.btnH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnH.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnH.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnH.ForeColor = System.Drawing.Color.Black
         Me.btnH.Location = New System.Drawing.Point(575, 250)
@@ -473,7 +473,7 @@ Partial Class FrmPOSKeyboard
         'btnJ
         '
         Me.btnJ.BackColor = System.Drawing.Color.Azure
-        Me.btnJ.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnJ.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnJ.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnJ.ForeColor = System.Drawing.Color.Black
         Me.btnJ.Location = New System.Drawing.Point(669, 250)
@@ -487,7 +487,7 @@ Partial Class FrmPOSKeyboard
         'btnK
         '
         Me.btnK.BackColor = System.Drawing.Color.Azure
-        Me.btnK.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnK.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnK.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnK.ForeColor = System.Drawing.Color.Black
         Me.btnK.Location = New System.Drawing.Point(764, 250)
@@ -501,7 +501,7 @@ Partial Class FrmPOSKeyboard
         'btnL
         '
         Me.btnL.BackColor = System.Drawing.Color.Azure
-        Me.btnL.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnL.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnL.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnL.ForeColor = System.Drawing.Color.Black
         Me.btnL.Location = New System.Drawing.Point(859, 250)
@@ -515,7 +515,7 @@ Partial Class FrmPOSKeyboard
         'btnZ
         '
         Me.btnZ.BackColor = System.Drawing.Color.Azure
-        Me.btnZ.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnZ.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnZ.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnZ.ForeColor = System.Drawing.Color.Black
         Me.btnZ.Location = New System.Drawing.Point(148, 336)
@@ -529,7 +529,7 @@ Partial Class FrmPOSKeyboard
         'btnX
         '
         Me.btnX.BackColor = System.Drawing.Color.Azure
-        Me.btnX.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnX.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnX.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnX.ForeColor = System.Drawing.Color.Black
         Me.btnX.Location = New System.Drawing.Point(242, 336)
@@ -543,7 +543,7 @@ Partial Class FrmPOSKeyboard
         'btnC
         '
         Me.btnC.BackColor = System.Drawing.Color.Azure
-        Me.btnC.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnC.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnC.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnC.ForeColor = System.Drawing.Color.Black
         Me.btnC.Location = New System.Drawing.Point(338, 336)
@@ -557,7 +557,7 @@ Partial Class FrmPOSKeyboard
         'btnV
         '
         Me.btnV.BackColor = System.Drawing.Color.Azure
-        Me.btnV.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnV.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnV.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnV.ForeColor = System.Drawing.Color.Black
         Me.btnV.Location = New System.Drawing.Point(432, 336)
@@ -571,7 +571,7 @@ Partial Class FrmPOSKeyboard
         'btnB
         '
         Me.btnB.BackColor = System.Drawing.Color.Azure
-        Me.btnB.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnB.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnB.ForeColor = System.Drawing.Color.Black
         Me.btnB.Location = New System.Drawing.Point(528, 336)
@@ -585,7 +585,7 @@ Partial Class FrmPOSKeyboard
         'btnN
         '
         Me.btnN.BackColor = System.Drawing.Color.Azure
-        Me.btnN.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnN.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnN.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnN.ForeColor = System.Drawing.Color.Black
         Me.btnN.Location = New System.Drawing.Point(622, 336)
@@ -599,7 +599,7 @@ Partial Class FrmPOSKeyboard
         'btnM
         '
         Me.btnM.BackColor = System.Drawing.Color.Azure
-        Me.btnM.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnM.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnM.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnM.ForeColor = System.Drawing.Color.Black
         Me.btnM.Location = New System.Drawing.Point(718, 336)
@@ -613,7 +613,7 @@ Partial Class FrmPOSKeyboard
         'btnSpaceBar
         '
         Me.btnSpaceBar.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.btnSpaceBar.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnSpaceBar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSpaceBar.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSpaceBar.ForeColor = System.Drawing.Color.Black
         Me.btnSpaceBar.Location = New System.Drawing.Point(290, 422)
@@ -627,7 +627,7 @@ Partial Class FrmPOSKeyboard
         'btnENTER
         '
         Me.btnENTER.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.btnENTER.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnENTER.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnENTER.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnENTER.ForeColor = System.Drawing.Color.Black
         Me.btnENTER.Location = New System.Drawing.Point(954, 250)
@@ -641,7 +641,7 @@ Partial Class FrmPOSKeyboard
         'btnUnderScore
         '
         Me.btnUnderScore.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnUnderScore.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnUnderScore.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUnderScore.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUnderScore.ForeColor = System.Drawing.Color.Black
         Me.btnUnderScore.Location = New System.Drawing.Point(1002, 165)
@@ -655,7 +655,7 @@ Partial Class FrmPOSKeyboard
         'btnPoint
         '
         Me.btnPoint.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnPoint.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnPoint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPoint.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPoint.ForeColor = System.Drawing.Color.Black
         Me.btnPoint.Location = New System.Drawing.Point(812, 336)
@@ -669,7 +669,7 @@ Partial Class FrmPOSKeyboard
         'btnQoute
         '
         Me.btnQoute.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnQoute.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnQoute.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnQoute.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnQoute.ForeColor = System.Drawing.Color.Black
         Me.btnQoute.Location = New System.Drawing.Point(908, 336)
@@ -683,7 +683,7 @@ Partial Class FrmPOSKeyboard
         'btnALT_A
         '
         Me.btnALT_A.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnALT_A.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnALT_A.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnALT_A.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnALT_A.ForeColor = System.Drawing.Color.Black
         Me.btnALT_A.Location = New System.Drawing.Point(1002, 336)
@@ -697,7 +697,7 @@ Partial Class FrmPOSKeyboard
         'btnNumSign
         '
         Me.btnNumSign.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnNumSign.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnNumSign.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnNumSign.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnNumSign.ForeColor = System.Drawing.Color.Black
         Me.btnNumSign.Location = New System.Drawing.Point(5, 250)
@@ -711,7 +711,7 @@ Partial Class FrmPOSKeyboard
         'btnASTRISK
         '
         Me.btnASTRISK.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnASTRISK.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnASTRISK.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnASTRISK.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnASTRISK.ForeColor = System.Drawing.Color.Black
         Me.btnASTRISK.Location = New System.Drawing.Point(954, 422)
@@ -725,7 +725,7 @@ Partial Class FrmPOSKeyboard
         'btnALT_G
         '
         Me.btnALT_G.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnALT_G.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnALT_G.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnALT_G.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnALT_G.ForeColor = System.Drawing.Color.Black
         Me.btnALT_G.Location = New System.Drawing.Point(5, 422)
@@ -739,7 +739,7 @@ Partial Class FrmPOSKeyboard
         'btnCLeft
         '
         Me.btnCLeft.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnCLeft.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnCLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCLeft.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCLeft.ForeColor = System.Drawing.Color.Black
         Me.btnCLeft.Location = New System.Drawing.Point(100, 422)
@@ -753,7 +753,7 @@ Partial Class FrmPOSKeyboard
         'btnCRight
         '
         Me.btnCRight.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnCRight.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnCRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCRight.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCRight.ForeColor = System.Drawing.Color.Black
         Me.btnCRight.Location = New System.Drawing.Point(195, 422)
@@ -767,7 +767,7 @@ Partial Class FrmPOSKeyboard
         'btnCancel
         '
         Me.btnCancel.BackColor = System.Drawing.Color.Crimson
-        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCancel.Font = New System.Drawing.Font("Verdana", 27.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCancel.ForeColor = System.Drawing.Color.White
         Me.btnCancel.Location = New System.Drawing.Point(1049, 422)
@@ -781,7 +781,7 @@ Partial Class FrmPOSKeyboard
         'btnSlashRight
         '
         Me.btnSlashRight.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnSlashRight.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnSlashRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSlashRight.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSlashRight.ForeColor = System.Drawing.Color.Black
         Me.btnSlashRight.Location = New System.Drawing.Point(859, 422)
@@ -795,7 +795,7 @@ Partial Class FrmPOSKeyboard
         'btnSlashLeft
         '
         Me.btnSlashLeft.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnSlashLeft.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnSlashLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSlashLeft.Font = New System.Drawing.Font("Century Gothic", 27.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSlashLeft.ForeColor = System.Drawing.Color.Black
         Me.btnSlashLeft.Location = New System.Drawing.Point(764, 422)
@@ -810,12 +810,12 @@ Partial Class FrmPOSKeyboard
         '
         Me.lblTITLE.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.lblTITLE.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblTITLE.Font = New System.Drawing.Font("Verdana", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTITLE.Font = New System.Drawing.Font("Verdana", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTITLE.ForeColor = System.Drawing.Color.Black
         Me.lblTITLE.Location = New System.Drawing.Point(0, 0)
         Me.lblTITLE.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTITLE.Name = "lblTITLE"
-        Me.lblTITLE.Size = New System.Drawing.Size(1144, 41)
+        Me.lblTITLE.Size = New System.Drawing.Size(1145, 41)
         Me.lblTITLE.TabIndex = 53
         Me.lblTITLE.Text = "NAME"
         Me.lblTITLE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -825,7 +825,7 @@ Partial Class FrmPOSKeyboard
         Me.txtVALUE.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtVALUE.Font = New System.Drawing.Font("Verdana", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtVALUE.ForeColor = System.Drawing.Color.Black
-        Me.txtVALUE.Location = New System.Drawing.Point(5, 43)
+        Me.txtVALUE.Location = New System.Drawing.Point(5, 40)
         Me.txtVALUE.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         Me.txtVALUE.Multiline = True
         Me.txtVALUE.Name = "txtVALUE"
@@ -837,7 +837,7 @@ Partial Class FrmPOSKeyboard
         '
         Me.chkShift.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.chkShift.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.chkShift.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.chkShift.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.chkShift.Font = New System.Drawing.Font("Verdana", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkShift.ForeColor = System.Drawing.Color.Black
         Me.chkShift.Location = New System.Drawing.Point(5, 336)
@@ -849,12 +849,12 @@ Partial Class FrmPOSKeyboard
         Me.chkShift.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.chkShift.UseVisualStyleBackColor = False
         '
-        'frmPOSKeyboard
+        'FrmPOSKeyboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.ClientSize = New System.Drawing.Size(1144, 507)
+        Me.ClientSize = New System.Drawing.Size(1145, 507)
         Me.ControlBox = False
         Me.Controls.Add(Me.txtVALUE)
         Me.Controls.Add(Me.lblTITLE)
@@ -915,7 +915,7 @@ Partial Class FrmPOSKeyboard
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmPOSKeyboard"
+        Me.Name = "FrmPOSKeyboard"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

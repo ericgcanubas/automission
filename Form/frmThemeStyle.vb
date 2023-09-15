@@ -6,7 +6,7 @@ Public Class FrmThemeStyle
 
     Private Sub RefreshData()
 
-        LoadDataGridView(dgvTheme, "Select * from theme ")
+        GS_LoadDataGridView(dgvTheme, "Select * from theme ")
         dgvTheme.Columns(1).Visible = False
         dgvTheme.Columns(2).Visible = False
         dgvTheme.Columns(3).Visible = False

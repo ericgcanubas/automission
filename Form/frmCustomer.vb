@@ -13,7 +13,7 @@
 
     Private Sub RefreshData()
 
-        LoadDataGridViewBinding(dgvCustomer, "SELECT 
+        GS_LoadDataGridViewBinding(dgvCustomer, "SELECT 
 c.ID,
 c.Name,
 c.POSTAL_ADDRESS AS 'Postal Address',

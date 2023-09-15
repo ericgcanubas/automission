@@ -123,7 +123,7 @@ Public Class FrmConnectionList
                     db_password = Decrypt(rd("db_password"))
                     db_port = rd("db_port")
                     gsPOS_Mode = rd("pos_mode")
-                    gsPOS_TYPE = NumIsNull(rd("db_datasource_name"))
+                    gsPOS_TYPE = GF_NumIsNull(rd("db_datasource_name"))
                     db_Connection = db_server
                     db_Connection_Name = getString
                     SetDBAccessValue("SELECT_CONNECTION", listCon.SelectedIndex)

@@ -7,7 +7,7 @@ Public Class FrmItemGroupDetails
 
     Private Sub FrmItemGroupDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbITEM_TYPE, "SELECT ID,DESCRIPTION FROM ITEM_TYPE_MAP", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbITEM_TYPE, "SELECT ID,DESCRIPTION FROM ITEM_TYPE_MAP", "ID", "DESCRIPTION")
         If ID > 0 Then
             Try
                 SqlExecutedUsingReading(Me, "select * from item_group where id = '" & ID & "' limit 1")
@@ -29,7 +29,7 @@ Public Class FrmItemGroupDetails
         End If
 
         If Trim(txtCODE.Text) = "" Then
-            txtCODE.Text = Format(Val(GetMaxField("CODE", "item_group")), "0000")
+            txtCODE.Text = Format(Val(GF_GetMaxField("CODE", "item_group")), "0000")
         End If
 
 

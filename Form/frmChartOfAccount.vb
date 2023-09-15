@@ -12,7 +12,7 @@ Public Class FrmChartOfAccount
             SQL = $"SELECT a.`ID`,a.`Name`,atm.`DESCRIPTION` AS `Type`,a.`BANK_ACCOUNT_NO` as `Bank Account No.`,a.`LINE_NO` as `Line No.`,IFNULL(ag.`NAME`,'') AS `Group of Accounts`, if(a.`Inactive`=0,'No','Yes') as `Inactive` FROM  account a LEFT OUTER JOIN account_type_map AS atm ON atm.`ID` = a.`TYPE` LEFT OUTER JOIN account AS ag ON ag.`ID` = a.`GROUP_ACCOUNT_ID` where a.INACTIVE ='0' Order by a.`ID`"
         End If
 
-        LoadDataGridViewBinding(dgvAccount, SQL, item_BS)
+        GS_LoadDataGridViewBinding(dgvAccount, SQL, item_BS)
 
         With dgvAccount.Columns
             .Item(0).Visible = False
@@ -131,12 +131,12 @@ Public Class FrmChartOfAccount
         FrmSelectLocation.ShowDialog()
 
         If FrmSelectLocation.gsOK = True Then
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             Dim Loc_ID As Integer = FrmSelectLocation.cmbLOCATION_ID.SelectedValue
             For I As Integer = 0 To dgvAccount.Rows.Count - 1
                 SetJournalAccount(dgvAccount.Rows(I).Cells("ID").Value, Loc_ID)
             Next
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End If
         FrmSelectLocation.Dispose()
         FrmSelectLocation = Nothing
@@ -150,10 +150,10 @@ Public Class FrmChartOfAccount
 
         While rd.Read
 
-            If NumIsNull(rd("ENTRY_TYPE")) = 0 Then
-                BALANCE += NumIsNull(rd("AMOUNT"))
+            If GF_NumIsNull(rd("ENTRY_TYPE")) = 0 Then
+                BALANCE += GF_NumIsNull(rd("AMOUNT"))
             Else
-                BALANCE -= NumIsNull(rd("AMOUNT"))
+                BALANCE -= GF_NumIsNull(rd("AMOUNT"))
             End If
             TEMP_SQL &= $" UPDATE `ACCOUNT_JOURNAL` SET ENDING_BALANCE ='{BALANCE}' WHERE `ID`='{rd("ID")}' and LOCATION_ID ='{prLocation}' and ACCOUNT_ID ='{prAccount}'  limit 1;"
         End While
@@ -173,7 +173,7 @@ Public Class FrmChartOfAccount
         While rd.Read
 
             TEMP_SQL &= $" UPDATE `ACCOUNT_JOURNAL` SET PREVIOUS_ID={ GotNullNumber(PREVIOUS_ID)},SEQUENCE_NO='{SEQUENCE_NO}' WHERE `ID`='{rd("ID")}' and LOCATION_ID ='{prLocation}' and ACCOUNT_ID ='{prAccount}'  limit 1;"
-            PREVIOUS_ID = NumIsNull(rd("ID"))
+            PREVIOUS_ID = GF_NumIsNull(rd("ID"))
             SEQUENCE_NO += 1
         End While
 
@@ -192,10 +192,10 @@ Public Class FrmChartOfAccount
 
                 If FrmSelectLocation.gsOK = True Then
                     Dim Loc_ID As Integer = FrmSelectLocation.cmbLOCATION_ID.SelectedValue
-                    CursorLoadingOn(True)
+                    GS_CursorLoadingOn(True)
                     Dim I As Integer = dgvAccount.CurrentRow.Index
                     SetJournalAccount(dgvAccount.Rows(I).Cells("ID").Value, Loc_ID)
-                    CursorLoadingOn(False)
+                    GS_CursorLoadingOn(False)
                 End If
                 FrmSelectLocation.Dispose()
                 FrmSelectLocation = Nothing
@@ -221,11 +221,11 @@ Public Class FrmChartOfAccount
         FrmSelectLocation.ShowDialog()
         If FrmSelectLocation.gsOK = True Then
             Dim Loc_ID As Integer = FrmSelectLocation.cmbLOCATION_ID.SelectedValue
-            CursorLoadingOn(True)
+            GS_CursorLoadingOn(True)
             For I As Integer = 0 To dgvAccount.Rows.Count - 1
                 JournalAccount_Fixed_PREVIOUS_ID(dgvAccount.Rows(I).Cells("ID").Value, Loc_ID)
             Next
-            CursorLoadingOn(False)
+            GS_CursorLoadingOn(False)
         End If
         FrmSelectLocation.Dispose()
         FrmSelectLocation = Nothing

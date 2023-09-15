@@ -1,6 +1,6 @@
 ﻿Public Class FrmPOSLog
     Public gsType As Integer
-    Private Sub frmPOSLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPOSLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         bgpanelSales.Visible = gsDisplayTotalSales
         lblTOTAL.Visible = gsDisplayTotalSales
@@ -21,17 +21,17 @@
         Me.Text = $"[POINT OF SALES] Transaction On { DateFormatStandard(gsPOS_DATE)}"
         ' Me.BackColor = ColorTranslator.FromHtml(gsColor_Code)
         gsType = 0
-        lblCashierName.Text = GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
-        lblMachineName.Text = GetStringFieldValue("pos_machine", "ID", gsPOS_MACHINE_ID, "NAME")
+        lblCashierName.Text = GF_GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
+        lblMachineName.Text = GF_GetStringFieldValue("pos_machine", "ID", gsPOS_MACHINE_ID, "NAME")
         lblCreated_On.Text = CDate(LOG_DATE)
 
         lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
         lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
-        fCOUNT_LOAD()
+        CountLoad()
 
     End Sub
-    Private Sub fCOUNT_LOAD()
-        fPOS_COUNT()
+    Private Sub CountLoad()
+        PosCountLoad()
 
         If gsCASH_COUNT_ID <> 0 Then
 
@@ -39,22 +39,13 @@
 
         End If
     End Sub
-    Private Sub fPOS_COUNT()
-        gsCASH_COUNT_ID = GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
+    Private Sub PosCountLoad()
+        gsCASH_COUNT_ID = GF_GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
     End Sub
-
-
-    Private Sub BtnNEw_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub BtnCC_Click(sender As Object, e As EventArgs)
-
-    End Sub
-    Private Sub fSalesSummaryCustomer()
+    Private Sub SalesSummaryCustomer()
         SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByCustomerSummary.rpt"
-        Dim prPrint_Title As String = "Sales By Buyer Summary"
+
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
@@ -79,18 +70,18 @@
         CryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+        FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Buyers " & GetDateTimeNowSql()
-        frmReportViewer.WindowState = FormWindowState.Maximized
-        frmReportViewer.ShowDialog()
-        frmReportViewer.Dispose()
+        FrmReportViewer.Text = "Sales Summary by Buyers " & GetDateTimeNowSql()
+        FrmReportViewer.WindowState = FormWindowState.Maximized
+        FrmReportViewer.ShowDialog()
+        FrmReportViewer.Dispose()
     End Sub
 
-    Private Sub fSalesByItemSummary()
+    Private Sub SalesByItemSummary()
         SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByItemSummary.rpt"
-        Dim prPrint_Title As String = "Sales By Item Summary"
+
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
@@ -116,21 +107,21 @@
         CryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+        FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Buyers " & GetDateTimeNowSql()
-        frmReportViewer.WindowState = FormWindowState.Maximized
-        frmReportViewer.ShowDialog()
-        frmReportViewer.Dispose()
+        FrmReportViewer.Text = "Sales Summary by Buyers " & GetDateTimeNowSql()
+        FrmReportViewer.WindowState = FormWindowState.Maximized
+        FrmReportViewer.ShowDialog()
+        FrmReportViewer.Dispose()
     End Sub
     Private Sub BtnReport_Click(sender As Object, e As EventArgs)
         ctmReport.Show(Me, btnReport.Location)
 
     End Sub
-    Private Sub fSalesReceiptList()
+    Private Sub SalesReceiptList()
         SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesReceiptList.rpt"
-        Dim prPrint_Title As String = "Sales Invoice List"
+
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
@@ -155,18 +146,17 @@
         CryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+        FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Invoice List " & GetDateTimeNowSql()
-        frmReportViewer.WindowState = FormWindowState.Maximized
-        frmReportViewer.ShowDialog()
-        frmReportViewer.Dispose()
+        FrmReportViewer.Text = "Sales Invoice List " & GetDateTimeNowSql()
+        FrmReportViewer.WindowState = FormWindowState.Maximized
+        FrmReportViewer.ShowDialog()
+        FrmReportViewer.Dispose()
 
     End Sub
-    Private Sub fDailyPOSlog()
+    Private Sub DailyPOSlog()
         SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "cryPOSTransactionLog.rpt"
-        Dim prPrint_Title As String = "POS Transaction Log"
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
@@ -184,47 +174,35 @@
         CryParameterInsertValue(gscryRpt, "*", "item_class_id")
 
 
-        CryParameterInsertValue(gscryRpt, GetStringFieldValue("location", "id", gsDefault_LOCATION_ID, "NAME"), "myremark")
+        CryParameterInsertValue(gscryRpt, GF_GetStringFieldValue("location", "id", gsDefault_LOCATION_ID, "NAME"), "myremark")
         CryParameterInsertValue(gscryRpt, DateFormatStandard(gsPOS_DATE), "date_remark")
         CryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+        FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "POS Log " & GetDateTimeNowSql()
-        frmReportViewer.WindowState = FormWindowState.Maximized
-        frmReportViewer.ShowDialog()
-        frmReportViewer.Dispose()
+        FrmReportViewer.Text = "POS Log " & GetDateTimeNowSql()
+        FrmReportViewer.WindowState = FormWindowState.Maximized
+        FrmReportViewer.ShowDialog()
+        FrmReportViewer.Dispose()
     End Sub
-    Private Sub BtnExit_Click(sender As Object, e As EventArgs)
+    Private Sub TsSalesReceiptSummary_Click(sender As Object, e As EventArgs) Handles tsSalesReceiptSummary.Click
 
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs)
-
+        SalesReceiptList()
     End Sub
 
-    Private Sub btnVOID_Click(sender As Object, e As EventArgs)
-
+    Private Sub TsSalesByCustomer_Click(sender As Object, e As EventArgs) Handles tsSalesByCustomer.Click
+        SalesSummaryCustomer()
     End Sub
 
-    Private Sub tsSalesReceiptSummary_Click(sender As Object, e As EventArgs) Handles tsSalesReceiptSummary.Click
-
-        fSalesReceiptList()
+    Private Sub TsSalesByItemSummary_Click(sender As Object, e As EventArgs) Handles tsSalesByItemSummary.Click
+        SalesByItemSummary()
     End Sub
 
-    Private Sub tsSalesByCustomer_Click(sender As Object, e As EventArgs) Handles tsSalesByCustomer.Click
-        fSalesSummaryCustomer()
+    Private Sub TsPOSLOG_Click(sender As Object, e As EventArgs) Handles tsPOSLOG.Click
+        DailyPOSlog()
     End Sub
 
-    Private Sub tsSalesByItemSummary_Click(sender As Object, e As EventArgs) Handles tsSalesByItemSummary.Click
-        fSalesByItemSummary()
-    End Sub
-
-    Private Sub tsPOSLOG_Click(sender As Object, e As EventArgs) Handles tsPOSLOG.Click
-        fDailyPOSlog()
-    End Sub
-
-    Private Sub fNewEntry()
+    Private Sub NewEntry()
 
         If gsCASH_COUNT_ID <> 0 Then
             MessageBoxInfo("Invalid. transaction alreadhy cash count")
@@ -236,11 +214,11 @@
     End Sub
 
 
-    Private Sub btnNew_Click_1(sender As Object, e As EventArgs) Handles btnNew.Click
+    Private Sub BtnNew_Click_1(sender As Object, e As EventArgs) Handles btnNew.Click
 
-        fNewEntry()
+        NewEntry()
     End Sub
-    Private Sub fCashCount()
+    Private Sub CashCount()
         If gsCASH_COUNT_ID <> 0 Then
             MessageBoxInfo("Invalid. transaction alreadhy cash count")
             Exit Sub
@@ -248,18 +226,18 @@
         End If
 
         If Val(lblTOTAL.Text) <> 0 Then
-            With frmPOSCashCount
+            With FrmPOSCashCount
                 .ShowDialog()
                 .Dispose()
             End With
-            frmPOSCashCount = Nothing
-            fCOUNT_LOAD()
+            FrmPOSCashCount = Nothing
+            CountLoad()
         End If
     End Sub
-    Private Sub btnCashCount_Click(sender As Object, e As EventArgs) Handles btnCashCount.Click
-        fCashCount()
+    Private Sub BtnCashCount_Click(sender As Object, e As EventArgs) Handles btnCashCount.Click
+        CashCount()
     End Sub
-    Private Sub fList()
+    Private Sub ListLoad()
         If gsCASH_COUNT_ID <> 0 Then
             MessageBoxInfo("Invalid. transaction alreadhy cash count")
             Exit Sub
@@ -269,88 +247,88 @@
             Exit Sub
         End If
 
-        Dim IsVoid As Boolean = False
+
         FrmPOSVoidEntry.ShowDialog()
-        IsVoid = FrmPOSVoidEntry.gsGotVoid
+        Dim IsVoid As Boolean = FrmPOSVoidEntry.gsGotVoid
         FrmPOSVoidEntry.Dispose()
         FrmPOSVoidEntry = Nothing
 
         If IsVoid = True Then
-            fCollect_POSLog()
-            fPOS_LOG()
+            GS_CollectPosLog()
+            GS_PosLogLoad()
             lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
             lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
         End If
     End Sub
-    Private Sub btnVOID_Click_1(sender As Object, e As EventArgs) Handles btnVOID.Click
-        fList()
+    Private Sub BtnVOID_Click_1(sender As Object, e As EventArgs) Handles btnVOID.Click
+        ListLoad()
     End Sub
-    Private Sub fExit()
+    Private Sub ExitFun()
         gsType = 0
         Me.Close()
     End Sub
-    Private Sub btnExit_Click_1(sender As Object, e As EventArgs) Handles btnExit.Click
-        fExit()
+    Private Sub BtnExit_Click_1(sender As Object, e As EventArgs) Handles btnExit.Click
+        ExitFun()
     End Sub
-    Private Sub fReport()
+    Private Sub ReportSet()
         ctmReport.Show(Me, btnReport.Location)
     End Sub
-    Private Sub btnReport_Click_1(sender As Object, e As EventArgs) Handles btnReport.Click
-        fReport()
+    Private Sub BtnReport_Click_1(sender As Object, e As EventArgs) Handles btnReport.Click
+        ReportSet()
     End Sub
-    Private Sub fSettings()
-        frmPOSLogSettings.ShowDialog()
-        frmPOSLogSettings.Dispose()
-        frmPOSLogSettings = Nothing
-    End Sub
-
-    Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
-        fSettings()
+    Private Sub Settings()
+        FrmPOSLogSettings.ShowDialog()
+        FrmPOSLogSettings.Dispose()
+        FrmPOSLogSettings = Nothing
     End Sub
 
-    Private Sub frmPOSLog_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
-        fkeyMaster(sender, e)
+    Private Sub BtnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
+        Settings()
     End Sub
-    Private Sub fkeyMaster(sender As Object, e As KeyEventArgs)
+
+    Private Sub FrmPOSLog_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        KeyDownMaster(sender, e)
+    End Sub
+    Private Sub KeyDownMaster(sender As Object, e As KeyEventArgs)
 
         Select Case e.KeyCode
             Case Keys.N
-                fNewEntry()
+                NewEntry()
             Case Keys.C
-                fCashCount()
+                CashCount()
             Case Keys.E
-                fList()
+                ListLoad()
             Case Keys.L
-                fExit()
+                ExitFun()
             Case Keys.R
-                fReport()
+                ReportSet()
             Case Keys.S
-                fSettings()
+                Settings()
         End Select
     End Sub
 
-    Private Sub btnNew_KeyDown(sender As Object, e As KeyEventArgs) Handles btnNew.KeyDown
-        fkeyMaster(sender, e)
+    Private Sub BtnNew_KeyDown(sender As Object, e As KeyEventArgs) Handles btnNew.KeyDown
+        KeyDownMaster(sender, e)
     End Sub
 
-    Private Sub btnCashCount_KeyDown(sender As Object, e As KeyEventArgs) Handles btnCashCount.KeyDown
-        fkeyMaster(sender, e)
+    Private Sub BtnCashCount_KeyDown(sender As Object, e As KeyEventArgs) Handles btnCashCount.KeyDown
+        KeyDownMaster(sender, e)
     End Sub
 
-    Private Sub btnVOID_KeyDown(sender As Object, e As KeyEventArgs) Handles btnVOID.KeyDown
-        fkeyMaster(sender, e)
+    Private Sub BtnVOID_KeyDown(sender As Object, e As KeyEventArgs) Handles btnVOID.KeyDown
+        KeyDownMaster(sender, e)
     End Sub
 
-    Private Sub btnExit_KeyDown(sender As Object, e As KeyEventArgs) Handles btnExit.KeyDown
-        fkeyMaster(sender, e)
+    Private Sub BtnExit_KeyDown(sender As Object, e As KeyEventArgs) Handles btnExit.KeyDown
+        KeyDownMaster(sender, e)
     End Sub
 
-    Private Sub btnReport_KeyDown(sender As Object, e As KeyEventArgs) Handles btnReport.KeyDown
-        fkeyMaster(sender, e)
+    Private Sub BtnReport_KeyDown(sender As Object, e As KeyEventArgs) Handles btnReport.KeyDown
+        KeyDownMaster(sender, e)
     End Sub
 
-    Private Sub btnSettings_KeyDown(sender As Object, e As KeyEventArgs) Handles btnSettings.KeyDown
-        fkeyMaster(sender, e)
+    Private Sub BtnSettings_KeyDown(sender As Object, e As KeyEventArgs) Handles btnSettings.KeyDown
+        KeyDownMaster(sender, e)
     End Sub
 
     Private Sub BunifuGradientPanel2_Paint(sender As Object, e As PaintEventArgs) Handles bgpanelSales.Paint
@@ -358,7 +336,7 @@
     End Sub
 
     Private Sub BunifuGradientPanel2_KeyDown(sender As Object, e As KeyEventArgs) Handles bgpanelSales.KeyDown
-        fkeyMaster(sender, e)
+        KeyDownMaster(sender, e)
     End Sub
 
     Private Sub BunifuGradientPanel1_Paint(sender As Object, e As PaintEventArgs) Handles bgpanelEntry.Paint
@@ -366,7 +344,7 @@
     End Sub
 
     Private Sub BunifuGradientPanel1_KeyDown(sender As Object, e As KeyEventArgs) Handles bgpanelEntry.KeyDown
-        fkeyMaster(sender, e)
+        KeyDownMaster(sender, e)
     End Sub
 
     Private Sub BunifuGradientPanel5_Paint(sender As Object, e As PaintEventArgs) Handles BunifuGradientPanel5.Paint
@@ -374,6 +352,6 @@
     End Sub
 
     Private Sub BunifuGradientPanel5_KeyDown(sender As Object, e As KeyEventArgs) Handles BunifuGradientPanel5.KeyDown
-        fkeyMaster(sender, e)
+        KeyDownMaster(sender, e)
     End Sub
 End Class

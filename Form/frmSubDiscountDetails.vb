@@ -12,7 +12,7 @@ Public Class FrmSubDiscountDetails
             .Add("PERCENT", "Percent")
 
         End With
-        DatagridViewMode(dgvSub)
+
 
         If IsNew = False Then
             RefreshDetials()
@@ -27,7 +27,7 @@ Public Class FrmSubDiscountDetails
 
             Dim rd As OdbcDataReader = SqlReader("select ID,AMOUNT_FROM,AMOUNT_TO,PERCENT FROM SUB_DISCOUNT_DETAILS WHERE sub_discount_ID = '" & ID & "' ")
             While rd.Read
-                dgvSub.Rows.Add(NumIsNull(rd("ID")), NumIsNull(rd("AMOUNT_FROM")), NumIsNull(rd("AMOUNT_TO")), NumIsNull(rd("PERCENT")))
+                dgvSub.Rows.Add(GF_NumIsNull(rd("ID")), GF_NumIsNull(rd("AMOUNT_FROM")), GF_NumIsNull(rd("AMOUNT_TO")), GF_NumIsNull(rd("PERCENT")))
             End While
 
             rd.Close()
@@ -53,7 +53,7 @@ Public Class FrmSubDiscountDetails
         Try
 
             If IsNew = True Then
-                ID = GetMaxField("ID", "sub_discount")
+                ID = GF_GetMaxField("ID", "sub_discount")
                 SqlCreate(Me, SQL_Field, SQL_Value)
                 SqlExecuted($"INSERT INTO sub_discount ({SQL_Field},ID) VALUES ({SQL_Value},{ID}) ")
             Else
@@ -64,15 +64,15 @@ Public Class FrmSubDiscountDetails
                 With dgvSub.Rows(i)
                     If IsNew = True Then
 
-                        SqlExecuted("INSERT INTO sub_discount_details SET sub_discount_id = '" & ID & "',AMOUNT_FROM = '" & NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & NumIsNull(.Cells(2).Value) & "',PERCENT='" & NumIsNull(.Cells(3).Value) & "'")
+                        SqlExecuted("INSERT INTO sub_discount_details SET sub_discount_id = '" & ID & "',AMOUNT_FROM = '" & GF_NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & GF_NumIsNull(.Cells(2).Value) & "',PERCENT='" & GF_NumIsNull(.Cells(3).Value) & "'")
                     Else
                         If .Visible = False Then
                             SqlExecuted("DELETE FROM sub_discount_details WHERE id = '" & .Cells(0).Value & "'and sub_discount_id = '" & ID & "'")
-                        ElseIf NumIsNull(.Cells(0).Value) = 0 Then
+                        ElseIf GF_NumIsNull(.Cells(0).Value) = 0 Then
 
-                            SqlExecuted("INSERT INTO sub_discount_details SET sub_discount_id = '" & ID & "',AMOUNT_FROM = '" & NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & NumIsNull(.Cells(2).Value) & "',PERCENT='" & NumIsNull(.Cells(3).Value) & "'")
+                            SqlExecuted("INSERT INTO sub_discount_details SET sub_discount_id = '" & ID & "',AMOUNT_FROM = '" & GF_NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & GF_NumIsNull(.Cells(2).Value) & "',PERCENT='" & GF_NumIsNull(.Cells(3).Value) & "'")
                         Else
-                            SqlExecuted("UPDATE sub_discount_details SET AMOUNT_FROM = '" & NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & NumIsNull(.Cells(2).Value) & "',PERCENT='" & NumIsNull(.Cells(3).Value) & "'WHERE id = '" & .Cells(0).Value & "'and sub_discount_id = '" & ID & "'")
+                            SqlExecuted("UPDATE sub_discount_details SET AMOUNT_FROM = '" & GF_NumIsNull(.Cells(1).Value) & "',AMOUNT_TO = '" & GF_NumIsNull(.Cells(2).Value) & "',PERCENT='" & GF_NumIsNull(.Cells(3).Value) & "'WHERE id = '" & .Cells(0).Value & "'and sub_discount_id = '" & ID & "'")
                         End If
 
                     End If
@@ -109,7 +109,7 @@ Public Class FrmSubDiscountDetails
             If dgvSub.Enabled = False Then
                 Dim i As Integer = dgvSub.CurrentRow.Index
                 With dgvSub.Rows(i)
-                    .Cells(0).Value = IIf(NumIsNull(.Cells(0).Value) = 0, "A", .Cells(0).Value)
+                    .Cells(0).Value = IIf(GF_NumIsNull(.Cells(0).Value) = 0, "A", .Cells(0).Value)
                     .Cells(1).Value = numAMOUNT_FROM.Value
                     .Cells(2).Value = numTO_AMOUNT.Value
                     .Cells(3).Value = numPercent.Value
@@ -138,7 +138,7 @@ Public Class FrmSubDiscountDetails
         If e.KeyCode = Keys.Delete Then
             If dgvSub.Rows.Count <> 0 Then
                 Dim i As Integer = dgvSub.CurrentRow.Index
-                If NumIsNull(dgvSub.Rows(i).Cells(0).Value) = 0 Then
+                If GF_NumIsNull(dgvSub.Rows(i).Cells(0).Value) = 0 Then
                     dgvSub.Rows.RemoveAt(i)
                 Else
                     dgvSub.Rows(i).Visible = False

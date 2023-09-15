@@ -6,7 +6,7 @@
 
     Private Sub FrmChangeContactType_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbTYPE, "Select * from contact_type_map where id in('1','5','6')", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbTYPE, "Select * from contact_type_map where id in('1','5','6')", "ID", "DESCRIPTION")
         cmbTYPE.SelectedValue = gsID
     End Sub
 

@@ -12,7 +12,7 @@ Public Class FrmPortfolioReport
 
     Private Sub FrmPortfolioReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ComboBoxLoad(cmbSALES_MANAGER, " SELECT '%' as ID, '' as `NAME` UNION SELECT ID,`NAME` FROM contact WHERE `type`='2'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbSALES_MANAGER, " SELECT '%' as ID, '' as `NAME` UNION SELECT ID,`NAME` FROM contact WHERE `type`='2'", "ID", "NAME")
         dtpDate1.Value = Format(Now.Date.Year & "-01-01")
 
     End Sub
@@ -23,7 +23,7 @@ Public Class FrmPortfolioReport
 
         gscryRpt = ReportDocumentOneParameterNumberOnly(gsReportFileName)
         CryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.Text, "SALES_MANAGER_NAME")
-        CryParameterInsertValue(gscryRpt, GetStringFieldValue("contact", "ID", cmbSALES_MANAGER.SelectedValue, "CUSTOM_FIELD1"), "POSITION")
+        CryParameterInsertValue(gscryRpt, GF_GetStringFieldValue("contact", "ID", cmbSALES_MANAGER.SelectedValue, "CUSTOM_FIELD1"), "POSITION")
         CryParameterInsertValue(gscryRpt, cmbSALES_MANAGER.SelectedValue, "sales_manager_id")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("TargetPenaltyDiscount"), "discount_id_item")
         CryParameterInsertValue(gscryRpt, dtpDate1.Value, "date1")

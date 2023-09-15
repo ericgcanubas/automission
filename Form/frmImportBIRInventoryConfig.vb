@@ -18,14 +18,14 @@
             cn.Open()
             Dim rd As OleDb.OleDbDataReader = DbAccessReader(SQL, cn)
             If rd.Read Then
-                xnumID.Value = NumIsNull(rd("ID"))
-                txtSheetName.Text = TextIsNull(rd("SheetName"))
-                txtProductCode.Text = TextIsNull(rd("ProductCode"))
-                txtProductDescription.Text = TextIsNull(rd("ProductDescription"))
-                txtUnitCost.Text = TextIsNull(rd("UnitCost"))
-                txtQuantity.Text = TextIsNull(rd("Quantity"))
-                txtMOU.Text = TextIsNull(rd("MOU"))
-                chkUseDefault.Checked = NumIsNull(rd("UseDefault"))
+                xnumID.Value = GF_NumIsNull(rd("ID"))
+                txtSheetName.Text = GF_TextIsNull(rd("SheetName"))
+                txtProductCode.Text = GF_TextIsNull(rd("ProductCode"))
+                txtProductDescription.Text = GF_TextIsNull(rd("ProductDescription"))
+                txtUnitCost.Text = GF_TextIsNull(rd("UnitCost"))
+                txtQuantity.Text = GF_TextIsNull(rd("Quantity"))
+                txtMOU.Text = GF_TextIsNull(rd("MOU"))
+                chkUseDefault.Checked = GF_NumIsNull(rd("UseDefault"))
 
             Else
                 txtSheetName.Clear()

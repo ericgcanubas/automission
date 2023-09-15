@@ -66,9 +66,9 @@ Public Class FrmPOSRestoMenu
         PRINT_INVOICE_AFTER_PRINT_PAYMENT = CBool(Val(GetDBAccessValueByText("PRINT_INVOICE_AFTER_PRINT_PAYMENT")))
         PRINT_OS_AFTER_SAVE_INVOICE = CBool(Val(GetDBAccessValueByText("PRINT_OS_AFTER_SAVE_INVOICE")))
 
-        gsPOS_MACHINE_ID = fPOS_MACHINE_ID()
-        gsPOS_SERVED_ONLY = fGET_SERVED_ONLY()
-        gsPOS_TYPE_ID = fPOS_machine_type_map()
+        gsPOS_MACHINE_ID = GF_GetPosMachineId()
+        gsPOS_SERVED_ONLY = GS_IsServedOnly()
+        gsPOS_TYPE_ID = GF_PosMachineTypeMap()
 
         tslblCONNECT.Text = db_Connection_Name
         Me.Icon = gsIcon
@@ -113,15 +113,15 @@ Public Class FrmPOSRestoMenu
         gsIncRefNoByLocation = GetIncRefNoByLocation()
         gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
         ' LoadDefaultAccount()
-        Me.AccessibleName = GetStringFieldValue("tblsub_menu", "form", "frmSalesOrder", "sub_id")
+        Me.AccessibleName = GF_GetStringFieldValue("tblsub_menu", "form", "frmSalesOrder", "sub_id")
         gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
         gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
         gsPOSDefaultCustomer_ID = GetSystemSettingValueByText("POSDefaultCustomerId")
-        gsPOS_RESTAURANT_TABLE_NO = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
-        gsDRAWER_ACCOUNT_ID = GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
-        gsDINE_IN_ID = GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "DINE_IN_ID")
-        gsTAKE_OUT_ID = GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "TAKE_OUT_ID")
-        gsDELIVERY_ID = GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "DELIVERY_ID")
+        gsPOS_RESTAURANT_TABLE_NO = GF_GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "RESTAURANT_TABLE_NO")
+        gsDRAWER_ACCOUNT_ID = GF_GetStringFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "ACCOUNT_ID")
+        gsDINE_IN_ID = GF_GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "DINE_IN_ID")
+        gsTAKE_OUT_ID = GF_GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "TAKE_OUT_ID")
+        gsDELIVERY_ID = GF_GetNumberFieldValue("POS_MACHINE", "ID", gsPOS_MACHINE_ID, "DELIVERY_ID")
 
 
 
@@ -138,21 +138,21 @@ Public Class FrmPOSRestoMenu
             rbDINE_IN.Visible = False
         Else
             Ship_Via_count = Ship_Via_count + 1
-            gsDINE_NAME = GetStringFieldValue("ship_via", "id", gsDINE_IN_ID, "DESCRIPTION")
+            gsDINE_NAME = GF_GetStringFieldValue("ship_via", "id", gsDINE_IN_ID, "DESCRIPTION")
         End If
 
         If gsTAKE_OUT_ID = 0 Then
             rbTAKE_OUT.Visible = False
         Else
             Ship_Via_count = Ship_Via_count + 1
-            gsTAKE_OUT_NAME = GetStringFieldValue("ship_via", "id", gsTAKE_OUT_ID, "DESCRIPTION")
+            gsTAKE_OUT_NAME = GF_GetStringFieldValue("ship_via", "id", gsTAKE_OUT_ID, "DESCRIPTION")
         End If
 
         If gsDELIVERY_ID = 0 Then
             rbDELIVERY.Visible = False
         Else
             Ship_Via_count = Ship_Via_count + 1
-            gsDELIVERY_NAME = GetStringFieldValue("ship_via", "id", gsDELIVERY_ID, "DESCRIPTION")
+            gsDELIVERY_NAME = GF_GetStringFieldValue("ship_via", "id", gsDELIVERY_ID, "DESCRIPTION")
         End If
 
 
@@ -189,7 +189,7 @@ Public Class FrmPOSRestoMenu
     Private Sub fGET_POS_CREATE()
 
         gsPOS_DATE = Date.Now
-        If GetNumberFieldValue("USER_DEFAULT", "USER_ID", gsUser_ID, "pos_select_date") <> 0 Then
+        If GF_GetNumberFieldValue("USER_DEFAULT", "USER_ID", gsUser_ID, "pos_select_date") <> 0 Then
             frmSelectDate.ShowDialog()
             If frmSelectDate.gsOK = True Then
                 gsPOS_DATE = frmSelectDate.dtpSelect.Value
@@ -205,7 +205,7 @@ Public Class FrmPOSRestoMenu
         'POS LOG
         Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and DATE(recorded_On) ='{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and CASHIER_ID = '{gsCashier_ID}' ORDER BY ID DESC Limit 1;")
         If rd.Read Then
-            If NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
+            If GF_NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
                 FrmPOSLogSwitch.ShowDialog()
                 bStartNew = FrmPOSLogSwitch.gsStartNew
                 FrmPOSLogSwitch.Dispose()
@@ -215,18 +215,18 @@ Public Class FrmPOSRestoMenu
                 GoTo NewPOS_LOG
             End If
 
-            gsSTARTING_RECEIPT_NO = NumIsNull(rd("STARTING_RECEIPT_NO"))
-            gsPOS_LOG_ID = NumIsNull(rd("ID"))
-            gsSTARTING_CASH_ID = NumIsNull(rd("STARTING_CASH_ID"))
-            gsENDING_RECEIPT_NO = NumIsNull(rd("ENDING_RECEIPT_NO"))
-            gsCASH_COUNT_ID = NumIsNull(rd("CASH_COUNT_ID"))
+            gsSTARTING_RECEIPT_NO = GF_NumIsNull(rd("STARTING_RECEIPT_NO"))
+            gsPOS_LOG_ID = GF_NumIsNull(rd("ID"))
+            gsSTARTING_CASH_ID = GF_NumIsNull(rd("STARTING_CASH_ID"))
+            gsENDING_RECEIPT_NO = GF_NumIsNull(rd("ENDING_RECEIPT_NO"))
+            gsCASH_COUNT_ID = GF_NumIsNull(rd("CASH_COUNT_ID"))
 
         Else
 NewPOS_LOG:
             gsCASH_COUNT_ID = 0
             Dim sAMount As Double = 0
             gsSTARTING_CASH_ID = 0
-            If fPOS_STARTING_CASH() = True Then
+            If GF_PosStartingCash() = True Then
                 frmPOSStartingCash.ShowDialog()
                 sAMount = frmPOSStartingCash.gsStartAmount
                 frmPOSStartingCash.Dispose()
@@ -241,23 +241,23 @@ NewPOS_LOG:
             End If
             SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{sAMount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
             fPOS_STARTING_CASH_JOURNAL(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
-            fPOS_LOG()
+            GS_PosLogLoad()
 
         End If
         rd.Close()
-        fCollect_POSLog_Resto()
+        GS_CollectPosLogResto()
     End Sub
     Private Sub fHeader_SalesOrder_Refresh()
 
         If rbDINE_IN.Checked = True Then
-            LoadDataGridView(dgvSalesOrder, $"SELECT s.ID,s.CODE as `ORDER NO.`, d.DESCRIPTION as `STATUS` FROM sales_order as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsDINE_IN_ID}' and s.STATUS in('16','12')  ")
+            GS_LoadDataGridView(dgvSalesOrder, $"SELECT s.ID,s.CODE as `ORDER NO.`, d.DESCRIPTION as `STATUS` FROM sales_order as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsDINE_IN_ID}' and s.STATUS in('16','12')  ")
         ElseIf rbTAKE_OUT.Checked = True Then
-            LoadDataGridView(dgvSalesOrder, $"SELECT s.ID,s.CODE as `ORDER NO.`, d.DESCRIPTION as `STATUS` FROM sales_order as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsTAKE_OUT_ID}' and  s.STATUS in ('16','12')  ")
+            GS_LoadDataGridView(dgvSalesOrder, $"SELECT s.ID,s.CODE as `ORDER NO.`, d.DESCRIPTION as `STATUS` FROM sales_order as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsTAKE_OUT_ID}' and  s.STATUS in ('16','12')  ")
         ElseIf rbDELIVERY.Checked = True Then
-            LoadDataGridView(dgvSalesOrder, $"SELECT s.ID,s.CODE as `ORDER NO.`, d.DESCRIPTION as `STATUS` FROM sales_order as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsDELIVERY_ID}' and  s.STATUS in ('16','12')  ")
+            GS_LoadDataGridView(dgvSalesOrder, $"SELECT s.ID,s.CODE as `ORDER NO.`, d.DESCRIPTION as `STATUS` FROM sales_order as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsDELIVERY_ID}' and  s.STATUS in ('16','12')  ")
         End If
         dgvSalesOrder.Columns(0).Visible = False
-        ViewNotSort(dgvSalesOrder)
+        GS_ViewNotSort(dgvSalesOrder)
         dgvSalesOrder.ColumnHeadersHeight = 24
 
         Try
@@ -274,14 +274,14 @@ NewPOS_LOG:
     End Sub
     Private Sub fHeader_Invoice_Refresh()
         If rbDINE_IN.Checked = True Then
-            LoadDataGridView(dgvInvoice, $"SELECT s.ID,s.CODE as `SERVED NO.`, d.DESCRIPTION as `STATUS` FROM invoice as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsDINE_IN_ID}' and  s.STATUS ='13'  ")
+            GS_LoadDataGridView(dgvInvoice, $"SELECT s.ID,s.CODE as `SERVED NO.`, d.DESCRIPTION as `STATUS` FROM invoice as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsDINE_IN_ID}' and  s.STATUS ='13'  ")
         ElseIf rbTAKE_OUT.Checked = True Then
-            LoadDataGridView(dgvInvoice, $"SELECT s.ID,s.CODE as `SERVED NO.`, d.DESCRIPTION as `STATUS` FROM invoice as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsTAKE_OUT_ID}' and s.STATUS ='13'  ")
+            GS_LoadDataGridView(dgvInvoice, $"SELECT s.ID,s.CODE as `SERVED NO.`, d.DESCRIPTION as `STATUS` FROM invoice as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsTAKE_OUT_ID}' and s.STATUS ='13'  ")
         ElseIf rbDELIVERY.Checked = True Then
-            LoadDataGridView(dgvInvoice, $"SELECT s.ID,s.CODE as `SERVED NO.`, d.DESCRIPTION as `STATUS` FROM invoice as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsDELIVERY_ID}' and s.STATUS ='13'  ")
+            GS_LoadDataGridView(dgvInvoice, $"SELECT s.ID,s.CODE as `SERVED NO.`, d.DESCRIPTION as `STATUS` FROM invoice as s inner join document_status_map as d on d.id = s.STATUS where  SHIP_TO ='{numTableSelected}'  and SHIP_VIA_ID='{gsDELIVERY_ID}' and s.STATUS ='13'  ")
         End If
         dgvInvoice.Columns(0).Visible = False
-        ViewNotSort(dgvInvoice)
+        GS_ViewNotSort(dgvInvoice)
         dgvInvoice.ColumnHeadersHeight = 24
         Try
             With dgvInvoice.Columns
@@ -360,7 +360,7 @@ UNION ALL
                     If IsDate(rd_dine("this_record")) = True Then
 
                         DTT = DateTimeFormatMySql(rd_dine("this_record")).ToString
-                        If NumIsNull(rd_dine("this_status")) = 0 Then
+                        If GF_NumIsNull(rd_dine("this_status")) = 0 Then
                             This_Label = "Accommodated"
                             This_Color = Color.Khaki
                         Else
@@ -388,12 +388,12 @@ UNION ALL
                     Dim DTT As DateTime = DateTimeFormatMySql(rd("RECORDED_ON"))
 
                     Dim This_label As String
-                    If NumIsNull(rd("STATUS")) = 0 Then
+                    If GF_NumIsNull(rd("STATUS")) = 0 Then
                         This_label = "On-going"
-                        fCreate_Box(N, Color.YellowGreen, This_label, NumIsNull(rd("ship_to")), DTT.ToString)
+                        fCreate_Box(N, Color.YellowGreen, This_label, GF_NumIsNull(rd("ship_to")), DTT.ToString)
                     Else
                         This_label = "Waiting"
-                        fCreate_Box(N, Color.LightBlue, This_label, NumIsNull(rd("ship_to")), DTT.ToString)
+                        fCreate_Box(N, Color.LightBlue, This_label, GF_NumIsNull(rd("ship_to")), DTT.ToString)
                     End If
 
 
@@ -408,14 +408,14 @@ UNION ALL
                     Dim DTT As DateTime = DateTimeFormatMySql(rd("RECORDED_ON"))
 
                     Dim This_label As String
-                    If NumIsNull(rd("STATUS")) = 0 Then
+                    If GF_NumIsNull(rd("STATUS")) = 0 Then
                         This_label = "On-going"
                     Else
                         This_label = "Waiting"
                     End If
 
 
-                    fCreate_Box(N, Color.DarkOrange, This_label, NumIsNull(rd("ship_to")), DTT.ToString)
+                    fCreate_Box(N, Color.DarkOrange, This_label, GF_NumIsNull(rd("ship_to")), DTT.ToString)
                 End While
                 rd.Close()
                 fGetDefaultTable(numTableSelected)
@@ -704,7 +704,7 @@ UNION ALL
                     Dim rd_16 As OdbcDataReader = SqlReader($"select * from invoice WHERE DATE = '{ DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='" & DateFormatMySql(gsPOS_DATE) & "' and SHIP_VIA_ID='" & gsTAKE_OUT_ID & "' and SHIP_TO='" & numTableSelected & "' and STATUS = '16' limit 1;")
                     If rd_16.Read Then
 
-                        Dim GET_ID As Integer = NumIsNull(rd_16("id"))
+                        Dim GET_ID As Integer = GF_NumIsNull(rd_16("id"))
 
                         If MessageBoxPointOfSalesYesNO("Pick up?") = True Then
 
@@ -807,9 +807,9 @@ UNION ALL
 
         If IsOrder = True Then
             fcolumnGrid_Sales_order()
-            ViewItemDisplay(dgvProductItem)
+            GS_ViewItemDisplay(dgvProductItem)
             fHide_Standard_Column()
-            ViewNotSort(dgvProductItem)
+            GS_ViewNotSort(dgvProductItem)
             fclear_Info()
             If IsNew = False Then
                 fRefreshInfo_sales_order(ID)
@@ -819,9 +819,9 @@ UNION ALL
         Else
 
             fcolumnGrid_Invoice()
-            ViewItemDisplay(dgvProductItem)
+            GS_ViewItemDisplay(dgvProductItem)
             fHide_Standard_Column()
-            ViewNotSort(dgvProductItem)
+            GS_ViewNotSort(dgvProductItem)
             fclear_Info()
             'Received
             If IsNew = False Then
@@ -1009,28 +1009,28 @@ FROM
                 dgvProductItem.Rows.Add()
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvProductItem.Columns(i)
-                        If CheckNumStandard(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
-                        ElseIf CheckBoolType(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckBoolType(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = CBool(GF_NumIsNull(rd(i)))
                         Else
 
 
-                            If sGROUP_ITEM_COUNT <> 0 And sGROUP_ITEM_ID = NumIsNull(rd("ITEM_ID")) And i = 1 Then
+                            If sGROUP_ITEM_COUNT <> 0 And sGROUP_ITEM_ID = GF_NumIsNull(rd("ITEM_ID")) And i = 1 Then
                                 sGROUP_ITEM_COUNT = 0
                                 sGROUP_ITEM_ID = 0
                                 sGROUP_ITEM_ACTIVE = False
                                 dgvProductItem.Rows(x).Cells(i).Value = ""
                             Else
-                                dgvProductItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                                dgvProductItem.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
                             End If
                         End If
                     End With
 
                 Next
-                If CBool(NumIsNull(rd("PRINT_IN_FORMS"))) = True Then
+                If CBool(GF_NumIsNull(rd("PRINT_IN_FORMS"))) = True Then
                     dgvProductItem.Rows(x).Visible = False
                 End If
                 x = x + 1
@@ -1062,14 +1062,14 @@ FROM
         xlblAcctNo.Visible = False
         xlblSalesRep.Visible = False
 
-        ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
 
-        ComboBoxLoad(cmbCLASS_ID, "select * from class order by `NAME`", "ID", "NAME")
-        ComboBoxLoad(cmbPAYMENT_TERMS_ID, "select * from payment_terms ORDER BY ID DESC", "ID", "DESCRIPTION")
-        ComboBoxLoad(cmbSALES_REP_ID, "select * from contact where type ='2' order by `NAME`", "ID", "NAME")
-        ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
-        ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
-        ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
+        GS_ComboBoxLoad(cmbCLASS_ID, "select * from class order by `NAME`", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPAYMENT_TERMS_ID, "select * from payment_terms ORDER BY ID DESC", "ID", "DESCRIPTION")
+        GS_ComboBoxLoad(cmbSALES_REP_ID, "select * from contact where type ='2' order by `NAME`", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbOUTPUT_TAX_ID, "select * from tax where tax_type='3' order by ID DESC", "ID", "NAME")
+        GS_ComboBoxLoad(cmbACCOUNTS_RECEIVABLE_ID, "SELECT i.`ID`,i.`NAME` FROM account AS i WHERE  i.`TYPE` = 1", "ID", "NAME")
 
     End Sub
     Private Sub fcolumnGrid_Invoice()
@@ -1122,7 +1122,7 @@ FROM
             GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
             Dim dPayment_applied As Double = fGetSumPaymentApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fGetSumCreditApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fInvoiceSumTaxApplied_Amount(ID, cmbCUSTOMER_ID.SelectedValue)
             lbxPaymentApplied.Text = NumberFormatStandard(dPayment_applied)
-            Dim dBalance As Double = NumIsNull(NumberFormatFixed(NumIsNull(lblAMOUNT.Text))) - dPayment_applied
+            Dim dBalance As Double = GF_NumIsNull(NumberFormatFixed(GF_NumIsNull(lblAMOUNT.Text))) - dPayment_applied
             lblBALANCE_DUE.Text = NumberFormatStandard(dBalance)
             lbxBalance.Text = IIf(dtpDUE_DATE.Value > Date.Now.Date, "0.00", NumberFormatStandard(dBalance))
         Catch ex As Exception
@@ -1134,7 +1134,7 @@ FROM
 
     Private Sub cmbOUTPUT_TAX_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbOUTPUT_TAX_ID.SelectedIndexChanged
         fComputed()
-        Select Case NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue)
+        Select Case GF_NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue)
             Case 14
                 xlblTax.Text = "0% Vat"
             Case 12
@@ -1145,10 +1145,10 @@ FROM
         End Select
         Try
             '   cn.Open()
-            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
+            Dim rd As OdbcDataReader = SqlReader("select VAT_METHOD,TAX_ACCOUNT_ID from tax where ID ='" & GF_NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue) & "' limit 1")
             If rd.Read Then
-                lblOUTPUT_TAX_VAT_METHOD.Text = TextIsNull(rd("VAT_METHOD"))
-                lblOUTPUT_TAX_ACCOUNT_ID.Text = TextIsNull(rd("TAX_ACCOUNT_ID"))
+                lblOUTPUT_TAX_VAT_METHOD.Text = GF_TextIsNull(rd("VAT_METHOD"))
+                lblOUTPUT_TAX_ACCOUNT_ID.Text = GF_TextIsNull(rd("TAX_ACCOUNT_ID"))
             Else
                 lblOUTPUT_TAX_VAT_METHOD.Text = ""
                 lblOUTPUT_TAX_ACCOUNT_ID.Text = ""
@@ -1196,14 +1196,14 @@ FROM
             ElseIf IsDiscountItem(d.Cells("ITEM_TYPE").Value) = True Then
                 MessageBoxInfo("Invalid to Edit")
                 Exit Sub
-            ElseIf NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
+            ElseIf GF_NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
                 MessageBoxInfo("Invalid to Edit")
                 Exit Sub
             End If
 
             With frmAddItem
 
-                If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
+                If GF_NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
                     bAlreadySave = True
@@ -1213,8 +1213,8 @@ FROM
                 .gsUM = dgvProductItem.Rows.Item(I).Cells("UNIT_ID").Value
                 .gsUnit_Price = dgvProductItem.Rows.Item(I).Cells("UNIT_PRICE").Value
                 .gsQty = dgvProductItem.Rows.Item(I).Cells("QTY").Value
-                .gsDiscount_Type = TextIsNull(dgvProductItem.Rows.Item(I).Cells("DISCOUNT_ID").Value)
-                .gsDiscount_Rate = NumIsNull(dgvProductItem.Rows.Item(I).Cells("DISCOUNT_RATE").Value)
+                .gsDiscount_Type = GF_TextIsNull(dgvProductItem.Rows.Item(I).Cells("DISCOUNT_ID").Value)
+                .gsDiscount_Rate = GF_NumIsNull(dgvProductItem.Rows.Item(I).Cells("DISCOUNT_RATE").Value)
                 .gsTax = dgvProductItem.Rows.Item(I).Cells("TAX").Value
                 .gsPRICE_LEVEL_ID = dgvProductItem.Rows.Item(I).Cells("PRICE_LEVEL_ID").Value
 
@@ -1263,14 +1263,14 @@ FROM
             ElseIf IsDiscountItem(d.Cells("ITEM_TYPE").Value) = True Then
                 MessageBoxInfo("Invalid to Edit")
                 Exit Sub
-            ElseIf NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
+            ElseIf GF_NumIsNull(d.Cells("GROUP_LINE_ID").Value) <> 0 Then
                 MessageBoxInfo("Invalid to Edit")
                 Exit Sub
             End If
 
             With frmAddItem
                 .gsNonInventoryItem = True
-                If NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
+                If GF_NumIsNull(dgvProductItem.Rows.Item(I).Cells("ID").Value) = 0 Then
                     bAlreadySave = False
                 Else
                     bAlreadySave = True
@@ -1355,7 +1355,7 @@ FROM
             FrmPOSRestoNoteDT.ShowDialog()
             txtNOTES.Text = FrmPOSRestoNoteDT.gsRemarks
 
-            If NumIsNull(lblAMOUNT.Text) < 1 Then
+            If GF_NumIsNull(lblAMOUNT.Text) < 1 Then
                 txtNOTES.Text = txtNOTES.Text & " FREE MEAL/COUPON PAID"
             End If
 
@@ -1363,7 +1363,7 @@ FROM
             FrmPOSRestoNoteDT = Nothing
         Else
 
-            If NumIsNull(lblAMOUNT.Text) < 1 Then
+            If GF_NumIsNull(lblAMOUNT.Text) < 1 Then
                 txtNOTES.Text = "FREE MEAL/COUPON PAID"
             Else
                 txtNOTES.Text = ""
@@ -1376,12 +1376,12 @@ FROM
 
 
             If Trim(lblCODE.Text) = "" Then
-                lblCODE.Text = GetNextCode("INVOICE", cmbLOCATION_ID.SelectedValue)
+                lblCODE.Text = GF_GetNextCode("INVOICE", cmbLOCATION_ID.SelectedValue)
             End If
 
             dtpDATE.Checked = True
 
-            If NumIsNull(lblAMOUNT.Text) < 1 Then
+            If GF_NumIsNull(lblAMOUNT.Text) < 1 Then
                 lblAMOUNT.Text = "0"
             End If
 
@@ -1411,11 +1411,11 @@ FROM
                 End If
             End If
             Dim bTotal_Balance As Double = NumberFormatFixed(lblBALANCE_DUE.Text)
-            Dim nStatus As Integer = IIf(NumIsNull(lblAMOUNT.Text) <= 0, 16, 13)
+            Dim nStatus As Integer = IIf(GF_NumIsNull(lblAMOUNT.Text) <= 0, 16, 13)
 
             SqlExecuted($"INSERT INTO invoice ({SQL_Field1},{SQL_Field2},ID,RECORDED_ON,SHIP_DATE,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE,IS_FC) VALUES ({SQL_Value1},{SQL_Value2},'{ID}','{GetDateTimeNowSql()}','{DateFormatMySql(gsPOS_DATE)}','{ORDER_TYPE_ID}','{numTableSelected}','{nStatus}',{GetDateTimeNowSql()},0) ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
 
         Else
@@ -1423,7 +1423,7 @@ FROM
             '        Exit Sub
             '    End If
 
-            If NumIsNull(lblAMOUNT.Text) < 1 Then
+            If GF_NumIsNull(lblAMOUNT.Text) < 1 Then
                 lblAMOUNT.Text = "0"
             End If
 
@@ -1431,10 +1431,10 @@ FROM
             Dim squery As String = SqlUpdate(Me)
             Dim bTotal_Balance As Double = NumberFormatFixed(lblBALANCE_DUE.Text)
             Dim nStatus As Integer = 0
-            nStatus = IIf(NumIsNull(lblAMOUNT.Text) <= 0, 16, 13)
+            nStatus = IIf(GF_NumIsNull(lblAMOUNT.Text) <= 0, 16, 13)
             squery = squery & $",STATUS='" & nStatus & "',STATUS_DATE ='" & GetDateTimeNowSql() & "' WHERE ID = '" & ID & "'"
             SqlExecuted($"UPDATE invoice SET {squery},STATUS='{nStatus}',STATUS_DATE ='{ GetDateTimeNowSql()}' WHERE ID = '{ID}'")
-            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -1443,11 +1443,11 @@ FROM
         '===========================================
         If gsSkipJournalEntry = False Then
             gsJOURNAL_NO_FORM = 0
-            GS_AccountJournalExecute(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
-            If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
+            GS_AccountJournalExecute(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 0, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+            If GF_NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
                 fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 23, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
-                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 1, NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 1, GF_NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
 
         End If
@@ -1459,7 +1459,7 @@ FROM
             Exit Sub
         End If
 
-        Dim Got_Zero_Amount As Double = NumIsNull(lblAMOUNT.Text)
+        Dim Got_Zero_Amount As Double = GF_NumIsNull(lblAMOUNT.Text)
 
         If Got_Zero_Amount < 1 Then
             fPP_billPrint(ID)
@@ -1590,9 +1590,9 @@ FROM
 
                 dgvProductItem.Rows.Add()
 
-                If NumIsNull(rd("GROUP_LINE_ID")) <> 0 Then
+                If GF_NumIsNull(rd("GROUP_LINE_ID")) <> 0 Then
 
-                    sGROUP_ITEM_ID = NumIsNull(rd("GROUP_LINE_ID"))
+                    sGROUP_ITEM_ID = GF_NumIsNull(rd("GROUP_LINE_ID"))
                     sGROUP_ITEM_COUNT = sGROUP_ITEM_COUNT + 1
 
                 Else
@@ -1602,29 +1602,29 @@ FROM
                 For i As Integer = 0 To rd.FieldCount - 1
 
                     With dgvProductItem.Columns(i)
-                        If CheckNumStandard(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
-                        ElseIf CheckBoolType(.Name) = True Then
-                            dgvProductItem.Rows(x).Cells(i).Value = CBool(NumIsNull(rd(i)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatStandard(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(i)))
+                        ElseIf GF_CheckBoolType(.Name) = True Then
+                            dgvProductItem.Rows(x).Cells(i).Value = CBool(GF_NumIsNull(rd(i)))
                         Else
 
 
-                            If sGROUP_ITEM_COUNT <> 0 And sGROUP_ITEM_ID = NumIsNull(rd("ITEM_ID")) And i = 1 Then
+                            If sGROUP_ITEM_COUNT <> 0 And sGROUP_ITEM_ID = GF_NumIsNull(rd("ITEM_ID")) And i = 1 Then
                                 sGROUP_ITEM_COUNT = 0
                                 sGROUP_ITEM_ID = 0
                                 sGROUP_ITEM_ACTIVE = False
                                 dgvProductItem.Rows(x).Cells(i).Value = ""
                             Else
-                                dgvProductItem.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                                dgvProductItem.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
                             End If
                         End If
                     End With
 
                 Next
 
-                If CBool(NumIsNull(rd("PRINT_IN_FORMS"))) = True Then
+                If CBool(GF_NumIsNull(rd("PRINT_IN_FORMS"))) = True Then
                     dgvProductItem.Rows(x).Visible = False
                 End If
 
@@ -1653,13 +1653,13 @@ FROM
         If rbTAKE_OUT.Checked = True Then
             Dim rd As OdbcDataReader = SqlReader($"select  COUNT(*) as T FROM INVOICE WHERE DATE = '{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='{DateFormatMySql(gsPOS_DATE)}' and SHIP_VIA_ID ='{gsTAKE_OUT_ID}' limit 100  ")
             If rd.Read Then
-                N = NumIsNull(rd("T"))
+                N = GF_NumIsNull(rd("T"))
             End If
             rd.Close()
         ElseIf rbDELIVERY.Checked = True Then
             Dim rd As OdbcDataReader = SqlReader($"select  COUNT(*) as T FROM INVOICE WHERE DATE = '{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='{DateFormatMySql(gsPOS_DATE)}' and SHIP_VIA_ID ='{gsDELIVERY_ID}' limit 100  ")
             If rd.Read Then
-                N = NumIsNull(rd("T"))
+                N = GF_NumIsNull(rd("T"))
             End If
             rd.Close()
         End If
@@ -1672,7 +1672,7 @@ FROM
         If rbDELIVERY.Checked = True Then
             Dim rd As OdbcDataReader = SqlReader($"select NEXT_ID from pos_auto_number where ORDER_TYPE_ID = '{gsDELIVERY_ID}' and POS_MACHINE_ID='{gsPOS_MACHINE_ID}' limit 1;")
             If rd.Read Then
-                N = NumIsNull(rd("NEXT_ID"))
+                N = GF_NumIsNull(rd("NEXT_ID"))
                 SqlExecuted($"UPDATE pos_auto_number SET NEXT_ID ='{N + 1}' WHERE ORDER_TYPE_ID='{gsDELIVERY_ID}'and POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  limit 1;")
             Else
                 SqlExecuted($"INSERT INTO pos_auto_number SET  ORDER_TYPE_ID='{gsDELIVERY_ID}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',NEXT_ID ='2' ")
@@ -1682,7 +1682,7 @@ FROM
         ElseIf rbTAKE_OUT.Checked = True Then
             Dim rd As OdbcDataReader = SqlReader($"select NEXT_ID from pos_auto_number where ORDER_TYPE_ID = '{gsTAKE_OUT_ID}' and POS_MACHINE_ID='{gsPOS_MACHINE_ID}' limit 1;")
             If rd.Read Then
-                N = NumIsNull(rd("NEXT_ID"))
+                N = GF_NumIsNull(rd("NEXT_ID"))
                 SqlExecuted($"UPDATE pos_auto_number SET NEXT_ID ='{N + 1}' WHERE ORDER_TYPE_ID='{gsTAKE_OUT_ID}'and POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  limit 1;")
             Else
                 SqlExecuted($"INSERT INTO pos_auto_number  SET ORDER_TYPE_ID='{gsTAKE_OUT_ID}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',NEXT_ID ='2' ")
@@ -1711,7 +1711,7 @@ FROM
         If IsNew = True Then
 
             If Trim(lblCODE.Text) = "" Then
-                lblCODE.Text = GetNextCode("SALES_ORDER", cmbLOCATION_ID.SelectedValue)
+                lblCODE.Text = GF_GetNextCode("SALES_ORDER", cmbLOCATION_ID.SelectedValue)
             End If
 
             dtpDATE.Checked = True
@@ -1734,7 +1734,7 @@ FROM
                             (ID,RECORDED_ON,DATE_NEEDED,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE) 
                             VALUES ({ID},'{GetDateTimeNowSql()}','{DateFormatMySql(Date.Now)}','{ORDER_TYPE_ID}','numTableSelected',16,{GetDateTimeNowSql()})  ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
@@ -1744,7 +1744,7 @@ FROM
             Dim squery As String = SqlUpdate(Me)
             squery = squery & " WHERE ID = '" & ID & "' limit 1"
             SqlExecuted("UPDATE sales_order SET " & squery)
-            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Edit", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
         End If
 
         If GF_IsTransactionSuccess(ID, "sales_order") = False Then
@@ -1786,7 +1786,7 @@ FROM
 
         Dim SO_SQL As String
 
-        Dim get_SO_ID As String = GetStringFieldValue("estimate_items", "ID", prITEM_ID, "estimate_ID")
+        Dim get_SO_ID As String = GF_GetStringFieldValue("estimate_items", "ID", prITEM_ID, "estimate_ID")
 
         If ADD_EDIT = True Then
             SO_SQL = "Update Estimate_items SET `FINAL_QTY` = '" & prINVOICED_QTY & "' ,`CLOSED` = '1' where ID = '" & prITEM_ID & "' Limit 1"
@@ -1822,32 +1822,32 @@ FROM
 
                     Case "S"
                         'UPDATE TAX ONLY
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SQL_SCRIPT = "UPDATE sales_order_items SET TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value))
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SQL_SCRIPT = "UPDATE sales_order_items SET TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value))
                         SqlExecuted(SQL_SCRIPT)
                     Case "A"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         Dim i_ID As Double = ObjectTypeMapId("SALES_ORDER_ITEMS")
-                        SQL_SCRIPT = "INSERT INTO sales_order_items SET  GROUP_LINE_ID = " & GotNullNumber((.Cells("GROUP_LINE_ID").Value)) & ",PRINT_IN_FORMS ='" & NumIsNull(.Cells("PRINT_IN_FORMS").Value) & "',LINE_NO='" & GetMaxFieldLine("LINE_NO", "SALES_ORDER_ITEMS", "SALES_ORDER_ID", dID) & "',ID='" & i_ID & "',QUANTITY ='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",SALES_ORDER_ID ='" & dID & "',CLOSED ='0',INVOICED_QTY= NULL,PRICE_LEVEL_ID = " & GotNullNumber(NumIsNull(.Cells("PRICE_LEVEL_ID").Value))
+                        SQL_SCRIPT = "INSERT INTO sales_order_items SET  GROUP_LINE_ID = " & GotNullNumber((.Cells("GROUP_LINE_ID").Value)) & ",PRINT_IN_FORMS ='" & GF_NumIsNull(.Cells("PRINT_IN_FORMS").Value) & "',LINE_NO='" & GF_GetMaxFieldLine("LINE_NO", "SALES_ORDER_ITEMS", "SALES_ORDER_ID", dID) & "',ID='" & i_ID & "',QUANTITY ='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",SALES_ORDER_ID ='" & dID & "',CLOSED ='0',INVOICED_QTY= NULL,PRICE_LEVEL_ID = " & GotNullNumber(GF_NumIsNull(.Cells("PRICE_LEVEL_ID").Value))
                         SqlExecuted(SQL_SCRIPT)
 
-                        fEstimate_ITEM_UPDATE(NumIsNull(.Cells("ESTIMATE_LINE_ID").Value), NumIsNull(.Cells("QTY").Value), True)
+                        fEstimate_ITEM_UPDATE(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value), GF_NumIsNull(.Cells("QTY").Value), True)
 
-                        If IsGroupItem(NumIsNull(.Cells("ITEM_TYPE").Value), sGROUP_ITEM_ACTIVE) = True And sGROUP_ITEM_ID = 0 Then
-                            sGROUP_ITEM_ID = NumIsNull(.Cells("ITEM_ID").Value)
+                        If IsGroupItem(GF_NumIsNull(.Cells("ITEM_TYPE").Value), sGROUP_ITEM_ACTIVE) = True And sGROUP_ITEM_ID = 0 Then
+                            sGROUP_ITEM_ID = GF_NumIsNull(.Cells("ITEM_ID").Value)
                             sGROUP_ITEM_ACTIVE = True
-                        ElseIf NumIsNull(.Cells("ITEM_ID").Value) = sGROUP_ITEM_ID Then
+                        ElseIf GF_NumIsNull(.Cells("ITEM_ID").Value) = sGROUP_ITEM_ID Then
                             sGROUP_ITEM_ID = 0
                             sGROUP_ITEM_ACTIVE = False
                         End If
 
                     Case "E"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, NumIsNull(.Cells("AMOUNT").Value), NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
-                        SQL_SCRIPT = "UPDATE sales_order_items SET QUANTITY='" & NumIsNull(.Cells("QTY").Value) & "',RATE = '" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & " WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & GotNullNumber(NumIsNull(.Cells("ID").Value)) & ""
+                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        SQL_SCRIPT = "UPDATE sales_order_items SET QUANTITY='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & " WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & ""
                         SqlExecuted(SQL_SCRIPT)
-                        fEstimate_ITEM_UPDATE(NumIsNull(.Cells("ESTIMATE_LINE_ID").Value), NumIsNull(.Cells("QTY").Value), True)
+                        fEstimate_ITEM_UPDATE(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value), GF_NumIsNull(.Cells("QTY").Value), True)
                     Case "D"
-                        SQL_SCRIPT = "DELETE FROM sales_order_items WHERE SALES_ORDER_ID ='" & dID & "' and ID = '" & NumIsNull(.Cells("ID").Value) & "'"
+                        SQL_SCRIPT = "DELETE FROM sales_order_items WHERE SALES_ORDER_ID ='" & dID & "' and ID = '" & GF_NumIsNull(.Cells("ID").Value) & "'"
                         SqlExecuted(SQL_SCRIPT)
                 End Select
 
@@ -1898,11 +1898,11 @@ FROM
         If cmbCUSTOMER_ID.Text = "" Then Exit Sub
 
         xlblCustomer_Name.Text = cmbCUSTOMER_ID.Text
-        xlblAcctNo.Text = GetStringFieldValue("CONTACT", "ID", NumIsNull(cmbCUSTOMER_ID.SelectedValue), "ACCOUNT_NO")
-        Dim rd As OdbcDataReader = SqlReader($"select TAX_ID from contact where id ='{NumIsNull(cmbCUSTOMER_ID.SelectedValue)}' and `type` = '1' limit 1 ")
+        xlblAcctNo.Text = GF_GetStringFieldValue("CONTACT", "ID", GF_NumIsNull(cmbCUSTOMER_ID.SelectedValue), "ACCOUNT_NO")
+        Dim rd As OdbcDataReader = SqlReader($"select TAX_ID from contact where id ='{GF_NumIsNull(cmbCUSTOMER_ID.SelectedValue)}' and `type` = '1' limit 1 ")
         If rd.Read Then
-            If NumIsNull(rd("TAX_ID")) <> 0 Then
-                cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
+            If GF_NumIsNull(rd("TAX_ID")) <> 0 Then
+                cmbOUTPUT_TAX_ID.SelectedValue = GF_NumIsNull(rd("TAX_ID"))
 
             Else
                 cmbOUTPUT_TAX_ID.SelectedValue = GetOutPutTaxDefault()
@@ -2070,8 +2070,8 @@ FROM
 
         Dim rd As OdbcDataReader = SqlReader($"select * from contact where id ='{s}' and `type` = '1' limit 1 ")
         If rd.Read Then
-            If NumIsNull(rd("TAX_ID")) <> 0 Then
-                cmbOUTPUT_TAX_ID.SelectedValue = NumIsNull(rd("TAX_ID"))
+            If GF_NumIsNull(rd("TAX_ID")) <> 0 Then
+                cmbOUTPUT_TAX_ID.SelectedValue = GF_NumIsNull(rd("TAX_ID"))
 
             End If
 
@@ -2404,7 +2404,7 @@ FROM
         IsOrder = False
         If dgvSalesOrder.Rows.Count <> 0 Then
             dgvSalesOrder.Select()
-            frmPOSServed.gsCUSTOMER_ID = GetNumberFieldValue("sales_order", "id", dgvSalesOrder.CurrentRow.Cells(0).Value, "CUSTOMER_ID")
+            frmPOSServed.gsCUSTOMER_ID = GF_GetNumberFieldValue("sales_order", "id", dgvSalesOrder.CurrentRow.Cells(0).Value, "CUSTOMER_ID")
 
         Else
             If rbDINE_IN.Checked = True Then
@@ -2449,7 +2449,7 @@ CREATE_NOW:
                 For I As Integer = 0 To dgv_top.Rows.Count - 1
                     Dim rd As OdbcDataReader = SqlReader($"select s.*,d.description as desc_name from SALES_ORDER_ITEMS as S left outer join discount_type as d on d.id =  s.DISCOUNT_TYPE  where S.SALES_ORDER_ID='{dgv_top.Rows(I).Cells(0).Value}' and S.GROUP_LINE_ID is null order by S.LINE_NO")
                     While rd.Read
-                        GS_RowDataItemInvoice(dgvProductItem, True, NumIsNull(rd("ITEM_ID")), NumIsNull(rd("QUANTITY")), NumIsNull(rd("RATE")), TextIsNull(rd("desc_name")), NumIsNull(rd("DISCOUNT_TYPE")), NumIsNull(rd("AMOUNT")), CBool(NumIsNull(rd("TAXABLE"))), NumIsNull(rd("UNIT_ID")), "A", NumIsNull(rd("UNIT_BASE_QUANTITY")), TextIsNull(rd("DISCOUNT_TYPE")), NumIsNull(rd("ORG_AMOUNT")), NumIsNull(rd("ID")), TextIsNull(rd("PRICE_LEVEL_ID")), 0, CBool(NumIsNull(rd("PRINT_IN_FORMS"))), 0)
+                        GS_RowDataItemInvoice(dgvProductItem, True, GF_NumIsNull(rd("ITEM_ID")), GF_NumIsNull(rd("QUANTITY")), GF_NumIsNull(rd("RATE")), GF_TextIsNull(rd("desc_name")), GF_NumIsNull(rd("DISCOUNT_TYPE")), GF_NumIsNull(rd("AMOUNT")), CBool(GF_NumIsNull(rd("TAXABLE"))), GF_NumIsNull(rd("UNIT_ID")), "A", GF_NumIsNull(rd("UNIT_BASE_QUANTITY")), GF_TextIsNull(rd("DISCOUNT_TYPE")), GF_NumIsNull(rd("ORG_AMOUNT")), GF_NumIsNull(rd("ID")), GF_TextIsNull(rd("PRICE_LEVEL_ID")), 0, CBool(GF_NumIsNull(rd("PRINT_IN_FORMS"))), 0)
                     End While
                     rd.Close()
                 Next
@@ -2518,7 +2518,7 @@ CREATE_NOW:
         frmPOSContacts.ShowDialog()
 
         If frmPOSContacts.gsOK = True Then
-            ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+            GS_ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
 
             cmbCUSTOMER_ID.SelectedValue = frmPOSContacts.gsContact_ID
         Else
@@ -2535,7 +2535,7 @@ CREATE_NOW:
             If frmContactDetails.gsOK = True Then
                 xlblCustomer_Name.Text = ""
                 xlblAcctNo.Text = ""
-                ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
+                GS_ComboBoxLoad(cmbCUSTOMER_ID, "select c.id, c.`NAME` from contact as  c  where c.`type` in ('1') and c.inactive = '0' order by c.`NAME` ", "ID", "NAME")
                 cmbCUSTOMER_ID.SelectedValue = frmContactDetails.ID
             End If
             frmContactDetails.Dispose()
@@ -2550,11 +2550,11 @@ CREATE_NOW:
 
         If frmPOSContacts.gsOK = True Then
             If frmPOSContacts.gsContact_ID = 0 Then
-                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedIndex = -1
                 xlblSalesRep.Text = ""
             Else
-                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedValue = frmPOSContacts.gsContact_ID
             End If
         Else
@@ -2569,7 +2569,7 @@ CREATE_NOW:
             frmContactDetails.ShowDialog()
             If frmContactDetails.gsOK = True Then
                 xlblSalesRep.Text = ""
-                ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
+                GS_ComboBoxLoad(cmbSALES_REP_ID, "select id,`NAME` from contact where type ='2'", "ID", "NAME")
                 cmbSALES_REP_ID.SelectedValue = frmContactDetails.ID
             End If
             frmContactDetails.Dispose()
@@ -2708,7 +2708,7 @@ CREATE_NOW:
                 If gsSkipJournalEntry = False Then
 
                     GS_AccountJournalDelete(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
-                    If NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) <> 0 Then
+                    If GF_NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) <> 0 Then
                         GS_AccountJournalDelete(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 23, ID, dtpDATE.Value)
                     End If
 
@@ -2716,7 +2716,7 @@ CREATE_NOW:
                 '================================
 
                 SqlExecuted("delete from invoice where id ='" & ID & "' limit 1;")
-                SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
@@ -2727,7 +2727,7 @@ CREATE_NOW:
                 Dim S As Integer = numTableSelected
                 fRefreshTable()
                 fGetDefaultTable(S)
-                CursorLoadingOn(False)
+                GS_CursorLoadingOn(False)
             End If
 
 
@@ -2746,7 +2746,7 @@ CREATE_NOW:
 
                 SqlExecuted("DELETE FROM sales_order_items WHERE SALES_ORDER_ID = '" & ID & "'")
                 SqlExecuted("DELETE FROM sales_order WHERE ID = '" & ID & "'")
-                SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "Delete", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 fclear_Info()
                 dgvProductItem.Rows.Clear()
                 fComputed()
@@ -2802,7 +2802,7 @@ CREATE_NOW:
             End If
 
             frmPOSCreatePayment.gsTABLE_NO = S
-            frmPOSCreatePayment.gsCUSTOMER_ID = GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "CUSTOMER_ID")
+            frmPOSCreatePayment.gsCUSTOMER_ID = GF_GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "CUSTOMER_ID")
             frmPOSCreatePayment.ShowDialog()
 
             ThisID = frmPOSCreatePayment.gsID
@@ -2825,7 +2825,7 @@ CREATE_NOW:
 
             FrmPOSCreatePaymentMultiMethod.dgvINVOICE_LIST = dgvInvoice
             FrmPOSCreatePaymentMultiMethod.gsTABLE_NO = S
-            FrmPOSCreatePaymentMultiMethod.gsCUSTOMER_ID = GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "CUSTOMER_ID")
+            FrmPOSCreatePaymentMultiMethod.gsCUSTOMER_ID = GF_GetNumberFieldValue("INVOICE", "ID", Invoice_ID, "CUSTOMER_ID")
             FrmPOSCreatePaymentMultiMethod.ShowDialog()
             ThisID = FrmPOSCreatePaymentMultiMethod.gsID
             isPaymentClick = FrmPOSCreatePaymentMultiMethod.gsOK
@@ -2862,7 +2862,7 @@ CREATE_NOW:
                 End If
             End If
 
-            fOpenCashDrawer()
+            GS_OpenCashDrawer()
             numTableSelected = S
             fRefreshTable()
         End If
@@ -3002,7 +3002,7 @@ CREATE_NOW:
 
             Dim rd As OdbcDataReader = SqlReader($"select  count(*) as C from ((SELECT s.STATUS_DATE,s.SHIP_TO FROM sales_order as s inner join ship_via as v on v.id = s.SHIP_VIA_ID where s.SHIP_VIA_ID = '{prORDER_Type}' and  s.ship_to > '0' and s.`STATUS` in('16','12') order by s.id)  UNION ALL (SELECT s.STATUS_DATE,s.SHIP_TO FROM invoice as s inner join ship_via as v on v.id = s.SHIP_VIA_ID where s.SHIP_VIA_ID = '{prORDER_Type}' and  s.ship_to > '0' and s.`STATUS` in ('13','16')  and NOT EXISTS(select o.id from sales_order_items as o inner join invoice_items as v on v.REF_LINE_ID  = o.id where v.invoice_id = s.id  ) order by s.id) {SQL_R}) as D order by D.SHIP_TO  limit {gsPOS_RESTAURANT_TABLE_NO}")
             If rd.Read Then
-                N = NumIsNull(rd("C"))
+                N = GF_NumIsNull(rd("C"))
             End If
             rd.Close()
         End If
@@ -3209,7 +3209,7 @@ CREATE_NOW:
     Private Sub btnOpenCashDrawer_Click(sender As Object, e As EventArgs)
 
 
-        '   fOpenCashDrawer()
+        '   GS_OpenCashDrawer()
     End Sub
 
     Private Sub StatusStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles StatusStrip1.ItemClicked

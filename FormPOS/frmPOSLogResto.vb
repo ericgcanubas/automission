@@ -1,7 +1,7 @@
 ﻿Public Class FrmPOSLogResto
     Public gsGotVoid As Boolean
     Public gsRestoNotEmpty As Boolean = False
-    Private Sub frmPOSLogResto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPOSLogResto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.Icon = gsIcon
         Me.Text = $"POS LOG Details #{gsPOS_LOG_ID}  Date on {DateFormatStandard(gsPOS_DATE)}"
@@ -9,17 +9,17 @@
         fLabel_Digital_M(lblTOTAL)
         fLabel_Digital_M(lblTransactionNo)
 
-        lblCashierName.Text = GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
+        lblCashierName.Text = GF_GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
         lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
 
         lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
-        fCOUNT_LOAD()
+        CountLoad()
         gsThemeNo = 0
         fMaterialSkin(Me)
     End Sub
 
-    Private Sub fCOUNT_LOAD()
-        fPOS_COUNT()
+    Private Sub CountLoad()
+        PosCountLoad()
 
         If gsCASH_COUNT_ID <> 0 Then
             btnNEw.Enabled = False
@@ -31,19 +31,18 @@
             btnVOID.Enabled = True
         End If
     End Sub
-    Private Sub fPOS_COUNT()
-        gsCASH_COUNT_ID = GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
+    Private Sub PosCountLoad()
+        gsCASH_COUNT_ID = GF_GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
     End Sub
-    Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
+    Private Sub BtnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         gsThemeNo = 0
-        fMaterialSkin(Me)
-        frmPOSRestoMenu.gsCloseCall = True
+        FrmPOSRestoMenu.gsCloseCall = True
         Me.Close()
 
     End Sub
 
-    Private Sub btnNEw_Click(sender As Object, e As EventArgs) Handles btnNEw.Click
-        fCallReports()
+    Private Sub BtnNEw_Click(sender As Object, e As EventArgs) Handles btnNEw.Click
+        CallReports()
 
         If gsPOS_SERVED_ONLY = False Then
 
@@ -80,11 +79,11 @@
 
 
 
-        frmPOSRestoMenu.gsCloseCall = False
+        FrmPOSRestoMenu.gsCloseCall = False
         Me.Close()
     End Sub
 
-    Private Sub btnCC_Click(sender As Object, e As EventArgs) Handles btnCC.Click
+    Private Sub BtnCC_Click(sender As Object, e As EventArgs) Handles btnCC.Click
         If gsRestoNotEmpty = True Then
             MessageBoxInfo("Please transaction not cleared.")
             Exit Sub
@@ -92,12 +91,12 @@
 
         If Val(lblTOTAL.Text) <> 0 Then
 
-            With frmPOSCashCount
+            With FrmPOSCashCount
                 .ShowDialog()
                 .Dispose()
             End With
-            frmPOSCashCount = Nothing
-            fCOUNT_LOAD()
+            FrmPOSCashCount = Nothing
+            CountLoad()
 
             If gsCASH_COUNT_ID <> 0 Then
 
@@ -111,13 +110,13 @@
 
     End Sub
 
-    Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
+    Private Sub BtnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
         ContextMenuStrip1.Show(Me, btnReport.Location)
     End Sub
-    Private Sub fSalesSUmmaryCustomer()
+    Private Sub SalesSummaryCustomer()
         SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByCustomerSummary.rpt"
-        Dim prPrint_Title As String = "Sales By Customer Summary"
+
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
@@ -142,18 +141,18 @@
         CryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+        FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
-        frmReportViewer.WindowState = FormWindowState.Maximized
-        frmReportViewer.ShowDialog()
-        frmReportViewer.Dispose()
+        FrmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
+        FrmReportViewer.WindowState = FormWindowState.Maximized
+        FrmReportViewer.ShowDialog()
+        FrmReportViewer.Dispose()
     End Sub
 
-    Private Sub fSalesByItemSummary()
+    Private Sub SalesByItemSummary()
         SystemSetDefaultPrinter(gsDEFAULT_PRINTER)
         Dim prFile_name As String = "crySalesByItemSummary.rpt"
-        Dim prPrint_Title As String = "Sales By Item Summary"
+
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
         CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
@@ -179,15 +178,15 @@
         CryParameterInsertValue(gscryRpt, $"Cashier {lblCashierName.Text}", "name_by")
 
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
-        frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+        FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
 
-        frmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
-        frmReportViewer.WindowState = FormWindowState.Maximized
-        frmReportViewer.ShowDialog()
-        frmReportViewer.Dispose()
+        FrmReportViewer.Text = "Sales Summary by Customer " & GetDateTimeNowSql()
+        FrmReportViewer.WindowState = FormWindowState.Maximized
+        FrmReportViewer.ShowDialog()
+        FrmReportViewer.Dispose()
     End Sub
 
-    Private Sub fSalesReportReceipt()
+    Private Sub SalesReportReceipt()
         If gsRestoNotEmpty = True Then
             MessageBoxInfo("Please transaction not cleared.")
             Exit Sub
@@ -207,7 +206,7 @@
         CryParameterInsertValue(gscryRpt, Val(gsPOS_LOG_ID), "pos_log_id")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("ReportDisplay"), "company_name")
 
-        CryParameterInsertValue(gscryRpt, GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
+        CryParameterInsertValue(gscryRpt, GF_GetNumberFieldValue("pos_cash_count", "ID", gsCASH_COUNT_ID, "TOTAL"), "cash_count")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyAddress"), "company_address")
         CryParameterInsertValue(gscryRpt, GetSystemSettingValueByText("CompanyPhoneNo"), "company_phone")
 
@@ -216,21 +215,21 @@
 
         If gsAdmin_User = True Then
             gsToolPanelView = False
-            frmReportViewer.CrystalReportViewer1.DisplayToolbar = True
-            frmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
-            frmReportViewer.WindowState = FormWindowState.Normal
-            frmReportViewer.ShowDialog()
-            frmReportViewer.Dispose()
+            FrmReportViewer.CrystalReportViewer1.DisplayToolbar = True
+            FrmReportViewer.Text = "POS Preview " & GetDateTimeNowSql()
+            FrmReportViewer.WindowState = FormWindowState.Normal
+            FrmReportViewer.ShowDialog()
+            FrmReportViewer.Dispose()
         Else
             gscryRpt.PrintToPrinter(1, False, 0, 0)
         End If
     End Sub
-    Private Sub btnVOID_Click(sender As Object, e As EventArgs) Handles btnVOID.Click
-        If NumIsNull(lblTransactionNo.Text) = 0 Then
+    Private Sub BtnVOID_Click(sender As Object, e As EventArgs) Handles btnVOID.Click
+        If GF_NumIsNull(lblTransactionNo.Text) = 0 Then
             MessageBoxInfo("No Entry available.")
             Exit Sub
         End If
-        DbAccessGetFieldReports(gsPayment_Print_Title, gsPayment_File_Name, frmReceivePayment.Name)
+        DbAccessGetFieldReports(gsPayment_Print_Title, gsPayment_File_Name, FrmReceivePayment.Name)
         With FrmPOSVoid
             .ShowDialog()
             gsGotVoid = .gsGotVoid
@@ -250,34 +249,29 @@
         FrmPOSRestoSettings.ShowDialog()
         FrmPOSRestoSettings.Dispose()
         FrmPOSRestoSettings = Nothing
-        fCallReports()
+        CallReports()
 
     End Sub
 
-    Private Sub fLoadReports()
+    Private Sub CallReports()
 
-
-
-    End Sub
-    Private Sub fCallReports()
-
-        DbAccessGetFieldReports(gsSalesOrder_Print_Title, gsSalesOrder_File_Name, frmSalesOrder.Name)
-        DbAccessGetFieldReports(gsInvoice_Print_Title, gsInvoice_File_Name, frmInvoice.Name)
-        DbAccessGetFieldReports(gsPayment_Print_Title, gsPayment_File_Name, frmReceivePayment.Name)
+        DbAccessGetFieldReports(gsSalesOrder_Print_Title, gsSalesOrder_File_Name, FrmSalesOrder.Name)
+        DbAccessGetFieldReports(gsInvoice_Print_Title, gsInvoice_File_Name, FrmInvoice.Name)
+        DbAccessGetFieldReports(gsPayment_Print_Title, gsPayment_File_Name, FrmReceivePayment.Name)
 
 
 
     End Sub
 
-    Private Sub tsSalesReceiptSummary_Click(sender As Object, e As EventArgs) Handles tsSalesReceiptSummary.Click
-        fSalesReportReceipt()
+    Private Sub TsSalesReceiptSummary_Click(sender As Object, e As EventArgs) Handles tsSalesReceiptSummary.Click
+        SalesReportReceipt()
     End Sub
 
-    Private Sub tsSalesByCustomer_Click(sender As Object, e As EventArgs) Handles tsSalesByCustomer.Click
-        fSalesSUmmaryCustomer()
+    Private Sub TsSalesByCustomer_Click(sender As Object, e As EventArgs) Handles tsSalesByCustomer.Click
+        SalesSummaryCustomer()
     End Sub
 
-    Private Sub tsSalesByItemSummary_Click(sender As Object, e As EventArgs) Handles tsSalesByItemSummary.Click
-        fSalesByItemSummary()
+    Private Sub TsSalesByItemSummary_Click(sender As Object, e As EventArgs) Handles tsSalesByItemSummary.Click
+        SalesByItemSummary()
     End Sub
 End Class

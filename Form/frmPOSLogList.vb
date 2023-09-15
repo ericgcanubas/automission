@@ -3,7 +3,7 @@
     Dim firstLoad As Boolean = True
     Private Sub RefreshData()
 
-        LoadDataGridViewBinding(dgvLog, $"SELECT 
+        GS_LoadDataGridViewBinding(dgvLog, $"SELECT 
   p.`ID`,
   p.`RECORDED_ON` AS `Recorded On`,
   p.TRANSACTION_DATE as `Date Entry`,
@@ -46,7 +46,7 @@ FROM
 
         For I As Integer = 0 To dgvLog.Rows.Count - 1
             With dgvLog.Rows(I)
-                If NumIsNull(.Cells("TOTAL").Value) <> NumIsNull(.Cells("Cash Count").Value) Then
+                If GF_NumIsNull(.Cells("TOTAL").Value) <> GF_NumIsNull(.Cells("Cash Count").Value) Then
                     .DefaultCellStyle.ForeColor = Color.Red
                 End If
 
@@ -54,7 +54,7 @@ FROM
         Next
     End Sub
     Private Sub RefreshLocation()
-        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
+        GS_TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
     End Sub
 
     Private Sub FrmCustomer_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -131,7 +131,7 @@ FROM
     End Sub
 
     Private Sub RecomputeJournalToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RecomputeJournalToolStripMenuItem.Click
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         For I As Integer = 0 To dgvLog.Rows.Count - 1
             With dgvLog.Rows(I)
                 gsPOS_DATE = DateFormatMySql(.Cells(1).Value)
@@ -141,7 +141,7 @@ FROM
             fPOS_LOG_JOURNAL(gsPOS_LOG_ID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
 
         Next
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
 
     End Sub
 

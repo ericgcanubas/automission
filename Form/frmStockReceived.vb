@@ -73,14 +73,14 @@ Public Class FrmStockReceived
                 For i As Integer = 0 To rd.FieldCount - 1
                     With dgvStock.Columns(i)
 
-                        If CheckNumStandard(.Name) = True Then
-                            dgvStock.Rows(x).Cells(i).Value = NumberFormatStandard(NumIsNull(rd(i)))
+                        If GF_CheckNumStandard(.Name) = True Then
+                            dgvStock.Rows(x).Cells(i).Value = NumberFormatStandard(GF_NumIsNull(rd(i)))
 
-                        ElseIf CheckNumNoDecimal(.Name) = True Then
+                        ElseIf GF_CheckNumNoDecimal(.Name) = True Then
 
-                            dgvStock.Rows(x).Cells(i).Value = NumberFormatNoDecimal(NumIsNull(rd(i)))
+                            dgvStock.Rows(x).Cells(i).Value = NumberFormatNoDecimal(GF_NumIsNull(rd(i)))
                         Else
-                            dgvStock.Rows(x).Cells(i).Value = TextIsNull(rd(i))
+                            dgvStock.Rows(x).Cells(i).Value = GF_TextIsNull(rd(i))
                         End If
                     End With
 
@@ -179,16 +179,16 @@ Public Class FrmStockReceived
     End Sub
     Private Sub RefreshComboBox()
 
-        ComboBoxLoad(cmbPREPARED_BY_ID, "select * from contact where type='2'", "ID", "NAME")
+        GS_ComboBoxLoad(cmbPREPARED_BY_ID, "select * from contact where type='2'", "ID", "NAME")
 
-        ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbLOCATION_ID, "select * from location where inactive ='0' ", "ID", "NAME")
 
-        ComboBoxLoad(cmbTRANSFER_TO_ID, "select * from location where ID <> '" & cmbLOCATION_ID.SelectedValue & "' AND Inactive ='0' order by NAME ", "ID", "NAME")
+        GS_ComboBoxLoad(cmbTRANSFER_TO_ID, "select * from location where ID <> '" & cmbLOCATION_ID.SelectedValue & "' AND Inactive ='0' order by NAME ", "ID", "NAME")
 
     End Sub
     Private Sub CmbLOCATION_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLOCATION_ID.SelectedIndexChanged
         Try
-            ComboBoxLoad(cmbTRANSFER_TO_ID, "select * from location where ID <> '" & cmbLOCATION_ID.SelectedValue & "' AND Inactive ='0' ", "ID", "NAME")
+            GS_ComboBoxLoad(cmbTRANSFER_TO_ID, "select * from location where ID <> '" & cmbLOCATION_ID.SelectedValue & "' AND Inactive ='0' ", "ID", "NAME")
 
         Catch ex As Exception
 
@@ -229,8 +229,8 @@ Public Class FrmStockReceived
         Dim total_cost As Double = 0
         Dim total_retail As Double = 0
         For i As Integer = 0 To dgvStock.Rows.Count - 1
-            total_retail += NumberFormatFixed(NumIsNull(dgvStock.Rows(i).Cells("RETAIL_VALUE").Value))
-            total_cost += NumberFormatFixed(NumIsNull(dgvStock.Rows(i).Cells("AMOUNT").Value))
+            total_retail += NumberFormatFixed(GF_NumIsNull(dgvStock.Rows(i).Cells("RETAIL_VALUE").Value))
+            total_cost += NumberFormatFixed(GF_NumIsNull(dgvStock.Rows(i).Cells("AMOUNT").Value))
         Next
 
         lblAMOUNT.Text = NumberFormatFixed(total_cost)
@@ -258,7 +258,7 @@ Public Class FrmStockReceived
         If IsNew = True Then
             dtpDATE.Checked = True
             If Trim(txtCODE.Text) = "" Then
-                txtCODE.Text = GetNextCode("STOCK_RECEIVED", cmbLOCATION_ID.SelectedValue)
+                txtCODE.Text = GF_GetNextCode("STOCK_RECEIVED", cmbLOCATION_ID.SelectedValue)
             End If
 
 
@@ -266,7 +266,7 @@ Public Class FrmStockReceived
             SqlCreate(Me, SQL_Field, SQL_Value)
             SqlExecuted($"INSERT INTO stock_received ({SQL_Field},ID,RECORDED_ON,STATUS) VALUES ({SQL_Value},{ID},'{GetDateTimeNowSql()}',0) ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "New", cmbPREPARED_BY_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         Else
 
@@ -278,22 +278,22 @@ Public Class FrmStockReceived
 
             If gsGotChangeDate = True Then
                 'Main
-                AccountJournalChangeDate(dtpDATE.Value, NumIsNull(lblACCOUNT_ID.Text), 96, ID, gsLast_Location_ID, gsLast_Date)
-                AccountJournalChangeDate(dtpDATE.Value, NumIsNull(lblACCOUNT_ID.Text), 96, ID, gsLast_location_Transfer_ID, gsLast_Date)
+                AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(lblACCOUNT_ID.Text), 96, ID, gsLast_Location_ID, gsLast_Date)
+                AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(lblACCOUNT_ID.Text), 96, ID, gsLast_location_Transfer_ID, gsLast_Date)
             End If
 
             If gsGotChangeLocation1 = True Then
                 'Source
-                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(lblACCOUNT_ID.Text), 96, ID, dtpDATE.Value, gsLast_Location_ID)
+                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(lblACCOUNT_ID.Text), 96, ID, dtpDATE.Value, gsLast_Location_ID)
             End If
 
             If gsGotChangeLocation2 = True Then
                 'Transfer
-                AccountJournalChangeLocation(cmbTRANSFER_TO_ID.SelectedValue, NumIsNull(lblACCOUNT_ID.Text), 96, ID, dtpDATE.Value, gsLast_location_Transfer_ID)
+                AccountJournalChangeLocation(cmbTRANSFER_TO_ID.SelectedValue, GF_NumIsNull(lblACCOUNT_ID.Text), 96, ID, dtpDATE.Value, gsLast_location_Transfer_ID)
             End If
 
             SqlExecuted("UPDATE stock_received SET " & SqlUpdate(Me) & " Where ID = '" & ID & "'")
-            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+            SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Edit", cmbPREPARED_BY_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
         End If
 
@@ -310,9 +310,9 @@ Public Class FrmStockReceived
                 gsJOURNAL_NO_FORM = 0
 
                 'LOCATION
-                GS_AccountJournalExecute(lblACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbTRANSFER_TO_ID.SelectedValue, 96, ID, dtpDATE.Value, 0, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(lblACCOUNT_ID.Text, cmbLOCATION_ID.SelectedValue, cmbTRANSFER_TO_ID.SelectedValue, 96, ID, dtpDATE.Value, 0, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
                 'Transfer to
-                GS_AccountJournalExecute(lblACCOUNT_ID.Text, cmbTRANSFER_TO_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 96, ID, dtpDATE.Value, 1, NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
+                GS_AccountJournalExecute(lblACCOUNT_ID.Text, cmbTRANSFER_TO_ID.SelectedValue, cmbLOCATION_ID.SelectedValue, 96, ID, dtpDATE.Value, 1, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
 
             End If
             '===========================================
@@ -365,19 +365,19 @@ Public Class FrmStockReceived
                         If gsSkipJournalEntry = False Then
                             If gsGotChangeDate = True Then
                                 'Main
-                                AccountJournalChangeDate(dtpDATE.Value, NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 97, .Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
-                                AccountJournalChangeDate(dtpDATE.Value, NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 97, .Cells("ID").Value, gsLast_location_Transfer_ID, gsLast_Date)
+                                AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 97, .Cells("ID").Value, gsLast_Location_ID, gsLast_Date)
+                                AccountJournalChangeDate(dtpDATE.Value, GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 97, .Cells("ID").Value, gsLast_location_Transfer_ID, gsLast_Date)
 
 
                             End If
                             If gsGotChangeLocation1 = True Then
                                 'Source
-                                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 97, .Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
+                                AccountJournalChangeLocation(cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 97, .Cells("ID").Value, dtpDATE.Value, gsLast_Location_ID)
 
                             End If
                             If gsGotChangeLocation2 = True Then
                                 'Transfer
-                                AccountJournalChangeLocation(cmbTRANSFER_TO_ID.SelectedValue, NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 97, .Cells("ID").Value, dtpDATE.Value, gsLast_location_Transfer_ID)
+                                AccountJournalChangeLocation(cmbTRANSFER_TO_ID.SelectedValue, GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), 97, .Cells("ID").Value, dtpDATE.Value, gsLast_location_Transfer_ID)
 
                             End If
                         End If
@@ -399,46 +399,46 @@ Public Class FrmStockReceived
 
                     Case "A"
                         Dim i_ID As Double = ObjectTypeMapId("stock_received_items")
-                        SqlExecuted("INSERT INTO stock_received_items SET id = '" & i_ID & "',LINE_NO='" & i & "',Stock_received_ID = '" & ID & "',item_id ='" & .Cells("item_ID").Value & "',QUANTITY='" & .Cells("QUANTITY").Value & "',UNIT_ID = " & GotNullNumber(.Cells("UNIT_ID").Value) & ",UNIT_BASE_QUANTITY='" & .Cells("UNIT_BASE_QUANTITY").Value & "',UNIT_COST='" & NumIsNull(.Cells("UNIT_COST").Value) & "',UNIT_PRICE='" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',AMOUNT='" & NumIsNull(.Cells("AMOUNT").Value) & "',RETAIL_VALUE='" & NumIsNull(.Cells("RETAIL_VALUE").Value) & "',ASSET_ACCOUNT_ID =" & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & ";")
+                        SqlExecuted("INSERT INTO stock_received_items SET id = '" & i_ID & "',LINE_NO='" & i & "',Stock_received_ID = '" & ID & "',item_id ='" & .Cells("item_ID").Value & "',QUANTITY='" & .Cells("QUANTITY").Value & "',UNIT_ID = " & GotNullNumber(.Cells("UNIT_ID").Value) & ",UNIT_BASE_QUANTITY='" & .Cells("UNIT_BASE_QUANTITY").Value & "',UNIT_COST='" & GF_NumIsNull(.Cells("UNIT_COST").Value) & "',UNIT_PRICE='" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',AMOUNT='" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',RETAIL_VALUE='" & GF_NumIsNull(.Cells("RETAIL_VALUE").Value) & "',ASSET_ACCOUNT_ID =" & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & ";")
 
                         .Cells("ID").Value = i_ID
 
                         'INVENTORY ITEM
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("QUANTITY").Value) * -1, NumIsNull(.Cells("UNIT_COST").Value), 28, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, NumIsNull(.Cells("QUANTITY").Value), NumIsNull(.Cells("UNIT_COST").Value), 28, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
+                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value) * -1, GF_NumIsNull(.Cells("UNIT_COST").Value), 28, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value), GF_NumIsNull(.Cells("UNIT_COST").Value), 28, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
 
                         If gsSkipJournalEntry = False Then
                             'Location
-                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 1, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, 1, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                             'Transfer to
-                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                         End If
 
                     Case "E"
-                        SqlExecuted("UPDATE stock_transfer_Items SET LINE_NO='" & i & "',item_id ='" & .Cells("item_ID").Value & "',QUANTITY='" & NumIsNull(.Cells("QUANTITY").Value) & "',UNIT_ID = " & GotNullNumber(NumIsNull(.Cells("UNIT_ID").Value)) & ",UNIT_BASE_QUANTITY='" & .Cells("UNIT_BASE_QUANTITY").Value & "',UNIT_COST='" & NumIsNull(.Cells("UNIT_COST").Value) & "',UNIT_PRICE='" & NumIsNull(.Cells("UNIT_PRICE").Value) & "',AMOUNT='" & NumIsNull(.Cells("AMOUNT").Value) & "',RETAIL_VALUE='" & NumIsNull(.Cells("RETAIL_VALUE").Value) & "',ASSET_ACCOUNT_ID =" & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & ",BATCH_ID =" & GotNullNumber(NumIsNull(.Cells("BATCH_ID").Value)) & " WHERE id = '" & Val(.Cells("ID").Value) & "' and Stock_received_ID  = '" & ID & "' limit 1;")
+                        SqlExecuted("UPDATE stock_transfer_Items SET LINE_NO='" & i & "',item_id ='" & .Cells("item_ID").Value & "',QUANTITY='" & GF_NumIsNull(.Cells("QUANTITY").Value) & "',UNIT_ID = " & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",UNIT_BASE_QUANTITY='" & .Cells("UNIT_BASE_QUANTITY").Value & "',UNIT_COST='" & GF_NumIsNull(.Cells("UNIT_COST").Value) & "',UNIT_PRICE='" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',AMOUNT='" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',RETAIL_VALUE='" & GF_NumIsNull(.Cells("RETAIL_VALUE").Value) & "',ASSET_ACCOUNT_ID =" & GotNullNumber(.Cells("ASSET_ACCOUNT_ID").Value) & ",BATCH_ID =" & GotNullNumber(GF_NumIsNull(.Cells("BATCH_ID").Value)) & " WHERE id = '" & Val(.Cells("ID").Value) & "' and Stock_received_ID  = '" & ID & "' limit 1;")
 
                         If gsSkipJournalEntry = False Then
                             'Location
-                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 1, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbLOCATION_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, 1, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                             'Transfer to
-                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
+                            GS_AccountJournalExecute(.Cells("ASSET_ACCOUNT_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, .Cells("ITEM_ID").Value, 97, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, 0, GF_NumIsNull(.Cells("AMOUNT").Value), gsJOURNAL_NO_FORM)
                         End If
 
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, NumIsNull(.Cells("QUANTITY").Value) * -1, NumIsNull(.Cells("UNIT_COST").Value), 7, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
-                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, NumIsNull(.Cells("QUANTITY").Value), NumIsNull(.Cells("UNIT_COST").Value), 7, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("BATCH_ID").Value))
+                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbLOCATION_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value) * -1, GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
+                        fItem_Inventory_SQL(.Cells("ITEM_ID").Value, cmbTRANSFER_TO_ID.SelectedValue, GF_NumIsNull(.Cells("QUANTITY").Value), GF_NumIsNull(.Cells("UNIT_COST").Value), 7, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("BATCH_ID").Value))
 
                     Case "D"
                         SqlExecuted("DELETE FROM stock_received_items  WHERE ID='" & Val(.Cells(0).Value) & "' and Stock_received_ID = '" & ID & "' limit 1;")
 
                         If gsSkipJournalEntry = False Then
                             'Location
-                            GS_AccountJournalDelete(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value)
+                            GS_AccountJournalDelete(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbLOCATION_ID.SelectedValue, 97, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value)
                             'Transfer to
-                            GS_AccountJournalDelete(NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, 97, NumIsNull(.Cells("ID").Value), dtpDATE.Value)
+                            GS_AccountJournalDelete(GF_NumIsNull(.Cells("ASSET_ACCOUNT_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, 97, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value)
                         End If
 
-                        GS_ItemInventoryRemove(28, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue)
-                        GS_ItemInventoryRemove(28, NumIsNull(.Cells("ID").Value), dtpDATE.Value, NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
+                        GS_ItemInventoryRemove(28, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue)
+                        GS_ItemInventoryRemove(28, GF_NumIsNull(.Cells("ID").Value), dtpDATE.Value, GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue)
 
                 End Select
             End With
@@ -451,16 +451,16 @@ Public Class FrmStockReceived
         For i As Integer = 0 To dgvStock.Rows.Count - 1
             With dgvStock.Rows(i)
                 If .Cells("CONTROL_STATUS").Value = "D" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
                 ElseIf .Cells("CONTROL_STATUS").Value = "E" Then
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                    fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                    fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
                     .Cells("CONTROL_STATUS").Value = "S"
                 ElseIf .Cells("CONTROL_STATUS").Value = "A" Then
                     If Date.Now.Date <> dtpDATE.Value Then
-                        fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
-                        fINVENTORY_ITEM_RECALCULATE_QTY(NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
+                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbLOCATION_ID.SelectedValue, dtpDATE.Value)
+                        fINVENTORY_ITEM_RECALCULATE_QTY(GF_NumIsNull(.Cells("ITEM_ID").Value), cmbTRANSFER_TO_ID.SelectedValue, dtpDATE.Value)
                     End If
                     .Cells("CONTROL_STATUS").Value = "S"
                 End If
@@ -525,10 +525,10 @@ Public Class FrmStockReceived
             End If
 
             If MessageBoxQuestion(gsMessageQuestion) = True Then
-                CursorLoadingOn(True)
+                GS_CursorLoadingOn(True)
                 RefreshInfo()
                 RefreshItem()
-                CursorLoadingOn(True)
+                GS_CursorLoadingOn(True)
                 For N As Integer = 0 To dgvStock.Rows.Count - 1
                     dgvStock.Rows(N).Cells("CONTROL_STATUS").Value = "D"
                 Next
@@ -538,9 +538,9 @@ Public Class FrmStockReceived
                 '===========================================
                 If gsSkipJournalEntry = False Then
                     'LOCATION
-                    GS_AccountJournalDelete(NumIsNull(lblACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 96, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(GF_NumIsNull(lblACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, 96, ID, dtpDATE.Value)
                     'Transfer to
-                    GS_AccountJournalDelete(NumIsNull(lblACCOUNT_ID.Text), cmbTRANSFER_TO_ID.SelectedValue, 96, ID, dtpDATE.Value)
+                    GS_AccountJournalDelete(GF_NumIsNull(lblACCOUNT_ID.Text), cmbTRANSFER_TO_ID.SelectedValue, 96, ID, dtpDATE.Value)
 
                 End If
                 '===========================================
@@ -549,11 +549,11 @@ Public Class FrmStockReceived
 
                 SqlExecuted("DELETE from stock_received WHERE ID ='" & ID & "' limit 1;")
                 DeleteNotify(Me)
-                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPREPARED_BY_ID.SelectedValue, "", NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
+                SetTransactionLog(ID, txtCODE.Text, Me.AccessibleName, "Delete", cmbPREPARED_BY_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
                 ClearInfo()
                 ID = 0
                 IsNew = True
-                CursorLoadingOn(False)
+                GS_CursorLoadingOn(False)
             End If
         End If
     End Sub
@@ -571,8 +571,8 @@ Public Class FrmStockReceived
 
     Private Sub FrmStockTransfer_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
-        ViewItemDisplay(dgvStock)
-        ViewNotSort(dgvStock)
+        GS_ViewItemDisplay(dgvStock)
+        GS_ViewNotSort(dgvStock)
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
@@ -778,7 +778,7 @@ Public Class FrmStockReceived
             If dgvStock.Rows.Count <> 0 Then
                 Dim i As Integer = dgvStock.CurrentRow.Index
 
-                If NumIsNull(dgvStock.Rows(i).Cells(0).Value) <> 0 Then
+                If GF_NumIsNull(dgvStock.Rows(i).Cells(0).Value) <> 0 Then
                     dgvStock.Rows(i).Cells("CONTROL_STATUS").Value = "D"
                     dgvStock.Rows(i).Visible = False
                 Else

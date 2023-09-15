@@ -11,7 +11,7 @@ Module modBillCredit
         Try
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_APPLIED)  as P  from bill_credit_bills as cmi inner join bill_credit as c on c.id = cmi.bill_Credit_ID where c.vendor_ID = '" & prVendor_ID & "' and cmi.bill_Credit_ID = '" & prBill_Credit_ID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -37,7 +37,7 @@ Module modBillCredit
 
             Dim rd As OdbcDataReader = SqlReader("select SUM(cmi.AMOUNT_APPLIED)  as P  from bill_credit_bills as cmi inner join bill_credit as c on c.id = cmi.bill_credit_ID where c.vendor_id = '" & prVendor_ID & "' and cmi.bill_credit_ID = '" & prBill_Credit_ID & "' and cmi.bill_ID = '" & prBill_ID & "'")
             If rd.Read Then
-                dPayment = NumIsNull(rd("P"))
+                dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -55,7 +55,7 @@ Module modBillCredit
         Try
             Dim rd As OdbcDataReader = SqlReader("select sum(amount_applied) as P from bill_credit_bills where bill_Credit_id = '" & prBill_Credit_ID & "' and Bill_ID <> '" & prBill_id & "'")
             If rd.Read Then
-                dAmount = NumIsNull(rd("P"))
+                dAmount = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
         Catch ex As Exception

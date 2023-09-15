@@ -8,7 +8,7 @@
 
     Private Sub fEntryList()
         Dim strQuery As String = $"(select ifnull(item_id,0) from invoice_items as ni inner join item as m on m.id = ni.item_id where ni.invoice_id = i.id  and m.type ='10' limit 1)"
-        LoadDataGridView(dgvList, $"select i.ID, ifnull( {strQuery},0) as `ROOM_ID`,i.CODE as `Billing No.`, format(i.AMOUNT,2) as `TOTAL`, format(i.BALANCE_DUE,2) as `BALANCE`,s.DESCRIPTION as `Status`  from invoice as i inner join ship_via as s on s.id = i.SHIP_VIA_ID where i.manager_id = '{gsPOS_LOG_ID}' order by i.id ")
+        GS_LoadDataGridView(dgvList, $"select i.ID, ifnull( {strQuery},0) as `ROOM_ID`,i.CODE as `Billing No.`, format(i.AMOUNT,2) as `TOTAL`, format(i.BALANCE_DUE,2) as `BALANCE`,s.DESCRIPTION as `Status`  from invoice as i inner join ship_via as s on s.id = i.SHIP_VIA_ID where i.manager_id = '{gsPOS_LOG_ID}' order by i.id ")
         dgvList.Columns("ID").Visible = False
         dgvList.Columns("ROOM_ID").Visible = False
 
@@ -20,7 +20,7 @@
             Dim Room_ID As Integer = dgvList.CurrentRow.Cells("ROOM_ID").Value
             Dim INVOICE_ID As Integer = dgvList.CurrentRow.Cells("ID").Value
             gsDocument_Finder_ID = INVOICE_ID
-            Dim ROOM_NAME As String = GetStringFieldValue("ITEM", "id", Room_ID, "description")
+            Dim ROOM_NAME As String = GF_GetStringFieldValue("ITEM", "id", Room_ID, "description")
             frmPOSRoomDetails.IsNew = INVOICE_ID
             frmPOSRoomDetails.gsWalkInCustomer = IIf(ROOM_NAME = "", True, False)
             frmPOSRoomDetails.Text = IIf(ROOM_NAME = "", "Walk-in customer", ROOM_NAME)

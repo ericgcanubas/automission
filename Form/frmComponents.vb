@@ -17,17 +17,17 @@ Public Class FrmComponents
             xRate.Visible = False
 
             Me.Text = "Item Hours"
-            ComboBoxLoad(cmbCode, gsItemCodeHoursList, "ID", "CODE")
-            ComboBoxLoad(cmbDescription, gsItemDescriptionHoursList, "ID", "DESCRIPTION")
+            GS_ComboBoxLoad(cmbCode, gsItemCodeHoursList, "ID", "CODE")
+            GS_ComboBoxLoad(cmbDescription, gsItemDescriptionHoursList, "ID", "DESCRIPTION")
 
         ElseIf Me.CausesValidation = True Then
             Me.Text = "Item Components"
-            ComboBoxLoad(cmbCode, gsItemCodeAssembly, "ID", "CODE")
-            ComboBoxLoad(cmbDescription, gsItemDescriptionAssembly, "ID", "DESCRIPTION")
+            GS_ComboBoxLoad(cmbCode, gsItemCodeAssembly, "ID", "CODE")
+            GS_ComboBoxLoad(cmbDescription, gsItemDescriptionAssembly, "ID", "DESCRIPTION")
         Else
             Me.Text = "Item Group"
-            ComboBoxLoad(cmbCode, gsItemCodeGROUP, "ID", "CODE")
-            ComboBoxLoad(cmbDescription, gsItemDescriptionGROUP, "ID", "DESCRIPTION")
+            GS_ComboBoxLoad(cmbCode, gsItemCodeGROUP, "ID", "CODE")
+            GS_ComboBoxLoad(cmbDescription, gsItemDescriptionGROUP, "ID", "DESCRIPTION")
         End If
 
 
@@ -63,14 +63,14 @@ Public Class FrmComponents
 
     End Sub
     Private Sub CmbCode_LostFocus(sender As Object, e As EventArgs) Handles cmbCode.LostFocus
-        If NumIsNull(cmbCode.SelectedValue) <> 0 Then
+        If GF_NumIsNull(cmbCode.SelectedValue) <> 0 Then
             BlueLight(numQty)
             numQty.Focus()
         End If
     End Sub
 
     Private Sub CmbDescription_LostFocus(sender As Object, e As EventArgs) Handles cmbDescription.LostFocus
-        If NumIsNull(cmbDescription.SelectedValue) <> 0 Then
+        If GF_NumIsNull(cmbDescription.SelectedValue) <> 0 Then
             BlueLight(numQty)
             numQty.Focus()
         End If

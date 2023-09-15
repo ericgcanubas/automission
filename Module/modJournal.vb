@@ -14,7 +14,7 @@
     End Sub
 
     Public Sub RowAddAccountJournal(ByVal dgv As DataGridView, ByVal prAdd As Boolean, ByVal prAccount_ID As String, ByVal prDebit As Double, ByVal prCredit As Double, ByVal prNotes As String, ByVal prClass_ID As String)
-        Dim prAccount_Name As String = GetStringFieldValue("ACCOUNT", "ID", prAccount_ID, "NAME")
+        Dim prAccount_Name As String = GF_GetStringFieldValue("ACCOUNT", "ID", prAccount_ID, "NAME")
         Dim d_amount As String = ""
         Dim c_amount As String = ""
         Dim prEntry_Type As Integer
@@ -33,7 +33,7 @@
         End If
 
         If prAdd = True Then
-            dgv.Rows.Add("N", prAccount_ID, prAccount_Name, prEntry_Type, d_amount, c_amount, prEntry_Value, prNotes, prClass_ID, GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME"), "A")
+            dgv.Rows.Add("N", prAccount_ID, prAccount_Name, prEntry_Type, d_amount, c_amount, prEntry_Value, prNotes, prClass_ID, GF_GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME"), "A")
             dgv.Refresh()
             dgv.Rows(dgv.Rows.Count - 1).Selected = True
 
@@ -56,7 +56,7 @@
                 .Cells("AMOUNT").Value = prEntry_Value
                 .Cells("NOTES").Value = prNotes
                 .Cells("CLASS_ID").Value = prClass_ID
-                .Cells("CLASS").Value = GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME")
+                .Cells("CLASS").Value = GF_GetStringFieldValue("CLASS", "ID", prClass_ID, "NAME")
             End With
 
 

@@ -70,7 +70,7 @@ Public Class FrmCollectionList
         '    Dim rd As MySqlDataReader = fExecutedReader("SELECT sum(AMOUNT) AS `AMT` FROM payment WHERE `DATE` BETWEEN '" & Format(dtpFrom.Value, "yyyy-MM-dd") & "' and  '" & Format(dtpTo.Value, "yyyy-MM-dd") & "' limit 1", cn)
         '    If rd.Read Then
 
-        '        Dim amt As Double = NumIsNull(rd("AMT"))
+        '        Dim amt As Double = GF_NumIsNull(rd("AMT"))
         '        lv.SubItems.Add(Format(amt, "standard"))
         '    Else
         '        lv.SubItems.Add("No collection")

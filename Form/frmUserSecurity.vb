@@ -88,7 +88,7 @@ Public Class FrmUserSecurity
     End Function
     Private Sub ColumnGrid()
 
-        DatagridViewMode(dgvAccessControl)
+
         With dgvAccessControl.Columns
             .Clear()
             .Add("SUB_ID", "SUB_ID")
@@ -126,7 +126,7 @@ Public Class FrmUserSecurity
 
                 Dim rd_sub As OdbcDataReader = SqlReader("select ml.sub_id,sm.description,sm.access_control from  tblmenu_list as ml inner join tblsub_menu as sm on sm.sub_id = ml.sub_id  where  ml.menu_id = '" & rd("menu_id") & "' and sm.active <> '0' order by sm.description")
                 While rd_sub.Read
-                    Dim T As Integer = NumIsNull(rd_sub("access_control"))
+                    Dim T As Integer = GF_NumIsNull(rd_sub("access_control"))
                     trvMENU.Nodes(i).Nodes.Add(rd_sub("sub_id"), rd_sub("description"), T)
                 End While
                 rd_sub.Close()
@@ -158,7 +158,7 @@ Public Class FrmUserSecurity
 
             Dim rd As OdbcDataReader = SqlReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_security_access as u  on u.sub_id = s.sub_id and u.user_id = '" & user_id & "' where s.access_control = '1' and s.active <> '0' order by ml.menu_id,s.description")
             While rd.Read
-                dgvAccessControl.Rows.Add(NumIsNull(rd("IDx")), TextIsNull(rd("description")), NumIsNull(rd("NEW")), NumIsNull(rd("EDIT")), NumIsNull(rd("DELETE")), NumIsNull(rd("FIND")), NumIsNull(rd("PRINT_PREVIEW")), IIf(IsDBNull(rd("NEW")), "A", "S"))
+                dgvAccessControl.Rows.Add(GF_NumIsNull(rd("IDx")), GF_TextIsNull(rd("description")), GF_NumIsNull(rd("NEW")), GF_NumIsNull(rd("EDIT")), GF_NumIsNull(rd("DELETE")), GF_NumIsNull(rd("FIND")), GF_NumIsNull(rd("PRINT_PREVIEW")), IIf(IsDBNull(rd("NEW")), "A", "S"))
             End While
             rd.Close()
         Catch ex As Exception
@@ -437,7 +437,7 @@ Public Class FrmUserSecurity
     End Sub
 
     Private Sub FrmUserSecurity_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewNotSort(dgvAccessControl)
+        GS_ViewNotSort(dgvAccessControl)
     End Sub
     Private Sub TxtFind2_TextChanged(sender As Object, e As EventArgs) Handles txtFind2.TextChanged
         GetQuickFind(dgvAccessControl, txtFind2.Text)

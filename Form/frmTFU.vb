@@ -112,7 +112,7 @@ Public Class FrmTFU
             cn_a.Open()
             Dim rd As OdbcDataReader = SqlReader("SHOW COLUMNS FROM `" & prTable_name & "` WHERE FIELD = '" & prField_name & "'")
             If rd.Read Then
-                If TextIsNull(rd_select("FIELD")) = TextIsNull(rd("FIELD")) Then
+                If GF_TextIsNull(rd_select("FIELD")) = GF_TextIsNull(rd("FIELD")) Then
                     b = True
                 Else
                     b = False

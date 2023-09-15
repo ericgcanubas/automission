@@ -10,7 +10,7 @@ Public Class FrmUserList
 
     Private Sub RefreshDataGrid()
 
-        LoadDataGridViewBinding(dgvUser, "SELECT 
+        GS_LoadDataGridViewBinding(dgvUser, "SELECT 
   u.`ID`,
   u.`Name`,
   u.`Description`,
@@ -176,7 +176,7 @@ ON utm.`ID` = u.`TYPE` ", Item_BS)
 
     End Sub
     Private Sub FrmUserList_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        ViewNotSort(dgvUser)
+        GS_ViewNotSort(dgvUser)
     End Sub
 
 

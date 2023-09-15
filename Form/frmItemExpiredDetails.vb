@@ -4,7 +4,7 @@
     Public This_BS As BindingSource
     Public Dgv As DataGridView
     Private Sub FrmShipViaDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ComboBoxLoad(cmbITEM_ID, "SELECT ID,CODE FROM ITEM WHERE `INACTIVE` ='0' ", "", "")
+        GS_ComboBoxLoad(cmbITEM_ID, "SELECT ID,CODE FROM ITEM WHERE `INACTIVE` ='0' ", "", "")
 
         If ID > 0 Then
             Try
@@ -17,7 +17,7 @@
 
     End Sub
     Private Sub GotBatchNo()
-        txtBATCH_NO.Text = Format(Val(GetMaxFieldLine("BATCH_NO", "item_batches", "ITEM_ID", cmbITEM_ID.SelectedValue)), "0000")
+        txtBATCH_NO.Text = Format(Val(GF_GetMaxFieldLine("BATCH_NO", "item_batches", "ITEM_ID", cmbITEM_ID.SelectedValue)), "0000")
     End Sub
     Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
 

@@ -5,7 +5,7 @@ Module modSecurity
         '
         Try
             Dim rd As OdbcDataReader
-            Dim xName As String = GetStringFieldValue("tblsub_menu", "SUB_ID", prSUB_ID, "DESCRIPTION")
+            Dim xName As String = GF_GetStringFieldValue("tblsub_menu", "SUB_ID", prSUB_ID, "DESCRIPTION")
             rd = SqlReader("select ID from system_security  where `NAME` = '" & xName & "' and user_id = '" & gsUser_ID & "' Limit 1")
             If rd.Read Then
                 bAccess = True
@@ -28,15 +28,15 @@ Module modSecurity
             Dim rd As OdbcDataReader
             rd = SqlReader("select `PRINT_PREVIEW` as T from user_security_access as u inner join tblsub_menu as s on s.sub_id = u.sub_id where u.user_id = '" & gsUser_ID & "' and s.FORM = '" & f.Name & "' limit 1 ")
             If rd.Read Then
-                If NumIsNull(rd("T")) = 0 Then
-                    If IsAccessDenied("You are not allowed print or preview to " & GetStringFieldValue("tblsub_menu", "FORM", f.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
+                If GF_NumIsNull(rd("T")) = 0 Then
+                    If IsAccessDenied("You are not allowed print or preview to " & GF_GetStringFieldValue("tblsub_menu", "FORM", f.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
                         bAccess = True
                     End If
                 Else
                     bAccess = True
                 End If
             Else
-                If IsAccessDenied("You are not allowed print or preview to " & GetStringFieldValue("tblsub_menu", "FORM", f.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
+                If IsAccessDenied("You are not allowed print or preview to " & GF_GetStringFieldValue("tblsub_menu", "FORM", f.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
                     bAccess = True
                 End If
             End If
@@ -54,15 +54,15 @@ Module modSecurity
             Dim rd As OdbcDataReader
             rd = SqlReader("select `FIND` as T from user_security_access as u inner join tblsub_menu as s on s.sub_id = u.sub_id where u.user_id = '" & gsUser_ID & "' and s.FORM = '" & Frm.Name & "' limit 1 ")
             If rd.Read Then
-                If NumIsNull(rd("T")) = 0 Then
-                    If IsAccessDenied("You are not allowed find to " & GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
+                If GF_NumIsNull(rd("T")) = 0 Then
+                    If IsAccessDenied("You are not allowed find to " & GF_GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
                         bAccess = True
                     End If
                 Else
                     bAccess = True
                 End If
             Else
-                If IsAccessDenied("You are not allowed find to " & GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
+                If IsAccessDenied("You are not allowed find to " & GF_GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
                     bAccess = True
                 End If
             End If
@@ -81,11 +81,11 @@ Module modSecurity
         Dim bAccess As Boolean = False
         Try
             Dim xMsg As String
-            xMsg = "You are not allowed delete to " & GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator "
+            xMsg = "You are not allowed delete to " & GF_GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator "
             Dim rd As OdbcDataReader
             rd = SqlReader("select `DELETE` as T from user_security_access as u inner join tblsub_menu as s on s.sub_id = u.sub_id where u.user_id = '" & gsUser_ID & "' and s.FORM = '" & Frm.Name & "' limit 1 ")
             If rd.Read Then
-                If NumIsNull(rd("T")) = 0 Then
+                If GF_NumIsNull(rd("T")) = 0 Then
 
                     If IsAccessDenied(xMsg) = False Then
 
@@ -121,15 +121,15 @@ Module modSecurity
             If IsNew = True Then
                 rd = SqlReader("select `NEW` as T from user_security_access as u inner join tblsub_menu as s on s.sub_id = u.sub_id where u.user_id = '" & gsUser_ID & "' and s.FORM = '" & Frm.Name & "' limit 1 ")
                 If rd.Read Then
-                    If NumIsNull(rd("T")) = 0 Then
-                        If IsAccessDenied("You are not allowed add new to " & GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
+                    If GF_NumIsNull(rd("T")) = 0 Then
+                        If IsAccessDenied("You are not allowed add new to " & GF_GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
                             bAccess = True
                         End If
                     Else
                         bAccess = True
                     End If
                 Else
-                    If IsAccessDenied("You are not allowed add new to " & GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
+                    If IsAccessDenied("You are not allowed add new to " & GF_GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
                         bAccess = True
                     End If
                 End If
@@ -143,8 +143,8 @@ Module modSecurity
             Else
                 rd = SqlReader("select `EDIT` as T from user_security_access as u inner join tblsub_menu as s on s.sub_id = u.sub_id where u.user_id = '" & gsUser_ID & "' and s.FORM = '" & Frm.Name & "' limit 1 ")
                 If rd.Read Then
-                    If NumIsNull(rd("T")) = 0 Then
-                        If IsAccessDenied("You are not allowed edit to " & GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
+                    If GF_NumIsNull(rd("T")) = 0 Then
+                        If IsAccessDenied("You are not allowed edit to " & GF_GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
                             bAccess = True
                         End If
                     Else
@@ -152,7 +152,7 @@ Module modSecurity
                     End If
 
                 Else
-                    If IsAccessDenied("You are not allowed edit to " & GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
+                    If IsAccessDenied("You are not allowed edit to " & GF_GetStringFieldValue("tblsub_menu", "FORM", Frm.Name, "DESCRIPTION") & " or perform the request function operation. For more information, contact the system administrator ") = False Then
                         bAccess = True
                     End If
                 End If

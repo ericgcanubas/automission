@@ -974,7 +974,7 @@ FROM
    LEFT OUTER JOIN document_status_map AS dsm
    ON dsm.`ID` = i.`STATUS`
    WHERE  i.Location_ID LIKE  '" & tscmbLocation.ComboBox.SelectedValue & "'  order by i.ID DESC  "
-        LoadDataGridView(dgvDocument, sQuery_PO)
+        GS_LoadDataGridView(dgvDocument, sQuery_PO)
         Return sQuery_PO
 
     End Function
@@ -1007,7 +1007,7 @@ FROM
    LEFT OUTER JOIN document_status_map AS dsm
    ON dsm.`ID` = i.`STATUS`
    WHERE  i.Location_ID LIKE  '" & tscmbLocation.ComboBox.SelectedValue & "'  order by i.ID DESC  "
-        LoadDataGridView(dgvDocument, sQuery_PR)
+        GS_LoadDataGridView(dgvDocument, sQuery_PR)
         Return sQuery_PR
 
     End Function
@@ -1121,11 +1121,11 @@ FROM
 
 
     Private Sub RefreshLocation()
-        TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
+        GS_TSComboBoxLoad(tscmbLocation, "SELECT `id`,`name` FROM location UNION SELECT '%' AS `id`,'All Location' AS `NAME` ORDER BY `ID`", "ID", "NAME")
     End Sub
     Private Sub RefreshMode()
         Dim SQL As String = ""
-        CursorLoadingOn(True)
+        GS_CursorLoadingOn(True)
         Select Case Me.AccessibleName
             Case "invoice"
                 SQL = RefreshInvoice()
@@ -1193,7 +1193,7 @@ FROM
 
         End Select
 
-        LoadDataGridViewBinding(dgvDocument, SQL, item_BS)
+        GS_LoadDataGridViewBinding(dgvDocument, SQL, item_BS)
 
 
         RefreshGridColumn()
@@ -1206,7 +1206,7 @@ FROM
             End With
         Next
 
-        CursorLoadingOn(False)
+        GS_CursorLoadingOn(False)
         dgvDocument.Columns(0).Visible = False
         SearchLoad()
     End Sub
@@ -1228,7 +1228,7 @@ FROM
                 Dim F As Form = Nothing
                 Dim Img As Image = Nothing
                 If rd.Read Then
-                    i = NumIsNull(rd("sub_id"))
+                    i = GF_NumIsNull(rd("sub_id"))
                     F = GetFormModule(rd("Form"))
                     Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
                     Img = Image.FromFile(folder & rd("image_file"))

@@ -3,7 +3,7 @@ Public Class FrmVendor
     Public contact_BS As BindingSource
     Private Sub RefreshData()
 
-        LoadDataGridViewBinding(dgvVendor, "SELECT 
+        GS_LoadDataGridViewBinding(dgvVendor, "SELECT 
   c.ID,
   c.Name,
   c.POSTAL_ADDRESS AS 'Postal Address',

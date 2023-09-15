@@ -5,7 +5,7 @@
         RefreshData()
     End Sub
     Private Sub RefreshData()
-        LoadDataGridViewBinding(dgvManufacturer, "Select ID,Code,`Name` from Manufacturer ", item_BS)
+        GS_LoadDataGridViewBinding(dgvManufacturer, "Select ID,Code,`Name` from Manufacturer ", item_BS)
         ViewColumn(dgvManufacturer, 44)
     End Sub
 

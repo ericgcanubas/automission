@@ -10,9 +10,9 @@
     Private Sub FrmJournalEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim sql_statement As String = "SELECT a.ID, a.`NAME` AS T FROM account AS a  Where a.INACTIVE ='0'  ORDER by FIELD(a.TYPE,'12','14','0','1','2','3','4','5','6','7','8','9','10','11','13'), a.NAME"
-        ComboBoxLoad(cmbAccounts, sql_statement, "ID", "T")
+        GS_ComboBoxLoad(cmbAccounts, sql_statement, "ID", "T")
 
-        ComboBoxLoad(cmbClass, "Select ID,NAME from CLASS", "ID", "NAME")
+        GS_ComboBoxLoad(cmbClass, "Select ID,NAME from CLASS", "ID", "NAME")
         ClearAndRefresh(Me)
         If gsAccount_ID <> "" Then
             cmbAccounts.SelectedValue = gsAccount_ID
@@ -88,7 +88,7 @@
     End Sub
 
     Private Sub CmbAccounts_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAccounts.SelectedIndexChanged
-        ThisType.Text = GetStringFieldValueOneReturn($"SELECT atm.`DESCRIPTION` FROM account AS a INNER JOIN `account_type_map` AS atm  ON a.`TYPE` =  atm.`ID` WHERE a.`ID` ='{cmbAccounts.SelectedValue}' limit 1;")
+        ThisType.Text = GF_GetStringFieldValueOneReturn($"SELECT atm.`DESCRIPTION` FROM account AS a INNER JOIN `account_type_map` AS atm  ON a.`TYPE` =  atm.`ID` WHERE a.`ID` ='{cmbAccounts.SelectedValue}' limit 1;")
     End Sub
 
     Private Sub CmbAccounts_LostFocus(sender As Object, e As EventArgs) Handles cmbAccounts.LostFocus
