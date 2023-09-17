@@ -172,7 +172,7 @@ SET `ID` = '{gsID}',
         End If
 
         '=====================================================
-        fUpdateInvoiceBalance(gsInvoice_ID, gsCustomer_ID)
+        GS_UpdateInvoiceBalance(gsInvoice_ID, gsCustomer_ID)
 
         For I As Integer = 0 To dgvMethodSet.Rows.Count - 1
             SqlExecuted($"INSERT INTO payment_multi_method SET PAYMENT_ID = '{gsID}',PAYMENT_METHOD_ID ='{ dgvMethodSet.Rows(I).Cells("ID").Value }',AMOUNT_APPLIED='{dgvMethodSet.Rows(I).Cells("APPLIED").Value}'")

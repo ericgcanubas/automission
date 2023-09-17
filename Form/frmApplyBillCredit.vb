@@ -100,7 +100,7 @@ WHERE m.vendor_id = '" & gsVendor_ID & "' and m.location_id ='" & gsLocation_ID 
         End With
 
         RefreshCredit()
-        lblDISCOUNT_USED.Text = NumberFormatStandard(fGetSumPaymentApplied(gsID, gsVendor_ID))
+        lblDISCOUNT_USED.Text = NumberFormatStandard(GF_GetSumPaymentApplied(gsID, gsVendor_ID))
         lblAmount_Due.Text = NumberFormatStandard(gsBalance + GF_GetBillSumCreditApplied(gsID, gsVendor_ID))
         FormComputed()
 

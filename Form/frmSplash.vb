@@ -190,7 +190,7 @@ Public Class FrmSplash
             If R_number = 8 Then
                 lblinitialization.Text = "Initialize securty ..."
                 GS_DoEvents()
-                fTax_Rate_Load()
+                GS_Tax_Rate_Load()
 
             End If
 

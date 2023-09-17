@@ -6,16 +6,16 @@
         Me.Icon = gsIcon
         Me.Text = $"POS LOG Details #{gsPOS_LOG_ID}  Date on {DateFormatStandard(gsPOS_DATE)}"
 
-        fLabel_Digital_M(lblTOTAL)
-        fLabel_Digital_M(lblTransactionNo)
+        GS_Label_Digital_M(lblTOTAL)
+        GS_Label_Digital_M(lblTransactionNo)
 
         lblCashierName.Text = GF_GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
         lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
 
         lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT
         CountLoad()
-        gsThemeNo = 0
-        fMaterialSkin(Me)
+
+
     End Sub
 
     Private Sub CountLoad()
@@ -35,7 +35,7 @@
         gsCASH_COUNT_ID = GF_GetNumberFieldValue("POS_LOG", "ID", gsPOS_LOG_ID, "CASH_COUNT_ID")
     End Sub
     Private Sub BtnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
-        gsThemeNo = 0
+
         FrmPOSRestoMenu.gsCloseCall = True
         Me.Close()
 

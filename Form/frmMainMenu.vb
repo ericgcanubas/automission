@@ -356,8 +356,8 @@ Public Class FrmMainMenu
         UtilityToolStripMenuItem.DropDownItems.Add(gsUtility)
         gsFolderDialog = FolderBrowserDialog1
 
-        gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
-        gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
+        gsUserDefaulLockNegativePerUser = GF_UserDefaulLockNegativePerUser()
+        gsDefault_unit_price_level_id = GF_UserDefaultPriceLevel()
         gsDefault_LOCATION_ID = GetLoadLocationDefault()
 
 

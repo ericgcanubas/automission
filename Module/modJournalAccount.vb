@@ -2,41 +2,12 @@
 Module modJournalAccount
 
 
-    Dim SOURCE_DT As Date
-    Dim SOURCE_LOC As Integer
-
-    Dim zID As Double = 0
-    Dim zPREV_ID As Double = 0
-    Dim zSEQUENCE_NO As Double = 0
-    Dim zACCOUNT_ID As Double = 0
-    Dim zOBJECT_TYPE_ID As Double = 0
-    Dim zAmount As Double = 0
-    Dim zEnding_Balance As Double = 0
-    Dim zSUBSIDAIRY_ID As Double = 0
-
-
-    Dim sCOGS_ACCOUNT_ID As String = ""
-    Dim sASSET_ACCOUNT_ID As String = ""
-    Dim sINCOME_ACCOUNT_ID As String = ""
-    Dim dItem_Amount As Double = 0
-    Dim dRate As Double = 0
-    Dim sitem_ID As Integer
-    Dim sitem_Type As Integer
     Dim sID As String
-    Dim item_Inventory_SEQUENCE_No As Integer = 0
-    Dim item_Inventory_last_SEQUENCE_No As Integer = 0
-    Dim item_Inventory_ID As String = ""
-    Dim item_Inventory_UNIT_COST As Double = 0
-    Dim item_Inventory_COST As Double = 0
-    Dim item_Inventory_QTY As Double = 0
-    ' Dim dAmount_Sales As Double = 0
-    Dim bTax As Boolean
-    Dim dTaxable_Amount As Double = 0
-    Dim dTax_Amount As Double = 0
 
 
 
-    Private Sub fGET_PREVIOUS_ACCOUNT(ByVal prAccount_ID As String, ByVal prsubsidiary_id As String, ByVal prLocation_ID As String, ByRef prSEQUENCE_No As Integer, ByRef prID As Double, ByRef prENDING_BALANCE As Double, ByVal ThisID As Integer)
+
+    Private Sub FGET_PREVIOUS_ACCOUNT(prAccount_ID As String, prLocation_ID As String, ByRef prSEQUENCE_No As Integer, ByRef prID As Double, ByRef prENDING_BALANCE As Double, ByVal ThisID As Integer)
 
         Try
 
@@ -66,12 +37,10 @@ Module modJournalAccount
 
     End Sub
 
-    Public Sub fPOS_STARTING_CASH_JOURNAL_Delete(ByVal prSTART_ID As String, ByVal prDATE As Date, ByVal prLOCATION_ID As Integer)
+    Public Sub GS_POS_Starting_Cash_Delete(ByVal prSTART_ID As String, ByVal prDATE As Date, ByVal prLOCATION_ID As Integer)
         Dim prOBJECT_TYPE_ITEM_ID As String = GetObjectTypeMapID("POS_STARTING_CASH")
         Dim SQL As String = $"SELECT sc.`ID`,sc.`POS_MACHINE_ID`,sc.`CASHIER_ID`,sc.`AMOUNT`,sc.`DRAWER_ACCOUNT_ID`,sc.`PETTY_CASH_ACCOUNT_ID` FROM pos_starting_cash AS sc WHERE sc.ID ='{prSTART_ID}'  limit 1"
         Dim rd As OdbcDataReader = SqlReader(SQL)
-        Dim xPREV_ID As Double = 0
-        Dim iSEQUENCE_NO As Integer = 0
 
         If rd.Read Then
             sID = GF_NumIsNull(prSTART_ID) 'POS STARTING CASH
@@ -80,12 +49,12 @@ Module modJournalAccount
             Dim sACCOUNT_PETTY_CASH_ID As Integer = Val(rd("PETTY_CASH_ACCOUNT_ID"))
             Dim SUBSIDAIRY_ID As Integer = GF_NumIsNull(rd("POS_MACHINE_ID"))
 
-            fJournalAccountRemoveFixed_Account_ID(sACCOUNT_DRAWER_ID, prOBJECT_TYPE_ITEM_ID, sID, prDATE, prLOCATION_ID, SUBSIDAIRY_ID)
-            fJournalAccountRemoveFixed_Account_ID(sACCOUNT_PETTY_CASH_ID, prOBJECT_TYPE_ITEM_ID, sID, prDATE, prLOCATION_ID, SUBSIDAIRY_ID)
+            GS_JournalAccountRemoveFixed_Account_ID(sACCOUNT_DRAWER_ID, prOBJECT_TYPE_ITEM_ID, sID, prDATE, prLOCATION_ID, SUBSIDAIRY_ID)
+            GS_JournalAccountRemoveFixed_Account_ID(sACCOUNT_PETTY_CASH_ID, prOBJECT_TYPE_ITEM_ID, sID, prDATE, prLOCATION_ID, SUBSIDAIRY_ID)
 
         End If
     End Sub
-    Public Sub fPOS_STARTING_CASH_JOURNAL(ByVal prSTART_ID As String, ByVal prDATE As Date, ByVal prLOCATION_ID As Integer)
+    Public Sub GS_PosStartingCashJournal(ByVal prSTART_ID As String, ByVal prDATE As Date, ByVal prLOCATION_ID As Integer)
         Dim prOBJECT_TYPE_ITEM_ID As String = GetObjectTypeMapID("POS_STARTING_CASH")
         Dim dJOURNAL_NO As Integer = 0
         Dim primary_journal_no As Integer = 0
@@ -100,7 +69,6 @@ Module modJournalAccount
             Dim sAMOUNT As Double = GF_NumIsNull(rd("AMOUNT"))
 
             sID = GF_NumIsNull(prSTART_ID) 'STARTING CASH ID
-            Dim xID As Double = 0
             Dim sACCOUNT_DRAWER_ID As Integer = Val(rd("DRAWER_ACCOUNT_ID"))
             Dim sACCOUNT_PETTY_CASH_ID As Integer = Val(rd("PETTY_CASH_ACCOUNT_ID"))
 
@@ -111,7 +79,7 @@ Module modJournalAccount
             Dim SUBSIDAIRY_ID As Integer = GF_NumIsNull(rd("POS_MACHINE_ID"))
 
             'UNDEPOSIT FUND / POS_CASH_COUNT '
-            xID = fGET_TRANSACTION_JOURNAL(sACCOUNT_DRAWER_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 0, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
+            Dim xID As Double = fGET_TRANSACTION_JOURNAL(sACCOUNT_DRAWER_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 0, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
             If dJOURNAL_NO = 0 Then
                 If primary_journal_no = 0 Then
                     primary_journal_no = GF_NumIsNull(GF_GetMaxField("JOURNAL_NO", "ACCOUNT_JOURNAL"))
@@ -122,7 +90,7 @@ Module modJournalAccount
             Else
                 primary_journal_no = dJOURNAL_NO
             End If
-            fGET_PREVIOUS_ACCOUNT(sACCOUNT_DRAWER_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+            FGET_PREVIOUS_ACCOUNT(sACCOUNT_DRAWER_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
             fAccount_Journal(xID, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO, sACCOUNT_DRAWER_ID, Location_ID, SUBSIDAIRY_ID, 0, prOBJECT_TYPE_ITEM_ID, sID, sDATE, 0, sAMOUNT, dEnding_Balance, "CASHDRAWER")
 
             'CASH DRAWER / POS_LOG'
@@ -134,11 +102,10 @@ Module modJournalAccount
                 Else
                     dJOURNAL_NO = primary_journal_no
                 End If
-            Else
-                primary_journal_no = dJOURNAL_NO
+
             End If
 
-            fGET_PREVIOUS_ACCOUNT(sACCOUNT_PETTY_CASH_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+            FGET_PREVIOUS_ACCOUNT(sACCOUNT_PETTY_CASH_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
             fAccount_Journal(xID, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO, sACCOUNT_PETTY_CASH_ID, Location_ID, SUBSIDAIRY_ID, 0, prOBJECT_TYPE_ITEM_ID, sID, sDATE, 1, sAMOUNT, dEnding_Balance, "PETTYCASH")
 
 
@@ -148,7 +115,7 @@ Module modJournalAccount
     End Sub
 
 
-    Public Sub fPOS_LOG_JOURNAL(ByVal prPOS_ID As String, ByVal DS_ACCOUNT_ID As Integer, ByVal prDATE As Date)
+    Public Sub GS_PosLogJournal(ByVal prPOS_ID As String, ByVal DS_ACCOUNT_ID As Integer, ByVal prDATE As Date)
 
 
         Dim prOBJECT_TYPE_ITEM_ID As String = GetObjectTypeMapID("POS_LOG")
@@ -168,7 +135,6 @@ Module modJournalAccount
             Dim DS_TOTAL As Double = GF_NumIsNull(rd("DS_TOTAL"))
 
             sID = GF_NumIsNull(prPOS_ID) 'POS LOG ID
-            Dim xID As Double = 0
             Dim sACCOUNT_DRAWER_ID As Integer = Val(rd("DRAWER_ACCOUNT_ID"))
             Dim sACCOUNT_UNDEPOSITED_ID As Integer = Val(rd("UNDEPOSITED_FUNDS_ACCOUNT_ID"))
             Dim sACCOUNT_DS_ID As Integer = DS_ACCOUNT_ID
@@ -179,7 +145,7 @@ Module modJournalAccount
             Dim SUBSIDAIRY_ID As Integer = GF_NumIsNull(rd("POS_MACHINE_ID"))
 
             'UNDEPOSIT FUND / POS_CASH_COUNT '
-            xID = fGET_TRANSACTION_JOURNAL(sACCOUNT_UNDEPOSITED_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 0, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
+            Dim xID As Double = fGET_TRANSACTION_JOURNAL(sACCOUNT_UNDEPOSITED_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 0, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
             If dJOURNAL_NO = 0 Then
                 If primary_journal_no = 0 Then
                     primary_journal_no = GF_NumIsNull(GF_GetMaxField("JOURNAL_NO", "ACCOUNT_JOURNAL"))
@@ -190,7 +156,7 @@ Module modJournalAccount
             Else
                 primary_journal_no = dJOURNAL_NO
             End If
-            fGET_PREVIOUS_ACCOUNT(sACCOUNT_UNDEPOSITED_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+            FGET_PREVIOUS_ACCOUNT(sACCOUNT_UNDEPOSITED_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
             fAccount_Journal(xID, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO, sACCOUNT_UNDEPOSITED_ID, Location_ID, SUBSIDAIRY_ID, 0, prOBJECT_TYPE_ITEM_ID, sID, sDATE, 0, COUNT_TOTAL, dEnding_Balance, "UNDEPOSITED FUNDS")
 
             'CASH DRAWER / POS_LOG'
@@ -207,7 +173,7 @@ Module modJournalAccount
                 primary_journal_no = dJOURNAL_NO
             End If
 
-            fGET_PREVIOUS_ACCOUNT(sACCOUNT_DRAWER_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+            FGET_PREVIOUS_ACCOUNT(sACCOUNT_DRAWER_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
             fAccount_Journal(xID, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO, sACCOUNT_DRAWER_ID, Location_ID, SUBSIDAIRY_ID, 0, prOBJECT_TYPE_ITEM_ID, sID, sDATE, 1, LOG_TOTAL, dEnding_Balance, "CASHDRAWER")
 
             If DS_TOTAL <> 0 Then
@@ -223,9 +189,8 @@ Module modJournalAccount
                             dJOURNAL_NO = primary_journal_no
                         End If
                     Else
-                        primary_journal_no = dJOURNAL_NO
                     End If
-                    fGET_PREVIOUS_ACCOUNT(sACCOUNT_DS_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+                    FGET_PREVIOUS_ACCOUNT(sACCOUNT_DS_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
                     fAccount_Journal(xID, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO, sACCOUNT_DS_ID, Location_ID, SUBSIDAIRY_ID, Year(sDATE), prOBJECT_TYPE_ITEM_ID, sID, sDATE, 0, DS_TOTAL, dEnding_Balance, "CASHDISCREPANCY")
 
 
@@ -240,27 +205,25 @@ Module modJournalAccount
                             dJOURNAL_NO = primary_journal_no
                         End If
                     Else
-                        primary_journal_no = dJOURNAL_NO
                     End If
-                    fGET_PREVIOUS_ACCOUNT(sACCOUNT_DS_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+                    FGET_PREVIOUS_ACCOUNT(sACCOUNT_DS_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
                     fAccount_Journal(xID, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO, sACCOUNT_DS_ID, Location_ID, SUBSIDAIRY_ID, Year(sDATE), prOBJECT_TYPE_ITEM_ID, sID, sDATE, 1, DS_TOTAL, dEnding_Balance, "CASHDISCREPANCY")
                 End If
 
             Else
                 'Remove
-                fJournalAccountRemoveFixed_Account_ID(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
+                GS_JournalAccountRemoveFixed_Account_ID(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
             End If
 
 
         End If
 
     End Sub
-    Public Sub fPOS_LOG_JOURNAL_DELETE(ByVal prPOS_ID As String, ByVal DS_ACCOUNT_ID As Integer, ByVal prDATE As Date)
+    Public Sub GS_POS_LOG_JOURNAL_DELETE(ByVal prPOS_ID As String, ByVal DS_ACCOUNT_ID As Integer, ByVal prDATE As Date)
 
 
         Dim prOBJECT_TYPE_ITEM_ID As String = GetObjectTypeMapID("POS_LOG")
         Dim dJOURNAL_NO As Integer = 0
-        Dim primary_journal_no As Integer = 0
 
         Dim SQL As String = $"SELECT pl.`TOTAL` AS `LOG_TOTAL`,pc.`TOTAL` AS `COUNT_TOTAL`,(pl.`TOTAL` -  pc.`TOTAL`) AS `DS_TOTAL`,pl.`UNDEPOSITED_FUNDS_ACCOUNT_ID`,pl.`DRAWER_ACCOUNT_ID`,pl.`LOCATION_ID`,pl.`CASHIER_ID`,pl.`POS_MACHINE_ID` FROM POS_LOG AS pl INNER JOIN  POS_CASH_COUNT AS pc ON pl.`CASH_COUNT_ID` = pc.`ID`  WHERE pl.ID = '{prPOS_ID}' limit 1 "
 
@@ -275,7 +238,6 @@ Module modJournalAccount
             Dim DS_TOTAL As Double = GF_NumIsNull(rd("DS_TOTAL"))
 
             sID = GF_NumIsNull(prPOS_ID) 'POS LOG ID
-            Dim xID As Double = 0
             Dim sACCOUNT_DRAWER_ID As Integer = Val(rd("DRAWER_ACCOUNT_ID"))
             Dim sACCOUNT_UNDEPOSITED_ID As Integer = Val(rd("UNDEPOSITED_FUNDS_ACCOUNT_ID"))
             Dim sACCOUNT_DS_ID As Integer = DS_ACCOUNT_ID
@@ -286,38 +248,38 @@ Module modJournalAccount
             Dim SUBSIDAIRY_ID As Integer = GF_NumIsNull(rd("POS_MACHINE_ID"))
 
             'UNDEPOSIT FUND / POS_CASH_COUNT '
-            xID = fGET_TRANSACTION_JOURNAL(sACCOUNT_UNDEPOSITED_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 0, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
+            Dim xID As Double = fGET_TRANSACTION_JOURNAL(sACCOUNT_UNDEPOSITED_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 0, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
 
-            fGET_PREVIOUS_ACCOUNT(sACCOUNT_UNDEPOSITED_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+            FGET_PREVIOUS_ACCOUNT(sACCOUNT_UNDEPOSITED_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
 
-            fJournalAccountRemoveFixed_Account_ID(sACCOUNT_UNDEPOSITED_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
+            GS_JournalAccountRemoveFixed_Account_ID(sACCOUNT_UNDEPOSITED_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
 
 
             'CASH DRAWER / POS_LOG'
             xID = fGET_TRANSACTION_JOURNAL(sACCOUNT_DRAWER_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 1, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
-            fGET_PREVIOUS_ACCOUNT(sACCOUNT_DRAWER_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
-            fJournalAccountRemoveFixed_Account_ID(sACCOUNT_DRAWER_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
+            FGET_PREVIOUS_ACCOUNT(sACCOUNT_DRAWER_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+            GS_JournalAccountRemoveFixed_Account_ID(sACCOUNT_DRAWER_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
 
             If DS_TOTAL <> 0 Then
                 'CASH DISCREPANCY
 
                 If DS_TOTAL > 0 Then   'Debit
                     xID = fGET_TRANSACTION_JOURNAL(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 0, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
-                    fGET_PREVIOUS_ACCOUNT(sACCOUNT_DS_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
-                    fJournalAccountRemoveFixed_Account_ID(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
+                    FGET_PREVIOUS_ACCOUNT(sACCOUNT_DS_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+                    GS_JournalAccountRemoveFixed_Account_ID(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
 
                 Else  'Credit
 
                     xID = fGET_TRANSACTION_JOURNAL(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, Location_ID, 1, sDATE, xPREV_ID, iSEQUENCE_NO, dJOURNAL_NO)
-                    fGET_PREVIOUS_ACCOUNT(sACCOUNT_DS_ID, SUBSIDAIRY_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
-                    fJournalAccountRemoveFixed_Account_ID(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
+                    FGET_PREVIOUS_ACCOUNT(sACCOUNT_DS_ID, Location_ID, iSEQUENCE_NO, xPREV_ID, dEnding_Balance, xID)
+                    GS_JournalAccountRemoveFixed_Account_ID(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
 
                 End If
 
             Else
                 'Remove
 
-                fJournalAccountRemoveFixed_Account_ID(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
+                GS_JournalAccountRemoveFixed_Account_ID(sACCOUNT_DS_ID, prOBJECT_TYPE_ITEM_ID, sID, sDATE, Location_ID, SUBSIDAIRY_ID)
             End If
 
 
@@ -339,12 +301,12 @@ Module modJournalAccount
             Exit Sub
         End If
 
-        Dim dBALANCE As Double = 0
-
         If AMOUNT < 0 Then
-            AMOUNT = AMOUNT * -1
+            AMOUNT *= -1
         End If
 
+
+        Dim dBALANCE As Double
         If ENTRY_TYPE = 0 Then
             dBALANCE = ENDING_BALANCE + AMOUNT
         Else
@@ -376,7 +338,7 @@ Module modJournalAccount
                 SEQUENCE_GROUP = '" & SEQUENCE_GROUP & "',OBJECT_TYPE = '" & OBJECT_TYPE & "',OBJECT_ID = '" & OBJECT_ID & "',
                 OBJECT_DATE = '" & OBJECT_DATE & "',ENTRY_TYPE = '" & ENTRY_TYPE & "',AMOUNT = '" & AMOUNT & "',ENDING_BALANCE ='" & dBALANCE & "',EXTENDED_OPTIONS = " & GF_GotNullText(EXTENDED_OPTIONS.Replace("INVENTORY", "")) & " WHERE ID = '" & ID & "' limit 1")
                 'AUTO COMPUTED ENDING BALANCE
-                fReConfigAccountJournal_ENDING_BALANCE(ACCOUNT_ID, LOCATION_ID, SUBSIDIARY_ID, SEQUENCE_NO, SEQUENCE_GROUP, ID)
+                ReConfigAccountJournalENDING_BALANCE(ACCOUNT_ID, LOCATION_ID, SUBSIDIARY_ID, SEQUENCE_NO, SEQUENCE_GROUP)
 
             End If
 
@@ -385,12 +347,12 @@ Module modJournalAccount
             If rdc.Read Then
                 If MessageBoxWarningYesNo($"Duplicate Journal No. {GF_TextIsNull(rdc("JOURNAL_NO"))} found do you want to continue?") = True Then
                     'Doing to remove the duplicate
-                    fJournalAccountRemoveFixed_Account_ID_SP(GF_NumIsNull(rdc("ACCOUNT_ID")), GF_NumIsNull(rdc("OBJECT_TYPE")), GF_NumIsNull(rdc("OBJECT_ID")), rdc("OBJECT_DATE"), LOCATION_ID, GF_NumIsNull(rdc("SUBSIDIARY_ID")), rdc("ID"))
+                    GS_JournalAccountRemoveFixed_Account_ID_SP(GF_NumIsNull(rdc("ACCOUNT_ID")), GF_NumIsNull(rdc("OBJECT_TYPE")), GF_NumIsNull(rdc("OBJECT_ID")), rdc("OBJECT_DATE"), LOCATION_ID, GF_NumIsNull(rdc("SUBSIDIARY_ID")), rdc("ID"))
                 End If
             End If
 
 
-            End If
+        End If
 
     End Sub
     Private Sub fFixed_Ending_Balance(ByVal OBJECT_DATE As Date, ByVal PREVIOUS_ID As Integer, ByVal ACCOUNT_ID As Integer, ByVal LOCATION_ID As Integer)
@@ -410,9 +372,9 @@ Module modJournalAccount
                 If PREVIOUS_ID <> GF_NumIsNull(rd("ID")) Then
 
                     If GF_NumIsNull(rd("ENTRY_TYPE")) = 0 Then
-                        T_ENDING_BALANCE = T_ENDING_BALANCE + GF_NumIsNull(rd("AMOUNT"))
+                        T_ENDING_BALANCE += GF_NumIsNull(rd("AMOUNT"))
                     Else
-                        T_ENDING_BALANCE = T_ENDING_BALANCE - GF_NumIsNull(rd("AMOUNT"))
+                        T_ENDING_BALANCE -= GF_NumIsNull(rd("AMOUNT"))
                     End If
 
                     SqlExecuted($"UPDATE account_journal SET  PREVIOUS_ID ={GotNullNumber(T_PREVIOUS_ID)},ENDING_BALANCE = '{T_ENDING_BALANCE}' WHERE ID ='{rd("ID")}' and ACCOUNT_ID ='{ACCOUNT_ID}' and LOCATION_ID='{LOCATION_ID}'  limit 1;")
@@ -540,10 +502,9 @@ Module modJournalAccount
 
 
 
-    Private Sub fReConfigAccountJournal_ENDING_BALANCE(ByVal prACCOUNT_ID As Integer, ByVal prLocation_ID As Integer, ByVal prSUBSIDIARY_ID As Double, ByVal prSEQUENCE_NO As Double, ByVal prSEQUENCE_GROUP As Double, ByVal prID As Double)
+    Private Sub ReConfigAccountJournalENDING_BALANCE(ByVal prACCOUNT_ID As Integer, ByVal prLocation_ID As Integer, ByVal prSUBSIDIARY_ID As Double, ByVal prSEQUENCE_NO As Double, ByVal prSEQUENCE_GROUP As Double)
 
         Dim dEnding_Balance As Double = 0
-        Dim dAmount As Double = 0
         Dim sQuery As String = ""
         Dim bFirst As Boolean = False
         Try
@@ -555,14 +516,15 @@ Module modJournalAccount
                 If bFirst = False Then
                     dEnding_Balance = GF_NumIsNull(rd("ENDING_BALANCE"))
                 Else
+                    Dim dAmount As Double
                     If GF_NumIsNull(rd("ENTRY_TYPE")) = 0 Then
                         dAmount = GF_NumIsNull(rd("AMOUNT"))
-                        dEnding_Balance = dEnding_Balance + dAmount
+                        dEnding_Balance += dAmount
                     Else
                         dAmount = GF_NumIsNull(rd("AMOUNT"))
-                        dEnding_Balance = dEnding_Balance - dAmount
+                        dEnding_Balance -= dAmount
                     End If
-                    sQuery = sQuery & fAccount_Journal_Collect_SQL(rd("ID"), GF_NumIsNull(rd("PREVIOUS_ID")), prACCOUNT_ID, GF_NumIsNull(rd("SEQUENCE_NO")), prSEQUENCE_GROUP, prSUBSIDIARY_ID, prLocation_ID, dEnding_Balance)
+                    sQuery &= fAccount_Journal_Collect_SQL(rd("ID"), GF_NumIsNull(rd("PREVIOUS_ID")), prACCOUNT_ID, GF_NumIsNull(rd("SEQUENCE_NO")), prSEQUENCE_GROUP, prSUBSIDIARY_ID, prLocation_ID, dEnding_Balance)
                 End If
                 bFirst = True
 
@@ -581,39 +543,8 @@ Module modJournalAccount
     Private Function fAccount_Journal_Collect_SQL(ByVal prID As Double, ByVal prPREV_ID As Double, ByVal prACCOUNT_ID As Integer, ByVal prSEQUENCE_NO As Double, ByVal prSEQUENCE_GROUP As Integer, ByVal prSUBSIDIARY_ID As Double, ByVal prLOCATION_ID As Integer, ByVal prENDING_BALANCE As Double) As String
         Return "UPDATE account_journal SET ENDING_BALANCE = '" & prENDING_BALANCE & "' WHERE ID='" & prID & "' and PREVIOUS_ID='" & prPREV_ID & "' and ACCOUNT_ID ='" & prACCOUNT_ID & "' and SEQUENCE_NO='" & prSEQUENCE_NO & "' and SEQUENCE_GROUP = '" & prSEQUENCE_GROUP & "' and Location_ID = '" & prLOCATION_ID & "' and SUBSIDIARY_ID='" & prSUBSIDIARY_ID & "';"
     End Function
-    Private Sub fReConfigItemInventory_ENDING_Balance(ByVal prItem_ID As Double, ByVal prLocation_ID As Integer, ByVal prSEQUENCE_NO As Double, ByVal prID As Double)
-        Dim sQuery As String = ""
-        Dim LAST_ENDING_QTY As Double = 0
-        Dim dENDING_COST As Double = 0
-        Dim sSelect_SQL As String = "SELECT ID,PREVIOUS_ID,QUANTITY,ENDING_QUANTITY,ENDING_UNIT_COST FROM ITEM_INVENTORY WHERE ITEM_ID='" & prItem_ID & "' and Location_ID='" & prLocation_ID & "' and  SEQUENCE_NO >='" & prSEQUENCE_NO & "' ORDER BY SEQUENCE_NO,ID"
 
-        Dim bFirst As Boolean = False
-        Try
 
-            Dim rd As OdbcDataReader = SqlReader(sSelect_SQL)
-            While rd.Read
-                If bFirst = False Then
-                    LAST_ENDING_QTY = GF_NumIsNull(rd("ENDING_QUANTITY"))
-                Else
-                    LAST_ENDING_QTY = LAST_ENDING_QTY + GF_NumIsNull(rd("QUANTITY"))
-                    dENDING_COST = LAST_ENDING_QTY * GF_NumIsNull(rd("ENDING_UNIT_COST"))
-                    sQuery = sQuery & fInventoryItemCollect(rd("ID"), rd("PREVIOUS_ID"), prItem_ID, LAST_ENDING_QTY, dENDING_COST)
-                End If
-                bFirst = True
-            End While
-            rd.Close()
-            If sQuery <> "" Then
-                SqlExecuted(sQuery)
-            End If
-        Catch ex As Exception
-            MessageBoxWarning(ex.Message)
-        Finally
-
-        End Try
-    End Sub
-    Private Function fInventoryItemCollect(ByVal prID As Double, ByVal prPREV_ID As Double, ByVal prITEM_ID As Double, ByVal prENDING_QUANTITY As Double, ByVal prENDING_COST As Double) As String
-        Return "UPDATE item_inventory SET ENDING_QUANTITY = '" & prENDING_QUANTITY & "',ENDING_COST='" & prENDING_COST & "' WHERE ID ='" & prID & "' and PREVIOUS_ID = '" & prPREV_ID & "' and ITEM_ID = '" & prITEM_ID & "';"
-    End Function
 
     Public Sub fItemInventoryRemoveFixedByType(ByVal prSOURCE_TYPE As Integer, ByVal prSOURCE_ID As Double, ByVal prSOURCE_DATE As Date, ByVal prItem_ID As Double, ByVal prLocation_ID As Integer)
         Dim prSEQUENCE_NO As Integer
@@ -621,7 +552,7 @@ Module modJournalAccount
         Dim sItem_Inventory As String = "SELECT ID,PREVIOUS_ID,SEQUENCE_NO FROM ITEM_INVENTORY WHERE ITEM_ID='" & prItem_ID & "' and SOURCE_REF_TYPE= '" & prSOURCE_TYPE & "' and SOURCE_REF_ID ='" & prSOURCE_ID & "' and SOURCE_REF_DATE = '" & Format(prSOURCE_DATE, "yyyy-MM-dd") & "' and Location_ID='" & prLocation_ID & "' Limit 1"
         Dim prID As Double = 0
         Dim prPrev_ID As Double = 0
-        Dim ENDING_QUANTITY As Double = 0
+
         Try
             Dim rd As OdbcDataReader = SqlReader(sItem_Inventory)
             If rd.Read Then
@@ -637,6 +568,7 @@ Module modJournalAccount
                 Dim sQuery As String = ""
                 rd = SqlReader(sSelect_SQL)
                 While rd.Read
+                    Dim ENDING_QUANTITY As Double
                     If prSEQUENCE_NO = GF_NumIsNull(rd("SEQUENCE_NO")) And prID = GF_NumIsNull(rd("ID")) Then
                         ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY"))
                         sQuery = "DELETE FROM item_inventory WHERE ID='" & prID & "' and ITEM_ID='" & prItem_ID & "' and LOCATION_ID='" & prLocation_ID & "';"
@@ -663,28 +595,27 @@ Module modJournalAccount
         Try
             Dim rd As OdbcDataReader = SqlReader("select ID,SEQUENCE_NO,SUBSIDIARY_ID,ACCOUNT_ID,SEQUENCE_GROUP from account_journal where OBJECT_TYPE = '" & iObj_Type & "' and OBJECT_ID = '" & prOBJECT_ID & "' and OBJECT_DATE = '" & Format(prOBJECT_DATE, "yyyy-MM-dd") & "' and Location_ID = '" & prLocation_ID & "' and SUBSIDIARY_ID = '" & prSUBSIDIARY_ID & "'")
             While rd.Read
-                fJournal_Account_Execute(rd("SEQUENCE_NO"), rd("SUBSIDIARY_ID"), rd("ACCOUNT_ID"), prLocation_ID, rd("SEQUENCE_GROUP"), rd("ID"))
+                Journal_Account_Execute(rd("SEQUENCE_NO"), rd("SUBSIDIARY_ID"), rd("ACCOUNT_ID"), prLocation_ID, rd("SEQUENCE_GROUP"), rd("ID"))
             End While
             rd.Close()
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
-    Private Sub fJournal_Account_Execute(ByVal prSEQUENCE_NO As Integer, ByVal prSUBSIDIARY_ID As Integer, ByVal prACCOUNT_ID As Integer, ByVal prLocation_ID As Integer, prSEQUENCE_GROUP As Integer, ByVal prID As Double)
+    Private Sub Journal_Account_Execute(ByVal prSEQUENCE_NO As Integer, ByVal prSUBSIDIARY_ID As Integer, ByVal prACCOUNT_ID As Integer, ByVal prLocation_ID As Integer, prSEQUENCE_GROUP As Integer, ByVal prID As Double)
         Dim dPrevious_ID As Double = 0
 
         Dim sql_select As String = "SELECT ID,PREVIOUS_ID,SEQUENCE_NO,ENTRY_TYPE,AMOUNT,ENDING_BALANCE from ACCOUNT_JOURNAL where SEQUENCE_NO >= '" & prSEQUENCE_NO & "'  and ACCOUNT_ID = '" & prACCOUNT_ID & "' and Location_ID = '" & prLocation_ID & "'  Order by SEQUENCE_NO,ID "
         Dim sQuery As String = ""
-        Dim f_Query As String = ""
-        Dim l_Query As String = ""
         Dim ENDING_BALANCE As Double = 0
-        Dim ENTRY_TYPE As Integer = 0
-        Dim AMOUNT As Double = 0
+
         Try
 
             Dim rd As OdbcDataReader = SqlReader(sql_select)
             While rd.Read
 
+                Dim ENTRY_TYPE As Integer
+                Dim AMOUNT As Double
                 If prSEQUENCE_NO = rd("SEQUENCE_NO") And prID = GF_NumIsNull(rd("ID")) Then
                     ENTRY_TYPE = GF_NumIsNull(rd("ENTRY_TYPE"))
                     AMOUNT = GF_NumIsNull(rd("AMOUNT"))
@@ -704,9 +635,9 @@ Module modJournalAccount
                         ENTRY_TYPE = GF_NumIsNull(rd("ENTRY_TYPE"))
                         AMOUNT = GF_NumIsNull(rd("AMOUNT"))
                         If ENTRY_TYPE = 0 Then
-                            ENDING_BALANCE = ENDING_BALANCE + AMOUNT
+                            ENDING_BALANCE += AMOUNT
                         Else
-                            ENDING_BALANCE = ENDING_BALANCE - AMOUNT
+                            ENDING_BALANCE -= AMOUNT
                         End If
                         SqlExecuted("UPDATE account_journal SET ENDING_BALANCE='" & ENDING_BALANCE & "',PREVIOUS_ID =" & GotNullNumber(dPrevious_ID) & " WHERE ID ='" & rd("ID") & "' and SEQUENCE_NO = '" & GF_NumIsNull(rd("SEQUENCE_NO")) & "' and SUBSIDIARY_ID ='" & prSUBSIDIARY_ID & "' and ACCOUNT_ID = '" & prACCOUNT_ID & "' and Location_ID = '" & prLocation_ID & "' and SEQUENCE_GROUP = '" & prSEQUENCE_GROUP & "' limit 1;")
                         dPrevious_ID = GF_NumIsNull(rd("ID"))
@@ -714,24 +645,18 @@ Module modJournalAccount
                 End If
             End While
             rd.Close()
-            '     Dim SQL_FINAL As String = f_Query & sQuery & l_Query
-
-            '     If SQL_FINAL <> "" Then
-            '   SqlExecuted(SQL_FINAL)
-            '    End If
-
         Catch ex As Exception
             MessageBoxWarning(ex.Message)
         End Try
     End Sub
 
 
-    Public Sub fJournalAccountRemoveFixed_Account_ID_SP(ByVal prAccount_ID As Integer, ByVal iObj_Type As Integer, ByVal prOBJECT_ID As String, ByVal prOBJECT_DATE As Date, ByVal prLocation_ID As Integer, ByVal prSUBSIDIARY_ID As Integer, ByVal prID As Integer)
+    Public Sub GS_JournalAccountRemoveFixed_Account_ID_SP(ByVal prAccount_ID As Integer, ByVal iObj_Type As Integer, ByVal prOBJECT_ID As String, ByVal prOBJECT_DATE As Date, ByVal prLocation_ID As Integer, ByVal prSUBSIDIARY_ID As Integer, ByVal prID As Integer)
         Try
 
             Dim rd As OdbcDataReader = SqlReader("select ID,SEQUENCE_NO,SUBSIDIARY_ID,ACCOUNT_ID,SEQUENCE_GROUP from account_journal where  Account_ID ='" & prAccount_ID & "' and OBJECT_TYPE = '" & iObj_Type & "' and OBJECT_ID = '" & prOBJECT_ID & "' and OBJECT_DATE = '" & Format(prOBJECT_DATE, "yyyy-MM-dd") & "' and Location_ID = '" & prLocation_ID & "' and SUBSIDIARY_ID = '" & prSUBSIDIARY_ID & "' and ID = '" & prID & "' limit 1")
             If rd.Read Then
-                fJournal_Account_Execute(rd("SEQUENCE_NO"), rd("SUBSIDIARY_ID"), rd("ACCOUNT_ID"), prLocation_ID, rd("SEQUENCE_GROUP"), rd("ID"))
+                Journal_Account_Execute(rd("SEQUENCE_NO"), rd("SUBSIDIARY_ID"), rd("ACCOUNT_ID"), prLocation_ID, rd("SEQUENCE_GROUP"), rd("ID"))
             End If
             rd.Close()
         Catch ex As Exception
@@ -741,14 +666,14 @@ Module modJournalAccount
 
 
 
-    Public Sub fJournalAccountRemoveFixed_Account_ID(ByVal prAccount_ID As Integer, ByVal iObj_Type As Integer, ByVal prOBJECT_ID As String, ByVal prOBJECT_DATE As Date, ByVal prLocation_ID As Integer, ByVal prSUBSIDIARY_ID As Integer)
+    Public Sub GS_JournalAccountRemoveFixed_Account_ID(ByVal prAccount_ID As Integer, ByVal iObj_Type As Integer, ByVal prOBJECT_ID As String, ByVal prOBJECT_DATE As Date, ByVal prLocation_ID As Integer, ByVal prSUBSIDIARY_ID As Integer)
         If prAccount_ID = 0 Then
             Exit Sub
         End If
         Try
             Dim rd As OdbcDataReader = SqlReader("select ID,SEQUENCE_NO,SUBSIDIARY_ID,ACCOUNT_ID,SEQUENCE_GROUP from account_journal where  Account_ID ='" & prAccount_ID & "' and OBJECT_TYPE = '" & iObj_Type & "' and OBJECT_ID = '" & prOBJECT_ID & "' and OBJECT_DATE = '" & Format(prOBJECT_DATE, "yyyy-MM-dd") & "' and Location_ID = '" & prLocation_ID & "' and SUBSIDIARY_ID = '" & prSUBSIDIARY_ID & "' limit 1")
             If rd.Read Then
-                fJournal_Account_Execute(GF_NumIsNull(rd("SEQUENCE_NO")), GF_NumIsNull(rd("SUBSIDIARY_ID")), GF_NumIsNull(rd("ACCOUNT_ID")), prLocation_ID, rd("SEQUENCE_GROUP"), rd("ID"))
+                Journal_Account_Execute(GF_NumIsNull(rd("SEQUENCE_NO")), GF_NumIsNull(rd("SUBSIDIARY_ID")), GF_NumIsNull(rd("ACCOUNT_ID")), prLocation_ID, rd("SEQUENCE_GROUP"), rd("ID"))
             End If
             rd.Close()
         Catch ex As Exception

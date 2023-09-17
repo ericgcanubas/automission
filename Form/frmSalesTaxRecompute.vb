@@ -75,7 +75,7 @@ Public Class FrmSalesTaxRecompute
 
         Dim Return_value As Double
         If prTaxable = True Then
-            Dim dVat As Double = fTax_Rate_Find(GF_NumIsNull(Tax_Type))
+            Dim dVat As Double = GS_Tax_Rate_Find(GF_NumIsNull(Tax_Type))
             Tax_Amount = (dVat / 100) * AMT
             Taxable_Amount = Tax_Amount + AMT
             If Tax_Type = 12 Then

@@ -28,14 +28,14 @@ Public Class FrmPOSOrderEntry
         Return HasChange
     End Function
     Private Sub FrmSalesOrder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fLabel_Digital_L(lblAMOUNT)
+        GS_Label_Digital_L(lblAMOUNT)
 
-        fLabel_Digital_L(xlblTOTAL)
-        fLabel_Digital_M(lblOUTPUT_TAX_AMOUNT)
+        GS_Label_Digital_L(xlblTOTAL)
+        GS_Label_Digital_M(lblOUTPUT_TAX_AMOUNT)
 
 
-        gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
-        gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
+        gsUserDefaulLockNegativePerUser = GF_UserDefaulLockNegativePerUser()
+        gsDefault_unit_price_level_id = GF_UserDefaultPriceLevel()
         gsDefault_LOCATION_ID = GetLoadLocationDefault()
         gsStorage_Location_ID = GetLoadStorageLocation()
         gsIncRefNoByLocation = GetIncRefNoByLocation()
@@ -52,7 +52,7 @@ Public Class FrmPOSOrderEntry
         '=============================
 
         ClearAndRefresh(Me)
-        fMaterialSkin(Me)
+
         Me.Icon = gsIcon
 
 
@@ -84,12 +84,12 @@ Public Class FrmPOSOrderEntry
         gsENDING_RECEIPT_NO = 0
 
         Me.AccessibleName = GF_GetStringFieldValue("tblsub_menu", "form", "frmSalesOrder", "sub_id")
-        gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
+        gsUserDefaulLockNegativePerUser = GF_UserDefaulLockNegativePerUser()
 
         gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
         gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
         gsPOSDefaultCustomer_ID = GetSystemSettingValueByText("POSDefaultCustomerId")
-        gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
+        gsDefault_unit_price_level_id = GF_UserDefaultPriceLevel()
         gsDefault_LOCATION_ID = GetLoadLocationDefault()
         gsIncRefNoByLocation = GetIncRefNoByLocation()
         gsPOS_MACHINE_ID = GF_GetPosMachineId()
@@ -614,11 +614,11 @@ FROM
 
                     Case "S"
                         'UPDATE TAX ONLY
-                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        GS_Tax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         SQL_SCRIPT = "UPDATE sales_order_items SET TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE SALES_ORDER_ID ='" & ID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value))
                         SqlExecuted(SQL_SCRIPT)
                     Case "A"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        GS_Tax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         Dim i_ID As Double = ObjectTypeMapId("SALES_ORDER_ITEMS")
                         SQL_SCRIPT = "INSERT INTO sales_order_items SET LINE_NO='" & GF_GetMaxFieldLine("LINE_NO", "SALES_ORDER_ITEMS", "SALES_ORDER_ID", ID) & "',ID='" & i_ID & "',QUANTITY ='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",SALES_ORDER_ID ='" & ID & "',CLOSED ='0',INVOICED_QTY= NULL,PRICE_LEVEL_ID = " & GotNullNumber(GF_NumIsNull(.Cells("PRICE_LEVEL_ID").Value)) & ",GROUP_LINE_ID = " & GotNullNumber(sGROUP_ITEM_ID)
                         SqlExecuted(SQL_SCRIPT)
@@ -634,7 +634,7 @@ FROM
                         End If
 
                     Case "E"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        GS_Tax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         SQL_SCRIPT = "UPDATE sales_order_items SET QUANTITY='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & " WHERE SALES_ORDER_ID ='" & ID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & ""
                         SqlExecuted(SQL_SCRIPT)
                         EstimateItemUpdate(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value), GF_NumIsNull(.Cells("QTY").Value), True)

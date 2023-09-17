@@ -13,13 +13,13 @@
             Me.Size = New Size(436, 288)
         End If
 
-        fLabel_Digital_M(lblTOTAL)
-        fLabel_Digital_M(lblTransactionNo)
+        GS_Label_Digital_M(lblTOTAL)
+        GS_Label_Digital_M(lblTransactionNo)
 
-        fMaterialSkin(Me)
+
         Me.Icon = gsIcon
         Me.Text = $"[POINT OF SALES] Transaction On { DateFormatStandard(gsPOS_DATE)}"
-        ' Me.BackColor = ColorTranslator.FromHtml(gsColor_Code)
+
         gsType = 0
         lblCashierName.Text = GF_GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
         lblMachineName.Text = GF_GetStringFieldValue("pos_machine", "ID", gsPOS_MACHINE_ID, "NAME")

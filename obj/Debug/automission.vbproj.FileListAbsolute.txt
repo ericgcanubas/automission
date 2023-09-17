@@ -2270,7 +2270,6 @@ D:\Automission\obj\Debug\Automission.frmReportComponentItems.resources
 D:\Automission\obj\Debug\Automission.frmReportComponents.resources
 D:\Automission\obj\Debug\Automission.frmReportManager.resources
 D:\Automission\obj\Debug\Automission.frmReportManagerComponent.resources
-D:\Automission\obj\Debug\Automission.frmReportMonthly.resources
 D:\Automission\obj\Debug\Automission.frmReportSetting.resources
 D:\Automission\obj\Debug\Automission.frmReportSettingDetails.resources
 D:\Automission\obj\Debug\Automission.frmReportSetup.resources
@@ -2308,7 +2307,6 @@ D:\Automission\obj\Debug\Automission.frmAccountJournalTransaction.resources
 D:\Automission\obj\Debug\Automission.frmUpdateSecurity.resources
 D:\Automission\obj\Debug\Automission.FrmCheckingAccountJournal.resources
 D:\Automission\obj\Debug\Automission.FrmItemInventoryCostUpdate.resources
-D:\Automission\obj\Debug\Automission.frmJournalAccountEndingRecomputed.resources
 D:\Automission\obj\Debug\Automission.frmPOS_LOG_STATING_COUNT_FIXED.resources
 D:\Automission\obj\Debug\Automission.vbproj.GenerateResource.cache
 D:\Automission\obj\Debug\Automission.vbproj.CoreCompileInputs.cache

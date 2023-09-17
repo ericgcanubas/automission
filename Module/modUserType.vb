@@ -2,7 +2,7 @@
 Module modUserType
     Public gsUserLoop As Integer
     Public gsProgressBar As ProgressBar
-    Public Sub fUpdateUserTypeSecurity(ByVal prUser_Type_Id As String, ByVal prUserIdBase As Integer)
+    Public Sub GS_UpdateUserTypeSecurity(ByVal prUser_Type_Id As String, ByVal prUserIdBase As Integer)
 
         gsUserLoop = 0
         gsProgressBar.Minimum = 0
@@ -17,14 +17,14 @@ Module modUserType
 
             Dim rd As OdbcDataReader = SqlReader("SELECT ml.sub_id,sm.description,(SELECT `NAME` FROM system_security WHERE user_id ='" & prUserIdBase & "' AND `name` = sm.`Description` ) AS `user_value` FROM  tblmenu_list AS ml INNER JOIN tblsub_menu AS sm ON sm.sub_id = ml.sub_id  ORDER BY sm.description ")
             While rd.Read
-                gsUserLoop = gsUserLoop + 1
+                gsUserLoop += 1
                 Dim bAdd As Boolean
                 If GF_TextIsNull(rd("user_value")) = "" Then
                     bAdd = False
                 Else
                     bAdd = True
                 End If
-                fUpdateUserTypeValue(prUser_Type_Id, GF_TextIsNull(rd("description")), bAdd)
+                UpdateUserTypeValue(prUser_Type_Id, GF_TextIsNull(rd("description")), bAdd)
                 gsProgressBar.Value = gsUserLoop
 
             End While
@@ -38,20 +38,20 @@ Module modUserType
                 Else
                     bAdd = True
                 End If
-                fUpdateUserTypeValue(prUser_Type_Id, GF_TextIsNull(rd("description")), bAdd)
+                UpdateUserTypeValue(prUser_Type_Id, GF_TextIsNull(rd("description")), bAdd)
             End While
             rd.Close()
-            fUpdateUserTypeSecurityAccess(prUserIdBase, prUser_Type_Id)
+            UpdateUserTypeSecurityAccess(prUserIdBase, prUser_Type_Id)
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fUpdateUserTypeSecurity(prUser_Type_Id, prUserIdBase)
+                GS_UpdateUserTypeSecurity(prUser_Type_Id, prUserIdBase)
             Else
                 End
             End If
         End Try
     End Sub
-    Private Sub fUpdateUserTypeValue(ByVal prUser_Type_id As Integer, ByVal prName_Select As String, ByVal bAdd As Boolean)
+    Private Sub UpdateUserTypeValue(ByVal prUser_Type_id As Integer, ByVal prName_Select As String, ByVal bAdd As Boolean)
 
         Try
             Dim rd As OdbcDataReader = SqlReader("select * from user_type_system_security where `NAME` = '" & prName_Select & "' and USER_TYPE_ID ='" & prUser_Type_id & "' limit 1")
@@ -67,7 +67,7 @@ Module modUserType
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fUpdateUserTypeValue(prUser_Type_id, prName_Select, bAdd)
+                UpdateUserTypeValue(prUser_Type_id, prName_Select, bAdd)
             Else
                 End
             End If
@@ -75,7 +75,7 @@ Module modUserType
 
     End Sub
 
-    Private Sub fUpdateUserTypeSecurityAccess(ByVal user_id As String, ByVal User_Type_ID As String)
+    Private Sub UpdateUserTypeSecurityAccess(ByVal user_id As String, ByVal User_Type_ID As String)
 
         gsUserLoop = 0
         Try
@@ -89,21 +89,21 @@ Module modUserType
 
             Dim rd As OdbcDataReader = SqlReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_security_access as u  on u.sub_id = s.sub_id and u.user_id = '" & user_id & "' where s.access_control = '1' order by ml.menu_id,s.description")
             While rd.Read
-                gsUserLoop = gsUserLoop + 1
-                fUpdateUserTypeSecurityAccessValue(User_Type_ID, GF_NumIsNull(rd("IDx")), GF_NumIsNull(rd("NEW")), GF_NumIsNull(rd("EDIT")), GF_NumIsNull(rd("DELETE")), GF_NumIsNull(rd("FIND")), GF_NumIsNull(rd("PRINT_PREVIEW")))
+                gsUserLoop += 1
+                UpdateUserTypeSecurityAccessValue(User_Type_ID, GF_NumIsNull(rd("IDx")), GF_NumIsNull(rd("NEW")), GF_NumIsNull(rd("EDIT")), GF_NumIsNull(rd("DELETE")), GF_NumIsNull(rd("FIND")), GF_NumIsNull(rd("PRINT_PREVIEW")))
                 gsProgressBar.Value = gsUserLoop
             End While
             rd.Close()
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fUpdateUserTypeSecurityAccess(user_id, User_Type_ID)
+                UpdateUserTypeSecurityAccess(user_id, User_Type_ID)
             Else
                 End
             End If
         End Try
     End Sub
-    Private Sub fUpdateUserTypeSecurityAccessValue(ByVal user_type_id As String, ByVal sub_id As String, ByVal prNew As Integer, ByVal prEdit As Integer, ByVal prDelete As Integer, ByVal prFind As Integer, ByVal prPrint_View As Integer)
+    Private Sub UpdateUserTypeSecurityAccessValue(ByVal user_type_id As String, ByVal sub_id As String, ByVal prNew As Integer, ByVal prEdit As Integer, ByVal prDelete As Integer, ByVal prFind As Integer, ByVal prPrint_View As Integer)
 
         Try
 
@@ -120,7 +120,7 @@ Module modUserType
     End Sub
 
 
-    Public Sub fUserSecuritySettingSetUpdateControl(ByVal User_ID As String, ByVal BaseUserTypeID As String)
+    Public Sub GS_UserSecuritySettingSetUpdateControl(ByVal User_ID As String, ByVal BaseUserTypeID As String)
         gsUserLoop = 0
 
         Try
@@ -134,14 +134,14 @@ Module modUserType
 
             Dim rd As OdbcDataReader = SqlReader("SELECT ml.sub_id,sm.description,sm.access_control,(SELECT `NAME` FROM user_type_system_security WHERE User_TYPE_ID ='" & BaseUserTypeID & "' AND `name` = sm.`Description` ) AS `user_value` FROM  tblmenu_list AS ml INNER JOIN tblsub_menu AS sm ON sm.sub_id = ml.sub_id  ORDER BY sm.description ")
             While rd.Read
-                gsUserLoop = gsUserLoop + 1
+                gsUserLoop += 1
                 Dim bAdd As Boolean
                 If GF_TextIsNull(rd("user_value")) = "" Then
                     bAdd = False
                 Else
                     bAdd = True
                 End If
-                fUserSetValue(User_ID, GF_TextIsNull(rd("description")), bAdd)
+                UserSetValue(User_ID, GF_TextIsNull(rd("description")), bAdd)
                 gsProgressBar.Value = gsUserLoop
 
             End While
@@ -157,11 +157,11 @@ Module modUserType
                 Else
                     bAdd = True
                 End If
-                fUserSetValue(User_ID, GF_TextIsNull(rd("description")), bAdd)
+                UserSetValue(User_ID, GF_TextIsNull(rd("description")), bAdd)
 
             End While
             rd.Close()
-            fUpdateUserSecurityAccess(User_ID, BaseUserTypeID) 'Next
+            UpdateUserSecurityAccess(User_ID, BaseUserTypeID) 'Next
         Catch ex As Exception
 
             MessageBoxWarning(ex.Message)
@@ -169,7 +169,7 @@ Module modUserType
         End Try
 
     End Sub
-    Private Sub fUserSetValue(ByVal prUser_id As Integer, ByVal prName_Select As String, ByVal bAdd As Boolean)
+    Private Sub UserSetValue(ByVal prUser_id As Integer, ByVal prName_Select As String, ByVal bAdd As Boolean)
 
         Try
 
@@ -191,7 +191,7 @@ Module modUserType
 
     End Sub
     '======
-    Private Sub fUpdateUserSecurityAccess(ByVal user_id As String, ByVal User_Type_ID As String)
+    Private Sub UpdateUserSecurityAccess(ByVal user_id As String, ByVal User_Type_ID As String)
         gsUserLoop = 0
 
         Try
@@ -206,8 +206,8 @@ Module modUserType
 
             Dim rd As OdbcDataReader = SqlReader("select u.*,s.description,s.SUB_ID as 'IDx' from tblsub_menu as s inner join tblmenu_list ml on ml.sub_id = s.sub_id left outer join user_type_security_access as u  on u.sub_id = s.sub_id and u.user_type_id = '" & User_Type_ID & "' where s.access_control = '1' order by ml.menu_id,s.description")
             While rd.Read
-                gsUserLoop = gsUserLoop + 1
-                fUpdateUserSecurityAccessValue(user_id, GF_NumIsNull(rd("IDx")), GF_NumIsNull(rd("NEW")), GF_NumIsNull(rd("EDIT")), GF_NumIsNull(rd("DELETE")), GF_NumIsNull(rd("FIND")), GF_NumIsNull(rd("PRINT_VIEW")))
+                gsUserLoop += 1
+                UpdateUserSecurityAccessValue(user_id, GF_NumIsNull(rd("IDx")), GF_NumIsNull(rd("NEW")), GF_NumIsNull(rd("EDIT")), GF_NumIsNull(rd("DELETE")), GF_NumIsNull(rd("FIND")), GF_NumIsNull(rd("PRINT_VIEW")))
                 gsProgressBar.Value = gsUserLoop
             End While
             rd.Close()
@@ -216,7 +216,7 @@ Module modUserType
         End Try
 
     End Sub
-    Private Sub fUpdateUserSecurityAccessValue(ByVal user_id As String, ByVal sub_id As String, ByVal prNew As Integer, ByVal prEdit As Integer, ByVal prDelete As Integer, ByVal prFind As Integer, ByVal prPrint_View As Integer)
+    Private Sub UpdateUserSecurityAccessValue(ByVal user_id As String, ByVal sub_id As String, ByVal prNew As Integer, ByVal prEdit As Integer, ByVal prDelete As Integer, ByVal prFind As Integer, ByVal prPrint_View As Integer)
 
         Try
 
@@ -233,15 +233,15 @@ Module modUserType
         End Try
     End Sub
 
-    Public Sub fSecurityUpdate(ByVal prALL As Boolean, ByVal prUSERTYPE As Boolean, ByVal prUSER_ID As String, ByVal prUSER_TYPE_ID As String)
+    Public Sub GS_SecurityUpdate(ByVal prALL As Boolean, ByVal prUSERTYPE As Boolean, ByVal prUSER_ID As String, ByVal prUSER_TYPE_ID As String)
 
-        frmUpdateSecurity.gsAll = prALL
-        frmUpdateSecurity.gsUserType = prUSERTYPE
-        frmUpdateSecurity.gsID = prUSER_ID
-        frmUpdateSecurity.gsUSER_TYPE_ID = prUSER_TYPE_ID
-        frmUpdateSecurity.ShowDialog()
-        frmUpdateSecurity.Dispose()
-        frmUpdateSecurity = Nothing
+        FrmUpdateSecurity.gsAll = prALL
+        FrmUpdateSecurity.gsUserType = prUSERTYPE
+        FrmUpdateSecurity.gsID = prUSER_ID
+        FrmUpdateSecurity.gsUSER_TYPE_ID = prUSER_TYPE_ID
+        FrmUpdateSecurity.ShowDialog()
+        FrmUpdateSecurity.Dispose()
+        FrmUpdateSecurity = Nothing
     End Sub
 
 End Module

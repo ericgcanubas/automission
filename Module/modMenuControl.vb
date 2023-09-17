@@ -63,10 +63,8 @@ Module modMenuControl
     End Sub
     Public Sub TabFormOpen(ByVal F As Form, ByVal T As MdiTabControl.TabControl, ByVal img As Image)
 
-        ' F.BackColor = Color.White
         Dim This_Sub_ID As String = F.Tag
         Dim SQL As String = $"select  * from tblsub_menu where sub_id = '{This_Sub_ID}' limit 1;"
-
 
         Dim bModal As Boolean = False
         If gsMenuSubID = "32" Then
@@ -137,8 +135,7 @@ Module modMenuControl
                 Dim p As Panel = F.Controls("Panel1")
 
                 Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\toolbar\"
-                ' p.BackgroundImage = Image.FromFile(folder & "banner_default1.jpg")
-                ' p.BackgroundImageLayout = ImageLayout.Stretch
+
                 Dim L As Label = p.Controls("Label1")
                 Dim Pic As PictureBox = p.Controls("PictureBox1")
                 Pic.Image = img
@@ -192,9 +189,8 @@ Module modMenuControl
     End Function
     Public Function GetForm(ByVal frmName As String) As Form
 
-        Dim frm As New Form()
         Try
-            frm = DirectCast(CreateObjectInstance(frmName), Form)
+            Dim frm As Form = DirectCast(CreateObjectInstance(frmName), Form)
             Return frm
         Catch ex As Exception
             MessageBoxInfo(ex.Message)
@@ -206,13 +202,11 @@ Module modMenuControl
 
     Public Sub OpenFormBySubId(ByVal sub_ID As Integer)
         Dim rd As OdbcDataReader = SqlReader($"select * from `tblsub_menu` where sub_id = '{sub_ID}' limit 1")
-        Dim i As Integer = 0
-        Dim F As Form = Nothing
         Dim Img As Image = Nothing
-        Dim bModal As Boolean = False
+
         If rd.Read Then
-            i = GF_NumIsNull(rd("sub_id"))
-            F = GetFormModule(rd("Form"))
+            Dim i As Integer = GF_NumIsNull(rd("sub_id"))
+            Dim F As Form = GetFormModule(rd("Form"))
             Try
                 Dim folder As String = $"{New Uri(CurrentPath).LocalPath}\image\sub\"
                 Img = Image.FromFile(folder & rd("image_file"))
@@ -228,13 +222,12 @@ Module modMenuControl
             Else
                 F.Text = rd("description")
                 F.Tag = sub_ID
-                bModal = GF_NumIsNull(rd("modal"))
+                Dim bModal As Boolean = GF_NumIsNull(rd("modal"))
 
 
                 If bModal = True Then
                     F.ShowDialog()
                     F.Dispose()
-                    F = Nothing
                 Else
                     TabFormOpen(F, frmMainMenu.MyTab, Img)
                 End If

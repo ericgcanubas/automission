@@ -484,7 +484,7 @@ Public Class FrmWithholdingTax
                     If CheckWithholdingTax(.Cells("BILL_ID").Value, ID, GET_ID) = True Then
 
                         If gsSkipJournalEntry = False Then
-                            fJournalAccountRemoveFixed_Account_ID(.Cells("ACCOUNTS_PAYABLE_ID").Value, 68, GET_ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, .Cells("BILL_ID").Value)
+                            GS_JournalAccountRemoveFixed_Account_ID(.Cells("ACCOUNTS_PAYABLE_ID").Value, 68, GET_ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, .Cells("BILL_ID").Value)
                         End If
 
                         SqlExecuted("DELETE  FROM `withholding_tax_bills` WHERE ID ='" & GET_ID & "' and  WITHHOLDING_TAX_ID = '" & ID & "' and BILL_ID ='" & .Cells("BILL_ID").Value & "' limit 1;")
@@ -707,7 +707,7 @@ Public Class FrmWithholdingTax
         If IsNew = True Then
             SetNew()
         Else
-            Dim R As Integer = fRefreshMessage()
+            Dim R As Integer = GF_RefreshMessage()
             If R = 1 Then
                 SetNew()
             ElseIf R = 2 Then

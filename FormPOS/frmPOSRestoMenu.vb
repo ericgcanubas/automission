@@ -79,9 +79,9 @@ Public Class FrmPOSRestoMenu
         pnlTOP.BackColor = Color.Transparent
         FlowLayoutPanel1.BorderStyle = BorderStyle.None
 
-        fLabel_Digital_LM(lblAMOUNT)
-        fLabel_Digital_LM(xlblTOTAL)
-        fLabel_Digital_M(lblOUTPUT_TAX_AMOUNT)
+        GS_Label_Digital_LM(lblAMOUNT)
+        GS_Label_Digital_LM(xlblTOTAL)
+        GS_Label_Digital_M(lblOUTPUT_TAX_AMOUNT)
 
 
 
@@ -106,8 +106,8 @@ Public Class FrmPOSRestoMenu
 
 
 
-        gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
-        gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
+        gsUserDefaulLockNegativePerUser = GF_UserDefaulLockNegativePerUser()
+        gsDefault_unit_price_level_id = GF_UserDefaultPriceLevel()
         gsDefault_LOCATION_ID = GetLoadLocationDefault()
         gsStorage_Location_ID = GetLoadStorageLocation()
         gsIncRefNoByLocation = GetIncRefNoByLocation()
@@ -240,7 +240,7 @@ NewPOS_LOG:
                 LOG_DATE = $"{DateFormatMySql(gsPOS_DATE)} 08:00:01"
             End If
             SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{sAMount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
-            fPOS_STARTING_CASH_JOURNAL(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
+            GS_PosStartingCashJournal(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
             GS_PosLogLoad()
 
         End If
@@ -1101,7 +1101,7 @@ FROM
         Try
             Dim gsSalesSubTotal As Double = 0
             GS_SalesCustomerComputation(dgvProductItem, cmbOUTPUT_TAX_ID, lblOUTPUT_TAX_AMOUNT, lblAMOUNT, lblTAXABLE_AMOUNT, lblNONTAXABLE_AMOUNT, lblOUTPUT_TAX_RATE, gsSalesSubTotal)
-            Dim dPayment_applied As Double = fGetSumPaymentApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fGetSumCreditApplied(ID, cmbCUSTOMER_ID.SelectedValue) + fInvoiceSumTaxApplied_Amount(ID, cmbCUSTOMER_ID.SelectedValue)
+            Dim dPayment_applied As Double = GF_GetSumPaymentApplied(ID, cmbCUSTOMER_ID.SelectedValue) + GF_GetSumCreditApplied(ID, cmbCUSTOMER_ID.SelectedValue) + GF_InvoiceSumTaxApplied_Amount(ID, cmbCUSTOMER_ID.SelectedValue)
             lbxPaymentApplied.Text = NumberFormatStandard(dPayment_applied)
             Dim dBalance As Double = GF_NumIsNull(NumberFormatFixed(GF_NumIsNull(lblAMOUNT.Text))) - dPayment_applied
             lblBALANCE_DUE.Text = NumberFormatStandard(dBalance)
@@ -1419,7 +1419,7 @@ FROM
             gsJOURNAL_NO_FORM = 0
             GS_AccountJournalExecute(Val(cmbACCOUNTS_RECEIVABLE_ID.SelectedValue), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 0, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
             If GF_NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
-                fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 23, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
+                GS_JournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 23, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
                 GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 23, ID, dtpDATE.Value, 1, GF_NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
@@ -1795,11 +1795,11 @@ FROM
 
                     Case "S"
                         'UPDATE TAX ONLY
-                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        GS_Tax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         SQL_SCRIPT = "UPDATE sales_order_items SET TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "' WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value))
                         SqlExecuted(SQL_SCRIPT)
                     Case "A"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        GS_Tax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         Dim i_ID As Double = ObjectTypeMapId("SALES_ORDER_ITEMS")
                         SQL_SCRIPT = "INSERT INTO sales_order_items SET  GROUP_LINE_ID = " & GotNullNumber((.Cells("GROUP_LINE_ID").Value)) & ",PRINT_IN_FORMS ='" & GF_NumIsNull(.Cells("PRINT_IN_FORMS").Value) & "',LINE_NO='" & GF_GetMaxFieldLine("LINE_NO", "SALES_ORDER_ITEMS", "SALES_ORDER_ID", dID) & "',ID='" & i_ID & "',QUANTITY ='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & ",SALES_ORDER_ID ='" & dID & "',CLOSED ='0',INVOICED_QTY= NULL,PRICE_LEVEL_ID = " & GotNullNumber(GF_NumIsNull(.Cells("PRICE_LEVEL_ID").Value))
                         SqlExecuted(SQL_SCRIPT)
@@ -1815,7 +1815,7 @@ FROM
                         End If
 
                     Case "E"
-                        fTax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
+                        GS_Tax_Computation(cmbOUTPUT_TAX_ID, GF_NumIsNull(.Cells("AMOUNT").Value), GF_NumIsNull(.Cells("TAX").Value), dgvProductItem.Rows(i))
                         SQL_SCRIPT = "UPDATE sales_order_items SET QUANTITY='" & GF_NumIsNull(.Cells("QTY").Value) & "',RATE = '" & GF_NumIsNull(.Cells("UNIT_PRICE").Value) & "',DISCOUNT_TYPE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_ID").Value)) & ",DISCOUNT_RATE = " & GotNullNumber(GF_NumIsNull(.Cells("DISCOUNT_RATE").Value)) & ",AMOUNT = '" & GF_NumIsNull(.Cells("AMOUNT").Value) & "',TAXABLE='" & GF_NumIsNull(.Cells("TAX").Value) & "',UNIT_BASE_QUANTITY='" & GF_NumIsNull(.Cells("UNIT_QUANTITY_BASE").Value) & "',TAXABLE_AMOUNT = '" & GF_NumIsNull(.Cells("TAXABLE_AMOUNT").Value) & "',TAX_AMOUNT='" & GF_NumIsNull(.Cells("TAX_AMOUNT").Value) & "',ESTIMATE_LINE_ID =" & GotNullNumber(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value)) & ",ORG_AMOUNT='" & GF_NumIsNull(.Cells("ORG_AMOUNT").Value) & "',ITEM_ID ='" & GF_NumIsNull(.Cells("ITEM_ID").Value) & "',UNIT_ID =" & GotNullNumber(GF_NumIsNull(.Cells("UNIT_ID").Value)) & " WHERE SALES_ORDER_ID ='" & dID & "' and ID = " & GotNullNumber(GF_NumIsNull(.Cells("ID").Value)) & ""
                         SqlExecuted(SQL_SCRIPT)
                         SetEstimateItemUpdate(GF_NumIsNull(.Cells("ESTIMATE_LINE_ID").Value), GF_NumIsNull(.Cells("QTY").Value), True)
@@ -2118,12 +2118,12 @@ FROM
         If rbTAKE_OUT.Checked = True Then
 
             If Ship_Via_count = 1 Then
-                gsThemeNo = 0
+
             Else
-                gsThemeNo = 4
+
             End If
 
-            fMaterialSkin(Me)
+
             numTableSelected = 0
             RefreshTable()
             xxlblSalesman.Text = "SALES MAN"
@@ -2135,12 +2135,7 @@ FROM
 
         If rbDINE_IN.Checked = True Then
 
-            If Ship_Via_count = 1 Then
-                gsThemeNo = 0
-            Else
-                gsThemeNo = 1
-            End If
-            fMaterialSkin(Me)
+
             numTableSelected = 1
             RefreshTable()
             xxlblSalesman.Text = "SALES MAN"
@@ -2685,12 +2680,11 @@ CREATE_NOW:
         If rbDELIVERY.Checked = True Then
 
             If Ship_Via_count = 1 Then
-                gsThemeNo = 0
+
             Else
-                gsThemeNo = 2
+
             End If
 
-            fMaterialSkin(Me)
             numTableSelected = 1
             RefreshTable()
             xxlblSalesman.Text = "SALE ON"
@@ -2793,29 +2787,29 @@ CREATE_NOW:
             ControlEnable(True)
             If rbDINE_IN.Checked = True Then
                 If Ship_Via_count = 1 Then
-                    gsThemeNo = 0
+
                 Else
-                    gsThemeNo = 1
+
                 End If
 
 
-                fMaterialSkin(Me)
+
             ElseIf rbTAKE_OUT.Checked = True Then
                 If Ship_Via_count = 1 Then
-                    gsThemeNo = 0
+
                 Else
-                    gsThemeNo = 4
+
                 End If
 
 
-                fMaterialSkin(Me)
+
             ElseIf rbDELIVERY.Checked = True Then
                 If Ship_Via_count = 1 Then
-                    gsThemeNo = 0
+
                 Else
-                    gsThemeNo = 2
+
                 End If
-                fMaterialSkin(Me)
+
             Else
 
                 If gsDINE_IN_ID <> 0 Then

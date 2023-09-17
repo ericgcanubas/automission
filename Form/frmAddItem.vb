@@ -644,7 +644,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     If rd.Read Then
                         If gsUseImageProduct = True Then
 
-                            fDisplayPhoto(GF_TextIsNull(rd("PIC_FILENAME")), picItem)
+                            GS_DisplayPhoto(GF_TextIsNull(rd("PIC_FILENAME")), picItem)
 
 
                         End If

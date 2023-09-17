@@ -42,35 +42,39 @@ Partial Class FrmCheckingAccountJournal
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(86, 25)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(115, 31)
+        Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(166, 21)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(220, 24)
         Me.cmbLOCATION_ID.TabIndex = 0
         '
         'cmbOBJECT
         '
         Me.cmbOBJECT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbOBJECT.FormattingEnabled = True
-        Me.cmbOBJECT.Location = New System.Drawing.Point(86, 52)
+        Me.cmbOBJECT.Location = New System.Drawing.Point(115, 64)
+        Me.cmbOBJECT.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbOBJECT.Name = "cmbOBJECT"
-        Me.cmbOBJECT.Size = New System.Drawing.Size(166, 21)
+        Me.cmbOBJECT.Size = New System.Drawing.Size(220, 24)
         Me.cmbOBJECT.TabIndex = 1
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 28)
+        Me.Label1.Location = New System.Drawing.Point(16, 34)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(51, 13)
+        Me.Label1.Size = New System.Drawing.Size(63, 16)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Location"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 55)
+        Me.Label2.Location = New System.Drawing.Point(16, 68)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(67, 13)
+        Me.Label2.Size = New System.Drawing.Size(88, 16)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Object Type"
         '
@@ -79,60 +83,67 @@ Partial Class FrmCheckingAccountJournal
         Me.dgvList.AllowUserToAddRows = False
         Me.dgvList.AllowUserToDeleteRows = False
         Me.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvList.Location = New System.Drawing.Point(15, 124)
+        Me.dgvList.Location = New System.Drawing.Point(20, 153)
+        Me.dgvList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvList.Name = "dgvList"
         Me.dgvList.ReadOnly = True
-        Me.dgvList.Size = New System.Drawing.Size(719, 274)
+        Me.dgvList.Size = New System.Drawing.Size(959, 337)
         Me.dgvList.TabIndex = 4
         '
         'dtpDATE1
         '
         Me.dtpDATE1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE1.Location = New System.Drawing.Point(617, 26)
+        Me.dtpDATE1.Location = New System.Drawing.Point(823, 32)
+        Me.dtpDATE1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtpDATE1.Name = "dtpDATE1"
-        Me.dtpDATE1.Size = New System.Drawing.Size(117, 22)
+        Me.dtpDATE1.Size = New System.Drawing.Size(155, 23)
         Me.dtpDATE1.TabIndex = 5
         '
         'dtpDATE2
         '
         Me.dtpDATE2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE2.Location = New System.Drawing.Point(617, 55)
+        Me.dtpDATE2.Location = New System.Drawing.Point(823, 68)
+        Me.dtpDATE2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtpDATE2.Name = "dtpDATE2"
-        Me.dtpDATE2.Size = New System.Drawing.Size(117, 22)
+        Me.dtpDATE2.Size = New System.Drawing.Size(155, 23)
         Me.dtpDATE2.TabIndex = 6
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(542, 30)
+        Me.Label3.Location = New System.Drawing.Point(723, 37)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(58, 13)
+        Me.Label3.Size = New System.Drawing.Size(77, 16)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Date Start"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(542, 54)
+        Me.Label4.Location = New System.Drawing.Point(723, 66)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(54, 13)
+        Me.Label4.Size = New System.Drawing.Size(67, 16)
         Me.Label4.TabIndex = 8
         Me.Label4.Text = "Date End"
         '
         'btnRefresh
         '
-        Me.btnRefresh.Location = New System.Drawing.Point(15, 95)
+        Me.btnRefresh.Location = New System.Drawing.Point(20, 117)
+        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(75, 23)
+        Me.btnRefresh.Size = New System.Drawing.Size(100, 28)
         Me.btnRefresh.TabIndex = 9
         Me.btnRefresh.Text = "Refresh"
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
         'btnShowMe
         '
-        Me.btnShowMe.Location = New System.Drawing.Point(12, 404)
+        Me.btnShowMe.Location = New System.Drawing.Point(16, 497)
+        Me.btnShowMe.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnShowMe.Name = "btnShowMe"
-        Me.btnShowMe.Size = New System.Drawing.Size(75, 23)
+        Me.btnShowMe.Size = New System.Drawing.Size(100, 28)
         Me.btnShowMe.TabIndex = 10
         Me.btnShowMe.Text = "Show Me"
         Me.btnShowMe.UseVisualStyleBackColor = True
@@ -140,25 +151,27 @@ Partial Class FrmCheckingAccountJournal
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(271, 28)
+        Me.Label5.Location = New System.Drawing.Point(361, 34)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(52, 13)
+        Me.Label5.Size = New System.Drawing.Size(67, 16)
         Me.Label5.TabIndex = 12
         Me.Label5.Text = "Account "
         '
         'cmbACCOUNT_ID
         '
         Me.cmbACCOUNT_ID.FormattingEnabled = True
-        Me.cmbACCOUNT_ID.Location = New System.Drawing.Point(345, 25)
+        Me.cmbACCOUNT_ID.Location = New System.Drawing.Point(460, 31)
+        Me.cmbACCOUNT_ID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbACCOUNT_ID.Name = "cmbACCOUNT_ID"
-        Me.cmbACCOUNT_ID.Size = New System.Drawing.Size(166, 21)
+        Me.cmbACCOUNT_ID.Size = New System.Drawing.Size(220, 24)
         Me.cmbACCOUNT_ID.TabIndex = 11
         '
         'FrmCheckingAccountJournal
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(746, 430)
+        Me.ClientSize = New System.Drawing.Size(995, 529)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.cmbACCOUNT_ID)
         Me.Controls.Add(Me.btnShowMe)
@@ -172,8 +185,9 @@ Partial Class FrmCheckingAccountJournal
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cmbOBJECT)
         Me.Controls.Add(Me.cmbLOCATION_ID)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FrmCheckingAccountJournal"

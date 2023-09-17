@@ -35,9 +35,9 @@ WHERE m.customer_id = '" & gsCustomer_ID & "' and m.LOCATION_ID = '" & gsLocatio
             '   cn.Open()
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
-                Dim other_applied As Double = fGetCreditOtherInvoice(rd("credit_memo_id"), ID)
+                Dim other_applied As Double = GF_GetCreditOtherInvoice(rd("credit_memo_id"), ID)
                 Dim credit_amount As Double = GF_NumIsNull(rd("amount")) - other_applied
-                Dim credit_applied As Double = fGetCreditApplied_Invoice(rd("credit_memo_id"), gsCustomer_ID, ID)
+                Dim credit_applied As Double = GF_GetCreditApplied_Invoice(rd("credit_memo_id"), gsCustomer_ID, ID)
 
                 Dim credit_balance As Double = 0
 
@@ -89,8 +89,8 @@ WHERE m.customer_id = '" & gsCustomer_ID & "' and m.LOCATION_ID = '" & gsLocatio
         End With
 
         RefreshCredit()
-        lblDISCOUNT_USED.Text = NumberFormatStandard(fGetSumPaymentApplied(ID, gsCustomer_ID))
-        lblAmount_Due.Text = NumberFormatStandard(gsBalance + fGetSumCreditApplied(ID, gsCustomer_ID))
+        lblDISCOUNT_USED.Text = NumberFormatStandard(GF_GetSumPaymentApplied(ID, gsCustomer_ID))
+        lblAmount_Due.Text = NumberFormatStandard(gsBalance + GF_GetSumCreditApplied(ID, gsCustomer_ID))
         FormComputed()
 
     End Sub
@@ -151,7 +151,7 @@ WHERE m.customer_id = '" & gsCustomer_ID & "' and m.LOCATION_ID = '" & gsLocatio
 
     Private Sub SetCreditMemoBalanceUpdate(ByVal prCredit_Memo_ID As String, prORG_Amount As Double)
 
-        Dim total_pay As Double = fGetCreditApplied_Invoice(prCredit_Memo_ID, gsCustomer_ID, ID) + fGetCreditOtherInvoice(prCredit_Memo_ID, ID)
+        Dim total_pay As Double = GF_GetCreditApplied_Invoice(prCredit_Memo_ID, gsCustomer_ID, ID) + GF_GetCreditOtherInvoice(prCredit_Memo_ID, ID)
         Dim New_Balance As Double = prORG_Amount - total_pay
         Dim nStatus As Integer
         If 0 >= New_Balance Then

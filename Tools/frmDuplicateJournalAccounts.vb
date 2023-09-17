@@ -1,11 +1,11 @@
-﻿Public Class frmDuplicateJournalAccounts
-    Private Sub frmDuplicateJournalAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+﻿Public Class FrmDuplicateJournalAccounts
+    Private Sub FrmDuplicateJournalAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
-        fRefresh()
+        RefreshData()
 
     End Sub
-    Private Sub fRefresh()
+    Private Sub RefreshData()
 
         GS_LoadDataGridView(dgvList, $"SELECT 
 aj.`ID`,
@@ -54,23 +54,23 @@ GROUP BY aj.`JOURNAL_NO`,
 
         If MessageBoxQuestion("Do you want to remove this duplicate journal?") = True Then
             For I As Integer = 0 To dgvList.Rows.Count - 1
-                fRemoveAccountJournal(dgvList.Rows(I).Cells("ID").Value)
+                SetRemoveAccountJournal(dgvList.Rows(I).Cells("ID").Value)
             Next
 
             MessageBoxInfo("Successfully remove.")
-            fRefresh()
+            RefreshData()
         End If
 
 
 
     End Sub
-    Private Sub fRemoveAccountJournal(ByVal ID As Integer)
+    Private Sub SetRemoveAccountJournal(ByVal ID As Integer)
 
         SqlExecuted($"Delete from account_journal Where ID = '{ID}' limit 1;")
 
     End Sub
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
-        fRefresh()
+        RefreshData()
     End Sub
 End Class

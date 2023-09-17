@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Module modInvoiceTax
-    Public Function fInvoiceSumTaxApplied_Amount(ByRef prID As String, ByVal prCustomer_ID As String) As Double
+    Public Function GF_InvoiceSumTaxApplied_Amount(ByRef prID As String, ByVal prCustomer_ID As String) As Double
         If Trim(prID) = "" Or Trim(prCustomer_ID) = "" Then
             Return 0
             Exit Function
@@ -15,7 +15,7 @@ Module modInvoiceTax
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = fInvoiceSumTaxApplied_Amount(prID, prCustomer_ID)
+                dPayment = GF_InvoiceSumTaxApplied_Amount(prID, prCustomer_ID)
             Else
                 End
             End If
@@ -23,7 +23,7 @@ Module modInvoiceTax
         Return dPayment
 
     End Function
-    Public Function fGetTexApplied_Invoice(ByRef prTAX_CREDIT_ID As String, ByVal prCustomer_ID As String, ByVal prInvoice_ID As String) As Double
+    Public Function GF_GetTexApplied_Invoice(ByRef prTAX_CREDIT_ID As String, ByVal prCustomer_ID As String, ByVal prInvoice_ID As String) As Double
 
         If Trim(prTAX_CREDIT_ID) = "" Or Trim(prCustomer_ID) = "" Then
             Return 0
@@ -39,7 +39,7 @@ Module modInvoiceTax
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = fGetTexApplied_Invoice(prTAX_CREDIT_ID, prCustomer_ID, prInvoice_ID)
+                dPayment = GF_GetTexApplied_Invoice(prTAX_CREDIT_ID, prCustomer_ID, prInvoice_ID)
             Else
                 End
             End If
@@ -47,7 +47,7 @@ Module modInvoiceTax
         Return dPayment
 
     End Function
-    Public Function fGetTaxOtherInvoice(ByRef prTAX_CREDIT_ID As String, ByVal prInvoice_id As String) As Double
+    Public Function GF_GetTaxOtherInvoice(ByRef prTAX_CREDIT_ID As String, ByVal prInvoice_id As String) As Double
         Dim dAmount As Double = 0
 
         Try
@@ -59,7 +59,7 @@ Module modInvoiceTax
         Catch ex As Exception
 
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dAmount = fGetTaxOtherInvoice(prTAX_CREDIT_ID, prInvoice_id)
+                dAmount = GF_GetTaxOtherInvoice(prTAX_CREDIT_ID, prInvoice_id)
             Else
                 End
             End If

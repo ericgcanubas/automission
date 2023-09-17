@@ -117,7 +117,7 @@
             'Payment
             SqlExecuted($"Delete From `payment` WHERE id = '{Payment_ID}' limit 1;")
 
-            fUpdateInvoiceBalance(Invoice_ID, Customer_ID)
+            GS_UpdateInvoiceBalance(Invoice_ID, Customer_ID)
             PaymentLoad()
             gsGotChangeData = True
 

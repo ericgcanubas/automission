@@ -162,7 +162,6 @@ Module modAccountJournal
         Dim prSEQUENCE_NO As Integer
         Dim sItem_Inventory As String = "SELECT ID,PREVIOUS_ID,SEQUENCE_NO FROM ITEM_INVENTORY WHERE ITEM_ID='" & prItem_ID & "' and SOURCE_REF_TYPE= '" & prSOURCE_TYPE & "' and SOURCE_REF_ID ='" & prSOURCE_ID & "' and SOURCE_REF_DATE = '" & DateFormatMySql(prSOURCE_DATE) & "' and Location_ID='" & prLocation_ID & "' Limit 1"
         Dim prID As Double = 0
-        Dim ENDING_QUANTITY As Double
 
         Try
 
@@ -246,8 +245,6 @@ WHERE `ID` = '{THIS_ID}' and
                 If THIS_JOURNAL_NO = 0 Then
                     THIS_JOURNAL_NO = GF_GetNetJournalNumber()
                 End If
-
-
                 THIS_ID = ObjectTypeMapId("ACCOUNT_JOURNAL")
 
                 SQL = $"INSERT INTO `account_journal`

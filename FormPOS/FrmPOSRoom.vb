@@ -164,7 +164,7 @@ NewPOS_LOG:
                 End If
 
                 SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{sAMount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
-                fPOS_STARTING_CASH_JOURNAL(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
+                GS_PosStartingCashJournal(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
                 GS_PosLogLoad()
 
             Else
@@ -221,8 +221,8 @@ NewPOS_LOG:
         gsPOS_SERVED_ONLY = GS_IsServedOnly()
         gsPOS_TYPE_ID = GF_PosMachineTypeMap()
 
-        gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
-        gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
+        gsUserDefaulLockNegativePerUser = GF_UserDefaulLockNegativePerUser()
+        gsDefault_unit_price_level_id = GF_UserDefaultPriceLevel()
         gsDefault_LOCATION_ID = GetLoadLocationDefault()
         gsStorage_Location_ID = GetLoadStorageLocation()
         gsIncRefNoByLocation = GetIncRefNoByLocation()

@@ -42,14 +42,14 @@ FROM
             If MessageBoxQuestion("Are you sure want to transfer ?") = True Then
 
                 'POS CASH COUNT
-                fPOS_LOG_JOURNAL_DELETE(ThisPOSlogID, gsCASH_OVER_SHORT_EXPENSES, ThisPOS_DATE)
+                GS_POS_LOG_JOURNAL_DELETE(ThisPOSlogID, gsCASH_OVER_SHORT_EXPENSES, ThisPOS_DATE)
                 SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
                 SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID =null WHERE POS_LOG_ID='{ThisPOSlogID}' ")
                 SqlExecuted($"DELETE FROM  pos_cash_count WHERE ID ='{ThisPOS_Cash_Count_ID}'")
 
 
                 'POS STARTING CASH
-                fPOS_STARTING_CASH_JOURNAL_Delete(ThisPOS_STARTING_CASH_ID, ThisPOS_DATE, ThisLocationID)
+                GS_POS_Starting_Cash_Delete(ThisPOS_STARTING_CASH_ID, ThisPOS_DATE, ThisLocationID)
                 SqlExecuted($"UPDATE pos_log SET STARTING_CASH_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
                 SqlExecuted($"DELETE FROM pos_starting_cash WHERE id = '{ThisPOS_STARTING_CASH_ID}' limit 1;")
 
@@ -78,14 +78,14 @@ FROM
 
             If MessageBoxWarningYesNo("Are you sure to delete This LOG?") = True Then
                 'POS CASH COUNT
-                fPOS_LOG_JOURNAL_DELETE(ThisPOSlogID, gsCASH_OVER_SHORT_EXPENSES, ThisPOS_DATE)
+                GS_POS_LOG_JOURNAL_DELETE(ThisPOSlogID, gsCASH_OVER_SHORT_EXPENSES, ThisPOS_DATE)
                 SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
                 SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID =null WHERE POS_LOG_ID='{ThisPOSlogID}' ")
                 SqlExecuted($"DELETE FROM  pos_cash_count WHERE ID ='{ThisPOS_Cash_Count_ID}'")
 
 
                 'POS STARTING CASH
-                fPOS_STARTING_CASH_JOURNAL_Delete(ThisPOS_STARTING_CASH_ID, ThisPOS_DATE, ThisLocationID)
+                GS_POS_Starting_Cash_Delete(ThisPOS_STARTING_CASH_ID, ThisPOS_DATE, ThisLocationID)
                 SqlExecuted($"UPDATE pos_log SET STARTING_CASH_ID = null WHERE ID ='{ThisPOSlogID}' Limit 1")
                 SqlExecuted($"DELETE FROM pos_starting_cash WHERE id = '{ThisPOS_STARTING_CASH_ID}' limit 1;")
 

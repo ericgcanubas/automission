@@ -387,7 +387,7 @@ Public Class FrmReportSetup
                         p.Top = iTop
                         Dim l As New Label With {
                             .Name = "lbl" & rd("COMPONENT_ID"),
-                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                            .Text = GF_TitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
                         }
                         p.Controls.Add(l)
 
@@ -407,7 +407,7 @@ Public Class FrmReportSetup
                         p.Top = iTop
                         Dim l As New Label With {
                             .Name = "lbl" & rd("COMPONENT_ID"),
-                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                            .Text = GF_TitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
                         }
                         p.Controls.Add(l)
                         'DROPDOWN STANDARD
@@ -428,7 +428,7 @@ Public Class FrmReportSetup
                         p.Top = iTop
                         Dim l As New Label With {
                             .Name = "lbl" & rd("COMPONENT_ID"),
-                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                            .Text = GF_TitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
                         }
                         p.Controls.Add(l)
                         'DROPDOWN FIXED
@@ -454,7 +454,7 @@ Public Class FrmReportSetup
                         p.Top = iTop
                         Dim l As New Label With {
                             .Name = "lbl" & rd("COMPONENT_ID"),
-                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                            .Text = GF_TitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
                         }
 
                         p.Controls.Add(l)
@@ -489,7 +489,7 @@ Public Class FrmReportSetup
                         p.Top = iTop
                         Dim l As New Label With {
                             .Name = "lbl" & rd("COMPONENT_ID"),
-                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower)),
+                            .Text = GF_TitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower)),
                             .AccessibleDescription = GF_TextIsNull(rd("VALUE_NAME")),
                             .AccessibleName = GF_TextIsNull(rd("DISPLAY_NAME"))
                         }
@@ -522,7 +522,7 @@ Public Class FrmReportSetup
                         p.Top = iTop
                         Dim l As New Label With {
                             .Name = "lbl" & rd("COMPONENT_ID"),
-                            .Text = fTitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
+                            .Text = GF_TitleCase(Trim(rd("NAME").ToString.Replace("_", " ").ToLower))
                         }
                         p.Controls.Add(l)
                         Dim cmb As ComboBox
@@ -588,9 +588,9 @@ Public Class FrmReportSetup
         Dim lbl As Label = GetObject("lbl" & chk.Name)
         If chk.Checked = True Then
 
-            lbl.Text = fTitleCase(lbl.AccessibleDescription)
+            lbl.Text = GF_TitleCase(lbl.AccessibleDescription)
         Else
-            lbl.Text = fTitleCase(lbl.AccessibleName)
+            lbl.Text = GF_TitleCase(lbl.AccessibleName)
         End If
     End Sub
     Private Sub Text_Change(sender As Object, e As EventArgs)
@@ -686,7 +686,7 @@ Public Class FrmReportSetup
                 dt2 = GetObject(rd("ID"))
             End If
         End While
-        fSelectDateRange(cmb.Text, dt1, dt2)
+        GS_SelectDateRange(cmb.Text, dt1, dt2)
 
     End Sub
 

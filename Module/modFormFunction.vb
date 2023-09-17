@@ -326,7 +326,7 @@ Module modFormFunction
         f.Close()
         Exit Sub
         Dim sFormName As String = f.Name
-        Dim fName As String = fRemoveDigits(sFormName)
+        Dim fName As String = GF_RemoveDigits(sFormName)
         If gscryRpt IsNot Nothing Then
             gscryRpt.Close()
             gscryRpt.Dispose()

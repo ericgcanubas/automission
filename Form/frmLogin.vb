@@ -46,7 +46,7 @@ Public Class FrmLogin
 
                 End Select
 
-                If fUserDefaulDisabled() = True Then
+                If GF_UserDefaulDisabled() = True Then
 
                     PrompNotify(Me.Text, "Sorry, you are not allowed to access right now.", False)
                     rd.Close()
@@ -94,7 +94,7 @@ Public Class FrmLogin
                     rd.Close()
                     Exit Sub
                 Else
-                    gsUserPriceLock = fUserPriceLock()
+                    gsUserPriceLock = GF_UserPriceLock()
                 End If
 
                 'load default

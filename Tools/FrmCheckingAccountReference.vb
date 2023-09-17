@@ -98,23 +98,16 @@ where aj.`ACCOUNT_ID` = '{cmbACCOUNT_ID.SelectedValue}'
             End If
 
             Me.Close()
-
-
         End If
 
-
-
-
     End Sub
-    Private Sub dgvList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellContentClick
 
-    End Sub
 
     Private Sub ShowMe_Click(sender As Object, e As EventArgs) Handles btnShowMe.Click
         DocumentSelected()
     End Sub
 
-    Private Sub dgvList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellDoubleClick
+    Private Sub DgvList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellDoubleClick
         DocumentSelected()
     End Sub
 

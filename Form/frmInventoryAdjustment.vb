@@ -34,7 +34,7 @@ Public Class FrmInventoryAdjustment
             .Add("ITEM_ID", "ITEM_ID")
             .Item("ITEM_ID").Visible = False
             .Add("CODE", gsCUSTOM_CODE)
-            .Item("CODE").Width = 110
+            .Item("CODE").Width = 150
             .Add("DESCRIPTION", gsCUSTOM_DESCRIPTION)
             .Add("UNIT_ID", "Unit_ID")
             .Item("UNIT_ID").Visible = False
@@ -644,6 +644,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
     Private Sub FrmInventoryAdjustment_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         GS_ViewItemDisplay(dgvItem)
         GS_ViewNotSort(dgvItem)
+        dgvItem.Columns.Item("CODE").Width = 150
     End Sub
 
     Private Sub PreviewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PreviewToolStripMenuItem.Click
@@ -782,7 +783,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
         If IsNew = True Then
             SetNew()
         Else
-            Dim R As Integer = fRefreshMessage()
+            Dim R As Integer = GF_RefreshMessage()
             If R = 1 Then
                 SetNew()
             ElseIf R = 2 Then

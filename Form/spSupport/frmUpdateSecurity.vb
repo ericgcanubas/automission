@@ -1,10 +1,10 @@
 ﻿Imports System.Data.Odbc
-Public Class frmUpdateSecurity
+Public Class FrmUpdateSecurity
     Public gsAll As Boolean = False
     Public gsUserType As Boolean = False
     Public gsID As String
     Public gsUSER_TYPE_ID As String
-    Private Sub frmUpdateSecurity_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmUpdateSecurity_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If gsAll = False Then
             Me.Size = New Point(383, 72)
             gsProgressBar = ProgressBar1
@@ -17,7 +17,7 @@ Public Class frmUpdateSecurity
 
     End Sub
 
-    Private Sub frmUpdateSecurity_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmUpdateSecurity_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         Dim user_counting As Integer = 0
         If gsAll = True Then
             If gsUserType = False Then
@@ -34,10 +34,10 @@ Public Class frmUpdateSecurity
                     '  cn.Open()
                     Dim rd As OdbcDataReader = SqlReader("select ID,`NAME` from `user` where `Type` = '" & gsUSER_TYPE_ID & "'")
                     While rd.Read
-                        user_counting = user_counting + 1
+                        user_counting += 1
                         Dim xName As String = GF_TextIsNull(rd("NAME"))
 
-                        fUserSecuritySettingSetUpdateControl(GF_NumIsNull(rd("ID")), gsUSER_TYPE_ID)
+                        GS_UserSecuritySettingSetUpdateControl(GF_NumIsNull(rd("ID")), gsUSER_TYPE_ID)
                         ProgressBar1.Value = user_counting
                     End While
                     rd.Close()
@@ -56,13 +56,13 @@ Public Class frmUpdateSecurity
             If gsUserType = False Then
                 '1 user update
                 'User all update source of user type
-                fUserSecuritySettingSetUpdateControl(gsID, gsUSER_TYPE_ID)
+                GS_UserSecuritySettingSetUpdateControl(gsID, gsUSER_TYPE_ID)
                 MessageBoxInfo("User security update")
                 Me.Close()
                 Me.Close()
             Else
                 '1 user type update
-                fUpdateUserTypeSecurity(gsUSER_TYPE_ID, gsID)
+                GS_UpdateUserTypeSecurity(gsUSER_TYPE_ID, gsID)
                 MessageBoxInfo("User security update")
                 Me.Close()
             End If

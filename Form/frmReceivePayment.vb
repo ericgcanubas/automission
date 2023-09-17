@@ -631,7 +631,7 @@ WHERE  EXISTS
         If IsNew = True Then
             SetNew()
         Else
-            Dim R As Integer = fRefreshMessage()
+            Dim R As Integer = GF_RefreshMessage()
             If R = 1 Then
                 SetNew()
             ElseIf R = 2 Then
@@ -647,7 +647,7 @@ WHERE  EXISTS
     End Sub
     Private Function GetInvoiceBalanceUpdate(ByVal gsInvoice As String, prORG_Amount As Double) As Double
 
-        Dim total_pay As Double = fGetSumPaymentApplied(gsInvoice, cmbCUSTOMER_ID.SelectedValue) + fGetSumCreditApplied(gsInvoice, cmbCUSTOMER_ID.SelectedValue) + fInvoiceSumTaxApplied_Amount(gsInvoice, cmbCUSTOMER_ID.SelectedValue)
+        Dim total_pay As Double = GF_GetSumPaymentApplied(gsInvoice, cmbCUSTOMER_ID.SelectedValue) + GF_GetSumCreditApplied(gsInvoice, cmbCUSTOMER_ID.SelectedValue) + GF_InvoiceSumTaxApplied_Amount(gsInvoice, cmbCUSTOMER_ID.SelectedValue)
         Dim New_Balance As Double = prORG_Amount - total_pay
         Dim squery As String
         Dim nStatus As Integer

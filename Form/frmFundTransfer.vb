@@ -254,11 +254,11 @@ Public Class FrmFundTransfer
             If MessageBoxQuestion(gsMessageQuestion) = True Then
                 GS_CursorLoadingOn(True)
                 If gsSkipJournalEntry = False Then
-                    fJournalAccountRemoveFixed_Account_ID(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), 93, ID, dtpDATE.Value, cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue)
-                    fJournalAccountRemoveFixed_Account_ID(cmbFROM_ACCOUNT_ID.SelectedValue, 93, ID, dtpDATE.Value, cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue)
+                    GS_JournalAccountRemoveFixed_Account_ID(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), 93, ID, dtpDATE.Value, cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue)
+                    GS_JournalAccountRemoveFixed_Account_ID(cmbFROM_ACCOUNT_ID.SelectedValue, 93, ID, dtpDATE.Value, cmbFROM_LOCATION_ID.SelectedValue, cmbFROM_NAME_ID.SelectedValue)
 
-                    fJournalAccountRemoveFixed_Account_ID(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), 93, ID, dtpDATE.Value, cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue)
-                    fJournalAccountRemoveFixed_Account_ID(cmbTO_ACCOUNT_ID.SelectedValue, 93, ID, dtpDATE.Value, cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue)
+                    GS_JournalAccountRemoveFixed_Account_ID(Val(lblINTER_LOCATION_ACCOUNT_ID.Text), 93, ID, dtpDATE.Value, cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue)
+                    GS_JournalAccountRemoveFixed_Account_ID(cmbTO_ACCOUNT_ID.SelectedValue, 93, ID, dtpDATE.Value, cmbTO_LOCATION_ID.SelectedValue, cmbTO_NAME_ID.SelectedValue)
                 End If
                 SqlExecuted("DELETE FROM `fund_transfer` WHERE ID ='" & ID & "'")
                 DeleteNotify(Me)
@@ -308,7 +308,7 @@ Public Class FrmFundTransfer
         If IsNew = True Then
             SetNew()
         Else
-            Dim R As Integer = fRefreshMessage()
+            Dim R As Integer = GF_RefreshMessage()
             If R = 1 Then
                 SetNew()
             ElseIf R = 2 Then

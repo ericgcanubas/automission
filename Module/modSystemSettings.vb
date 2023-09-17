@@ -118,7 +118,7 @@ Module modSystemSettings
                 Dim num As NumericUpDown = c.Controls(i)
                 num.DecimalPlaces = 2
                 num.Value = Val(v)
-               ' c.Controls(i).Controls(0).Hide()
+
             Case "chk"
                 Dim chk As CheckBox = c.Controls(i)
                 Dim b As Boolean
@@ -410,7 +410,7 @@ Module modSystemSettings
         DbAccessExecute("UPDATE tblsystem set system_value = '" & Format(dtp, "yyyy-MM-dd") & "' where ID = 'LAST_DATE_TRANSACTION' ")
     End Sub
     Public Function GetLoadLocationDefault() As Integer
-        Dim user_location_id As Integer = fUserDefaultLocation()
+        Dim user_location_id As Integer = GF_UserDefaultLocation()
         If user_location_id = 0 Then
             Return Val(GetSystemSettingValueByText("DefaultLocationId"))
         Else

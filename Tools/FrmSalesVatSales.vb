@@ -1,5 +1,5 @@
 ﻿Public Class FrmSalesVatSales
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+    Private Sub BtnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
 
         Dim SQL As String = $"SELECT 
   sri.`ID`,
@@ -45,7 +45,7 @@ WHERE
         cmbLocation_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
 
-    Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+    Private Sub BtnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
         ExportingExcel(dgvDataList, "Sales_vs_VSales_List_" & Format(DateTime.Now, "yyyy-MM-ddhhmmss"))
     End Sub
 End Class

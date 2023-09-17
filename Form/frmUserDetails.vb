@@ -150,7 +150,7 @@ ON utm.`ID` = u.`TYPE` WHERE u.ID = '{ID}' limit 1"
         PrompNotify(Me.Text, SaveMsg, True)
         If MessageBoxQuestion("Do you want to apply security settings from user type = " & cmbTYPE.Text) = True Then
 
-            fSecurityUpdate(False, False, ID, cmbTYPE.SelectedValue)
+            GS_SecurityUpdate(False, False, ID, cmbTYPE.SelectedValue)
 
         End If
         UserUpdateDgv()

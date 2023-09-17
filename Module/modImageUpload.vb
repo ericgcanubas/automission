@@ -1,6 +1,6 @@
 ﻿Module modImageUpload
 
-    Public Function fUploadAttachment(ByVal Path As String) As Boolean
+    Public Function GF_UploadAttachment(ByVal Path As String) As Boolean
 
 
         If Path = "" Then
@@ -45,7 +45,7 @@
             Return False
         End If
     End Function
-    Public Sub fDisplayPhoto(ByVal FileName As String, ByVal picID As PictureBox)
+    Public Sub GS_DisplayPhoto(ByVal FileName As String, ByVal picID As PictureBox)
         If gsUseImageProduct = False Then Exit Sub
 
         Try

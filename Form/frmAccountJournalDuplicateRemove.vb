@@ -89,7 +89,7 @@ ORDER BY a.`ID`"
 
             With dgvCLASS.Rows((dgvCLASS.Rows.Count - 1) - i)
 
-                fJournalAccountRemoveFixed_Account_ID_SP(.Cells("ACCOUNT_ID").Value, .Cells("OBJECT_TYPE").Value, .Cells("OBJECT_ID").Value, .Cells("DATE").Value, .Cells("LOCATION_ID").Value, .Cells("SUBSIDIARY_ID").Value, .Cells("ID").Value)
+                GS_JournalAccountRemoveFixed_Account_ID_SP(.Cells("ACCOUNT_ID").Value, .Cells("OBJECT_TYPE").Value, .Cells("OBJECT_ID").Value, .Cells("DATE").Value, .Cells("LOCATION_ID").Value, .Cells("SUBSIDIARY_ID").Value, .Cells("ID").Value)
 
                 GS_DoEvents()
             End With

@@ -21,6 +21,7 @@ Module modPublicVariable
     Public gsLeftApp As Image
     Public gsMeasureHoursID As Integer
 
+    Public gsShowAccounts As Boolean
     ' Public gsIcon As Image = Image.FromFile(Application.StartupPath & "\image\cp.ico")
 
     Public gsIcon As New System.Drawing.Icon(Application.StartupPath & "\image\ams.ico")

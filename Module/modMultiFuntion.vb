@@ -411,7 +411,7 @@ Module modMultiFuntion
             If isBill = True Then
                 GS_SetUpdateBillBalance(PayItemID(N), prContact_ID)
             Else
-                fUpdateInvoiceBalance(PayItemID(N), prContact_ID)
+                GS_UpdateInvoiceBalance(PayItemID(N), prContact_ID)
             End If
 
         Next

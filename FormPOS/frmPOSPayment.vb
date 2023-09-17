@@ -103,8 +103,8 @@
     End Sub
     Private Sub FrmPOSPayment_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        fLabel_Digital_M(xxxTOTAL)
-        fLabel_Digital_M(xxxxCHANGE)
+        GS_Label_Digital_M(xxxTOTAL)
+        GS_Label_Digital_M(xxxxCHANGE)
 
         CreateButton()
         xxxTOTAL.Text = NumberFormatStandard(gsTransTotal)

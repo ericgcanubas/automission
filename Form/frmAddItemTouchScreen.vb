@@ -376,7 +376,7 @@ Public Class FrmAddItemTouchScreen
     End Sub
 
     Private Sub FrmAddItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fMaterialSkin(Me)
+
 
 
         Dim gsItemCodeQuery_ As String
@@ -783,7 +783,7 @@ i.TAXABLE from ITEM as i WHERE i.ID ='" & cmbPrimary.SelectedValue & "' Limit 1"
                     If rd.Read Then
                         If gsUseImageProduct = True Then
 
-                            fDisplayPhoto(GF_TextIsNull(rd("PIC_FILENAME")), picItem)
+                            GS_DisplayPhoto(GF_TextIsNull(rd("PIC_FILENAME")), picItem)
 
 
                         End If

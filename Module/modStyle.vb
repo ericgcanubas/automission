@@ -5,7 +5,7 @@ Module modStyle
     Public gsPath_Background As String = ""
     Public gsPath_left As String = ""
 
-    Public Sub fThemeLoad()
+    Public Sub GS_ThemeLoad()
         gsImageBackground = Nothing
         gsImageNameApp = Nothing
         gsLeftApp = Nothing

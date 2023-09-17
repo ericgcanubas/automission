@@ -5,7 +5,7 @@ Public Class FrmItemUnitMeasurePriceLevel
     Public iCustomer_Price As Double = 0
 
     Private Sub FrmItemUnitMeasurePriceLevel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fMaterialSkin(Me)
+
         GS_ComboBoxLoad(cmbPriceLevel, "select ID,DESCRIPTION from price_level where INACTIVE = '0'", "ID", "DESCRIPTION")
         cmbPriceLevel.SelectedValue = iPrice_Level_id
         numCustomprice.Value = iCustomer_Price

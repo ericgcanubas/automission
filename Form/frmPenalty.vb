@@ -8,7 +8,7 @@ Public Class FrmPenalty
 
     End Sub
     Private Sub RefreshData()
-        fUpdatePenalty()
+
         Dim gsQuery As String = "SELECT 
 i.`ID`,
 i.`CODE` AS `Invoice No.`,

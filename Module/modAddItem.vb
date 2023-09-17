@@ -1794,7 +1794,7 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
             Dim total As Double
             If GF_TextIsNull(cmbINPUT_TAX_ID.Text) <> "" Then
                 'add tax
-                dVat = fTax_Rate_Find(GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
+                dVat = GS_Tax_Rate_Find(GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
                 dINput_value = (dVat / 100) * dTax
                 total = dINput_value + dTax
 
@@ -1897,7 +1897,7 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
             Dim total As Double
             If GF_TextIsNull(cmbINPUT_TAX_ID.Text) <> "" Then
                 'add tax
-                dVat = fTax_Rate_Find(GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
+                dVat = GS_Tax_Rate_Find(GF_NumIsNull(cmbINPUT_TAX_ID.SelectedValue))
                 dINput_value = (dVat / 100) * dTax
                 total = dINput_value + dTax
 
@@ -1977,7 +1977,7 @@ where i.inactive = '0'  and i.ID = '" & gsID & "' Limit 1;"
             Dim total As Double
             If GF_TextIsNull(cmbOUTPUT_TAX_ID.Text) <> "" Then
                 'add tax
-                dVat = fTax_Rate_Find(GF_NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue))
+                dVat = GS_Tax_Rate_Find(GF_NumIsNull(cmbOUTPUT_TAX_ID.SelectedValue))
                 dOutput_value = (dVat / 100) * dTax
                 total = dOutput_value + dTax
 

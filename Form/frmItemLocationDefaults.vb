@@ -5,7 +5,7 @@
     Public ship_id As Integer = 0
     Public dLocation As String = ""
     Private Sub FrmItemLocationDefaults_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fMaterialSkin(Me)
+
         Dim sQuery As String = " SELECT '0' AS `ID`, '' AS `NAME` UNION SELECT ID,`NAME` FROM unit_of_measure WHERE inactive ='0'"
         lblLocation.Text = dLocation
         GS_ComboBoxLoad(cmbPurchases, sQuery, "ID", "NAME")

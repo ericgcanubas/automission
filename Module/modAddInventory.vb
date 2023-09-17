@@ -10,7 +10,6 @@ Module modAddInventory
         Dim iAsset_Account_ID As Integer = 0
         Dim i_Asset_Value As Double = 0
         Dim i_DEFFERENCE_VALUE As Double = 0
-
         Dim dCOST As Double = 0
         Try
 

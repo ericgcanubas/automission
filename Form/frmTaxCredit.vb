@@ -141,7 +141,7 @@ Public Class FrmTaxCredit
 
             While rd.Read
                 Dim INVOICE_ID As Integer = rd("INVOICE_ID")
-                Dim dTax As Double = fInvoiceSumTaxApplied_Amount(INVOICE_ID, prPAY_ID)
+                Dim dTax As Double = GF_InvoiceSumTaxApplied_Amount(INVOICE_ID, prPAY_ID)
                 Dim Taxable_Amount As Double = GF_NumIsNull(rd("TAXABLE_AMOUNT"))
 
                 dTax = GetAppliedCreditTax(INVOICE_ID, ID)
@@ -449,7 +449,7 @@ Public Class FrmTaxCredit
                     If ChecK_TAX_CREDIT(.Cells("INVOICE_ID").Value, ID, GET_ID) = True Then
 
                         If gsSkipJournalEntry = False Then
-                            fJournalAccountRemoveFixed_Account_ID(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, 73, GET_ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value)
+                            GS_JournalAccountRemoveFixed_Account_ID(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, 73, GET_ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value)
                         End If
 
                         SqlExecuted("DELETE  FROM `tax_credit_invoices` WHERE ID = '" & GET_ID & "' and TAX_CREDIT_ID = '" & ID & "' and INVOICE_ID ='" & .Cells("INVOICE_ID").Value & "' limit 1;")
@@ -484,7 +484,7 @@ Public Class FrmTaxCredit
     End Function
     Private Sub UpdateInvoiceBalance(ByVal prInvoice_Id As String, ByVal prCustomer_ID As String)
 
-        Dim dTotal_Payment As Double = fGetSumPaymentApplied(prInvoice_Id, prCustomer_ID) + fGetSumCreditApplied(prInvoice_Id, prCustomer_ID) + fInvoiceSumTaxApplied_Amount(prInvoice_Id, prCustomer_ID)
+        Dim dTotal_Payment As Double = GF_GetSumPaymentApplied(prInvoice_Id, prCustomer_ID) + GF_GetSumCreditApplied(prInvoice_Id, prCustomer_ID) + GF_InvoiceSumTaxApplied_Amount(prInvoice_Id, prCustomer_ID)
         Dim dTotal_Amount As Double = GF_GetNumberFieldValue("INVOICE", "ID", prInvoice_Id, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer
@@ -519,7 +519,7 @@ Public Class FrmTaxCredit
                         Dim GET_ID As Integer = 0
                         If ChecK_TAX_CREDIT(.Cells(0).Value, ID, GET_ID) = True Then
                             If gsSkipJournalEntry = False Then
-                                fJournalAccountRemoveFixed_Account_ID(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, 73, GET_ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value)
+                                GS_JournalAccountRemoveFixed_Account_ID(.Cells("ACCOUNTS_RECEIVABLE_ID").Value, 73, GET_ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, .Cells("INVOICE_ID").Value)
                             End If
 
                             SqlExecuted("DELETE  FROM `tax_credit_invoices` WHERE ID='" & GET_ID & "' and TAX_CREDIT_ID = '" & ID & "' and INVOICE_ID ='" & .Cells(0).Value & "'")
@@ -528,7 +528,7 @@ Public Class FrmTaxCredit
                     End With
                 Next
                 If gsSkipJournalEntry = False Then
-                    fJournalAccountRemoveFixed_Account_ID(Val(lblEWT_ACCOUNT_ID.Text), 72, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
+                    GS_JournalAccountRemoveFixed_Account_ID(Val(lblEWT_ACCOUNT_ID.Text), 72, ID, dtpDATE.Value, cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
                 End If
                 SqlExecuted("DELETE FROM `tax_credit` WHERE ID = '" & ID & "' limit 1;")
                 DeleteNotify(Me)
@@ -651,7 +651,7 @@ Public Class FrmTaxCredit
         If IsNew = True Then
             SetNew()
         Else
-            Dim R As Integer = fRefreshMessage()
+            Dim R As Integer = GF_RefreshMessage()
             If R = 1 Then
                 SetNew()
             ElseIf R = 2 Then

@@ -138,7 +138,7 @@ FROM
                 gsPOS_LOG_ID = .Cells(0).Value
             End With
 
-            fPOS_LOG_JOURNAL(gsPOS_LOG_ID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
+            GS_PosLogJournal(gsPOS_LOG_ID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
 
         Next
         GS_CursorLoadingOn(False)

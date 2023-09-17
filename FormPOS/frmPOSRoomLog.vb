@@ -8,8 +8,8 @@
     Private Sub FrmPOSRoomLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Icon = gsIcon
         Me.Text = $"POS LOG  #{gsPOS_LOG_ID}  Date on {DateFormatStandard(gsPOS_DATE)}"
-        fLabel_Digital_M(lblTOTAL)
-        fLabel_Digital_M(lblTransactionNo)
+        GS_Label_Digital_M(lblTOTAL)
+        GS_Label_Digital_M(lblTransactionNo)
         lblCashierName.Text = GF_GetStringFieldValue("contact", "ID", gsCashier_ID, "Name")
         lblTOTAL.Text = NumberFormatStandard(gsPOS_TOTAL)
         lblTransactionNo.Text = gsPOS_TRANSACTION_COUNT

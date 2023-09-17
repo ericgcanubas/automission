@@ -6,7 +6,7 @@ Public Class FrmPOSCashCount
 
         gsCashCOUNT_AMOUNT = 0
 
-        fLabel_Digital_S(lblTOTAL)
+        GS_Label_Digital_S(lblTOTAL)
         xlblStartingCash.Text = NumberFormatStandard(gsStartingCash_Amount)
 
         If gsUseCashDenomination = True Then
@@ -70,7 +70,7 @@ Public Class FrmPOSCashCount
         End If
 
         Me.Icon = gsIcon
-        fMaterialSkin(Me)
+
         ClearAndRefresh(Me)
         AutoTotalFromOthers()
         Calculating()
@@ -159,7 +159,7 @@ Public Class FrmPOSCashCount
             End If
 
 
-            fPOS_LOG_JOURNAL(gsPOS_LOG_ID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
+            GS_PosLogJournal(gsPOS_LOG_ID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
 
             gsCashCOUNT_AMOUNT = GF_NumIsNull(lblTOTAL.Text)
 

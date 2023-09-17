@@ -4,7 +4,7 @@ Module modReportSettings
     Public gsREPORT_FILE_NAME As String
     Public gsREPORT_TITLE_NAME As String
 
-    Public Sub fSelectDateRange(ByVal prValue As String, ByVal dtpDATE_FROM As DateTimePicker, ByVal dtpDATE_TO As DateTimePicker)
+    Public Sub GS_SelectDateRange(ByVal prValue As String, ByVal dtpDATE_FROM As DateTimePicker, ByVal dtpDATE_TO As DateTimePicker)
         Dim f As Date = Date.Now.Date
         Dim t As Date = Date.Now.Date
         Select Case prValue

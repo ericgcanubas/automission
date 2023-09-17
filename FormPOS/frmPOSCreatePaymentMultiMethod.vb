@@ -203,7 +203,7 @@ SET `ID` = '{gsID}',
     End Sub
     Private Sub SetUpdateInvoiceBalance(ByVal prInvoice_ID As String, ByVal prCustomer_ID As String)
 
-        Dim dTotal_Payment As Double = fGetSumPaymentApplied(prInvoice_ID, prCustomer_ID) + fGetSumCreditApplied(prInvoice_ID, prCustomer_ID) + fInvoiceSumTaxApplied_Amount(prInvoice_ID, prCustomer_ID)
+        Dim dTotal_Payment As Double = GF_GetSumPaymentApplied(prInvoice_ID, prCustomer_ID) + GF_GetSumCreditApplied(prInvoice_ID, prCustomer_ID) + GF_InvoiceSumTaxApplied_Amount(prInvoice_ID, prCustomer_ID)
         Dim dTotal_Amount As Double = GF_GetNumberFieldValue("INVOICE", "ID", prInvoice_ID, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
         Dim nStatus As Integer

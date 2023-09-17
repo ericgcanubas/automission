@@ -4,15 +4,14 @@ Imports System.Data.Odbc
 Module modOnline
 
 
-    Public Sub fResetConnection()
+    Public Sub PS_ResetConnection()
         Try
-
             cnn = New OdbcConnection(mysqlConstr)
             cnn.Open()
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                fResetConnection()
+                PS_ResetConnection()
             Else
                 End
             End If

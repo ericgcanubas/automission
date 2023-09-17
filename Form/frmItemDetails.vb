@@ -899,7 +899,7 @@ Public Class FrmItemDetails
             If gsUseImageProduct = True Then
 
                 GetUploadImage = ""
-                fDisplayPhoto(lblPIC_FILENAME.Text, picItem)
+                GS_DisplayPhoto(lblPIC_FILENAME.Text, picItem)
 
             End If
 
@@ -1627,7 +1627,7 @@ ON um_shipping.`ID` = ilu.`SHIPPING_UNIT_ID`")
         End If
 
         If GetUploadImage <> "" Then
-            fUploadAttachment(GetUploadImage)
+            GF_UploadAttachment(GetUploadImage)
         End If
 
         picItem.Image = Nothing

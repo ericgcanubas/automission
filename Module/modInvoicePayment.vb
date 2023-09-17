@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Odbc
 Module modInvoice_payment
 
-    Public Function fGetSumPaymentApplied(ByRef prInvoice_ID As String, ByVal prCustomer_ID As String) As Double
+    Public Function GF_GetSumPaymentApplied(ByRef prInvoice_ID As String, ByVal prCustomer_ID As String) As Double
         If Trim(prInvoice_ID) = "" Or Trim(prCustomer_ID) = "" Then
             Return 0
             Exit Function
@@ -16,7 +16,7 @@ Module modInvoice_payment
 
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = fGetSumPaymentApplied(prInvoice_ID, prCustomer_ID)
+                dPayment = GF_GetSumPaymentApplied(prInvoice_ID, prCustomer_ID)
             Else
                 End
             End If
@@ -24,17 +24,14 @@ Module modInvoice_payment
         Return dPayment
 
     End Function
-    Public Sub fUpdateInvoiceBalance(ByVal prInvoice_ID As String, ByVal prCustomer_ID As String)
+    Public Sub GS_UpdateInvoiceBalance(ByVal prInvoice_ID As String, ByVal prCustomer_ID As String)
 
-
-
-
-        Dim dTotal_Payment As Double = fGetSumPaymentApplied(prInvoice_ID, prCustomer_ID) + fGetSumCreditApplied(prInvoice_ID, prCustomer_ID) + fInvoiceSumTaxApplied_Amount(prInvoice_ID, prCustomer_ID)
+        Dim dTotal_Payment As Double = GF_GetSumPaymentApplied(prInvoice_ID, prCustomer_ID) + GF_GetSumCreditApplied(prInvoice_ID, prCustomer_ID) + GF_InvoiceSumTaxApplied_Amount(prInvoice_ID, prCustomer_ID)
         Dim dTotal_Amount As Double = GF_GetNumberFieldValue("INVOICE", "ID", prInvoice_ID, "AMOUNT")
         Dim dTotal_Balance As Double = dTotal_Amount - dTotal_Payment
 
 
-        Dim nStatus As Integer = 0
+        Dim nStatus As Integer
 
         If 0 >= dTotal_Balance Then
             'Paid
@@ -46,7 +43,7 @@ Module modInvoice_payment
 
         SqlExecuted("UPDATE invoice SET BALANCE_DUE ='" & NumberFormatFixed(dTotal_Balance) & "',STATUS='" & nStatus & "',STATUS_DATE ='" & Format(Date.Now, "yyyy-MM-dd hh:mm:ss") & "' WHERE Customer_ID ='" & prCustomer_ID & "' and ID ='" & prInvoice_ID & "' limit 1;")
     End Sub
-    Public Function fGetSumCreditApplied(ByRef prInvoice_ID As String, ByVal prCustomer_ID As String) As Double
+    Public Function GF_GetSumCreditApplied(ByRef prInvoice_ID As String, ByVal prCustomer_ID As String) As Double
 
         If Trim(prInvoice_ID) = "" Or Trim(prCustomer_ID) = "" Then
             Return 0
@@ -62,7 +59,7 @@ Module modInvoice_payment
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = fGetSumCreditApplied(prInvoice_ID, prCustomer_ID)
+                dPayment = GF_GetSumCreditApplied(prInvoice_ID, prCustomer_ID)
             Else
                 End
             End If

@@ -65,7 +65,7 @@ Public Class FrmConnectionList
             SetDBAccessValue("SYSTEM_NAME", Application.ProductName)
             gsSystemName = GetDBAccessValueByText("SYSTEM_NAME")
         End If
-        gsThemeNo = Val(GetDBAccessValueByText("MATERIAL_SKIN")) '  SkinEngine1.SkinFile = SkinPath() & "vista1.ssk"
+
         RefreshList()
 
         If GF_IsRunAdministrator() = True Then
@@ -151,10 +151,10 @@ Public Class FrmConnectionList
                         cnn.Close()
                     End If
                     CreateUserDSN(db_name, db_server, db_name, db_username, db_password, db_port)
-                    fResetConnection()
+                    PS_ResetConnection()
                     If cnn.State = ConnectionState.Open Then
                         Me.Visible = False
-                        fThemeLoad()
+                        GS_ThemeLoad()
                         PrompNotify(Me.Text, $"{getString} connected to {db_server}.", True)
                         FrmSplash.Show()
                     End If

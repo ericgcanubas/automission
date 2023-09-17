@@ -7,13 +7,13 @@ Public Class FrmItemInventoryCostUpdate
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
 
-    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
-        fControl(False)
+    Private Sub BtnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+        SetControl(False)
         If chkUseSelectItem.Checked = True Then
             Dim rd As OdbcDataReader = SqlReader($"select ID,COST,COGS_ACCOUNT_ID,ASSET_ACCOUNT_ID from item Where inactive = '0' and type ='0' and ID = '{cmbITEM.SelectedValue}'  limit 1;")
             If rd.Read Then
                 GS_DoEvents()
-                fInventoryRead(rd("ID"), GF_NumIsNull(rd("COST")), GF_NumIsNull(rd("COGS_ACCOUNT_ID")), GF_NumIsNull(rd("ASSET_ACCOUNT_ID")))
+                SetInventoryRead(rd("ID"), GF_NumIsNull(rd("COST")), GF_NumIsNull(rd("COGS_ACCOUNT_ID")), GF_NumIsNull(rd("ASSET_ACCOUNT_ID")))
                 MessageBoxInfo("Update Complete.")
 
             Else
@@ -36,19 +36,18 @@ Public Class FrmItemInventoryCostUpdate
                 PBItemList.Value = PBItemList.Value + 1
                 lblItemList.Text = "Item List :" & PBItemList.Value & "/" & PBItemList.Maximum
                 GS_DoEvents()
-                fInventoryRead(rd("ID"), GF_NumIsNull(rd("COST")), GF_NumIsNull(rd("COGS_ACCOUNT_ID")), GF_NumIsNull(rd("ASSET_ACCOUNT_ID")))
+                SetInventoryRead(rd("ID"), GF_NumIsNull(rd("COST")), GF_NumIsNull(rd("COGS_ACCOUNT_ID")), GF_NumIsNull(rd("ASSET_ACCOUNT_ID")))
             End While
             MessageBoxInfo("Update Complete.")
         End If
 
-        fControl(True)
+        SetControl(True)
     End Sub
-    Private Sub fInventoryRead(ByVal prItem_ID As Integer, ByVal COST As Double, ByVal COGS_ACCOUNT_ID As Integer, ByVal ASSET_ACCOUNT_ID As Integer)
+    Private Sub SetInventoryRead(ByVal prItem_ID As Integer, ByVal COST As Double, ByVal COGS_ACCOUNT_ID As Integer, ByVal ASSET_ACCOUNT_ID As Integer)
         Dim TotalRow As Integer
         PBInventory.Minimum = 0
         PBInventory.Value = 0
         Dim d_COST As Double = 0
-        Dim h_COST As Double = 0
 
         Dim SQL_LIST As String
         If dtpDateStart.Checked = False Then
@@ -63,7 +62,8 @@ Public Class FrmItemInventoryCostUpdate
             PBInventory.Value = PBInventory.Value + 1
             lblInventory.Text = "Inventory :" & PBInventory.Value & "/" & PBInventory.Maximum
             GS_DoEvents()
-            h_COST = GF_NumIsNull(rd("ENDING_UNIT_COST"))
+            Dim h_COST As Double = GF_NumIsNull(rd("ENDING_UNIT_COST"))
+
             If chkBaseOnItemCost.Checked = False Then
                 If COST = h_COST Then
 
@@ -106,9 +106,9 @@ Public Class FrmItemInventoryCostUpdate
                 d_COST = COST
             End If
             Dim Qty As Integer = rd("QUANTITY")
-            fJournal(COGS_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
+            SetJournalAmount(COGS_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
             GS_DoEvents()
-            fJournal(ASSET_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
+            SetJournalAmount(ASSET_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
             GS_DoEvents()
             SqlExecuted($"UPDATE item_inventory SET  COST={GotNullNumber(IIf(Qty < 0, 0, d_COST))},ENDING_UNIT_COST = '{d_COST}',ENDING_COST='{ GF_NumIsNull(rd("ENDING_QUANTITY")) * d_COST}' where id = '{rd("ID")}' limit 1;")
 
@@ -116,7 +116,7 @@ Public Class FrmItemInventoryCostUpdate
 
 
     End Sub
-    Private Sub fJournal(ByVal ACCOUNT_ID As Integer, ByVal AMOUNT As Double, ByVal OBJECT_DATE As String, ByVal OBJECT_ID As Integer, ByVal LOCATION_ID As Integer, ByVal DOC_TYPE As Integer, ByVal SUBSIDIARY_ID As Integer)
+    Private Sub SetJournalAmount(ByVal ACCOUNT_ID As Integer, ByVal AMOUNT As Double, ByVal OBJECT_DATE As String, ByVal OBJECT_ID As Integer, ByVal LOCATION_ID As Integer, ByVal DOC_TYPE As Integer, ByVal SUBSIDIARY_ID As Integer)
         Dim RowCount As Integer
         Dim rd As OdbcDataReader = SQL_ReaderCounting($"select ID from account_journal Where ACCOUNT_ID ='{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_DATE = '{OBJECT_DATE}' and OBJECT_ID = '{OBJECT_ID}' and  OBJECT_TYPE ='{ThisObjectID(DOC_TYPE)}' and SUBSIDIARY_ID = '{SUBSIDIARY_ID}' ", RowCount)
         While rd.Read
@@ -139,18 +139,16 @@ Public Class FrmItemInventoryCostUpdate
         rd.Close()
         Return This_ID
     End Function
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub chkUseSelectItem_CheckedChanged(sender As Object, e As EventArgs) Handles chkUseSelectItem.CheckedChanged
+    Private Sub ChkUseSelectItem_CheckedChanged(sender As Object, e As EventArgs) Handles chkUseSelectItem.CheckedChanged
         cmbITEM.Enabled = chkUseSelectItem.Checked
-
-
     End Sub
 
 
-    Private Sub fControl(ByVal E As Boolean)
+    Private Sub SetControl(ByVal E As Boolean)
 
         chkBaseOnItemCost.Enabled = E
         chkUseSelectItem.Enabled = E

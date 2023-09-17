@@ -10,7 +10,7 @@
         cmbLOCATION_ID.SelectedValue = gsDefault_LOCATION_ID
     End Sub
 
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+    Private Sub BtnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
 
 
 
@@ -50,7 +50,7 @@ WHERE NOT EXISTS
         dgvList.Columns(0).Visible = False
 
     End Sub
-    Private Sub fDOC_Selected()
+    Private Sub Document_Selected()
 
         If dgvList.Rows.Count <> 0 Then
 
@@ -59,52 +59,52 @@ WHERE NOT EXISTS
             Dim i As Integer = 7
 
             gsMenuSubID = i
-                gsRefresh = True
-                gsDocument_Finder_ID = dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value
+            gsRefresh = True
+            gsDocument_Finder_ID = dgvList.Rows(dgvList.CurrentRow.Index).Cells("ID").Value
 
-                MenuSet()
+            MenuSet()
 
             gsDocument_Finder_ID = 0
 
             If gscryRpt IsNot Nothing Then
-                    gscryRpt.Close()
-                    gscryRpt.Dispose()
-                    gscryRpt = Nothing
+                gscryRpt.Close()
+                gscryRpt.Dispose()
+                gscryRpt = Nothing
+            End If
+
+            Dim fName As String = ""
+            Dim frm As New Form
+            frm = GetFormModule(fName)
+            Dim tp As New TabPage(fName)
+
+
+            Dim i_selected As Integer = 0
+
+            For x As Integer = 0 To gsTabControl.Controls.Count - 1
+                If gsTabControl.Controls.Item(x).Name = fName Then
+
+                    i_selected = x
+                    gsTabControl.Controls.RemoveAt(x)
+                    If gsTabControl.Controls.Count = 0 Then
+                        gsTabControl.Visible = False
+                    End If
+                    Exit For
                 End If
 
-                Dim fName As String = ""
-                Dim frm As New Form
-                frm = GetFormModule(fName)
-                Dim tp As TabPage = New TabPage(fName)
 
+            Next
 
-                Dim i_selected As Integer = 0
+            If gsTabControl.Controls.Count <> 0 Then
+                i_selected -= 1
 
-                For x As Integer = 0 To gsTabControl.Controls.Count - 1
-                    If gsTabControl.Controls.Item(x).Name = fName Then
-
-                        i_selected = x
-                        gsTabControl.Controls.RemoveAt(x)
-                        If gsTabControl.Controls.Count = 0 Then
-                            gsTabControl.Visible = False
-                        End If
-                        Exit For
-                    End If
-
-
-                Next
-
-                If gsTabControl.Controls.Count <> 0 Then
-                    i_selected = i_selected - 1
-
-                    If i_selected > 0 Then
-                        gsTabControl.SelectTab(i_selected)
-
-                    End If
+                If i_selected > 0 Then
+                    gsTabControl.SelectTab(i_selected)
 
                 End If
 
-                Me.Close()
+            End If
+
+            Me.Close()
 
 
         End If
@@ -113,15 +113,11 @@ WHERE NOT EXISTS
 
 
     End Sub
-    Private Sub dgvList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellContentClick
-
+    Private Sub BtnShowMe_Click(sender As Object, e As EventArgs) Handles btnShowMe.Click
+        Document_Selected()
     End Sub
 
-    Private Sub btnShowMe_Click(sender As Object, e As EventArgs) Handles btnShowMe.Click
-        fDOC_Selected()
-    End Sub
-
-    Private Sub dgvList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellDoubleClick
-        fDOC_Selected()
+    Private Sub DgvList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvList.CellDoubleClick
+        Document_Selected()
     End Sub
 End Class

@@ -7,7 +7,7 @@
     'Declare the variables
 
     Private Sub FrmInsertValue_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        fMaterialSkin(Me)
+
         lblDescription.Text = gsDescription
         txtValue.Text = gsValue
         gsValue = ""

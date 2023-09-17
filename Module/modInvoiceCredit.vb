@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Odbc
 Module modInvoiceCredit
-    Public Function fGetCreditApplied_Amount(ByRef prCreditMemo_ID As String, ByVal prCustomer_ID As String) As Double
+    Public Function GF_GetCreditApplied_Amount(ByRef prCreditMemo_ID As String, ByVal prCustomer_ID As String) As Double
 
         If Trim(prCreditMemo_ID) = "" Or Trim(prCustomer_ID) = "" Then
             Return 0
@@ -16,13 +16,13 @@ Module modInvoiceCredit
             End If
             rd.Close()
         Catch ex As Exception
-            dPayment = fGetCreditApplied_Amount(prCreditMemo_ID, prCustomer_ID)
+            dPayment = GF_GetCreditApplied_Amount(prCreditMemo_ID, prCustomer_ID)
         End Try
         Return dPayment
 
     End Function
 
-    Public Function fGetCreditOtherInvoice(ByRef prCreditMemo_ID As String, ByVal prInvoice_id As String) As Double
+    Public Function GF_GetCreditOtherInvoice(ByRef prCreditMemo_ID As String, ByVal prInvoice_id As String) As Double
         Dim dAmount As Double = 0
         Try
 
@@ -33,7 +33,7 @@ Module modInvoiceCredit
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dAmount = fGetCreditOtherInvoice(prCreditMemo_ID, prInvoice_id)
+                dAmount = GF_GetCreditOtherInvoice(prCreditMemo_ID, prInvoice_id)
             Else
                 End
             End If
@@ -43,7 +43,7 @@ Module modInvoiceCredit
 
     End Function
 
-    Public Function fGetCreditApplied_Invoice(ByRef prCreditMemo_ID As String, ByVal prCustomer_ID As String, ByVal prInvoice_ID As String) As Double
+    Public Function GF_GetCreditApplied_Invoice(ByRef prCreditMemo_ID As String, ByVal prCustomer_ID As String, ByVal prInvoice_ID As String) As Double
 
         If Trim(prCreditMemo_ID) = "" Or Trim(prCustomer_ID) = "" Then
             Return 0
@@ -59,7 +59,7 @@ Module modInvoiceCredit
             rd.Close()
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
-                dPayment = fGetCreditApplied_Invoice(prCreditMemo_ID, prCustomer_ID, prInvoice_ID)
+                dPayment = GF_GetCreditApplied_Invoice(prCreditMemo_ID, prCustomer_ID, prInvoice_ID)
             Else
                 End
             End If

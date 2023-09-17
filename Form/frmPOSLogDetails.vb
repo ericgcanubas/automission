@@ -126,7 +126,7 @@ UNION ALL
         gsPOS_DATE = DateFormatMySql(xlblRecorded_on3.Text)
 
         SqlExecuted($"UPDATE pos_cash_count SET TOTAL='{lblTOTAL.Text}',CASH='{numCASH.Value}',`CHECK`='{numCHECK.Value}',CREDIT_CARD='{numCREDIT_CARD.Value}',OTHER_PAYMENT='{numOTHER_PAYMENT.Value}',NOTES='{txtNOTES.Text}' WHERE ID ='{POS_CASH_COUNT_ID}' ")
-        fPOS_LOG_JOURNAL(gsID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
+        GS_PosLogJournal(gsID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
         MessageBoxInfo("Successful update.")
     End Sub
 
@@ -150,7 +150,7 @@ UNION ALL
 
         If MessageBoxQuestion("Do you want to remove this cash count?") = True Then
             gsPOS_DATE = DateFormatMySql(xlblRecorded_on3.Text)
-            fPOS_LOG_JOURNAL_DELETE(gsID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
+            GS_POS_LOG_JOURNAL_DELETE(gsID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
             SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{gsID}' Limit 1")
             SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID = null WHERE POS_LOG_ID='{gsID}' ")
             SqlExecuted($"DELETE FROM pos_cash_count WHERE ID ='{POS_CASH_COUNT_ID}'")

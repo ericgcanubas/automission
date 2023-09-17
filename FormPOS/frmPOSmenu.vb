@@ -148,24 +148,24 @@ Public Class FrmPOSmenu
         lblPAYMENT_AMOUNT.Text = "0.00"
         xxxlblSUB_TOTAL.Text = "0.00"
 
-        fLabel_Digital_M(xxxlblSUB_TOTAL)
-        ' fLabel_Digital_M(xxxxSUB_TOTAL)
+        GS_Label_Digital_M(xxxlblSUB_TOTAL)
+        ' GS_Label_Digital_M(xxxxSUB_TOTAL)
 
-        fLabel_Digital_L(lblAMOUNT)
-        ' fLabel_Digital_L(xlblTOTAL)
+        GS_Label_Digital_L(lblAMOUNT)
+        ' GS_Label_Digital_L(xlblTOTAL)
 
-        fLabel_Digital_M(lblOUTPUT_TAX_AMOUNT)
-        ' fLabel_Digital_M(xlblTax)
+        GS_Label_Digital_M(lblOUTPUT_TAX_AMOUNT)
+        ' GS_Label_Digital_M(xlblTax)
 
-        'fLabel_Digital_S(xlblTender)
-        ' fLabel_Digital_S(xlblChangeLab)
+        'GS_Label_Digital_S(xlblTender)
+        ' GS_Label_Digital_S(xlblChangeLab)
 
-        fLabel_Digital_L(xlblChange)
-        fLabel_Digital_L(lblPAYMENT_AMOUNT)
+        GS_Label_Digital_L(xlblChange)
+        GS_Label_Digital_L(lblPAYMENT_AMOUNT)
 
         ComboxRefresh()
         ClearAndRefresh(Me)
-        fMaterialSkin(Me)
+
         Me.Icon = gsIcon
         Tender_Column()
 
@@ -195,14 +195,14 @@ Public Class FrmPOSmenu
 
         Me.AccessibleName = GF_GetStringFieldValue("tblsub_menu", "form", "frmSalesReceipt", "sub_id")
 
-        gsUserDefaulLockNegativePerUser = fUserDefaulLockNegativePerUser()
+        gsUserDefaulLockNegativePerUser = GF_UserDefaulLockNegativePerUser()
 
         OR_REF = GF_IsPosOfficialReceiptRequired()
 
         gsPETTY_CASH_ACCOUNT_ID = GetPettyCashAccount()
         gsCASH_OVER_SHORT_EXPENSES = GetCashOverShortExpense()
         gsPOSDefaultCustomer_ID = GetSystemSettingValueByText("POSDefaultCustomerId")
-        gsDefault_unit_price_level_id = fUserDefaultPriceLevel()
+        gsDefault_unit_price_level_id = GF_UserDefaultPriceLevel()
         gsDefault_LOCATION_ID = GetLoadLocationDefault()
         gsIncRefNoByLocation = GetIncRefNoByLocation()
         gsPOS_MACHINE_ID = GF_GetPosMachineId()
@@ -597,7 +597,7 @@ B.ID = ii.BATCH_ID
 
             GS_AccountJournalExecute(Val(lblUNDEPOSITED_FUNDS_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 0, GF_NumIsNull(lblAMOUNT.Text), gsJOURNAL_NO_FORM)
             If GF_NumIsNull(lblOUTPUT_TAX_ACCOUNT_ID.Text) = 0 Then
-                fJournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, ID, CDate(dtpDATE.Value), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
+                GS_JournalAccountRemoveFixed_Account_ID(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), 52, ID, CDate(dtpDATE.Value), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue)
             Else
                 GS_AccountJournalExecute(Val(lblOUTPUT_TAX_ACCOUNT_ID.Text), cmbLOCATION_ID.SelectedValue, cmbCUSTOMER_ID.SelectedValue, 52, ID, CDate(dtpDATE.Value), 1, GF_NumIsNull(lblOUTPUT_TAX_AMOUNT.Text), gsJOURNAL_NO_FORM)
             End If
@@ -886,7 +886,7 @@ NewPOS_LOG:
             LOG_DATE = GetDateTimeNowSql()
 
             SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{gsStartingCash_Amount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
-            fPOS_STARTING_CASH_JOURNAL(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
+            GS_PosStartingCashJournal(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
             GS_PosLogLoad()
         End If
         rd.Close()

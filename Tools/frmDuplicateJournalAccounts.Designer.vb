@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmDuplicateJournalAccounts
+Partial Class FrmDuplicateJournalAccounts
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -39,9 +39,10 @@ Partial Class frmDuplicateJournalAccounts
         Me.dgvList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvList.Location = New System.Drawing.Point(0, 24)
+        Me.dgvList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvList.Name = "dgvList"
         Me.dgvList.ReadOnly = True
-        Me.dgvList.Size = New System.Drawing.Size(846, 299)
+        Me.dgvList.Size = New System.Drawing.Size(714, 410)
         Me.dgvList.TabIndex = 0
         '
         'MenuStrip1
@@ -49,7 +50,8 @@ Partial Class frmDuplicateJournalAccounts
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(846, 24)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(8, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(714, 24)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -63,23 +65,25 @@ Partial Class frmDuplicateJournalAccounts
         'RefreshToolStripMenuItem
         '
         Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
-        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.RefreshToolStripMenuItem.Text = "Refresh"
         '
         'RemoveAllToolStripMenuItem
         '
         Me.RemoveAllToolStripMenuItem.Name = "RemoveAllToolStripMenuItem"
-        Me.RemoveAllToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RemoveAllToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.RemoveAllToolStripMenuItem.Text = "Remove All"
         '
-        'frmDuplicateJournalAccounts
+        'FrmDuplicateJournalAccounts
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(846, 323)
+        Me.ClientSize = New System.Drawing.Size(714, 434)
         Me.Controls.Add(Me.dgvList)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "frmDuplicateJournalAccounts"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Duplicate Journal Accounts Show"

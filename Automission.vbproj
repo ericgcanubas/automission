@@ -690,11 +690,9 @@
     <Compile Include="Module\modDatagridView.vb" />
     <Compile Include="Module\modDateTime.vb" />
     <Compile Include="Module\modDeposit.vb" />
-    <Compile Include="Module\modDepot.vb" />
     <Compile Include="Module\modDetectUserLogin.vb" />
     <Compile Include="Module\modDSN.vb" />
     <Compile Include="Module\modEmail.vb" />
-    <Compile Include="Module\modErrorManage.vb" />
     <Compile Include="Module\modExport.vb" />
     <Compile Include="Module\modFind.vb" />
     <Compile Include="Module\modFont.vb" />
@@ -708,31 +706,23 @@
     <Compile Include="Module\modInvoiceCredit.vb" />
     <Compile Include="Module\modInvoicePayment.vb" />
     <Compile Include="Module\modInvoiceTax.vb" />
-    <Compile Include="Module\modItemCostUpdate.vb" />
     <Compile Include="Module\modItemInventory.vb" />
     <Compile Include="Module\modJournal.vb" />
     <Compile Include="Module\modJournalAccount.vb" />
-    <Compile Include="Module\modJournalAccountTrans.vb" />
     <Compile Include="Module\modLogs.vb" />
     <Compile Include="Module\modMenuControl.vb" />
-    <Compile Include="Module\modMenuLoading.vb" />
-    <Compile Include="Module\modMessage.vb" />
     <Compile Include="Module\modMessageBox.vb" />
     <Compile Include="Module\modModify.vb" />
     <Compile Include="Module\modMSAccess.vb" />
     <Compile Include="Module\modMultiFuntion.vb" />
-    <Compile Include="Module\modNewAccountJournal.vb" />
-    <Compile Include="Module\modNewItemInventory.vb" />
     <Compile Include="Module\modNotify.vb" />
     <Compile Include="Module\modNumberFormat.vb" />
     <Compile Include="Module\modNumberToText.vb" />
     <Compile Include="Module\modOnline.vb" />
     <Compile Include="Module\modPassword.vb" />
     <Compile Include="Module\modPaymentTerms.vb" />
-    <Compile Include="Module\modPenalty.vb" />
     <Compile Include="Module\modPOS.vb" />
     <Compile Include="Module\modPrinter.vb" />
-    <Compile Include="Module\modProductSetup.vb" />
     <Compile Include="Module\modPublicVariable.vb" />
     <Compile Include="Module\modPublicVariableForm.vb" />
     <Compile Include="Module\modQuantityOnHand.vb" />
@@ -741,7 +731,6 @@
     <Compile Include="Module\modReports.vb" />
     <Compile Include="Module\modReportSettings.vb" />
     <Compile Include="Module\modSecurity.vb" />
-    <Compile Include="Module\modSkin.vb" />
     <Compile Include="Module\modSound.vb" />
     <Compile Include="Module\modString.vb" />
     <Compile Include="Module\modStyle.vb" />
@@ -867,10 +856,10 @@
     <Compile Include="Tools\FrmCheckingAccountReference.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tools\frmDuplicateJournalAccounts.Designer.vb">
-      <DependentUpon>frmDuplicateJournalAccounts.vb</DependentUpon>
+    <Compile Include="Tools\FrmDuplicateJournalAccounts.Designer.vb">
+      <DependentUpon>FrmDuplicateJournalAccounts.vb</DependentUpon>
     </Compile>
-    <Compile Include="Tools\frmDuplicateJournalAccounts.vb">
+    <Compile Include="Tools\FrmDuplicateJournalAccounts.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Tools\FrmSalesVatSales.Designer.vb">
@@ -1501,12 +1490,6 @@
       <DependentUpon>FrmReportManagerComponent.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\FrmReportManagerComponent.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FrmReportMonthly.Designer.vb">
-      <DependentUpon>FrmReportMonthly.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FrmReportMonthly.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FrmReportSetting.Designer.vb">
@@ -2173,10 +2156,10 @@
     <Compile Include="Form\spSupport\frmAccountJournalTransaction.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\spSupport\frmUpdateSecurity.Designer.vb">
-      <DependentUpon>frmUpdateSecurity.vb</DependentUpon>
+    <Compile Include="Form\spSupport\FrmUpdateSecurity.Designer.vb">
+      <DependentUpon>FrmUpdateSecurity.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\spSupport\frmUpdateSecurity.vb">
+    <Compile Include="Form\spSupport\FrmUpdateSecurity.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Report_Files\Temp\ItemBarcode.vb">
@@ -2197,19 +2180,13 @@
     <Compile Include="Tools\FrmItemInventoryCostUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tools\frmJournalAccountEndingRecomputed.Designer.vb">
-      <DependentUpon>frmJournalAccountEndingRecomputed.vb</DependentUpon>
+    <Compile Include="Tools\FrmPOS_LOG_STATING_COUNT_FIXED.Designer.vb">
+      <DependentUpon>FrmPOS_LOG_STATING_COUNT_FIXED.vb</DependentUpon>
     </Compile>
-    <Compile Include="Tools\frmJournalAccountEndingRecomputed.vb">
+    <Compile Include="Tools\FrmPOS_LOG_STATING_COUNT_FIXED.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Tools\frmPOS_LOG_STATING_COUNT_FIXED.Designer.vb">
-      <DependentUpon>frmPOS_LOG_STATING_COUNT_FIXED.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Tools\frmPOS_LOG_STATING_COUNT_FIXED.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Tools\modMsgForm.vb" />
+    <Compile Include="Module\modMsgForm.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormPOS\FrmCashCountConfirm.resx">
@@ -2527,8 +2504,8 @@
     <EmbeddedResource Include="Tools\FrmCheckingAccountReference.resx">
       <DependentUpon>FrmCheckingAccountReference.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tools\frmDuplicateJournalAccounts.resx">
-      <DependentUpon>frmDuplicateJournalAccounts.vb</DependentUpon>
+    <EmbeddedResource Include="Tools\FrmDuplicateJournalAccounts.resx">
+      <DependentUpon>FrmDuplicateJournalAccounts.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\FrmSalesVatSales.resx">
       <DependentUpon>FrmSalesVatSales.vb</DependentUpon>
@@ -2855,9 +2832,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmReportManagerComponent.resx">
       <DependentUpon>FrmReportManagerComponent.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmReportMonthly.resx">
-      <DependentUpon>FrmReportMonthly.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmReportSetting.resx">
       <DependentUpon>FrmReportSetting.vb</DependentUpon>
@@ -3264,8 +3238,8 @@
     <EmbeddedResource Include="Form\spSupport\frmAccountJournalTransaction.resx">
       <DependentUpon>frmAccountJournalTransaction.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\spSupport\frmUpdateSecurity.resx">
-      <DependentUpon>frmUpdateSecurity.vb</DependentUpon>
+    <EmbeddedResource Include="Form\spSupport\FrmUpdateSecurity.resx">
+      <DependentUpon>FrmUpdateSecurity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report_Files\Temp\ItemBarcode.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -3277,11 +3251,8 @@
     <EmbeddedResource Include="Tools\FrmItemInventoryCostUpdate.resx">
       <DependentUpon>FrmItemInventoryCostUpdate.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tools\frmJournalAccountEndingRecomputed.resx">
-      <DependentUpon>frmJournalAccountEndingRecomputed.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tools\frmPOS_LOG_STATING_COUNT_FIXED.resx">
-      <DependentUpon>frmPOS_LOG_STATING_COUNT_FIXED.vb</DependentUpon>
+    <EmbeddedResource Include="Tools\FrmPOS_LOG_STATING_COUNT_FIXED.resx">
+      <DependentUpon>FrmPOS_LOG_STATING_COUNT_FIXED.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

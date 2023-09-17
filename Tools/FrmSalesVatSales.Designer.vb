@@ -39,87 +39,96 @@ Partial Class FrmSalesVatSales
         Me.dgvDataList.AllowUserToAddRows = False
         Me.dgvDataList.AllowUserToDeleteRows = False
         Me.dgvDataList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvDataList.Location = New System.Drawing.Point(12, 55)
+        Me.dgvDataList.Location = New System.Drawing.Point(16, 68)
+        Me.dgvDataList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvDataList.Name = "dgvDataList"
         Me.dgvDataList.ReadOnly = True
-        Me.dgvDataList.Size = New System.Drawing.Size(645, 324)
+        Me.dgvDataList.Size = New System.Drawing.Size(860, 399)
         Me.dgvDataList.TabIndex = 0
         '
         'cmbLocation_ID
         '
         Me.cmbLocation_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLocation_ID.FormattingEnabled = True
-        Me.cmbLocation_ID.Location = New System.Drawing.Point(12, 28)
+        Me.cmbLocation_ID.Location = New System.Drawing.Point(16, 34)
+        Me.cmbLocation_ID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbLocation_ID.Name = "cmbLocation_ID"
-        Me.cmbLocation_ID.Size = New System.Drawing.Size(176, 21)
+        Me.cmbLocation_ID.Size = New System.Drawing.Size(233, 24)
         Me.cmbLocation_ID.TabIndex = 1
         '
         'dtpDateFrom
         '
         Me.dtpDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDateFrom.Location = New System.Drawing.Point(198, 28)
+        Me.dtpDateFrom.Location = New System.Drawing.Point(264, 34)
+        Me.dtpDateFrom.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtpDateFrom.Name = "dtpDateFrom"
-        Me.dtpDateFrom.Size = New System.Drawing.Size(97, 20)
+        Me.dtpDateFrom.Size = New System.Drawing.Size(128, 23)
         Me.dtpDateFrom.TabIndex = 2
         '
         'dtpDateTo
         '
         Me.dtpDateTo.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDateTo.Location = New System.Drawing.Point(301, 28)
+        Me.dtpDateTo.Location = New System.Drawing.Point(401, 34)
+        Me.dtpDateTo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtpDateTo.Name = "dtpDateTo"
-        Me.dtpDateTo.Size = New System.Drawing.Size(103, 20)
+        Me.dtpDateTo.Size = New System.Drawing.Size(136, 23)
         Me.dtpDateTo.TabIndex = 3
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 12)
+        Me.Label1.Location = New System.Drawing.Point(16, 15)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(48, 13)
+        Me.Label1.Size = New System.Drawing.Size(63, 16)
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "Location"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(195, 12)
+        Me.Label2.Location = New System.Drawing.Point(260, 15)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(30, 13)
+        Me.Label2.Size = New System.Drawing.Size(39, 16)
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "From"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(298, 12)
+        Me.Label3.Location = New System.Drawing.Point(397, 15)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(20, 13)
+        Me.Label3.Size = New System.Drawing.Size(23, 16)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "To"
         '
         'btnRefresh
         '
-        Me.btnRefresh.Location = New System.Drawing.Point(410, 26)
+        Me.btnRefresh.Location = New System.Drawing.Point(547, 32)
+        Me.btnRefresh.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(75, 23)
+        Me.btnRefresh.Size = New System.Drawing.Size(100, 28)
         Me.btnRefresh.TabIndex = 7
         Me.btnRefresh.Text = "Reload"
         Me.btnRefresh.UseVisualStyleBackColor = True
         '
         'btnExport
         '
-        Me.btnExport.Location = New System.Drawing.Point(549, 28)
+        Me.btnExport.Location = New System.Drawing.Point(732, 34)
+        Me.btnExport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(108, 23)
+        Me.btnExport.Size = New System.Drawing.Size(144, 28)
         Me.btnExport.TabIndex = 8
         Me.btnExport.Text = "Export To Excel"
         Me.btnExport.UseVisualStyleBackColor = True
         '
         'FrmSalesVatSales
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(665, 391)
+        Me.ClientSize = New System.Drawing.Size(887, 481)
         Me.Controls.Add(Me.btnExport)
         Me.Controls.Add(Me.btnRefresh)
         Me.Controls.Add(Me.Label3)
@@ -129,6 +138,8 @@ Partial Class FrmSalesVatSales
         Me.Controls.Add(Me.dtpDateFrom)
         Me.Controls.Add(Me.cmbLocation_ID)
         Me.Controls.Add(Me.dgvDataList)
+        Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FrmSalesVatSales"

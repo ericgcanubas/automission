@@ -3,7 +3,6 @@
     Private Declare Function SQLInstallerError Lib "ODBCCP32.DLL" (ByVal iError As Integer, ByRef pfErrorCode As Integer, ByVal lpszErrorMsg As System.Text.StringBuilder, ByVal cbErrorMsgMax As Integer, ByRef pcbErrorMsg As Integer) As Integer
 
     Private Const ODBC_ADD_DSN As Short = 1 ' Add data source
-    Private Const ODBC_ADD_SYS_DSN As Short = 3
     Private Const vbAPINull As Integer = 0 ' NULL Pointer
 
     Public Sub CreateUserDSN(ByVal prDSN As String, ByVal prServer As String, ByVal prDatabase As String, ByVal prUser As String, ByVal prPassword As String, ByVal prPort As Integer)

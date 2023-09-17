@@ -91,7 +91,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             While rd.Read
-                Dim credit_applied As Double = fGetSumCreditApplied(rd("invoice_id"), gsCustomer_ID)
+                Dim credit_applied As Double = GF_GetSumCreditApplied(rd("invoice_id"), gsCustomer_ID)
 
 
                 If credit_applied = 0 Then
@@ -221,7 +221,7 @@ WHERE i.customer_id = '" & gsCustomer_ID & "'  and i.location_id = '" & gsLocati
 
     Private Sub InvoiceBalanceUpdate(ByVal gsInvoice As String, prORG_Amount As Double)
 
-        Dim total_pay As Double = fGetSumPaymentApplied(gsInvoice, gsCustomer_ID) + fGetSumCreditApplied(gsInvoice, gsCustomer_ID) + fInvoiceSumTaxApplied_Amount(gsInvoice, gsCustomer_ID)
+        Dim total_pay As Double = GF_GetSumPaymentApplied(gsInvoice, gsCustomer_ID) + GF_GetSumCreditApplied(gsInvoice, gsCustomer_ID) + GF_InvoiceSumTaxApplied_Amount(gsInvoice, gsCustomer_ID)
         Dim New_Balance As Double = prORG_Amount - total_pay
 
         Dim squery As String
