@@ -226,7 +226,7 @@ FROM   sales_receipt AS sr
             If gsPOS_LOG_ID = 0 Then
                 gsPOS_LOG_ID = ObjectTypeMapId("POS_LOG")
                 Dim iSerial_No As Integer = GF_GetNextLOgSerialNumber()
-                sQuery = "INSERT pos_log SET TRANSACTION_DATE='" & DateFormatMySql(gsPOS_DATE) & "',RECORDED_ON='" & LOG_DATE & "',
+                sQuery = "INSERT pos_log SET TRANSACTION_DATE='" & GetDateFormatMySql(gsPOS_DATE) & "',RECORDED_ON='" & LOG_DATE & "',
 SERIAL_NO='" & iSerial_No & "',
 ID = '" & gsPOS_LOG_ID & "',
 POS_MACHINE_ID ='" & gsPOS_MACHINE_ID & "', 

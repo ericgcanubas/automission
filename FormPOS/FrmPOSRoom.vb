@@ -157,10 +157,10 @@ NewPOS_LOG:
                 End If
 
                 gsSTARTING_CASH_ID = ObjectTypeMapId("POS_STARTING_CASH")
-                If DateFormatMySql(gsPOS_DATE) = DateFormatMySql(Date.Now.Date) Then
+                If GetDateFormatMySql(gsPOS_DATE) = GetDateFormatMySql(Date.Now.Date) Then
                     LOG_DATE = GetDateTimeNowSql()
                 Else
-                    LOG_DATE = $"{DateFormatMySql(gsPOS_DATE)} 08:00:01"
+                    LOG_DATE = $"{GetDateFormatMySql(gsPOS_DATE)} 08:00:01"
                 End If
 
                 SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{sAMount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")

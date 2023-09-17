@@ -35,15 +35,15 @@ UP_NOW:
         gsDefault_LOCATION_ID = cmbLOCATION_ID.SelectedValue
         Dim rd As OdbcDataReader
         If chkRESTO_MODE.Checked = False Then
-            rd = SqlReader($"SELECT *  FROM SALES_RECEIPT WHERE  `DATE`='{DateFormatMySql(dt)}' and `LOCATION_ID` ='{gsDefault_LOCATION_ID}'")
+            rd = SqlReader($"SELECT *  FROM SALES_RECEIPT WHERE  `DATE`='{GetDateFormatMySql(dt)}' and `LOCATION_ID` ='{gsDefault_LOCATION_ID}'")
         Else
-            rd = SqlReader($"SELECT *  FROM PAYMENT WHERE  `DATE`='{DateFormatMySql(dt)}' and `LOCATION_ID` ='{gsDefault_LOCATION_ID}'")
+            rd = SqlReader($"SELECT *  FROM PAYMENT WHERE  `DATE`='{GetDateFormatMySql(dt)}' and `LOCATION_ID` ='{gsDefault_LOCATION_ID}'")
         End If
 
         If rd.Read Then
 
 
-            Dim rd_pos_start As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}' and  CASHIER_ID = '{gsCashier_ID}'  and DATE(RECORDED_ON) ='{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' ")
+            Dim rd_pos_start As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}' and  CASHIER_ID = '{gsCashier_ID}'  and DATE(RECORDED_ON) ='{GetDateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' ")
             While rd_pos_start.Read()
 
                 gsPOS_LOG_ID = GF_NumIsNull(rd_pos_start("ID"))
@@ -55,10 +55,10 @@ UP_NOW:
                 If gsPOS_LOG_ID <> 0 Then
 
                     If chkRESTO_MODE.Checked = False Then
-                        SqlExecuted($" UPDATE sales_receipt SET `CASHIER_ID` ='{gsCashier_ID}',POS_LOG_ID ='{gsPOS_LOG_ID}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',POS_POSTED='1' WHERE `DATE`='{DateFormatMySql(gsPOS_DATE)}' and `LOCATION_ID` ='{cmbLOCATION_ID.SelectedValue}' ")
+                        SqlExecuted($" UPDATE sales_receipt SET `CASHIER_ID` ='{gsCashier_ID}',POS_LOG_ID ='{gsPOS_LOG_ID}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',POS_POSTED='1' WHERE `DATE`='{GetDateFormatMySql(gsPOS_DATE)}' and `LOCATION_ID` ='{cmbLOCATION_ID.SelectedValue}' ")
 
                     Else
-                        SqlExecuted($" UPDATE payment SET POS_LOG_ID ='{gsPOS_LOG_ID}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}' WHERE `DATE`='{DateFormatMySql(gsPOS_DATE)}' and `LOCATION_ID` ='{cmbLOCATION_ID.SelectedValue}' ")
+                        SqlExecuted($" UPDATE payment SET POS_LOG_ID ='{gsPOS_LOG_ID}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}' WHERE `DATE`='{GetDateFormatMySql(gsPOS_DATE)}' and `LOCATION_ID` ='{cmbLOCATION_ID.SelectedValue}' ")
                     End If
 
                     D_PLOG(gsPOS_DATE)
@@ -71,14 +71,14 @@ UP_NOW:
                     D_PLOG(gsPOS_DATE)
 
                     Dim ID As Integer
-                    Dim rd_c As OdbcDataReader = SqlReader($"SELECT `ID` from POS_CASH_COUNT WHERE DATE(RECORDED_ON)='{DateFormatMySql(dt)}' and POS_MACHINE_ID = '{gsPOS_MACHINE_ID}' limit 1 ")
+                    Dim rd_c As OdbcDataReader = SqlReader($"SELECT `ID` from POS_CASH_COUNT WHERE DATE(RECORDED_ON)='{GetDateFormatMySql(dt)}' and POS_MACHINE_ID = '{gsPOS_MACHINE_ID}' limit 1 ")
                     If rd_c.Read Then
 
                         'NO LONGER TO CHANGE
                     Else
 
                         ID = ObjectTypeMapId("pos_cash_count")
-                        SqlExecuted($"INSERT INTO pos_cash_count SET TOTAL='{gsPOS_TOTAL}',CASH='{gsPOS_CASH}',`CHECK`='{gsPOS_CHECK}',CREDIT_CARD='{gsPOS_MASTER_CARD}',OTHER_PAYMENT='{gsPOS_OTHER_CARD}',NOTES='', ID ='{ID}',POS_MACHINE_ID = '{gsPOS_MACHINE_ID}', POSTED = '1',RECORDED_ON='{DateFormatMySql(dt)} 08:00:01'")
+                        SqlExecuted($"INSERT INTO pos_cash_count SET TOTAL='{gsPOS_TOTAL}',CASH='{gsPOS_CASH}',`CHECK`='{gsPOS_CHECK}',CREDIT_CARD='{gsPOS_MASTER_CARD}',OTHER_PAYMENT='{gsPOS_OTHER_CARD}',NOTES='', ID ='{ID}',POS_MACHINE_ID = '{gsPOS_MACHINE_ID}', POSTED = '1',RECORDED_ON='{GetDateFormatMySql(dt)} 08:00:01'")
                         SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = '{ID}' WHERE ID ='{gsPOS_LOG_ID}' Limit 1")
 
                         If chkRESTO_MODE.Checked = False Then
@@ -112,7 +112,7 @@ UP_NOW:
         If gsPOS_LOG_ID = 0 Then
             gsPOS_LOG_ID = ObjectTypeMapId("POS_LOG")
             Dim iSerial_No As Integer = 0
-            sQuery = $"INSERT pos_log SET RECORDED_ON='{DateFormatMySql(dt)} 08:00:01',
+            sQuery = $"INSERT pos_log SET RECORDED_ON='{GetDateFormatMySql(dt)} 08:00:01',
 SERIAL_NO='" & iSerial_No & "',
 ID = '" & gsPOS_LOG_ID & "',
 POS_MACHINE_ID ='" & gsPOS_MACHINE_ID & "', 
@@ -139,7 +139,7 @@ CASH_COUNT_ID=null," & sValueSet
         gsPOS_DATE = dt
         gsPOS_LOG_ID = 0
         'POS LOG
-        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and DATE(recorded_On) ='{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}'  Limit 1;")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and DATE(recorded_On) ='{GetDateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}'  Limit 1;")
 
         If rd.Read Then
             gsPOS_LOG_ID = GF_NumIsNull(rd("ID"))
@@ -149,7 +149,7 @@ CASH_COUNT_ID=null," & sValueSet
         Else
             gsCASH_COUNT_ID = 0
             gsSTARTING_CASH_ID = ObjectTypeMapId("POS_STARTING_CASH")
-            SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{DateFormatMySql(dt)} 08:00:01',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{cmbCASHIER_ID.SelectedValue}',AMOUNT='0',POSTED='0',DRAWER_ACCOUNT_ID='{ gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
+            SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{GetDateFormatMySql(dt)} 08:00:01',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{cmbCASHIER_ID.SelectedValue}',AMOUNT='0',POSTED='0',DRAWER_ACCOUNT_ID='{ gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
         End If
         GS_PosStartingCashJournal(gsSTARTING_CASH_ID, gsPOS_DATE, cmbLOCATION_ID.SelectedValue)
         D_PLOG(dt)

@@ -53,7 +53,7 @@ Public Class FrmItemInventoryCostUpdate
         If dtpDateStart.Checked = False Then
             SQL_LIST = $"select ID,SOURCE_REF_TYPE,SOURCE_REF_ID,SOURCE_REF_DATE,QUANTITY,COST,ENDING_QUANTITY,ENDING_UNIT_COST,ENDING_COST,LOCATION_ID from item_inventory where item_id = '{prItem_ID}' and LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' order by SOURCE_REF_DATE,ID "
         Else
-            SQL_LIST = $"select ID,SOURCE_REF_TYPE,SOURCE_REF_ID,SOURCE_REF_DATE,QUANTITY,COST,ENDING_QUANTITY,ENDING_UNIT_COST,ENDING_COST,LOCATION_ID from item_inventory where SOURCE_REF_DATE >='{DateFormatMySql(dtpDateStart.Value)}' and item_id = '{prItem_ID}' and LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' order by SOURCE_REF_DATE,ID "
+            SQL_LIST = $"select ID,SOURCE_REF_TYPE,SOURCE_REF_ID,SOURCE_REF_DATE,QUANTITY,COST,ENDING_QUANTITY,ENDING_UNIT_COST,ENDING_COST,LOCATION_ID from item_inventory where SOURCE_REF_DATE >='{GetDateFormatMySql(dtpDateStart.Value)}' and item_id = '{prItem_ID}' and LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' order by SOURCE_REF_DATE,ID "
         End If
 
         Dim rd As OdbcDataReader = SQL_ReaderCounting(SQL_LIST, TotalRow)
@@ -106,9 +106,9 @@ Public Class FrmItemInventoryCostUpdate
                 d_COST = COST
             End If
             Dim Qty As Integer = rd("QUANTITY")
-            SetJournalAmount(COGS_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
+            SetJournalAmount(COGS_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), GetDateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
             GS_DoEvents()
-            SetJournalAmount(ASSET_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), DateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
+            SetJournalAmount(ASSET_ACCOUNT_ID, d_COST * IIf(Qty < 0, Qty * -1, Qty), GetDateFormatMySql(rd("SOURCE_REF_DATE")), rd("SOURCE_REF_ID"), rd("LOCATION_ID"), rd("SOURCE_REF_TYPE"), prItem_ID)
             GS_DoEvents()
             SqlExecuted($"UPDATE item_inventory SET  COST={GotNullNumber(IIf(Qty < 0, 0, d_COST))},ENDING_UNIT_COST = '{d_COST}',ENDING_COST='{ GF_NumIsNull(rd("ENDING_QUANTITY")) * d_COST}' where id = '{rd("ID")}' limit 1;")
 

@@ -203,7 +203,7 @@ Public Class FrmPOSRestoMenu
         gsPOS_LOG_ID = 0
         Dim bStartNew As Boolean = False
         'POS LOG
-        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and DATE(recorded_On) ='{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and CASHIER_ID = '{gsCashier_ID}' ORDER BY ID DESC Limit 1;")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,STARTING_RECEIPT_NO,ENDING_RECEIPT_NO,STARTING_CASH_ID,CASH_COUNT_ID FROM POS_LOG WHERE POS_MACHINE_ID='{gsPOS_MACHINE_ID}'  and DATE(recorded_On) ='{GetDateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and CASHIER_ID = '{gsCashier_ID}' ORDER BY ID DESC Limit 1;")
         If rd.Read Then
             If GF_NumIsNull(rd("CASH_COUNT_ID")) <> 0 Then
                 FrmPOSLogSwitch.ShowDialog()
@@ -234,10 +234,10 @@ NewPOS_LOG:
             End If
             gsSTARTING_CASH_ID = ObjectTypeMapId("POS_STARTING_CASH")
 
-            If DateFormatMySql(gsPOS_DATE) = DateFormatMySql(Date.Now.Date) Then
+            If GetDateFormatMySql(gsPOS_DATE) = GetDateFormatMySql(Date.Now.Date) Then
                 LOG_DATE = GetDateTimeNowSql()
             Else
-                LOG_DATE = $"{DateFormatMySql(gsPOS_DATE)} 08:00:01"
+                LOG_DATE = $"{GetDateFormatMySql(gsPOS_DATE)} 08:00:01"
             End If
             SqlExecuted($"INSERT INTO pos_starting_cash SET ID = '{gsSTARTING_CASH_ID}',RECORDED_ON='{LOG_DATE}',POS_MACHINE_ID='{gsPOS_MACHINE_ID}',CASHIER_ID='{gsCashier_ID}',AMOUNT='{sAMount}',POSTED='0',DRAWER_ACCOUNT_ID='{gsDRAWER_ACCOUNT_ID}',PETTY_CASH_ACCOUNT_ID='{gsPETTY_CASH_ACCOUNT_ID}' ")
             GS_PosStartingCashJournal(gsSTARTING_CASH_ID, gsPOS_DATE, gsDefault_LOCATION_ID)
@@ -704,14 +704,14 @@ UNION ALL
                     FrmPOSTableDetails = Nothing
                 ElseIf rbTAKE_OUT.Checked = True Then
 
-                    Dim rd_16 As OdbcDataReader = SqlReader($"select * from invoice WHERE DATE = '{ DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='" & DateFormatMySql(gsPOS_DATE) & "' and SHIP_VIA_ID='" & gsTAKE_OUT_ID & "' and SHIP_TO='" & numTableSelected & "' and STATUS = '16' limit 1;")
+                    Dim rd_16 As OdbcDataReader = SqlReader($"select * from invoice WHERE DATE = '{ GetDateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='" & GetDateFormatMySql(gsPOS_DATE) & "' and SHIP_VIA_ID='" & gsTAKE_OUT_ID & "' and SHIP_TO='" & numTableSelected & "' and STATUS = '16' limit 1;")
                     If rd_16.Read Then
 
                         Dim GET_ID As Integer = GF_NumIsNull(rd_16("id"))
 
                         If MessageBoxPointOfSalesYesNO("Pick up?") = True Then
 
-                            SqlExecuted($"UPDATE invoice SET `STATUS` = '14' WHERE `DATE` = '{DateFormatMySql(gsPOS_DATE)}' and `LOCATION_ID` = '{gsDefault_LOCATION_ID}' and `SHIP_DATE` ='" & DateFormatMySql(gsPOS_DATE) & "' and SHIP_VIA_ID='" & gsTAKE_OUT_ID & "' and SHIP_TO='" & numTableSelected & "' and STATUS = '16' limit 1;")
+                            SqlExecuted($"UPDATE invoice SET `STATUS` = '14' WHERE `DATE` = '{GetDateFormatMySql(gsPOS_DATE)}' and `LOCATION_ID` = '{gsDefault_LOCATION_ID}' and `SHIP_DATE` ='" & GetDateFormatMySql(gsPOS_DATE) & "' and SHIP_VIA_ID='" & gsTAKE_OUT_ID & "' and SHIP_TO='" & numTableSelected & "' and STATUS = '16' limit 1;")
                             RefreshTable()
 
                         Else
@@ -1390,7 +1390,7 @@ FROM
             Dim bTotal_Balance As Double = NumberFormatFixed(lblBALANCE_DUE.Text)
             Dim nStatus As Integer = IIf(GF_NumIsNull(lblAMOUNT.Text) <= 0, 16, 13)
 
-            SqlExecuted($"INSERT INTO invoice ({SQL_Field1},{SQL_Field2},ID,RECORDED_ON,SHIP_DATE,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE,IS_FC) VALUES ({SQL_Value1},{SQL_Value2},'{ID}','{GetDateTimeNowSql()}','{DateFormatMySql(gsPOS_DATE)}','{ORDER_TYPE_ID}','{numTableSelected}','{nStatus}',{GetDateTimeNowSql()},0) ")
+            SqlExecuted($"INSERT INTO invoice ({SQL_Field1},{SQL_Field2},ID,RECORDED_ON,SHIP_DATE,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE,IS_FC) VALUES ({SQL_Value1},{SQL_Value2},'{ID}','{GetDateTimeNowSql()}','{GetDateFormatMySql(gsPOS_DATE)}','{ORDER_TYPE_ID}','{numTableSelected}','{nStatus}',{GetDateTimeNowSql()},0) ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
             SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 
@@ -1625,13 +1625,13 @@ FROM
     Private Function GetNextInvoiceTodayCountNumber() As Integer
         Dim N As Integer = 0
         If rbTAKE_OUT.Checked = True Then
-            Dim rd As OdbcDataReader = SqlReader($"select  COUNT(*) as T FROM INVOICE WHERE DATE = '{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='{DateFormatMySql(gsPOS_DATE)}' and SHIP_VIA_ID ='{gsTAKE_OUT_ID}' limit 100  ")
+            Dim rd As OdbcDataReader = SqlReader($"select  COUNT(*) as T FROM INVOICE WHERE DATE = '{GetDateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='{GetDateFormatMySql(gsPOS_DATE)}' and SHIP_VIA_ID ='{gsTAKE_OUT_ID}' limit 100  ")
             If rd.Read Then
                 N = GF_NumIsNull(rd("T"))
             End If
             rd.Close()
         ElseIf rbDELIVERY.Checked = True Then
-            Dim rd As OdbcDataReader = SqlReader($"select  COUNT(*) as T FROM INVOICE WHERE DATE = '{DateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='{DateFormatMySql(gsPOS_DATE)}' and SHIP_VIA_ID ='{gsDELIVERY_ID}' limit 100  ")
+            Dim rd As OdbcDataReader = SqlReader($"select  COUNT(*) as T FROM INVOICE WHERE DATE = '{GetDateFormatMySql(gsPOS_DATE)}' and LOCATION_ID = '{gsDefault_LOCATION_ID}' and SHIP_DATE ='{GetDateFormatMySql(gsPOS_DATE)}' and SHIP_VIA_ID ='{gsDELIVERY_ID}' limit 100  ")
             If rd.Read Then
                 N = GF_NumIsNull(rd("T"))
             End If
@@ -1706,7 +1706,7 @@ FROM
 
             SqlExecuted($"INSERT INTO sales_order
                             (ID,RECORDED_ON,DATE_NEEDED,SHIP_VIA_ID,SHIP_TO,STATUS,STATUS_DATE) 
-                            VALUES ({ID},'{GetDateTimeNowSql()}','{DateFormatMySql(Date.Now)}','{ORDER_TYPE_ID}','numTableSelected',16,{GetDateTimeNowSql()})  ")
+                            VALUES ({ID},'{GetDateTimeNowSql()}','{GetDateFormatMySql(Date.Now)}','{ORDER_TYPE_ID}','numTableSelected',16,{GetDateTimeNowSql()})  ")
             SetTransactionDateSelectUpdate(dtpDATE.Value)
             SetTransactionLog(ID, lblCODE.Text, Me.AccessibleName, "New", cmbCUSTOMER_ID.SelectedValue, "", GF_NumIsNull(lblAMOUNT.Text), cmbLOCATION_ID.SelectedValue)
 

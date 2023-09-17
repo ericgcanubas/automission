@@ -22,7 +22,7 @@ Public Class FrmSalesTaxRecompute
             If dtpUseDate.Checked = False Then
                 SQL = $"select sri.`ID`,sri.`AMOUNT`,sri.`TAXABLE`,sri.`TAXABLE_AMOUNT`,sri.`TAX_AMOUNT`,sri.`SALES_RECEIPT_ID`,sr.`OUTPUT_TAX_ID`,sr.`OUTPUT_TAX_ACCOUNT_ID`,sr.`OUTPUT_TAX_AMOUNT`,sr.`OUTPUT_TAX_RATE`,sr.`POS_LOG_ID`,sr.`DATE`,sri.INCOME_ACCOUNT_ID,sr.CUSTOMER_ID  from sales_receipt_items as sri inner join sales_receipt as sr on sr.id = sri.sales_receipt_id Where sri.`ITEM_ID`= '{cmbITEM_ID.SelectedValue}' and sr.`LOCATION_ID`  = '{cmbLOCATION_ID.SelectedValue}' "
             Else
-                SQL = $"select sri.`ID`,sri.`AMOUNT`,sri.`TAXABLE`,sri.`TAXABLE_AMOUNT`,sri.`TAX_AMOUNT`,sri.`SALES_RECEIPT_ID`,sr.`OUTPUT_TAX_ID`,sr.`OUTPUT_TAX_ACCOUNT_ID`,sr.`OUTPUT_TAX_AMOUNT`,sr.`OUTPUT_TAX_RATE`,sr.`POS_LOG_ID`,sr.`DATE`,sri.INCOME_ACCOUNT_ID,sr.CUSTOMER_ID  from sales_receipt_items as sri inner join sales_receipt as sr on sr.id = sri.sales_receipt_id Where sri.`ITEM_ID`= '{cmbITEM_ID.SelectedValue}' and sr.`LOCATION_ID`  = '{cmbLOCATION_ID.SelectedValue}' and sr.DATE >='{DateFormatMySql(dtpUseDate.Value)}' "
+                SQL = $"select sri.`ID`,sri.`AMOUNT`,sri.`TAXABLE`,sri.`TAXABLE_AMOUNT`,sri.`TAX_AMOUNT`,sri.`SALES_RECEIPT_ID`,sr.`OUTPUT_TAX_ID`,sr.`OUTPUT_TAX_ACCOUNT_ID`,sr.`OUTPUT_TAX_AMOUNT`,sr.`OUTPUT_TAX_RATE`,sr.`POS_LOG_ID`,sr.`DATE`,sri.INCOME_ACCOUNT_ID,sr.CUSTOMER_ID  from sales_receipt_items as sri inner join sales_receipt as sr on sr.id = sri.sales_receipt_id Where sri.`ITEM_ID`= '{cmbITEM_ID.SelectedValue}' and sr.`LOCATION_ID`  = '{cmbLOCATION_ID.SelectedValue}' and sr.DATE >='{GetDateFormatMySql(dtpUseDate.Value)}' "
             End If
             Dim Run As Integer = 0
             Dim Count As Integer
@@ -41,9 +41,9 @@ Public Class FrmSalesTaxRecompute
                 'Two Piece
 
                 'ITEM
-                SqlExecuted($"UPDATE account_journal SET AMOUNT='{Item_amt_Value}' WHERE OBJECT_TYPE = '53' and OBJECT_ID = '{r("ID")}' and ACCOUNT_ID = '{r("INCOME_ACCOUNT_ID")}' and SUBSIDIARY_ID ='{r("CUSTOMER_ID")}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}' and `OBJECT_DATE` = '{DateFormatMySql(r("DATE"))}' limit 1; ")
+                SqlExecuted($"UPDATE account_journal SET AMOUNT='{Item_amt_Value}' WHERE OBJECT_TYPE = '53' and OBJECT_ID = '{r("ID")}' and ACCOUNT_ID = '{r("INCOME_ACCOUNT_ID")}' and SUBSIDIARY_ID ='{r("CUSTOMER_ID")}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}' and `OBJECT_DATE` = '{GetDateFormatMySql(r("DATE"))}' limit 1; ")
                 'TAX
-                SqlExecuted($"UPDATE account_journal SET AMOUNT='{Out_put_Value}' WHERE OBJECT_TYPE = '52' and OBJECT_ID = '{r("SALES_RECEIPT_ID")}' and ACCOUNT_ID = '28' and SUBSIDIARY_ID ='{r("CUSTOMER_ID")}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}' and `OBJECT_DATE` = '{DateFormatMySql(r("DATE"))}' limit 1; ")
+                SqlExecuted($"UPDATE account_journal SET AMOUNT='{Out_put_Value}' WHERE OBJECT_TYPE = '52' and OBJECT_ID = '{r("SALES_RECEIPT_ID")}' and ACCOUNT_ID = '28' and SUBSIDIARY_ID ='{r("CUSTOMER_ID")}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}' and `OBJECT_DATE` = '{GetDateFormatMySql(r("DATE"))}' limit 1; ")
 
                 'Change POS_LOG
 

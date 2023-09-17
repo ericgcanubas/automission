@@ -17,7 +17,7 @@ Module modAddItem
             BATCH_ID = 0
         Else
 
-            Dim rd As OdbcDataReader = SqlReader($"select ID from item_batches where ITEM_ID ='{ITEM_ID}' and EXPIRY_DATE = '{ DateFormatMySql(dtpDate.Value)}' limit 1")
+            Dim rd As OdbcDataReader = SqlReader($"select ID from item_batches where ITEM_ID ='{ITEM_ID}' and EXPIRY_DATE = '{ GetDateFormatMySql(dtpDate.Value)}' limit 1")
             If rd.Read Then
                 BATCH_ID = GF_NumIsNull(rd("ID"))
 
@@ -32,14 +32,14 @@ Module modAddItem
     Private Function GF_GetNewItemBatch(ByVal ITEM_ID As Integer, ByVal DT As Date) As Integer
         Dim ThisID As Integer = ObjectTypeMapId("item_batches")
         Dim BATCH_NO As String = Format(Val(GF_GetMaxFieldLine("BATCH_NO", "item_batches", "ITEM_ID", ITEM_ID)), "000000")
-        SqlExecuted($"INSERT INTO item_batches SET ID = '{ThisID}',ITEM_ID='{ITEM_ID}',BATCH_NO='{BATCH_NO}',EXPIRY_DATE='{DateFormatMySql(DT)}'")
+        SqlExecuted($"INSERT INTO item_batches SET ID = '{ThisID}',ITEM_ID='{ITEM_ID}',BATCH_NO='{BATCH_NO}',EXPIRY_DATE='{GetDateFormatMySql(DT)}'")
         PrompNotify("Item batch expiration", "New batch entry save.", True)
 
         Return ThisID
     End Function
     Public Function GF_InventoryAdjustmentGotLatestEntry(ByVal prItem_ID As Integer, ByVal DateTarget As Date, ByVal Location_ID As Integer)
         Dim IsExist As Boolean = False
-        Dim SQL As String = $"SELECT * FROM inventory_adjustment  AS i INNER JOIN inventory_adjustment_items AS a ON a.`INVENTORY_ADJUSTMENT_ID` = i.`ID`  WHERE a.`ITEM_ID` = '{prItem_ID}' AND i.`DATE` >= '{DateFormatMySql(DateTarget)}' AND i.`LOCATION_ID` = '{Location_ID}'  limit 1"
+        Dim SQL As String = $"SELECT * FROM inventory_adjustment  AS i INNER JOIN inventory_adjustment_items AS a ON a.`INVENTORY_ADJUSTMENT_ID` = i.`ID`  WHERE a.`ITEM_ID` = '{prItem_ID}' AND i.`DATE` >= '{GetDateFormatMySql(DateTarget)}' AND i.`LOCATION_ID` = '{Location_ID}'  limit 1"
 
         Dim rd As OdbcDataReader = SqlReader(SQL)
         If rd.Read Then

@@ -842,7 +842,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
                         If MessageBoxQuestion("Do you want to proceed") = True Then
                             GS_CursorLoadingOn(True)
                             dtpDATE.Value = FrmSelectDate.dtpSelect.Value
-                            SqlExecuted($"Update inventory_adjustment SET `DATE` = '{DateFormatMySql(dtpDATE.Value)}'  Where ID = '{ID}' and LOCATION_ID ='" & cmbLOCATION_ID.SelectedValue & "' limit 1")
+                            SqlExecuted($"Update inventory_adjustment SET `DATE` = '{GetDateFormatMySql(dtpDATE.Value)}'  Where ID = '{ID}' and LOCATION_ID ='" & cmbLOCATION_ID.SelectedValue & "' limit 1")
 
                             Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM inventory_adjustment_items AS ii WHERE ii.`INVENTORY_ADJUSTMENT_ID` = '{ID}' ")
                             While rd.Read
@@ -853,9 +853,9 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
 
                                 SqlExecuted($"UPDATE inventory_adjustment_items SET QTY_DIFFERENCE = '{dQty_Diff}' WHERE ID ='{rd("ID")}' LIMIT 1;")
 
-                                SqlExecuted($"UPDATE item_inventory SET SOURCE_REF_DATE = '{DateFormatMySql(dtpDATE.Value)}',QUANTITY='{dQty_Diff}', ENDING_QUANTITY = '{prNew_Qty}' WHERE `ITEM_ID` = '{rd("ITEM_ID")}' AND `LOCATION_ID` = '{cmbLOCATION_ID.SelectedValue}' AND SOURCE_REF_TYPE ='6' and SOURCE_REF_ID = '{rd("ID")}' Limit 1;")
+                                SqlExecuted($"UPDATE item_inventory SET SOURCE_REF_DATE = '{GetDateFormatMySql(dtpDATE.Value)}',QUANTITY='{dQty_Diff}', ENDING_QUANTITY = '{prNew_Qty}' WHERE `ITEM_ID` = '{rd("ITEM_ID")}' AND `LOCATION_ID` = '{cmbLOCATION_ID.SelectedValue}' AND SOURCE_REF_TYPE ='6' and SOURCE_REF_ID = '{rd("ID")}' Limit 1;")
 
-                                SqlExecuted($"UPDATE account_journal SET SEQUENCE_GROUP = '{dtpDATE.Value.Year}' , OBJECT_DATE ='{DateFormatMySql(dtpDATE.Value)}' WHERE SUBSIDIARY_ID = '{rd("ITEM_ID")}' and OBJECT_TYPE = '20' and OBJECT_ID ='{rd("ID")}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}' and ACCOUNT_ID ='{rd("ASSET_ACCOUNT_ID")}' limit 1;")
+                                SqlExecuted($"UPDATE account_journal SET SEQUENCE_GROUP = '{dtpDATE.Value.Year}' , OBJECT_DATE ='{GetDateFormatMySql(dtpDATE.Value)}' WHERE SUBSIDIARY_ID = '{rd("ITEM_ID")}' and OBJECT_TYPE = '20' and OBJECT_ID ='{rd("ID")}' and LOCATION_ID = '{cmbLOCATION_ID.SelectedValue}' and ACCOUNT_ID ='{rd("ASSET_ACCOUNT_ID")}' limit 1;")
 
                             End While
                             'Item Inventory
@@ -876,7 +876,7 @@ where a.inventory_adjustment_id = '" & ID & "' order by a.LINE_NO ")
     End Sub
     Private Function GetInventoryEndningUnitCost(ByVal prITEM_ID As Integer, ByVal prOB_ID As Integer) As Double
         Dim dCOST As Double = 0
-        Dim rd As OdbcDataReader = SqlReader($"SELECT ENDING_UNIT_COST from item_inventory where LOCATION_ID ='{cmbLOCATION_ID}' and SOURCE_REF_DATE ='{DateFormatMySql(dtpDATE.Value)}' and item_Id = '{prITEM_ID}' and SOURCE_REF_ID = '{prOB_ID}' and SOURCE_REF_TYPE ='6' LIMIT 1")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ENDING_UNIT_COST from item_inventory where LOCATION_ID ='{cmbLOCATION_ID}' and SOURCE_REF_DATE ='{GetDateFormatMySql(dtpDATE.Value)}' and item_Id = '{prITEM_ID}' and SOURCE_REF_ID = '{prOB_ID}' and SOURCE_REF_TYPE ='6' LIMIT 1")
         If rd.Read Then
             dCOST = GF_NumIsNull(rd("ENDING_UNIT_COST"))
         End If

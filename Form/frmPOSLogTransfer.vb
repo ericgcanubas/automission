@@ -28,7 +28,7 @@ FROM
     ON s.`ID`  = p.`STARTING_CASH_ID`
     LEFT OUTER JOIN pos_cash_count AS cc 
     ON cc.`ID` = p.`CASH_COUNT_ID`
-    WHERE p.`ID` <> '{ThisPOSlogID}' and p.`LOCATION_ID` = '{ThisLocationID}' and date(p.RECORDED_ON) ='{DateFormatMySql(ThisPOS_DATE)}' 
+    WHERE p.`ID` <> '{ThisPOSlogID}' and p.`LOCATION_ID` = '{ThisLocationID}' and date(p.RECORDED_ON) ='{GetDateFormatMySql(ThisPOS_DATE)}' 
     ORDER BY p.`RECORDED_ON` desc"
 
         GS_LoadDataGridView(dgvPOSLog, sql)

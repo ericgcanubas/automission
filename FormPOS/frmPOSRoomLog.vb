@@ -70,8 +70,8 @@
 
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
-        CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
-        CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
+        CryParameterInsertValue(gscryRpt, GetDateFormatMySql(gsPOS_DATE), "fdate")
+        CryParameterInsertValue(gscryRpt, GetDateFormatMySql(gsPOS_DATE), "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")
         CryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         CryParameterInsertValue(gscryRpt, "*", "statusid")
@@ -106,8 +106,8 @@
 
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
-        CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "fdate")
-        CryParameterInsertValue(gscryRpt, DateFormatMySql(gsPOS_DATE), "tdate")
+        CryParameterInsertValue(gscryRpt, GetDateFormatMySql(gsPOS_DATE), "fdate")
+        CryParameterInsertValue(gscryRpt, GetDateFormatMySql(gsPOS_DATE), "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")
         CryParameterInsertValue(gscryRpt, gsDefault_LOCATION_ID, "locationid")
         CryParameterInsertValue(gscryRpt, "*", "statusid")

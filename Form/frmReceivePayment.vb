@@ -903,7 +903,7 @@ WHERE  EXISTS
         '5
         If IsNew = False Then
             Dim getACCOUNT_ID As Integer = 5
-            Dim rd As OdbcDataReader = SqlReader($"select ACCOUNT_ID from account_journal where OBJECT_TYPE ='41' and OBJECT_ID ='{ID}' and OBJECT_DATE = '{DateFormatMySql(dtpDATE.Value)}' and ENTRY_TYPE ='0' and LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' limit 1 ")
+            Dim rd As OdbcDataReader = SqlReader($"select ACCOUNT_ID from account_journal where OBJECT_TYPE ='41' and OBJECT_ID ='{ID}' and OBJECT_DATE = '{GetDateFormatMySql(dtpDATE.Value)}' and ENTRY_TYPE ='0' and LOCATION_ID ='{cmbLOCATION_ID.SelectedValue}' limit 1 ")
             If rd.Read Then
                 getACCOUNT_ID = GF_NumIsNull(rd("ACCOUNT_ID"))
             End If

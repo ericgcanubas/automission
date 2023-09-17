@@ -116,7 +116,7 @@ ON utm.`ID` = u.`TYPE` WHERE u.ID = '{ID}' limit 1"
             Dim SQL_Field As String = ""
             Dim SQL_Value As String = ""
             SqlCreate(Me, SQL_Field, SQL_Value)
-            SqlExecuted($"INSERT INTO `user` ({SQL_Field},ID,PASSWORD,PWD_CREATED_ON) VALUES ({SQL_Value},{ID},'{Encrypt(txsPassword.Text)}','{DateFormatMySql(pass_date)}') ")
+            SqlExecuted($"INSERT INTO `user` ({SQL_Field},ID,PASSWORD,PWD_CREATED_ON) VALUES ({SQL_Value},{ID},'{Encrypt(txsPassword.Text)}','{GetDateFormatMySql(pass_date)}') ")
 
         Else
             Dim _pass_change As String = ""

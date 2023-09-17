@@ -41,8 +41,8 @@ WHERE NOT EXISTS
     AND aj.`OBJECT_TYPE` = '{cmbOBJECT.SelectedValue}' 
     AND aj.`OBJECT_DATE` = sr.`DATE` 
     AND aj.`OBJECT_ID` = sri.`ID`
-    ) AND sr.`DATE` BETWEEN '{ DateFormatMySql(dtpDATE1.Value)}' 
-  AND '{DateFormatMySql(dtpDATE2.Value)}' 
+    ) AND sr.`DATE` BETWEEN '{ GetDateFormatMySql(dtpDATE1.Value)}' 
+  AND '{GetDateFormatMySql(dtpDATE2.Value)}' 
   AND sr.`LOCATION_ID` = '{cmbLOCATION_ID.SelectedValue}' 
   AND i.`TYPE` IN (0, 1, 2, 3, 4, 7)"
 

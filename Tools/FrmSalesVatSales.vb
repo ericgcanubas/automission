@@ -20,7 +20,7 @@ FROM
 WHERE 
    i.`TYPE` IN (0,7)
   AND sr.`LOCATION_ID` = '{cmbLocation_ID.SelectedValue}'
-  AND  sr.`DATE` between '{ DateFormatMySql(dtpDateFrom.Value)}' and '{DateFormatMySql(dtpDateTo.Value)}'"
+  AND  sr.`DATE` between '{ GetDateFormatMySql(dtpDateFrom.Value)}' and '{GetDateFormatMySql(dtpDateTo.Value)}'"
 
         GS_LoadDataGridView(dgvDataList, SQL)
 

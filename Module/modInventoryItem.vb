@@ -6,7 +6,7 @@ Module modInventoryItem
     Public Ending_unit_cost As Double
     Public Ending_cost As Double
     Dim DateStart As Date
-    Public Function GF_ItemInventoryReturnValue(ByVal prITEM_ID As String, ByVal prLOCATION_ID As Integer, ByVal prTYPE As Integer, ByVal prID As Double, ByVal prDate As Date, ByVal prField As String) As String
+    Public Function GF_ItemInventoryReturnValue(ByVal prITEM_ID As Integer, ByVal prLOCATION_ID As Integer, ByVal prTYPE As Integer, ByVal prID As Double, ByVal prDate As Date, ByVal prField As String) As String
         Dim prReturn As String = ""
 
         Try
@@ -14,8 +14,9 @@ Module modInventoryItem
             If prID = 0 Then
                 sQuery = "select " & prField & " from item_inventory where ITEM_ID  = '" & prITEM_ID & "' and LOCATION_ID = '" & prLOCATION_ID & "' and  SOURCE_REF_DATE <= '" & Format(prDate, "yyyy-MM-dd") & "' order by SOURCE_REF_DATE DESC,ID DESC limit 1"
             Else
-                sQuery = "select " & prField & " from item_inventory where ITEM_ID  = '" & prITEM_ID & "' and LOCATION_ID = '" & prLOCATION_ID & "' and SOURCE_REF_TYPE = '" & prTYPE & "' and  SOURCE_REF_ID = '" & prID & "' and SOURCE_REF_DATE = '" & Format(prDate, "yyyy-MM-dd") & "'  limit 1"
+                sQuery = "select " & prField & " from item_inventory where ITEM_ID  = '" & prITEM_ID & "' and LOCATION_ID = '" & prLOCATION_ID & "' and SOURCE_REF_TYPE = '" & prTYPE & "' and  SOURCE_REF_ID = '" & prID & "' and SOURCE_REF_DATE = '" & GetDateFormatMySql(prDate) & "'  limit 1"
             End If
+            GetDateTimeNowSql()
             Dim rd As OdbcDataReader = SqlReader(sQuery)
             If rd.Read Then
                 prReturn = rd(prField)
@@ -27,8 +28,8 @@ Module modInventoryItem
         Return prReturn
     End Function
 
-    Public Sub GS_BILL_ITEM_COST_UPDATE_NEW(ByVal prItem_ID As String, ByVal prCOST As Double)
-        SqlExecuted("UPDATE item SET COST = '" & prCOST & "' where ID = '" & prItem_ID & "' Limit 1;")
+    Public Sub GS_BILL_ITEM_COST_UPDATE_NEW(ByVal prItem_ID As Integer, ByVal prCOST As Double)
+        SqlExecuted("UPDATE item SET COST = '" & prCOST & "' where ID = '" & prItem_ID & "'")
     End Sub
 
 
@@ -57,7 +58,7 @@ Module modInventoryItem
 
     '    Dim NewSQL As String = ""
 
-    '    Dim rd As OdbcDataReader = SqlReader($"SELECT i.* FROM item_inventory  AS i WHERE i.SOURCE_REF_DATE >='{ DateFormatMySql(ThisDate) }' and i.`ITEM_ID` = '{prITEM_ID}' AND i.`LOCATION_ID` = '{prLOCATION_ID}' order by i.SOURCE_REF_DATE,i.ID")
+    '    Dim rd As OdbcDataReader = SqlReader($"SELECT i.* FROM item_inventory  AS i WHERE i.SOURCE_REF_DATE >='{ GetDateFormatMySql(ThisDate) }' and i.`ITEM_ID` = '{prITEM_ID}' AND i.`LOCATION_ID` = '{prLOCATION_ID}' order by i.SOURCE_REF_DATE,i.ID")
     '    While rd.Read
     '        If GF_NumIsNull(rd("SOURCE_REF_TYPE")) = 6 Then
     '            Dim L_QTY As Double = Qty_END_T
@@ -106,7 +107,7 @@ Module modInventoryItem
             Dim Last_COST As Double = Ending_unit_cost
 
 
-            Dim rd As OdbcDataReader = SqlReader($"SELECT i.* FROM item_inventory  AS i WHERE i.SOURCE_REF_DATE >='{ DateFormatMySql(DateStart) }' and i.`ITEM_ID` = '{prITEM_ID}' AND i.`LOCATION_ID` = '{prLOCATION_ID}' AND i.SOURCE_REF_TYPE <> '{prSOURCE_REF_TYPE}' order by i.ID")
+            Dim rd As OdbcDataReader = SqlReader($"SELECT i.* FROM item_inventory  AS i WHERE i.SOURCE_REF_DATE >='{ GetDateFormatMySql(DateStart) }' and i.`ITEM_ID` = '{prITEM_ID}' AND i.`LOCATION_ID` = '{prLOCATION_ID}' AND i.SOURCE_REF_TYPE <> '{prSOURCE_REF_TYPE}' order by i.ID")
             While rd.Read
                 Qty_END_T += GF_NumIsNull(rd("QUANTITY"))
                 Cost_UN_END = Ending_unit_cost
@@ -139,7 +140,7 @@ Module modInventoryItem
     Private Sub CostUpdateJournal(ByVal ACCOUNT_ID As Integer, ByVal ITEM_SUBSI As Integer, ByVal LOCATION_ID As Integer, ByVal ThisCost As Double, ByVal ThisDate As Date, ByVal prOBJECT_TYPE As Integer)
         Dim Tmp_SQL As String = ""
         Dim T_Balance As Double = GF_GET_ENDING_BALANCE(ACCOUNT_ID, ITEM_SUBSI, LOCATION_ID, ThisDate)
-        Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM account_journal WHERE OBJECT_TYPE <> '{prOBJECT_TYPE}' and SUBSIDIARY_ID = '{ITEM_SUBSI}' AND location_id ='{LOCATION_ID}' AND account_id = '{ACCOUNT_ID}' and OBJECT_DATE >='{DateFormatMySql(ThisDate)}' ORDER BY OBJECT_DATE,ID")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT * FROM account_journal WHERE OBJECT_TYPE <> '{prOBJECT_TYPE}' and SUBSIDIARY_ID = '{ITEM_SUBSI}' AND location_id ='{LOCATION_ID}' AND account_id = '{ACCOUNT_ID}' and OBJECT_DATE >='{GetDateFormatMySql(ThisDate)}' ORDER BY OBJECT_DATE,ID")
         While rd.Read
 
             Dim SQL_ITEM As String
@@ -172,7 +173,7 @@ Module modInventoryItem
     End Sub
     Private Function GF_GET_ENDING_BALANCE(ByVal ACCOUNT_ID As Integer, ByVal ITEM_SUBSI As Integer, ByVal LOCATION_ID As Integer, ByVal ThisDate As Date) As Double
         Dim ThisBalance As Double
-        Dim rd As OdbcDataReader = SqlReader($"SELECT ENDING_BALANCE FROM account_journal WHERE SUBSIDIARY_ID = '{ITEM_SUBSI}' AND location_id ='{LOCATION_ID}' AND account_id = '{ACCOUNT_ID}' and OBJECT_DATE < '{DateFormatMySql(ThisDate)}' ORDER BY OBJECT_DATE DESC,ID DESC LIMIT 1")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ENDING_BALANCE FROM account_journal WHERE SUBSIDIARY_ID = '{ITEM_SUBSI}' AND location_id ='{LOCATION_ID}' AND account_id = '{ACCOUNT_ID}' and OBJECT_DATE < '{GetDateFormatMySql(ThisDate)}' ORDER BY OBJECT_DATE DESC,ID DESC LIMIT 1")
         If rd.Read Then
             ThisBalance = GF_NumIsNull(rd("ENDING_BALANCE"))
         End If
@@ -192,7 +193,7 @@ Module modInventoryItem
         Dim prFile_name As String = "cryItemValuationDetails.rpt"
         gsToolPanelView = False
         gscryRpt = ReportDocumentOneParameterNumberOnly(prFile_name)
-        CryParameterInsertValue(gscryRpt, DateFormatMySql(dtSTART), "fdate")
+        CryParameterInsertValue(gscryRpt, GetDateFormatMySql(dtSTART), "fdate")
         CryParameterInsertValue(gscryRpt, GetDateNow, "tdate")
         CryParameterInsertValue(gscryRpt, "*", "customerid")
         CryParameterInsertValue(gscryRpt, prLOCATION_ID, "locationid")

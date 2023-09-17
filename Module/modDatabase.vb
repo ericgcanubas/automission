@@ -598,7 +598,7 @@ Module modDatabase
             If IsDBNull(EX) = True Then
                 Return ""
             Else
-                Return CDate(DateFormatMySql(EX))
+                Return CDate(GetDateFormatMySql(EX))
             End If
         Catch ex1 As Exception
             Return ""

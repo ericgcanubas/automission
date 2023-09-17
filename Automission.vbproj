@@ -183,7 +183,6 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\clsImageResize.vb" />
     <Compile Include="DataSet\dt.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -928,10 +927,10 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Form\spSupport\frmAccessDenied.Designer.vb">
-      <DependentUpon>frmAccessDenied.vb</DependentUpon>
+    <Compile Include="Form\spSupport\FrmAccessDenied.Designer.vb">
+      <DependentUpon>FrmAccessDenied.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\spSupport\frmAccessDenied.vb">
+    <Compile Include="Form\spSupport\FrmAccessDenied.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FrmAccount.Designer.vb">
@@ -1030,10 +1029,10 @@
     <Compile Include="Form\FrmChartOfAccount.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\spSupport\frmCheckList.Designer.vb">
-      <DependentUpon>frmCheckList.vb</DependentUpon>
+    <Compile Include="Form\spSupport\FrmCheckList.Designer.vb">
+      <DependentUpon>FrmCheckList.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\spSupport\frmCheckList.vb">
+    <Compile Include="Form\spSupport\FrmCheckList.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FrmClass.Designer.vb">
@@ -1210,10 +1209,10 @@
     <Compile Include="Form\FrmGeneralJournal.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\spSupport\frmHistory.Designer.vb">
-      <DependentUpon>frmHistory.vb</DependentUpon>
+    <Compile Include="Form\spSupport\FrmHistory.Designer.vb">
+      <DependentUpon>FrmHistory.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\spSupport\frmHistory.vb">
+    <Compile Include="Form\spSupport\FrmHistory.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FrmInsertValue.Designer.vb">
@@ -1654,10 +1653,10 @@
     <Compile Include="Form\FrmUserList.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\spSupport\frmUserLogs.Designer.vb">
-      <DependentUpon>frmUserLogs.vb</DependentUpon>
+    <Compile Include="Form\spSupport\FrmUserLogs.Designer.vb">
+      <DependentUpon>FrmUserLogs.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\spSupport\frmUserLogs.vb">
+    <Compile Include="Form\spSupport\FrmUserLogs.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\FrmUserType.Designer.vb">
@@ -2550,8 +2549,8 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>cryBalanceSheet.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\spSupport\frmAccessDenied.resx">
-      <DependentUpon>frmAccessDenied.vb</DependentUpon>
+    <EmbeddedResource Include="Form\spSupport\FrmAccessDenied.resx">
+      <DependentUpon>FrmAccessDenied.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmAccount.resx">
       <DependentUpon>FrmAccount.vb</DependentUpon>
@@ -2602,8 +2601,8 @@
     <EmbeddedResource Include="Form\FrmChartOfAccount.resx">
       <DependentUpon>FrmChartOfAccount.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\spSupport\frmCheckList.resx">
-      <DependentUpon>frmCheckList.vb</DependentUpon>
+    <EmbeddedResource Include="Form\spSupport\FrmCheckList.resx">
+      <DependentUpon>FrmCheckList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmClass.resx">
       <DependentUpon>FrmClass.vb</DependentUpon>
@@ -2692,8 +2691,8 @@
     <EmbeddedResource Include="Form\FrmGeneralJournal.resx">
       <DependentUpon>FrmGeneralJournal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\spSupport\frmHistory.resx">
-      <DependentUpon>frmHistory.vb</DependentUpon>
+    <EmbeddedResource Include="Form\spSupport\FrmHistory.resx">
+      <DependentUpon>FrmHistory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmInsertValue.resx">
       <DependentUpon>FrmInsertValue.vb</DependentUpon>
@@ -2914,8 +2913,8 @@
     <EmbeddedResource Include="Form\FrmUserList.resx">
       <DependentUpon>FrmUserList.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\spSupport\frmUserLogs.resx">
-      <DependentUpon>frmUserLogs.vb</DependentUpon>
+    <EmbeddedResource Include="Form\spSupport\FrmUserLogs.resx">
+      <DependentUpon>FrmUserLogs.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmUserType.resx">
       <DependentUpon>FrmUserType.vb</DependentUpon>

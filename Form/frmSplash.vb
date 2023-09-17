@@ -239,7 +239,7 @@ Public Class FrmSplash
         If gsClose_Date_Run_Per_Unit = True Then
             Dim DT As Date = Date.Now.Date.AddDays(-1)
 
-            SetSystemSettingUpdateByText("ClosingDate", DateFormatMySql(DT))
+            SetSystemSettingUpdateByText("ClosingDate", GetDateFormatMySql(DT))
 
         End If
     End Sub

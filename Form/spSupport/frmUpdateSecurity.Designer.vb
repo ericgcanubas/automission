@@ -28,29 +28,32 @@ Partial Class FrmUpdateSecurity
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 8)
+        Me.ProgressBar1.Location = New System.Drawing.Point(14, 10)
+        Me.ProgressBar1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(345, 23)
+        Me.ProgressBar1.Size = New System.Drawing.Size(402, 30)
         Me.ProgressBar1.TabIndex = 0
         '
         'ProgressBar2
         '
-        Me.ProgressBar2.Location = New System.Drawing.Point(12, 45)
+        Me.ProgressBar2.Location = New System.Drawing.Point(14, 59)
+        Me.ProgressBar2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ProgressBar2.Name = "ProgressBar2"
-        Me.ProgressBar2.Size = New System.Drawing.Size(345, 23)
+        Me.ProgressBar2.Size = New System.Drawing.Size(402, 30)
         Me.ProgressBar2.TabIndex = 1
         '
-        'frmUpdateSecurity
+        'FrmUpdateSecurity
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(367, 79)
+        Me.ClientSize = New System.Drawing.Size(428, 103)
         Me.ControlBox = False
         Me.Controls.Add(Me.ProgressBar2)
         Me.Controls.Add(Me.ProgressBar1)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Name = "frmUpdateSecurity"
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Name = "FrmUpdateSecurity"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

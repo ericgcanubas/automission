@@ -28,7 +28,7 @@ Public Class FrmPOSRestoPendingToPaid
             Exit Sub
         End If
 
-        SqlExecuted($"UPDATE invoice SET CUSTOMER_ID = '{cmbCUSTOMER_ID.SelectedValue}',STATUS='1',STATUS_DATE='{DateFormatMySql(Date.Now.Date)}',NOTES='{txtNOTE.Text.Replace("'", "`")}' WHERE ID = '{gsID}' limit 1;")
+        SqlExecuted($"UPDATE invoice SET CUSTOMER_ID = '{cmbCUSTOMER_ID.SelectedValue}',STATUS='1',STATUS_DATE='{GetDateFormatMySql(Date.Now.Date)}',NOTES='{txtNOTE.Text.Replace("'", "`")}' WHERE ID = '{gsID}' limit 1;")
 
         GetUpdateSO_UsingINVOICE(gsID)
 

@@ -21,7 +21,7 @@ FROM
     ON c.`ID` = s.`CUSTOMER_ID` 
   INNER JOIN payment_method AS p 
     ON p.`ID` = s.`PAYMENT_METHOD_ID` 
-    WHERE  s.`DATE` ='{ DateFormatMySql(gsPOS_DATE)}' AND s.`LOCATION_ID` ='{gsDefault_LOCATION_ID}' AND s.`POS_LOG_ID` = '{gsPOS_LOG_ID}'  AND s.`POS_MACHINE_ID` = '{gsPOS_MACHINE_ID}'
+    WHERE  s.`DATE` ='{ GetDateFormatMySql(gsPOS_DATE)}' AND s.`LOCATION_ID` ='{gsDefault_LOCATION_ID}' AND s.`POS_LOG_ID` = '{gsPOS_LOG_ID}'  AND s.`POS_MACHINE_ID` = '{gsPOS_MACHINE_ID}'
      ", BS)
         With dgvList.Columns
             .Item(0).Visible = False

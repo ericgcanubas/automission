@@ -302,7 +302,7 @@ Module modMultiFuntion
                                 'if got discount
                                 GS_AccountJournalExecute(GET_LAST_DISCOUNT_ID, prLocation_ID, .Cells("BILL_ID").Value, 58, .Cells("ID").Value, prDate, 0, GF_NumIsNull(.Cells("DISCOUNT").Value), gsJOURNAL_NO_FORM)
                                 If IsDate(.Cells("DISC_DATE").Value) = True Then
-                                    SqlExecuted($"UPDATE bill SET DISCOUNT_DATE  = '{DateFormatMySql(.Cells("DISC_DATE").Value)}'  WHERE ID = '{ .Cells("BILL_ID").Value}'  limit 1;")
+                                    SqlExecuted($"UPDATE bill SET DISCOUNT_DATE  = '{GetDateFormatMySql(.Cells("DISC_DATE").Value)}'  WHERE ID = '{ .Cells("BILL_ID").Value}'  limit 1;")
                                 Else
                                     SqlExecuted($"UPDATE bill SET DISCOUNT_DATE  = NULL  WHERE ID = '{ .Cells("BILL_ID").Value}'  limit 1;")
                                     GS_AccountJournalDelete(GET_LAST_DISCOUNT_ID, prLocation_ID, 58, GF_NumIsNull(.Cells("ID").Value), prDate)
@@ -348,7 +348,7 @@ Module modMultiFuntion
                                 'if got discount
                                 GS_AccountJournalExecute(GET_LAST_DISCOUNT_ID, prLocation_ID, .Cells("INVOICE_ID").Value, 42, .Cells("ID").Value, prDate, 1, GF_NumIsNull(.Cells("DISCOUNT").Value), gsJOURNAL_NO_FORM)
                                 If IsDate(.Cells("DISC_DATE").Value) = True Then
-                                    SqlExecuted($"UPDATE invoice SET DISCOUNT_DATE  = '{DateFormatMySql(.Cells("DISC_DATE").Value)}'  WHERE ID = '{ .Cells("INVOICE_ID").Value}' and LOCATION_ID ='{prLocation_ID}' limit 1;") 'UPDATE BILL got DISCOUNT
+                                    SqlExecuted($"UPDATE invoice SET DISCOUNT_DATE  = '{GetDateFormatMySql(.Cells("DISC_DATE").Value)}'  WHERE ID = '{ .Cells("INVOICE_ID").Value}' and LOCATION_ID ='{prLocation_ID}' limit 1;") 'UPDATE BILL got DISCOUNT
                                 Else
                                     SqlExecuted($"UPDATE invoice SET DISCOUNT_DATE  = NULL  WHERE ID = '{ .Cells("INVOICE_ID").Value}'  limit 1;") 'UPDATE BILL got DISCOUNT
 

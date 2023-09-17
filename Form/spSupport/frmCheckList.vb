@@ -1,3 +1,3 @@
-﻿Public Class frmCheckList
+﻿Public Class FrmCheckList
 
 End Class

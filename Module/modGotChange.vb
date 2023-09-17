@@ -118,29 +118,29 @@ Module modGotChange
         End If
     End Sub
     Public Sub AccountJournalChangeDate(ByVal prChangeDate As Date, ByVal account_id As Integer, ByVal object_type As Integer, ByVal object_id As Integer, ByVal location_id As Integer, ByVal L_object_date As Date)
-        SqlExecuted($"UPDATE account_journal SET object_date = '{DateFormatMySql(prChangeDate)}' where account_id ='{account_id}' and object_type = '{object_type}' and object_id = '{object_id}' and location_id ='{location_id}' and object_date = '{DateFormatMySql(L_object_date)}'  limit 1;")
+        SqlExecuted($"UPDATE account_journal SET object_date = '{GetDateFormatMySql(prChangeDate)}' where account_id ='{account_id}' and object_type = '{object_type}' and object_id = '{object_id}' and location_id ='{location_id}' and object_date = '{GetDateFormatMySql(L_object_date)}'  limit 1;")
 
     End Sub
 
     Public Sub AccountJournalChangeLocation(ByVal change_location_id As Integer, ByVal account_id As Integer, ByVal object_type As Integer, ByVal object_id As Integer, ByVal object_date As Date, ByVal L_Location_ID As Integer)
-        SqlExecuted($"UPDATE account_journal SET location_id = '{change_location_id}' where account_id ='{account_id}' and object_type = '{object_type}' and object_id = '{object_id}' and object_date = '{DateFormatMySql(object_date)}' and location_id ='{L_Location_ID}' limit 1;")
+        SqlExecuted($"UPDATE account_journal SET location_id = '{change_location_id}' where account_id ='{account_id}' and object_type = '{object_type}' and object_id = '{object_id}' and object_date = '{GetDateFormatMySql(object_date)}' and location_id ='{L_Location_ID}' limit 1;")
 
     End Sub
 
     Public Sub ItemInventoryChangeDate(ByVal Change_SOURCE_REF_DATE As Date, ByVal item_id As Integer, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_ID As Integer, ByVal LOCATION_ID As Integer, ByVal L_DATE As Date)
-        SqlExecuted($"UPDATE item_inventory SET SOURCE_REF_DATE = '{DateFormatMySql(Change_SOURCE_REF_DATE)}' WHERE ITEM_ID = '{item_id}' and  LOCATION_ID = '{LOCATION_ID}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE ='{DateFormatMySql(L_DATE)}' limit 1;")
+        SqlExecuted($"UPDATE item_inventory SET SOURCE_REF_DATE = '{GetDateFormatMySql(Change_SOURCE_REF_DATE)}' WHERE ITEM_ID = '{item_id}' and  LOCATION_ID = '{LOCATION_ID}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE ='{GetDateFormatMySql(L_DATE)}' limit 1;")
         'ReCalculateInventory(item_id, LOCATION_ID, Change_SOURCE_REF_DATE)
     End Sub
     Public Function ItemInventoryChangeDateAdjust(ByVal Change_SOURCE_REF_DATE As Date, ByVal item_id As Integer, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_ID As Integer, ByVal LOCATION_ID As Integer, ByVal L_DATE As Date) As Double
         Dim QTY_ONHAND As Double = QtyActualOnDateLocation(item_id, Change_SOURCE_REF_DATE, LOCATION_ID)
-        Dim QTY_END As Double = GF_GetNumberFieldValueOneReturn($"SELECT ENDING_QUANTITY FROM item_inventory  WHERE ITEM_ID = '{item_id}' and  LOCATION_ID = '{LOCATION_ID}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE ='{DateFormatMySql(L_DATE)}' limit 1;")
+        Dim QTY_END As Double = GF_GetNumberFieldValueOneReturn($"SELECT ENDING_QUANTITY FROM item_inventory  WHERE ITEM_ID = '{item_id}' and  LOCATION_ID = '{LOCATION_ID}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE ='{GetDateFormatMySql(L_DATE)}' limit 1;")
         Dim QTY_D As Double = QTY_END - QTY_ONHAND
-        SqlExecuted($"UPDATE item_inventory SET QUANTITY ='{QTY_D}',SOURCE_REF_DATE = '{DateFormatMySql(Change_SOURCE_REF_DATE)}' WHERE ITEM_ID = '{item_id}' and  LOCATION_ID = '{LOCATION_ID}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE ='{DateFormatMySql(L_DATE)}' limit 1;")
+        SqlExecuted($"UPDATE item_inventory SET QUANTITY ='{QTY_D}',SOURCE_REF_DATE = '{GetDateFormatMySql(Change_SOURCE_REF_DATE)}' WHERE ITEM_ID = '{item_id}' and  LOCATION_ID = '{LOCATION_ID}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE ='{GetDateFormatMySql(L_DATE)}' limit 1;")
         'ReCalculateInventory(item_id, LOCATION_ID, Change_SOURCE_REF_DATE)
         Return QTY_D
     End Function
     Public Sub ItemInventoryChangeLocation(ByVal Change_LOCATION_ID As Integer, ByVal item_id As Integer, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_ID As Integer, ByVal SOURCE_REF_DATE As Date, ByVal L_LOCATION_ID As Integer)
-        SqlExecuted($"UPDATE item_inventory SET LOCATION_ID = '{Change_LOCATION_ID}' WHERE ITEM_ID = '{item_id}' and  SOURCE_REF_DATE = '{DateFormatMySql(SOURCE_REF_DATE)}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and LOCATION_ID ='{L_LOCATION_ID}' limit 1;")
+        SqlExecuted($"UPDATE item_inventory SET LOCATION_ID = '{Change_LOCATION_ID}' WHERE ITEM_ID = '{item_id}' and  SOURCE_REF_DATE = '{GetDateFormatMySql(SOURCE_REF_DATE)}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and LOCATION_ID ='{L_LOCATION_ID}' limit 1;")
         Dim UPDATE_DATE As Date = SOURCE_REF_DATE.AddDays(-1)
         'ReCalculateInventory(item_id, Change_LOCATION_ID, UPDATE_DATE)
         'ReCalculateInventory(item_id, L_LOCATION_ID, UPDATE_DATE)
@@ -148,10 +148,10 @@ Module modGotChange
 
     Public Function ItemInventoryChangeLocationAdjust(ByVal Change_LOCATION_ID As Integer, ByVal item_id As Integer, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_ID As Integer, ByVal SOURCE_REF_DATE As Date, ByVal L_LOCATION_ID As Integer) As Double
         Dim QTY_ONHAND As Double = QtyActualOnDateLocation(item_id, SOURCE_REF_DATE, Change_LOCATION_ID)
-        Dim QTY_END As Double = GF_GetNumberFieldValueOneReturn($"SELECT ENDING_QUANTITY FROM item_inventory  WHERE ITEM_ID = '{item_id}' and  SOURCE_REF_DATE = '{DateFormatMySql(SOURCE_REF_DATE)}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and LOCATION_ID ='{L_LOCATION_ID}' limit 1;")
+        Dim QTY_END As Double = GF_GetNumberFieldValueOneReturn($"SELECT ENDING_QUANTITY FROM item_inventory  WHERE ITEM_ID = '{item_id}' and  SOURCE_REF_DATE = '{GetDateFormatMySql(SOURCE_REF_DATE)}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and LOCATION_ID ='{L_LOCATION_ID}' limit 1;")
         Dim QTY_D As Double = QTY_ONHAND - QTY_END
 
-        SqlExecuted($"UPDATE item_inventory SET QUANTITY ='{QTY_D}',LOCATION_ID = '{Change_LOCATION_ID}' WHERE ITEM_ID = '{item_id}' and  SOURCE_REF_DATE = '{DateFormatMySql(SOURCE_REF_DATE)}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and LOCATION_ID ='{L_LOCATION_ID}' limit 1;")
+        SqlExecuted($"UPDATE item_inventory SET QUANTITY ='{QTY_D}',LOCATION_ID = '{Change_LOCATION_ID}' WHERE ITEM_ID = '{item_id}' and  SOURCE_REF_DATE = '{GetDateFormatMySql(SOURCE_REF_DATE)}' and SOURCE_REF_TYPE =' {SOURCE_REF_TYPE}' and  SOURCE_REF_ID = '{SOURCE_REF_ID}' and LOCATION_ID ='{L_LOCATION_ID}' limit 1;")
 
         Dim UPDATE_DATE As Date = SOURCE_REF_DATE.AddDays(-1)
         'ReCalculateInventory(item_id, Change_LOCATION_ID, UPDATE_DATE)

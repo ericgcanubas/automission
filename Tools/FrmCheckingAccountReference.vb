@@ -39,8 +39,8 @@ from
 where aj.`ACCOUNT_ID` = '{cmbACCOUNT_ID.SelectedValue}' 
   and aj.`LOCATION_ID` = '{cmbLOCATION_ID.SelectedValue}' 
       AND aj.`OBJECT_TYPE` = '{cmbOBJECT.SelectedValue}' 
-  and aj.`OBJECT_DATE` between '{DateFormatMySql(dtpDATE1.Value)}' 
-  and '{DateFormatMySql(dtpDATE2.Value)}' "
+  and aj.`OBJECT_DATE` between '{GetDateFormatMySql(dtpDATE1.Value)}' 
+  and '{GetDateFormatMySql(dtpDATE2.Value)}' "
 
         GS_LoadDataGridView(dgvList, SQL)
         dgvList.Columns(0).Visible = False

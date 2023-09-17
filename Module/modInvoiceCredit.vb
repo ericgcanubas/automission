@@ -1,12 +1,6 @@
 ﻿Imports System.Data.Odbc
 Module modInvoiceCredit
-    Public Function GF_GetCreditApplied_Amount(ByRef prCreditMemo_ID As String, ByVal prCustomer_ID As String) As Double
-
-        If Trim(prCreditMemo_ID) = "" Or Trim(prCustomer_ID) = "" Then
-            Return 0
-            Exit Function
-        End If
-
+    Public Function GF_GetCreditApplied_Amount(ByVal prCreditMemo_ID As Integer, ByVal prCustomer_ID As Integer) As Double
         Dim dPayment As Double = 0
         Try
 
@@ -22,7 +16,7 @@ Module modInvoiceCredit
 
     End Function
 
-    Public Function GF_GetCreditOtherInvoice(ByRef prCreditMemo_ID As String, ByVal prInvoice_id As String) As Double
+    Public Function GF_GetCreditOtherInvoice(ByRef prCreditMemo_ID As Integer, ByVal prInvoice_id As Integer) As Double
         Dim dAmount As Double = 0
         Try
 
@@ -43,12 +37,7 @@ Module modInvoiceCredit
 
     End Function
 
-    Public Function GF_GetCreditApplied_Invoice(ByRef prCreditMemo_ID As String, ByVal prCustomer_ID As String, ByVal prInvoice_ID As String) As Double
-
-        If Trim(prCreditMemo_ID) = "" Or Trim(prCustomer_ID) = "" Then
-            Return 0
-            Exit Function
-        End If
+    Public Function GF_GetCreditApplied_Invoice(ByRef prCreditMemo_ID As Integer, ByVal prCustomer_ID As Integer, ByVal prInvoice_ID As Integer) As Double
 
         Dim dPayment As Double = 0
         Try
@@ -57,6 +46,7 @@ Module modInvoiceCredit
                 dPayment = GF_NumIsNull(rd("P"))
             End If
             rd.Close()
+
         Catch ex As Exception
             If MessageBoxErrorYesNo(ex.Message) = True Then
                 dPayment = GF_GetCreditApplied_Invoice(prCreditMemo_ID, prCustomer_ID, prInvoice_ID)

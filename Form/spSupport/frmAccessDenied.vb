@@ -1,12 +1,12 @@
 ﻿Imports System.Data.Odbc
-Public Class frmAccessDenied
+Public Class FrmAccessDenied
 
     Dim stop_image As Image = Image.FromFile(Application.StartupPath & "\image\toolbar\access_denied.png")
     Dim locker_image As Image = Image.FromFile(Application.StartupPath & "\image\toolbar\key_locker.png")
 
     Public gsCancel As Boolean = True
     Public gsMessage As String
-    Private Sub frmMessage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmAccessDenied(sender As Object, e As EventArgs) Handles MyBase.Load
 
         gsCancel = True
         PictureBox1.Image = stop_image
@@ -15,7 +15,7 @@ Public Class frmAccessDenied
         System.Media.SystemSounds.Hand.Play()
     End Sub
 
-    Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
+    Private Sub BtnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
         If Trim(txtPASSWORD.Text).Length = 0 Then
             MessageBoxInfo("Please enter authorized password account")
             Exit Sub
@@ -39,9 +39,9 @@ Public Class frmAccessDenied
 
     End Sub
 
-    Private Sub txtPASSWORD_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPASSWORD.KeyDown
+    Private Sub TxtPASSWORD_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPASSWORD.KeyDown
         If e.KeyCode = Keys.Enter Then
-            btnOk_Click(sender, e)
+            BtnOk_Click(sender, e)
         End If
     End Sub
 End Class

@@ -12,7 +12,7 @@
     Public Function DateFormatStandard(ByVal prValue As Date) As String
         Return Format(prValue, "MM/dd/yyyy")
     End Function
-    Public Function DateFormatMySql(ByVal prValue As Date) As String
+    Public Function GetDateFormatMySql(ByVal prValue As Date) As String
         Return Format(prValue, "yyyy-MM-dd")
     End Function
     Public Function DateTimeFormatMySql(ByVal prValue As Object) As String
@@ -22,7 +22,7 @@
         Return DateFormatStandard(Date.Now)
     End Function
     Public Function GetDateNow() As String
-        Return DateFormatMySql(Date.Now)
+        Return GetDateFormatMySql(Date.Now)
     End Function
     Public Function GetDateTimeNowSql() As String
         Return DateTimeFormatMySql(DateTime.Now)

@@ -134,7 +134,7 @@ FROM
         GS_CursorLoadingOn(True)
         For I As Integer = 0 To dgvLog.Rows.Count - 1
             With dgvLog.Rows(I)
-                gsPOS_DATE = DateFormatMySql(.Cells(1).Value)
+                gsPOS_DATE = GetDateFormatMySql(.Cells(1).Value)
                 gsPOS_LOG_ID = .Cells(0).Value
             End With
 

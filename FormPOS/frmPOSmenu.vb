@@ -805,7 +805,7 @@ FROM
   sales_receipt AS sr 
   INNER JOIN pos_log AS pl 
     ON pl.`ID` = sr.`POS_LOG_ID` 
-WHERE sr.`DATE` < '{DateFormatMySql(prDATE)}' AND
+WHERE sr.`DATE` < '{GetDateFormatMySql(prDATE)}' AND
 sr.`POS_MACHINE_ID` = '{gsPOS_MACHINE_ID}' and sr.LOCATION_ID = '{gsDefault_LOCATION_ID}'
 ORDER BY sr.`DATE` DESC, sr.`ID` DESC 
 LIMIT 1")

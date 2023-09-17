@@ -27,7 +27,7 @@ Module modItemInventory
                 `LOCATION_ID` = '{LOCATION_ID}' and
                 `SOURCE_REF_TYPE` = '{rd("SOURCE_REF_TYPE")}' and 
                 `SOURCE_REF_ID` = '{rd("SOURCE_REF_ID")}' and
-                `SOURCE_REF_DATE` = '{ DateFormatMySql(rd("SOURCE_REF_DATE"))}'
+                `SOURCE_REF_DATE` = '{ GetDateFormatMySql(rd("SOURCE_REF_DATE"))}'
             LIMIT 1")
 
         End While
@@ -78,7 +78,7 @@ Module modItemInventory
         Dim LAST_QTY As Double = 0
         Dim LAST_COST As Double = 0
 
-        Dim rd As OdbcDataReader = SqlReader($"select ID,PREVIOUS_ID,SEQUENCE_NO from item_inventory where SOURCE_REF_TYPE = '{SOURCE_REF_TYPE}' and SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE = '{DateFormatMySql(SOURCE_REF_DATE)}' and LOCATION_ID = '{LOCATION_ID}' and ITEM_ID = '{ITEM_ID}' limit 1;")
+        Dim rd As OdbcDataReader = SqlReader($"select ID,PREVIOUS_ID,SEQUENCE_NO from item_inventory where SOURCE_REF_TYPE = '{SOURCE_REF_TYPE}' and SOURCE_REF_ID = '{SOURCE_REF_ID}' and SOURCE_REF_DATE = '{GetDateFormatMySql(SOURCE_REF_DATE)}' and LOCATION_ID = '{LOCATION_ID}' and ITEM_ID = '{ITEM_ID}' limit 1;")
 
         Dim ENDING_UNIT_COST As Double
         Dim ENDING_QUANTITY As Double
@@ -110,7 +110,7 @@ Module modItemInventory
                 `LOCATION_ID` = '{LOCATION_ID}' and
                 `SOURCE_REF_TYPE` = '{SOURCE_REF_TYPE}' and 
                 `SOURCE_REF_ID` = '{SOURCE_REF_ID}' and
-                `SOURCE_REF_DATE` = '{ DateFormatMySql(SOURCE_REF_DATE)}'
+                `SOURCE_REF_DATE` = '{ GetDateFormatMySql(SOURCE_REF_DATE)}'
             ")
 
             '============ data ============
@@ -150,7 +150,7 @@ Module modItemInventory
               `LOCATION_ID` = '{LOCATION_ID}',
               `SOURCE_REF_TYPE` = '{SOURCE_REF_TYPE}', 
               `SOURCE_REF_ID` = '{SOURCE_REF_ID}',
-              `SOURCE_REF_DATE` = '{ DateFormatMySql(SOURCE_REF_DATE)}';")
+              `SOURCE_REF_DATE` = '{ GetDateFormatMySql(SOURCE_REF_DATE)}';")
 
 
         End If
@@ -174,11 +174,11 @@ Module modItemInventory
     End Sub
     Private Sub GS_Item_Inventory_Last_Ending_Qty(ByVal ITEM_ID As Integer, ByVal LOCATION_ID As Integer, ByVal DT As Date, ByRef ENDING_QUANTITY As Double, ByRef ENDING_UNIT_COST As Double, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_ID As Integer)
 
-        Dim ID As Integer = GF_GetNumberFieldValueOneReturn($" SELECT IFNULL ( i.`ID`, 0 ) from item_inventory as i WHERE i.SOURCE_REF_DATE ='{DateFormatMySql(DT)}' and  i.SOURCE_REF_TYPE = '{SOURCE_REF_TYPE}' and  i.SOURCE_REF_ID = '{SOURCE_REF_ID}' limit 1 ")
+        Dim ID As Integer = GF_GetNumberFieldValueOneReturn($" SELECT IFNULL ( i.`ID`, 0 ) from item_inventory as i WHERE i.SOURCE_REF_DATE ='{GetDateFormatMySql(DT)}' and  i.SOURCE_REF_TYPE = '{SOURCE_REF_TYPE}' and  i.SOURCE_REF_ID = '{SOURCE_REF_ID}' limit 1 ")
 
 
 
-        Dim SQL As String = $"select n.ENDING_QUANTITY,n.ENDING_UNIT_COST,i.COST,n.SEQUENCE_NO from item_inventory as n inner join item as i on i.id = n.item_id where n.SOURCE_REF_DATE <='{DateFormatMySql(DT)}' and n.location_id = '{LOCATION_ID}' and n.iTEM_ID = '{ITEM_ID}' AND n.ID <> {ID} ORDER BY n.SOURCE_REF_DATE DESC,n.ID DESC LIMIT 1;"
+        Dim SQL As String = $"select n.ENDING_QUANTITY,n.ENDING_UNIT_COST,i.COST,n.SEQUENCE_NO from item_inventory as n inner join item as i on i.id = n.item_id where n.SOURCE_REF_DATE <='{GetDateFormatMySql(DT)}' and n.location_id = '{LOCATION_ID}' and n.iTEM_ID = '{ITEM_ID}' AND n.ID <> {ID} ORDER BY n.SOURCE_REF_DATE DESC,n.ID DESC LIMIT 1;"
         Dim rd As OdbcDataReader = SqlReader(SQL)
         If rd.Read Then
             ENDING_QUANTITY = GF_NumIsNull(rd("ENDING_QUANTITY"))

@@ -36,7 +36,7 @@ Public Class FrmPOSRestoKitchenMonitoring
             On pn.`PAYMENT_ID` = p.`ID` 
             INNER Join invoice AS i ON
             i.`ID` = pn.`INVOICE_ID`
-            WHERE i.`NOTES` <> '' and pts.`kitchen_status` = 0 AND i.`DATE` = '{DateFormatMySql(DateTime.Now.Date)}' limit 6")
+            WHERE i.`NOTES` <> '' and pts.`kitchen_status` = 0 AND i.`DATE` = '{GetDateFormatMySql(DateTime.Now.Date)}' limit 6")
 
         While rd.Read
             N += 1

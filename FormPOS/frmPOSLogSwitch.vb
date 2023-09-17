@@ -6,7 +6,7 @@ Public Class FrmPOSLogSwitch
         Dim EntryCount As Integer = 0
         Dim CashCount As Double = 0
         lblDate.Text = DateFormatStandard(gsPOS_DATE)
-        Dim rd As OdbcDataReader = SqlReader($"select  l.TRANSACTION_COUNT,c.TOTAL  from POS_LOG as l inner join  POS_CASH_COUNT as C  on c.ID = l.CASH_COUNT_ID Where  DATE(l.recorded_On) ='{DateFormatMySql(gsPOS_DATE)}' and l.POS_MACHINE_ID='{gsPOS_MACHINE_ID}' and l.CASHIER_ID = '{gsCashier_ID}' and l.LOCATION_ID ='{gsDefault_LOCATION_ID}'")
+        Dim rd As OdbcDataReader = SqlReader($"select  l.TRANSACTION_COUNT,c.TOTAL  from POS_LOG as l inner join  POS_CASH_COUNT as C  on c.ID = l.CASH_COUNT_ID Where  DATE(l.recorded_On) ='{GetDateFormatMySql(gsPOS_DATE)}' and l.POS_MACHINE_ID='{gsPOS_MACHINE_ID}' and l.CASHIER_ID = '{gsCashier_ID}' and l.LOCATION_ID ='{gsDefault_LOCATION_ID}'")
 
         While rd.Read
             EntryCount += GF_NumIsNull(rd("TRANSACTION_COUNT"))

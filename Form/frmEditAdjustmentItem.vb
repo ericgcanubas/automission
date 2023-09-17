@@ -46,7 +46,7 @@ Public Class FrmEditAdjustmentItem
         rd.Close()
         Dim Qty As Integer = 0
         If PREV_ID <> 0 Then
-            Dim PREV_rd As OdbcDataReader = SqlReader($"select ENDING_QUANTITY from item_inventory where SOURCE_REF_DATE <='{DateFormatMySql(DT)}' and  SEQUENCE_NO < '{SEQ_NO}' and  ID < '{PREV_ID}' and location_id = '{xLocation_ID}' and iTEM_ID = '{xITEM_ID}' ORDER BY source_ref_date DESC LIMIT 1;")
+            Dim PREV_rd As OdbcDataReader = SqlReader($"select ENDING_QUANTITY from item_inventory where SOURCE_REF_DATE <='{GetDateFormatMySql(DT)}' and  SEQUENCE_NO < '{SEQ_NO}' and  ID < '{PREV_ID}' and location_id = '{xLocation_ID}' and iTEM_ID = '{xITEM_ID}' ORDER BY source_ref_date DESC LIMIT 1;")
             If PREV_rd.Read Then
                 Qty = PREV_rd("ENDING_QUANTITY")
             End If

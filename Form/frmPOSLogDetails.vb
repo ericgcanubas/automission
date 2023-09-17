@@ -123,7 +123,7 @@ UNION ALL
         lblTOTAL.Text = NumberFormatFixed(T)
     End Sub
     Private Sub BtnUpdateCashCount_Click(sender As Object, e As EventArgs) Handles btnUpdateCashCount.Click
-        gsPOS_DATE = DateFormatMySql(xlblRecorded_on3.Text)
+        gsPOS_DATE = GetDateFormatMySql(xlblRecorded_on3.Text)
 
         SqlExecuted($"UPDATE pos_cash_count SET TOTAL='{lblTOTAL.Text}',CASH='{numCASH.Value}',`CHECK`='{numCHECK.Value}',CREDIT_CARD='{numCREDIT_CARD.Value}',OTHER_PAYMENT='{numOTHER_PAYMENT.Value}',NOTES='{txtNOTES.Text}' WHERE ID ='{POS_CASH_COUNT_ID}' ")
         GS_PosLogJournal(gsID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
@@ -149,7 +149,7 @@ UNION ALL
     Private Sub BtnRemoveCashCount_Click(sender As Object, e As EventArgs) Handles btnRemoveCashCount.Click
 
         If MessageBoxQuestion("Do you want to remove this cash count?") = True Then
-            gsPOS_DATE = DateFormatMySql(xlblRecorded_on3.Text)
+            gsPOS_DATE = GetDateFormatMySql(xlblRecorded_on3.Text)
             GS_POS_LOG_JOURNAL_DELETE(gsID, gsCASH_OVER_SHORT_EXPENSES, gsPOS_DATE)
             SqlExecuted($"UPDATE pos_log SET CASH_COUNT_ID = null WHERE ID ='{gsID}' Limit 1")
             SqlExecuted($"UPDATE sales_receipt SET CASH_COUNT_ID = null WHERE POS_LOG_ID='{gsID}' ")
@@ -170,7 +170,7 @@ UNION ALL
         End If
         With FrmPOSLogTransfer
             Dim DT As Date = CDate(xlblRecorded_on1.Text)
-            .ThisPOS_DATE = DateFormatMySql(DT)
+            .ThisPOS_DATE = GetDateFormatMySql(DT)
             .ThisPOSlogID = gsID
             .ThisLocationID = ThisLocationID
 

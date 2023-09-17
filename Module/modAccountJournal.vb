@@ -149,9 +149,9 @@ Module modAccountJournal
     End Sub
     Public Sub GS_AccountJournalDelete(ByVal ACCOUNT_ID As Integer, ByVal LOCATION_ID As Integer, ByVal OBJECT_TYPE As Integer, ByVal OBJECT_ID As Integer, ByVal OBJECT_DATE As Date)
 
-        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,JOURNAL_NO,PREVIOUS_ID,ENDING_BALANCE,ENTRY_TYPE,AMOUNT FROM account_journal WHERE `ACCOUNT_ID` = '{ACCOUNT_ID}' and `LOCATION_ID` = '{LOCATION_ID}' and `OBJECT_TYPE` = '{OBJECT_TYPE}' and `OBJECT_ID` = '{OBJECT_ID}' and OBJECT_DATE = '{DateFormatMySql(OBJECT_DATE)}' limit 1;")
+        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,JOURNAL_NO,PREVIOUS_ID,ENDING_BALANCE,ENTRY_TYPE,AMOUNT FROM account_journal WHERE `ACCOUNT_ID` = '{ACCOUNT_ID}' and `LOCATION_ID` = '{LOCATION_ID}' and `OBJECT_TYPE` = '{OBJECT_TYPE}' and `OBJECT_ID` = '{OBJECT_ID}' and OBJECT_DATE = '{GetDateFormatMySql(OBJECT_DATE)}' limit 1;")
         If rd.Read Then
-            SqlExecuted($"DELETE FROM account_journal WHERE `ID`= '{GF_NumIsNull(rd("ID"))}' AND `ACCOUNT_ID` = '{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_TYPE = '{OBJECT_TYPE}' and OBJECT_ID = '{OBJECT_ID}' and OBJECT_DATE = '{DateFormatMySql(OBJECT_DATE)}' limit 1;")
+            SqlExecuted($"DELETE FROM account_journal WHERE `ID`= '{GF_NumIsNull(rd("ID"))}' AND `ACCOUNT_ID` = '{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_TYPE = '{OBJECT_TYPE}' and OBJECT_ID = '{OBJECT_ID}' and OBJECT_DATE = '{GetDateFormatMySql(OBJECT_DATE)}' limit 1;")
         End If
         rd.Close()
 
@@ -160,7 +160,7 @@ Module modAccountJournal
 
 
         Dim prSEQUENCE_NO As Integer
-        Dim sItem_Inventory As String = "SELECT ID,PREVIOUS_ID,SEQUENCE_NO FROM ITEM_INVENTORY WHERE ITEM_ID='" & prItem_ID & "' and SOURCE_REF_TYPE= '" & prSOURCE_TYPE & "' and SOURCE_REF_ID ='" & prSOURCE_ID & "' and SOURCE_REF_DATE = '" & DateFormatMySql(prSOURCE_DATE) & "' and Location_ID='" & prLocation_ID & "' Limit 1"
+        Dim sItem_Inventory As String = "SELECT ID,PREVIOUS_ID,SEQUENCE_NO FROM ITEM_INVENTORY WHERE ITEM_ID='" & prItem_ID & "' and SOURCE_REF_TYPE= '" & prSOURCE_TYPE & "' and SOURCE_REF_ID ='" & prSOURCE_ID & "' and SOURCE_REF_DATE = '" & GetDateFormatMySql(prSOURCE_DATE) & "' and Location_ID='" & prLocation_ID & "' Limit 1"
         Dim prID As Double = 0
 
         Try
@@ -208,7 +208,7 @@ Module modAccountJournal
             Dim AMOUNT As Double = IIf(THIS_AMOUNT >= 0, THIS_AMOUNT, THIS_AMOUNT * -1)
             Dim ENDING_BALANCE As Double
 
-            Dim rd As OdbcDataReader = SqlReader($"SELECT ID,JOURNAL_NO,PREVIOUS_ID,ENDING_BALANCE,ENTRY_TYPE,AMOUNT from account_journal WHERE ACCOUNT_ID = '{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_TYPE = '{OBJECT_TYPE}' and OBJECT_ID = '{OBJECT_ID}' and OBJECT_DATE = '{DateFormatMySql(OBJECT_DATE)}' limit 1;")
+            Dim rd As OdbcDataReader = SqlReader($"SELECT ID,JOURNAL_NO,PREVIOUS_ID,ENDING_BALANCE,ENTRY_TYPE,AMOUNT from account_journal WHERE ACCOUNT_ID = '{ACCOUNT_ID}' and LOCATION_ID = '{LOCATION_ID}' and OBJECT_TYPE = '{OBJECT_TYPE}' and OBJECT_ID = '{OBJECT_ID}' and OBJECT_DATE = '{GetDateFormatMySql(OBJECT_DATE)}' limit 1;")
             Dim THIS_ID As Integer
 
             If rd.Read Then
@@ -238,7 +238,7 @@ WHERE `ID` = '{THIS_ID}' and
   `LOCATION_ID` = '{LOCATION_ID}' and
   `OBJECT_TYPE` = '{OBJECT_TYPE}' and
   `OBJECT_ID` = '{OBJECT_ID}' and
-  `OBJECT_DATE` = '{DateFormatMySql(OBJECT_DATE)}' limit 1;"
+  `OBJECT_DATE` = '{GetDateFormatMySql(OBJECT_DATE)}' limit 1;"
 
             Else
                 'insert
@@ -258,7 +258,7 @@ WHERE `ID` = '{THIS_ID}' and
   `SEQUENCE_GROUP` = {GF_GetNewSequenceGroup(ACCOUNT_ID, LOCATION_ID, ENTRY_TYPE, OBJECT_DATE)},
   `OBJECT_TYPE` = '{OBJECT_TYPE}',
   `OBJECT_ID` = '{OBJECT_ID}',
-  `OBJECT_DATE` = '{DateFormatMySql(OBJECT_DATE)}',
+  `OBJECT_DATE` = '{GetDateFormatMySql(OBJECT_DATE)}',
   `ENTRY_TYPE` = '{ENTRY_TYPE}',
   `AMOUNT` = '{AMOUNT}',
   `ENDING_BALANCE` = ifnull( {GF_GetPreviousBalance(ACCOUNT_ID, LOCATION_ID, ENTRY_TYPE, AMOUNT)},0),
