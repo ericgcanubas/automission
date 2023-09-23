@@ -326,6 +326,8 @@ Partial Class FrmMainMenu
         '
         'MyTab
         '
+        Me.MyTab.AutoSize = True
+        Me.MyTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.MyTab.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.MyTab.BackHighColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.MyTab.BackLowColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -347,7 +349,7 @@ Partial Class FrmMainMenu
         Me.MyTab.TabCloseButtonImageDisabled = Nothing
         Me.MyTab.TabCloseButtonImageHot = Nothing
         Me.MyTab.TabGlassGradient = True
-        Me.MyTab.TabHeight = 30
+        Me.MyTab.TabHeight = 35
         Me.MyTab.TabIconSize = New System.Drawing.Size(23, 23)
         Me.MyTab.TabIndex = 2
         '

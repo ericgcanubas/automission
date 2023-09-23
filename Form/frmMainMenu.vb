@@ -5,7 +5,7 @@ Public Class FrmMainMenu
     Dim mousex As Integer
     Dim mousey As Integer
     Dim NewPartIndex As Integer
-    Private Sub FApplication()
+    Private Sub ApplicationModule()
         Dim thisSearch As String = txtSearchMenu.Text.Replace("'", "")
         Dim i As Integer = 0
         Dim rd As OdbcDataReader = SqlReader($"select * from tblmenu as m where EXISTS (select * from system_security where `description` = `NAME` and user_id = '" & gsUser_ID & "' ) and first_display ='0' and menu_id in ('1','2','3','4') and visible ='1' order by position_no")
@@ -34,7 +34,7 @@ Public Class FrmMainMenu
         rd.Close()
 
     End Sub
-    Private Sub FReport()
+    Private Sub ReportModule()
         Dim thisSearch As String = txtSearchMenu.Text.Replace("'", "")
         Dim sType As String = ""
         Dim int3 As Integer = 0
@@ -87,51 +87,9 @@ Public Class FrmMainMenu
             Dim N As Integer = trvApplication.Nodes(i).Nodes.Count - 1
             myIndex = gsImgList.Images.IndexOfKey(rd("sub_id"))
             trvApplication.Nodes(i).Nodes(N).Nodes.Add(rd("sub_id"), rd("sub_desc"), myIndex).ForeColor = Color.DarkBlue 'Tag = NewPartIndex
-
-
-
-
-
             sType = GF_TextIsNull(rd("Report_Group"))
         End While
-
         rd.Close()
-
-        '    Dim t As New ToolStripDropDownButton
-        '    Try
-
-        '        Dim rd As OdbcDataReader = SqlReader("select sg.description as `GROUP_NAME`,s.sub_id ,s.Description as `sub_desc`,s.`Form`,s.image_file from tblsub_group as sg inner join tblsub_group_details as sgd on sg.group_id = sgd.group_id inner join tblsub_menu as s on s.sub_id = sgd.sub_id where  sg.group_id > '0' order by sg.description , s.description ")
-        '
-        '       While rd.Read
-        '            Dim n_desc As String = rd("GROUP_NAME")
-        '            If temp_group_desc <> n_desc Then
-        '                If temp_group_desc <> "" Then
-        '                    TSSubMenu.Items.Add(t)
-        '                End If
-        '                t = New ToolStripDropDownButton
-        '                t.Name = n_desc.Replace(" ", "")
-        '                t.Text = n_desc
-        '                Dim img As String = "Documents-icon.png"
-        '                Dim filename As String = System.IO.Path.Combine($"{New Uri(CurrentPath).LocalPath}\image\sub", img)
-        '                t.ImageAlign = ContentAlignment.MiddleLeft
-        '                t.Image = Image.FromFile(filename)
-        '                ToolStripDropDownObject(t, rd("sub_desc"), rd("sub_id"), rd("Form"), rd("Image_file"))
-
-        '            Else
-        '                ToolStripDropDownObject(t, rd("sub_desc"), rd("sub_id"), rd("form"), rd("image_file"))
-        '            End If
-        '            temp_group_desc = n_desc
-        '        End While
-
-
-        '        rd.Close()
-        '    Catch ex As Exception
-        '        If MessageBoxErrorYesNo(ex.Message) = True Then
-
-        '        Else
-        '            End
-        '        End If
-        '    End Try
     End Sub
     Private Sub FLoadApplication()
         trvApplication.Nodes.Clear()
@@ -139,8 +97,8 @@ Public Class FrmMainMenu
         NewPartIndex = 1
         Try
             trvApplication.BeginUpdate()
-            FApplication()
-            FReport()
+            ApplicationModule()
+            ReportModule()
             NewPartIndex += 1
             FLoadUtilities()
             trvApplication.EndUpdate()

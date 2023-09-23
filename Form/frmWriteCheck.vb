@@ -1377,13 +1377,13 @@ FROM
     Private Sub LoadContactType()
         Try
             Dim STR As String = GF_GetStringFieldValueOneReturn($"select ctm.description from contact as c inner join contact_type_map as ctm on ctm.id = c.type where c.id = '{cmbPAY_TO_ID.SelectedValue}' limit 1; ")
-            xlblPayTo.Text = STR
+            xlblPayTo.Text = STR & " :"
         Catch ex As Exception
-            xlblPayTo.Text = "Pay To"
+            xlblPayTo.Text = "Pay To :"
         End Try
 
         If xlblPayTo.Text = "" Then
-            xlblPayTo.Text = "Pay To"
+            xlblPayTo.Text = "Pay To :"
         End If
     End Sub
     Private Sub CmbPAY_TO_ID_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPAY_TO_ID.SelectedIndexChanged

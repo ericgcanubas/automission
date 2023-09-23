@@ -73,7 +73,7 @@ Partial Class FrmAddItem
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(97, 21)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Barcode"
+        Me.Label1.Text = "Item Code"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label4
@@ -144,7 +144,7 @@ Partial Class FrmAddItem
         '
         'lblAmount
         '
-        Me.lblAmount.BackColor = System.Drawing.Color.Transparent
+        Me.lblAmount.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAmount.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAmount.ForeColor = System.Drawing.Color.Navy
@@ -159,7 +159,7 @@ Partial Class FrmAddItem
         '
         Me.chkTax.BackColor = System.Drawing.Color.Transparent
         Me.chkTax.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.chkTax.Location = New System.Drawing.Point(101, 212)
+        Me.chkTax.Location = New System.Drawing.Point(38, 212)
         Me.chkTax.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chkTax.Name = "chkTax"
         Me.chkTax.Size = New System.Drawing.Size(62, 20)
@@ -402,7 +402,7 @@ Partial Class FrmAddItem
         'btnOK
         '
         Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOK.Location = New System.Drawing.Point(585, 206)
+        Me.btnOK.Location = New System.Drawing.Point(573, 206)
         Me.btnOK.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(101, 30)
@@ -463,7 +463,7 @@ Partial Class FrmAddItem
         Me.dtpDateExpired.TabIndex = 100023
         Me.dtpDateExpired.Visible = False
         '
-        'frmAddItem
+        'FrmAddItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -508,7 +508,7 @@ Partial Class FrmAddItem
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmAddItem"
+        Me.Name = "FrmAddItem"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds

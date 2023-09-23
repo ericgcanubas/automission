@@ -203,25 +203,6 @@ Public Class FrmConnectionList
     Private Sub FrmConnectionList_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         End
     End Sub
-
-    'Private Sub ListCon_DrawItem(sender As Object, e As DrawItemEventArgs) Handles listCon.DrawItem
-    '    Try
-    '        e.DrawBackground()
-    '        If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
-    '            e.Graphics.FillRectangle(HiLiteBrush, e.Bounds)
-    '        End If
-    '        If e.Index <> -1 Then
-    '            Using b As New SolidBrush(e.ForeColor)
-    '                e.Graphics.DrawString(listCon.GetItemText(listCon.Items(e.Index)), e.Font, b, e.Bounds)
-    '            End Using
-    '        End If
-    '        e.DrawFocusRectangle()
-    '    Catch ex As Exception
-
-    '    End Try
-
-    'End Sub
-
     Private Sub ListCon_KeyDown(sender As Object, e As KeyEventArgs) Handles listCon.KeyDown
 
         If e.KeyCode = Keys.Enter Then
@@ -238,13 +219,6 @@ Public Class FrmConnectionList
 
 
 
-
-            If GF_IsRunAdministrator() = False Then
-                Exit Sub
-            End If
-            FrmTFU.ShowDialog()
-            FrmTFU.Dispose()
-            FrmTFU = Nothing
         ElseIf e.KeyCode = Keys.F11 Then
             If GF_IsRunAdministrator() = False Then
                 Exit Sub

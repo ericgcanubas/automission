@@ -35,13 +35,12 @@ Partial Class FrmUserList
         Me.UpdateAccessToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DefaultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsTITLE = New System.Windows.Forms.ToolStripLabel()
         Me.tsTxtSearch = New System.Windows.Forms.ToolStripTextBox()
         Me.tsSearch = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsReload = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
         CType(Me.dgvUser, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -71,7 +70,7 @@ Partial Class FrmUserList
         Me.ToolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ToolStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsColumn, Me.ToolStripSeparator1, Me.tsCreate, Me.tsUpdate, Me.tsDelete, Me.ToolStripSeparator3, Me.ToolStripDropDownButton1, Me.ToolStripSeparator2, Me.ToolStripButton1, Me.ToolStripSeparator4, Me.tsTITLE, Me.tsTxtSearch, Me.tsSearch, Me.ToolStripSeparator5, Me.tsReload})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsColumn, Me.ToolStripSeparator1, Me.tsCreate, Me.tsUpdate, Me.tsDelete, Me.tsReload, Me.ToolStripSeparator3, Me.ToolStripDropDownButton1, Me.ToolStripSeparator2, Me.tsTITLE, Me.ToolStripLabel1, Me.tsTxtSearch, Me.tsSearch, Me.ToolStripSeparator5})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(947, 55)
@@ -152,20 +151,6 @@ Partial Class FrmUserList
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 55)
         '
-        'ToolStripButton1
-        '
-        Me.ToolStripButton1.Image = Global.Automission.My.Resources.Resources.I_report
-        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(70, 52)
-        Me.ToolStripButton1.Text = "&Reports"
-        Me.ToolStripButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 55)
-        '
         'tsTITLE
         '
         Me.tsTITLE.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
@@ -190,6 +175,7 @@ Partial Class FrmUserList
         Me.tsSearch.Size = New System.Drawing.Size(57, 52)
         Me.tsSearch.Text = "&Search"
         Me.tsSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsSearch.Visible = False
         '
         'ToolStripSeparator5
         '
@@ -201,11 +187,17 @@ Partial Class FrmUserList
         Me.tsReload.Image = Global.Automission.My.Resources.Resources.l_reload
         Me.tsReload.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsReload.Name = "tsReload"
-        Me.tsReload.Size = New System.Drawing.Size(54, 52)
-        Me.tsReload.Text = "Re&load"
+        Me.tsReload.Size = New System.Drawing.Size(60, 52)
+        Me.tsReload.Text = "&Refresh"
         Me.tsReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'frmUserList
+        'ToolStripLabel1
+        '
+        Me.ToolStripLabel1.Name = "ToolStripLabel1"
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(46, 52)
+        Me.ToolStripLabel1.Text = "Filter:"
+        '
+        'FrmUserList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -214,7 +206,7 @@ Partial Class FrmUserList
         Me.Controls.Add(Me.ToolStrip1)
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Name = "frmUserList"
+        Me.Name = "FrmUserList"
         Me.Text = "frmUserList"
         CType(Me.dgvUser, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
@@ -231,8 +223,6 @@ Partial Class FrmUserList
     Friend WithEvents tsUpdate As ToolStripButton
     Friend WithEvents tsDelete As ToolStripButton
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
-    Friend WithEvents ToolStripButton1 As ToolStripDropDownButton
-    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents tsTITLE As ToolStripLabel
     Friend WithEvents tsTxtSearch As ToolStripTextBox
     Friend WithEvents tsSearch As ToolStripButton
@@ -242,4 +232,5 @@ Partial Class FrmUserList
     Friend WithEvents UpdateAccessToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DefaultToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents ToolStripLabel1 As ToolStripLabel
 End Class

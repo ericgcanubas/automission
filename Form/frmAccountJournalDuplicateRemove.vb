@@ -76,7 +76,7 @@ WHERE EXISTS
     AND J.`ACCOUNT_ID` = a.`ACCOUNT_ID` 
     AND J.LOCATION_ID = a.`LOCATION_ID` AND a.`JOURNAL_NO` <  j.`JOURNAL_NO`)
 ORDER BY a.`ID`"
-    Private Sub btnReferesh_Click(sender As Object, e As EventArgs) Handles btnReferesh.Click
+    Private Sub BtnReferesh_Click(sender As Object, e As EventArgs) Handles btnReferesh.Click
         GS_LoadDataGridViewStandard(dgvCLASS, sQuery)
         lblTotal.Text = "Total Record " & dgvCLASS.Rows.Count
 

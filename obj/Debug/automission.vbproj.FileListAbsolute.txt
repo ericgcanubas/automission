@@ -2139,7 +2139,6 @@ D:\Automission\obj\Debug\Automission.FrmImportBIRInventory.resources
 D:\Automission\obj\Debug\Automission.FrmImportBIRInventoryConfig.resources
 D:\Automission\obj\Debug\Automission.frmInventoryPopUp.resources
 D:\Automission\obj\Debug\Automission.frmInventoryReComputed.resources
-D:\Automission\obj\Debug\Automission.frmInventoryStatus.resources
 D:\Automission\obj\Debug\Automission.frmItemExpired.resources
 D:\Automission\obj\Debug\Automission.frmItemExpiredDetails.resources
 D:\Automission\obj\Debug\Automission.FrmItemImageSetup.resources
@@ -2290,7 +2289,6 @@ D:\Automission\obj\Debug\Automission.frmSubMenuGroup.resources
 D:\Automission\obj\Debug\Automission.frmTax.resources
 D:\Automission\obj\Debug\Automission.frmTaxCredit.resources
 D:\Automission\obj\Debug\Automission.frmTaxDetails.resources
-D:\Automission\obj\Debug\Automission.frmTFU.resources
 D:\Automission\obj\Debug\Automission.frmThemeStyle.resources
 D:\Automission\obj\Debug\Automission.frmUnitofMeasure.resources
 D:\Automission\obj\Debug\Automission.frmUnitofMeasureDetails.resources

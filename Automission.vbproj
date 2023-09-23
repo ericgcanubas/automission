@@ -467,12 +467,6 @@
     <Compile Include="Form\FrmInventoryReComputed.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FrmInventoryStatus.Designer.vb">
-      <DependentUpon>FrmInventoryStatus.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FrmInventoryStatus.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form\FrmItemExpired.Designer.vb">
       <DependentUpon>FrmItemExpired.vb</DependentUpon>
     </Compile>
@@ -1611,12 +1605,6 @@
     <Compile Include="Form\FrmTaxDetails.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FrmTFU.Designer.vb">
-      <DependentUpon>FrmTFU.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FrmTFU.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Form\FrmThemeStyle.Designer.vb">
       <DependentUpon>FrmThemeStyle.vb</DependentUpon>
     </Compile>
@@ -2149,10 +2137,10 @@
       <DependentUpon>crySalesByItemDetails.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Form\spSupport\frmAccountJournalTransaction.Designer.vb">
-      <DependentUpon>frmAccountJournalTransaction.vb</DependentUpon>
+    <Compile Include="Form\spSupport\FrmAccountJournalTransaction.Designer.vb">
+      <DependentUpon>FrmAccountJournalTransaction.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form\spSupport\frmAccountJournalTransaction.vb">
+    <Compile Include="Form\spSupport\FrmAccountJournalTransaction.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\spSupport\FrmUpdateSecurity.Designer.vb">
@@ -2325,9 +2313,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmInventoryReComputed.resx">
       <DependentUpon>FrmInventoryReComputed.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmInventoryStatus.resx">
-      <DependentUpon>FrmInventoryStatus.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmItemExpired.resx">
       <DependentUpon>FrmItemExpired.vb</DependentUpon>
@@ -2892,9 +2877,6 @@
     <EmbeddedResource Include="Form\FrmTaxDetails.resx">
       <DependentUpon>FrmTaxDetails.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmTFU.resx">
-      <DependentUpon>FrmTFU.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\FrmThemeStyle.resx">
       <DependentUpon>FrmThemeStyle.vb</DependentUpon>
     </EmbeddedResource>
@@ -3234,8 +3216,8 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crySalesByItemDetails.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\spSupport\frmAccountJournalTransaction.resx">
-      <DependentUpon>frmAccountJournalTransaction.vb</DependentUpon>
+    <EmbeddedResource Include="Form\spSupport\FrmAccountJournalTransaction.resx">
+      <DependentUpon>FrmAccountJournalTransaction.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\spSupport\FrmUpdateSecurity.resx">
       <DependentUpon>FrmUpdateSecurity.vb</DependentUpon>

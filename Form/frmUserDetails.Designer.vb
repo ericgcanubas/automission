@@ -45,17 +45,18 @@ Partial Class FrmUserDetails
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(66, 12)
+        Me.Label2.ForeColor = System.Drawing.Color.Red
+        Me.Label2.Location = New System.Drawing.Point(60, 12)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 16)
+        Me.Label2.Size = New System.Drawing.Size(101, 16)
         Me.Label2.TabIndex = 18
-        Me.Label2.Text = "Username"
+        Me.Label2.Text = "Username :"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtName
         '
-        Me.txtName.Location = New System.Drawing.Point(142, 10)
+        Me.txtName.Location = New System.Drawing.Point(163, 10)
         Me.txtName.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtName.MaxLength = 12
         Me.txtName.Name = "txtName"
@@ -64,7 +65,7 @@ Partial Class FrmUserDetails
         '
         'txtDESCRIPTION
         '
-        Me.txtDESCRIPTION.Location = New System.Drawing.Point(142, 37)
+        Me.txtDESCRIPTION.Location = New System.Drawing.Point(163, 37)
         Me.txtDESCRIPTION.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtDESCRIPTION.Name = "txtDESCRIPTION"
         Me.txtDESCRIPTION.Size = New System.Drawing.Size(437, 23)
@@ -75,7 +76,7 @@ Partial Class FrmUserDetails
         Me.cmbSTATUS.AccessibleDescription = "0"
         Me.cmbSTATUS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSTATUS.FormattingEnabled = True
-        Me.cmbSTATUS.Location = New System.Drawing.Point(142, 91)
+        Me.cmbSTATUS.Location = New System.Drawing.Point(163, 91)
         Me.cmbSTATUS.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbSTATUS.Name = "cmbSTATUS"
         Me.cmbSTATUS.Size = New System.Drawing.Size(178, 24)
@@ -85,7 +86,7 @@ Partial Class FrmUserDetails
         '
         Me.dtpEXPIRATION_DATE.Checked = False
         Me.dtpEXPIRATION_DATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpEXPIRATION_DATE.Location = New System.Drawing.Point(142, 118)
+        Me.dtpEXPIRATION_DATE.Location = New System.Drawing.Point(163, 118)
         Me.dtpEXPIRATION_DATE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.dtpEXPIRATION_DATE.Name = "dtpEXPIRATION_DATE"
         Me.dtpEXPIRATION_DATE.ShowCheckBox = True
@@ -94,7 +95,7 @@ Partial Class FrmUserDetails
         '
         'txsPassword
         '
-        Me.txsPassword.Location = New System.Drawing.Point(142, 145)
+        Me.txsPassword.Location = New System.Drawing.Point(163, 145)
         Me.txsPassword.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txsPassword.Name = "txsPassword"
         Me.txsPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -103,7 +104,7 @@ Partial Class FrmUserDetails
         '
         'txsConfirm_Password
         '
-        Me.txsConfirm_Password.Location = New System.Drawing.Point(142, 172)
+        Me.txsConfirm_Password.Location = New System.Drawing.Point(163, 172)
         Me.txsConfirm_Password.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txsConfirm_Password.Name = "txsConfirm_Password"
         Me.txsConfirm_Password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -113,7 +114,7 @@ Partial Class FrmUserDetails
         'cmbCONTACT_ID
         '
         Me.cmbCONTACT_ID.FormattingEnabled = True
-        Me.cmbCONTACT_ID.Location = New System.Drawing.Point(142, 200)
+        Me.cmbCONTACT_ID.Location = New System.Drawing.Point(163, 200)
         Me.cmbCONTACT_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbCONTACT_ID.Name = "cmbCONTACT_ID"
         Me.cmbCONTACT_ID.Size = New System.Drawing.Size(437, 24)
@@ -121,68 +122,70 @@ Partial Class FrmUserDetails
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(74, 40)
+        Me.Label3.Location = New System.Drawing.Point(67, 39)
         Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(64, 16)
+        Me.Label3.Size = New System.Drawing.Size(94, 16)
         Me.Label3.TabIndex = 26
-        Me.Label3.Text = "Fullname"
+        Me.Label3.Text = "Fullname :"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(89, 95)
+        Me.Label4.Location = New System.Drawing.Point(82, 94)
         Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(51, 16)
+        Me.Label4.Size = New System.Drawing.Size(81, 16)
         Me.Label4.TabIndex = 27
-        Me.Label4.Text = "Status"
+        Me.Label4.Text = "Status :"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(29, 122)
+        Me.Label5.Location = New System.Drawing.Point(24, 122)
         Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(107, 16)
+        Me.Label5.Size = New System.Drawing.Size(137, 16)
         Me.Label5.TabIndex = 28
-        Me.Label5.Text = "Expiration Date"
+        Me.Label5.Text = "Expiration Date :"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label6
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(69, 149)
+        Me.Label6.ForeColor = System.Drawing.Color.Red
+        Me.Label6.Location = New System.Drawing.Point(62, 149)
         Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(69, 16)
+        Me.Label6.Size = New System.Drawing.Size(99, 16)
         Me.Label6.TabIndex = 29
-        Me.Label6.Text = "Password"
+        Me.Label6.Text = "Password :"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label7
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(15, 176)
+        Me.Label7.ForeColor = System.Drawing.Color.Red
+        Me.Label7.Location = New System.Drawing.Point(8, 176)
         Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(123, 16)
+        Me.Label7.Size = New System.Drawing.Size(153, 16)
         Me.Label7.TabIndex = 30
-        Me.Label7.Text = "Confirm Password"
+        Me.Label7.Text = "Confirm Password :"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label8
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(11, 204)
+        Me.Label8.Location = New System.Drawing.Point(4, 204)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(127, 16)
+        Me.Label8.Size = New System.Drawing.Size(157, 16)
         Me.Label8.TabIndex = 31
-        Me.Label8.Text = "Contact Accounts"
+        Me.Label8.Text = "Contact Accounts :"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'chkAUTHORIZED_PASSWORD
         '
         Me.chkAUTHORIZED_PASSWORD.AutoSize = True
-        Me.chkAUTHORIZED_PASSWORD.Location = New System.Drawing.Point(340, 148)
+        Me.chkAUTHORIZED_PASSWORD.Location = New System.Drawing.Point(361, 148)
         Me.chkAUTHORIZED_PASSWORD.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.chkAUTHORIZED_PASSWORD.Name = "chkAUTHORIZED_PASSWORD"
         Me.chkAUTHORIZED_PASSWORD.Size = New System.Drawing.Size(163, 20)
@@ -195,7 +198,7 @@ Partial Class FrmUserDetails
         Me.cmbTYPE.AccessibleDescription = "0"
         Me.cmbTYPE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTYPE.FormattingEnabled = True
-        Me.cmbTYPE.Location = New System.Drawing.Point(142, 64)
+        Me.cmbTYPE.Location = New System.Drawing.Point(163, 64)
         Me.cmbTYPE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbTYPE.Name = "cmbTYPE"
         Me.cmbTYPE.Size = New System.Drawing.Size(178, 24)
@@ -203,13 +206,14 @@ Partial Class FrmUserDetails
         '
         'Label9
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(99, 68)
+        Me.Label9.ForeColor = System.Drawing.Color.Red
+        Me.Label9.Location = New System.Drawing.Point(92, 67)
         Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(39, 16)
+        Me.Label9.Size = New System.Drawing.Size(69, 16)
         Me.Label9.TabIndex = 34
-        Me.Label9.Text = "Type"
+        Me.Label9.Text = "Type :"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnSAVE
         '
@@ -231,12 +235,12 @@ Partial Class FrmUserDetails
         Me.BtnCancel.Text = "&Cancel"
         Me.BtnCancel.UseVisualStyleBackColor = True
         '
-        'frmUserDetails
+        'FrmUserDetails
         '
         Me.AccessibleDescription = "0"
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(588, 277)
+        Me.ClientSize = New System.Drawing.Size(608, 277)
         Me.Controls.Add(Me.BtnCancel)
         Me.Controls.Add(Me.btnSAVE)
         Me.Controls.Add(Me.Label9)
@@ -261,7 +265,7 @@ Partial Class FrmUserDetails
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmUserDetails"
+        Me.Name = "FrmUserDetails"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

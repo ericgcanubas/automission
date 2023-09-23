@@ -181,7 +181,7 @@ Partial Class FrmTaxCredit
         Me.cmbLOCATION_ID.Location = New System.Drawing.Point(587, 107)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(343, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(364, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
@@ -196,7 +196,7 @@ Partial Class FrmTaxCredit
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(781, 79)
+        Me.txtCODE.Location = New System.Drawing.Point(802, 79)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.txtCODE.Name = "txtCODE"
         Me.txtCODE.Size = New System.Drawing.Size(149, 23)
@@ -205,12 +205,12 @@ Partial Class FrmTaxCredit
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(737, 82)
+        Me.Label8.Location = New System.Drawing.Point(727, 82)
         Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Code"
+        Me.Label8.Text = "Reference"
         '
         'dtpDATE
         '
@@ -325,7 +325,7 @@ Partial Class FrmTaxCredit
         '
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = tsSaveNew.Name
+        Me.tsSaveNew.Name = Me.tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -471,7 +471,7 @@ Partial Class FrmTaxCredit
         Me.cmbACCOUNTS_RECEIVABLE_ID.Location = New System.Drawing.Point(587, 134)
         Me.cmbACCOUNTS_RECEIVABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_RECEIVABLE_ID.Name = "cmbACCOUNTS_RECEIVABLE_ID"
-        Me.cmbACCOUNTS_RECEIVABLE_ID.Size = New System.Drawing.Size(343, 24)
+        Me.cmbACCOUNTS_RECEIVABLE_ID.Size = New System.Drawing.Size(364, 24)
         Me.cmbACCOUNTS_RECEIVABLE_ID.TabIndex = 70
         '
         'TabControl1
@@ -500,7 +500,7 @@ Partial Class FrmTaxCredit
         Me.TabPage1.Text = "Debt Invoice"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'frmTaxCredit
+        'FrmTaxCredit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -530,7 +530,7 @@ Partial Class FrmTaxCredit
         Me.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
-        Me.Name = "frmTaxCredit"
+        Me.Name = "FrmTaxCredit"
         Me.Text = "frmTaxCredit"
         Me.ToolStrip2.ResumeLayout(False)
         Me.ToolStrip2.PerformLayout()

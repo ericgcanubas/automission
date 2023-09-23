@@ -81,42 +81,42 @@ Partial Class FrmWithholdingTax
         '
         Me.cmbLOCATION_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLOCATION_ID.FormattingEnabled = True
-        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(587, 106)
+        Me.cmbLOCATION_ID.Location = New System.Drawing.Point(558, 106)
         Me.cmbLOCATION_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLOCATION_ID.Name = "cmbLOCATION_ID"
-        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(337, 24)
+        Me.cmbLOCATION_ID.Size = New System.Drawing.Size(217, 24)
         Me.cmbLOCATION_ID.TabIndex = 9
         '
         'Label9
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(518, 109)
+        Me.Label9.Location = New System.Drawing.Point(448, 109)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(63, 16)
+        Me.Label9.Size = New System.Drawing.Size(108, 16)
         Me.Label9.TabIndex = 8
-        Me.Label9.Text = "Location"
+        Me.Label9.Text = "Location :"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtCODE
         '
-        Me.txtCODE.Location = New System.Drawing.Point(788, 79)
+        Me.txtCODE.Location = New System.Drawing.Point(777, 79)
         Me.txtCODE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCODE.Name = "txtCODE"
-        Me.txtCODE.Size = New System.Drawing.Size(136, 23)
+        Me.txtCODE.Size = New System.Drawing.Size(134, 23)
         Me.txtCODE.TabIndex = 7
         '
         'Label8
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(711, 82)
+        Me.Label8.Location = New System.Drawing.Point(678, 82)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(73, 16)
+        Me.Label8.Size = New System.Drawing.Size(97, 16)
         Me.Label8.TabIndex = 6
-        Me.Label8.Text = "Reference"
+        Me.Label8.Text = "Reference :"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'dtpDATE
         '
         Me.dtpDATE.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDATE.Location = New System.Drawing.Point(587, 79)
+        Me.dtpDATE.Location = New System.Drawing.Point(558, 79)
         Me.dtpDATE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpDATE.Name = "dtpDATE"
         Me.dtpDATE.Size = New System.Drawing.Size(117, 23)
@@ -124,12 +124,12 @@ Partial Class FrmWithholdingTax
         '
         'Label7
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(544, 82)
+        Me.Label7.Location = New System.Drawing.Point(474, 82)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(38, 16)
+        Me.Label7.Size = New System.Drawing.Size(82, 16)
         Me.Label7.TabIndex = 4
-        Me.Label7.Text = "Date"
+        Me.Label7.Text = "Date :"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'dgvBill
         '
@@ -145,7 +145,7 @@ Partial Class FrmWithholdingTax
         Me.dgvBill.MultiSelect = False
         Me.dgvBill.Name = "dgvBill"
         Me.dgvBill.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvBill.Size = New System.Drawing.Size(1029, 305)
+        Me.dgvBill.Size = New System.Drawing.Size(1029, 297)
         Me.dgvBill.TabIndex = 0
         '
         'ToolStrip2
@@ -178,7 +178,7 @@ Partial Class FrmWithholdingTax
         '
         Me.txtNOTES.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNOTES.Location = New System.Drawing.Point(112, 536)
+        Me.txtNOTES.Location = New System.Drawing.Point(112, 538)
         Me.txtNOTES.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNOTES.Multiline = True
         Me.txtNOTES.Name = "txtNOTES"
@@ -188,13 +188,13 @@ Partial Class FrmWithholdingTax
         'Label14
         '
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.Transparent
-        Me.Label14.Location = New System.Drawing.Point(54, 539)
+        Me.Label14.Location = New System.Drawing.Point(35, 538)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(45, 16)
+        Me.Label14.Size = New System.Drawing.Size(74, 16)
         Me.Label14.TabIndex = 54
-        Me.Label14.Text = "Notes"
+        Me.Label14.Text = "Notes :"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblAMOUNT
         '
@@ -372,7 +372,7 @@ Partial Class FrmWithholdingTax
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(416, 111)
+        Me.Label2.Location = New System.Drawing.Point(415, 111)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(20, 16)
         Me.Label2.TabIndex = 6
@@ -382,7 +382,7 @@ Partial Class FrmWithholdingTax
         'lblEWT_ACCOUNT_ID
         '
         Me.lblEWT_ACCOUNT_ID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblEWT_ACCOUNT_ID.Location = New System.Drawing.Point(242, 106)
+        Me.lblEWT_ACCOUNT_ID.Location = New System.Drawing.Point(241, 106)
         Me.lblEWT_ACCOUNT_ID.Name = "lblEWT_ACCOUNT_ID"
         Me.lblEWT_ACCOUNT_ID.Size = New System.Drawing.Size(26, 20)
         Me.lblEWT_ACCOUNT_ID.TabIndex = 54
@@ -393,7 +393,7 @@ Partial Class FrmWithholdingTax
         '
         Me.lblEWT_RATE.BackColor = System.Drawing.Color.White
         Me.lblEWT_RATE.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblEWT_RATE.Location = New System.Drawing.Point(373, 108)
+        Me.lblEWT_RATE.Location = New System.Drawing.Point(372, 108)
         Me.lblEWT_RATE.Name = "lblEWT_RATE"
         Me.lblEWT_RATE.Size = New System.Drawing.Size(47, 21)
         Me.lblEWT_RATE.TabIndex = 5
@@ -403,7 +403,7 @@ Partial Class FrmWithholdingTax
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(326, 109)
+        Me.Label5.Location = New System.Drawing.Point(325, 109)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(37, 16)
         Me.Label5.TabIndex = 4
@@ -415,7 +415,7 @@ Partial Class FrmWithholdingTax
         Me.cmbEWT_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbEWT_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbEWT_ID.FormattingEnabled = True
-        Me.cmbEWT_ID.Location = New System.Drawing.Point(112, 106)
+        Me.cmbEWT_ID.Location = New System.Drawing.Point(111, 106)
         Me.cmbEWT_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbEWT_ID.Name = "cmbEWT_ID"
         Me.cmbEWT_ID.Size = New System.Drawing.Size(129, 24)
@@ -423,19 +423,19 @@ Partial Class FrmWithholdingTax
         '
         'Label6
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(16, 110)
+        Me.Label6.Location = New System.Drawing.Point(0, 110)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(91, 16)
+        Me.Label6.Size = New System.Drawing.Size(109, 16)
         Me.Label6.TabIndex = 2
-        Me.Label6.Text = "Withhold Tax"
+        Me.Label6.Text = "Withhold Tax :"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbWITHHELD_FROM_ID
         '
         Me.cmbWITHHELD_FROM_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cmbWITHHELD_FROM_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbWITHHELD_FROM_ID.FormattingEnabled = True
-        Me.cmbWITHHELD_FROM_ID.Location = New System.Drawing.Point(112, 79)
+        Me.cmbWITHHELD_FROM_ID.Location = New System.Drawing.Point(111, 79)
         Me.cmbWITHHELD_FROM_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbWITHHELD_FROM_ID.Name = "cmbWITHHELD_FROM_ID"
         Me.cmbWITHHELD_FROM_ID.Size = New System.Drawing.Size(329, 24)
@@ -443,18 +443,18 @@ Partial Class FrmWithholdingTax
         '
         'Label10
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(54, 82)
+        Me.Label10.Location = New System.Drawing.Point(12, 81)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(52, 16)
+        Me.Label10.Size = New System.Drawing.Size(97, 16)
         Me.Label10.TabIndex = 0
-        Me.Label10.Text = "Vendor"
+        Me.Label10.Text = "Vendor :"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label3
         '
         Me.Label3.BackColor = System.Drawing.Color.White
         Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label3.Location = New System.Drawing.Point(371, 105)
+        Me.Label3.Location = New System.Drawing.Point(370, 105)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(69, 27)
         Me.Label3.TabIndex = 55
@@ -472,20 +472,20 @@ Partial Class FrmWithholdingTax
         '
         Me.cmbACCOUNTS_PAYABLE_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbACCOUNTS_PAYABLE_ID.FormattingEnabled = True
-        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(587, 133)
+        Me.cmbACCOUNTS_PAYABLE_ID.Location = New System.Drawing.Point(558, 133)
         Me.cmbACCOUNTS_PAYABLE_ID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbACCOUNTS_PAYABLE_ID.Name = "cmbACCOUNTS_PAYABLE_ID"
-        Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(337, 24)
+        Me.cmbACCOUNTS_PAYABLE_ID.Size = New System.Drawing.Size(217, 24)
         Me.cmbACCOUNTS_PAYABLE_ID.TabIndex = 61
         '
         'AccountLabel
         '
-        Me.AccountLabel.AutoSize = True
-        Me.AccountLabel.Location = New System.Drawing.Point(497, 137)
+        Me.AccountLabel.Location = New System.Drawing.Point(442, 137)
         Me.AccountLabel.Name = "AccountLabel"
-        Me.AccountLabel.Size = New System.Drawing.Size(90, 16)
+        Me.AccountLabel.Size = New System.Drawing.Size(114, 16)
         Me.AccountLabel.TabIndex = 60
-        Me.AccountLabel.Text = "A/P Account"
+        Me.AccountLabel.Text = "A/P Account :"
+        Me.AccountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'TabControl1
         '
@@ -493,11 +493,11 @@ Partial Class FrmWithholdingTax
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Location = New System.Drawing.Point(14, 157)
+        Me.TabControl1.Location = New System.Drawing.Point(14, 165)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1043, 367)
+        Me.TabControl1.Size = New System.Drawing.Size(1043, 359)
         Me.TabControl1.TabIndex = 62
         '
         'TabPage1
@@ -508,9 +508,9 @@ Partial Class FrmWithholdingTax
         Me.TabPage1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TabPage1.Size = New System.Drawing.Size(1035, 338)
+        Me.TabPage1.Size = New System.Drawing.Size(1035, 330)
         Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "P.O List"
+        Me.TabPage1.Text = "Bill List"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
         'FrmWithholdingTax

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.Odbc
-Public Class frmAccountJournalTransaction
+Public Class FrmAccountJournalTransaction
 
     Public ID As Integer
     Public objDate As Date

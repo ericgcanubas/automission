@@ -225,7 +225,7 @@ Partial Class FrmInventoryAdjustment
         '
         Me.ToolStripLabel11.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripLabel11.Name = "ToolStripLabel11"
-        Me.ToolStripLabel11.Size = New System.Drawing.Size(33, 34)
+        Me.ToolStripLabel11.Size = New System.Drawing.Size(34, 34)
         Me.ToolStripLabel11.Text = "Find"
         '
         'Label9
@@ -281,7 +281,7 @@ Partial Class FrmInventoryAdjustment
         '
         Me.tsSaveNew.Image = Global.Automission.My.Resources.Resources.m_save_file
         Me.tsSaveNew.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSaveNew.Name = tsSaveNew.Name
+        Me.tsSaveNew.Name = Me.tsSaveNew.Name
         Me.tsSaveNew.Size = New System.Drawing.Size(71, 52)
         Me.tsSaveNew.Text = "&Save File"
         Me.tsSaveNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -449,7 +449,7 @@ Partial Class FrmInventoryAdjustment
         'ToolStrip5
         '
         Me.ToolStrip5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ToolStrip5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!)
+        Me.ToolStrip5.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel12, Me.lblCount})
         Me.ToolStrip5.Location = New System.Drawing.Point(3, 172)
         Me.ToolStrip5.Name = "ToolStrip5"
@@ -460,13 +460,13 @@ Partial Class FrmInventoryAdjustment
         'ToolStripLabel12
         '
         Me.ToolStripLabel12.Name = "ToolStripLabel12"
-        Me.ToolStripLabel12.Size = New System.Drawing.Size(71, 22)
+        Me.ToolStripLabel12.Size = New System.Drawing.Size(80, 22)
         Me.ToolStripLabel12.Text = "Total Entry"
         '
         'lblCount
         '
         Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(14, 22)
+        Me.lblCount.Size = New System.Drawing.Size(15, 22)
         Me.lblCount.Text = "0"
         '
         'FrmInventoryAdjustment

@@ -1,40 +1,5 @@
 ﻿Imports System.Data.Odbc
 Module modItemInventory
-
-
-
-
-
-
-    Private Sub GS_FixedInventoryList(ByVal ITEM_ID As Integer, ByVal LOCATION_ID As Integer, ByVal QUANTITY_END As Double, ByVal SEQUENCE_NO As Integer)
-        Dim ENDING_QUANTITY As Double = QUANTITY_END
-        Dim rd As OdbcDataReader = SqlReader($"SELECT ID,SOURCE_REF_TYPE,SOURCE_REF_ID,QUANTITY,SOURCE_REF_DATE,COST, ENDING_UNIT_COST from item_inventory WHERE SEQUENCE_NO > '{SEQUENCE_NO}' and LOCATION_ID = '{LOCATION_ID}' and ITEM_ID = '{ITEM_ID}' ORDER BY SEQUENCE_NO")
-        While rd.Read
-
-            Dim ENDING_UNIT_COST As Double = GF_NumIsNull(rd("ENDING_UNIT_COST"))
-            ENDING_QUANTITY += GF_NumIsNull(rd("QUANTITY"))
-            Dim ENDING_COST As Double = ENDING_QUANTITY * ENDING_UNIT_COST
-
-            SqlExecuted($"UPDATE 
-                `item_inventory`
-            SET    
-                `ENDING_QUANTITY` = '{ENDING_QUANTITY}',
-                `ENDING_UNIT_COST` = '{ENDING_UNIT_COST}',
-                `ENDING_COST` = '{ENDING_COST}'
-            WHERE 
-                `ID` = '{rd("ID")}' and
-                `ITEM_ID` = '{ITEM_ID}' and 
-                `LOCATION_ID` = '{LOCATION_ID}' and
-                `SOURCE_REF_TYPE` = '{rd("SOURCE_REF_TYPE")}' and 
-                `SOURCE_REF_ID` = '{rd("SOURCE_REF_ID")}' and
-                `SOURCE_REF_DATE` = '{ GetDateFormatMySql(rd("SOURCE_REF_DATE"))}'
-            LIMIT 1")
-
-        End While
-        rd.Close()
-
-    End Sub
-
     Public Function GS_IsInventoryLastEntry(ByVal ItemGrid As DataGridView, ByVal LOCATION_ID As Integer, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_DATE As Date) As Boolean
         Dim IsLastEntry As Boolean = True
         For i As Integer = 0 To ItemGrid.Rows.Count - 1
@@ -45,14 +10,15 @@ Module modItemInventory
 
 
 
-                    Dim ID As Integer = .Cells("ID").Value
-                    Dim ITEM_ID As Integer = .Cells("ITEM_ID").Value
-
+                    Dim ID As Integer = GF_NumIsNull(.Cells("ID").Value)
+                    Dim ITEM_ID As Integer = GF_NumIsNull(.Cells("ITEM_ID").Value)
                     Dim SQL As String = $"select  n.SOURCE_REF_TYPE,n.SOURCE_REF_ID from item_inventory as n  where n.SOURCE_REF_DATE <='{GetDateNow()}' and n.location_id = '{LOCATION_ID}' and n.iTEM_ID = '{ITEM_ID}'  ORDER BY n.SOURCE_REF_DATE DESC,n.ID DESC LIMIT 1;"
                     Dim rd As OdbcDataReader = SqlReader(SQL)
                     If rd.Read Then
 
                         If SOURCE_REF_TYPE = GF_NumIsNull(rd("SOURCE_REF_TYPE")) And ID = GF_NumIsNull(rd("SOURCE_REF_ID")) Then
+
+                        ElseIf ID = 0 Then
 
                         Else
                             IsLastEntry = False
@@ -114,7 +80,7 @@ Module modItemInventory
             ")
 
             '============ data ============
-            '  GS_FixedInventoryList(ITEM_ID, LOCATION_ID, ENDING_QUANTITY, GF_NumIsNull(rd("SEQUENCE_NO")))
+
 
         Else
 
@@ -175,9 +141,6 @@ Module modItemInventory
     Private Sub GS_Item_Inventory_Last_Ending_Qty(ByVal ITEM_ID As Integer, ByVal LOCATION_ID As Integer, ByVal DT As Date, ByRef ENDING_QUANTITY As Double, ByRef ENDING_UNIT_COST As Double, ByVal SOURCE_REF_TYPE As Integer, ByVal SOURCE_REF_ID As Integer)
 
         Dim ID As Integer = GF_GetNumberFieldValueOneReturn($" SELECT IFNULL ( i.`ID`, 0 ) from item_inventory as i WHERE i.SOURCE_REF_DATE ='{GetDateFormatMySql(DT)}' and  i.SOURCE_REF_TYPE = '{SOURCE_REF_TYPE}' and  i.SOURCE_REF_ID = '{SOURCE_REF_ID}' limit 1 ")
-
-
-
         Dim SQL As String = $"select n.ENDING_QUANTITY,n.ENDING_UNIT_COST,i.COST,n.SEQUENCE_NO from item_inventory as n inner join item as i on i.id = n.item_id where n.SOURCE_REF_DATE <='{GetDateFormatMySql(DT)}' and n.location_id = '{LOCATION_ID}' and n.iTEM_ID = '{ITEM_ID}' AND n.ID <> {ID} ORDER BY n.SOURCE_REF_DATE DESC,n.ID DESC LIMIT 1;"
         Dim rd As OdbcDataReader = SqlReader(SQL)
         If rd.Read Then

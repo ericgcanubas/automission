@@ -6,14 +6,7 @@ Public Class FrmAccessDenied
 
     Public gsCancel As Boolean = True
     Public gsMessage As String
-    Private Sub FrmAccessDenied(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        gsCancel = True
-        PictureBox1.Image = stop_image
-        PictureBox2.Image = locker_image
-        lblMessage.Text = gsMessage
-        System.Media.SystemSounds.Hand.Play()
-    End Sub
 
     Private Sub BtnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
         If Trim(txtPASSWORD.Text).Length = 0 Then
@@ -43,5 +36,13 @@ Public Class FrmAccessDenied
         If e.KeyCode = Keys.Enter Then
             BtnOk_Click(sender, e)
         End If
+    End Sub
+
+    Private Sub FrmAccessDenied_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        gsCancel = True
+        PictureBox1.Image = stop_image
+        PictureBox2.Image = locker_image
+        lblMessage.Text = gsMessage
+        System.Media.SystemSounds.Hand.Play()
     End Sub
 End Class

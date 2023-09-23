@@ -234,7 +234,7 @@ Partial Class FrmUserSecurity
         Me.xxxUserID.TabIndex = 74
         Me.xxxUserID.Text = "XXXXX"
         '
-        'frmUserSecurity
+        'FrmUserSecurity
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -251,7 +251,7 @@ Partial Class FrmUserSecurity
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmUserSecurity"
+        Me.Name = "FrmUserSecurity"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide

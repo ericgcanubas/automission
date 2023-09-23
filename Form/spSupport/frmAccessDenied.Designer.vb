@@ -127,7 +127,7 @@ Partial Class FrmAccessDenied
         Me.PictureBox2.TabIndex = 9
         Me.PictureBox2.TabStop = False
         '
-        'frmAccessDenied
+        'FrmAccessDenied
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -141,7 +141,7 @@ Partial Class FrmAccessDenied
         Me.Margin = New System.Windows.Forms.Padding(5, 4, 5, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmAccessDenied"
+        Me.Name = "FrmAccessDenied"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
