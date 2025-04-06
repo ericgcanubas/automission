@@ -1,0 +1,85 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\developer\\Automission\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F7414527-7F18-422F-AC03-8A4A461DD43B}|Automission.vbproj|c:\\developer\\automission\\form\\frmaccountjournalduplicateremove.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{F7414527-7F18-422F-AC03-8A4A461DD43B}|Automission.vbproj|solutionrelative:form\\frmaccountjournalduplicateremove.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7414527-7F18-422F-AC03-8A4A461DD43B}|Automission.vbproj|C:\\developer\\Automission\\form\\frmaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{F7414527-7F18-422F-AC03-8A4A461DD43B}|Automission.vbproj|solutionrelative:form\\frmaccount.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7414527-7F18-422F-AC03-8A4A461DD43B}|Automission.vbproj|C:\\developer\\Automission\\form\\frmsubmenugroup.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{F7414527-7F18-422F-AC03-8A4A461DD43B}|Automission.vbproj|solutionrelative:form\\frmsubmenugroup.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7414527-7F18-422F-AC03-8A4A461DD43B}|Automission.vbproj|C:\\developer\\Automission\\form\\frmtaxdetails.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "RelativeMoniker": "D:0:0:{F7414527-7F18-422F-AC03-8A4A461DD43B}|Automission.vbproj|solutionrelative:form\\frmtaxdetails.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FrmAccountJournalDuplicateRemove.vb [Design]",
+              "DocumentMoniker": "C:\\developer\\Automission\\Form\\frmAccountJournalDuplicateRemove.vb",
+              "RelativeDocumentMoniker": "Form\\frmAccountJournalDuplicateRemove.vb",
+              "ToolTip": "C:\\developer\\Automission\\Form\\frmAccountJournalDuplicateRemove.vb [Design]",
+              "RelativeToolTip": "Form\\frmAccountJournalDuplicateRemove.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-04-05T20:45:45.431Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FrmAccount.vb [Design]",
+              "DocumentMoniker": "C:\\developer\\Automission\\Form\\FrmAccount.vb",
+              "RelativeDocumentMoniker": "Form\\FrmAccount.vb",
+              "ToolTip": "C:\\developer\\Automission\\Form\\FrmAccount.vb [Design]",
+              "RelativeToolTip": "Form\\FrmAccount.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-04-05T20:45:44.036Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FrmSubMenuGroup.vb [Design]",
+              "DocumentMoniker": "C:\\developer\\Automission\\Form\\FrmSubMenuGroup.vb",
+              "RelativeDocumentMoniker": "Form\\FrmSubMenuGroup.vb",
+              "ToolTip": "C:\\developer\\Automission\\Form\\FrmSubMenuGroup.vb [Design]",
+              "RelativeToolTip": "Form\\FrmSubMenuGroup.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-04-05T20:45:39.687Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FrmTaxDetails.vb [Design]",
+              "DocumentMoniker": "C:\\developer\\Automission\\Form\\FrmTaxDetails.vb",
+              "RelativeDocumentMoniker": "Form\\FrmTaxDetails.vb",
+              "ToolTip": "C:\\developer\\Automission\\Form\\FrmTaxDetails.vb [Design]",
+              "RelativeToolTip": "Form\\FrmTaxDetails.vb [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-04-05T20:45:36.285Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

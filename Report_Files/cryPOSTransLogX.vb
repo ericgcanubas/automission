@@ -45,7 +45,7 @@ Public Class cryPOSTransLogX
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "DF.cryPOSTransLogX.rpt"
+            Return "Automission.cryPOSTransLogX.rpt"
         End Get
         Set
             'Do nothing
